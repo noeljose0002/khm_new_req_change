@@ -1884,7 +1884,7 @@ $is_edit = $edit_id ? $edit_id : 0;
             </div>
         </div>
 
-        <div class="card" id="sterling_double${rid}"></div>
+        <div class="card" id="sterling_double${count}"></div>
         `;
 							}
 
@@ -1897,38 +1897,52 @@ $is_edit = $edit_id ? $edit_id : 0;
 															<input type="hidden" id="d_extra_bed_rate${count}" name="addloc[${count}][d_extra_bed_rate]" value="0">
 															<input type="hidden" id="d_total_rate${count}" name="addloc[${count}][d_total_rate]" value="0">`;
 						}
+						let double_count = no_of_double_room > 0 ? no_of_double_room : 0;
 						if (no_of_single_room > 0) {
-							newCard += `<div class="row mt-2 single_row">
-												<div class="col-xl-2 col-sm-12 col-md-2">
+							let newcard = ""
+							let startIndex = double_count > 0 ? double_count : 0;
+							for (let i = 1; i <= no_of_single_room; i++) {
+								let seq = startIndex + i;
+								sid = "" + count + seq;
+
+								newCard += `<div class="row mt-2 single_row">
+												<div class="col-xl col-sm-12 col-md-2">
+												<div class="teams-rank"><b>Room Category</b></div>
+												<select id="roomcat${sid}" name="addloc[${count}][roomcat][${seq}]" class="form-control select2-show-search input-sm room_cat_change" count-id="${count}" data-id="${sid}" required>
+													<option value="">Select</option>
+												</select>
+											</div>
+												<div class="col-xl col-sm-12 col-md-2">
 													<div class="teams-rank"><b>Single Room</b></div>
-													<input type="text" id="single${count}" name="addloc[${count}][single]" value="${no_of_single_room}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+													<input type="text" id="single${sid}" name="addloc[${count}][single][${seq}]" value="${i}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
 												</div>
 									
-												<div class="col-xl-2 col-sm-12 col-md-2">
+												<div class="col-xl col-sm-12 col-md-2">
 													<div class="teams-rank"><b>Daily Room Rate</b></div>
-													<input type="text" id="s_adult_rate${count}" name="addloc[${count}][s_adult_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);">
+													<input type="text" id="s_adult_rate${sid}" name="addloc[${count}][s_adult_rate][${seq}]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);">
 												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
+												<div class="col-xl col-sm-12 col-md-2">
 													<div class="teams-rank"><b>C.With Bed Rate</b></div>
-													<input type="text" id="s_child_rate${count}" name="addloc[${count}][s_child_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+													<input type="text" id="s_child_rate${sid}" name="addloc[${count}][s_child_rate][${seq}]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
 												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
+												<div class="col-xl col-sm-12 col-md-2">
 													<div class="teams-rank"><b>C.Without Bed Rate</b></div>
-													<input type="text" id="s_child_wb_rate${count}" name="addloc[${count}][s_child_wb_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+													<input type="text" id="s_child_wb_rate${sid}" name="addloc[${count}][s_child_wb_rate][${seq}]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
 												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
+												<div class="col-xl col-sm-12 col-md-2">
 													<div class="teams-rank"><b>Extra Bed Rate</b></div>
-													<input type="text" id="s_extra_bed_rate${count}" name="addloc[${count}][s_extra_bed_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+													<input type="text" id="s_extra_bed_rate${sid}" name="addloc[${count}][s_extra_bed_rate][${seq}]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
 												</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
+													<div class="col-xl col-sm-12 col-md-2">
 													<div class="teams-rank"><b>Total(Single)</b></div>
-													<input type="text" id="s_total_rate${count}" name="addloc[${count}][s_total_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+													<input type="text" id="s_total_rate${sid}" name="addloc[${count}][s_total_rate][${seq}]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
 												</div>
 												
 											</div>
 											
 											<div class="card" id="sterling_single${count}"> </div>
 											`;
+							}
 						} else {
 							newCard += `<input type="hidden" id="single${count}" name="addloc[${count}][single]" value="0">
 															<input type="hidden" id="s_adult_rate${count}" name="addloc[${count}][s_adult_rate]" value="0">
@@ -2086,7 +2100,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 							hotelCat.append('<option value="">Hotel Category Not Found</option>');
 						}
 						hotelCat.trigger('change');
-						 updateSequenceNumbers();
+						updateSequenceNumbers();
 					} else {
 						var halert = `<div class="alert alert-success alert-dismissible fade show" role="alert">
 						<span class="alert-inner--icon"><i class="fe fe-info"></i></span>
@@ -2211,28 +2225,40 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 			let no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
 			if (no_of_double_room > 0) {
-				rid=""
+
 				for (let i = 1; i <= no_of_double_room; i++) {
-					 let rid = `${newIndex}${i}`;
+					let rid = `${newIndex}${i}`;
 					//    console.log(`card ${newIndex} -> setting room index ${i} -> rid = ${rid}`);
 					// alert(rid);
-					$(this).find('[id^="roomcat"]').eq(i-1).attr("id", `roomcat${rid}`).attr("name", `addloc[${newIndex}][roomcat][${i}]`).attr("data-id", rid).attr("count-id", newIndex);
-					$(this).find('[id^="double"]').eq(i-1).attr("id", `double${rid}`).attr("name", `addloc[${newIndex}][double][${i}]`);
-					$(this).find('[id^="d_adult_rate"]').eq(i-1).attr("id", `d_adult_rate${rid}`).attr("name", `addloc[${newIndex}][d_adult_rate][${i}]`);
-					$(this).find('[id^="d_child_rate"]').eq(i-1).attr("id", `d_child_rate${rid}`).attr("name", `addloc[${newIndex}][d_child_rate][${i}]`);
-					$(this).find('[id^="d_child_wb_rate"]').eq(i-1).attr("id", `d_child_wb_rate${rid}`).attr("name", `addloc[${newIndex}][d_child_wb_rate][${i}]`);
-					$(this).find('[id^="d_extra_bed_rate"]').eq(i-1).attr("id", `d_extra_bed_rate${rid}`).attr("name", `addloc[${newIndex}][d_extra_bed_rate][${i}]`);
-					$(this).find('[id^="d_total_rate"]').eq(i-1).attr("id", `d_total_rate${rid}`).attr("name", `addloc[${newIndex}][d_total_rate][${i}]`);
+					$(this).find('[id^="roomcat"]').eq(i - 1).attr("id", `roomcat${rid}`).attr("name", `addloc[${newIndex}][roomcat][${i}]`).attr("data-id", rid).attr("count-id", newIndex);
+					$(this).find('[id^="double"]').eq(i - 1).attr("id", `double${rid}`).attr("name", `addloc[${newIndex}][double][${i}]`);
+					$(this).find('[id^="d_adult_rate"]').eq(i - 1).attr("id", `d_adult_rate${rid}`).attr("name", `addloc[${newIndex}][d_adult_rate][${i}]`);
+					$(this).find('[id^="d_child_rate"]').eq(i - 1).attr("id", `d_child_rate${rid}`).attr("name", `addloc[${newIndex}][d_child_rate][${i}]`);
+					$(this).find('[id^="d_child_wb_rate"]').eq(i - 1).attr("id", `d_child_wb_rate${rid}`).attr("name", `addloc[${newIndex}][d_child_wb_rate][${i}]`);
+					$(this).find('[id^="d_extra_bed_rate"]').eq(i - 1).attr("id", `d_extra_bed_rate${rid}`).attr("name", `addloc[${newIndex}][d_extra_bed_rate][${i}]`);
+					$(this).find('[id^="d_total_rate"]').eq(i - 1).attr("id", `d_total_rate${rid}`).attr("name", `addloc[${newIndex}][d_total_rate][${i}]`);
 
-					$(this).find('[id^="single"]').attr("id", `single${newIndex}`).attr("name", `addloc[${newIndex}][single]`);
-					$(this).find('[id^="s_adult_rate"]').attr("id", `s_adult_rate${newIndex}`).attr("name", `addloc[${newIndex}][s_adult_rate]`);
-					$(this).find('[id^="s_child_rate"]').attr("id", `s_child_rate${newIndex}`).attr("name", `addloc[${newIndex}][s_child_rate]`);
-					$(this).find('[id^="s_child_wb_rate"]').attr("id", `s_child_wb_rate${newIndex}`).attr("name", `addloc[${newIndex}][s_child_wb_rate]`);
-					$(this).find('[id^="s_extra_bed_rate"]').attr("id", `s_extra_bed_rate${newIndex}`).attr("name", `addloc[${newIndex}][s_extra_bed_rate]`);
-					$(this).find('[id^="s_total_rate"]').attr("id", `s_total_rate${newIndex}`).attr("name", `addloc[${newIndex}][s_total_rate]`);
+				}
+			}
+			let no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
+			let double_count = no_of_double_room > 0 ? no_of_double_room : 0;
+			if (no_of_single_room > 0) {
+					let startIndex = double_count > 0 ? double_count : 0;
+				for (let i = 1; i <= no_of_double_room; i++) {
+					let seq = startIndex + i;
+					sid = "" + newIndex + seq;
+					$(this).find('[id^="roomcat"]').eq(i - 1).attr("id", `roomcat${sid}`).attr("name", `addloc[${newIndex}][roomcat][${seq}]`).attr("data-id", sid).attr("count-id", newIndex);
+					$(this).find('[id^="single"]').eq(i - 1).attr("id", `single${sid}`).attr("name", `addloc[${newIndex}][single][${seq}]`);
+					$(this).find('[id^="s_adult_rate"]').eq(i - 1).attr("id", `s_adult_rate${sid}`).attr("name", `addloc[${newIndex}][s_adult_rate][${seq}]`);
+					$(this).find('[id^="s_child_rate"]').eq(i - 1).attr("id", `s_child_rate${sid}`).attr("name", `addloc[${newIndex}][s_child_rate][${seq}]`);
+					$(this).find('[id^="s_child_wb_rate"]').eq(i - 1).attr("id", `s_child_wb_rate${sid}`).attr("name", `addloc[${newIndex}][s_child_wb_rate][${seq}]`);
+					$(this).find('[id^="s_extra_bed_rate"]').eq(i - 1).attr("id", `s_extra_bed_rate${sid}`).attr("name", `addloc[${newIndex}][s_extra_bed_rate][${seq}]`);
+					$(this).find('[id^="s_total_rate"]').eq(i - 1).attr("id", `s_total_rate${sid}`).attr("name", `addloc[${newIndex}][s_total_rate][${seq}]`);
+
 				}
 			}
 			$(this).find('[id^="loadvehs"]').attr("id", `loadvehs${newIndex}`).attr("data-id", newIndex);
+
 
 			$(this).find('[id^="eighteen_div_d"]').attr("id", `eighteen_div_d${newIndex}`);
 			$(this).find('[id^="eighteen_div_s"]').attr("id", `eighteen_div_s${newIndex}`);
@@ -2473,6 +2499,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 	$(document).on('change', '.room_cat_change', function() {
 		var id = $(this).attr('data-id');
 		// alert(id);
+		sid
 		var id2 = $(this).attr('count-id');
 		// alert(id2);
 		console.log("Element HTML:", $(this).prop('outerHTML'));
@@ -2510,7 +2537,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			var checkin = $('#checkin' + id2).val();
 			var checkout = $('#checkout' + id2).val();
 			var double = $('#double' + id).val();
-			var single = $('#single' + id2).val();
+			var single = $('#single' + id).val();
 
 			var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
 			var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
@@ -4040,11 +4067,24 @@ $is_edit = $edit_id ? $edit_id : 0;
 <script>
 	$(document).on('change', '.mp_change', function() {
 		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
+		var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
 		var id = $(this).attr('data-id');
+
+		var no_of_night = $('#no_of_night' + id)
+		var tax_status = $('#tax_status' + id).val();
+		var no_of_night = $('#no_of_night' + id).val();
+		var hotel_id = $('#hotelid' + id).val();
+		var mealplan = $(this).val();
+		var checkin = $('#checkin' + id).val();
+		var checkout = $('#checkout' + id).val();
+		var vid;
+		var veh_total = 0;
+		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+
 		for (let i = 1; i <= no_of_double_room; i++) {
 			let rid = "" + id + i;
-			// alert(rid);
 			var no_of_night = $('#no_of_night' + id)
+			// alert(rid);
 
 			var room_cat_id = $('#roomcat' + rid).val();
 
@@ -4058,7 +4098,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			var checkin = $('#checkin' + id).val();
 			var checkout = $('#checkout' + id).val();
 			var double = $('#double' + rid).val();
-			var single = $('#single' + id).val();
+
 			var vid;
 			var veh_total = 0;
 			var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
@@ -4085,7 +4125,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 						checkout: checkout,
 						no_of_night: no_of_night,
 						double: double,
-						single: single,
+						single: 0,
 						vehicle_models: vehicle_models
 					},
 					dataType: 'json',
@@ -4099,7 +4139,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 						var no_of_extra = parseInt($('#no_of_extra' + rid).val()) || 0;
 
 						var ndouble = parseInt($('#double' + rid).val());
-						var nsingle = parseInt($('#single' + rid).val());
+
 						var room_r = parseInt(data.d_room_tariff);
 						var child_r = parseInt(data.d_child_tariff);
 						var child_wb_r = parseInt(data.d_child_wb_tariff);
@@ -4127,10 +4167,104 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 						$('#d_total_rate' + rid).val(total_double);
 
-						$('#s_adult_rate' + id).val(data.s_room_tariff);
-						$('#s_child_rate' + id).val(data.s_child_tariff);
-						$('#s_child_wb_rate' + id).val(data.s_child_wb_tariff);
-						$('#s_extra_bed_rate' + id).val(data.s_extra_tariff);
+
+						$('#loc_total' + id).text(total_double + total_single);
+
+
+						var veh_grand_tot = 0;
+						if (data.vehicles.length > 0) {
+							$.each(data.vehicles, function(index, item) {
+								vid = id + item.vehicle_type_id;
+								veh_total = (parseInt(item.vehicle_count) * parseInt(item.rate_per_day)) * parseInt(no_of_night);
+								$('#day_rent' + vid).val(item.rate_per_day);
+								$('#max_km_day' + vid).val(item.max_km_day);
+								$('#extra_km_rate' + vid).val(item.extra_km_rate);
+								$('#veh_total' + vid).val(veh_total);
+								veh_grand_tot = veh_grand_tot + veh_total;
+							});
+						}
+						var accom_temp = total_double + total_single;
+						$('#loc_total' + id).text(accom_temp + " + " + veh_grand_tot);
+						var accom_grand_total = get_accom_grand_total();
+						$('#a_total').text(accom_grand_total);
+
+						var veh_grand_total = get_veh_grand_total();
+						$('#v_total').text(veh_grand_total);
+
+						var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
+						$('#g_total').text(g_total);
+						//}
+					}
+				});
+			}
+		}
+
+		let double_count = no_of_double_room > 0 ? no_of_double_room : 0;
+		let startIndex = double_count > 0 ? double_count : 0;
+		for (let i = 1; i <= no_of_single_room; i++) {
+			let seq = startIndex + i;
+			let sid = "" + id + seq;
+
+			// alert(rid);
+
+			var room_cat_id = $('#roomcat' + sid).val();
+
+
+
+			// alert(room_cat_id);
+
+
+			var single = $('#single' + sid).val();
+
+			if (is_vehicle_required == 1) {
+				var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+			} else {
+				var vehicle_models = null;
+			}
+			if (no_of_night == '' || no_of_night == null || no_of_night == 'undefined') {
+				alert("Please enter number of nights");
+				$("#roomcat" + id)[0].selectedIndex = 0;
+			} else if (no_of_night == 0) {
+				alert("Number of nights must be greater than zero");
+				$('#no_of_night' + id).val('');
+			} else {
+				$.ajax({
+					url: "<?= site_url('Enquiry/getTourTariffDetails'); ?>",
+					method: "POST",
+					data: {
+						hotel_id: hotel_id,
+						room_cat_id: room_cat_id,
+						mealplan: mealplan,
+						checkin: checkin,
+						checkout: checkout,
+						no_of_night: no_of_night,
+						double: 0,
+						single: single,
+						vehicle_models: vehicle_models
+					},
+					dataType: 'json',
+					success: function(data) {
+						if (data.different_season == 1) {
+							alert("Different season exist");
+						}
+						//if(data.length > 0){
+						var no_of_ch = parseInt($('#no_of_ch' + sid).val()) || 0;
+						var no_of_cw = parseInt($('#no_of_cw' + sid).val()) || 0;
+						var no_of_extra = parseInt($('#no_of_extra' + sid).val()) || 0;
+
+
+						var nsingle = parseInt($('#single' + sid).val());
+
+
+
+
+
+
+
+						$('#s_adult_rate' + sid).val(data.s_room_tariff);
+						$('#s_child_rate' + sid).val(data.s_child_tariff);
+						$('#s_child_wb_rate' + sid).val(data.s_child_wb_tariff);
+						$('#s_extra_bed_rate' + sid).val(data.s_extra_tariff);
 						var total_single = (parseInt(data.s_room_tariff) * parseInt(nsingle)) * parseInt(no_of_night);
 						$('#s_total_rate' + id).val(total_single);
 						$('#loc_total' + id).text(total_double + total_single);
@@ -4163,6 +4297,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 				});
 			}
 		}
+
 	});
 </script>
 <script>
