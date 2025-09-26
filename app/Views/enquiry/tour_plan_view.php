@@ -2242,18 +2242,21 @@ $is_edit = $edit_id ? $edit_id : 0;
 			}
 			let no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
 			let double_count = no_of_double_room > 0 ? no_of_double_room : 0;
+			
 			if (no_of_single_room > 0) {
-					let startIndex = double_count > 0 ? double_count : 0;
+				
 				for (let i = 1; i <= no_of_double_room; i++) {
+					  startIndex = double_count > 0 ? double_count : 0;
 					let seq = startIndex + i;
+					alert(seq)
 					sid = "" + newIndex + seq;
-					$(this).find('[id^="roomcat"]').eq(i - 1).attr("id", `roomcat${sid}`).attr("name", `addloc[${newIndex}][roomcat][${seq}]`).attr("data-id", sid).attr("count-id", newIndex);
-					$(this).find('[id^="single"]').eq(i - 1).attr("id", `single${sid}`).attr("name", `addloc[${newIndex}][single][${seq}]`);
-					$(this).find('[id^="s_adult_rate"]').eq(i - 1).attr("id", `s_adult_rate${sid}`).attr("name", `addloc[${newIndex}][s_adult_rate][${seq}]`);
-					$(this).find('[id^="s_child_rate"]').eq(i - 1).attr("id", `s_child_rate${sid}`).attr("name", `addloc[${newIndex}][s_child_rate][${seq}]`);
-					$(this).find('[id^="s_child_wb_rate"]').eq(i - 1).attr("id", `s_child_wb_rate${sid}`).attr("name", `addloc[${newIndex}][s_child_wb_rate][${seq}]`);
-					$(this).find('[id^="s_extra_bed_rate"]').eq(i - 1).attr("id", `s_extra_bed_rate${sid}`).attr("name", `addloc[${newIndex}][s_extra_bed_rate][${seq}]`);
-					$(this).find('[id^="s_total_rate"]').eq(i - 1).attr("id", `s_total_rate${sid}`).attr("name", `addloc[${newIndex}][s_total_rate][${seq}]`);
+					$(this).find('[id^="roomcat"]').eq(seq - 1).attr("id", `roomcat${sid}`).attr("name", `addloc[${newIndex}][roomcat][${seq}]`).attr("data-id", sid).attr("count-id", newIndex);
+					$(this).find('[id^="single"]').eq(seq - 1).attr("id", `single${sid}`).attr("name", `addloc[${newIndex}][single][${seq}]`);
+					$(this).find('[id^="s_adult_rate"]').eq(seq - 1).attr("id", `s_adult_rate${sid}`).attr("name", `addloc[${newIndex}][s_adult_rate][${seq}]`);
+					$(this).find('[id^="s_child_rate"]').eq(seq - 1).attr("id", `s_child_rate${sid}`).attr("name", `addloc[${newIndex}][s_child_rate][${seq}]`);
+					$(this).find('[id^="s_child_wb_rate"]').eq(seq - 1).attr("id", `s_child_wb_rate${sid}`).attr("name", `addloc[${newIndex}][s_child_wb_rate][${seq}]`);
+					$(this).find('[id^="s_extra_bed_rate"]').eq(seq - 1).attr("id", `s_extra_bed_rate${sid}`).attr("name", `addloc[${newIndex}][s_extra_bed_rate][${seq}]`);
+					$(this).find('[id^="s_total_rate"]').eq(seq - 1).attr("id", `s_total_rate${sid}`).attr("name", `addloc[${newIndex}][s_total_rate][${seq}]`);
 
 				}
 			}
@@ -4194,15 +4197,19 @@ $is_edit = $edit_id ? $edit_id : 0;
 						var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
 						$('#g_total').text(g_total);
 						//}
+					},
+					complete: function() {
+						$this.prop('disabled', false);
+						$('#spinner_draft').hide();
 					}
 				});
 			}
 		}
 
 		let double_count = no_of_double_room > 0 ? no_of_double_room : 0;
-		let startIndex = double_count > 0 ? double_count : 0;
+		let startIndex2 = double_count > 0 ? double_count : 0;
 		for (let i = 1; i <= no_of_single_room; i++) {
-			let seq = startIndex + i;
+			let seq = startIndex2 + i;
 			let sid = "" + id + seq;
 
 			// alert(rid);
@@ -4293,6 +4300,10 @@ $is_edit = $edit_id ? $edit_id : 0;
 						var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
 						$('#g_total').text(g_total);
 						//}
+					},
+					complete: function() {
+						$this.prop('disabled', false);
+						$('#spinner_draft').hide();
 					}
 				});
 			}
