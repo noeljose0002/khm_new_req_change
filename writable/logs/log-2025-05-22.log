@@ -1,0 +1,378 @@
+ERROR - 2025-05-22 06:40:28 --> mysqli_sql_exception: Unknown column 'koede.tcp' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `h`.`age...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `h`.`age...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `h`.`age...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `h`.`age...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\BestAgentReportModel.php(57): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\BestAgentReport.php(95): App\Models\BestAgentReportModel->getByDateRange('2019-01-01 00:0...', '2025-05-22 06:4...')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\BestAgentReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BestAgentReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-22 06:40:28 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'koede.tcp' in 'field list'
+[Method: GET, Route: BestAgentReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = :koede.is_active:
+AND `h`.`is_active` = :h.is_active:
+AND `h`.`enq_added_date` > :h.enq_added_date:
+AND `h`.`enq_added_date` < :h.enq_added_date.1:
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC', [...], false)
+ 2 APPPATH\Models\BestAgentReportModel.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\BestAgentReport.php(95): App\Models\BestAgentReportModel->getByDateRange('2019-01-01 00:00:00', '2025-05-22 06:40:28')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\BestAgentReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BestAgentReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-22 06:40:28 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'koede.tcp' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = 1
+AND `h`.`is_active` = 1
+AND `h`.`enq_added_date` > \'2019-01-01 00:00:00\'
+AND `h`.`enq_added_date` < \'2025-05-22 06:40:28\'
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = 1
+AND `h`.`is_active` = 1
+AND `h`.`enq_added_date` > \'2019-01-01 00:00:00\'
+AND `h`.`enq_added_date` < \'2025-05-22 06:40:28\'
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = :koede.is_active:
+AND `h`.`is_active` = :h.is_active:
+AND `h`.`enq_added_date` > :h.enq_added_date:
+AND `h`.`enq_added_date` < :h.enq_added_date.1:
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC', [...], false)
+ 4 APPPATH\Models\BestAgentReportModel.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\BestAgentReport.php(95): App\Models\BestAgentReportModel->getByDateRange('2019-01-01 00:00:00', '2025-05-22 06:40:28')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\BestAgentReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BestAgentReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-22 06:40:28 --> [Caused by] mysqli_sql_exception: Unknown column 'koede.tcp' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = 1
+AND `h`.`is_active` = 1
+AND `h`.`enq_added_date` > \'2019-01-01 00:00:00\'
+AND `h`.`enq_added_date` < \'2025-05-22 06:40:28\'
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = 1
+AND `h`.`is_active` = 1
+AND `h`.`enq_added_date` > \'2019-01-01 00:00:00\'
+AND `h`.`enq_added_date` < \'2025-05-22 06:40:28\'
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = 1
+AND `h`.`is_active` = 1
+AND `h`.`enq_added_date` > \'2019-01-01 00:00:00\'
+AND `h`.`enq_added_date` < \'2025-05-22 06:40:28\'
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = :koede.is_active:
+AND `h`.`is_active` = :h.is_active:
+AND `h`.`enq_added_date` > :h.enq_added_date:
+AND `h`.`enq_added_date` < :h.enq_added_date.1:
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC', [...], false)
+ 5 APPPATH\Models\BestAgentReportModel.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\BestAgentReport.php(95): App\Models\BestAgentReportModel->getByDateRange('2019-01-01 00:00:00', '2025-05-22 06:40:28')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\BestAgentReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BestAgentReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-05-22 06:40:32 --> mysqli_sql_exception: Unknown column 'koede.tcp' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `h`.`age...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `h`.`age...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `h`.`age...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `h`.`age...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\BestAgentReportModel.php(57): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\BestAgentReport.php(95): App\Models\BestAgentReportModel->getByDateRange('2019-01-01 00:0...', '2025-05-22 06:4...')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\BestAgentReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BestAgentReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-22 06:40:32 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'koede.tcp' in 'field list'
+[Method: GET, Route: BestAgentReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = :koede.is_active:
+AND `h`.`is_active` = :h.is_active:
+AND `h`.`enq_added_date` > :h.enq_added_date:
+AND `h`.`enq_added_date` < :h.enq_added_date.1:
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC', [...], false)
+ 2 APPPATH\Models\BestAgentReportModel.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\BestAgentReport.php(95): App\Models\BestAgentReportModel->getByDateRange('2019-01-01 00:00:00', '2025-05-22 06:40:32')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\BestAgentReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BestAgentReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-22 06:40:32 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'koede.tcp' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = 1
+AND `h`.`is_active` = 1
+AND `h`.`enq_added_date` > \'2019-01-01 00:00:00\'
+AND `h`.`enq_added_date` < \'2025-05-22 06:40:32\'
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = 1
+AND `h`.`is_active` = 1
+AND `h`.`enq_added_date` > \'2019-01-01 00:00:00\'
+AND `h`.`enq_added_date` < \'2025-05-22 06:40:32\'
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = :koede.is_active:
+AND `h`.`is_active` = :h.is_active:
+AND `h`.`enq_added_date` > :h.enq_added_date:
+AND `h`.`enq_added_date` < :h.enq_added_date.1:
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC', [...], false)
+ 4 APPPATH\Models\BestAgentReportModel.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\BestAgentReport.php(95): App\Models\BestAgentReportModel->getByDateRange('2019-01-01 00:00:00', '2025-05-22 06:40:32')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\BestAgentReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BestAgentReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-22 06:40:32 --> [Caused by] mysqli_sql_exception: Unknown column 'koede.tcp' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = 1
+AND `h`.`is_active` = 1
+AND `h`.`enq_added_date` > \'2019-01-01 00:00:00\'
+AND `h`.`enq_added_date` < \'2025-05-22 06:40:32\'
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = 1
+AND `h`.`is_active` = 1
+AND `h`.`enq_added_date` > \'2019-01-01 00:00:00\'
+AND `h`.`enq_added_date` < \'2025-05-22 06:40:32\'
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = 1
+AND `h`.`is_active` = 1
+AND `h`.`enq_added_date` > \'2019-01-01 00:00:00\'
+AND `h`.`enq_added_date` < \'2025-05-22 06:40:32\'
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `h`.`agent_entity_id`, `kem1`.`entity_name` AS `agent_name`, COUNT(DISTINCT h.enquiry_header_id) AS total_enquiries, SUM(koede.tcp) AS total_tcp, `h`.`enq_added_date`, `h`.`is_active`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_entity_mst` AS `kem1` ON `kem1`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `koede` ON `koede`.`enquiry_header_id` = `h`.`enquiry_header_id`
+WHERE `koede`.`is_active` = :koede.is_active:
+AND `h`.`is_active` = :h.is_active:
+AND `h`.`enq_added_date` > :h.enq_added_date:
+AND `h`.`enq_added_date` < :h.enq_added_date.1:
+GROUP BY `h`.`agent_entity_id`, `kem1`.`entity_name`, `h`.`enq_added_date`, `h`.`is_active`
+ORDER BY `total_tcp` DESC', [...], false)
+ 5 APPPATH\Models\BestAgentReportModel.php(57): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\BestAgentReport.php(95): App\Models\BestAgentReportModel->getByDateRange('2019-01-01 00:00:00', '2025-05-22 06:40:32')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\BestAgentReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BestAgentReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-05-22 12:39:11 --> mysqli_sql_exception: Unknown column 't.is_active,1' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `t`.`tou...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `t`.`tou...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `t`.`tou...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `t`.`tou...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\BestDestinationReportModel.php(84): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\BestDestinationReport.php(103): App\Models\BestDestinationReportModel->getByDateRange('2019-01-01 00:0...', '2025-05-22 12:3...', 'all')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\BestDestinationReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BestDestinationReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-22 12:39:11 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 't.is_active,1' in 'where clause'
+[Method: GET, Route: BestDestinationReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `t`.`tour_details_id`, `t`.`tour_location`, `t`.`is_active`, `t`.`check_in_date`, `t`.`check_out_date`, `g`.`geog_name`, COUNT(DISTINCT t.tour_details_id) AS total_tourenq
+FROM `khm_obj_enquiry_tour_details` AS `t`
+LEFT JOIN `khm_loc_mst_geography` AS `g` ON `g`.`geog_id` = `t`.`tour_location`
+WHERE `t`.`is_active,1` IS NULL
+AND `t`.`check_in_date` >= :t.check_in_date:
+AND `t`.`check_in_date` <= :t.check_in_date.1:
+AND `t`.`check_out_date` <= :t.check_out_date:
+AND `t`.`check_out_date` >= :t.check_out_date.1:
+GROUP BY `t`.`tour_details_id`, `g`.`geog_name`
+ORDER BY `total_tourenq` DESC', [...], false)
+ 2 APPPATH\Models\BestDestinationReportModel.php(84): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\BestDestinationReport.php(103): App\Models\BestDestinationReportModel->getByDateRange('2019-01-01 00:00:00', '2025-05-22 12:39:11', 'all')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\BestDestinationReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BestDestinationReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-22 12:39:11 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 't.is_active,1' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `t`.`tour_details_id`, `t`.`tour_location`, `t`.`is_active`, `t`.`check_in_date`, `t`.`check_out_date`, `g`.`geog_name`, COUNT(DISTINCT t.tour_details_id) AS total_tourenq
+FROM `khm_obj_enquiry_tour_details` AS `t`
+LEFT JOIN `khm_loc_mst_geography` AS `g` ON `g`.`geog_id` = `t`.`tour_location`
+WHERE `t`.`is_active,1` IS NULL
+AND `t`.`check_in_date` >= \'2019-01-01 00:00:00\'
+AND `t`.`check_in_date` <= \'2025-05-22 12:39:11\'
+AND `t`.`check_out_date` <= \'2025-05-22 12:39:11\'
+AND `t`.`check_out_date` >= \'2019-01-01 00:00:00\'
+GROUP BY `t`.`tour_details_id`, `g`.`geog_name`
+ORDER BY `total_tourenq` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `t`.`tour_details_id`, `t`.`tour_location`, `t`.`is_active`, `t`.`check_in_date`, `t`.`check_out_date`, `g`.`geog_name`, COUNT(DISTINCT t.tour_details_id) AS total_tourenq
+FROM `khm_obj_enquiry_tour_details` AS `t`
+LEFT JOIN `khm_loc_mst_geography` AS `g` ON `g`.`geog_id` = `t`.`tour_location`
+WHERE `t`.`is_active,1` IS NULL
+AND `t`.`check_in_date` >= \'2019-01-01 00:00:00\'
+AND `t`.`check_in_date` <= \'2025-05-22 12:39:11\'
+AND `t`.`check_out_date` <= \'2025-05-22 12:39:11\'
+AND `t`.`check_out_date` >= \'2019-01-01 00:00:00\'
+GROUP BY `t`.`tour_details_id`, `g`.`geog_name`
+ORDER BY `total_tourenq` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `t`.`tour_details_id`, `t`.`tour_location`, `t`.`is_active`, `t`.`check_in_date`, `t`.`check_out_date`, `g`.`geog_name`, COUNT(DISTINCT t.tour_details_id) AS total_tourenq
+FROM `khm_obj_enquiry_tour_details` AS `t`
+LEFT JOIN `khm_loc_mst_geography` AS `g` ON `g`.`geog_id` = `t`.`tour_location`
+WHERE `t`.`is_active,1` IS NULL
+AND `t`.`check_in_date` >= :t.check_in_date:
+AND `t`.`check_in_date` <= :t.check_in_date.1:
+AND `t`.`check_out_date` <= :t.check_out_date:
+AND `t`.`check_out_date` >= :t.check_out_date.1:
+GROUP BY `t`.`tour_details_id`, `g`.`geog_name`
+ORDER BY `total_tourenq` DESC', [...], false)
+ 4 APPPATH\Models\BestDestinationReportModel.php(84): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\BestDestinationReport.php(103): App\Models\BestDestinationReportModel->getByDateRange('2019-01-01 00:00:00', '2025-05-22 12:39:11', 'all')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\BestDestinationReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BestDestinationReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-22 12:39:11 --> [Caused by] mysqli_sql_exception: Unknown column 't.is_active,1' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `t`.`tour_details_id`, `t`.`tour_location`, `t`.`is_active`, `t`.`check_in_date`, `t`.`check_out_date`, `g`.`geog_name`, COUNT(DISTINCT t.tour_details_id) AS total_tourenq
+FROM `khm_obj_enquiry_tour_details` AS `t`
+LEFT JOIN `khm_loc_mst_geography` AS `g` ON `g`.`geog_id` = `t`.`tour_location`
+WHERE `t`.`is_active,1` IS NULL
+AND `t`.`check_in_date` >= \'2019-01-01 00:00:00\'
+AND `t`.`check_in_date` <= \'2025-05-22 12:39:11\'
+AND `t`.`check_out_date` <= \'2025-05-22 12:39:11\'
+AND `t`.`check_out_date` >= \'2019-01-01 00:00:00\'
+GROUP BY `t`.`tour_details_id`, `g`.`geog_name`
+ORDER BY `total_tourenq` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `t`.`tour_details_id`, `t`.`tour_location`, `t`.`is_active`, `t`.`check_in_date`, `t`.`check_out_date`, `g`.`geog_name`, COUNT(DISTINCT t.tour_details_id) AS total_tourenq
+FROM `khm_obj_enquiry_tour_details` AS `t`
+LEFT JOIN `khm_loc_mst_geography` AS `g` ON `g`.`geog_id` = `t`.`tour_location`
+WHERE `t`.`is_active,1` IS NULL
+AND `t`.`check_in_date` >= \'2019-01-01 00:00:00\'
+AND `t`.`check_in_date` <= \'2025-05-22 12:39:11\'
+AND `t`.`check_out_date` <= \'2025-05-22 12:39:11\'
+AND `t`.`check_out_date` >= \'2019-01-01 00:00:00\'
+GROUP BY `t`.`tour_details_id`, `g`.`geog_name`
+ORDER BY `total_tourenq` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `t`.`tour_details_id`, `t`.`tour_location`, `t`.`is_active`, `t`.`check_in_date`, `t`.`check_out_date`, `g`.`geog_name`, COUNT(DISTINCT t.tour_details_id) AS total_tourenq
+FROM `khm_obj_enquiry_tour_details` AS `t`
+LEFT JOIN `khm_loc_mst_geography` AS `g` ON `g`.`geog_id` = `t`.`tour_location`
+WHERE `t`.`is_active,1` IS NULL
+AND `t`.`check_in_date` >= \'2019-01-01 00:00:00\'
+AND `t`.`check_in_date` <= \'2025-05-22 12:39:11\'
+AND `t`.`check_out_date` <= \'2025-05-22 12:39:11\'
+AND `t`.`check_out_date` >= \'2019-01-01 00:00:00\'
+GROUP BY `t`.`tour_details_id`, `g`.`geog_name`
+ORDER BY `total_tourenq` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `t`.`tour_details_id`, `t`.`tour_location`, `t`.`is_active`, `t`.`check_in_date`, `t`.`check_out_date`, `g`.`geog_name`, COUNT(DISTINCT t.tour_details_id) AS total_tourenq
+FROM `khm_obj_enquiry_tour_details` AS `t`
+LEFT JOIN `khm_loc_mst_geography` AS `g` ON `g`.`geog_id` = `t`.`tour_location`
+WHERE `t`.`is_active,1` IS NULL
+AND `t`.`check_in_date` >= :t.check_in_date:
+AND `t`.`check_in_date` <= :t.check_in_date.1:
+AND `t`.`check_out_date` <= :t.check_out_date:
+AND `t`.`check_out_date` >= :t.check_out_date.1:
+GROUP BY `t`.`tour_details_id`, `g`.`geog_name`
+ORDER BY `total_tourenq` DESC', [...], false)
+ 5 APPPATH\Models\BestDestinationReportModel.php(84): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\BestDestinationReport.php(103): App\Models\BestDestinationReportModel->getByDateRange('2019-01-01 00:00:00', '2025-05-22 12:39:11', 'all')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\BestDestinationReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\BestDestinationReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

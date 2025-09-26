@@ -1,0 +1,854 @@
+CRITICAL - 2025-08-08 07:03:46 --> ErrorException: Undefined array key "draw"
+[Method: GET, Route: Dashboard/veh_seasons_modal]
+in APPPATH\Models\Dashboard_m.php on line 1787.
+ 1 APPPATH\Models\Dashboard_m.php(1787): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "draw"', 'C:\\wamp64\\www\\khm\\app\\Models\\Dashboard_m.php', 1787)
+ 2 APPPATH\Controllers\Dashboard.php(2784): App\Models\Dashboard_m->get_veh_seasons_table([])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 07:13:15 --> ErrorException: Undefined array key "draw"
+[Method: GET, Route: Dashboard/veh_seasons_modal]
+in APPPATH\Models\Dashboard_m.php on line 1798.
+ 1 APPPATH\Models\Dashboard_m.php(1798): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "draw"', 'C:\\wamp64\\www\\khm\\app\\Models\\Dashboard_m.php', 1798)
+ 2 APPPATH\Controllers\Dashboard.php(2784): App\Models\Dashboard_m->get_veh_seasons_table([])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 07:13:45 --> ErrorException: Undefined array key "draw"
+[Method: GET, Route: Dashboard/veh_seasons_modal]
+in APPPATH\Models\Dashboard_m.php on line 1798.
+ 1 APPPATH\Models\Dashboard_m.php(1798): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "draw"', 'C:\\wamp64\\www\\khm\\app\\Models\\Dashboard_m.php', 1798)
+ 2 APPPATH\Controllers\Dashboard.php(2784): App\Models\Dashboard_m->get_veh_seasons_table([])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:06:57 --> ErrorException: Undefined array key "draw"
+[Method: GET, Route: Dashboard/veh_seasons_modal]
+in APPPATH\Models\Dashboard_m.php on line 1799.
+ 1 APPPATH\Models\Dashboard_m.php(1799): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "draw"', 'C:\\wamp64\\www\\khm\\app\\Models\\Dashboard_m.php', 1799)
+ 2 APPPATH\Controllers\Dashboard.php(2784): App\Models\Dashboard_m->get_veh_seasons_table([])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-08 09:33:17 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `s' at line 4 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(1460): CodeIgniter\Database\BaseBuilder->countAllResults()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(3031): App\Models\Dashboard_m->check_vehseasons_exist(NULL, NULL, NULL)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->addnewvehSeasons()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-08 09:33:17 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `s' at line 4
+[Method: GET, Route: Dashboard/addnewvehSeasons]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = :season_type_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(1460): CodeIgniter\Database\BaseBuilder->countAllResults()
+ 3 APPPATH\Controllers\Dashboard.php(3031): App\Models\Dashboard_m->check_vehseasons_exist(null, null, null)
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->addnewvehSeasons()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:33:17 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `s' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = 4')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = 4')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = :season_type_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(1460): CodeIgniter\Database\BaseBuilder->countAllResults()
+ 5 APPPATH\Controllers\Dashboard.php(3031): App\Models\Dashboard_m->check_vehseasons_exist(null, null, null)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->addnewvehSeasons()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:33:17 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `s' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = 4', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = 4')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = 4')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = :season_type_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(1460): CodeIgniter\Database\BaseBuilder->countAllResults()
+ 6 APPPATH\Controllers\Dashboard.php(3031): App\Models\Dashboard_m->check_vehseasons_exist(null, null, null)
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->addnewvehSeasons()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-08 09:34:04 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `s' at line 4 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(1460): CodeIgniter\Database\BaseBuilder->countAllResults()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(3031): App\Models\Dashboard_m->check_vehseasons_exist(NULL, NULL, NULL)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->addnewvehSeasons()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-08 09:34:04 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `s' at line 4
+[Method: GET, Route: Dashboard/addnewvehSeasons]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = :season_type_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(1460): CodeIgniter\Database\BaseBuilder->countAllResults()
+ 3 APPPATH\Controllers\Dashboard.php(3031): App\Models\Dashboard_m->check_vehseasons_exist(null, null, null)
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->addnewvehSeasons()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:34:04 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `s' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = 4')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = 4')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = :season_type_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(1460): CodeIgniter\Database\BaseBuilder->countAllResults()
+ 5 APPPATH\Controllers\Dashboard.php(3031): App\Models\Dashboard_m->check_vehseasons_exist(null, null, null)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->addnewvehSeasons()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:34:04 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `s' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = 4', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = 4')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = 4')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `khm_season_calendar`
+WHERE `object_id` IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_start_date` < IS NULL
+AND `season_end_date` > IS NULL
+AND `season_type_id` = :season_type_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(1460): CodeIgniter\Database\BaseBuilder->countAllResults()
+ 6 APPPATH\Controllers\Dashboard.php(3031): App\Models\Dashboard_m->check_vehseasons_exist(null, null, null)
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->addnewvehSeasons()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-08 09:43:19 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*\nFR...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*\nFR...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*\nFR...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*\nFR...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-08 09:43:19 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+[Method: POST, Route: Dashboard/veh_seasons_modal_veh]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:43:19 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:43:19 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:43:19 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Dashboard/addnewvehSeasons]
+in APPPATH\Controllers\Dashboard.php on line 3046.
+ 1 APPPATH\Controllers\Dashboard.php(3046): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3046)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->addnewvehSeasons()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-08 09:43:20 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*\nFR...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*\nFR...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*\nFR...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*\nFR...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-08 09:43:21 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+[Method: POST, Route: Dashboard/veh_seasons_modal_veh]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:43:21 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:43:21 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-08 09:43:25 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*\nFR...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*\nFR...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*\nFR...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*\nFR...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-08 09:43:25 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+[Method: POST, Route: Dashboard/veh_seasons_modal_veh]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:43:25 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:43:25 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-08 09:43:32 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*\nFR...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*\nFR...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*\nFR...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*\nFR...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-08 09:43:32 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+[Method: POST, Route: Dashboard/veh_seasons_modal_veh]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:43:32 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:43:32 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-08 09:43:33 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*\nFR...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*\nFR...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*\nFR...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*\nFR...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-08 09:43:33 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+[Method: POST, Route: Dashboard/veh_seasons_modal_veh]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:43:33 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:43:33 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-08 09:44:18 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*\nFR...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*\nFR...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*\nFR...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*\nFR...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-08 09:44:18 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+[Method: POST, Route: Dashboard/veh_seasons_modal_veh]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:44:18 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:44:18 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:44:18 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Dashboard/addnewvehSeasons]
+in APPPATH\Controllers\Dashboard.php on line 3046.
+ 1 APPPATH\Controllers\Dashboard.php(3046): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3046)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->addnewvehSeasons()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-08 09:44:23 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*\nFR...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*\nFR...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*\nFR...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*\nFR...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-08 09:44:23 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+[Method: POST, Route: Dashboard/veh_seasons_modal_veh]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:44:23 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-08 09:44:23 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = 4
+AND `object_id` = ()')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `a`.*
+FROM `khm_season_calendar` `a`
+WHERE `season_type_id` = :season_type_id:
+AND `object_id` = :object_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(433): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(2795): App\Models\Dashboard_m->get_season_veh([])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->veh_seasons_modal_veh()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

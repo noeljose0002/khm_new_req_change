@@ -1,0 +1,1218 @@
+ERROR - 2025-08-05 07:50:49 --> mysqli_sql_exception: Unknown column 'es.assigned_to' in 'on clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT DISTINCT...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GuestTrackingReportModel.php(243): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\GuestTrackingReport.php(88): App\Models\GuestTrackingReportModel->getByDateRange('2025-08-22 00:0...', '3')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GuestTrackingReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestTrackingReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-05 07:50:49 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'es.assigned_to' in 'on clause'
+[Method: GET, Route: GuestTrackingReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = :t.is_active:
+AND `eer`.`is_active` = :eer.is_active:
+AND `e`.`is_active` = :e.is_active:
+AND `es2`.`current_status_id` = :es2.current_status_id:
+AND `h`.`is_active` = :h.is_active:
+AND `e`.`is_active` = :e.is_active.1:
+AND `d`.`is_active` = :d.is_active:
+AND `koei`.`tour_date` = :koei.tour_date:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC', [...], false)
+ 2 APPPATH\Models\GuestTrackingReportModel.php(243): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\GuestTrackingReport.php(88): App\Models\GuestTrackingReportModel->getByDateRange('2025-08-22 00:00:00', '3')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GuestTrackingReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestTrackingReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-05 07:50:49 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'es.assigned_to' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = :t.is_active:
+AND `eer`.`is_active` = :eer.is_active:
+AND `e`.`is_active` = :e.is_active:
+AND `es2`.`current_status_id` = :es2.current_status_id:
+AND `h`.`is_active` = :h.is_active:
+AND `e`.`is_active` = :e.is_active.1:
+AND `d`.`is_active` = :d.is_active:
+AND `koei`.`tour_date` = :koei.tour_date:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC', [...], false)
+ 4 APPPATH\Models\GuestTrackingReportModel.php(243): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\GuestTrackingReport.php(88): App\Models\GuestTrackingReportModel->getByDateRange('2025-08-22 00:00:00', '3')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GuestTrackingReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestTrackingReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-05 07:50:49 --> [Caused by] mysqli_sql_exception: Unknown column 'es.assigned_to' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = :t.is_active:
+AND `eer`.`is_active` = :eer.is_active:
+AND `e`.`is_active` = :e.is_active:
+AND `es2`.`current_status_id` = :es2.current_status_id:
+AND `h`.`is_active` = :h.is_active:
+AND `e`.`is_active` = :e.is_active.1:
+AND `d`.`is_active` = :d.is_active:
+AND `koei`.`tour_date` = :koei.tour_date:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC', [...], false)
+ 5 APPPATH\Models\GuestTrackingReportModel.php(243): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\GuestTrackingReport.php(88): App\Models\GuestTrackingReportModel->getByDateRange('2025-08-22 00:00:00', '3')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GuestTrackingReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestTrackingReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-05 07:50:51 --> mysqli_sql_exception: Unknown column 'es.assigned_to' in 'on clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT DISTINCT...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GuestTrackingReportModel.php(243): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\GuestTrackingReport.php(88): App\Models\GuestTrackingReportModel->getByDateRange('2025-08-22 00:0...', '3')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GuestTrackingReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestTrackingReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-05 07:50:51 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'es.assigned_to' in 'on clause'
+[Method: GET, Route: GuestTrackingReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = :t.is_active:
+AND `eer`.`is_active` = :eer.is_active:
+AND `e`.`is_active` = :e.is_active:
+AND `es2`.`current_status_id` = :es2.current_status_id:
+AND `h`.`is_active` = :h.is_active:
+AND `e`.`is_active` = :e.is_active.1:
+AND `d`.`is_active` = :d.is_active:
+AND `koei`.`tour_date` = :koei.tour_date:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC', [...], false)
+ 2 APPPATH\Models\GuestTrackingReportModel.php(243): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\GuestTrackingReport.php(88): App\Models\GuestTrackingReportModel->getByDateRange('2025-08-22 00:00:00', '3')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GuestTrackingReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestTrackingReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-05 07:50:51 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'es.assigned_to' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = :t.is_active:
+AND `eer`.`is_active` = :eer.is_active:
+AND `e`.`is_active` = :e.is_active:
+AND `es2`.`current_status_id` = :es2.current_status_id:
+AND `h`.`is_active` = :h.is_active:
+AND `e`.`is_active` = :e.is_active.1:
+AND `d`.`is_active` = :d.is_active:
+AND `koei`.`tour_date` = :koei.tour_date:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC', [...], false)
+ 4 APPPATH\Models\GuestTrackingReportModel.php(243): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\GuestTrackingReport.php(88): App\Models\GuestTrackingReportModel->getByDateRange('2025-08-22 00:00:00', '3')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GuestTrackingReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestTrackingReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-05 07:50:51 --> [Caused by] mysqli_sql_exception: Unknown column 'es.assigned_to' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = :t.is_active:
+AND `eer`.`is_active` = :eer.is_active:
+AND `e`.`is_active` = :e.is_active:
+AND `es2`.`current_status_id` = :es2.current_status_id:
+AND `h`.`is_active` = :h.is_active:
+AND `e`.`is_active` = :e.is_active.1:
+AND `d`.`is_active` = :d.is_active:
+AND `koei`.`tour_date` = :koei.tour_date:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC', [...], false)
+ 5 APPPATH\Models\GuestTrackingReportModel.php(243): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\GuestTrackingReport.php(88): App\Models\GuestTrackingReportModel->getByDateRange('2025-08-22 00:00:00', '3')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GuestTrackingReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestTrackingReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-05 07:51:00 --> mysqli_sql_exception: Unknown column 'es.assigned_to' in 'on clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT DISTINCT...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GuestTrackingReportModel.php(243): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\GuestTrackingReport.php(88): App\Models\GuestTrackingReportModel->getByDateRange('2025-08-22 00:0...', '3')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GuestTrackingReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestTrackingReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-05 07:51:00 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'es.assigned_to' in 'on clause'
+[Method: GET, Route: GuestTrackingReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = :t.is_active:
+AND `eer`.`is_active` = :eer.is_active:
+AND `e`.`is_active` = :e.is_active:
+AND `es2`.`current_status_id` = :es2.current_status_id:
+AND `h`.`is_active` = :h.is_active:
+AND `e`.`is_active` = :e.is_active.1:
+AND `d`.`is_active` = :d.is_active:
+AND `koei`.`tour_date` = :koei.tour_date:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC', [...], false)
+ 2 APPPATH\Models\GuestTrackingReportModel.php(243): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\GuestTrackingReport.php(88): App\Models\GuestTrackingReportModel->getByDateRange('2025-08-22 00:00:00', '3')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GuestTrackingReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestTrackingReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-05 07:51:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'es.assigned_to' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = :t.is_active:
+AND `eer`.`is_active` = :eer.is_active:
+AND `e`.`is_active` = :e.is_active:
+AND `es2`.`current_status_id` = :es2.current_status_id:
+AND `h`.`is_active` = :h.is_active:
+AND `e`.`is_active` = :e.is_active.1:
+AND `d`.`is_active` = :d.is_active:
+AND `koei`.`tour_date` = :koei.tour_date:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC', [...], false)
+ 4 APPPATH\Models\GuestTrackingReportModel.php(243): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\GuestTrackingReport.php(88): App\Models\GuestTrackingReportModel->getByDateRange('2025-08-22 00:00:00', '3')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GuestTrackingReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestTrackingReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-05 07:51:00 --> [Caused by] mysqli_sql_exception: Unknown column 'es.assigned_to' in 'on clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = 1
+AND `eer`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `es2`.`current_status_id` = 13
+AND `h`.`is_active` = 1
+AND `e`.`is_active` = 1
+AND `d`.`is_active` = 1
+AND `koei`.`tour_date` = \'2025-08-22 00:00:00\'
+AND `h`.`enq_type_id` = \'3\'
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `koei`.`tour_date`, `h`.`enquiry_header_id`, `h`.`object_id`, `h`.`guest_entity_id`, `h`.`agent_entity_id`, `h`.`employee_entity_id`, `h`.`enq_added_date`, `h`.`enq_type_id`, `h`.`ref_no`, `h`.`is_active` AS `header_active`, `om`.`object_name`, `ge`.`entity_name` AS `guest_name`, `ge`.`entity_mobile` AS `guest_phone`, `ae`.`entity_name` AS `agent_name`, `ee`.`entity_name` AS `employee_name`, `d`.`enquiry_details_id`, `d`.`date_of_tour_start`, `d`.`is_active` AS `details_active`, `e`.`is_active` AS `extension_active`, `e`.`tpc`, `arr`.`geog_name` AS `arrival_location_name`, `dep`.`geog_name` AS `departure_location_name`, `komen`.`object_name` AS `hotel_name`, `kogen`.`geog_name` AS `hotel_location`, `e9`.`entity_name` AS `executive`, `e8`.`entity_name` AS `sop_executive`, GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids, GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names, GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations, `t`.`driver_name` AS `drivername`, `t`.`phone_number` AS `driverphone`
+FROM `khm_obj_enquiry_header` AS `h`
+LEFT JOIN `khm_obj_enquiry_details` AS `d` ON `d`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` AS `arr` ON `arr`.`geog_id` = `d`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` AS `dep` ON `dep`.`geog_id` = `d`.`departure_location`
+LEFT JOIN `khm_obj_transport_follow_up` AS `t` ON `t`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`t`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` AS `e` ON `e`.`enquiry_detail_details_id`  = `eer`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_itinerary_details` AS `koei` ON `koei`.`extension_ref_id`=`e`.`extension_ref_id`
+LEFT JOIN `khm_obj_hotel` AS `kohel` ON `kohel`.`hotel_id`=`koei`.`hotel_id`
+LEFT JOIN `khm_obj_mst` AS `komen` ON `komen`.`object_id`=`kohel`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` `kogen` ON `kogen`.`geog_id`=`komen`.`object_location_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `h`.`object_id`
+LEFT JOIN `khm_entity_mst` AS `ge` ON `ge`.`entity_id` = `h`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ae` ON `ae`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` AS `ee` ON `ee`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                    vehicle_count      INT            PATH \'$.vehicle_count\',
+                    vehicle_type_id    INT            PATH \'$.vehicle_type_id\',
+                    vehicle_model_name VARCHAR(255)   PATH \'$.vehicle_model_name\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_obj_mst` AS `vobj` ON `vobj`.`object_id` = `v`.`object_id`
+LEFT JOIN `khm_loc_mst_geography` AS `geo` ON `geo`.`geog_id` = `vobj`.`object_location_id`
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value` = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+LEFT JOIN `khm_entity_mst` AS `e9` ON `e9`.`entity_id`=`es`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_status` AS `es2` ON `es2`.`edit_request_id` =`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e8` ON `e8`.`entity_id`=`es2`.`assigned_to`
+WHERE `t`.`is_active` = :t.is_active:
+AND `eer`.`is_active` = :eer.is_active:
+AND `e`.`is_active` = :e.is_active:
+AND `es2`.`current_status_id` = :es2.current_status_id:
+AND `h`.`is_active` = :h.is_active:
+AND `e`.`is_active` = :e.is_active.1:
+AND `d`.`is_active` = :d.is_active:
+AND `koei`.`tour_date` = :koei.tour_date:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+GROUP BY `koei`.`itinerary_details_id`
+ORDER BY `d`.`date_of_tour_start` DESC', [...], false)
+ 5 APPPATH\Models\GuestTrackingReportModel.php(243): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\GuestTrackingReport.php(88): App\Models\GuestTrackingReportModel->getByDateRange('2025-08-22 00:00:00', '3')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GuestTrackingReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestTrackingReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

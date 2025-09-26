@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Calculate Distance</title>
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+  <link rel="stylesheet" href="<?= base_url('masters/leaflet/leaflet.css'); ?>">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+  <meta name="csrf-token" content="<?= csrf_hash() ?>" />
+  <style>
+    /* Global Styles */
+    body {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      font-family: 'Segoe UI', sans-serif;
+      padding-top: 70px;
+    }
+
+    /* Sidebar */
+    #recordNav {
+      height: 100vh;
+      overflow-y: auto;
+      border-right: 1px solid #ddd;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    }
+
+    #recordNav h5 {
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .nav-link {
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background 0.3s;
+      color: #333;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus {
+      background: #f1f1f1;
+      text-decoration: none;
+    }
+
+    .nested-ul {
+      padding-left: 1rem;
+      list-style: none;
+      margin-bottom: 0;
+    }
+
+    .list-group-item {
+      border: none;
+      padding: 0.25rem 0.5rem;
+    }
+
+    /* Map & Distance */
+    #distanceMap {
+      height: 500px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #distanceResult {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #fff;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      z-index: 1050;
+      font-size: 1.2em;
+      display: none;
+      align-items: center;
+    }
+
+    #distanceValue {
+      margin-right: 10px;
+    }
+
+    /* Location Details */
+    #locationDetails {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      padding: 10px 10px 10px 50px;
+      display: none;
+      position: relative;
+    }
+
+    #editRecordBtn {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    /* Action Buttons */
+    #locationActions {
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* Datatables & Sightseeing */
+    #datatableContainer,
+    #sightseeingTableContainer {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
+
+    /* Modal Fullscreen */
+    .modal-fullscreen {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .modal-fullscreen .modal-dialog {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-fullscreen .modal-content {
+      height: 100%;
+      border: 0;
+      border-radius: 0;
+    }
+
+    /* Distance Input */
+    #distanceInput {
+      width: 100px;
+      font-size: 1em;
+      padding: 2px;
+    }
+
+    /* Distance Record Datatable (New) */
+    #distanceTableContainer {
+      margin-top: 20px;
+    }
+
+
+
+
+    /* #modalLoading { */
+    /* position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(5px); */
+    /* Optional: applies blur to the background */
+    /* display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1100; */
+    /* Ensure it's above your modal backdrop */
+    /* } */
+  </style>
+</head>
+
+<body>
+  <div id="distanceResult" class="d-flex align-items-center">
+    <span id="distanceValue">Distance: 0 km</span>
+    <button id="editDistanceBtn" class="btn btn-sm btn-outline-secondary">Edit</button>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Left Sidebar Navigation -->
+      <nav class="col-md-3" id="recordNav">
+        <h5>Locations</h5>
+        <!-- Search input -->
+        <input type="text" id="searchLocation" class="form-control mb-3" placeholder="Search locations...">
+        <div id="recordTree"></div>
+      </nav>
+      <!-- Main Content -->
+      <div class="col-md-9">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="text-center mb-4">Distance Calculator</h2>
+
+            <!-- Start & End Location Selection -->
+            <div class="row mb-3">
+              <div class="col-md-6 mb-3">
+                <label for="startLocation" class="form-label">Start Location</label>
+                <input type="text" id="startLocation" class="form-control" placeholder="Selected from sublocation..." readonly />
+                <input type="hidden" id="startLat" />
+                <input type="hidden" id="startLng" />
+                <input type="hidden" id="startId" />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="endLocation" class="form-label">End Location</label>
+                <input type="text" id="endLocation" class="form-control" placeholder="Selected from sublocation..." readonly />
+                <input type="hidden" id="endLat" />
+                <input type="hidden" id="endLng" />
+                <input type="hidden" id="endId" />
+              </div>
+            </div>
+
+            <!-- Distance Map -->
+            <div id="distanceMap" class="mb-3"></div>
+
+            <!-- Calculation Buttons -->
+            <div class="row mb-3">
+              <div class="col-4">
+                <button id="calculateDistanceBtn" class="btn btn-success btn-block">Calculate Distance</button>
+              </div>
+              <div class="col-4">
+                <button id="resetDistanceBtn" class="btn btn-danger btn-block">Reset</button>
+              </div>
+              <div class="col-4">
+                <button id="saveDistanceBtn" class="btn btn-primary btn-block">Save Distance</button>
+              </div>
+            </div>
+
+            <!-- Rest of the Content -->
+            <div id="locationDetails">
+              <button id="editRecordBtn" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-pencil-alt"></i>
+              </button>
+              <h4 id="selectedLocationBanner" class="mb-0"></h4>
+            </div>
+            <div id="locationActions" class="mb-3">
+              <button id="addLocationBtn" class="btn btn-success btn-sm"></button>
+              <button id="deleteLocationBtn" class="btn btn-danger btn-sm">Delete Location</button>
+            </div>
+            <div id="datatableContainer"></div>
+            <div id="sightseeingTableContainer" class="mt-4">
+              <h4>Sightseeing Records</h4>
+              <table id="sightseeingTable" class="display table table-striped table-bordered" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>Default_ss</th>
+                    <th>Sightseeing</th>
+                    <th>Distance (km)</th>
+                    <th>PAX</th>
+                    <th>Rate</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="alert alert-info mt-3">
+              Click a <strong>sublocation</strong> from the nav bar to select a location.
+              <strong id="selectionModeLabel">Currently selecting: Start Location</strong>
+            </div>
+            <div id="distanceTableContainer"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Image View -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">Image View</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <img id="modalImage" src="" alt="Full Image" class="img-fluid" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Add/Edit Geography Record -->
+  <!-- Modal for Add/Edit Geography Record -->
+  <div class="modal fade modal-fullscreen" id="addEditModal" tabindex="-1" aria-labelledby="addEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 1920px;">
+      <div class="modal-content" style="width: 1500px; height: 1000px; max-width: 100%; margin: auto;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addEditModalLabel">Add Geography Record</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body p-0" style="height: calc(100% - 56px);">
+          <iframe id="addEditIframe" src="<?= site_url('GeogController/editView') ?>" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="modalLoading" style="display: none;">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+
+
+
+  <!-- JavaScript Libraries -->
+  <!-- 1. jQuery -->
+  <script src="<?= base_url('masters/js/jquery-3.7.1.min.js'); ?>"></script>
+  <!-- 2. Leaflet -->
+  <script src="<?= base_url('masters/leaflet/leaflet.js'); ?>"></script>
+  <!-- 3. jQuery UI -->
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <!-- 4. Bootstrap Bundle -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <!-- 5. SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- 6. DataTables -->
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+  <!-- Your Custom Script -->
+  <script>
+    var records = <?= json_encode($records) ?>;
+    console.log("Records from PHP:", records);
+    // Disable DataTables error alerts.
+    $.fn.dataTable.ext.errMode = 'none';
+  </script>
+
+  <!-- Wrap custom code in window load to ensure all scripts are loaded -->
+  <script>
+    window.addEventListener("load", function() {
+      function updateParentDropdown() {
+        console.log("updateParentDropdown() called.");
+      }
+
+      // Global variables.
+      var currentSelectedRecord = null,
+        treeMaxLevel = 4,
+        startMarker, endMarker, routeLayer,
+        lockedParentParams = null,
+        distanceExists = <?= isset($existingDistance) ? 'true' : 'false' ?>;
+
+
+      // Show loading overlay when modal is shown.
+      $('#addEditModal').on('show.bs.modal', function() {
+        $('#modalLoading').show();
+      });
+
+      // Hide loading overlay when iframe has finished loading.
+      $('#addEditIframe').on('load', function() {
+        $('#modalLoading').fadeOut();
+      });
+
+      // When the modal starts closing, show the loading overlay again.
+      $('#addEditModal').on('hide.bs.modal', function() {
+        $('#modalLoading').show();
+      });
+
+      // When the modal has completely closed, trigger a page refresh.
+      $('#addEditModal').on('hidden.bs.modal', function() {
+        location.reload();
+      });
+
+      // Optional: Hide the loading overlay on page load, once everything is ready.
+      $(window).on('load', function() {
+        $('#modalLoading').fadeOut();
+      });
+
+
+
+
+      function reloadSublocationTable() {
+        if (currentSelectedRecord && currentSelectedRecord.geog_level_id == treeMaxLevel) {
+          $.ajax({
+            url: "<?= site_url('GeogController/sublocations') ?>/" + currentSelectedRecord.geog_id,
+            method: "GET",
+            success: function(tableHtml) {
+              $('#datatableContainer').html(tableHtml);
+              setTimeout(function() {
+                if ($.fn.DataTable.isDataTable('#geog-datatable')) {
+                  $('#geog-datatable').DataTable().destroy();
+                }
+                $('#geog-datatable').DataTable({
+                  destroy: true
+                });
+              }, 50);
+            },
+            error: function() {
+              console.error("Failed to reload sublocation datatable.");
+            }
+          });
+        }
+      }
+
+      // Load sightseeing records.
+      function loadSightseeingRecords(locationId) {
+        $.ajax({
+          url: "<?= site_url('GeogController/getSightseeingByLocation') ?>/" + locationId,
+          method: "GET",
+          dataType: "json",
+          success: function(data) {
+            var tbody = '';
+            if (data.length) {
+              data.forEach(function(record) {
+                tbody += '<tr data-id="' + record.sightseeing_id + '">';
+                // Use a radio button for default selection.
+                tbody += '<td><input type="radio" name="default_ss" class="default-ss" data-id="' + record.sightseeing_id + '" ' + (record.is_default_ss == 1 ? 'checked' : '') + ' /></td>';
+                tbody += '<td><input type="text" class="form-control sightseeing-name" value="' + (record.sightseeing_name || '') + '"/></td>';
+                tbody += '<td><input type="number" step="any" class="form-control sightseeing-distance" value="' + (record.sightseeing_distance || '') + '"/></td>';
+                tbody += '<td><input type="checkbox" class="sightseeing-pax" ' + (record.is_pax ? 'checked' : '') + '/></td>';
+                tbody += '<td><input type="number" step="any" class="form-control sightseeing-rate" value="' + (record.tariff || '') + '"/></td>';
+                tbody += '<td>';
+                if (record.img_path) {
+                  // Add a class to the image for click handling and set a data attribute with the full path
+                  tbody += '<img src="' + record.img_path + '" alt="Image" class="sightseeing-thumb" style="width:50px; margin-right:5px; cursor:pointer;" data-full="' + record.img_path + '"/>';
+                }
+                tbody += '<input type="file" class="form-control-file sightseeing-image"/></td>';
+                tbody += '<td><button class="btn btn-primary btn-sm update-sightseeing">Update</button></td>';
+                tbody += '</tr>';
+              });
+            } else {
+              tbody = '<tr><td colspan="7" class="text-center">No sightseeing records found for this location.</td></tr>';
+            }
+            $('#sightseeingTable tbody').html(tbody);
+            if (!$.fn.DataTable.isDataTable('#sightseeingTable')) {
+              $('#sightseeingTable').DataTable();
+            }
+          },
+          error: function(err) {
+            console.error("Error fetching sightseeing records", err);
+          }
+        });
+      }
+      //sublocation default_ss
+      $(document).on('change', '.default-ss', function() {
+        var selectedId = $(this).data('id');
+
+        $.ajax({
+          url: "<?= site_url('GeogController/setDefault') ?>/" + selectedId,
+          method: "POST",
+          dataType: "json",
+          success: function(response) {
+            if (response.success) {
+              Swal.fire('Success', 'Default sightseeing updated successfully!', 'success');
+            } else {
+              Swal.fire('Error', 'Failed to update default sightseeing', 'error');
+            }
+          },
+          error: function(err) {
+            Swal.fire('Error', 'An error occurred while updating default sightseeing', 'error');
+          }
+        });
+      });
+
+      // Event delegation for thumbnail click to open the modal
+      $(document).on('click', '.sightseeing-thumb', function() {
+        var fullImageSrc = $(this).data('full');
+        $('#modalImage').attr('src', fullImageSrc);
+        $('#imageModal').modal('show');
+      });
+
+      var marker = null,
+        baseURL = "<?= site_url(); ?>/",
+        geographyRecords = <?= isset($records) ? json_encode($records) : '[]'; ?>,
+        existingDistance = <?= isset($existingDistance) ? json_encode($existingDistance) : 'null' ?>;
+
+      if (existingDistance) {
+        $('#distanceValue').text("Distance: " + parseFloat(existingDistance).toFixed(2) + " km");
+        $('#distanceResult').show();
+      }
+
+      function updateSelectionMode() {
+        var mode = ($('#startLocation').val() === "") ? "Start Location" : "End Location";
+        $('#selectionModeLabel').text("Currently selecting: " + mode);
+      }
+      updateSelectionMode();
+
+      // New: Check for an existing distance record when both locations are selected.
+      function checkDistanceRecord() {
+        var startId = $('#startId').val(),
+          endId = $('#endId').val();
+        if (startId && endId) {
+          $.ajax({
+            url: "<?= site_url('GeogController/getDistance') ?>",
+            method: "GET",
+            dataType: "json",
+            data: {
+              geog_from_id: startId,
+              geog_to_id: endId
+            },
+            success: function(response) {
+              if (response && !response.not_found && response.records && response.records.length > 0) {
+                // Look for a record that exactly matches the current order.
+                var exactRecord = response.records.find(function(rec) {
+                  return rec.geog_from_id == startId && rec.geog_to_id == endId;
+                });
+                // If not found, check for the reversed order.
+                if (!exactRecord) {
+                  exactRecord = response.records.find(function(rec) {
+                    return rec.geog_from_id == endId && rec.geog_to_id == startId;
+                  });
+                }
+
+                if (exactRecord) {
+                  var currentDistance = parseFloat(exactRecord.geog_km_distance).toFixed(2);
+                  $('#distanceValue').text("Distance: " + currentDistance + " km");
+                  $('#distanceResult').show();
+                }
+
+                // If there are two records, warn if the distances differ.
+                if (response.records.length > 1) {
+                  var firstDistance = parseFloat(response.records[0].geog_km_distance).toFixed(2),
+                    secondDistance = parseFloat(response.records[1].geog_km_distance).toFixed(2);
+                  if (firstDistance !== secondDistance) {
+                    Swal.fire("Warning", "The distance for the combination in one order is " +
+                      firstDistance + " km, but in the reversed order it is " + secondDistance + " km.", "warning");
+                  }
+                }
+
+                // Build the datatable for informational purposes.
+                var tableHtml = '<table id="distanceDatatable" class="display" style="width:100%">';
+                tableHtml += '<thead><tr><th>ID</th><th>From ID</th><th>To ID</th><th>Distance (km)</th><th>Action</th></tr></thead>';
+                tableHtml += '<tbody>';
+                response.records.forEach(function(rec) {
+                  tableHtml += '<tr>';
+                  tableHtml += '<td>' + rec.geog_dist_id + '</td>';
+                  tableHtml += '<td>' + rec.geog_from_id + '</td>';
+                  tableHtml += '<td>' + rec.geog_to_id + '</td>';
+                  tableHtml += '<td><input type="number" step="any" class="form-control edit-distance" value="' + parseFloat(rec.geog_km_distance).toFixed(2) + '" readonly></td>';
+                  tableHtml += '<td><button class="btn btn-primary btn-sm update-distance-record" data-id="' + rec.geog_dist_id + '" disabled>Update</button></td>';
+                  tableHtml += '</tr>';
+                });
+                tableHtml += '</tbody></table>';
+                // Insert the table into the container and hide it by default.
+                $('#distanceTableContainer').html(tableHtml).hide();
+                if ($.fn.DataTable.isDataTable('#distanceDatatable')) {
+                  $('#distanceDatatable').DataTable().destroy();
+                }
+                $('#distanceDatatable').DataTable({
+                  destroy: true
+                });
+              } else {
+                // If no record found, set distance span to default zero.
+                $('#distanceValue').text("Distance: 0 km");
+                // Show a warning if no record is found.
+                Swal.fire("Notice", "No distance record found for these start and end locations.", "info");
+              }
+            },
+            error: function(err) {
+              console.error("Error checking distance record", err);
+            }
+          });
+        }
+      }
+
+
+      function buildTree(records, parentId, level) {
+        level = level || 1;
+        var children = (parentId === "top") ?
+          records.filter(r => r.geog_id == r.geog_parent_id) :
+          records.filter(r => r.geog_parent_id == parentId && r.geog_id != r.geog_parent_id);
+        if (!children.length) return "";
+        var html = '<ul class="list-group nested-ul">';
+        children.forEach(function(record) {
+          if (level < treeMaxLevel && records.some(r => r.geog_parent_id == record.geog_id && r.geog_id != record.geog_parent_id)) {
+            html += `<li class="list-group-item">
+  <a href="#" class="nav-link level-node" data-toggle="collapse" data-target="#child-${record.geog_id}" aria-expanded="false" data-id="${record.geog_id}" data-parentid="${record.geog_parent_id}" data-name="${record.geog_name}" data-lat="${record.geog_latitude}" data-lng="${record.geog_longitude}" data-level="${level}">
+    ${record.geog_name} <span class="float-right">&#9660;</span>
+  </a>
+  <div class="collapse" id="child-${record.geog_id}">${buildTree(records, record.geog_id, level+1)}</div>
+</li>`;
+          } else {
+            html += `<li class="list-group-item">
+  <a href="#" class="nav-link level-node" data-id="${record.geog_id}" data-parentid="${record.geog_parent_id}" data-name="${record.geog_name}" data-lat="${record.geog_latitude}" data-lng="${record.geog_longitude}" data-level="${level}">
+    ${record.geog_name}
+  </a>
+</li>`;
+          }
+        });
+        html += "</ul>";
+        return html;
+      }
+      $('#recordTree').html(buildTree(geographyRecords, "top", 1));
+
+      $('#searchLocation').on('keyup', function() {
+        var query = $(this).val().toLowerCase();
+        if (query === "") {
+          $("#recordTree li").show();
+        } else {
+          $("#recordTree li").each(function() {
+            var text = $(this).find(".nav-link").first().text().toLowerCase();
+            if (text.indexOf(query) !== -1) {
+              $(this).show();
+              $(this).parents("li").show();
+            } else {
+              $(this).hide();
+            }
+          });
+        }
+      });
+
+      var worldBounds = L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180));
+      var distanceMap = L.map('distanceMap', {
+        center: [20.5937, 78.9629],
+        zoom: 5,
+        maxBounds: worldBounds,
+        maxBoundsViscosity: 1.0
+      });
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap contributors",
+        noWrap: true
+      }).addTo(distanceMap);
+
+      function reverseGeocode(lat, lng, callback) {
+        var apiKey = "cff4204c34c2459b8d684b16ab8496eb",
+          reverseUrl = `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lng}&lang=en&apiKey=${apiKey}`;
+        $.getJSON(reverseUrl, function(response) {
+          callback(response.features && response.features.length ?
+            response.features[0].properties.formatted :
+            "Lat: " + lat.toFixed(4) + ", Lng: " + lng.toFixed(4));
+        }).fail(function() {
+          callback("Lat: " + lat.toFixed(4) + ", Lng: " + lng.toFixed(4));
+        });
+      }
+
+      $(document).on('click', '.level-node', function(e) {
+        e.preventDefault();
+        var $this = $(this),
+          level = parseInt($this.data('level')),
+          id = $this.data('id'),
+          name = $this.data('name'),
+          lat = $this.data('lat'),
+          lng = $this.data('lng');
+
+        localStorage.setItem('selectedGeogId', id);
+        if (lat && lng) {
+          distanceMap.setView([lat, lng], 10);
+        }
+        $('#selectedLocationBanner').text("Selected: " + name);
+        $('#locationDetails').show();
+        currentSelectedRecord = geographyRecords.find(r => r.geog_id == id);
+        if (currentSelectedRecord) {
+          $('#locationActions').show();
+          let currentLevel = parseInt(currentSelectedRecord.geog_level_id),
+            addButtonText = currentLevel === 1 ? "Add Country" :
+            currentLevel === 2 ? "Add Region" :
+            currentLevel === 3 ? "Add Location" :
+            currentLevel === 4 ? "Add Sub Location" :
+            "Add Location";
+          $('#addLocationBtn').text(addButtonText);
+          lockedParentParams = {
+            parentId: id,
+            parentName: name,
+            newLevel: (currentLevel + 1).toString()
+          };
+          loadSightseeingRecords(currentSelectedRecord.geog_id);
+          let iframeSrc = "<?= site_url('GeogController/editView') ?>" +
+            "?parentId=" + id +
+            "&parentName=" + encodeURIComponent(name) +
+            "&newLevel=" + lockedParentParams.newLevel +
+            "&parentLat=" + currentSelectedRecord.geog_latitude +
+            "&parentLng=" + currentSelectedRecord.geog_longitude;
+          $("#addEditIframe").attr("src", iframeSrc);
+        }
+        if (level === treeMaxLevel) {
+          if ($('#startLocation').val() === "") {
+            $('#startLocation').val(name).prop("disabled", true);
+            $('#startLat').val(lat);
+            $('#startLng').val(lng);
+            $('#startId').val(id);
+            if (startMarker) {
+              distanceMap.removeLayer(startMarker);
+            }
+            startMarker = L.marker([lat, lng]).addTo(distanceMap);
+          } else {
+            $('#endLocation').val(name);
+            $('#endLat').val(lat);
+            $('#endLng').val(lng);
+            $('#endId').val(id);
+            if (endMarker) {
+              distanceMap.removeLayer(endMarker);
+            }
+            endMarker = L.marker([lat, lng]).addTo(distanceMap);
+          }
+          updateSelectionMode();
+          // New: Check for existing distance record when both start and end are set.
+          checkDistanceRecord();
+        }
+        if (level == treeMaxLevel) {
+          var level5Nodes = geographyRecords.filter(record => record.geog_parent_id == id && record.geog_id != id),
+            tableHtml = '<table id="geog-datatable" class="display" style="width:100%">' +
+            '<thead><tr><th>ID</th><th>Name</th><th>Latitude</th><th>Longitude</th><th>Action</th></tr></thead><tbody>';
+          if (level5Nodes.length) {
+            level5Nodes.forEach(node => {
+              tableHtml += `<tr>
+    <td>${node.geog_id}</td>
+    <td>${node.geog_name}</td>
+    <td>${node.geog_latitude}</td>
+    <td>${node.geog_longitude}</td>
+    <td>
+      <button class="btn btn-primary btn-sm edit-sublocation" data-id="${node.geog_id}">Edit</button>
+      <button class="btn btn-danger btn-sm delete-sublocation" data-id="${node.geog_id}">Delete</button>
+    </td>
+  </tr>`;
+            });
+          } else {
+            tableHtml += '<tr><td colspan="5">No sublocations available.</td></tr>';
+          }
+          tableHtml += '</tbody></table>';
+          $('#datatableContainer').html(tableHtml);
+          setTimeout(function() {
+            if ($.fn.DataTable.isDataTable('#geog-datatable')) {
+              $('#geog-datatable').DataTable().destroy();
+            }
+            $('#geog-datatable').DataTable({
+              destroy: true
+            });
+          }, 50);
+        } else {
+          $('#datatableContainer').html("");
+        }
+      });
+
+      // Delete sublocation.
+      $(document).on('click', '.delete-sublocation', function(e) {
+        e.preventDefault();
+        var $btn = $(this),
+          sublocationId = $btn.data('id');
+        Swal.fire({
+          title: "Are you sure?",
+          text: "This will delete the sublocation record permanently.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: "<?= site_url('GeogController/deleteGeog/') ?>" + sublocationId,
+              method: "DELETE",
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+              },
+              success: function(response) {
+                if (response.success) {
+                  Swal.fire("Deleted", response.message, "success").then(() => {
+                    reloadSublocationTable();
+                  });
+                } else {
+                  Swal.fire("Error", response.message || "Failed to delete the record.", "error");
+                }
+              },
+              error: function(xhr) {
+                console.error("Delete error:", xhr.responseText);
+                Swal.fire("Error", "An error occurred while deleting the sublocation.", "error");
+              }
+            });
+          }
+        });
+      });
+
+      // Delete location.
+      $('#deleteLocationBtn').on('click', function() {
+        if (!currentSelectedRecord) {
+          return Swal.fire("No Location Selected", "Please select a location first.", "warning");
+        }
+        Swal.fire({
+          title: "Are you sure?",
+          text: "This will delete the location record permanently.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            $.ajax({
+              url: "<?= site_url('GeogController/deleteGeog/') ?>" + currentSelectedRecord.geog_id,
+              method: "DELETE",
+              headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr("content")
+              },
+              success: function(response) {
+                if (response.success) {
+                  Swal.fire("Deleted", response.message, "success").then(() => {
+                    location.reload();
+                  });
+                } else {
+                  Swal.fire("Error", response.message || "Failed to delete the record.", "error");
+                }
+              },
+              error: function(xhr) {
+                Swal.fire("Error", "An error occurred while deleting the location.", "error");
+              }
+            });
+          }
+        });
+      });
+
+      // Update sightseeing record.
+      $(document).on('click', '.update-sightseeing', function(e) {
+        e.preventDefault();
+        var $row = $(this).closest('tr'),
+          sightseeingId = $row.data('id'),
+          formData = new FormData();
+        formData.append('sightseeing_id', sightseeingId);
+        formData.append('sightseeing_name', $row.find('.sightseeing-name').val());
+        formData.append('sightseeing_distance', $row.find('.sightseeing-distance').val());
+        formData.append('tariff', $row.find('.sightseeing-rate').val());
+        formData.append('is_pax', $row.find('.sightseeing-pax').is(':checked') ? 1 : 0);
+        var fileInput = $row.find('.sightseeing-image')[0];
+        if (fileInput.files.length > 0) {
+          formData.append('sightseeing_image', fileInput.files[0]);
+        }
+        $.ajax({
+          url: "<?= site_url('GeogController/updateSightseeingRecord') ?>",
+          type: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function(response) {
+            Swal.fire(response.success ? "Success" : "Error", response.message || "Record updated", response.success ? "success" : "error");
+          },
+          error: function(xhr) {
+            Swal.fire("Error", "An error occurred while updating the sightseeing record.", "error");
+          }
+        });
+      });
+
+      function calculateDistance() {
+        var startLat = $('#startLat').val(),
+          startLng = $('#startLng').val(),
+          endLat = $('#endLat').val(),
+          endLng = $('#endLng').val();
+        if (!startLat || !startLng || !endLat || !endLng) {
+          return Swal.fire("Missing Information", "Please select both start and end locations with valid coordinates.", "warning");
+        }
+        var apiKey = "cff4204c34c2459b8d684b16ab8496eb",
+          apiUrl = `https://api.geoapify.com/v1/routing?waypoints=${startLat},${startLng}|${endLat},${endLng}&mode=drive&apiKey=${apiKey}`;
+        $.getJSON(apiUrl, function(response) {
+          if (response.features && response.features.length > 0) {
+            var distance = response.features[0].properties.distance / 1000;
+            $('#distanceValue').text("Distance: " + distance.toFixed(2) + " km");
+            $('#distanceResult').fadeIn();
+            if (routeLayer) {
+              distanceMap.removeLayer(routeLayer);
+            }
+            var coordinates = response.features[0].geometry.coordinates[0].map(coord => [coord[1], coord[0]]);
+            routeLayer = L.polyline(coordinates, {
+              color: 'blue',
+              weight: 4
+            }).addTo(distanceMap);
+            distanceMap.fitBounds(routeLayer.getBounds());
+          } else {
+            Swal.fire("Error", "Could not calculate the route.", "error");
+          }
+        });
+      }
+      $('#calculateDistanceBtn').on('click', calculateDistance);
+
+      $('#saveDistanceBtn').on('click', function() {
+        var distanceVal;
+        if ($('#distanceInput').length > 0) {
+          distanceVal = parseFloat($('#distanceInput').val());
+          $('#distanceValue').text("Distance: " + distanceVal.toFixed(2) + " km");
+        } else {
+          var text = $('#distanceValue').text().replace("Distance: ", "").replace(" km", "");
+          distanceVal = parseFloat(text);
+        }
+        if (isNaN(distanceVal) || distanceVal <= 0) {
+          return Swal.fire("Invalid Distance", "Please enter a valid distance value.", "warning");
+        }
+        var startId = $('#startId').val(),
+          endId = $('#endId').val();
+        if (!startId || !endId) {
+          return Swal.fire("Missing IDs", "Please select valid start and end sublocations.", "warning");
+        }
+        var endpoint = distanceExists ? "<?= site_url('GeogController/updateDistance') ?>" : "<?= site_url('GeogController/saveDistance') ?>";
+        $.ajax({
+          url: endpoint,
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            geog_from_id: startId,
+            geog_to_id: endId,
+            geog_km_distance: distanceVal
+          }),
+          success: function(response) {
+            Swal.fire(response.success ? "Success" : "Error", response.message || "Distance saved", response.success ? "success" : "error");
+            if (response.success) {
+              distanceExists = true;
+              // Refresh the distance datatable to reflect changes.
+              checkDistanceRecord();
+            }
+          },
+          error: function(xhr) {
+            var errorMessage = "An error occurred while saving the distance.";
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+              errorMessage = xhr.responseJSON.message;
+            } else if (xhr.responseText) {
+              errorMessage = xhr.responseText;
+            }
+            Swal.fire("Error", errorMessage, "error");
+          }
+        });
+      });
+
+      $('#editDistanceBtn').on('click', function() {
+        // If the input field is not present, switch to edit mode.
+        if ($('#distanceInput').length === 0) {
+          // Get the current displayed distance value (strip the prefix/suffix).
+          var currentText = $('#distanceValue').text().replace("Distance: ", "").replace(" km", "");
+          // Replace the plain text with an input field for editing.
+          $('#distanceValue').html("Distance: <input type='number' step='any' id='distanceInput' value='" + parseFloat(currentText).toFixed(2) + "'> km");
+          // Change the button text to 'Update'.
+          $(this).text("Update");
+        } else {
+          // In update mode, capture the new value.
+          var newDistance = parseFloat($('#distanceInput').val());
+          if (isNaN(newDistance) || newDistance <= 0) {
+            return Swal.fire("Invalid Distance", "Please enter a valid distance value.", "warning");
+          }
+          var startId = $('#startId').val();
+          var endId = $('#endId').val();
+          // First, validate the new distance against stored values.
+          $.ajax({
+            url: "<?= site_url('GeogController/getDistance') ?>",
+            method: "GET",
+            dataType: "json",
+            data: {
+              geog_from_id: startId,
+              geog_to_id: endId
+            },
+            success: function(response) {
+              var storedDistance = "";
+              if (response && !response.not_found && response.records && response.records.length > 0) {
+                storedDistance = parseFloat(response.records[0].geog_km_distance).toFixed(2);
+                // If a second record exists, compare distances.
+                if (response.records.length > 1) {
+                  var secondDistance = parseFloat(response.records[1].geog_km_distance).toFixed(2);
+                  if (storedDistance !== secondDistance) {
+                    Swal.fire("Warning", "The stored distance differs: one record shows " + storedDistance + " km and the other shows " + secondDistance + " km.", "warning");
+                  }
+                }
+              }
+              // Proceed with updating the record.
+              $.ajax({
+                url: "<?= site_url('GeogController/updateDistance') ?>",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                  geog_from_id: startId,
+                  geog_to_id: endId,
+                  geog_km_distance: newDistance
+                }),
+                success: function(response) {
+                  Swal.fire(response.success ? "Success" : "Error", response.message || "Distance updated", response.success ? "success" : "error");
+                  if (response.success) {
+                    // Update the distance display as plain text.
+                    $('#distanceValue').text("Distance: " + newDistance.toFixed(2) + " km");
+                    // Update the datatable's value (if it exists).
+                    $('.edit-distance').val(newDistance.toFixed(2));
+                    // Revert the button text back to 'Edit'.
+                    $('#editDistanceBtn').text("Edit");
+                  }
+                },
+                error: function(xhr) {
+                  Swal.fire("Error", "An error occurred while updating the distance.", "error");
+                }
+              });
+            },
+            error: function(err) {
+              console.error("Error validating distance record", err);
+              // If error validating, still attempt update.
+              $.ajax({
+                url: "<?= site_url('GeogController/updateDistance') ?>",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                  geog_from_id: startId,
+                  geog_to_id: endId,
+                  geog_km_distance: newDistance
+                }),
+                success: function(response) {
+                  Swal.fire(response.success ? "Success" : "Error", response.message || "Distance updated", response.success ? "success" : "error");
+                  if (response.success) {
+                    $('#distanceValue').text("Distance: " + newDistance.toFixed(2) + " km");
+                    $('.edit-distance').val(newDistance.toFixed(2));
+                    $('#editDistanceBtn').text("Edit");
+                  }
+                },
+                error: function(xhr) {
+                  Swal.fire("Error", "An error occurred while updating the distance.", "error");
+                }
+              });
+            }
+          });
+        }
+      });
+
+      $(document).on('blur keydown', '#distanceInput', function(e) {
+        if (e.type === "blur" || (e.type === "keydown" && e.key === "Enter")) {
+          var newDistance = parseFloat($('#distanceInput').val());
+          if (isNaN(newDistance) || newDistance <= 0) {
+            return Swal.fire("Invalid Distance", "Please enter a valid distance value.", "warning");
+          }
+          $('#distanceValue').text("Distance: " + newDistance.toFixed(2) + " km");
+        }
+      });
+
+      // New: Update distance record from the datatable.
+      $(document).on('click', '.update-distance-record', function(e) {
+        e.preventDefault();
+        var $btn = $(this),
+          recordId = $btn.data('id'),
+          newDistance = parseFloat($btn.closest('tr').find('.edit-distance').val());
+        if (isNaN(newDistance) || newDistance <= 0) {
+          return Swal.fire("Invalid Distance", "Please enter a valid distance value.", "warning");
+        }
+        var startId = $('#startId').val(),
+          endId = $('#endId').val();
+        $.ajax({
+          url: "<?= site_url('GeogController/updateDistance') ?>",
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            geog_from_id: startId,
+            geog_to_id: endId,
+            geog_km_distance: newDistance
+          }),
+          success: function(response) {
+            Swal.fire(response.success ? "Success" : "Error", response.message || "Distance updated", response.success ? "success" : "error");
+            if (response.success) {
+              checkDistanceRecord();
+            }
+          },
+          error: function(xhr) {
+            Swal.fire("Error", "An error occurred while updating the distance.", "error");
+          }
+        });
+      });
+
+      $('#resetDistanceBtn').on('click', function() {
+        // Only clear the selection fields (IDs, lat/lng, location names)
+        $('#startLat, #startLng, #endLat, #endLng, #startId, #endId').val("");
+        $('#startLocation, #endLocation').val("");
+        // Reset the distance display to its default state
+        $('#distanceValue').text("Distance: 0 km");
+        // Re-enable the start location input if needed
+        $('#startLocation').prop("disabled", false);
+        // Update the selection mode text accordingly
+        updateSelectionMode();
+      });
+
+      $('#addLocationBtn').on('click', function() {
+        var newSrc = "<?= site_url('GeogController/editView') ?>";
+        if (lockedParentParams) {
+          newSrc += "?parentId=" + lockedParentParams.parentId +
+            "&parentName=" + encodeURIComponent(lockedParentParams.parentName) +
+            "&newLevel=" + lockedParentParams.newLevel +
+            "&parentLat=" + currentSelectedRecord.geog_latitude +
+            "&parentLng=" + currentSelectedRecord.geog_longitude;
+        }
+        $("#addEditIframe").attr("src", newSrc);
+        $("#addEditModalLabel").text("Add Geography Record");
+        $('#addEditModal').modal('show');
+      });
+
+      $(document).on('click', '.edit-sublocation', function(e) {
+        e.preventDefault();
+        var sublocationId = $(this).data('id');
+        let editUrl = "<?= site_url('GeogController/editView') ?>" + "?geog_id=" + sublocationId;
+        $("#addEditIframe").attr("src", editUrl);
+        $("#addEditModalLabel").text("Edit Geography Record");
+        $('#addEditModal').modal('show');
+      });
+
+      $('#editRecordBtn').on('click', function() {
+        if (!currentSelectedRecord) {
+          return Swal.fire("No Location Selected", "Please select a location first.", "warning");
+        }
+        let editUrl = "<?= site_url('GeogController/editView') ?>" + "?geog_id=" + currentSelectedRecord.geog_id;
+        $("#addEditIframe").attr("src", editUrl);
+        $("#addEditModalLabel").text("Edit Geography Record");
+        $('#addEditModal').modal('show');
+        setTimeout(function() {
+          $("#geog_parent_id").prop("disabled", true);
+        }, 50);
+      });
+
+      // Modal hidden event: refresh the page for fresh data
+      $('#addEditModal').on('hidden.bs.modal', function() {
+        location.reload();
+      });
+
+      window.addEventListener("message", function(event) {
+        if (event.data && event.data.reloadSublocation) {
+          console.log("PostMessage received to reload sublocation datatable.");
+          reloadSublocationTable();
+        }
+      }, false);
+
+      $(window).on('resize', () => distanceMap.invalidateSize());
+
+      function loadGeographyLevels() {
+        $.ajax({
+          url: "<?= site_url('GeogController/getLevels') ?>",
+          type: "GET",
+          dataType: "json",
+          success: function(levels) {
+            var $select = $("#edit_geog_level_id").empty().append('<option value="">-- Select Level --</option>');
+            $.each(levels, function(index, level) {
+              $select.append('<option value="' + level.geog_level_id + '">' + level.geog_level_name + '</option>');
+            });
+          },
+          error: function(xhr, status, error) {
+            console.error("Error loading geography levels:", error);
+          }
+        });
+      }
+      loadGeographyLevels();
+      console.log("Loaded geographyRecords:", geographyRecords);
+
+      $(document).ready(function() {
+        updateParentDropdown();
+        var storedId = localStorage.getItem('selectedGeogId');
+        if (storedId) {
+          $('.nav-link[data-id="' + storedId + '"]').trigger('click');
+        }
+
+        if (!getQueryParam("geog_id")) {
+          const params = new URLSearchParams(window.location.search),
+            parentId = params.get("parentId"),
+            parentName = params.get("parentName"),
+            newLevel = params.get("newLevel");
+          if (parentId && parentName && newLevel) {
+            $("#geog_parent_id").html(`<option value="${parentId}">${parentName}</option>`);
+            $("#geog_parent_name").val(parentName);
+            $("#geog_level_id").val(newLevel);
+            $("#geog_parent_id").prop("disabled", true);
+            let headingText = "";
+            switch (newLevel) {
+              case "3":
+                headingText = "Add Region";
+                break;
+              case "4":
+                headingText = "Add Location";
+                break;
+              case "5":
+                headingText = "Add Sub Location";
+                break;
+              default:
+                headingText = "Add Geography Record";
+            }
+            $("#formHeading").text(headingText);
+            $("#submitBtn").text(headingText);
+          }
+        }
+        $("#geog_level_id").on("change", function() {
+          if ($("#geog_parent_id").prop("disabled")) {
+            $("#geog_parent_id").prop("disabled", true);
+          }
+        });
+        if (distanceMap) {
+          distanceMap.on("click", function(e) {
+            const lat = e.latlng.lat,
+              lon = e.latlng.lng;
+            $.ajax({
+              type: "GET",
+              url: "https://api.geoapify.com/v1/geocode/reverse",
+              dataType: "json",
+              data: {
+                lat: lat,
+                lon: lon,
+                format: "json",
+                apiKey: "46ab7b49387d4b59984151af1ce71554"
+              },
+              success: function(data) {
+                const feature = data.features && data.features.length ? data.features[0] : null;
+                if (feature) {
+                  const props = feature.properties;
+                  $("#geog_name").val(props.formatted);
+                  $("#geog_latitude").val(lat);
+                  $("#geog_longitude").val(lon);
+                  $("#geog_timezone").val(props.timezone ? JSON.stringify(props.timezone) : '{"name":"UTC","offset_STD":"+00:00"}');
+                  $("#geog_description").val(props.formatted + " - ");
+                  if (!$("#geog_parent_id").prop("disabled")) {
+                    let detected = "";
+                    if ((props.suburb && props.suburb.trim()) || (props.town && props.town.trim()))
+                      detected = "5";
+                    else if (props.county && props.county.trim() && props.city && props.city.trim())
+                      detected = "4";
+                    else if (props.state && props.state.trim())
+                      detected = "3";
+                    else if (props.country && props.country.trim())
+                      detected = "2";
+                    if (detected) {
+                      $("#geog_level_id").val(detected);
+                      updateParentDropdown();
+                    }
+                  }
+                  marker ? marker.setLatLng([lat, lon]) : marker = L.marker([lat, lon]).addTo(distanceMap);
+                }
+              },
+              error: function(xhr, status, error) {
+                console.error("Geoapify reverse geocoding error:", status, error);
+              }
+            });
+          });
+        }
+      });
+
+      function getQueryParam(param) {
+        var params = new URLSearchParams(window.location.search);
+        return params.get(param);
+      }
+
+      var editGeogId = getQueryParam("geog_id");
+      if (editGeogId) {
+        var editRecord = records.find(r => r.geog_id == editGeogId);
+        if (editRecord) {
+          $("#editing_geog_id").val(editRecord.geog_id);
+          $("#geog_level_id").val(editRecord.geog_level_id);
+          $("#geog_name").val(editRecord.geog_name);
+          updateParentDropdown();
+          $("#geog_parent_id").val(editRecord.geog_parent_id);
+          $("#geog_parent_name").val(editRecord.geog_parent_name || "");
+          $("#geog_is_arrival").val(editRecord.geog_is_arrival);
+          $("#geog_is_departure").val(editRecord.geog_is_departure);
+          $("#geog_longitude").val(editRecord.geog_longitude);
+          $("#geog_latitude").val(editRecord.geog_latitude);
+          $("#geog_timezone").val(editRecord.goeg_timezone || editRecord.geog_timezone);
+          $("#geog_description").val(editRecord.geog_description);
+          $("#formHeading").text("Edit Geography Record");
+          $("#submitBtn").text("Update Geography Record");
+          $("#cancelEdit").show();
+          $("#geog_parent_id").prop("disabled", true);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

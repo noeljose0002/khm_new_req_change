@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+	<head>
+
+		<!-- Meta data -->
+		<meta charset="UTF-8">
+		<meta http-equiv="x-ua-compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta content="KHM-Touracle" name="description">
+		<meta content="Megatrend Knowledge Management Systems Pvt Ltd" name="author">
+		<meta name="keywords" content="KHM">
+		<!-- Favicon-->
+		<link rel="icon" href="<?php echo base_url('assets/images/brand/favicon.png'); ?>" type="image/x-icon"/>
+
+		<!-- Title -->
+		<title>KHM Dashboard</title>
+
+		<!-- Bootstrap css -->
+		<link href="<?php echo base_url('assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css'); ?>" rel="stylesheet" />
+
+		<!-- Style css -->
+		<link  href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet" />
+
+		<!-- Default css -->
+		<link href="<?php echo base_url('assets/css/default.css'); ?>" rel="stylesheet">
+
+		<!-- Sidemenu css-->
+		<link rel="stylesheet" href="<?php echo base_url('assets/plugins/sidemenu/icon-sidemenu.css'); ?>">
+
+		<!-- Owl-carousel css-->
+		<link href="<?php echo base_url('assets/plugins/owl-carousel/owl.carousel.css'); ?>" rel="stylesheet" />
+
+		<!-- Bootstrap-daterangepicker css -->
+		<link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-daterangepicker/daterangepicker.css'); ?>">
+
+		<!-- Bootstrap-datepicker css -->
+		<link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css'); ?>">
+
+		<!-- Custom scroll bar css -->
+		<link href="<?php echo base_url('assets/plugins/scroll-bar/jquery.mCustomScrollbar.css'); ?>" rel="stylesheet"/>
+
+		<!-- P-scroll css -->
+		<link href="<?php echo base_url('assets/plugins/p-scroll/p-scroll.css'); ?>" rel="stylesheet" type="text/css">
+
+		<link href="../assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+
+		<!-- Font-icons css -->
+		<link  href="<?php echo base_url('assets/css/icons.css'); ?>" rel="stylesheet">
+
+		<!-- Rightsidebar css -->
+		<link href="<?php echo base_url('assets/plugins/sidebar/sidebar.css'); ?>" rel="stylesheet">
+
+		<!-- Nice-select css  -->
+		<link href="<?php echo base_url('assets/plugins/jquery-nice-select/css/nice-select.css'); ?>" rel="stylesheet"/>
+
+		<!-- Color-palette css-->
+		<link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>"/>
+
+
+
+
+		<!--Bootstrap-colorpicker css-->
+		<link  href="../assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+		<!-- Sidemenu-repsonsive-tabs  css -->
+		<link href="../assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css" rel="stylesheet">
+
+		<!-- Select css -->
+		<link href="../assets/plugins/select2/select2.min.css" rel="stylesheet"/>
+
+		<!-- Time-picker css -->
+		<link href="../assets/plugins/time-picker/jquery.timepicker.css" rel="stylesheet"/>
+
+		<!--  Date-picker css -->
+		<link href="../assets/plugins/date-picker/date-picker.css" rel="stylesheet"/>
+
+		<!-- Multi select css -->
+		<link rel="stylesheet" href="../assets/plugins/multipleselect/multiple-select.css">
+
+		<!-- File uploads css -->
+        <link href="../assets/plugins/fileuploads/css/dropify.css" rel="stylesheet" type="text/css"/>
+
+		<!-- Nice-select css  -->
+		<link href="../assets/plugins/jquery-nice-select/css/nice-select.css" rel="stylesheet"/>
+
+		<style>
+        .error { color: red; font-size: 0.9em; }
+        .valid { color: green; font-size: 0.9em; }
+
+		#passwordFeedback {
+			list-style: disc; /* Standard bullet */
+			margin: 0; /* Remove default margin */
+			padding-left: 20px; /* Indent bullets slightly */
+			text-align: left; /* Align text to the left */
+		}
+
+		#passwordFeedback li {
+			margin-bottom: 1px; /* Add spacing between list items */
+		}
+    </style>
+
+	</head>
+
+	<body class="app sidebar-mini">	
+
+		<!-- Loader -->
+		<div id="loading">
+			<img src="<?php echo base_url('assets/images/other/loader.svg'); ?>" class="loader-img" alt="Loader">
+		</div>
+
+		<!-- PAGE -->
+		<div class="page">
+			<div class="page-main">
+
+				<!-- Top-header opened -->
+				<div class="header-main header sticky">
+					<div class="app-header header top-header navbar-collapse ">
+						<div class="container-fluid">
+							<div class="d-flex">
+								<a class="header-brand" href="index.html">
+									<img src="<?php echo base_url('assets/images/brand/logo.png'); ?>" class="header-brand-img desktop-logo " alt="Dashlot logo">
+									<img src="<?php echo base_url('assets/images/brand/logo1.png'); ?>" class="header-brand-img desktop-logo-1 " alt="Dashlot logo">
+									<img src="<?php echo base_url('assets/images/brand/favicon.png'); ?>" class="mobile-logo" alt="Dashlot logo">
+									<img src="<?php echo base_url('assets/images/brand/favicon1.png'); ?>" class="mobile-logo-1" alt="Dashlot logo">
+								</a>
+								<a href="#" data-toggle="sidebar" class="nav-link icon toggle"><i class="fe fe-align-justify fs-20"></i></a>
+								<div class="d-flex header-left left-header">
+									<div class="d-none d-lg-block horizontal">
+										<ul class="nav">
+											<li class="">
+												<div class="dropdown d-none d-md-flex">
+													<a href="#" class="d-flex nav-link pr-0  pt-2 mt-3 country-flag1" data-toggle="dropdown">
+														<span class="d-flex"><img src="<?php echo base_url('assets/images/roles.jpg'); ?>" alt="img" class="avatar country-Flag mr-2 align-self-center"></span>
+														<div>
+															<span class="d-flex fs-14 mr-3 mt-0"><?php echo session('active_role_name'); ?><span><i class="mdi mdi-chevron-down"></i></span></span>
+														</div>
+													</a>
+													<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+													<?php foreach ($all_roles_assn as $data) : ?>
+														<a href="#" onclick="switchroles(<?php echo $data['role_id']; ?>,'<?php echo $data['role_name']; ?>');" class="dropdown-item d-flex align-items-center mt-2">
+															<div>
+																<span><?php echo $data['role_name']; ?></span>
+															</div>
+														</a>
+													<?php endforeach; ?>
+														
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="d-flex header-left left-header">
+									<div class="d-none d-lg-block horizontal">
+										<ul class="nav">
+											<li class="">
+												<div class="dropdown d-none d-md-flex">
+													<a href="#" class="d-flex nav-link pr-0  pt-2 mt-3 country-flag1" data-toggle="dropdown">
+														<span class="d-flex"><img src="<?php echo base_url('assets/images/system.jpg'); ?>" alt="img" class="avatar country-Flag mr-2 align-self-center"></span>
+														<div>
+															<span class="d-flex fs-14 mr-3 mt-0"><?php echo session('system_name'); ?><span><i class="mdi mdi-chevron-down"></i></span></span>
+														</div>
+													</a>
+													<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+														<?php foreach ($all_systems as $datas) : ?>
+															<a href="#" onclick="switchsystems(<?php echo $datas['entity_boolean_id']; ?>,'<?php echo $datas['boolean_name']; ?>');" class="dropdown-item d-flex align-items-center mt-2">
+																<div>
+																	<span><?php echo $datas['boolean_name']; ?></span>
+																</div>
+															</a>
+														<?php endforeach; ?>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="d-flex header-right ml-auto">
+									<div class="dropdown header-fullscreen">
+										<a class="nav-link icon full-screen-link" id="fullscreen-button">
+											<i class="mdi mdi-arrow-collapse fs-20"></i>
+										</a>
+									</div>
+									
+									<div class="dropdown drop-profile">
+										<a class="nav-link pr-0 leading-none" href="#" data-toggle="dropdown" aria-expanded="false">
+											<div class="profile-details mt-1">
+												<span class="mr-3 mb-0  fs-15 font-weight-semibold"><?php echo session('user_name'); ?></span>
+												<!--<small class="text-muted mr-3">appdeveloper</small>-->
+											</div>
+											<img class="avatar avatar-md brround" src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="image">
+										 </a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated bounceInDown w-250">
+											<div class="user-profile bg-header-image border-bottom p-3">
+												<div class="user-image text-center">
+													<img class="user-images" src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="image">
+												</div>
+												<div class="user-details text-center">
+													<h4 class="mb-0"><?php echo session('user_name'); ?></h4>
+													<!--<p class="mb-1 fs-13 text-white-50">Jonathan@gmail.com</p>-->
+												</div>
+											</div>
+											<a class="dropdown-item" href="#">
+												<i class="dropdown-icon mdi mdi-account-outline "></i> Profile
+											</a>
+											<a class="dropdown-item" href="#">
+												<i class="dropdown-icon  mdi mdi-settings"></i> Settings
+											</a>
+											<a class="dropdown-item" href="#">
+												<span class="float-right"><span class="badge badge-success">6</span></span>
+												<i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
+											</a>
+											<a class="dropdown-item" href="#">
+												<i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
+											</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item" href="#">
+												<i class="dropdown-icon mdi mdi-compass"></i> Need help?
+											</a>
+											<a class="dropdown-item mb-1" href="<?=site_url('Login/logout');?>">
+												<i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+											</a>
+										</div>
+									</div><!-- Profile -->
+									<!--<div class="sidebar-link">
+										<a href="#" class="nav-link icon" data-toggle="sidebar-right" data-target=".sidebar-right">
+											<i class="fe fe-align-right" ></i>
+										</a>
+									</div>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Top-header closed -->
+
+				<!-- Sidebar menu-->
+				<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+				<aside class="app-sidebar toggle-sidebar">
+					<div class="app-sidebar__user">
+						<div class="user-body">
+							<img src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="profile-img" class="rounded-circle w-25">
+						</div>
+						<div class="user-info">
+							<a href="#" class=""><span class="app-sidebar__user-name font-weight-semibold"><?php echo session('user_name'); ?></span><br>
+							<!--span class="text-muted app-sidebar__user-designation text-sm">App Developer</span>-->
+							</a>
+						</div>
+					</div>
+					<ul class="side-menu toggle-menu">
+						<?php foreach($parent_menu as $key1 => $val1){ 
+							$img_tmp = $val1['entity_trans_id'].".svg";
+							?>
+							<li class="slide">
+								<a class="side-menu__item"  data-toggle="slide" href=""><span class="icon-menu-img"><img src="<?php echo base_url('assets/images/svgs/'.$img_tmp); ?>" class="side_menu_img svg-1" alt="image"></span><span class="side-menu__label"><?php echo $val1['entity_trans_name']; ?></span><i class="angle fa fa-angle-right"></i></a>
+								<ul class="slide-menu">
+									<?php foreach($sub_menu as $key2 => $val2){ 
+										if($val1['entity_trans_id'] == $val2['prs_parent_id']){
+											foreach($all_menus as $key3 => $val3){
+												if($val3['entity_trans_id'] == $val2['entity_trans_id']){
+										?>
+											<li><a class="slide-item" href="<?=site_url($val2['menu_link']);?>"><span><?php echo $val2['entity_trans_name']; ?></span></a></li>
+									<?php } } } } ?>
+								</ul>
+							</li>
+						<?php } ?>
+					</ul>
+				</aside>
+				<!-- Sidemenu closed -->
+
+				<!-- App-content opened -->
+				<div class="app-content icon-content">
+					<div class="section">
+
+						<!-- Page-header opened -->
+						<div class="page-header">
+							<div class="page-leftheader">
+								<h4 class="page-title mb-0" style="color:#097a21;"><?php echo $object_class_name; ?></h4>
+								<small class="text-muted mt-0 fs-14"> <span style="color:#097a21;">View / Add / Edit <?php echo $object_class_name; ?> Details</span></small>
+							</div>
+
+                            
+
+							<div class="page-rightheader">
+								<div class="ml-3 ml-auto d-flex">
+									<!--<div class="mt-3 mt-md-0">
+										<div class="border-right pr-4 mt-1 d-xl-block">
+											<p class="text-muted mb-2">Category</p>
+											<h6 class="font-weight-semibold mb-0">All Categories</h6>
+										</div>
+									</div>
+									<div class="mt-3 mt-md-0">
+										<div class="border-right pl-0 pl-md-4 pr-4 mt-1 d-xl-block">
+											<p class="text-muted mb-1">Customer Rating</p>
+											<div class="wideget-user-rating">
+												<a href="#">
+													<i class="fa fa-star text-warning"></i>
+												</a>
+												<a href="#">
+													<i class="fa fa-star text-warning"></i>
+												</a>
+												<a href="#">
+													<i class="fa fa-star text-warning"></i>
+												</a>
+												<a href="#">
+													<i class="fa fa-star text-warning"></i>
+												</a>
+												<a href="#">
+													<i class="fa fa-star-o text-warning mr-1"></i>
+												</a>
+												<span class="">(4.5/5)</span>
+											</div>
+										</div>
+									</div>-->
+									<span class="mt-3 mt-md-0 pg-header">
+										<a href="<?=site_url('dashboard/view_vehicles/'.$object_class_id); ?>" class="btn btn-success ml-0 ml-md-4 mt-1 "><i class="typcn typcn-eye mr-1"></i>View <?php echo $object_class_name; ?></a>
+									</span>
+								</div>
+							</div>
+						</div>
+						<!-- Page-header closed -->
+
+						
+						<div class="row">
+							<div class="col-md">
+								<div class="card overflow-hidden">
+								<form id="myEnquiryForm" method="POST" action="<?=site_url('Dashboard/saveObjectVeh');?>">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="form-label" style="color:#039623;"><?php echo $object_class_name; ?> Name <span style="color: red;">*</span></label>
+													<input type="text" class="form-control" name="object_name" id="object_name" maxlength="30" value="<?php echo $obj_name; ?>" placeholder="Name" required>	
+												    <input type="hidden" id="object_class_id" name="object_class_id" value="<?php echo $object_class_id; ?>">
+													<input type="hidden" id="object_type_id" name="object_type_id" value="<?php echo $object_type_id; ?>">
+													<input type="hidden" id="enterprise_id" name="enterprise_id" value="1">
+													<span id="nameFeedback" class="error"></span>
+												</div>
+											</div>
+										
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="form-label" style="color:#039623;">Location <span style="color: red;">*</span></label>
+													<select name="object_location" id="object_location" class="form-control select2 custom-select" required>
+														<option value="">Select</option>
+														<?php
+														foreach ($all_locations as $key => $val) {
+															if($val['geog_id'] == $obj_loc){
+																echo '<option value="' . $val['geog_id'] . '" selected>' . $val['geog_name'] . '</option>';
+															}
+															else{
+																echo '<option value="' . $val['geog_id'] . '">' . $val['geog_name'] . '</option>';
+															}
+														}
+														?>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="form-label" style="color:#039623;">Transporter</label>
+													<select name="transport_id" id="transport_id" class="form-control select2 custom-select">
+														<option value="">Select</option>
+														<?php
+														foreach ($all_transporter as $tkey => $tval) {
+															if($tval['entity_name'] == $object_transport_name){
+																echo '<option value="' . $tval['entity_id'] . '" selected>' . $tval['entity_name'] . '</option>';
+															}
+															else{
+																echo '<option value="' . $tval['entity_id'] . '">' . $tval['entity_name'] . '</option>';
+															}
+														}
+														?>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12 ">
+												<div class="form-group">
+													<div class="table-responsive">
+														<table class="table table-bordered" id="more_dynamic_field">
+															<tr><th style="color:#039623;">Mobile No</th><th style="color:#039623;">Email</th><th style="color:#039623;">Address</th><th style="color:#039623;">Action</th></tr>
+															<?php if(empty($edit_id)){ ?>
+															<tr>
+																<td><input type="text" name="addmore[0][object_mobile]" placeholder="Mobile No" maxlength="10" class="form-control mobile_list" /></td>
+																<td><input type="email" name="addmore[0][object_email]" placeholder="Email" maxlength="25" class="form-control email_list" /></td>
+																<td><input type="text" name="addmore[0][object_address]" maxlength="50" placeholder="Address" class="form-control address_list" /></td>
+																<td><button type="button" name="add_more_det" id="add_more_det" class="btn btn-success"><i class="fa fa-plus"></i></button></td>
+															</tr>
+															<?php } ?>
+														</table>
+														<div id="charFeedback" style="color: red; font-size: 12px;"></div>
+														<div id="mobileFeedback" style="color: red; font-size: 12px;"></div>
+														<span id="emailFeedback" class="error"></span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-4">
+												<label class="form-label" style="color:#039623;">Hub Location</label>
+												<select name="hub_location_id" id="hub_location_id" class="form-control select2 custom-select">
+														<option value="">Select</option>
+														<?php
+														foreach ($hub_locations as $key => $val) {
+															if($val['hub_location_id'] == $hub_exist){
+																echo '<option value="' . $val['hub_location_id'] . '" selected>' . $val['hub_location_name'] . '</option>';
+															}
+															else{
+																echo '<option value="' . $val['hub_location_id'] . '">' . $val['hub_location_name'] . '</option>';
+															}
+														}
+														?>
+												</select>
+											</div>
+											<div class="col-md-4">
+												<label class="form-label" style="color:#039623;">Vehicle Model</label>
+												<select name="vehicle_model_id" id="vehicle_model_id" class="form-control select2 custom-select">
+														<option value="">Select</option>
+														<?php
+														foreach ($veh_models as $key => $val) {
+															if($val['vehicle_model_id'] == $mod_exist){
+																echo '<option value="' . $val['vehicle_model_id'] . '" selected>' . $val['vehicle_model_name'] . '</option>';
+															}
+															else{
+																echo '<option value="' . $val['vehicle_model_id'] . '">' . $val['vehicle_model_name'] . '</option>';
+															}
+														}
+														?>
+												</select>
+											</div>
+											<div class="col-md-4">
+												<label class="form-label" style="color:#039623;">Seat Capacity</label>
+												<input type="text" class="form-control" id="vehicle_seat_id" value="<?php echo $seat_exist; ?>" name="vehicle_seat_id" inputmode="text" pattern="[A-Za-z0-9-]*" maxlength="20" oninput="this.value = this.value.replace(/[^A-Za-z0-9-]/g, '')">
+											</div>
+										</div>
+										<div class="row" style="padding-top:15px;">
+											<div class="col-md-4">
+												<label class="form-label" style="color:#039623;">Tour travel day rent</label>
+												<input type="text" class="form-control" id="tour_travel_daily_rate" name="tour_travel_daily_rate" value="<?php echo $tour_travel_daily_rate_exist; ?>" inputmode="numeric" pattern="[0-9]*" maxlength="6" oninput="this.value = this.value.replace(/\D/g, '')">
+											</div>
+											<div class="col-md-4">
+												<label class="form-label" style="color:#039623;">Tour travel max KM / Day</label>
+												<input type="text" class="form-control" id="tour_travel_max_km" value="<?php echo $tour_travel_max_km_exist; ?>" name="tour_travel_max_km" inputmode="numeric" pattern="[0-9]*" maxlength="6" oninput="this.value = this.value.replace(/\D/g, '')">
+											</div>
+											<div class="col-md-4">
+												<label class="form-label" style="color:#039623;">Extra KM Rate</label>
+												<input type="text" class="form-control" id="extra_km_rate" value="<?php echo $extra_km_rate_exist; ?>" name="extra_km_rate" inputmode="numeric" pattern="[0-9]*" maxlength="6" oninput="this.value = this.value.replace(/\D/g, '')">
+											</div>
+										</div>
+
+										<div class="row" style="padding-top:15px;">
+											<div class="col-md-4">
+												<label class="form-label" style="color:#039623;">Local travel day rent</label>
+												<input type="text" class="form-control" id="local_travel_daily_rate" value="<?php echo $local_travel_daily_rate_exist; ?>" name="local_travel_daily_rate" inputmode="numeric" pattern="[0-9]*" maxlength="6" oninput="this.value = this.value.replace(/\D/g, '')">
+											</div>
+											<div class="col-md-4">
+												<label class="form-label" style="color:#039623;">Local travel max KM / Day</label>
+												<input type="text" class="form-control" id="local_travel_max_km" value="<?php echo $local_travel_max_km_exist; ?>" name="local_travel_max_km" inputmode="numeric" pattern="[0-9]*" maxlength="6" oninput="this.value = this.value.replace(/\D/g, '')">
+											</div>
+											<div class="col-md-4">
+												<label class="form-label" style="color:#039623;">Registration No</label>
+												<input type="text" class="form-control" id="registration_no" value="<?php echo $registration_no_exist; ?>" name="registration_no" inputmode="text" pattern="[A-Za-z0-9-]*" maxlength="20" oninput="this.value = this.value.replace(/[^A-Za-z0-9-]/g, '')">
+											</div>
+										</div>
+
+										<div class="row" style="padding-top:15px;">
+											<?php 
+											if($is_tour_travel_exist){ 
+												$checked1 = "checked";
+											}
+											else{
+												$checked1 = "";
+											}
+
+											if($is_local_travel_exist){ 
+												$checked2 = "checked";
+											}
+											else{
+												$checked2 = "";
+											}
+
+											if($is_active_exist){ 
+												$checked3 = "checked";
+											}
+											else{
+												$checked3 = "";
+											}
+											?>
+
+											<div class="col-md-4">
+												<input type="checkbox" name="is_tour_travel" id="is_tour_travel"  value="1" <?php echo $checked1; ?>>
+												<label class="label-default" style="color:#039623;">Is tour travel</label>
+											</div>
+											<div class="col-md-4">
+												<input type="checkbox" name="is_local_travel" id="is_local_travel"  value="1" <?php echo $checked2; ?>>
+												<label class="label-default" style="color:#039623;">Is local travel</label>
+											</div>
+											<div class="col-md-4">
+												<input type="checkbox" name="is_active" id="is_active"  value="1" <?php echo $checked3; ?>>
+												<label class="label-default" style="color:#039623;">Is Active</label>
+											</div>
+										</div>
+										<?php if (session()->getFlashdata('error')): ?>
+											<div class="alert alert-danger">
+												<?= session()->getFlashdata('error') ?>
+											</div>
+										<?php endif; ?>
+										<div class="row" style="padding-top:5px">
+											<div class="col-md-12 ">
+												<div class="form-group">
+													<?php if($edit_id){ ?>
+														<input type="hidden" id="object_edit_id" name="object_edit_id" value="<?php echo $edit_id; ?>">
+														<button type="submit" id="btn_save_entity" class="btn btn-success" style="float:right;">Update</button>
+													<?php } else { ?>
+														<input type="hidden" id="object_edit_id" name="object_edit_id" value="0">
+														<button type="submit" id="btn_save_entity" class="btn btn-success" style="float:right;">Save</button>
+													<?php } ?>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+								</div>
+							</div><!-- col end -->
+						</div>
+
+
+
+					</div>
+				</div>
+				<!-- App-content closed -->
+			</div>
+
+			<!-- Right-sidebar-->
+			
+			<!-- Right-sidebar-closed -->
+
+			<!-- Footer opened -->
+			<footer class="footer-main icon-footer">
+				<div class="container">
+					<div class="  mt-2 mb-2 text-center">
+						Copyright © 2025 <a href="#" class="fs-14 text-primary">KHM</a>. Designed by <a href="https://megatrendkms.co.in" class="fs-14 text-primary" target="_blank">Megatrend Knowledge Management Systems Pvt Ltd</a> All rights reserved.
+					</div>
+				</div>
+			</footer>
+			<!-- Footer closed -->
+		</div>
+
+		<!-- Back-to-top -->
+		<a href="#top" id="back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+		<!-- Jquery-scripts -->
+		<script src="<?php echo base_url('assets/js/vendors/jquery-3.2.1.min.js'); ?>"></script>
+
+		<!-- Moment js-->
+        <script src="<?php echo base_url('assets/plugins/moment/moment.min.js'); ?>"></script>
+
+		<!-- Bootstrap-scripts js -->
+		<script src="<?php echo base_url('assets/js/vendors/bootstrap.bundle.min.js'); ?>"></script>
+
+		<!-- Sparkline JS-->
+		<script src="<?php echo base_url('assets/js/vendors/jquery.sparkline.min.js'); ?>"></script>
+
+		<!-- Bootstrap-daterangepicker js -->
+		<script src="<?php echo base_url('assets/plugins/bootstrap-daterangepicker/daterangepicker.js'); ?>"></script>
+
+		<!-- Bootstrap-datepicker js -->
+		<script src="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js'); ?>"></script>
+
+		<!-- Chart-circle js -->
+		<script src="<?php echo base_url('assets/js/vendors/circle-progress.min.js'); ?>"></script>
+
+		<!-- Rating-star js -->
+		<script src="<?php echo base_url('assets/plugins/rating/jquery.rating-stars.js'); ?>"></script>
+
+		<!-- Clipboard js -->
+		<script src="<?php echo base_url('assets/plugins/clipboard/clipboard.min.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/clipboard/clipboard.js'); ?>"></script>
+
+		<!-- Prism js -->
+		<script src="<?php echo base_url('assets/plugins/prism/prism.js'); ?>"></script>
+
+		<!-- Custom scroll bar js-->
+		<script src="<?php echo base_url('assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js'); ?>"></script>
+
+		<!-- Nice-select js-->
+		<script src="<?php echo base_url('assets/plugins/jquery-nice-select/js/jquery.nice-select.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/jquery-nice-select/js/nice-select.js'); ?>"></script>
+
+        <!-- P-scroll js -->
+		<script src="<?php echo base_url('assets/plugins/p-scroll/p-scroll.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/p-scroll/p-scroll-1.js'); ?>"></script>
+
+		<!-- Sidemenu js-->
+		<script src="<?php echo base_url('assets/plugins/sidemenu/icon-sidemenu.js'); ?>"></script>
+
+		<!-- JQVMap -->
+		<script src="<?php echo base_url('assets/plugins/jqvmap/jquery.vmap.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/jqvmap/maps/jquery.vmap.world.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/jqvmap/jquery.vmap.sampledata.js'); ?>"></script>
+
+		<!-- Apexchart js-->
+		<script src="<?php echo base_url('assets/js/apexcharts.js'); ?>"></script>
+
+		<!-- Chart js-->
+		<script src="<?php echo base_url('assets/plugins/chart/chart.min.js'); ?>"></script>
+
+		<!-- Index js -->
+		<script src="<?php echo base_url('assets/js/index.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/js/index-map.js'); ?>"></script>
+
+		<!-- Rightsidebar js -->
+		<script src="<?php echo base_url('assets/plugins/sidebar/sidebar.js'); ?>"></script>
+
+		<!-- Custom js -->
+		<script src="<?php echo base_url('assets/js/custom.js'); ?>"></script>
+
+		<script src="../assets/plugins/datatable/jquery.dataTables.min.js"></script>
+		<script src="../assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+		<script src="../assets/plugins/datatable/datatable.js"></script>
+
+	</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var i = 0;
+        $('#add_more_det').click(function() {
+            i++;
+            $('#more_dynamic_field').append('<tr id="row' + i + '" class="dynamic-added"><td><input type="text" name="addmore[' + i + '][object_mobile]" placeholder="Mobile No" class="form-control mobile_list"/></td><td><input type="text" name="addmore[' + i + '][object_email]" placeholder="Email" class="form-control email_list"/></td><td><input type="text" name="addmore[' + i + '][object_address]" placeholder="Address" class="form-control address_list"/></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_more_remove">X</button></td></tr>');
+        });
+        $(document).on('click', '.btn_more_remove', function() {
+            var button_id = $(this).attr("id");
+            $('#row' + button_id + '').remove();
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Data for edit mode
+        var editMode = <?php echo $edit_id; ?>;
+		if(editMode > 0){
+			var mobileData = <?php echo json_encode($obj_mobile); ?>;
+            var emailData = <?php echo json_encode($obj_email); ?>;
+            var addressData = <?php echo json_encode($obj_address); ?>;
+        
+        $.each(mobileData, function (index, mobile) {
+            // Get corresponding email and address data for the current index
+            const email = emailData[index] || ''; // Fallback to empty string if undefined
+            const address = addressData[index] || ''; // Fallback to empty string if undefined
+
+            const row = `
+                <tr>
+                    <td>
+                        <input type="text" name="addmore[${index}][object_mobile]" value="${mobile}" placeholder="Mobile No" class="form-control mobile_list" />
+                    </td>
+                    <td>
+                        <input type="text" name="addmore[${index}][object_email]" value="${email}" placeholder="Email" class="form-control email_list" />
+                    </td>
+                    <td>
+                        <input type="text" name="addmore[${index}][object_address]" value="${address}" placeholder="Address" class="form-control address_list" />
+                    </td>
+                    <td>
+                        ${index === 0 ? `
+                            <button type="button" name="add_more_det" id="add_more_det" class="btn btn-success">
+                                <i class="fa fa-plus"></i>
+                            </button>` 
+                        : `
+                            <button type="button" class="btn btn-danger remove-row">
+                                <i class="fa fa-minus"></i>
+                            </button>`}
+                    </td>
+                </tr>
+            `;
+            $('#more_dynamic_field').append(row);
+        });
+
+        // Add a new row dynamically
+        $(document).on('click', '#add_more_det', function () {
+            const rowCount = $('#more_dynamic_field tr').length; // Count rows in the table
+            const newRow = `
+                <tr>
+                    <td>
+                        <input type="text" name="addmore[${rowCount}][object_mobile]" placeholder="Mobile No" class="form-control mobile_list" />
+                    </td>
+                    <td>
+                        <input type="text" name="addmore[${rowCount}][object_email]" placeholder="Email" class="form-control email_list" />
+                    </td>
+                    <td>
+                        <input type="text" name="addmore[${rowCount}][object_address]" placeholder="Address" class="form-control address_list" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger remove-row">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+            $('#more_dynamic_field').append(newRow);
+        });
+
+        // Remove a row
+        $(document).on('click', '.remove-row', function () {
+            $(this).closest('tr').remove();
+        });
+	}
+    });
+</script>
+<script>
+$(document).ready(function () {
+    const namePattern = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/; // Letters only, single space between words
+
+    $("#object_name").on("input", function () {
+        let name = $(this).val();
+        
+        // Replace invalid characters and extra spaces
+        let validName = name
+            .replace(/[^a-zA-Z ]/g, "")      // Remove non-alphabetic characters
+            .replace(/\s{2,}/g, " ");       // Replace multiple spaces with a single space
+
+        // Update the input field with the cleaned value
+        $(this).val(validName);
+
+        // Validate against the pattern
+        if (namePattern.test(validName)) {
+            $("#nameFeedback").text("");
+        } else {
+            $("#nameFeedback").text("Only letters and single spaces are allowed.");
+        }
+    });
+});
+</script>
+
+
+
+<script>
+$(document).ready(function () {
+    $(document).on("input", ".mobile_list", function () {
+        let mobile = $(this).val();
+        let charFeedback = $("#charFeedback");
+        let mobileFeedback = $("#mobileFeedback");
+
+        // Check for special characters
+        if (/[^0-9]/.test(mobile)) {
+            charFeedback.text("Only numbers are allowed.");
+        } else {
+            charFeedback.text(""); // Clear special character message
+        }
+
+        // Remove non-numeric characters
+        let validMobile = mobile.replace(/[^0-9]/g, "");
+
+        // Limit to 10 digits
+        if (validMobile.length > 10) {
+            validMobile = validMobile.substring(0, 10);
+        }
+
+        // Update input with cleaned value
+        $(this).val(validMobile);
+
+        // Validation feedback
+        if (validMobile.length < 10) {
+            mobileFeedback.text("Mobile number must be exactly 10 digits.");
+        } else {
+            mobileFeedback.text(""); // Clear message when valid
+        }
+    });
+
+    // Clear input if invalid on focus out
+    $(document).on("blur", ".mobile_list", function () {
+        let validMobile = $(this).val();
+        if (validMobile.length !== 10) {
+            $(this).val(""); // Clear input
+            $("#mobileFeedback").text("Invalid number! Must be exactly 10 digits.");
+        }
+    });
+});
+</script>
+<script>
+   $(document).ready(function () {
+    // Given regex pattern for email validation
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Using event delegation for dynamically added email inputs
+    $(document).on("input", ".email_list", function () {
+        let email = $(this).val().trim();
+        let feedback = $("#emailFeedback");
+
+        if (email === "") {
+            feedback.text("").removeClass("valid error");
+            return;
+        }
+
+        // Validate email using regex pattern
+        if (emailPattern.test(email)) {
+            feedback.text("Valid email address ✅").removeClass("error").addClass("valid");
+        } else {
+            feedback.text("Invalid email format ❌").removeClass("valid").addClass("error");
+        }
+    });
+
+    // Clear input if invalid on focus out
+    $(document).on("blur", ".email_list", function () {
+        let email = $(this).val().trim();
+        let feedback = $("#emailFeedback");
+
+        if (!emailPattern.test(email)) {
+            $(this).val(""); // Clear input field
+            feedback.text("Invalid email! Field cleared.").removeClass("valid").addClass("error");
+        }
+    });
+});
+</script>
+<script>
+      function switchroles(role_id,role_name) {
+        const newUrl = '<?php echo site_url('Dashboard/add_entity/3'); ?>'
+        $.ajax({
+          url: '<?php echo site_url('Dashboard/system_role_change'); ?>',
+          type: 'POST',
+          data: {role_id:role_id,role_name:role_name},
+          success: function(response) {
+            wlocation.reload();
+
+          },
+          error: function(xhr, status, error) {
+            // Handle any errors
+            console.error(error);
+          }
+        });
+      }
+</script>
+<script>
+      function switchsystems(system_id,system_name) {
+        const newUrl = '<?php echo site_url('Dashboard/add_entity/3'); ?>'
+        $.ajax({
+          url: '<?php echo site_url('Dashboard/khm_system_change'); ?>',
+          type: 'POST',
+          data: {system_id:system_id,system_name:system_name},
+          success: function(response) {
+			location.reload();
+
+          },
+          error: function(xhr, status, error) {
+            // Handle any errors
+            console.error(error);
+          }
+        });
+      }
+</script>

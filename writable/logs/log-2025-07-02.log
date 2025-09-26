@@ -1,0 +1,226 @@
+CRITICAL - 2025-07-02 06:07:45 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "super_admin_cost_component_view.php"
+[Method: GET, Route: SuperAdminCostComponent]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('super_admin_cost_component_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('super_admin_cost_component_view', [], true)
+ 3 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('super_admin_cost_component_view')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:11:13 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "super_admin_cost_component_view.php"
+[Method: GET, Route: SuperAdminCostComponent]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('super_admin_cost_component_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('super_admin_cost_component_view', [], true)
+ 3 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('super_admin_cost_component_view')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:11:15 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "super_admin_cost_component_view.php"
+[Method: GET, Route: SuperAdminCostComponent]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('super_admin_cost_component_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('super_admin_cost_component_view', [], true)
+ 3 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('super_admin_cost_component_view')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:11:18 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "super_admin_cost_component_view.php"
+[Method: GET, Route: SuperAdminCostComponent]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('super_admin_cost_component_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('super_admin_cost_component_view', [], true)
+ 3 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('super_admin_cost_component_view')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:12:57 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: SuperAdminCostComponent]
+in APPPATH\Views\masters\super_admin_cost_component_view.php on line 97.
+ 1 APPPATH\Views\masters\super_admin_cost_component_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_cost_component_view', [], true)
+ 5 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('masters/super_admin_cost_component_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:12:58 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: SuperAdminCostComponent]
+in APPPATH\Views\masters\super_admin_cost_component_view.php on line 97.
+ 1 APPPATH\Views\masters\super_admin_cost_component_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_cost_component_view', [], true)
+ 5 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('masters/super_admin_cost_component_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:12:59 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: SuperAdminCostComponent]
+in APPPATH\Views\masters\super_admin_cost_component_view.php on line 97.
+ 1 APPPATH\Views\masters\super_admin_cost_component_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_cost_component_view', [], true)
+ 5 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('masters/super_admin_cost_component_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:13:19 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: SuperAdminCostComponent]
+in APPPATH\Views\masters\super_admin_cost_component_view.php on line 97.
+ 1 APPPATH\Views\masters\super_admin_cost_component_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_cost_component_view', [], true)
+ 5 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('masters/super_admin_cost_component_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:13:20 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: SuperAdminCostComponent]
+in APPPATH\Views\masters\super_admin_cost_component_view.php on line 97.
+ 1 APPPATH\Views\masters\super_admin_cost_component_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_cost_component_view', [], true)
+ 5 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('masters/super_admin_cost_component_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:13:20 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: SuperAdminCostComponent]
+in APPPATH\Views\masters\super_admin_cost_component_view.php on line 97.
+ 1 APPPATH\Views\masters\super_admin_cost_component_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_cost_component_view', [], true)
+ 5 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('masters/super_admin_cost_component_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:13:20 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: SuperAdminCostComponent]
+in APPPATH\Views\masters\super_admin_cost_component_view.php on line 97.
+ 1 APPPATH\Views\masters\super_admin_cost_component_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_cost_component_view', [], true)
+ 5 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('masters/super_admin_cost_component_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:13:21 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: SuperAdminCostComponent]
+in APPPATH\Views\masters\super_admin_cost_component_view.php on line 97.
+ 1 APPPATH\Views\masters\super_admin_cost_component_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_cost_component_view', [], true)
+ 5 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('masters/super_admin_cost_component_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:13:21 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: SuperAdminCostComponent]
+in APPPATH\Views\masters\super_admin_cost_component_view.php on line 97.
+ 1 APPPATH\Views\masters\super_admin_cost_component_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_cost_component_view', [], true)
+ 5 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('masters/super_admin_cost_component_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:13:22 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: SuperAdminCostComponent]
+in APPPATH\Views\masters\super_admin_cost_component_view.php on line 97.
+ 1 APPPATH\Views\masters\super_admin_cost_component_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_cost_component_view', [], true)
+ 5 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('masters/super_admin_cost_component_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:13:22 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: SuperAdminCostComponent]
+in APPPATH\Views\masters\super_admin_cost_component_view.php on line 97.
+ 1 APPPATH\Views\masters\super_admin_cost_component_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_cost_component_view', [], true)
+ 5 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('masters/super_admin_cost_component_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 06:13:34 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: SuperAdminCostComponent]
+in APPPATH\Views\masters\super_admin_cost_component_view.php on line 97.
+ 1 APPPATH\Views\masters\super_admin_cost_component_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_cost_component_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_cost_component_view', [], true)
+ 5 APPPATH\Controllers\SuperAdminCostComponent.php(17): view('masters/super_admin_cost_component_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminCostComponent->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminCostComponent))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-02 11:38:40 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "…"
+[Method: GET, Route: %E2%80%A6/get]
+in SYSTEMPATH\Router\Router.php on line 737.
+ 1 SYSTEMPATH\Router\Router.php(204): CodeIgniter\Router\Router->checkDisallowedChars('…/get')
+ 2 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('…/get')
+ 3 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

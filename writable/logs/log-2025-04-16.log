@@ -1,0 +1,323 @@
+ERROR - 2025-04-16 12:29:35 --> mysqli_sql_exception: Unknown column 'deleted_id' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_loc...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update(Array)
+#5 C:\wamp64\www\khm\app\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-16 12:29:35 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_id' in 'field list'
+[Method: DELETE, Route: GeogController/deleteGeog/1768]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 2 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 3 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-16 12:29:35 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 4 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 5 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-16 12:29:35 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 5 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 6 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-16 12:29:37 --> mysqli_sql_exception: Unknown column 'deleted_id' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_loc...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update(Array)
+#5 C:\wamp64\www\khm\app\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-16 12:29:37 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_id' in 'field list'
+[Method: DELETE, Route: GeogController/deleteGeog/1768]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 2 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 3 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-16 12:29:37 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 4 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 5 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-16 12:29:37 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 5 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 6 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-16 12:30:01 --> mysqli_sql_exception: Unknown column 'deleted_id' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_loc...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update(Array)
+#5 C:\wamp64\www\khm\app\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-16 12:30:01 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_id' in 'field list'
+[Method: DELETE, Route: GeogController/deleteGeog/1768]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 2 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 3 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-16 12:30:01 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 4 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 5 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-16 12:30:01 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1768\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 5 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 6 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-16 12:32:30 --> mysqli_sql_exception: Unknown column 'deleted_id' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_loc...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update(Array)
+#5 C:\wamp64\www\khm\app\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1781')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1781')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-16 12:32:30 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_id' in 'field list'
+[Method: DELETE, Route: GeogController/deleteGeog/1781]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 2 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 3 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1781')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1781')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-16 12:32:30 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1781\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1781\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 4 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 5 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1781')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1781')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-16 12:32:30 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1781\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1781\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1781\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 5 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 6 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1781')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1781')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-16 12:34:42 --> mysqli_sql_exception: Unknown column 'deleted_id' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_loc...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update(Array)
+#5 C:\wamp64\www\khm\app\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1781')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1781')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-16 12:34:42 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_id' in 'field list'
+[Method: DELETE, Route: GeogController/deleteGeog/1781]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 2 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 3 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1781')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1781')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-16 12:34:42 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1781\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1781\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 4 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 5 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1781')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1781')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-16 12:34:42 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1781\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1781\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_loc_mst_geography` SET `deleted_id` = 1
+WHERE `geog_id` = \'1781\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_loc_mst_geography` SET `deleted_id` = :deleted_id:
+WHERE `geog_id` = :geog_id:', [...], false)
+ 5 APPPATH\Models\GeogModel.php(91): CodeIgniter\Database\BaseBuilder->update([...])
+ 6 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1781')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1781')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-16 12:41:53 --> CodeIgniter\Database\Exceptions\DataException: There is no data to update.
+[Method: DELETE, Route: GeogController/deleteGeog/1768]
+in SYSTEMPATH\BaseModel.php on line 1010.
+ 1 SYSTEMPATH\BaseModel.php(1010): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH\Models\GeogModel.php(80): CodeIgniter\Model->update('1768', [...])
+ 4 APPPATH\Controllers\GeogController.php(88): App\Models\GeogModel->deleteGeogRecord('1768')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->deleteGeog('1768')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

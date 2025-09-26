@@ -1,0 +1,72 @@
+CRITICAL - 2025-04-28 08:12:55 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "enquiries_view.php"
+[Method: GET, Route: Enwuiryfollowup]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('enquiries_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiries_view', [], true)
+ 3 APPPATH\Controllers\Enwuiryfollowup.php(66): view('enquiries_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enwuiryfollowup->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enwuiryfollowup))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-28 08:13:45 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "enquiries_view.php"
+[Method: GET, Route: Enwuiryfollowup]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('enquiries_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiries_view', [], true)
+ 3 APPPATH\Controllers\Enwuiryfollowup.php(68): view('enquiries_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enwuiryfollowup->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enwuiryfollowup))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-28 08:13:46 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "enquiries_view.php"
+[Method: GET, Route: Enwuiryfollowup]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('enquiries_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiries_view', [], true)
+ 3 APPPATH\Controllers\Enwuiryfollowup.php(68): view('enquiries_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enwuiryfollowup->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enwuiryfollowup))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-28 08:13:46 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "enquiries_view.php"
+[Method: GET, Route: Enwuiryfollowup]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('enquiries_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiries_view', [], true)
+ 3 APPPATH\Controllers\Enwuiryfollowup.php(68): view('enquiries_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enwuiryfollowup->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enwuiryfollowup))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-28 08:13:46 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "enquiries_view.php"
+[Method: GET, Route: Enwuiryfollowup]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('enquiries_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiries_view', [], true)
+ 3 APPPATH\Controllers\Enwuiryfollowup.php(68): view('enquiries_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enwuiryfollowup->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enwuiryfollowup))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-28 08:13:46 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "enquiries_view.php"
+[Method: GET, Route: Enwuiryfollowup]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('enquiries_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiries_view', [], true)
+ 3 APPPATH\Controllers\Enwuiryfollowup.php(68): view('enquiries_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enwuiryfollowup->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enwuiryfollowup))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

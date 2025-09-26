@@ -1,0 +1,532 @@
+CRITICAL - 2025-06-30 07:27:02 --> ErrorException: Undefined property: App\Controllers\Dashboard::$db
+[Method: POST, Route: dashboard/reorderRoomCategories]
+in APPPATH\Controllers\Dashboard.php on line 13.
+ 1 APPPATH\Controllers\Dashboard.php(13): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Dashboard::$db', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 13)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 07:27:06 --> ErrorException: Undefined property: App\Controllers\Dashboard::$db
+[Method: POST, Route: dashboard/reorderRoomCategories]
+in APPPATH\Controllers\Dashboard.php on line 13.
+ 1 APPPATH\Controllers\Dashboard.php(13): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Dashboard::$db', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 13)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 07:27:11 --> ErrorException: Undefined property: App\Controllers\Dashboard::$db
+[Method: POST, Route: dashboard/reorderRoomCategories]
+in APPPATH\Controllers\Dashboard.php on line 13.
+ 1 APPPATH\Controllers\Dashboard.php(13): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Dashboard::$db', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 13)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 07:27:16 --> ErrorException: Undefined property: App\Controllers\Dashboard::$db
+[Method: POST, Route: dashboard/reorderRoomCategories]
+in APPPATH\Controllers\Dashboard.php on line 13.
+ 1 APPPATH\Controllers\Dashboard.php(13): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Dashboard::$db', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 13)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 07:27:22 --> ErrorException: Undefined property: App\Controllers\Dashboard::$db
+[Method: POST, Route: dashboard/reorderRoomCategories]
+in APPPATH\Controllers\Dashboard.php on line 13.
+ 1 APPPATH\Controllers\Dashboard.php(13): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Dashboard::$db', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 13)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 07:27:26 --> ErrorException: Undefined property: App\Controllers\Dashboard::$db
+[Method: POST, Route: dashboard/reorderRoomCategories]
+in APPPATH\Controllers\Dashboard.php on line 13.
+ 1 APPPATH\Controllers\Dashboard.php(13): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Dashboard::$db', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 13)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 07:28:26 --> ErrorException: Undefined property: App\Controllers\Dashboard::$db
+[Method: POST, Route: dashboard/reorderRoomCategories]
+in APPPATH\Controllers\Dashboard.php on line 13.
+ 1 APPPATH\Controllers\Dashboard.php(13): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\Dashboard::$db', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 13)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 07:33:41 --> Error: Call to a member function table() on null
+[Method: POST, Route: dashboard/reorderRoomCategories]
+in APPPATH\Controllers\Dashboard.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 07:35:16 --> Error: Call to a member function table() on null
+[Method: POST, Route: Dashboard/reorderRoomCategories]
+in APPPATH\Controllers\Dashboard.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 07:35:19 --> Error: Call to a member function table() on null
+[Method: POST, Route: Dashboard/reorderRoomCategories]
+in APPPATH\Controllers\Dashboard.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 07:35:28 --> Error: Call to a member function table() on null
+[Method: POST, Route: Dashboard/reorderRoomCategories]
+in APPPATH\Controllers\Dashboard.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 07:36:49 --> CodeIgniter\HTTP\Exceptions\HTTPException: Failed to parse JSON string. Error: Syntax error
+[Method: POST, Route: Dashboard/reorderRoomCategories]
+in SYSTEMPATH\HTTP\IncomingRequest.php on line 537.
+ 1 SYSTEMPATH\HTTP\IncomingRequest.php(537): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidJSON('Syntax error')
+ 2 APPPATH\Controllers\Dashboard.php(21): CodeIgniter\HTTP\IncomingRequest->getJSON(true)
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 07:36:53 --> CodeIgniter\HTTP\Exceptions\HTTPException: Failed to parse JSON string. Error: Syntax error
+[Method: POST, Route: Dashboard/reorderRoomCategories]
+in SYSTEMPATH\HTTP\IncomingRequest.php on line 537.
+ 1 SYSTEMPATH\HTTP\IncomingRequest.php(537): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidJSON('Syntax error')
+ 2 APPPATH\Controllers\Dashboard.php(21): CodeIgniter\HTTP\IncomingRequest->getJSON(true)
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->reorderRoomCategories()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-30 12:12:08 --> mysqli_sql_exception: Unknown column 'emd.deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dca`.`e...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dca`.`e...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dca`.`e...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dca`.`e...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminEntityAttributeClassAssignModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminEntityAttributeClassAssign.php(46): App\Models\SuperAdminEntityAttributeClassAssignModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-30 12:12:08 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'emd.deleted' in 'where clause'
+[Method: GET, Route: SuperAdminEntityAttributeClassAssign/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = :ema.deleted:
+AND `emd`.`deleted` = :emd.deleted:
+AND `dca`.`deleted` = :dca.deleted:
+ORDER BY `dca`.`entity_class_attr_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminEntityAttributeClassAssignModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminEntityAttributeClassAssign.php(46): App\Models\SuperAdminEntityAttributeClassAssignModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 12:12:08 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'emd.deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = :ema.deleted:
+AND `emd`.`deleted` = :emd.deleted:
+AND `dca`.`deleted` = :dca.deleted:
+ORDER BY `dca`.`entity_class_attr_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminEntityAttributeClassAssignModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminEntityAttributeClassAssign.php(46): App\Models\SuperAdminEntityAttributeClassAssignModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 12:12:08 --> [Caused by] mysqli_sql_exception: Unknown column 'emd.deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = :ema.deleted:
+AND `emd`.`deleted` = :emd.deleted:
+AND `dca`.`deleted` = :dca.deleted:
+ORDER BY `dca`.`entity_class_attr_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminEntityAttributeClassAssignModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminEntityAttributeClassAssign.php(46): App\Models\SuperAdminEntityAttributeClassAssignModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-30 12:13:43 --> mysqli_sql_exception: Unknown column 'emd.deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dca`.`e...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dca`.`e...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dca`.`e...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dca`.`e...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminEntityAttributeClassAssignModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminEntityAttributeClassAssign.php(46): App\Models\SuperAdminEntityAttributeClassAssignModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-30 12:13:43 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'emd.deleted' in 'where clause'
+[Method: GET, Route: SuperAdminEntityAttributeClassAssign/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = :ema.deleted:
+AND `emd`.`deleted` = :emd.deleted:
+AND `dca`.`deleted` = :dca.deleted:
+ORDER BY `dca`.`entity_class_attr_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminEntityAttributeClassAssignModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminEntityAttributeClassAssign.php(46): App\Models\SuperAdminEntityAttributeClassAssignModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 12:13:43 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'emd.deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = :ema.deleted:
+AND `emd`.`deleted` = :emd.deleted:
+AND `dca`.`deleted` = :dca.deleted:
+ORDER BY `dca`.`entity_class_attr_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminEntityAttributeClassAssignModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminEntityAttributeClassAssign.php(46): App\Models\SuperAdminEntityAttributeClassAssignModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 12:13:43 --> [Caused by] mysqli_sql_exception: Unknown column 'emd.deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = :ema.deleted:
+AND `emd`.`deleted` = :emd.deleted:
+AND `dca`.`deleted` = :dca.deleted:
+ORDER BY `dca`.`entity_class_attr_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminEntityAttributeClassAssignModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminEntityAttributeClassAssign.php(46): App\Models\SuperAdminEntityAttributeClassAssignModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-30 12:14:57 --> mysqli_sql_exception: Unknown column 'emd.deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dca`.`e...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dca`.`e...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dca`.`e...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dca`.`e...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminEntityAttributeClassAssignModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminEntityAttributeClassAssign.php(46): App\Models\SuperAdminEntityAttributeClassAssignModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-30 12:14:57 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'emd.deleted' in 'where clause'
+[Method: GET, Route: SuperAdminEntityAttributeClassAssign/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = :ema.deleted:
+AND `emd`.`deleted` = :emd.deleted:
+AND `dca`.`deleted` = :dca.deleted:
+ORDER BY `dca`.`entity_class_attr_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminEntityAttributeClassAssignModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminEntityAttributeClassAssign.php(46): App\Models\SuperAdminEntityAttributeClassAssignModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 12:14:57 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'emd.deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = :ema.deleted:
+AND `emd`.`deleted` = :emd.deleted:
+AND `dca`.`deleted` = :dca.deleted:
+ORDER BY `dca`.`entity_class_attr_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminEntityAttributeClassAssignModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminEntityAttributeClassAssign.php(46): App\Models\SuperAdminEntityAttributeClassAssignModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 12:14:57 --> [Caused by] mysqli_sql_exception: Unknown column 'emd.deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = 0
+AND `emd`.`deleted` = 0
+AND `dca`.`deleted` = 0
+ORDER BY `dca`.`entity_class_attr_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dca`.`entity_class_attr_id`, `dca`.`entity_class_id`, `dca`.`entity_attribute_id`, `dca`.`enterprise_id`, `dca`.`deleted`, `emc`.`entity_class_id`, `emc`.`entity_class_name`, `emc`.`deleted`, `ema`.`entity_attribute_id`, `ema`.`entity_attribute_name`, `ema`.`deleted`
+FROM `khm_entity_detail_class_attribute` AS `dca`
+LEFT JOIN `khm_entity_mst_class` AS `emc` ON `emc`.`entity_class_id`=`dca`.`entity_class_id`
+LEFT JOIN `khm_entity_mst_attribute` AS `ema` ON `ema`.`entity_attribute_id`=`dca`.`entity_attribute_id`
+WHERE `ema`.`deleted` = :ema.deleted:
+AND `emd`.`deleted` = :emd.deleted:
+AND `dca`.`deleted` = :dca.deleted:
+ORDER BY `dca`.`entity_class_attr_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminEntityAttributeClassAssignModel.php(45): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminEntityAttributeClassAssign.php(46): App\Models\SuperAdminEntityAttributeClassAssignModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-30 12:37:47 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM `khm_entity_mst_attribute` AS `kema`
+WHERE `kema`.`deleted` = 0' at line 2 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `kema`.\n...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `kema`.\n...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `kema`.\n...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `kema`.\n...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminEntityAttributeClassAssignModel.php(68): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminEntityAttributeClassAssign.php(56): App\Models\SuperAdminEntityAttributeClassAssignModel->getAttri()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list3()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-30 12:37:47 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM `khm_entity_mst_attribute` AS `kema`
+WHERE `kema`.`deleted` = 0' at line 2
+[Method: GET, Route: SuperAdminEntityAttributeClassAssign/list3]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `kema`.
+FROM `khm_entity_mst_attribute` AS `kema`
+WHERE `kema`.`deleted` = :kema.deleted:', [...], false)
+ 2 APPPATH\Models\SuperAdminEntityAttributeClassAssignModel.php(68): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminEntityAttributeClassAssign.php(56): App\Models\SuperAdminEntityAttributeClassAssignModel->getAttri()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list3()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 12:37:47 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM `khm_entity_mst_attribute` AS `kema`
+WHERE `kema`.`deleted` = 0' at line 2
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `kema`.
+FROM `khm_entity_mst_attribute` AS `kema`
+WHERE `kema`.`deleted` = 0')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `kema`.
+FROM `khm_entity_mst_attribute` AS `kema`
+WHERE `kema`.`deleted` = 0')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `kema`.
+FROM `khm_entity_mst_attribute` AS `kema`
+WHERE `kema`.`deleted` = :kema.deleted:', [...], false)
+ 4 APPPATH\Models\SuperAdminEntityAttributeClassAssignModel.php(68): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminEntityAttributeClassAssign.php(56): App\Models\SuperAdminEntityAttributeClassAssignModel->getAttri()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list3()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-30 12:37:47 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM `khm_entity_mst_attribute` AS `kema`
+WHERE `kema`.`deleted` = 0' at line 2
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `kema`.
+FROM `khm_entity_mst_attribute` AS `kema`
+WHERE `kema`.`deleted` = 0', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `kema`.
+FROM `khm_entity_mst_attribute` AS `kema`
+WHERE `kema`.`deleted` = 0')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `kema`.
+FROM `khm_entity_mst_attribute` AS `kema`
+WHERE `kema`.`deleted` = 0')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `kema`.
+FROM `khm_entity_mst_attribute` AS `kema`
+WHERE `kema`.`deleted` = :kema.deleted:', [...], false)
+ 5 APPPATH\Models\SuperAdminEntityAttributeClassAssignModel.php(68): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminEntityAttributeClassAssign.php(56): App\Models\SuperAdminEntityAttributeClassAssignModel->getAttri()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttributeClassAssign->list3()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttributeClassAssign))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

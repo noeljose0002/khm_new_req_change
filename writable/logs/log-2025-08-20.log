@@ -1,0 +1,84 @@
+CRITICAL - 2025-08-20 06:25:16 --> ErrorException: Undefined variable $base64
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 130.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(130): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $base64', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 130)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-20 06:25:19 --> ErrorException: Undefined variable $base64
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 130.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(130): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $base64', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 130)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-20 06:25:19 --> ErrorException: Undefined variable $base64
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 130.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(130): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $base64', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 130)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-20 06:25:19 --> ErrorException: Undefined variable $base64
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 130.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(130): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $base64', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 130)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-20 06:25:19 --> ErrorException: Undefined variable $base64
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 130.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(130): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $base64', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 130)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-20 06:26:59 --> ErrorException: Undefined variable $base64
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 129.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(129): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $base64', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 129)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

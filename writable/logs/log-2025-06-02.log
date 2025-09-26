@@ -1,0 +1,2338 @@
+ERROR - 2025-06-02 15:10:04 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`ar...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`ar...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`ar...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`ar...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\PreArrivalReportModel.php(216): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-05-01 00:0...', '2025-06-29 00:0...', '')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-02 15:10:04 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+[Method: GET, Route: PreArrivalReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 2 APPPATH\Models\PreArrivalReportModel.php(216): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-29 00:00:00', '')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 15:10:04 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 4 APPPATH\Models\PreArrivalReportModel.php(216): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-29 00:00:00', '')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 15:10:04 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 5 APPPATH\Models\PreArrivalReportModel.php(216): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-29 00:00:00', '')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-02 15:10:04 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`ar...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`ar...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`ar...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`ar...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\PreArrivalReportModel.php(216): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-05-01 00:0...', '2025-06-29 00:0...', '')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-02 15:10:04 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+[Method: GET, Route: PreArrivalReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 2 APPPATH\Models\PreArrivalReportModel.php(216): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-29 00:00:00', '')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 15:10:04 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 4 APPPATH\Models\PreArrivalReportModel.php(216): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-29 00:00:00', '')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 15:10:04 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 5 APPPATH\Models\PreArrivalReportModel.php(216): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-29 00:00:00', '')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-02 15:10:06 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`ar...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`ar...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`ar...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`ar...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\PreArrivalReportModel.php(216): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-05-01 00:0...', '2025-06-29 00:0...', '')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-02 15:10:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+[Method: GET, Route: PreArrivalReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 2 APPPATH\Models\PreArrivalReportModel.php(216): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-29 00:00:00', '')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 15:10:06 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 4 APPPATH\Models\PreArrivalReportModel.php(216): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-29 00:00:00', '')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 15:10:06 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-01 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 5 APPPATH\Models\PreArrivalReportModel.php(216): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-29 00:00:00', '')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-02 17:26:12 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`ar...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`ar...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`ar...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`ar...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:0...', '2025-06-03 00:0...', '')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-02 17:26:12 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+[Method: GET, Route: PreArrivalReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 2 APPPATH\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:00:00', '2025-06-03 00:00:00', '')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 17:26:12 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 4 APPPATH\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:00:00', '2025-06-03 00:00:00', '')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 17:26:12 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 5 APPPATH\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:00:00', '2025-06-03 00:00:00', '')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-02 17:26:16 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`ar...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`ar...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`ar...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`ar...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:0...', '2025-06-20 00:0...', '')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-02 17:26:16 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+[Method: GET, Route: PreArrivalReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 2 APPPATH\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:00:00', '2025-06-20 00:00:00', '')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 17:26:16 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 4 APPPATH\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:00:00', '2025-06-20 00:00:00', '')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 17:26:16 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 5 APPPATH\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:00:00', '2025-06-20 00:00:00', '')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-02 17:29:47 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`ar...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`ar...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`ar...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`ar...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:0...', '2025-06-20 00:0...', '')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-02 17:29:47 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+[Method: GET, Route: PreArrivalReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 2 APPPATH\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:00:00', '2025-06-20 00:00:00', '')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 17:29:47 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 4 APPPATH\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:00:00', '2025-06-20 00:00:00', '')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 17:29:47 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 5 APPPATH\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:00:00', '2025-06-20 00:00:00', '')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-02 17:29:50 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`ar...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`ar...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`ar...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`ar...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:0...', '2025-06-20 00:0...', '')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-02 17:29:50 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+[Method: GET, Route: PreArrivalReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 2 APPPATH\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:00:00', '2025-06-20 00:00:00', '')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 17:29:50 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 4 APPPATH\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:00:00', '2025-06-20 00:00:00', '')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-02 17:29:50 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_transport_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = 1
+AND `s`.`current_status_id` = 1
+AND `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-06-02 00:00:00\'
+AND `ar`.`arrival_date` <= \'2025-06-02\'
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`, `eh`.`enq_type_id`, `e11`.`entity_name`, `e11`.`entity_id`, `oeh`.`ref_no`, `tf`.`driver_name` AS `drivername`, `tf`.`phone_number` AS `driverphone`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(arrival_follow_up_id) AS latest_arrival_id
+FROM `khm_obj_arrival_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_arr ON `ar`.`arrival_follow_up_id` = `last_arr`.`latest_arrival_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `oeh` ON `oeh`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_transport_follow_up` AS `tf` ON `tf`.`enquiry_header_id`=`oeh`.`enquiry_header_id`
+LEFT JOIN `khm_entity_mst` AS `em4` ON `em4`.`entity_id`=`tf`.`transporter_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` AS `eer` ON `eer`.`enquiry_header_id`=`ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_enquiry_status` AS `s` ON `s`.`edit_request_id`=`eer`.`enquiry_edit_request_id`
+LEFT JOIN `khm_entity_mst` AS `e11` ON `e11`.`entity_id`=`s`.`assigned_to`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 9
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 9
+LEFT JOIN `khm_obj_enquiry_details` AS `ed` ON `ed`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN JSON_TABLE(
+                ed.vehicle_type_id,
+                \'$[*]\' COLUMNS(
+                   vehicle_type_id INT PATH \'$.vehicle_type_id\'
+                )
+            ) AS vt ON 1=1
+LEFT JOIN `khm_obj_vehicle` AS `v` ON `v`.`vehicle_type_id` = `vt`.`vehicle_type_id` AND `v`.`is_active` = 1
+LEFT JOIN `khm_entity_attribute` AS `ea` ON `ea`.`entity_attr_value`      = `v`.`vehicle_id` AND `ea`.`entity_class_attr_id` = 1967
+LEFT JOIN `khm_entity_mst` AS `em` ON `em`.`entity_id` = `ea`.`entity_id` AND `em`.`deleted` = 0
+WHERE `eer`.`is_active` = :eer.is_active:
+AND `s`.`current_status_id` = :s.current_status_id:
+AND `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:
+GROUP BY `ar`.`arrival_follow_up_id`
+ORDER BY `ar`.`arrival_follow_up_id` DESC', [...], false)
+ 5 APPPATH\Models\PreArrivalReportModel.php(207): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\PreArrivalReport.php(97): App\Models\PreArrivalReportModel->getByDateRange('2025-06-02 00:00:00', '2025-06-20 00:00:00', '')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreArrivalReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreArrivalReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

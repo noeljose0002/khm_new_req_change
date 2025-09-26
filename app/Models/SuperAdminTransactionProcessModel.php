@@ -1,0 +1,67 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class SuperAdminTransactionProcessModel extends Model
+{
+    protected $table = 'khm_sys_mst_transaction_process';
+    protected $primaryKey = 'entity_trans_id';
+    protected $allowedFields = [
+        'entity_trans_name',
+        'prs_type_id',
+        'prs_parent_id',
+        'enterprise_id',
+        'menu_link',
+        'deleted',
+
+    ];
+    protected $useTimestamps = false;
+    protected $returnType = 'array';
+    
+
+
+    public function getAll(): array
+    {
+        return $this->db
+            ->table($this->table . ' AS t')
+            ->select([
+                't.entity_trans_id ',
+                't.entity_trans_name',
+                't.prs_type_id',
+                't.prs_parent_id',
+                't.menu_link',
+                't.enterprise_id',
+                't.deleted',
+            ])
+            ->where('t.deleted',0)
+            ->orderBy('t.entity_trans_id', 'DESC')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function getTypes():array
+    {
+        return $this->db
+            ->table('khm_sys_mst_process_transaction_type AS ty')
+            ->select([
+                'ty.prs_type_id',
+                'ty.prs_name',
+            ])
+            ->where('ty.deleted',0)
+            ->orderBy('ty.prs_type_id', 'DESC')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function getone(int $id)
+    {
+        return $this->find($id);
+    }
+
+    public function softDelete(int $id)
+    {
+        return $this->update($id,['deleted'=>1]);
+    }
+}

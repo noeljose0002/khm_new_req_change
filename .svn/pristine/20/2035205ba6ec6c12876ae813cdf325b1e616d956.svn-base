@@ -1,0 +1,206 @@
+<?php
+$address = '';
+$phno = '';
+?>
+                    <div class="container">
+                   
+                    <textarea name="hotel_voucher_template" id="hotel_voucher_template" style="width:100%; height:1000px;">
+                    <?php foreach($cdata as $key => $val) { ?>
+                    <table style="width:100%;border-collapse: collapse;border: none;">  
+                        <tr>
+                            <td style="border: none; text-align: left;"><b>TOURACLE | A Unit of Kaduna Hospitality Pvt Ltd<b></td>
+                            <td style="border: none; text-align: right;" rowspan="5"><img src="../../assets/adminlte/img/bird_green_nw.png" alt="" /><b></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none; text-align: left;"><b>Chiramel Building , Sreekandath Road,<b></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none; text-align: left;"><b>Cochin - 682016<b></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none; text-align: left;"><b>Phone: + 91 484 4604774 | Mob: +91 9995821798<b></td>
+                        </tr>
+                        <tr>
+                            <td style="border: none; text-align: left;"><b>www.touracle.in Email: mah@touracle.in<b></td>
+                        </tr>
+                    </table>
+                    
+                    <table style="width:100%;border-collapse: collapse;border: 1px solid black;">
+                                 <tr>
+                                    <td colspan="2" style="border: 1px solid black;text-align:center;background-color:#ffcc00;color:black;"><b>Hotel Voucher</b></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        To,
+                                    </td>
+                                    <td>
+                                       
+                                          Confirmation No : <?php echo $val['ref_no']; ?>
+            
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        The Manager
+                                    </td>
+                                    <td>
+                                        Date : <?php echo date("d-m-Y", strtotime($cdate)); ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?php echo $val['object_name']; ?>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <?php if(!empty($val['object_address'])){ 
+                                    $addresses = json_decode($val['object_address'], true);
+	                                $address = is_array($addresses) && count($addresses) > 0 ? $addresses[0] : '';
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $address; ?>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                <?php } ?>
+                                <?php if(!empty($val['geog_name'])){ ?>
+                                    <tr>
+                                        <td>
+                                            <?php echo $val['geog_name']; ?>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                <?php } ?>
+                                <?php if(!empty($val['object_ph_no'])){ 
+                                    $phnos = json_decode($val['object_ph_no'], true);
+	                                $phno = is_array($phnos) && count($phnos) > 0 ? $phnos[0] : '';
+                                    ?>
+                                    <tr>   
+                                        <td>
+                                            <?php echo $phno; ?></p>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                <?php } ?>
+                                   
+                            
+                    </table>
+                    <table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
+                        <tr>
+                            <td colspan="2" style="text-align:center;border: 1px solid black;background-color:#ffcc00;color:black;"><b>IN EXCHANGE OF THIS VOUCHER PLEASE PROVIDE THE FOLLOWING SERVICES</b></td>
+                        </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;Name of the Guest</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo $val['entity_name']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;Reservation No.</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo $val['reference_id']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;No. of Adult</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo $val['no_of_adult']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;No. of Child with bed</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo $val['no_of_child_with_bed']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;No. Of child(without bed)</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo $val['no_of_child_without_bed']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;Room Category</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo $val['room_category_name']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;No Of Double Room</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo $val['no_of_double_room']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;No Of Single Room</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo $val['no_of_single_room']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;No Of Extra Bed</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo $val['no_of_extra_bed']; ?></td>
+                                </tr>
+                              
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;Meal Plan</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo $val['meal_plan_name']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;Check in</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo date("d-m-Y", strtotime($val['check_in_date'])); ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;Check out</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo date("d-m-Y", strtotime($val['check_out_date'])); ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;No of Nights</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo $val['no_of_days']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid black;text-align:left;"><b>&nbsp;&nbsp;Hotel Booking confirmed by</b></td>
+                                    <td style="border: 1px solid black;text-align:left;">&nbsp;&nbsp;<?php echo $val['confirmed_by']; ?></td>
+                                </tr>
+                    </table>
+             
+                    <table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
+                            <tr>
+                                <td style="text-align:center;background-color:#009900;color:#fff;border: 1px solid black;"><b>Collect all extras directly from the client</b></td>
+                            </tr>
+                                <tr>
+                                    <td>
+                                        Please Note
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        1: This voucher has to be produced at the time of your check-in to the Hotel/House Boat.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        2 : Cancelation / Extension of stay after check-in depends upon the Hotel/ House Boat policy
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        3 : Extra charges if any, have to be paid directly to the Hotel.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        4. Early check in and late checkout will be as per the availability of rooms and the Hotel policy
+                                    </td>
+                                </tr>
+                    </table>
+               
+                    <hr/>
+                    <?php } ?>
+                 
+                   
+                    
+                    </textarea>
+                
+<script>
+$(document).ready(function() {
+    tinyMCE.init({
+        mode: "exact",
+        elements: "hotel_voucher_template",  // The ID of your textarea element
+        readonly : true,
+        setup: function(ed) {
+            ed.onInit.add(function(ed) {
+                // TinyMCE has been initialized
+               
+            });
+        }
+    });
+});
+</script>                    
+             
+

@@ -1,0 +1,136 @@
+<?php
+namespace App\Controllers;
+use CodeIgniter\Controller;
+use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\SuperAdminEntityAttributeClassAssignModel;
+use App\Models\Dashboard_m;
+
+class SuperAdminEntityAttributeClassAssign extends Controller
+{
+
+    protected $dashboardModel;
+    protected $assignModel;
+
+
+    public function __construct()
+    {
+        $this->assignModel = new SuperAdminEntityAttributeClassAssignModel();
+        $this->dashboardModel = new Dashboard_m();
+    }
+
+    public function index()
+    {
+         $entityId   = session('user_id');
+        $activeRole = session('active_role');
+
+        // Fetch entity roles & systems
+        $allRoles  = $this->dashboardModel->get_all_entity_roles($entityId);
+        $allSys    = $this->dashboardModel->get_all_systems($entityId);
+
+        // Prepare data for the sidebar/menu
+        $data = [
+            'all_systems'       => $allSys,
+            'all_roles_assn'    => $allRoles ?: [],
+            'all_menus'         => $allRoles ? $this->dashboardModel->get_all_role_menus($activeRole) : [],
+            'all_permissions'   => $allRoles ? $this->dashboardModel->get_all_entity_permissions($activeRole, 3) : [],
+            'parent_menu'       => $this->dashboardModel->get_parent_menus(),
+            'sub_menu'          => $this->dashboardModel->get_sub_menus(),
+        ];
+
+        return view('masters/super_admin_entity_attribute_assign', $data);
+    
+    }
+
+    public function list():ResponseInterface
+    {
+        $result = $this->assignModel->getAll();
+        return $this->response->setJSON(['data'=>$result]);
+    }
+      public function list2():ResponseInterface
+    {
+        $result2 = $this->assignModel->getClass();
+        return $this->response->setJSON(['data'=>$result2]);
+    }
+      public function list3():ResponseInterface
+    {
+        $result3 = $this->assignModel->getAttri();
+        return $this->response->setJSON(['data'=>$result3]);
+    }
+   public function create():ResponseInterface
+    {
+        $rules = [
+            'entity_class_id '=>'required|integer',
+            'enterprise_id'=>'required|integer',
+            'entity_attribute_id '=>'required|integer',
+        ];
+
+        if(! $this->validate($rules)) {
+            return $this->response->setStatusCode(422)->setJSON(['errors'=>$this->validator->getErrors()]);
+            
+            }
+
+        $payload=[
+            'entity_class_id'=> $this->request->getPost('entity_class_id'),
+            'enterprise_id'=>$this->request->getPost('enterprise_id'),
+            'entity_attribute_id'=>$this->request->getPost('entity_attribute_id'),
+
+            
+        ];
+        $this->assignModel->insert($payload);
+
+        return $this->response->setJSON(['message'=>'created successfully']);
+    }
+        public function edit(int $id): ResponseInterface
+    {
+        $record = $this->assignModel->getOne($id);
+        if (! $record) {
+            return $this->response->setStatusCode(404)
+                                   ->setJSON(['error' => 'Record not found']);
+        }
+        return $this->response->setJSON($record);
+    }
+
+     public function update(int $id):ResponseInterface
+    {
+        $rules = [
+            'entity_class_id '=>'required|integer',
+            'enterprise_id'=>'required|integer',
+            'entity_attribute_id '=>'required|integer',
+        ];
+
+        if(! $this->validate($rules)) {
+            return $this->response->setStatusCode(422)->setJSON(['errors'=>$this->validator->getErrors()]);
+            
+            }
+
+        $payload=[
+            'entity_class_id'=> $this->request->getPost('entity_class_id'),
+            'enterprise_id'=>$this->request->getPost('enterprise_id'),
+            'entity_attribute_id'=>$this->request->getPost('entity_attribute_id'),
+
+            
+        ];
+       $updated= $this->assignModel->insert($payload);
+       if($updated===false){
+         return $this->response->setStatusCode(500)
+                                    ->setJSON(['error'=>'updation failed']);
+       }
+
+        return $this->response->setJSON(['message'=>'updated successfully']);
+    }
+
+    public function delete(int $id):ResponseInterface
+    {
+
+        $deleted = $this->assignModel->softDelete($id);
+        if (! $deleted) {
+            return $this->response->setStatusCode(500)
+                                    ->setJSON(['error'=>'Delete failed']);
+        }
+        return $this->response->setJSON(['message'=>'Deleted successfully']);
+
+    }
+
+
+}
+?>

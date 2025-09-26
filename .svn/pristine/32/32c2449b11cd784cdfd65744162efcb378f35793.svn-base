@@ -1,0 +1,126 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class MonthlyTargetReportModel extends Model
+{
+    protected $table = 'khm_obj_enquiry_header';
+    protected $primaryKey = 'enquiry_header_id';
+    protected $allowedFields = [
+        'object_id',
+        'guest_entity_id',
+        'agent_entity_id',
+        'employee_entity_id',
+        'enq_added_date',
+        'enq_type_id',
+        'is_active',
+        'ref_no',
+        'enterprise_id',
+    ];
+
+
+
+    protected function baseQuery()
+    {
+        return $this->db
+            ->table('khm_obj_enquiry_header AS h')
+            ->distinct()
+            ->select([
+                'e.entity_name',
+                'e.entity_id',
+                'mt.target_id',
+                'mt.target_name',
+                'mt.target_from_date',
+                'mt.target_to_date',
+                't.target_amount',
+                'COALESCE(SUM(de.tpc), 0) AS total_tpc',
+            ])
+
+            ->join(
+                'khm_entity_mst_target_assign AS t',
+                'h.employee_entity_id=t.entity_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_mst_target AS mt',
+                'mt.target_id=t.target_id',
+                'left'
+            )
+            ->join(
+                'khm_entity_mst AS e',
+                'e.entity_id=h.employee_entity_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_enquiry_detail_extensions AS de',
+                'de.enquiry_header_id=h.enquiry_header_id',
+                'left'
+            )
+            ->where('mt.target_status', 1)
+            ->where('h.is_active', 1)
+            ->where('t.deleted', 0)
+            ->where('mt.deleted', 0)
+            ->where('de.is_active', 1)
+
+            ->groupBy([
+                'e.entity_name',
+                'e.entity_id',
+                'mt.target_id',
+                'mt.target_name',
+                'mt.target_from_date',
+                'mt.target_to_date',
+                't.target_amount',
+            ]);
+    }
+
+
+    public function getByDateRange(string $fromYmd, string $toYmd, string $executive_id, string $target_id): array
+    {
+        $qb = $this->baseQuery()
+            ->where('mt.target_from_date >=', $fromYmd)
+            ->where('mt.target_to_date <=', $toYmd);
+
+
+        // Only apply agent filter if user selected a specific agent
+        if ($executive_id !== 'all') {
+            $qb->where('e.entity_id', $executive_id);
+        }
+        if ($target_id !== 'all') {
+            $qb->where('mt.target_id', $target_id);
+        }
+
+        return $qb->get()
+            ->getResultArray();
+    }
+
+    public function getAllEmployees(): array
+    {
+        return $this->db
+            ->table('khm_entity_mst AS e2')
+            ->select([
+                'e2.entity_id AS id',
+                'e2.entity_name AS name',
+            ])
+            ->where('e2.entity_class_id ', 3)
+            ->orderBy('e2.entity_name', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function getAllTargets(): array
+    {
+        return $this->db
+            ->table('khm_obj_mst_target AS t2')
+            ->select([
+                't2.target_id  AS id',
+                't2.target_name AS name',
+            ])
+            ->where('t2.target_status ', 1)
+            ->where('t2.deleted', 0)
+            ->orderBy('t2.target_name', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
+}

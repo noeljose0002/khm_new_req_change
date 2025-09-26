@@ -1,0 +1,731 @@
+ERROR - 2025-08-04 08:05:49 --> mysqli_sql_exception: Unknown column 'khm_obj_facility.deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `khm_obj...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `khm_obj...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `khm_obj...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `khm_obj...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\FacilityCombinedModel.php(72): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Facility.php(67): App\Models\FacilityCombinedModel->getFacilityList()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Facility->getFacilities()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-04 08:05:49 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_obj_facility.deleted' in 'where clause'
+[Method: GET, Route: Facility/getFacilities]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = :khm_obj_facility.deleted:', [...], false)
+ 2 APPPATH\Models\FacilityCombinedModel.php(72): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Facility.php(67): App\Models\FacilityCombinedModel->getFacilityList()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->getFacilities()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-04 08:05:49 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_obj_facility.deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = 0')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = 0')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = :khm_obj_facility.deleted:', [...], false)
+ 4 APPPATH\Models\FacilityCombinedModel.php(72): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Facility.php(67): App\Models\FacilityCombinedModel->getFacilityList()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->getFacilities()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-04 08:05:49 --> [Caused by] mysqli_sql_exception: Unknown column 'khm_obj_facility.deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = 0', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = 0')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = 0')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = :khm_obj_facility.deleted:', [...], false)
+ 5 APPPATH\Models\FacilityCombinedModel.php(72): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Facility.php(67): App\Models\FacilityCombinedModel->getFacilityList()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->getFacilities()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-04 08:58:24 --> ErrorException: Undefined array key "selectOptionsystem"
+[Method: POST, Route: Enquiry/get_payment_tracker_data]
+in APPPATH\Models\Enquiry_m.php on line 3516.
+ 1 APPPATH\Models\Enquiry_m.php(3516): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "selectOptionsystem"', 'C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php', 3516)
+ 2 APPPATH\Controllers\Enquiry.php(5758): App\Models\Enquiry_m->get_payment_tracker_data([...])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->get_payment_tracker_data()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-04 08:59:23 --> ErrorException: Undefined array key "selectOptionsystem"
+[Method: POST, Route: Enquiry/get_payment_tracker_data]
+in APPPATH\Models\Enquiry_m.php on line 3516.
+ 1 APPPATH\Models\Enquiry_m.php(3516): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "selectOptionsystem"', 'C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php', 3516)
+ 2 APPPATH\Controllers\Enquiry.php(5758): App\Models\Enquiry_m->get_payment_tracker_data([...])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->get_payment_tracker_data()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-04 08:59:28 --> ErrorException: Undefined array key "selectOptionsystem"
+[Method: POST, Route: Enquiry/get_payment_tracker_data]
+in APPPATH\Models\Enquiry_m.php on line 3516.
+ 1 APPPATH\Models\Enquiry_m.php(3516): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "selectOptionsystem"', 'C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php', 3516)
+ 2 APPPATH\Controllers\Enquiry.php(5758): App\Models\Enquiry_m->get_payment_tracker_data([...])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->get_payment_tracker_data()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-04 09:02:55 --> mysqli_sql_exception: Unknown column 'h.enq_type_id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT SQL_CALC...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Enquiry_m.php(3598): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Enquiry.php(5758): App\Models\Enquiry_m->get_payment_tracker_data(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->get_payment_tracker_data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-04 09:02:55 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'h.enq_type_id' in 'where clause'
+[Method: POST, Route: Enquiry/get_payment_tracker_data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > :h.cs_confirmed_id:
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10', [...], false)
+ 2 APPPATH\Models\Enquiry_m.php(3598): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Enquiry.php(5758): App\Models\Enquiry_m->get_payment_tracker_data([...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->get_payment_tracker_data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-04 09:02:55 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'h.enq_type_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > 0
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > 0
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > :h.cs_confirmed_id:
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10', [...], false)
+ 4 APPPATH\Models\Enquiry_m.php(3598): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Enquiry.php(5758): App\Models\Enquiry_m->get_payment_tracker_data([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->get_payment_tracker_data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-04 09:02:55 --> [Caused by] mysqli_sql_exception: Unknown column 'h.enq_type_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > 0
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > 0
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > 0
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > :h.cs_confirmed_id:
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10', [...], false)
+ 5 APPPATH\Models\Enquiry_m.php(3598): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Enquiry.php(5758): App\Models\Enquiry_m->get_payment_tracker_data([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->get_payment_tracker_data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-04 09:02:59 --> mysqli_sql_exception: Unknown column 'h.enq_type_id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT SQL_CALC...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Enquiry_m.php(3598): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Enquiry.php(5758): App\Models\Enquiry_m->get_payment_tracker_data(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->get_payment_tracker_data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-04 09:02:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'h.enq_type_id' in 'where clause'
+[Method: POST, Route: Enquiry/get_payment_tracker_data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > :h.cs_confirmed_id:
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10', [...], false)
+ 2 APPPATH\Models\Enquiry_m.php(3598): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Enquiry.php(5758): App\Models\Enquiry_m->get_payment_tracker_data([...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->get_payment_tracker_data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-04 09:02:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'h.enq_type_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > 0
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = \'4\'
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > 0
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = \'4\'
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > :h.cs_confirmed_id:
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10', [...], false)
+ 4 APPPATH\Models\Enquiry_m.php(3598): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Enquiry.php(5758): App\Models\Enquiry_m->get_payment_tracker_data([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->get_payment_tracker_data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-04 09:02:59 --> [Caused by] mysqli_sql_exception: Unknown column 'h.enq_type_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > 0
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = \'4\'
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > 0
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = \'4\'
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > 0
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = \'4\'
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,app.remarks,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id
+FROM `khm_obj_enquiry_header` `a`
+LEFT JOIN `khm_obj_enquiry_edit_request` `h` ON `h`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `h`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ext` ON `ext`.`enquiry_detail_details_id` = `h`.`cs_confirmed_id`
+LEFT JOIN `khm_obj_enquiry_details` `d` ON `d`.`enquiry_details_id` = `ext`.`enquiry_ref_id`
+LEFT JOIN `khm_obj_enquiry_status` `exe` ON `exe`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `exe`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `exe`.`current_status_id` = 1
+LEFT JOIN `khm_obj_enquiry_status` `sop` ON `sop`.`enquiry_header_id` = `a`.`enquiry_header_id` AND `sop`.`edit_request_id` = `h`.`enquiry_edit_request_id` AND `sop`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `ex` ON `ex`.`entity_id` = `exe`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `sp` ON `sp`.`entity_id` = `sop`.`assigned_to`
+LEFT JOIN `khm_entity_mst` `gu` ON `gu`.`entity_id` = `a`.`guest_entity_id`
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `a`.`agent_entity_id`
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+LEFT JOIN (SELECT `rc`.`paid_amount`, `rc`.`enquiry_header_id`, `latest`.`total_paid`
+FROM `khm_obj_enquiry_payment` `rc`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_paid, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            GROUP BY enquiry_header_id) latest ON `rc`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `rc`.`payment_id` = `latest`.`max_payment_id`) rec ON `rec`.`enquiry_header_id` = `a`.`enquiry_header_id`
+LEFT JOIN (SELECT `ap`.`paid_amount`, `ap`.`enquiry_header_id`, `latest`.`total_appr`, `ap`.`approved_status`, `ap`.`remarks`
+FROM `khm_obj_enquiry_payment` `ap`
+INNER JOIN (SELECT MAX(payment_id) AS max_payment_id, SUM(paid_amount) AS total_appr, enquiry_header_id
+            FROM khm_obj_enquiry_payment 
+            WHERE approved_status = 1
+            GROUP BY enquiry_header_id) latest ON `ap`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `ap`.`payment_id` = `latest`.`max_payment_id`) app ON `app`.`enquiry_header_id` = `a`.`enquiry_header_id`
+WHERE h.cs_confirmed_id > :h.cs_confirmed_id:
+AND DATE(sop.updated_time) BETWEEN \'2025-08-01\' AND \'2025-08-14\'
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `sop`.`updated_time` DESC, `ref_no` ASC
+ LIMIT 10', [...], false)
+ 5 APPPATH\Models\Enquiry_m.php(3598): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Enquiry.php(5758): App\Models\Enquiry_m->get_payment_tracker_data([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->get_payment_tracker_data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

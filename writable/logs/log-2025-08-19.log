@@ -1,0 +1,745 @@
+CRITICAL - 2025-08-19 05:44:25 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 05:44:27 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 05:44:28 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 05:44:28 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 05:44:28 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 05:44:28 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 05:44:29 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 05:44:44 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 05:44:44 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 05:44:45 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 05:44:45 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 05:44:45 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 05:45:40 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 675.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:03:46 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 691.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:03:47 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 691.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:03:47 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 691.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:03:48 --> Error: Undefined constant "index"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 691.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:17:21 --> ParseError: Unclosed '{' on line 398
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 942.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:17:22 --> ParseError: Unclosed '{' on line 398
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 942.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:17:22 --> ParseError: Unclosed '{' on line 398
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 942.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:17:23 --> ParseError: Unclosed '{' on line 398
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 942.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:29:40 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 38.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 38)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:29:42 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 38.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 38)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:29:42 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 38.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 38)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:30:51 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 38.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 38)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:30:52 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 38.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 38)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:30:53 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 38.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 38)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:30:53 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 38.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 38)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:30:53 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 38.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 38)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:31:02 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 38.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 38)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:31:02 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 38.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 38)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:31:04 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 38.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 38)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:32:00 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 38.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(38): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 38)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:14 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:15 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:15 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:15 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:16 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:16 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:16 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:16 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:16 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:16 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:17 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:17 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:17 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:17 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:17 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:20 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:20 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:21 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:21 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:21 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:21 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-19 06:34:22 --> ErrorException: Undefined array key "hotel_name"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 43.
+ 1 APPPATH\Views\enquiry\hotel_voucher_view.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php', 43)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\hotel_voucher_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

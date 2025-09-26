@@ -1,0 +1,258 @@
+<style>
+    .costing-table {
+			width: 100%;
+			background-color: #ffffff;
+			border-collapse: collapse;
+			text-align: center;
+		}
+
+		.costing-table th,
+		.costing-table td {
+			border: 1px solid #ddd;
+			padding: 5px;
+		}
+
+		.costing-table th {
+			background-color: #f1f1f1;
+			font-weight: bold;
+		}
+    </style>
+<?php 
+use App\Models\Enquiry_m;
+$Enquiry_model = new Enquiry_m();
+	$pax_count_exist = 0;		
+	$rt_count = 0;
+	if($hot_det[0]['no_of_double_room'] > 0){
+		$rt_count = $rt_count + 1;
+	}
+	if($hot_det[0]['no_of_single_room'] > 0){
+		$rt_count = $rt_count + 1;
+	}
+?>
+<input type="hidden" id="ac_enquiry_header_id" value="<?php echo $enquiry_header_id; ?>">
+    <div class="costing-container">
+    							<h4 style="text-align:center; color: #004d00; font-weight: bold; font-style: italic;font-size: 20px;">Hotel Availability Check</h4>
+    							<div class="table-responsive costing-box">
+								<table class="table table-bordered costing-table" id="ac_table_id">  
+									
+										<tr>
+											<th>Day</th>
+											<th>Date</th>
+											<th>Destination</th>
+											<th>Remarks</th>
+											<th>Hotel</th>
+											<th>Room Category</th>
+											<th>Meal Plan</th>
+										
+											
+											<th>No Of Adult</th>
+                                            <th>AC</th>
+                                            <th>Description</th>
+
+											<th>Room Type</th>
+											<th>No:Of Rooms</th>
+										
+											<th>Adult Rate</th>
+												<?php if($hot_det[0]['no_of_child_with_bed'] > 0){ 
+													$pax_count_exist++;
+													?>
+													<th>No:Of Child with Bed</th>
+													<th>Child with Bed Rate</th>
+												<?php } ?>
+										
+												<?php if($hot_det[0]['no_of_child_without_bed'] > 0){ 
+													$pax_count_exist++;
+													?>
+													<th>No:Of Child without Bed</th>
+													<th>Child without Bed Rate</th>
+												<?php } ?>
+									
+												<?php if($hot_det[0]['no_of_extra_bed'] > 0){ 
+													$pax_count_exist++;
+													?>
+													<th>No:Of Extra Bed</th>
+													<th>Extra Bed Rate</th>
+												<?php } ?>
+									
+										
+											<th>Total</th>
+										</tr>
+								
+									<?php 
+                                    if(!empty($hot_det)){
+                                    $key_count = 1;		
+									$special_event_count = 0;
+									$addon_count = 0;
+									$k = 1;
+									$sum = 0;
+									$gtot = 0;
+									$ss_name_temp = '';
+									$cs_acc_total = 0;
+									$itinerary_details_save_count = count($hot_det)-1;
+									foreach($hot_det as $key => $val) { 
+                                        $roomtype = "";
+                                        if($val['double_room'] > 0){
+                                            $roomtype .= "Double(".$val['double_room'].") ";
+                                        }
+                                        if($val['single_room'] > 0){
+                                            $roomtype .= "Single(".$val['single_room'].") ";
+                                        }
+										if($key < $itinerary_details_save_count){
+										$hot_det_count = json_decode($val['hotel_details']);
+										if(!empty($val['special_event_name'])){
+											$special_event_count = $special_event_count + 1;
+										}
+										foreach($val['cost'] as $ckey => $cval) { 
+											if($cval['cost_component_id'] == "6" && $cval['room_type_id'] == "2"){
+												$room_t_d = $cval['tariff'];
+											}
+											if($cval['cost_component_id'] == "12" && $cval['room_type_id'] == "2"){
+												$child_t_d = $cval['tariff'];
+											}
+											if($cval['cost_component_id'] == "15" && $cval['room_type_id'] == "2"){
+												$child_wb_t_d = $cval['tariff'];
+											}
+											if($cval['cost_component_id'] == "9" && $cval['room_type_id'] == "2"){
+												$extra_t_d = $cval['tariff'];
+											}
+
+											if($cval['cost_component_id'] == "6" && $cval['room_type_id'] == "1"){
+												$room_t_s = $cval['tariff'];
+											}
+											if($cval['cost_component_id'] == "12" && $cval['room_type_id'] == "1"){
+												$child_t_s = $cval['tariff'];
+											}
+											if($cval['cost_component_id'] == "15" && $cval['room_type_id'] == "1"){
+												$child_wb_t_s = $cval['tariff'];
+											}
+											if($cval['cost_component_id'] == "9" && $cval['room_type_id'] == "1"){
+												$extra_t_s = $cval['tariff'];
+											}
+											if($cval['cost_component_id'] == "18" && $cval['room_type_id'] == "1"){
+												$facility_id = $cval['tariff'];
+												if(!empty($cval['tariff']) || !empty($hot_det_count)){
+													$addon_count = $addon_count + 1;
+												}
+											}
+											if($cval['cost_component_id'] == "19" && $cval['room_type_id'] == "1"){
+												$facility_tafiff = $cval['tariff'];
+											}
+											if($cval['cost_component_id'] == "17" && $cval['room_type_id'] == "1"){
+												$spcl_tariff = $cval['tariff'];
+											}
+											if($cval['cost_component_id'] == "21" && $cval['room_type_id'] == "1"){
+												$sight_seeing_id = $cval['tariff'];
+												$ss_name = $Enquiry_model->getSightName($sight_seeing_id);
+												if(!empty($ss_name)){
+													$ss_name_temp = $ss_name[0]['object_name'];
+												}
+												else{
+													$ss_name_temp = "";
+												}
+											}
+										}
+										$dtotal = ($val['double_room']*$room_t_d) + ($val['child_with_bed']*$child_t_d) + ($val['child_without_bed']*$child_wb_t_d) + ($val['extra_bed']*$extra_t_d);
+										$stotal = $val['single_room']*$room_t_s;
+										
+										?>
+										<tr>
+										<td rowspan="<?php echo $rt_count; ?>"><?php echo "Day ".$k; ?></td>
+										<td rowspan="<?php echo $rt_count; ?>"><?php echo date("d-m-Y", strtotime($val['tour_date'])); ?></td>
+										<td rowspan="<?php echo $rt_count; ?>"><?php echo $val['geog_name']; ?></td>
+										
+										<td rowspan="<?php echo $rt_count; ?>"><?php echo $val['remarks']; ?></td>
+										<td rowspan="<?php echo $rt_count; ?>"><?php echo $val['object_name']; ?></td>
+										<td rowspan="<?php echo $rt_count; ?>"><?php echo $val['room_category_name']; ?></td>
+										<td rowspan="<?php echo $rt_count; ?>"><?php echo $val['meal_type_name']; ?></td>
+										
+										<td rowspan="<?php echo $rt_count; ?>"><?php echo $hot_det[0]['no_of_adult']; ?></td>
+
+                                        <td rowspan="<?php echo $rt_count; ?>">
+                        
+                                            <input type="hidden" id="ac_location_name<?php echo $key_count; ?>" value="<?php echo $val['geog_name']; ?>">
+                                            <input type="hidden" id="ac_tour_date<?php echo $key_count; ?>" value="<?php echo date('d-m-Y', strtotime($val['tour_date'])); ?>">
+                                        
+                                            <input type="hidden" id="ac_hotel_name<?php echo $key_count; ?>" value="<?php echo $val['object_name']; ?>">
+                                            <input type="hidden" id="ac_room_cat_name<?php echo $key_count; ?>" value="<?php echo $val['room_category_name']; ?>">
+                                            
+                                            <input type="hidden" id="ac_room_type<?php echo $key_count; ?>" value="<?php echo $roomtype; ?>">
+                                            <input type="checkbox" id="ac_available<?php echo $key_count; ?>">
+                                        </td>
+                                        <td rowspan="<?php echo $rt_count; ?>"><textarea id="ac_remarks<?php echo $key_count; ?>" class="form-control input-sm"></textarea></td>
+										<?php 
+											if($hot_det[0]['no_of_double_room'] > 0) { ?>
+												<td>Double</td>
+												<td><?php echo $val['double_room']; ?></td>
+												
+												<td><?php echo $room_t_d; ?></td>
+											
+												<?php if($hot_det[0]['no_of_child_with_bed'] > 0){ ?>
+													<td><?php echo $val['child_with_bed']; ?></td>
+													<td><?php echo $child_t_d; ?></td>
+												<?php } ?>
+												<?php if($hot_det[0]['no_of_child_without_bed'] > 0){ ?>
+													<td><?php echo $val['child_without_bed']; ?></td>
+													<td><?php echo $child_wb_t_d; ?></td>
+												<?php } ?>
+												<?php if($hot_det[0]['no_of_extra_bed'] > 0){ ?>
+													<td><?php echo $val['extra_bed']; ?></td>
+													<td><?php echo $extra_t_d; ?></td>
+												<?php } ?>
+												<td><?php echo $dtotal; ?></td>
+												</tr>
+										<?php 
+												$cs_acc_total = $cs_acc_total + $dtotal;
+											} ?>
+										<?php 
+											if($hot_det[0]['no_of_single_room'] > 0) { 
+												if($hot_det[0]['no_of_double_room'] > 0) {
+												?>
+												<tr>
+												<?php } ?>
+												<td>Single</td>
+												<td><?php echo $val['single_room']; ?></td>
+											
+												<td><?php echo $room_t_s; ?></td>
+											
+												<?php if($hot_det[0]['no_of_child_with_bed'] > 0){ ?>
+													<td>0</td>
+													<td><?php echo $child_t_s; ?></td>
+												<?php } ?>
+												<?php if($hot_det[0]['no_of_child_without_bed'] > 0){ ?>
+													<td>0</td>
+													<td><?php echo $child_wb_t_s; ?></td>
+												<?php } ?>
+												<?php if($hot_det[0]['no_of_extra_bed'] > 0){ ?>
+													<td>0</td>
+													<td><?php echo $extra_t_s; ?></td>
+												<?php } ?>
+												<td><?php echo $stotal; ?></td>
+												</tr>
+										<?php } 
+										$cs_acc_total = $cs_acc_total + $stotal;
+										$hot_details = json_decode($val['hotel_details']);
+									
+										$k = $k + 1;
+										}
+                                        $key_count = $key_count + 1;
+									}
+										?>
+									<tr>
+										<?php $colspan_count = ($pax_count_exist*2) + 13; ?>
+										<th colspan="<?php echo $colspan_count; ?>">Total Accommodation Cost</th>
+										<th><?php echo $cs_acc_total; ?></th>
+									</tr>
+                                <?php 
+                                } else { ?>
+                                    <tr>
+                                        <td colspan="<?php echo $colspan_count; ?>" style="text-align:center;">Availability Check Not Found</td>
+                                    </tr>
+                                <?php } ?>
+
+								</table> 
+                                </div>
+								</div>
+                                <?php
+    if(!empty($hot_det)){ ?>
+        <button type="" id="ac_btn_id" class="btn btn-success update_ac_check" style="float:right;">Update Availability Check</button>														
+    <?php } ?>

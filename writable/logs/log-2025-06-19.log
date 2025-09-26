@@ -1,0 +1,312 @@
+ERROR - 2025-06-19 12:07:46 --> mysqli_sql_exception: Unknown column 'eme.entity_class_id' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `eme`.`e...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `eme`.`e...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `eme`.`e...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `eme`.`e...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-19 12:07:47 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'eme.entity_class_id' in 'field list'
+[Method: GET, Route: SuperAdminEntityAttribute/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = :eme.deleted:
+ORDER BY `eme`.`entity_class_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-19 12:07:47 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'eme.entity_class_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = 0
+ORDER BY `eme`.`entity_class_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = 0
+ORDER BY `eme`.`entity_class_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = :eme.deleted:
+ORDER BY `eme`.`entity_class_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-19 12:07:47 --> [Caused by] mysqli_sql_exception: Unknown column 'eme.entity_class_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = 0
+ORDER BY `eme`.`entity_class_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = 0
+ORDER BY `eme`.`entity_class_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = 0
+ORDER BY `eme`.`entity_class_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = :eme.deleted:
+ORDER BY `eme`.`entity_class_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-19 12:08:53 --> mysqli_sql_exception: Unknown column 'eme.entity_class_id' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `eme`.`e...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `eme`.`e...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `eme`.`e...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `eme`.`e...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-19 12:08:53 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'eme.entity_class_id' in 'field list'
+[Method: GET, Route: SuperAdminEntityAttribute/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = :eme.deleted:
+ORDER BY `eme`.`entity_class_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-19 12:08:53 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'eme.entity_class_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = 0
+ORDER BY `eme`.`entity_class_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = 0
+ORDER BY `eme`.`entity_class_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = :eme.deleted:
+ORDER BY `eme`.`entity_class_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-19 12:08:53 --> [Caused by] mysqli_sql_exception: Unknown column 'eme.entity_class_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = 0
+ORDER BY `eme`.`entity_class_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = 0
+ORDER BY `eme`.`entity_class_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = 0
+ORDER BY `eme`.`entity_class_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `eme`.`entity_class_id`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `eme`.`deleted` = :eme.deleted:
+ORDER BY `eme`.`entity_class_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-19 12:16:34 --> mysqli_sql_exception: Unknown column 'ema.entity_attribute_id,ema.entity_class_id' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ema`.`e...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ema`.`e...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ema`.`e...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ema`.`e...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-19 12:16:34 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ema.entity_attribute_id,ema.entity_class_id' in 'field list'
+[Method: GET, Route: SuperAdminEntityAttribute/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ema`.`entity_attribute_id,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = :ema.deleted:
+ORDER BY `ema`.`entity_class_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-19 12:16:34 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ema.entity_attribute_id,ema.entity_class_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ema`.`entity_attribute_id,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = 0
+ORDER BY `ema`.`entity_class_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ema`.`entity_attribute_id,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = 0
+ORDER BY `ema`.`entity_class_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ema`.`entity_attribute_id,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = :ema.deleted:
+ORDER BY `ema`.`entity_class_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-19 12:16:34 --> [Caused by] mysqli_sql_exception: Unknown column 'ema.entity_attribute_id,ema.entity_class_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ema`.`entity_attribute_id,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = 0
+ORDER BY `ema`.`entity_class_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ema`.`entity_attribute_id,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = 0
+ORDER BY `ema`.`entity_class_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ema`.`entity_attribute_id,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = 0
+ORDER BY `ema`.`entity_class_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ema`.`entity_attribute_id,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = :ema.deleted:
+ORDER BY `ema`.`entity_class_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-19 12:17:02 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.' at line 1 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ema`.`e...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ema`.`e...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ema`.`e...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ema`.`e...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-19 12:17:02 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.' at line 1
+[Method: GET, Route: SuperAdminEntityAttribute/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ema`.`entity_attribute_id` `,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = :ema.deleted:
+ORDER BY `ema`.`entity_class_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-19 12:17:02 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ema`.`entity_attribute_id` `,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = 0
+ORDER BY `ema`.`entity_class_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ema`.`entity_attribute_id` `,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = 0
+ORDER BY `ema`.`entity_class_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ema`.`entity_attribute_id` `,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = :ema.deleted:
+ORDER BY `ema`.`entity_class_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-19 12:17:02 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ema`.`entity_attribute_id` `,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = 0
+ORDER BY `ema`.`entity_class_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ema`.`entity_attribute_id` `,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = 0
+ORDER BY `ema`.`entity_class_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ema`.`entity_attribute_id` `,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = 0
+ORDER BY `ema`.`entity_class_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ema`.`entity_attribute_id` `,ema`.`entity_class_id`, `ema`.`entity_attribute_name`, `ema`.`enterprise_id`, `ema`.`entity_attribute_data_type`, `ema`.`deleted`
+FROM `khm_entity_mst_attribute` AS `ema`
+WHERE `ema`.`deleted` = :ema.deleted:
+ORDER BY `ema`.`entity_class_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminEntityAttributeModel.php(22): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminEntityAttribute.php(49): App\Models\SuperAdminEntityAttributeModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityAttribute->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityAttribute))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

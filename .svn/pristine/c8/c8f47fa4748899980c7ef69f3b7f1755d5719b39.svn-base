@@ -1,0 +1,124 @@
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\Controller;
+use App\Models\Dashboard_m;
+use App\Models\PurchaseReportModel;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
+
+class PurchaseReport extends Controller
+{
+    protected $PurchaseReportModel;
+    protected $helpers = ['url', 'date'];
+
+    public function initController(
+        RequestInterface $request,
+        ResponseInterface $response,
+        LoggerInterface $logger
+    ) {
+        parent::initController($request, $response, $logger);
+        $this->PurchaseReportModel = new PurchaseReportModel();
+    }
+
+    public function index()
+    {
+        $Dashboard_model = new Dashboard_m();
+        $entity_id   = session('user_id');
+        $active_role = session('active_role');
+
+        // … your menu/permission code …
+
+        // Call getSourceReport() to fetch all rows (base + tax merged)
+        $data['reports'] = $this->PurchaseReportModel->getSourceReport();
+
+        return view('masters/purchase_report_list', $data);
+    }
+
+    public function data()
+    {
+        // 1) Read DataTables params
+        $draw      = intval($this->request->getGet('draw'));
+        $start     = intval($this->request->getGet('start'));
+        $length    = intval($this->request->getGet('length'));
+        $searchVal = $this->request->getGet('search')['value'] ?? '';
+        $order     = $this->request->getGet('order')[0] ?? [];
+        $colIdx    = $order['column'] ?? 0;
+        $dir       = $order['dir']    ?? 'asc';
+        $system    = $this->request->getGet('system');
+
+        // 2) Parse date filters
+        $fromRaw  = $this->request->getGet('from_date');
+        $toRaw    = $this->request->getGet('to_date');
+        $checkRaw = intval($this->request->getGet('check_value'));
+
+        $fromDt = \DateTime::createFromFormat('d-m-Y', $fromRaw);
+        $toDt   = \DateTime::createFromFormat('d-m-Y', $toRaw);
+
+        if (! $fromDt || ! $toDt) {
+            return $this->response->setJSON([
+                'draw'            => $draw,
+                'recordsTotal'    => 0,
+                'recordsFiltered' => 0,
+                'data'            => []
+            ]);
+        }
+
+        $fromYmd = $fromDt->format('Y-m-d') . ' 00:00:00';
+        $toYmd   = $toDt->modify('+1 day')->setTime(0, 0, 0)
+                          ->format('Y-m-d H:i:s');
+
+        // 3) Grab filtered rows (base + tax merged) via getByDateRange()
+        $all = $this->PurchaseReportModel
+                    ->getByDateRange($fromYmd, $toYmd, $checkRaw, $system);
+
+        // 4) DataTables totals before/after search, sorting, slicing…
+        $recordsTotal    = count($all);
+
+        if ($searchVal) {
+            $all = array_filter($all, function ($row) use ($searchVal) {
+                return stripos($row['agent_name'], $searchVal)   !== false
+                    || stripos($row['guest_name'], $searchVal)   !== false
+                    || stripos($row['hotel_name'], $searchVal)   !== false;
+            });
+        }
+
+        $recordsFiltered = count($all);
+
+        $columns = [
+            0 => 'enquiry_header_id',
+            1 => 'agent_name',
+            2 => 'agent_gstn',
+            3 => 'agent_state',
+            4 => 'guest_name',
+            5 => 'hotel_name',
+            6 => 'check_in_date',
+            7 => 'check_out_date',
+            8 => 'tpc'
+        ];
+        $sortKey = $columns[$colIdx] ?? 'check_in_date';
+
+        usort($all, function ($a, $b) use ($sortKey, $dir) {
+            if ($a[$sortKey] == $b[$sortKey]) return 0;
+            if ($dir === 'asc') {
+                return ($a[$sortKey] < $b[$sortKey]) ? -1 : 1;
+            }
+            return ($a[$sortKey] > $b[$sortKey]) ? -1 : 1;
+        });
+
+        if ($length === -1) {
+            $data = array_slice($all, $start);
+        } else {
+            $data = array_slice($all, $start, $length);
+        }
+
+        return $this->response->setJSON([
+            'draw'            => $draw,
+            'recordsTotal'    => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data'            => $data
+        ]);
+    }
+}

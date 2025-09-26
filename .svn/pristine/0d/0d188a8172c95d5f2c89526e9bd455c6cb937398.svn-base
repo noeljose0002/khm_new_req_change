@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class SuperAdminTableOfTableModel extends Model 
+{
+    protected $table= 'khm_sys_mst_table_of_tables';
+    protected $primaryKey='table_id';
+    protected $allowedFields=['table_name','enterprise_id','deleted'];
+    protected $returnType='array';
+
+
+    public function getAll():array
+    {
+        return $this->db
+            ->table($this->table . ' AS tot')
+            ->select(['tot.table_id','tot.table_name','tot.enterprise_id','tot.deleted'])
+            ->where('tot.deleted',0)
+            ->orderBy('tot.table_id','DESC')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function getOne(int $id)
+    {
+        return $this->find($id);
+    }
+
+    public function softDelete(int $id)
+    {
+        return $this->update(['deleted'=>1]);
+    }
+
+}
+ 

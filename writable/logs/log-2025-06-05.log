@@ -1,0 +1,100 @@
+CRITICAL - 2025-06-05 07:26:38 --> TypeError: App\Models\PurchaseReportModel::getByDateRange(): Argument #4 ($system) must be of type int, string given, called in C:\wamp64\www\khm\app\Controllers\PurchaseReport.php on line 100
+[Method: GET, Route: PurchaseReport/data]
+in APPPATH\Models\PurchaseReportModel.php on line 167.
+ 1 APPPATH\Controllers\PurchaseReport.php(100): App\Models\PurchaseReportModel->getByDateRange('2025-06-05 00:00:00', '2025-06-06 00:00:00', 1, '')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PurchaseReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-05 07:26:44 --> TypeError: App\Models\PurchaseReportModel::getByDateRange(): Argument #4 ($system) must be of type int, string given, called in C:\wamp64\www\khm\app\Controllers\PurchaseReport.php on line 100
+[Method: GET, Route: PurchaseReport/data]
+in APPPATH\Models\PurchaseReportModel.php on line 167.
+ 1 APPPATH\Controllers\PurchaseReport.php(100): App\Models\PurchaseReportModel->getByDateRange('2025-06-01 00:00:00', '2025-06-06 00:00:00', 1, '')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PurchaseReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-05 08:43:34 --> TypeError: App\Models\PurchaseReportModel::getByDateRange(): Argument #4 ($system) must be of type int, string given, called in C:\wamp64\www\khm\app\Controllers\PurchaseReport.php on line 100
+[Method: GET, Route: PurchaseReport/data]
+in APPPATH\Models\PurchaseReportModel.php on line 175.
+ 1 APPPATH\Controllers\PurchaseReport.php(100): App\Models\PurchaseReportModel->getByDateRange('2025-06-01 00:00:00', '2025-06-06 00:00:00', 1, '')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PurchaseReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-05 08:43:40 --> TypeError: App\Models\PurchaseReportModel::getByDateRange(): Argument #4 ($system) must be of type int, string given, called in C:\wamp64\www\khm\app\Controllers\PurchaseReport.php on line 100
+[Method: GET, Route: PurchaseReport/data]
+in APPPATH\Models\PurchaseReportModel.php on line 175.
+ 1 APPPATH\Controllers\PurchaseReport.php(100): App\Models\PurchaseReportModel->getByDateRange('2025-06-05 00:00:00', '2025-06-06 00:00:00', 1, '')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PurchaseReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-05 11:54:39 --> TypeError: App\Models\PurchaseReportModel::getByDateRange(): Argument #4 ($system) must be of type int, string given, called in C:\wamp64\www\khm\app\Controllers\PurchaseReport.php on line 100
+[Method: GET, Route: PurchaseReport/data]
+in APPPATH\Models\PurchaseReportModel.php on line 240.
+ 1 APPPATH\Controllers\PurchaseReport.php(100): App\Models\PurchaseReportModel->getByDateRange('2025-06-05 00:00:00', '2025-06-06 00:00:00', 1, '')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PurchaseReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-05 11:54:39 --> TypeError: App\Models\PurchaseReportModel::getByDateRange(): Argument #4 ($system) must be of type int, string given, called in C:\wamp64\www\khm\app\Controllers\PurchaseReport.php on line 100
+[Method: GET, Route: PurchaseReport/data]
+in APPPATH\Models\PurchaseReportModel.php on line 240.
+ 1 APPPATH\Controllers\PurchaseReport.php(100): App\Models\PurchaseReportModel->getByDateRange('2025-06-05 00:00:00', '2025-06-06 00:00:00', 1, '')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PurchaseReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-05 11:54:42 --> TypeError: App\Models\PurchaseReportModel::getByDateRange(): Argument #4 ($system) must be of type int, string given, called in C:\wamp64\www\khm\app\Controllers\PurchaseReport.php on line 100
+[Method: GET, Route: PurchaseReport/data]
+in APPPATH\Models\PurchaseReportModel.php on line 240.
+ 1 APPPATH\Controllers\PurchaseReport.php(100): App\Models\PurchaseReportModel->getByDateRange('2025-06-05 00:00:00', '2025-06-06 00:00:00', 1, '')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PurchaseReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-05 13:10:21 --> TypeError: App\Models\PurchaseReportModel::getByDateRange(): Argument #4 ($system) must be of type int, string given, called in C:\wamp64\www\khm\app\Controllers\PurchaseReport.php on line 97
+[Method: GET, Route: PurchaseReport/data]
+in APPPATH\Models\PurchaseReportModel.php on line 284.
+ 1 APPPATH\Controllers\PurchaseReport.php(97): App\Models\PurchaseReportModel->getByDateRange('2025-06-05 00:00:00', '2025-06-06 00:00:00', 1, '')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PurchaseReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-05 13:10:28 --> TypeError: App\Models\PurchaseReportModel::getByDateRange(): Argument #4 ($system) must be of type int, string given, called in C:\wamp64\www\khm\app\Controllers\PurchaseReport.php on line 97
+[Method: GET, Route: PurchaseReport/data]
+in APPPATH\Models\PurchaseReportModel.php on line 284.
+ 1 APPPATH\Controllers\PurchaseReport.php(97): App\Models\PurchaseReportModel->getByDateRange('2025-06-01 00:00:00', '2025-06-06 00:00:00', 1, '')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PurchaseReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-05 13:50:20 --> TypeError: App\Models\PurchaseReportModel::getByDateRange(): Argument #4 ($system) must be of type int, string given, called in C:\wamp64\www\khm\app\Controllers\PurchaseReport.php on line 97
+[Method: GET, Route: PurchaseReport/data]
+in APPPATH\Models\PurchaseReportModel.php on line 275.
+ 1 APPPATH\Controllers\PurchaseReport.php(97): App\Models\PurchaseReportModel->getByDateRange('2025-06-01 00:00:00', '2025-06-06 00:00:00', 1, '')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PurchaseReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PurchaseReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

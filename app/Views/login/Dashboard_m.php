@@ -1,0 +1,5447 @@
+<?php
+namespace App\Models;
+use CodeIgniter\Model;
+
+class Dashboard_m extends Model
+{
+    protected $khm_obj_mst_hotel_room_category = 'khm_obj_mst_hotel_room_category';
+    protected $table_entity_master = 'khm_entity_mst';
+    protected $khm_obj_mst_vehicle_seat = 'khm_obj_mst_vehicle_seat';
+    protected $khm_obj_mst_transport = 'khm_obj_mst_transport';
+    protected $khm_obj_hotel_facility = 'khm_obj_hotel_facility';
+    protected $khm_obj_sightseeing_special_tariff = 'khm_obj_sightseeing_special_tariff';
+    protected $khm_obj_sightseeing = 'khm_obj_sightseeing';
+    protected $khm_obj_khm_vehicle_special_tariff = 'khm_obj_khm_vehicle_special_tariff';
+    protected $khm_obj_vehicle = 'khm_obj_vehicle';
+    protected $khm_obj_mst_vehicle_type = 'khm_obj_mst_vehicle_type';
+    protected $khm_season_calendar = 'khm_season_calendar';
+    protected $khm_weekend_calendar = 'khm_weekend_calendar';
+    protected $khm_obj_pax_special_tariff = 'khm_obj_pax_special_tariff';
+    protected $khm_obj_hotel_room_meal = 'khm_obj_hotel_room_meal';
+    protected $khm_obj_hotel_special_tariff = 'khm_obj_hotel_special_tariff';
+    protected $khm_obj_hotel_room_meal_pax = 'khm_obj_hotel_room_meal_pax';
+    protected $khm_obj_room = 'khm_obj_room';
+    protected $khm_obj_hotel_room_category = 'khm_obj_hotel_room_category';
+    protected $table_hotel_master = 'khm_obj_hotel';
+    protected $table_object_master = 'khm_obj_mst';
+    protected $table_entity_attributes = 'khm_entity_detail_class_attribute';
+    protected $table_entity_battributes = 'khm_entity_boolean';
+    protected $table_object_battributes = 'khm_obj_boolean';
+    protected $table_login_details = 'khm_sys_usg_entity_users';
+    protected $khm_sys_usg_mst_entity_role = 'khm_sys_usg_mst_entity_role';
+    protected $table_entity_attr = 'khm_entity_attribute';
+    protected $table_object_attr = 'khm_obj_attribute';
+    protected $khm_sys_usg_mst_role_transaction = 'khm_sys_usg_mst_role_transaction';
+    protected $khm_sys_usg_role_transaction_permission = 'khm_sys_usg_role_transaction_permission';
+
+    //noel//
+
+    public function get_one_room($id)
+    {
+        return $this->db->table('khm_obj_room r')
+            ->select('
+            r.*, 
+            h.hotel_id, 
+            hrc.hotel_room_category_id, 
+            hrc.hotel_room_category_name,
+          
+        ')
+            ->join('khm_obj_hotel h', 'r.object_id = h.object_id', 'left')
+            ->join(
+                'khm_obj_hotel_room_category hrc',
+                'hrc.hotel_id = h.hotel_id AND hrc.room_category_id = r.room_category_id',
+                'left'
+            )
+            ->where('r.room_id', $id)
+            ->get()
+            ->getRowArray();
+    }
+
+    public function update_room($room_id, array $data)
+    {
+        return $this->db
+            ->table($this->khm_obj_room)
+            ->where('room_id', $room_id)
+            ->update($data);
+    }
+
+    //end//
+    public function get_parent_menus()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_mst_transaction_process');
+        $result = $selected_table->select('*')
+            ->where('prs_type_id', 1)
+            ->get()->getResultArray();
+        return $result;
+    }
+    
+    public function get_sub_menus()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_mst_transaction_process');
+        $result = $selected_table->select('*')
+            ->where('prs_type_id', 2)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_entity_class_details($entity_class_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst_class');
+        $result = $selected_table->select('*')
+            ->where('entity_class_id', $entity_class_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+
+    public function get_object_class_details($object_class_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_class');
+        $result = $selected_table->select('*')
+            ->where('object_class_id', $object_class_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+   
+    public function get_all_locations()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_loc_mst_geography');
+        $result = $selected_table->select('*')
+            ->where('geog_level_id >', 1)
+            ->orderBy('geog_name', 'ASC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_state_locations()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_loc_mst_geography');
+        $result = $selected_table->select('*')
+            ->where('geog_level_id', 3)
+            ->orderBy('geog_name', 'ASC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_rc()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_hotel_room_category');
+        $result = $selected_table->select('*')
+            ->orderBy('room_category_name', 'ASC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_arrival_locations()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_loc_mst_geography');
+        $result = $selected_table->select('*')
+            ->where('geog_is_arrival', 1)
+            ->orderBy('geog_name', 'ASC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_departure_locations()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_loc_mst_geography');
+        $result = $selected_table->select('*')
+            ->where('geog_is_departure', 1)
+            ->orderBy('geog_name', 'ASC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_transporter()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst');
+        $result = $selected_table->select('*')
+            ->where('entity_class_id', 7)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_vendor()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst');
+        $result = $selected_table->select('*')
+            ->where('entity_class_id', 9)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_hub_locations()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_vehicle_hub_location');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_veh_seats()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_vehicle_seat');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_veh_models()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_vehicle_model');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_agents_for_contact_person()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst');
+        $result = $selected_table->select('*')
+            ->where('entity_class_id', 4)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_transporter_for_contact_person()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst');
+        $result = $selected_table->select('*')
+            ->where('entity_class_id', 7)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_vendor_for_contact_person()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst');
+        $result = $selected_table->select('*')
+            ->where('entity_class_id', 9)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function list_all_locations()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_loc_mst_geography');
+        $result = $selected_table->select('*')
+            ->where('geog_level_id', 3)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function list_all_room_category()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_hotel_room_category');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_users_list($entity_class_id, $location_filter = null)
+    {
+        // 1) explicitly connect and build
+        $db      = \Config\Database::connect();
+        $builder = $db
+            ->table('khm_entity_mst a')
+            ->select('a.*, m.geog_name')
+            ->join('khm_loc_mst_geography m', 'm.geog_id = a.entity_location_id', 'left')
+                ->where('a.entity_class_id', $entity_class_id)
+            ->where('a.entity_name IS NOT NULL')
+            ->where('a.entity_name !=', '');
+
+        // 2) apply the dropdown filter
+        if ($location_filter) {
+            $builder->where('a.entity_location_id', $location_filter);
+        }
+
+        return $builder->get()
+            ->getResultArray();
+    }
+
+    //noel location//
+    public function get_locations_for_entity_class($entity_class_id)
+    {
+        return $this->db
+            ->table('khm_entity_mst a')
+            ->select('DISTINCT a.entity_location_id, m.geog_name')
+            ->join('khm_loc_mst_geography m', 'm.geog_id = a.entity_location_id', 'left')
+            ->where('a.entity_class_id', $entity_class_id)
+            ->where('a.entity_location_id IS NOT NULL')
+            ->orderBy('m.geog_name', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
+    public function get_hotel_list($object_class_id)
+    {
+            $db = \Config\Database::connect();
+            $selected_table = $db->table('khm_obj_mst a');
+            $result = $selected_table->select('a.*,m.geog_name,h.hotel_id')
+                ->join('khm_obj_hotel h', 'h.object_id = a.object_id ', 'left')
+                ->join('khm_loc_mst_geography m', 'm.geog_id = a.object_location_id ', 'left')
+                ->where('a.object_class_id', $object_class_id)
+                ->orderBy('a.object_id', 'DESC')
+                ->get()->getResultArray();
+            return $result;
+    }
+    public function get_vehicle_list($object_class_id)
+    {
+            $db = \Config\Database::connect();
+            $selected_table = $db->table('khm_obj_mst a');
+            $result = $selected_table->select('a.*,m.geog_name,h.vehicle_id')
+                ->join('khm_obj_vehicle h', 'h.object_id = a.object_id ', 'left')
+                ->join('khm_loc_mst_geography m', 'm.geog_id = a.object_location_id ', 'left')
+                ->where('a.object_class_id', $object_class_id)
+                ->orderBy('a.object_id', 'DESC')
+                ->get()->getResultArray();
+            return $result;
+    }
+    public function get_sight_seeing_list($object_class_id)
+    {
+            $db = \Config\Database::connect();
+            $selected_table = $db->table('khm_obj_mst a');
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_sightseeing h', 'h.object_id = a.object_id ', 'left')
+                //->join('khm_loc_mst_geography m', 'm.geog_id = a.object_location_id ', 'left')
+                ->where('a.object_class_id', $object_class_id)
+                ->orderBy('a.object_id', 'DESC')
+                ->get()->getResultArray();
+            return $result;
+    }
+  
+    public function get_entity_by_id($entity_id)
+    {
+            $db = \Config\Database::connect();
+            $selected_table = $db->table('khm_entity_mst');
+            $result = $selected_table->select('*')
+                ->where('entity_id', $entity_id)
+                ->get()->getResultArray();
+            return $result;
+    }
+    public function get_all_attributes($entity_class_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_detail_class_attribute a');
+        $result = $selected_table->select('a.*,m.entity_attribute_name,m.entity_attribute_data_type')
+            ->join('khm_entity_mst_attribute m', 'm.entity_attribute_id = a.entity_attribute_id ', 'left')
+            ->where('a.entity_class_id', $entity_class_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+
+    public function get_hotel_categories()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_hotel_category');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_meal_plan()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_meal_plan');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_hub_location()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_vehicle_hub_location');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_hotel_agencies()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst');
+        $result = $selected_table->select('*')
+            ->where('entity_class_id', 12)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_hotel_room_categories()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_hotel_room_category');
+        $result = $selected_table->select('*')
+            ->orderBy('room_category_name', 'ASC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_hotel_facilities()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_facility');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_categories_byHotel($hotel_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_room_category a');
+        $result = $selected_table->select('a.*,m.room_category_name')
+            ->join('khm_obj_mst_hotel_room_category m', 'm.room_category_id = a.room_category_id', 'left')
+            ->where('hotel_id', $hotel_id)
+            ->orderBy('a.sort_order', 'ASC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    //noel//
+    public function get_room_categories_byHotel_for_system_change($hotel_id, $system_id)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('khm_obj_hotel_room_category a');
+
+        $builder->select('a.*, m.room_category_name')
+            ->join('khm_obj_mst_hotel_room_category m', 'm.room_category_id = a.room_category_id', 'left')
+            ->where('a.hotel_id', $hotel_id);
+
+        // Conditional check based on system ID
+        if ($system_id == 3) {
+            $builder->where('a.b2b_active', 1);
+        } elseif ($system_id == 4) {
+            $builder->where('a.b2c_active', 1);
+        }
+
+        $builder->orderBy('a.sort_order', 'ASC');
+
+        return $builder->get()->getResultArray();
+    }
+    public function get_season_byid($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_season_calendar a');
+        $result = $selected_table->select('a.*')
+            ->where('object_id', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_weekend_byid($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_weekend_calendar a');
+        $result = $selected_table->select('a.*')
+            ->where('object_id', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_room_types()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_room_type');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_occupancy()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_room_occupancy');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_obj_attributes($object_class_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_detail_class_attribute a');
+        $result = $selected_table->select('a.*,m.object_mst_attribute_name,m.object_mst_attribute_data_type')
+            ->join('khm_obj_mst_attribute m', 'm.object_mst_attribute_id = a.object_mst_attribute_id', 'left')
+            ->where('a.object_class_id', $object_class_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_class_attributes($entity_class_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_detail_class_attribute');
+        $result = $selected_table->select('*')
+            ->where('entity_class_id', $entity_class_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_boolean_attributes($entity_class_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst_boolean');
+        $result = $selected_table->select('*')
+            ->where('entity_class_id', $entity_class_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+
+    public function get_obj_boolean_attributes($object_class_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_boolean');
+        $result = $selected_table->select('*')
+            ->where('object_class_id', $object_class_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function insert_entity($data)
+    {
+        $db = \Config\Database::connect();
+        $response = $this->db->table($this->table_entity_master)->insert($data);
+        $insert_id = $this->db->insertID();
+        return $insert_id;
+    }
+    public function insert_vehicle_seat($vehicle_seat_type_name,$vehicle_seat_capacity)
+    {
+        $db = \Config\Database::connect();
+        $veh_seat_data = array(
+            'is_bucket_seat' => 0,
+            'vehicle_seat_type_name' => $vehicle_seat_type_name,
+            'vehicle_seat_capacity' => $vehicle_seat_capacity,
+            'enterprise_id' => 1
+        );
+        $response = $this->db->table($this->khm_obj_mst_vehicle_seat)->insert($veh_seat_data);
+        $insert_id = $this->db->insertID();
+        return $insert_id;
+    }
+    public function insert_object($data)
+    {
+        $db = \Config\Database::connect();
+        $response = $this->db->table($this->table_object_master)->insert($data);
+        $insert_id = $this->db->insertID();
+        return $insert_id;
+    }
+    public function insert_object_rc($data)
+    {
+        $db = \Config\Database::connect();
+        $response = $this->db->table($this->khm_obj_mst_hotel_room_category)->insert($data);
+        $insert_id = $this->db->insertID();
+        return $insert_id;
+    }
+    public function insert_hotel_master($data)
+    {
+        $db = \Config\Database::connect();
+        $response = $this->db->table($this->table_hotel_master)->insert($data);
+        $insert_id = $this->db->insertID();
+        return $insert_id;
+    }
+    public function insert_vehicle_type_master($data)
+    {
+        $db = \Config\Database::connect();
+        $response = $this->db->table($this->khm_obj_mst_vehicle_type)->insert($data);
+        $insert_id = $this->db->insertID();
+        return $insert_id;
+    }
+    public function insert_ss_master($data)
+    {
+        $db = \Config\Database::connect();
+        $response = $this->db->table($this->khm_obj_sightseeing)->insert($data);
+        $insert_id = $this->db->insertID();
+        return $insert_id;
+    }
+    public function insert_vehicle_master($data)
+    {
+        $db = \Config\Database::connect();
+        $response = $this->db->table($this->khm_obj_vehicle)->insert($data);
+        $insert_id = $this->db->insertID();
+        return $insert_id;
+    }
+    public function insert_transport_master($data)
+    {
+        $db = \Config\Database::connect();
+        $response = $this->db->table($this->khm_obj_mst_transport)->insert($data);
+        $insert_id = $this->db->insertID();
+        return $insert_id;
+    }
+    public function update_entity($data,$entity_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->table_entity_master)->update($data, ['entity_id' => $entity_id]);
+    }
+    public function update_vehicle_seat($data,$vehicle_seat_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_mst_vehicle_seat)->update($data, ['vehicle_seat_id' => $vehicle_seat_id]);
+    }
+    public function update_new_sightseeing_seasons($data,$sightseeing_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_sightseeing_special_tariff)->update($data, ['sightseeing_id' => $sightseeing_id]);
+    }
+    public function update_transport_master($data,$object_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_mst_transport)->update($data, ['object_id' => $object_id]);
+    }
+    public function update_new_rc($data,$hotel_room_category_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_hotel_room_category)->update($data, ['hotel_room_category_id' => $hotel_room_category_id]);
+    }
+    public function update_new_fac($data,$hotel_facility_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_hotel_facility)->update($data, ['hotel_facility_id' => $hotel_facility_id]);
+    }
+    public function update_new_weekend($data,$weekend_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_weekend_calendar)->update($data, ['weekend_id' => $weekend_id]);
+    }
+    public function update_new_seasons($data,$season_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_season_calendar)->update($data, ['season_id' => $season_id]);
+    }
+    public function update_object($data,$object_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->table_object_master)->update($data, ['object_id' => $object_id]);
+    }
+    public function update_object_veh($data,$object_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->table_object_master)->update($data, ['object_id' => $object_id]);
+    }
+    public function update_object_ss($data,$object_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->table_object_master)->update($data, ['object_id' => $object_id]);
+    }
+    public function update_object_rc($data,$room_category_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_mst_hotel_room_category)->update($data, ['room_category_id' => $room_category_id]);
+    }
+    public function update_vehicle_master($data,$object_id)
+    {
+        $db = \Config\Database::connect();
+        $update =  $this->db->table($this->khm_obj_vehicle)->update($data, ['object_id' => $object_id]);
+        if($update){
+            $builder = $this->db->table($this->khm_obj_vehicle);
+            $query = $builder->select('vehicle_id')->where('object_id', $object_id)->get();
+            $row = $query->getRow();
+            if ($row) {
+                return $row->vehicle_id;
+            }
+        }
+    }
+    public function update_ss_master($data,$object_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_sightseeing)->update($data, ['object_id' => $object_id]);
+    }
+    public function update_vehicle_type_master($data,$vehicle_type_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_mst_vehicle_type)->update($data, ['vehicle_type_id' => $vehicle_type_id]);
+    }
+    public function update_login_details($data,$entity_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->table_login_details)->update($data, ['entity_id' => $entity_id]);
+    }
+    public function insert_attributes($data)
+    {
+        $db = \Config\Database::connect();
+        $insert_attr = $this->db->table($this->table_entity_attr)->insert($data);
+        return $insert_attr;
+    }
+    public function insert_obj_attributes($data)
+    {
+        $db = \Config\Database::connect();
+        $insert_attr = $this->db->table($this->table_object_attr)->insert($data);
+        return $insert_attr;
+    }
+    public function delete_existing_attributes($entity_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->table_entity_attr)->delete(['entity_id' => $entity_id]);
+    }
+    public function delete_existing_obj_attributes($object_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->table_object_attr)->delete(['object_id' => $object_id]);
+    }
+    public function delete_existing_bool_attributes($entity_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->table_entity_battributes)->delete(['entity_id' => $entity_id]);
+    }
+    public function delete_existing_obj_bool_attributes($object_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->table_object_battributes)->delete(['object_id' => $object_id]);
+    }
+    public function insert_boolean_attributes($data)
+    {
+        $db = \Config\Database::connect();
+        $insert_battr = $this->db->table($this->table_entity_battributes)->insert($data);
+        return $insert_battr;
+    }
+    public function insert_obj_boolean_attributes($data)
+    {
+        $db = \Config\Database::connect();
+        $insert_battr = $this->db->table($this->table_object_battributes)->insert($data);
+        return $insert_battr;
+    }
+    public function insert_login_details($data)
+    {
+        $db = \Config\Database::connect();
+        $insert_login = $this->db->table($this->table_login_details)->insert($data);
+        return $insert_login;
+    }
+    public function load_entity_datas($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst');
+        $result = $selected_table->select('*')
+            ->where('entity_id', $entity_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function load_child_entity_datas($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst');
+        $result = $selected_table->select('*')
+            ->where('entity_parent_id', $entity_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function check_weekend_exist($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_boolean');
+        $result = $selected_table->select('*')
+            ->where('object_id', $object_id)
+            ->where('boolean_id', 2)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function load_object_datas($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst');
+        $result = $selected_table->select('*')
+            ->where('object_id', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function load_object_veh_datas($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst a');
+        $result = $selected_table->select('a.*,t.*,tr.object_transport_name,v.is_tour_travel,v.is_active,v.is_local_travel,v.registration_no,g.geog_name,h.hub_location_id,m.vehicle_model_id,s.vehicle_seat_id,s.vehicle_seat_capacity')
+            ->join('khm_loc_mst_geography g', 'g.geog_id = a.object_location_id', 'left')
+            ->join('khm_obj_vehicle v', 'v.object_id = a.object_id', 'left')
+            ->join('khm_obj_mst_transport tr', 'tr.object_id = v.object_id', 'left')
+            ->join('khm_obj_mst_vehicle_type t', 't.vehicle_type_id = v.vehicle_type_id', 'left')
+            ->join('khm_obj_mst_vehicle_hub_location h', 'h.hub_location_id = t.hub_location_id', 'left')
+            ->join('khm_obj_mst_vehicle_model m', 'm.vehicle_model_id = t.vehicle_model_id', 'left')
+            ->join('khm_obj_mst_vehicle_seat s', 's.vehicle_seat_id = t.vehicle_seat_id', 'left')
+            ->where('a.object_id', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function load_object_ss_datas($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst a');
+        $result = $selected_table->select('a.*,g.geog_name,v.vendor_id,v.is_pax,v.sightseeing_description,v.sightseeing_distance')
+            ->join('khm_loc_mst_geography g', 'g.geog_id = a.object_location_id', 'left')
+            ->join('khm_obj_sightseeing v', 'v.object_id = a.object_id', 'left')
+            ->where('a.object_id', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function load_object_rc_datas($room_category_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_hotel_room_category');
+        $result = $selected_table->select('*')
+            ->where('room_category_id', $room_category_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function load_attribute_datas($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_attribute a');
+        $result = $selected_table->select('a.*,m.entity_attribute_id')
+            ->join('khm_entity_detail_class_attribute m', 'm.entity_class_attr_id = a.entity_class_attr_id ', 'left')
+            ->where('a.entity_id', $entity_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+
+    public function load_obj_attribute_datas($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_attribute a');
+        $result = $selected_table->select('a.*')
+            ->join('khm_obj_detail_class_attribute m', 'm.object_class_attribute_id = a.object_class_attribute_id', 'left')
+            ->where('a.object_id', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_veh_type_datas($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_vehicle a');
+        $result = $selected_table->select('a.*,m.vehicle_seat_id')
+            ->join('khm_obj_mst_vehicle_type m', 'm.vehicle_type_id = a.vehicle_type_id', 'left')
+            ->where('object_id', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_transport_datas($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst');
+        $result = $selected_table->select('*')
+            ->where('entity_id', $entity_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function load_bool_attribute_datas($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_boolean');
+        $result = $selected_table->select('*')
+            ->where('entity_id', $entity_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+
+    public function load_obj_bool_attribute_datas($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_boolean');
+        $result = $selected_table->select('*')
+            ->where('object_id', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function load_login_details($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_entity_users');
+        $result = $selected_table->select('*')
+            ->where('entity_id', $entity_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_roles()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_roles');
+        $result = $selected_table->select('*')
+            ->orderBy('role_id', 'ASC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    
+    public function get_role_by_id($role_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_roles');
+        $result = $selected_table->select('*')
+            ->where('role_id', $role_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_entity_roles($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result = $selected_table->select('a.*,m.role_name')
+            ->join('khm_sys_usg_mst_roles m', 'm.role_id = a.role_id', 'left')
+            ->where('a.entity_id', $entity_id)
+            ->orderBy('a.role_id', 'ASC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_systems($entity_id)
+    {
+        /*$db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_boolean a');
+        $result = $selected_table->select('a.*,m.boolean_name')
+            ->join('khm_entity_mst_boolean m', 'm.boolean_id = a.boolean_id', 'left')
+            ->where('a.entity_id', $entity_id)
+            ->groupStart()
+                ->where('a.boolean_id', 3)
+                ->orWhere('a.boolean_id', 4)
+            ->groupEnd()
+            ->get()->getResultArray();
+        return $result;*/
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst_boolean a');
+        $result = $selected_table->select('a.boolean_id as entity_boolean_id,a.boolean_name')
+            ->groupStart()
+                ->where('a.boolean_id', 3)
+                ->orWhere('a.boolean_id', 4)
+            ->groupEnd()
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_transaction()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_mst_transaction_process');
+        $result = $selected_table->select('*')
+            ->where('prs_type_id', 2)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_hierarchy_level($role_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_roles');
+        $result = $selected_table->select('*')
+            ->where('role_id', $role_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_team_leads()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role r');
+        $result = $selected_table->select('r.*,m.entity_name')
+            ->join('khm_entity_mst m', 'm.entity_id = r.entity_id', 'left')
+            ->where('role_id', 4)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_last_assigned_user($team_lead_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_enquiry_status s');
+        $result = $selected_table->select('s.*')
+            ->join('khm_sys_usg_mst_entity_role m', 'm.entity_id = s.assigned_to', 'inner')
+            ->where('m.team_lead_id', $team_lead_id)
+            ->where('m.role_id', 5)
+            ->orderBy('s.enquiry_status_id', 'DESC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_last_assigned_user_admin()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_enquiry_status s');
+        $result = $selected_table->select('s.*')
+            ->join('khm_sys_usg_mst_entity_role m', 'm.entity_id = s.assigned_to', 'inner')
+            ->where('m.role_id', 5)
+            ->orderBy('s.enquiry_status_id', 'DESC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_last_assigned_sop_user_admin()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_enquiry_status s');
+        $result = $selected_table->select('s.*')
+            ->join('khm_sys_usg_mst_entity_role m', 'm.entity_id = s.assigned_to', 'inner')
+            ->where('m.role_id', 8)
+            ->orderBy('s.enquiry_status_id', 'DESC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_last_assigned_soplead_user_admin()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_enquiry_status s');
+        $result = $selected_table->select('s.*')
+            ->join('khm_sys_usg_mst_entity_role m', 'm.entity_id = s.assigned_to', 'inner')
+            ->where('m.role_id', 7)
+            ->orderBy('s.enquiry_status_id', 'DESC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_last_assigned_top_user_admin()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_enquiry_status s');
+        $result = $selected_table->select('s.*')
+            ->join('khm_sys_usg_mst_entity_role m', 'm.entity_id = s.assigned_to', 'inner')
+            ->where('m.role_id', 10)
+            ->orderBy('s.enquiry_status_id', 'DESC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_last_assigned_toplead_user_admin()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_enquiry_status s');
+        $result = $selected_table->select('s.*')
+            ->join('khm_sys_usg_mst_entity_role m', 'm.entity_id = s.assigned_to', 'inner')
+            ->where('m.role_id', 9)
+            ->orderBy('s.enquiry_status_id', 'DESC')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function getparentandhierarchy($role_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_roles');
+        $result = $selected_table->select('*')
+            ->where('role_id', $role_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+     public function get_all_sop_leads()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role r');
+        $result = $selected_table->select('r.*,m.entity_name')
+            ->join('khm_entity_mst m', 'm.entity_id = r.entity_id', 'left')
+            ->where('role_id', 7)
+            ->get()->getResultArray();
+        return $result;
+    }
+     public function get_all_top_leads()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role r');
+        $result = $selected_table->select('r.*,m.entity_name')
+            ->join('khm_entity_mst m', 'm.entity_id = r.entity_id', 'left')
+            ->where('role_id', 9)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_role_menus($role_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_role_transaction');
+        $result = $selected_table->select('*')
+            ->where('role_id', $role_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_entity_permissions($role_id,$trans_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_role_transaction_permission');
+        $result = $selected_table->select('*')
+            ->where('role_id', $role_id)
+            ->where('entity_trans_id', $trans_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_transaction_per()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_mst_transaction_process');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_assigned_roles($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role');
+        $result = $selected_table->select('*')
+            ->where('entity_id=', $entity_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_employees_under_tl($team_lead_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result = $selected_table->select('a.*')
+            ->join('khm_entity_boolean m', 'm.entity_id = a.entity_id AND m.boolean_id=2 AND m.boolean_value=1', 'inner')
+            ->where('a.team_lead_id=', $team_lead_id)
+            //->where('role_id=', 5)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_employees_under_teamlead($team_lead_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result = $selected_table->select('a.*,m.entity_name')
+            ->join('khm_entity_mst m', 'm.entity_id = a.entity_id', 'left')
+            ->where('a.team_lead_id=', $team_lead_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_employees_for_reassign()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_mst');
+        $result = $selected_table->select('*')
+            ->where('entity_class_id', 3)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_executives()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result = $selected_table->select('a.*,m.entity_name')
+            ->join('khm_entity_mst m', 'm.entity_id = a.entity_id', 'left')
+            ->where('a.role_id=', 5)
+            ->orWhere('a.role_id=', 6)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_employees_under_admin()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role');
+        $result = $selected_table->select('*')
+            ->where('role_id=', 5)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_sop_employees_under_admin()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result = $selected_table->select('a.*')
+            ->join('khm_entity_boolean m', 'm.entity_id = a.entity_id AND m.boolean_id=2 AND m.boolean_value=1', 'inner')
+            ->where('a.role_id=', 8)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_soplead_employees_under_admin()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role');
+        $result = $selected_table->select('*')
+            ->where('role_id=', 7)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_top_employees_under_admin()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result = $selected_table->select('a.*')
+            ->join('khm_entity_boolean m', 'm.entity_id = a.entity_id AND m.boolean_id=2 AND m.boolean_value=1', 'inner')
+            ->where('a.role_id=', 10)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_toplead_employees_under_admin()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role');
+        $result = $selected_table->select('*')
+            ->where('role_id=', 9)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_employees_under_adminusers()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result = $selected_table->select('a.*,m.entity_name')
+            ->join('khm_entity_mst m', 'm.entity_id = a.entity_id', 'left')
+            ->groupStart()
+                ->where('a.role_id', 4)
+                ->orWhere('a.role_id', 5)
+                ->orWhere('a.role_id', 6)
+                ->orWhere('a.role_id', 7)
+                ->orWhere('a.role_id', 8)
+                ->orWhere('a.role_id', 9)
+                ->orWhere('a.role_id', 10)
+                ->orWhere('a.role_id', 1)
+                
+            ->groupEnd()
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_hotel_id_byEntity($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_entity_attribute');
+        $result = $selected_table->select('*')
+            ->where('entity_id=', $entity_id)
+            ->where('entity_class_attr_id=', 6)
+            ->get()->getResultArray();
+        return $result;
+    }
+    
+    public function get_assigned_trans($entity_id,$role_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_role_transaction');
+        $result = $selected_table->select('*')
+            ->where('entity_id=', $entity_id)
+            ->where('role_id=', $role_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_assigned_per($role_id,$trans_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_role_transaction_permission');
+        $result = $selected_table->select('*')
+            ->where('role_id=', $role_id)
+            ->where('entity_trans_id=', $trans_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function check_role_exist($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role');
+        $count_rows = $selected_table->select('*')
+            ->where('entity_id=', $entity_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    
+    public function check_registerno_exist($registration_no)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_vehicle');
+        $count_rows = $selected_table->select('*')
+            ->where('registration_no=', $registration_no)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_transport_master_exist($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_transport');
+        $count_rows = $selected_table->select('*')
+            ->where('object_id=', $object_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_room_exist($object_id,$room_category_id,$room_type_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_room');
+        $count_rows = $selected_table->select('*')
+            ->where('object_id=', $object_id)
+            ->where('room_category_id=', $room_category_id)
+            ->where('room_type_id=', $room_type_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_room_tariff_exist($room_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_room_meal');
+        $count_rows = $selected_table->select('*')
+            ->where('room_id=', $room_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_wn_room_tariff_exist($room_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_special_tariff a');
+        $count_rows = $selected_table->select('a.*')
+            ->join('khm_obj_hotel_room_meal m', 'm.hotel_room_meal_id = a.hotel_room_meal_id', 'left')
+            ->where('m.room_id=', $room_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_username_exist($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_entity_users');
+        $count_rows = $selected_table->select('*')
+            ->where('entity_id=', $entity_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_room_tariff_exist_pax($hotel_room_meal_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_room_meal_pax');
+        $count_rows = $selected_table->select('*')
+            ->where('hotel_room_meal_id=', $hotel_room_meal_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_room_tariff_exist_wndpax($special_tariff_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_pax_special_tariff');
+        $count_rows = $selected_table->select('*')
+            ->where('hotel_special_tariff_id=', $special_tariff_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_season_tariff_exist($special_tariff_id,$hotel_room_meal_id,$special_tariff_type_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_special_tariff');
+        $count_rows = $selected_table->select('*')
+            ->where('special_tariff_id=', $special_tariff_id)
+            ->where('hotel_room_meal_id=', $hotel_room_meal_id)
+            ->where('special_tariff_type_id=', $special_tariff_type_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_room_tariff_exist_ssnpax($special_tariff_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_pax_special_tariff');
+        $count_rows = $selected_table->select('*')
+            ->where('hotel_special_tariff_id=', $special_tariff_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_room_tariff_exist_wnd($hotel_room_meal_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_special_tariff');
+        $count_rows = $selected_table->select('*')
+            ->where('hotel_room_meal_id=', $hotel_room_meal_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_rc_exist($hotel_id,$room_category_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_room_category');
+        $count_rows = $selected_table->select('*')
+            ->where('hotel_id=', $hotel_id)
+            ->where('room_category_id=', $room_category_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_fac_exist($hotel_id,$facility_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_facility');
+        $count_rows = $selected_table->select('*')
+            ->where('hotel_id=', $hotel_id)
+            ->where('facility_id=', $facility_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_wn_exist($object_id,$start_date,$end_date,$day_range)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_weekend_calendar');
+        $count_rows = $selected_table->select('*')
+            ->where('object_id=', $object_id)
+            ->where('weekend_start_date <=', $start_date)
+            ->where('weekend_end_date >=', $start_date)
+            ->where('weekend_start_date <=', $end_date)
+            ->where('weekend_end_date >=', $end_date)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_seasons_exist($object_id,$start_date,$end_date)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_season_calendar');
+        $count_rows = $selected_table->select('*')
+            ->where('object_id=', $object_id)
+
+            ->where('season_start_date <=', $start_date)
+            ->where('season_end_date >=', $start_date)
+            ->where('season_start_date <=', $end_date)
+            ->where('season_end_date >=', $end_date)
+
+            ->where('season_type_id=', 1)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_vehseasons_exist($object_id,$start_date,$end_date)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_season_calendar');
+        $count_rows = $selected_table->select('*')
+            ->where('object_id=', $object_id)
+
+            ->where('season_start_date <=', $start_date)
+            ->where('season_end_date >=', $start_date)
+            ->where('season_start_date <=', $end_date)
+            ->where('season_end_date >=', $end_date)
+
+            ->where('season_type_id=', 4)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_ss_seasons_exist($object_id,$start_date,$end_date)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_season_calendar');
+        $count_rows = $selected_table->select('*')
+            ->where('object_id=', $object_id)
+
+            ->where('season_start_date <=', $start_date)
+            ->where('season_end_date >=', $start_date)
+            ->where('season_start_date <=', $end_date)
+            ->where('season_end_date >=', $end_date)
+
+            ->where('season_type_id=', 3)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_per_exist($role_id,$trans_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_role_transaction_permission');
+        $count_rows = $selected_table->select('*')
+            ->where('role_id=', $role_id)
+            ->where('entity_trans_id=', $trans_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function check_trans_exist($role_id,$trans_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_mst_role_transaction');
+        $count_rows = $selected_table->select('*')
+            ->where('role_id=', $role_id)
+            ->where('entity_trans_id=', $trans_id)
+            ->countAllResults();
+        if ($count_rows) {
+            return $count_rows;
+        } else {
+            return 0;
+        }
+    }
+    public function delete_role_exist($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $deleteid = $this->db->table($this->khm_sys_usg_mst_entity_role)->delete(['entity_id' => $entity_id]);        
+        return $deleteid;
+    }
+    public function delete_trans_exist($entity_id)
+    {
+        $db = \Config\Database::connect();
+        $deleteid = $this->db->table($this->khm_sys_usg_mst_role_transaction)->delete(['entity_id' => $entity_id]);        
+        return $deleteid;
+    }
+    public function delete_per_exist($role_id,$trans_id)
+    {
+        $db = \Config\Database::connect();
+        $deleteid = $this->db->table($this->khm_sys_usg_role_transaction_permission)->delete(['role_id' => $role_id,'entity_trans_id' => $trans_id]);        
+        return $deleteid;
+    }
+    public function insert_new_role($data)
+    {
+        return $this->db->table($this->khm_sys_usg_mst_entity_role)->insert($data);
+    }
+    public function insert_new_rc($data)
+    {
+        return $this->db->table($this->khm_obj_hotel_room_category)->insert($data);
+    }
+    public function insert_new_fac($data)
+    {
+        return $this->db->table($this->khm_obj_hotel_facility)->insert($data);
+    }
+    public function insert_new_weekend($data)
+    {
+        return $this->db->table($this->khm_weekend_calendar)->insert($data);
+    }
+    public function insert_new_seasons($data)
+    {
+        $response =  $this->db->table($this->khm_season_calendar)->insert($data);
+        $insert_id = $this->db->insertID();
+        return $insert_id;
+    }
+    public function insert_new_vehicle_seasons($data)
+    {
+        return $this->db->table($this->khm_obj_khm_vehicle_special_tariff)->insert($data);
+    }
+    public function insert_new_sightseeing_seasons($data)
+    {
+        return $this->db->table($this->khm_obj_sightseeing_special_tariff)->insert($data);
+    }
+    public function insert_new_per($data)
+    {
+        return $this->db->table($this->khm_sys_usg_role_transaction_permission)->insert($data);
+    }
+    public function insert_new_trans($data)
+    {
+        return $this->db->table($this->khm_sys_usg_mst_role_transaction)->insert($data);
+    }
+
+    public function insert_room_basic_tariff($data)
+    {
+        return $this->db->table($this->khm_obj_room)->insert($data);
+    }
+    public function save_room_basic_tariff($data)
+    {
+        $response = $this->db->table($this->khm_obj_hotel_room_meal)->insert($data);
+        return $response;
+        /*$insert_id = $this->db->insertID();
+        if($insert_id){
+            $wn_data = [
+                'hotel_room_meal_id' => $insert_id,
+                'special_tariff_type_id' => 1,
+                'tariff' => 0
+            ];
+            $wn_response = $this->db->table($this->khm_obj_hotel_special_tariff)->insert($wn_data);
+
+            $sn_data = [
+                'hotel_room_meal_id' => $insert_id,
+                'special_tariff_type_id' => 2,
+                'tariff' => 0
+            ];
+            $wn_response = $this->db->table($this->khm_obj_hotel_special_tariff)->insert($sn_data);
+        }*/
+        
+    }
+    public function save_season_basic_tariff($data)
+    {
+        $response = $this->db->table($this->khm_obj_hotel_special_tariff)->insert($data);
+        $insert_id = $this->db->insertID();
+        return $insert_id;
+    }
+
+    public function save_room_basic_tariff_pax($data)
+    {
+        return $this->db->table($this->khm_obj_hotel_room_meal_pax)->insert($data);
+    }
+    public function save_season_basic_tariff_pax($data)
+    {
+        return $this->db->table($this->khm_obj_pax_special_tariff)->insert($data);
+    }
+    public function save_room_basic_tariff_wndpax($data)
+    {
+        return $this->db->table($this->khm_obj_pax_special_tariff)->insert($data);
+    }
+    public function get_room_category_table($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $hotel_id = $params['hotel_id'];
+        $db = \Config\Database::connect();
+
+        $query = $db->table('khm_obj_hotel_room_category f');
+        $query->select('SQL_CALC_FOUND_ROWS  f.*,m.room_category_name', false);
+        $query->join('khm_obj_mst_hotel_room_category m', 'm.room_category_id = f.room_category_id', 'left');
+        $query->where('f.hotel_id', $hotel_id);
+        $query->orderBy('f.sort_order', 'ASC');
+       
+        if (!empty($searchValue)) {
+                $query->groupStart()
+                    ->like('m.room_category_name', $searchValue)
+                    //->orLike('m.geog_name', $searchValue)
+                    ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+        
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+    
+    public function get_week_end_table($params)
+    {
+        $response = array();
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length']; // Rows display per page
+        $columnIndex = $params['order'][0]['column']; // Column index
+        $columnName = $params['columns'][$columnIndex]['data']; // Column name
+        $columnSortOrder = $params['order'][0]['dir']; // asc or desc
+        $searchValue = $params['search']['value']; // Search value
+        $hotel_id = $params['hotel_id'];
+        $object_id = $params['object_id'];
+
+        $db = \Config\Database::connect();
+
+        // Get total records for the hotel (before filtering)
+        $totalRecordsQuery = $db->table('khm_weekend_calendar f')
+            ->where('f.object_id', $object_id)
+            ->countAllResults();
+
+        // Get filtered records count (after applying search)
+        $filteredQuery = $db->table('khm_weekend_calendar f')
+            ->where('f.object_id', $object_id);
+
+        if ($searchValue != '') {
+            //$filteredQuery->like('f.weekend_start_date', $searchValue);
+            //$filteredQuery->orLike('f.weekend_end_date', $searchValue);
+        }
+        $totalDisplayRecords = $filteredQuery->countAllResults();
+
+        // Get paginated records
+        $dataQuery = $db->table('khm_weekend_calendar f')
+            ->select('f.*,DATE_FORMAT(f.weekend_start_date, "%d-%m-%Y") as sdate,DATE_FORMAT(f.weekend_end_date, "%d-%m-%Y") as edate', false)
+            //->join('khm_obj_mst_hotel_room_category m', 'm.room_category_id = f.room_category_id', 'left')
+            ->where('f.object_id', $object_id);
+
+        if ($searchValue != '') {
+            //$filteredQuery->like('f.weekend_start_date', $searchValue);
+            //$filteredQuery->orLike('f.weekend_end_date', $searchValue);
+        }
+        $dataQuery->orderBy($columnName, $columnSortOrder)
+            ->limit($rowperpage, $start);
+
+        $records = $dataQuery->get()->getResultArray();
+
+        // Prepare response
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecordsQuery, // Total records without filtering
+            "iTotalDisplayRecords" => $totalDisplayRecords, // Total records after filtering
+            "aaData" => $records
+        );
+
+        return $response;
+    }
+
+    public function facility_modal($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $hotel_id = $params['hotel_id'];
+        $db = \Config\Database::connect();
+
+        $query = $db->table('khm_obj_hotel_facility f');
+        $query->select('SQL_CALC_FOUND_ROWS  f.*,m.facility_name', false);
+        $query->join('khm_obj_facility m', 'm.facility_id = f.facility_id', 'left');
+        $query->where('f.hotel_id', $hotel_id);
+      
+       
+        if (!empty($searchValue)) {
+                $query->groupStart()
+                    ->like('m.facility_name', $searchValue)
+                    //->orLike('m.geog_name', $searchValue)
+                    ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+        
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+
+    public function get_seasons_table($params)
+    {
+        $response = array();
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length']; // Rows display per page
+        $columnIndex = $params['order'][0]['column']; // Column index
+        $columnName = $params['columns'][$columnIndex]['data']; // Column name
+        $columnSortOrder = $params['order'][0]['dir']; // asc or desc
+        $searchValue = $params['search']['value']; // Search value
+        $hotel_id = $params['hotel_id'];
+        $object_id = $params['object_id'];
+
+        $db = \Config\Database::connect();
+
+        // Get total records for the hotel (before filtering)
+        $totalRecordsQuery = $db->table('khm_season_calendar f')
+            ->where('f.object_id', $object_id)
+            ->countAllResults();
+
+        // Get filtered records count (after applying search)
+        $filteredQuery = $db->table('khm_season_calendar f')
+            ->where('f.object_id', $object_id);
+
+        if ($searchValue != '') {
+            $filteredQuery->like('f.season_name', $searchValue);
+        }
+        $totalDisplayRecords = $filteredQuery->countAllResults();
+
+        // Get paginated records
+        $dataQuery = $db->table('khm_season_calendar f')
+            ->select('f.*,DATE_FORMAT(f.season_start_date, "%d-%m-%Y") as sdate,DATE_FORMAT(f.season_end_date, "%d-%m-%Y") as edate', false)
+            //->join('khm_obj_mst_hotel_room_category m', 'm.room_category_id = f.room_category_id', 'left')
+            ->where('f.object_id', $object_id);
+
+        if ($searchValue != '') {
+            $dataQuery->like('f.season_name', $searchValue);
+        }
+        $dataQuery->orderBy($columnName, $columnSortOrder)
+            ->limit($rowperpage, $start);
+
+        $records = $dataQuery->get()->getResultArray();
+
+        // Prepare response
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecordsQuery, // Total records without filtering
+            "iTotalDisplayRecords" => $totalDisplayRecords, // Total records after filtering
+            "aaData" => $records
+        );
+
+        return $response;
+    }
+    public function get_veh_seasons_table($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $object_id = $params['object_id'];
+
+        $db = \Config\Database::connect();
+
+        $query = $db->table('khm_season_calendar f');
+        $query->select('SQL_CALC_FOUND_ROWS  f.*,m.rate_per_day,m.extra_km_rate,m.km_rate,DATE_FORMAT(f.season_start_date, "%d-%m-%Y") as sdate,DATE_FORMAT(f.season_end_date, "%d-%m-%Y") as edate', false);
+        $query->join('khm_obj_khm_vehicle_special_tariff m', 'm.special_tariff_id = f.season_id', 'left');
+        $query->where('f.object_id', $object_id);
+      
+       
+        if (!empty($searchValue)) {
+                $query->groupStart()
+                    ->like('f.season_name', $searchValue)
+                    //->orLike('m.geog_name', $searchValue)
+                    ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+        
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+    public function get_ss_seasons_table($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $object_id = $params['object_id'];
+
+        $db = \Config\Database::connect();
+
+        $query = $db->table('khm_season_calendar f');
+        $query->select('SQL_CALC_FOUND_ROWS  f.*,m.tariff,DATE_FORMAT(f.season_start_date, "%d-%m-%Y") as sdate,DATE_FORMAT(f.season_end_date, "%d-%m-%Y") as edate', false);
+        $query->join('khm_obj_sightseeing_special_tariff m', 'm.sightseeing_id = f.season_id', 'left');
+        $query->where('f.object_id', $object_id);
+      
+       
+        if (!empty($searchValue)) {
+                $query->groupStart()
+                    ->like('f.season_name', $searchValue)
+                    //->orLike('m.geog_name', $searchValue)
+                    ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+        
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+    public function get_room_category_details($room_category_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_hotel_room_category');
+        $result = $selected_table->select('*')
+            ->where('room_category_id=', $room_category_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_type_details($room_type_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_room_type');
+        $result = $selected_table->select('*')
+            ->where('room_type_id=', $room_type_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_occupancy_details($occupancy_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_room_occupancy');
+        $result = $selected_table->select('*')
+            ->where('occupancy_id=', $occupancy_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_hotel_details($hotel_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel a');
+        $result = $selected_table->select('a.*,m.object_name,mg.geog_name')
+            ->join('khm_obj_mst m', 'm.object_id = a.object_id', 'left')
+            ->join('khm_loc_mst_geography AS mg', 'mg.geog_id =m.object_location_id', 'left')
+            ->where('a.hotel_id=', $hotel_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_hotel_details_byobj($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel a');
+        $result = $selected_table->select('a.*,m.object_name')
+            ->join('khm_obj_mst m', 'm.object_id = a.object_id', 'left')
+            ->where('a.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_pax_details()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_pax');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_wnd_details()
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_mst_special_tariff_type');
+        $result = $selected_table->select('*')
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_basic_tariff_exist($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_room_meal a');
+        $result = $selected_table->select('a.*')
+            ->join('khm_obj_room m', 'm.room_id = a.room_id', 'left')
+            ->where('m.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+
+    public function get_room_basic_tariff_exist_pax($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_room_meal_pax a');
+        $result = $selected_table->select('a.*')
+            ->join('khm_obj_hotel_room_meal m', 'm.hotel_room_meal_id = a.hotel_room_meal_id', 'left')
+            ->join('khm_obj_room r', 'r.room_id = m.room_id', 'left')
+            ->where('r.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_basic_tariff_exist_season($object_id,$season_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_special_tariff a');
+        $result = $selected_table->select('a.*,p.pax_id,p.tariff as pax_tariff,r.room_id,m.meal_plan_id,p.dinner as pax_dinner,p.lunch as pax_lunch')
+            ->join('khm_obj_pax_special_tariff p', 'p.hotel_special_tariff_id = a.hotel_special_tariff_id', 'left')
+            ->join('khm_obj_hotel_room_meal m', 'm.hotel_room_meal_id = a.hotel_room_meal_id', 'left')
+            ->join('khm_obj_room r', 'r.room_id = m.room_id', 'left')
+            ->where('a.special_tariff_type_id=', 2)
+            ->where('a.special_tariff_id=', $season_id)
+            ->where('r.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function fetchRoomCatDetails($hotel_room_category_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_room_category a');
+        $result = $selected_table->select('a.*')
+            ->where('a.hotel_room_category_id=', $hotel_room_category_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function fetchFacilityDetails($hotel_facility_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_facility a');
+        $result = $selected_table->select('a.*')
+            ->where('a.hotel_facility_id=', $hotel_facility_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function fetchWeekendDetails($weekend_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_weekend_calendar a');
+        $result = $selected_table->select('a.*')
+            ->where('a.weekend_id=', $weekend_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function fetchSeasonDetails($season_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_season_calendar a');
+        $result = $selected_table->select('a.*')
+            ->where('a.season_id=', $season_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function fetchvehSeasonDetails($season_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_season_calendar a');
+        $result = $selected_table->select('a.*,m.rate_per_day,m.extra_km_rate,m.km_rate')
+            ->join('khm_obj_khm_vehicle_special_tariff m', 'm.special_tariff_id = a.season_id', 'left')
+            ->where('a.season_id=', $season_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function fetchssSeasonDetails($season_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_season_calendar a');
+        $result = $selected_table->select('a.*,m.tariff')
+            ->join('khm_obj_sightseeing_special_tariff m', 'm.sightseeing_id = a.season_id', 'left')
+            ->where('a.season_id=', $season_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function fetchDescriptionandImage($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_sightseeing a');
+        $result = $selected_table->select('a.*')
+            ->where('a.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_basic_tariff_exist_weekend($object_id,$season_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_special_tariff a');
+        $result = $selected_table->select('a.*,p.pax_id,p.tariff as pax_tariff,r.room_id,m.meal_plan_id,p.dinner as pax_dinner,p.lunch as pax_lunch')
+            ->join('khm_obj_pax_special_tariff p', 'p.hotel_special_tariff_id = a.hotel_special_tariff_id', 'left')
+            ->join('khm_obj_hotel_room_meal m', 'm.hotel_room_meal_id = a.hotel_room_meal_id', 'left')
+            ->join('khm_obj_room r', 'r.room_id = m.room_id', 'left')
+            ->where('a.special_tariff_type_id=', 1)
+            ->where('a.special_tariff_id=', $season_id)
+            ->where('r.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_basic_tariff_exist_wndpax($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_pax_special_tariff a');
+        $result = $selected_table->select('a.*')
+            ->join('khm_obj_hotel_special_tariff s', 's.hotel_special_tariff_id = a.hotel_special_tariff_id', 'left')
+            ->join('khm_obj_hotel_room_meal m', 'm.hotel_room_meal_id = s.hotel_room_meal_id', 'left')
+            ->join('khm_obj_room r', 'r.room_id = m.room_id', 'left')
+            ->where('s.special_tariff_type_id=', 1)
+            ->where('r.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_basic_tariff_exist_ssnpax($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_pax_special_tariff a');
+        $result = $selected_table->select('a.*')
+            ->join('khm_obj_hotel_special_tariff s', 's.hotel_special_tariff_id = a.hotel_special_tariff_id', 'left')
+            ->join('khm_obj_hotel_room_meal m', 'm.hotel_room_meal_id = s.hotel_room_meal_id', 'left')
+            ->join('khm_obj_room r', 'r.room_id = m.room_id', 'left')
+            ->where('s.special_tariff_type_id=', 2)
+            ->where('r.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_basic_tariff_exist_wnd($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_special_tariff a');
+        $result = $selected_table->select('a.*,m.room_id')
+            ->join('khm_obj_hotel_room_meal m', 'm.hotel_room_meal_id = a.hotel_room_meal_id', 'left')
+            ->join('khm_obj_room r', 'r.room_id = m.room_id', 'left')
+            ->where('a.special_tariff_type_id=', 1)
+            ->where('r.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_updated_record($special_tariff_id,$hotel_room_meal_id,$special_tariff_type_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_special_tariff');
+        $result = $selected_table->select('*')
+            ->where('special_tariff_id', $special_tariff_id)
+            ->where('hotel_room_meal_id', $hotel_room_meal_id)
+            ->where('special_tariff_type_id', $special_tariff_type_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_basic_tariff($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_room a');
+
+        $result = $selected_table
+            ->distinct()
+            ->select('a.*, rc.room_category_name, rt.room_type_name, ro.occupancy_name, hrc.sort_order')
+            ->join('khm_obj_hotel h', 'h.object_id = a.object_id', 'left')
+            ->join('khm_obj_hotel_room_category hrc', 'hrc.hotel_id = h.hotel_id AND hrc.room_category_id = a.room_category_id', 'left')
+            ->join('khm_obj_mst_hotel_room_category rc', 'rc.room_category_id = a.room_category_id', 'left')
+            ->join('khm_obj_mst_room_type rt', 'rt.room_type_id = a.room_type_id', 'left')
+            ->join('khm_obj_mst_room_occupancy ro', 'ro.occupancy_id = a.occupancy_id', 'left')
+            ->where('a.object_id', $object_id)
+            ->groupBy('a.room_id')
+
+            ->orderBy('hrc.sort_order', 'ASC')
+            ->get()
+            ->getResultArray();
+
+        return $result;
+    }
+    //noel//
+    public function get_room_basic_tariff_for_system_filter($object_id, $system_id)
+{
+    $db      = \Config\Database::connect();
+    $builder = $db->table('khm_obj_room a');
+
+    $builder->distinct()
+            ->select('
+                a.*,
+                rc.room_category_name,
+                rt.room_type_name,
+                ro.occupancy_name,
+                hrc.sort_order
+            ')
+            ->join('khm_obj_hotel h',
+                   'h.object_id = a.object_id', 'left')
+            // join hotel↔category so we can filter by b2b/b2c
+            ->join('khm_obj_hotel_room_category hrc',
+                   'hrc.hotel_id = h.hotel_id 
+                    AND hrc.room_category_id = a.room_category_id',
+                   'left')
+            ->join('khm_obj_mst_hotel_room_category rc',
+                   'rc.room_category_id = a.room_category_id',
+                   'left')
+            ->join('khm_obj_mst_room_type rt',
+                   'rt.room_type_id = a.room_type_id',
+                   'left')
+            ->join('khm_obj_mst_room_occupancy ro',
+                   'ro.occupancy_id = a.occupancy_id',
+                   'left')
+            ->where('a.object_id', $object_id);
+
+    // ——— system‐based filtering ———
+    if ($system_id == 3) {
+        $builder->where('hrc.b2b_active', 1);
+    } elseif ($system_id == 4) {
+        $builder->where('hrc.b2c_active', 1);
+    }
+
+    $builder->groupBy('a.room_id')
+            ->orderBy('hrc.sort_order', 'ASC');
+
+    return $builder->get()
+                   ->getResultArray();
+}
+    ///////
+
+    public function get_room_basic_tariff_wnd($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_room_meal a');
+        $result = $selected_table->select('a.*,mp.meal_plan_name,rc.room_category_name,rc.room_category_id,rt.room_type_name')
+            ->join('khm_obj_room r', 'r.room_id = a.room_id', 'left')
+            ->join('khm_obj_mst_hotel_room_category rc', 'rc.room_category_id = r.room_category_id', 'left')
+            ->join('khm_obj_mst_room_type rt', 'rt.room_type_id = r.room_type_id', 'left')
+            ->join('khm_obj_meal_plan mp', 'mp.meal_plan_id = a.meal_plan_id', 'left')
+            ->where('r.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_basic_tariff_season($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_room_meal a');
+
+        $result = $selected_table
+            ->distinct() // ✅ Remove exact duplicate rows
+            ->select('a.*, mp.meal_plan_name, rc.room_category_name, rc.room_category_id, rt.room_type_name, hrc.sort_order')
+            ->join('khm_obj_room r', 'r.room_id = a.room_id', 'left')
+            ->join('khm_obj_hotel h', 'h.object_id = r.object_id', 'left')
+            ->join('khm_obj_hotel_room_category hrc', 'hrc.hotel_id = h.hotel_id AND hrc.room_category_id = r.room_category_id', 'left')
+            ->join('khm_obj_mst_hotel_room_category rc', 'rc.room_category_id = r.room_category_id', 'left')
+            ->join('khm_obj_mst_room_type rt', 'rt.room_type_id = r.room_type_id', 'left')
+            ->join('khm_obj_meal_plan mp', 'mp.meal_plan_id = a.meal_plan_id', 'left')
+            ->where('r.object_id', $object_id)
+            ->groupBy('a.hotel_room_meal_id') // ✅ Group by unique ID in hotel_room_meal table
+            ->orderBy('hrc.sort_order', 'ASC')
+            ->get()
+            ->getResultArray();
+
+        return $result;
+    }
+
+    ///noel//
+    public function get_room_basic_tariff_season_by_sysytem($object_id, $system_id)
+{
+    $db      = \Config\Database::connect();
+    $builder = $db->table('khm_obj_hotel_room_meal a');
+
+    $builder->distinct()  // remove exact duplicate rows
+            ->select('
+                a.*,
+                mp.meal_plan_name,
+                rc.room_category_name,
+                rc.room_category_id,
+                rt.room_type_name,
+                hrc.sort_order,
+                mro.max_occupancy
+            ')
+            ->join('khm_obj_room r',
+                   'r.room_id = a.room_id', 'left')
+            ->join('khm_obj_mst_room_occupancy AS mro','mro.occupancy_id=r.occupancy_id','left')
+            ->join('khm_obj_hotel h',
+                   'h.object_id = r.object_id', 'left')
+            ->join('khm_obj_hotel_room_category hrc',
+                   'hrc.hotel_id = h.hotel_id 
+                    AND hrc.room_category_id = r.room_category_id',
+                   'left')
+            ->join('khm_obj_mst_hotel_room_category rc',
+                   'rc.room_category_id = r.room_category_id',
+                   'left')
+            ->join('khm_obj_mst_room_type rt',
+                   'rt.room_type_id = r.room_type_id',
+                   'left')
+            ->join('khm_obj_meal_plan mp',
+                   'mp.meal_plan_id = a.meal_plan_id',
+                   'left')
+            ->where('r.object_id', $object_id);
+
+    // —— system‐based filtering —— 
+    if ($system_id == '3') {
+        $builder->where('hrc.b2b_active', 1);
+    } elseif ($system_id == '4') {
+        $builder->where('hrc.b2c_active', 1);
+    }
+
+    $builder->groupBy('a.hotel_room_meal_id')  // group by unique pivot ID
+            ->orderBy('hrc.sort_order', 'ASC');
+
+    return $builder->get()
+                   ->getResultArray();
+}
+    //////
+
+    public function get_room_basic_tariff_pax($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_room_meal a');
+        $result = $selected_table->select('a.*,mp.meal_plan_name,rc.room_category_name,rt.room_type_name')
+            ->join('khm_obj_room r', 'r.room_id = a.room_id', 'left')
+            ->join('khm_obj_mst_hotel_room_category rc', 'rc.room_category_id = r.room_category_id', 'left')
+            ->join('khm_obj_mst_room_type rt', 'rt.room_type_id = r.room_type_id', 'left')
+            ->join('khm_obj_meal_plan mp', 'mp.meal_plan_id = a.meal_plan_id', 'left')
+            ->where('r.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_basic_tariff_wndpax($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_special_tariff a');
+        $result = $selected_table->select('a.*,m.room_id,mp.meal_plan_name,rc.room_category_name,rt.room_type_name')
+            ->join('khm_obj_hotel_room_meal m', 'm.hotel_room_meal_id = a.hotel_room_meal_id', 'left')
+            ->join('khm_obj_room r', 'r.room_id = m.room_id', 'left')
+            ->join('khm_obj_mst_hotel_room_category rc', 'rc.room_category_id = r.room_category_id', 'left')
+            ->join('khm_obj_mst_room_type rt', 'rt.room_type_id = r.room_type_id', 'left')
+            ->join('khm_obj_meal_plan mp', 'mp.meal_plan_id = m.meal_plan_id', 'left')
+            ->where('a.special_tariff_type_id=', 1)
+            ->where('r.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_room_basic_tariff_ssnpax($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel_special_tariff a');
+        $result = $selected_table->select('a.*,m.room_id,mp.meal_plan_name,rc.room_category_name,rt.room_type_name')
+            ->join('khm_obj_hotel_room_meal m', 'm.hotel_room_meal_id = a.hotel_room_meal_id', 'left')
+            ->join('khm_obj_room r', 'r.room_id = m.room_id', 'left')
+            ->join('khm_obj_mst_hotel_room_category rc', 'rc.room_category_id = r.room_category_id', 'left')
+            ->join('khm_obj_mst_room_type rt', 'rt.room_type_id = r.room_type_id', 'left')
+            ->join('khm_obj_meal_plan mp', 'mp.meal_plan_id = m.meal_plan_id', 'left')
+            ->where('a.special_tariff_type_id=', 2)
+            ->where('r.object_id=', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function delete_room_basic_tariff($room_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_room)->delete(['room_id' => $room_id]);
+    }
+    public function delete_entity_details($entity_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->table_entity_master)->delete(['entity_id' => $entity_id]);
+    }
+    public function update_room_basic_tariff($data,$room_id,$meal_plan_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_hotel_room_meal)->update($data, ['room_id' => $room_id,'meal_plan_id' => $meal_plan_id]);
+    }
+    public function update_new_vehicle_seasons($data,$special_tariff_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_khm_vehicle_special_tariff)->update($data, ['special_tariff_id' => $special_tariff_id]);
+    }
+    public function update_wn_room_basic_tariff($data,$special_tariff_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_hotel_special_tariff)->update($data, ['hotel_special_tariff_id' => $special_tariff_id]);
+    }
+    public function update_season_basic_tariff($data,$special_tariff_id,$hotel_room_meal_id,$special_tariff_type_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_hotel_special_tariff)->update($data, ['special_tariff_id' => $special_tariff_id,'hotel_room_meal_id' => $hotel_room_meal_id,'special_tariff_type_id' => $special_tariff_type_id]);
+    }
+    public function update_season_basic_tariff_pax($data,$hotel_special_tariff_id,$pax_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_pax_special_tariff)->update($data, ['hotel_special_tariff_id' => $hotel_special_tariff_id,'pax_id' => $pax_id]);
+    }
+    public function update_room_basic_tariff_pax($data,$hotel_room_meal_id,$pax_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_hotel_room_meal_pax)->update($data, ['hotel_room_meal_id' => $hotel_room_meal_id,'pax_id' => $pax_id]);
+    }
+    public function update_room_basic_tariff_wndpax($data,$special_tariff_id,$pax_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_pax_special_tariff)->update($data, ['hotel_special_tariff_id' => $special_tariff_id,'pax_id' => $pax_id]);
+    }
+    public function update_room_basic_tariff_wnd($data,$hotel_room_meal_id,$pax_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_hotel_room_meal_pax)->update($data, ['hotel_room_meal_id' => $hotel_room_meal_id,'pax_id' => $pax_id]);
+    }
+
+    public function hotel_list_view($params)
+    {
+        $draw           = $params['draw'];
+        $start          = $params['start'];
+        $rowperpage     = $params['length'];
+        $columnIndex    = $params['order'][0]['column'];
+        $columnName     = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue    = $params['search']['value'];
+        $object_class_id = $params['object_class_id'];
+        $locationFilter = $params['location_filter'] ?? '';
+
+        $db = \Config\Database::connect();
+
+        // ============================
+        // Fetch Filtered Records
+        // ============================
+        $query = $db->table('khm_obj_mst a')
+            ->select("
+            a.*,
+            m.geog_name,
+            h.hotel_id,
+            JSON_UNQUOTE(JSON_EXTRACT(a.object_ph_no,    '$[0]')) AS object_ph_no,
+            JSON_UNQUOTE(JSON_EXTRACT(a.object_address,   '$[0]')) AS object_address,
+            /* scalar sub‑query to grab latest end date in dd/mm/yy */
+                        (
+                SELECT DATE_FORMAT(
+                        MAX(s.season_end_date),
+                        '%d/%m/%y'
+                        )
+                FROM khm_season_calendar s
+                WHERE s.object_id     = a.object_id
+                    AND s.enterprise_id = a.enterprise_id
+                ) AS latest_end_date
+        ", FALSE)
+            ->join('khm_obj_hotel h',      'h.object_id       = a.object_id', 'left')
+            ->join('khm_loc_mst_geography m', 'm.geog_id        = a.object_location_id', 'left')
+            ->where('a.object_class_id', $object_class_id);
+
+        if (! empty($locationFilter)) {
+            $query->where('m.geog_name', $locationFilter);
+        }
+
+        if (! empty($searchValue)) {
+            $query->groupStart()
+                ->like('a.object_name', $searchValue)
+                ->orLike('m.geog_name',  $searchValue)
+                ->groupEnd();
+        }
+
+        $query->orderBy($columnName, $columnSortOrder)
+            ->limit($rowperpage, $start);
+
+        // Apply Pagination
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+
+        // ============================
+        // Total Filtered Count
+        // ============================
+        $filteredQuery = $db->table('khm_obj_mst a')
+            ->join('khm_obj_hotel h',      'h.object_id       = a.object_id', 'left')
+            ->join('khm_loc_mst_geography m', 'm.geog_id        = a.object_location_id', 'left')
+            ->where('a.object_class_id', $object_class_id);
+
+        if (! empty($locationFilter)) {
+            $filteredQuery->where('m.geog_name', $locationFilter);
+        }
+        if (! empty($searchValue)) {
+            $filteredQuery->groupStart()
+                ->like('a.object_name', $searchValue)
+                ->orLike('m.geog_name',  $searchValue)
+                ->groupEnd();
+        }
+        $totalFiltered = $filteredQuery->countAllResults();
+
+        // ============================
+        // Total Records (No Filter)
+        // ============================
+        $totalQuery = $db->table('khm_obj_mst a')
+            ->join('khm_obj_hotel h',       'h.object_id       = a.object_id', 'left')
+            ->join('khm_loc_mst_geography m', 'm.geog_id        = a.object_location_id', 'left')
+            ->where('a.object_class_id', $object_class_id);
+        $totalRecords = $totalQuery->countAllResults();
+
+        // ============================
+        // Response to DataTable
+        // ============================
+        return [
+            "draw"                => intval($draw),
+            "iTotalRecords"       => $totalRecords,
+            "iTotalDisplayRecords" => $totalFiltered,
+            "aaData"              => $records
+        ];
+    }
+
+
+  
+    public function vehicle_list_view($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $object_class_id = $params['object_class_id'];
+        $db = \Config\Database::connect();
+        
+        $query = $db->table('khm_obj_mst a');
+        $query->select('SQL_CALC_FOUND_ROWS  a.*,m.geog_name,hub.hub_location_name,mod.vehicle_model_name,seat.vehicle_seat_capacity,t.tour_travel_daily_rate,t.tour_travel_max_km,t.extra_km_rate', false);
+        $query->join('khm_obj_vehicle h', 'h.object_id = a.object_id', 'left');
+        $query->join('khm_obj_mst_vehicle_type t', 't.vehicle_type_id = h.vehicle_type_id', 'left');
+
+        $query->join('khm_obj_mst_vehicle_hub_location hub', 'hub.hub_location_id = t.hub_location_id', 'left');
+        $query->join('khm_obj_mst_vehicle_model mod', 'mod.vehicle_model_id = t.vehicle_model_id', 'left');
+        $query->join('khm_obj_mst_vehicle_seat seat', 'seat.vehicle_seat_id = t.vehicle_seat_id', 'left');
+
+        $query->join('khm_loc_mst_geography m', 'm.geog_id = a.object_location_id', 'left');
+        $query->where('a.object_class_id', $object_class_id);
+        //$query->orderBy('a.object_id', 'DESC');
+       
+        if (!empty($searchValue)) {
+                $query->groupStart()
+                    ->like('a.object_name', $searchValue)
+                    ->orLike('m.geog_name', $searchValue)
+                    ->orLike('hub.hub_location_name', $searchValue)
+                    ->orLike('mod.vehicle_model_name', $searchValue)
+                    ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+        
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+
+  
+    public function ss_list_view($params)
+    {
+        $draw             = $params['draw'];
+        $start            = $params['start'];
+        $rowperpage       = $params['length'];
+        $columnIndex      = $params['order'][0]['column'];
+        $columnName       = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder  = $params['order'][0]['dir'];
+        $searchValue      = $params['search']['value'];
+        $object_class_id  = $params['object_class_id'];
+        $db               = \Config\Database::connect();
+
+        $query = $db->table('khm_obj_mst a');
+        $query->select("
+        SQL_CALC_FOUND_ROWS
+        a.*,
+        m.geog_name,
+        ss.sightseeing_description,
+        ss.sightseeing_distance,
+        ss.sightseeing_sub_location_id,
+        (
+            SELECT DATE_FORMAT(
+                    MAX(s.season_end_date),
+                    '%d/%m/%y'
+                )
+            FROM khm_season_calendar s
+            WHERE s.object_id     = a.object_id
+              AND s.enterprise_id = a.enterprise_id
+        ) AS latest_end_date
+    ", FALSE);
+        $query->join('khm_loc_mst_geography m', 'm.geog_id    = a.object_location_id', 'left');
+        $query->join('khm_obj_sightseeing    ss', 'ss.object_id = a.object_id',             'left');
+        $query->where('a.object_class_id', $object_class_id);
+
+        if (! empty($searchValue)) {
+            $query->groupStart()
+                ->like('a.object_name', $searchValue)
+                ->orLike('m.geog_name',   $searchValue)
+                ->groupEnd();
+        }
+
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+
+        $records = $query->get()->getResultArray();
+
+        // get total filtered rows
+        $queryTot      = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords  = $queryTot->getRow()->count;
+
+        return [
+            "draw"                => intval($draw),
+            "iTotalRecords"       => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData"              => $records
+        ];
+    }
+
+    public function rc_list_view($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        //$object_class_id = $params['object_class_id'];
+        $db = \Config\Database::connect();
+        
+        $query = $db->table('khm_obj_mst_hotel_room_category');
+        $query->select('SQL_CALC_FOUND_ROWS  *', false);
+       
+        //$query->orderBy('a.object_id', 'DESC');
+       
+        if (!empty($searchValue)) {
+                $query->groupStart()
+                    ->like('room_category_name', $searchValue)
+                    //->orLike('m.geog_name', $searchValue)
+                    ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+        
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+
+    public function entity_list_view($params)
+    {
+        $draw          = $params['draw'];
+        $start         = $params['start'];
+        $rowperpage    = $params['length'];
+        $columnIndex   = $params['order'][0]['column'];
+        $columnName    = $params['columns'][$columnIndex]['data'];
+        $columnSort    = $params['order'][0]['dir'];
+        $searchValue   = $params['search']['value'];
+        $entity_class  = $params['entity_class_id'];
+
+        // ← grab new dropdown value (make sure JS is posting `location`)
+        $location      = $params['location'] ?? '';
+
+        $db = \Config\Database::connect();
+        $query = $db->table('khm_entity_mst a')
+            ->select('SQL_CALC_FOUND_ROWS a.*, m.geog_name', false)
+            ->join('khm_loc_mst_geography m', 'm.geog_id = a.entity_location_id', 'left')
+            ->where('a.entity_class_id', $entity_class)
+            ->where('a.entity_name IS NOT NULL')
+            ->where('a.entity_name !=', '');
+
+        // ← **apply the location filter**
+        if (!empty($location)) {
+            $query->where('m.geog_name', $location);
+        }
+
+        // search
+        if (!empty($searchValue)) {
+                $query->groupStart()
+                    ->like('a.entity_name', $searchValue)
+                ->orLike('m.geog_name',   $searchValue)
+                    ->groupEnd();
+        }
+
+        // ordering & paging
+        $query->orderBy($columnName, $columnSort)
+            ->limit($rowperpage, $start);
+
+        // fetch filtered rows
+        $records = $query->get()->getResultArray();
+        
+        // total after filtering
+        $filtered = $db->query('SELECT FOUND_ROWS() AS count')
+            ->getRow()
+            ->count;
+
+        // total before filtering (ignore search + location)
+        $totQuery = $db->table('khm_entity_mst')
+            ->where('entity_class_id', $entity_class)
+            ->where('entity_name IS NOT NULL')
+            ->where('entity_name !=', '')
+            ->countAllResults();
+
+        return [
+            "draw"                 => (int)$draw,
+            "iTotalRecords"        => (int)$totQuery,
+            "iTotalDisplayRecords" => (int)$filtered,
+            "aaData"               => $records
+        ];
+    }
+    public function get_leads_by_month($month = null)
+    {
+        $db = \Config\Database::connect();
+        $users_list = [];
+        $userIds = [];
+        $parent_id = session('parent_id');
+        if($month == null){
+            $currentMonth = date('m');
+        }
+        else{
+            $currentMonth = $month;
+        }
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+        
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                //->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->where('ex.assigned_to', $user_id)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            /*$result = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->WhereIn('ex.assigned_to', $userIds)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+                if (!empty($userIds)) {
+                    $result->whereIn('ex.assigned_to', $userIds);
+                }*/
+                /*$query = $selected_table->select('a.*')
+                    ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                    ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                    ->where('MONTH(a.enq_added_date)', $currentMonth)
+                    ->where('YEAR(a.enq_added_date)', $currentYear);
+
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }*/
+                //$result = $query->get()->getResultArray();
+                $result = [];
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear);
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    
+    public function get_arrivals_by_month($month = null)
+    {
+        $db = \Config\Database::connect();
+        $users_list = [];
+        $parent_id = session('parent_id');
+        if($month == null){
+            $currentMonth = date('m');
+        }
+        else{
+            $currentMonth = $month;
+        }
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            /*$query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();*/
+                $result = [];
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    
+    public function get_sales_by_month($month = null)
+    {
+        $db = \Config\Database::connect();
+        $users_list = [];
+        $parent_id = session('parent_id');
+        if($month == null){
+            $currentMonth = date('m');
+        }
+        else{
+            $currentMonth = $month;
+        }
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*, SUM(ext.tpc) as sales_amount')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*,SUM(ext.tpc) as sales_amount')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear);
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*,SUM(ext.tpc) as sales_amount')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*,SUM(ext.tpc) as sales_amount')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear);
+               
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*,SUM(ext.tpc) as sales_amount')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*,SUM(ext.tpc) as sales_amount')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*,SUM(ext.tpc) as sales_amount')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    
+    public function get_target_by_month($month = null)
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d');
+        $users_list = [];
+        $parent_id = session('parent_id');
+        if($month == null){
+            $currentMonth = date('m');
+        }
+        else{
+            $currentMonth = $month;
+        }
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $selected_table = $db->table('khm_entity_mst_target_assign a');
+        if($parent_id == 4 || $parent_id == 7 || $parent_id == 9){
+            $result = $selected_table->select('a.*, SUM(a.target_amount) as targetamount')
+                ->join('khm_obj_mst_target t', 't.target_id = a.target_id', 'inner')
+                ->where('a.entity_id', $user_id)
+                ->where('MONTH(t.target_from_date)', $currentMonth)
+                ->where('YEAR(t.target_from_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1 || $parent_id == 2 || $parent_id == 3){
+                $query = $selected_table->select('a.*, SUM(a.target_amount) as targetamount')
+                ->join('khm_obj_mst_target t', 't.target_id = a.target_id', 'inner')
+                //->WhereIn('a.entity_id', $userIds)
+                ->where('MONTH(t.target_from_date)', $currentMonth)
+                ->where('YEAR(t.target_from_date)', $currentYear);
+               
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+               $result = $query->get()->getResultArray();
+        }
+        else{
+           $result = $selected_table->select('a.*, SUM(a.target_amount) as targetamount')
+                ->join('khm_obj_mst_target t', 't.target_id = a.target_id', 'inner')
+                ->where('MONTH(t.target_from_date)', $currentMonth)
+                ->where('YEAR(t.target_from_date)', $currentYear)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    
+
+    public function get_today_arrivals($month = null)
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d');
+        $users_list = [];
+        $parent_id = session('parent_id');
+        if($month == null){
+            $currentMonth = date('m');
+        }
+        else{
+            $currentMonth = $month;
+        }
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('d.date_of_tour_start', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('d.date_of_tour_start', $sdate);
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('d.date_of_tour_start', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('d.date_of_tour_start', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('d.date_of_tour_start', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('d.date_of_tour_start', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('d.date_of_tour_start', $sdate)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    
+    public function get_today_departure($month = null)
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d');
+        $users_list = [];
+        $parent_id = session('parent_id');
+        if($month == null){
+            $currentMonth = date('m');
+        }
+        else{
+            $currentMonth = $month;
+        }
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('d.date_of_tour_completion', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('d.date_of_tour_completion', $sdate);
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+               $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('d.date_of_tour_completion', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('d.date_of_tour_completion', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+               $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('d.date_of_tour_completion', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('d.date_of_tour_completion', $sdate);
+               
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('d.date_of_tour_completion', $sdate)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    
+    public function get_followup_coming()
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d');
+        $users_list = [];
+        $parent_id = session('parent_id');
+     
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $subfollowupQuery = $db->table('khm_obj_executive_follow_up s')
+        ->select('s.executive_follow_up_id,s.enquiry_header_id')
+        ->join(
+            '(SELECT MAX(executive_follow_up_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_executive_follow_up WHERE next_follow_up_time >='.$sdate.'
+              GROUP BY enquiry_header_id) latest',
+            's.enquiry_header_id = latest.enquiry_header_id AND s.executive_follow_up_id = latest.max_status_id',
+            'inner'
+        );
+        $latestfollowupSql = $subfollowupQuery->getCompiledSelect(false); 
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('(' . $latestfollowupSql . ') f', 'f.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('(' . $latestfollowupSql . ') f', 'f.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left');
+                //->WhereIn('ex.assigned_to', $userIds)
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('(' . $latestfollowupSql . ') f', 'f.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('(' . $latestfollowupSql . ') f', 'f.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left');
+                //->WhereIn('sp.assigned_to', $userIds)
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+               $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('(' . $latestfollowupSql . ') f', 'f.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('(' . $latestfollowupSql . ') f', 'f.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left');
+                //->WhereIn('tp.assigned_to', $userIds)
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+               $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('(' . $latestfollowupSql . ') f', 'f.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    
+    public function get_followup_pending()
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d');
+        $users_list = [];
+        $parent_id = session('parent_id');
+     
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $response = [];
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $fdetails = $this->get_followup_details($val['enquiry_header_id']);
+                    if(empty($fdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear);
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $fdetails = $this->get_followup_details($val['enquiry_header_id']);
+                    if(empty($fdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $fdetails = $this->get_followup_details($val['enquiry_header_id']);
+                    if(empty($fdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear);
+               
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $fdetails = $this->get_followup_details($val['enquiry_header_id']);
+                    if(empty($fdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $fdetails = $this->get_followup_details($val['enquiry_header_id']);
+                    if(empty($fdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $fdetails = $this->get_followup_details($val['enquiry_header_id']);
+                    if(empty($fdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('MONTH(a.enq_added_date)', $currentMonth)
+                ->where('YEAR(a.enq_added_date)', $currentYear)
+                ->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $fdetails = $this->get_followup_details($val['enquiry_header_id']);
+                    if(empty($fdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+       return $response;
+    }
+    public function get_followup_details($enquiry_header_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_executive_follow_up');
+        $result = $selected_table->select('*')
+            ->where('enquiry_header_id', $enquiry_header_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_not_payment_receive($enquiry_header_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_enquiry_payment');
+        $result = $selected_table->select('*')
+            ->where('enquiry_header_id', $enquiry_header_id)
+            ->where('approved_status', $enquiry_header_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_client_in_tour()
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d');
+        $users_list = [];
+        $parent_id = session('parent_id');
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+        
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('d.date_of_tour_start<=', $sdate)
+                ->where('d.date_of_tour_completion>=', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('d.date_of_tour_start<=', $sdate)
+                ->where('d.date_of_tour_completion>=', $sdate);
+               
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('d.date_of_tour_start<=', $sdate)
+                ->where('d.date_of_tour_completion>=', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('d.date_of_tour_start<=', $sdate)
+                ->where('d.date_of_tour_completion>=', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('d.date_of_tour_start<=', $sdate)
+                ->where('d.date_of_tour_completion>=', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('d.date_of_tour_start<=', $sdate)
+                ->where('d.date_of_tour_completion>=', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('d.date_of_tour_start<=', $sdate)
+                ->where('d.date_of_tour_completion>=', $sdate)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    
+    public function get_partial_payment()
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d');
+        $users_list = [];
+        $parent_id = session('parent_id');
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+       $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $subquery_payment = $db->table('khm_obj_enquiry_payment')
+            ->select('*,SUM(paid_amount) as total_paid')
+            ->where('approved_status', 1)
+            ->groupBy('enquiry_header_id');
+        $latest_subquery_payment = $subquery_payment->getCompiledSelect(false); 
+        
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_payment . ') p', 'p.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('p.total_paid < p.total_amount')
+                ->get()->getResultArray();
+            
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_payment . ') p', 'p.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('p.total_paid < p.total_amount');
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_payment . ') p', 'p.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('p.total_paid < p.total_amount')
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_payment . ') p', 'p.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('p.total_paid < p.total_amount');
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+               $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_payment . ') p', 'p.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('p.total_paid < p.total_amount')
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_payment . ') p', 'p.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('p.total_paid < p.total_amount');
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_payment . ') p', 'p.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('p.total_paid < p.total_amount')
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    
+    public function get_not_receive_payment()
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d');
+        $users_list = [];
+        $parent_id = session('parent_id');
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $response = [];
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $npdetails = $this->get_not_payment_receive($val['enquiry_header_id']);
+                    if(empty($npdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+            
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left');
+                //->WhereIn('ex.assigned_to', $userIds)
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $npdetails = $this->get_not_payment_receive($val['enquiry_header_id']);
+                    if(empty($npdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $npdetails = $this->get_not_payment_receive($val['enquiry_header_id']);
+                    if(empty($npdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left');
+                //->WhereIn('sp.assigned_to', $userIds)
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $npdetails = $this->get_not_payment_receive($val['enquiry_header_id']);
+                    if(empty($npdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $npdetails = $this->get_not_payment_receive($val['enquiry_header_id']);
+                    if(empty($npdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left');
+                //->WhereIn('tp.assigned_to', $userIds)
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $npdetails = $this->get_not_payment_receive($val['enquiry_header_id']);
+                    if(empty($npdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->get()->getResultArray();
+                foreach($result as $key => $val){
+                    $npdetails = $this->get_not_payment_receive($val['enquiry_header_id']);
+                    if(empty($npdetails)){
+                        $response[$key] = $val;
+                    }
+                } 
+        }
+       return $response;
+    }
+
+    public function get_tomorrow_arrivals($month = null)
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d', strtotime('+1 day'));
+        $users_list = [];
+        $parent_id = session('parent_id');
+        if($month == null){
+            $currentMonth = date('m');
+        }
+        else{
+            $currentMonth = $month;
+        }
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+        
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('d.date_of_tour_start', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('d.date_of_tour_start', $sdate);
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('d.date_of_tour_start', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('d.date_of_tour_start', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('d.date_of_tour_start', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('d.date_of_tour_start', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('d.date_of_tour_start', $sdate)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+
+    public function get_tomorrow_departure($month = null)
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d', strtotime('+1 day'));
+        $users_list = [];
+        $parent_id = session('parent_id');
+        if($month == null){
+            $currentMonth = date('m');
+        }
+        else{
+            $currentMonth = $month;
+        }
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+       $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('d.date_of_tour_completion', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('d.date_of_tour_completion', $sdate);
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+               $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('d.date_of_tour_completion', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('d.date_of_tour_completion', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('d.date_of_tour_completion', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('d.date_of_tour_completion', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('d.date_of_tour_completion', $sdate)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    public function get_yesterday_enq_confirmation()
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d', strtotime('-1 day'));
+        $users_list = [];
+        $parent_id = session('parent_id');
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('DATE(sp.updated_time)', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('DATE(sp.updated_time)', $sdate);
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('DATE(sp.updated_time)', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('DATE(sp.updated_time)', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+               $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('DATE(sp.updated_time)', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('DATE(sp.updated_time)', $sdate);
+               
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('DATE(sp.updated_time)', $sdate)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+
+    public function get_today_enq_confirmation()
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d');
+        $users_list = [];
+        $parent_id = session('parent_id');
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('DATE(sp.updated_time)', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('DATE(sp.updated_time)', $sdate);
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('DATE(sp.updated_time)', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('DATE(sp.updated_time)', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('DATE(sp.updated_time)', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('DATE(sp.updated_time)', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('DATE(sp.updated_time)', $sdate)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+
+    public function get_yesterday_enq_amend()
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d', strtotime('-1 day'));
+        $users_list = [];
+        $parent_id = session('parent_id');
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('DATE(ext.created_date)', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('DATE(ext.created_date)', $sdate);
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('DATE(ext.created_date)', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('DATE(ext.created_date)', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('DATE(ext.created_date)', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('DATE(ext.created_date)', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+               $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('DATE(ext.created_date)', $sdate)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    public function get_today_enq_amend()
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d');
+        $users_list = [];
+        $parent_id = session('parent_id');
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->where('DATE(ext.created_date)', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->where('DATE(ext.created_date)', $sdate);
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->where('DATE(ext.created_date)', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->where('DATE(ext.created_date)', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->where('DATE(ext.created_date)', $sdate)
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->where('DATE(ext.created_date)', $sdate);
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_header_id = a.enquiry_header_id', 'inner')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('DATE(ext.created_date)', $sdate)
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    
+    public function get_source_of_leads()
+    {
+        $db = \Config\Database::connect();
+        $sdate = date('Y-m-d');
+        $users_list = [];
+        $parent_id = session('parent_id');
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+
+        if($hierarchy_id == 4){
+            $users = $this->get_employees_under_teamlead($user_id);
+            $userIds = array_column($users, 'entity_id');
+        }
+        else {
+            $users = $this->get_employees_under_adminusers();
+            $userIds = array_column($users, 'entity_id');
+        }
+        $userIds = array_filter($userIds);
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+       $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        if($parent_id == 4){
+            $result = $selected_table->select('a.*,d.enquiry_source,COUNT(d.enquiry_source) as source_count')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $user_id)
+                ->groupBy('d.enquiry_source')
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 1){
+            $query = $selected_table->select('a.*,d.enquiry_source,COUNT(d.enquiry_source) as source_count')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                //->WhereIn('ex.assigned_to', $userIds)
+                ->groupBy('d.enquiry_source');
+                
+                if (!empty($userIds)) {
+                    //$query->whereIn('ex.assigned_to', $userIds);
+                }
+               $result = $query->get()->getResultArray();
+        }
+        else if($parent_id == 7){
+            $result = $selected_table->select('a.*,d.enquiry_source,COUNT(d.enquiry_source) as source_count')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->where('sp.assigned_to', $user_id)
+                ->groupBy('d.enquiry_source')
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 2){
+            $query = $selected_table->select('a.*,d.enquiry_source,COUNT(d.enquiry_source) as source_count')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                //->WhereIn('sp.assigned_to', $userIds)
+                ->groupBy('d.enquiry_source');
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+
+         else if($parent_id == 9){
+            $result = $selected_table->select('a.*,d.enquiry_source,COUNT(d.enquiry_source) as source_count')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->where('tp.assigned_to', $user_id)
+                ->groupBy('d.enquiry_source')
+                ->get()->getResultArray();
+        }
+        else if($parent_id == 3){
+            $query = $selected_table->select('a.*,d.enquiry_source,COUNT(d.enquiry_source) as source_count')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                //->WhereIn('tp.assigned_to', $userIds)
+                ->groupBy('d.enquiry_source');
+                
+                if (!empty($userIds)) {
+                    $query->whereIn('ex.assigned_to', $userIds);
+                }
+                $result = $query->get()->getResultArray();
+        }
+        else{
+            $result = $selected_table->select('a.*,d.enquiry_source,COUNT(d.enquiry_source) as source_count')
+                ->join('khm_obj_enquiry_details d', 'd.enquiry_header_id = a.enquiry_header_id AND d.is_active=1', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->join('(' . $latest_subquery_sop . ') sp', 'sp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst sop', 'sop.entity_id = sp.assigned_to', 'left')
+                ->join('(' . $latest_subquery_top . ') tp', 'tp.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst top', 'top.entity_id = tp.assigned_to', 'left')
+                ->groupBy('d.enquiry_source')
+                ->get()->getResultArray();
+        }
+       return $result;
+    }
+    
+    public function get_executive_performance()
+    {
+        $db = \Config\Database::connect();
+        $parent_id = session('parent_id');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+     
+        $response = [];
+        $result = [];
+        
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result1 = $selected_table->select('a.*,m.entity_name')
+            ->join('khm_entity_mst m', 'm.entity_id = a.entity_id', 'inner')
+            ->where('a.role_id=', 5)
+            ->orWhere('a.role_id=', 6)
+            ->get()->getResultArray();
+        
+        foreach ($result1 as $key => $val) {
+            $response[$key][] = $val['entity_name'];
+            for ($i = 0; $i < 7; $i++) {
+                $week_count = $this->getPerformanceDailyCount($val['entity_id'],$i);
+                if(!empty($week_count)){
+                    $response[$key][] = $week_count[0]['total_count'];
+                    $response[$key][] = intval($week_count[0]['total_sum']);
+                }
+                else{
+                    $response[$key][] = 0;
+                    $response[$key][] = 0;
+                }
+            }
+
+            $sales_user = $this->get_sales_by_user($val['entity_id']);
+            if(!empty($sales_user)){
+                $response[$key][] = $sales_user[0]['sales_count'];
+                $response[$key][] = intval($sales_user[0]['sales_amount']);
+            }
+            else{
+                $response[$key][] = 0;
+                $response[$key][] = 0;
+            }
+        }
+        //print_r($response);exit;
+        return $response;
+    }
+    public function getPerformanceDailyCount($uid,$i)
+    {
+        $db = \Config\Database::connect();
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+        $currentDate = date('Y-m-d');
+        $startOfWeek = date('Y-m-d', strtotime('last Sunday', strtotime($currentDate)));
+        $endOfWeek = date('Y-m-d', strtotime('next Saturday', strtotime($currentDate)));
+            $date = date('Y-m-d', strtotime($startOfWeek . " +$i days"));
+            $selected_table = $db->table('khm_obj_enquiry_header a');
+            $result = $selected_table->select('a.*,COUNT(a.enquiry_header_id) as total_count, SUM(ext.tpc) as total_sum')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+                ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $uid)
+                ->where('DATE(ex.updated_time)', $date)
+                ->groupBy('DATE(ex.updated_time)')
+                ->get()->getResultArray();
+            return $result;
+    }
+    public function get_sales_by_user($user_id){
+        $db = \Config\Database::connect();
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+
+        $subquery_exe = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 1)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_exe = $subquery_exe->getCompiledSelect(false); 
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        $result = $selected_table->select('a.*, COUNT(a.enquiry_header_id) as sales_count, SUM(ext.tpc) as sales_amount')
+            ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+            ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+            ->join('(' . $latest_subquery_exe . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+            ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+            ->where('ex.assigned_to', $user_id)
+            ->where('MONTH(ex.updated_time)', $currentMonth)
+            ->where('YEAR(ex.updated_time)', $currentYear)
+            ->get()->getResultArray();
+        return $result;
+    }
+
+    public function get_sop_performance()
+    {
+        $db = \Config\Database::connect();
+        $parent_id = session('parent_id');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+     
+        $response = [];
+        $result = [];
+        
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result1 = $selected_table->select('a.*,m.entity_name')
+            ->join('khm_entity_mst m', 'm.entity_id = a.entity_id', 'inner')
+            ->where('a.role_id=', 8)
+            ->get()->getResultArray();
+        
+        foreach ($result1 as $key => $val) {
+            $response[$key][] = $val['entity_name'];
+            for ($i = 0; $i < 7; $i++) {
+                $week_count = $this->getPerformanceDailyCount_sop($val['entity_id'],$i);
+                if(!empty($week_count)){
+                    $response[$key][] = $week_count[0]['total_count'];
+                    $response[$key][] = intval($week_count[0]['total_sum']);
+                }
+                else{
+                    $response[$key][] = 0;
+                    $response[$key][] = 0;
+                }
+            }
+
+            $sales_user = $this->get_sales_by_user_sop($val['entity_id']);
+            if(!empty($sales_user)){
+                $response[$key][] = $sales_user[0]['sales_count'];
+                $response[$key][] = intval($sales_user[0]['sales_amount']);
+            }
+            else{
+                $response[$key][] = 0;
+                $response[$key][] = 0;
+            }
+        }
+        //print_r($response);exit;
+        return $response;
+    }
+    public function getPerformanceDailyCount_sop($uid,$i)
+    {
+        $db = \Config\Database::connect();
+        $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+        $currentDate = date('Y-m-d');
+        $startOfWeek = date('Y-m-d', strtotime('last Sunday', strtotime($currentDate)));
+        $endOfWeek = date('Y-m-d', strtotime('next Saturday', strtotime($currentDate)));
+            $date = date('Y-m-d', strtotime($startOfWeek . " +$i days"));
+            $selected_table = $db->table('khm_obj_enquiry_header a');
+            $result = $selected_table->select('a.*,COUNT(a.enquiry_header_id) as total_count, SUM(ext.tpc) as total_sum')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+                ->join('(' . $latest_subquery_sop . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $uid)
+                ->where('DATE(ex.updated_time)', $date)
+                ->groupBy('DATE(ex.updated_time)')
+                ->get()->getResultArray();
+            return $result;
+    }
+    public function get_sales_by_user_sop($user_id){
+        $db = \Config\Database::connect();
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+
+        $subquery_sop = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 13)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_sop = $subquery_sop->getCompiledSelect(false); 
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        $result = $selected_table->select('a.*, COUNT(a.enquiry_header_id) as sales_count, SUM(ext.tpc) as sales_amount')
+            ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+            ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+            ->join('(' . $latest_subquery_sop . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+            ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+            ->where('ex.assigned_to', $user_id)
+            ->where('MONTH(ex.updated_time)', $currentMonth)
+            ->where('YEAR(ex.updated_time)', $currentYear)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_top_performance()
+    {
+        $db = \Config\Database::connect();
+        $parent_id = session('parent_id');
+        $hierarchy_id = session('hierarchy_id');
+        $user_id = session('user_id');
+     
+        $response = [];
+        $result = [];
+        
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result1 = $selected_table->select('a.*,m.entity_name')
+            ->join('khm_entity_mst m', 'm.entity_id = a.entity_id', 'inner')
+            ->where('a.role_id=', 10)
+            ->get()->getResultArray();
+        
+        foreach ($result1 as $key => $val) {
+            $response[$key][] = $val['entity_name'];
+            for ($i = 0; $i < 7; $i++) {
+                $week_count = $this->getPerformanceDailyCount_top($val['entity_id'],$i);
+                if(!empty($week_count)){
+                    $response[$key][] = $week_count[0]['total_count'];
+                    $response[$key][] = intval($week_count[0]['total_sum']);
+                }
+                else{
+                    $response[$key][] = 0;
+                    $response[$key][] = 0;
+                }
+            }
+
+            $sales_user = $this->get_sales_by_user_top($val['entity_id']);
+            if(!empty($sales_user)){
+                $response[$key][] = $sales_user[0]['sales_count'];
+                $response[$key][] = intval($sales_user[0]['sales_amount']);
+            }
+            else{
+                $response[$key][] = 0;
+                $response[$key][] = 0;
+            }
+        }
+        //print_r($response);exit;
+        return $response;
+    }
+    public function getPerformanceDailyCount_top($uid,$i)
+    {
+        $db = \Config\Database::connect();
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+        $currentDate = date('Y-m-d');
+        $startOfWeek = date('Y-m-d', strtotime('last Sunday', strtotime($currentDate)));
+        $endOfWeek = date('Y-m-d', strtotime('next Saturday', strtotime($currentDate)));
+            $date = date('Y-m-d', strtotime($startOfWeek . " +$i days"));
+            $selected_table = $db->table('khm_obj_enquiry_header a');
+            $result = $selected_table->select('a.*,COUNT(a.enquiry_header_id) as total_count, SUM(ext.tpc) as total_sum')
+                ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+                ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+                ->join('(' . $latest_subquery_top . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+                ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+                ->where('ex.assigned_to', $uid)
+                ->where('DATE(ex.updated_time)', $date)
+                ->groupBy('DATE(ex.updated_time)')
+                ->get()->getResultArray();
+            return $result;
+    }
+    public function get_sales_by_user_top($user_id){
+        $db = \Config\Database::connect();
+        $currentMonth = date('m');
+        $currentYear = date('Y');
+
+        $subquery_top = $db->table('khm_obj_enquiry_status ss')
+            ->select('ss.*')
+            ->join('khm_obj_enquiry_edit_request se', 'se.enquiry_header_id = ss.enquiry_header_id AND se.is_active=1', 'inner')
+            ->where('ss.current_status_id', 14)
+            ->groupBy('ss.enquiry_header_id');
+        $latest_subquery_top = $subquery_top->getCompiledSelect(false); 
+
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        $result = $selected_table->select('a.*, COUNT(a.enquiry_header_id) as sales_count, SUM(ext.tpc) as sales_amount')
+            ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id and er.is_active=1 and er.cs_confirmed_id > 0', 'inner')
+            ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
+            ->join('(' . $latest_subquery_top . ') ex', 'ex.enquiry_header_id = a.enquiry_header_id', 'left')
+            ->join('khm_entity_mst exe', 'exe.entity_id = ex.assigned_to', 'left')
+            ->where('ex.assigned_to', $user_id)
+            ->where('MONTH(ex.updated_time)', $currentMonth)
+            ->where('YEAR(ex.updated_time)', $currentYear)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_team_lead_and_exe()
+    {
+        $db = \Config\Database::connect();
+        $response = [];
+
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result1 = $selected_table->select('a.*, m.entity_name')
+            ->join('khm_entity_mst m', 'm.entity_id = a.entity_id', 'inner')
+            ->where('a.role_id', 4)
+            ->get()->getResultArray();
+
+        foreach ($result1 as $key => $val) {
+            $executives_raw = $this->get_employees_under_teamlead($val['entity_id']);
+            $executive_names = [];
+
+            foreach ($executives_raw as $exe) {
+                $executive_names[] = $exe['entity_name'];
+            }
+
+            $response[] = [
+                'name' => $val['entity_name'],
+                'executives' => $executive_names
+            ];
+        }
+
+        return $response;
+    }
+
+    public function get_sop_lead_and_exe()
+    {
+        $db = \Config\Database::connect();
+        $response = [];
+
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result1 = $selected_table->select('a.*, m.entity_name')
+            ->join('khm_entity_mst m', 'm.entity_id = a.entity_id', 'inner')
+            ->where('a.role_id', 7)
+            ->get()->getResultArray();
+
+        foreach ($result1 as $key => $val) {
+            $executives_raw = $this->get_employees_under_teamlead($val['entity_id']);
+            $executive_names = [];
+
+            foreach ($executives_raw as $exe) {
+                $executive_names[] = $exe['entity_name'];
+            }
+
+            $response[] = [
+                'name' => $val['entity_name'],
+                'executives' => $executive_names
+            ];
+        }
+
+        return $response;
+    }
+    public function get_top_lead_and_exe()
+    {
+        $db = \Config\Database::connect();
+        $response = [];
+
+        $selected_table = $db->table('khm_sys_usg_mst_entity_role a');
+        $result1 = $selected_table->select('a.*, m.entity_name')
+            ->join('khm_entity_mst m', 'm.entity_id = a.entity_id', 'inner')
+            ->where('a.role_id', 9)
+            ->get()->getResultArray();
+
+        foreach ($result1 as $key => $val) {
+            $executives_raw = $this->get_employees_under_teamlead($val['entity_id']);
+            $executive_names = [];
+
+            foreach ($executives_raw as $exe) {
+                $executive_names[] = $exe['entity_name'];
+            }
+
+            $response[] = [
+                'name' => $val['entity_name'],
+                'executives' => $executive_names
+            ];
+        }
+
+        return $response;
+    }
+    public function switchRoomCategoryOrder($currentId, $direction)
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('khm_obj_hotel_room_category');
+
+        $current = $builder->where('hotel_room_category_id', $currentId)->get()->getRowArray();
+        if (!$current) return false;
+
+        $sortOrder = $current['sort_order'];
+        $hotelId = $current['hotel_id'];
+
+        $operator = $direction == 'up' ? '<' : '>';
+        $order = $direction == 'up' ? 'DESC' : 'ASC';
+
+        $adjacent = $builder
+            ->where('hotel_id', $hotelId)
+            ->where("sort_order $operator", $sortOrder)
+            ->orderBy('sort_order', $order)
+            ->limit(1)
+            ->get()
+            ->getRowArray();
+
+        if ($adjacent) {
+            // Swap sort_order
+            $builder->where('hotel_room_category_id', $currentId)->update(['sort_order' => $adjacent['sort_order']]);
+            $builder->where('hotel_room_category_id', $adjacent['hotel_room_category_id'])->update(['sort_order' => $sortOrder]);
+        }
+    }
+    public function get_max_sort_order_by_hotel($hotel_id)
+    {
+        $builder = $this->db->table('khm_obj_hotel_room_category');
+        $builder->selectMax('sort_order');
+        $builder->where('hotel_id', $hotel_id);
+        $query = $builder->get()->getRow();
+        return $query->sort_order ?? 0; 
+    }
+    public function indian_states()
+    {
+        $db = \Config\Database::connect();
+        $query = $db->query('SELECT * FROM khm_loc_mst_geography WHERE geog_level_id = 3 and geog_parent_id = 2 order by geog_name asc');
+        $results = $query->getResultArray();
+        return $results;
+    }
+}

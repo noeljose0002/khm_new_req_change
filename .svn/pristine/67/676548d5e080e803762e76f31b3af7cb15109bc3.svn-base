@@ -1,0 +1,121 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class InsuranceModel extends Model
+{
+    protected $DBGroup          = 'default';
+    protected $table            = 'khm_obj_mst_insurance';
+    protected $primaryKey       = 'insurance_id';
+    protected $returnType       = 'array';
+    protected $useAutoIncrement = true;
+    protected $allowedFields    = [
+        'pax_count_from',
+        'pax_count_to',
+        'insurance_amount',
+        'deleted',
+        'enterprise_id',
+        'object_id'
+    ];
+
+    /**
+     * Retrieve active (non-soft-deleted) insurance records.
+     */
+    public function getActiveInsurances()
+    {
+        return $this->where('deleted', 0)
+                    ->orderBy('insurance_id', 'DESC')
+                    ->findAll();
+    }
+
+    /**
+     * Insert a new insurance record and create a corresponding object in khm_obj_mst.
+     * object_type_id is 11 and object_class_id is 14.
+     */
+    public function insertInsurance($paxFrom, $paxTo, $amount)
+    {
+        // Insert into master object table (khm_obj_mst)
+        $db      = db_connect();
+        $builder = $db->table('khm_obj_mst');
+        $objectName = "Insurance: {$paxFrom} - {$paxTo}";
+        $builder->insert([
+            'object_type_id'   => 11,
+            'object_class_id'  => 14,
+            'object_name'      => $objectName,
+            'deleted'       => 0,
+            'enterprise_id'    => 1,
+        ]);
+        $objectId = $db->insertID();
+
+        // Insert into insurance table
+        return $this->insert([
+            'pax_count_from'   => $paxFrom,
+            'pax_count_to'     => $paxTo,
+            'insurance_amount' => $amount,
+            'deleted'          => 0,
+            'enterprise_id'    => 1,
+            'object_id'        => $objectId,
+        ]);
+    }
+
+    /**
+     * Update an existing insurance record and update the corresponding object name.
+     */
+    public function updateInsurance($insuranceId, $paxFrom, $paxTo, $amount)
+    {
+        $result = $this->update($insuranceId, [
+            'pax_count_from'   => $paxFrom,
+            'pax_count_to'     => $paxTo,
+            'insurance_amount' => $amount
+        ]);
+
+        if ($result !== false) {
+            // Update object name in khm_obj_mst
+            $db      = db_connect();
+            $builder = $db->table('khm_obj_mst');
+            $row = $this->find($insuranceId);
+            if ($row && isset($row['object_id'])) {
+                $objectId   = $row['object_id'];
+                $objectName = "Insurance: {$paxFrom} - {$paxTo}";
+                $builder->where('object_id', $objectId)
+                        ->update(['object_name' => $objectName]);
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Soft delete the insurance record and mark its corresponding master object as deleted.
+     */
+    public function softDelete($insuranceId)
+    {
+        $result = $this->update($insuranceId, ['deleted' => 1]);
+
+        $db      = db_connect();
+        $builder = $db->table('khm_obj_mst');
+        $row = $this->find($insuranceId);
+        if ($row && isset($row['object_id'])) {
+            $objectId = $row['object_id'];
+            $builder->where('object_id', $objectId)
+                    ->update(['deleted' => 1]);
+        }
+
+        return $result;
+    }
+
+    public function isDuplicate($paxFrom, $paxTo, $amount, $excludeId = null)
+{
+    $builder = $this->where('deleted', 0)
+                    ->where('pax_count_from', $paxFrom)
+                    ->where('pax_count_to', $paxTo)
+                    ->where('insurance_amount', $amount);
+
+    if (!empty($excludeId)) {
+        $builder->where('insurance_id !=', $excludeId);
+    }
+
+    return $builder->countAllResults() > 0;
+}
+}

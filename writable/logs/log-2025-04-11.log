@@ -1,0 +1,1578 @@
+CRITICAL - 2025-04-11 04:47:02 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(112): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:47:04 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(112): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:52:06 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:52:07 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:52:07 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:52:07 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:52:08 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:52:08 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:53:21 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:17 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:18 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:18 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:18 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:19 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:19 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:19 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:19 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:19 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:19 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:20 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:20 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:20 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:56:20 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:49 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:49 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:50 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:50 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:50 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:50 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:50 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:51 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:51 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:51 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:51 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:51 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:51 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:52 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:52 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:52 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:52 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:52 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:53 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:53 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:53 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:53 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:53 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:54 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 04:57:54 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: GeogController/distanceView]
+in APPPATH\Views\masters\distance_view.php on line 265.
+ 1 APPPATH\Views\masters\distance_view.php(265): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php', 265)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\distance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/distance_view', [], true)
+ 5 APPPATH\Controllers\GeogController.php(144): view('masters/distance_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->distanceView()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-11 05:02:58 --> mysqli_sql_exception: Unknown column 'is_default_ss' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_obj...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update(Array)
+#5 C:\wamp64\www\khm\app\Controllers\GeogController.php(304): App\Models\GeogModel->resetDefaultSightseeing('1940', '94')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('94')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-11 05:02:58 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_default_ss' in 'field list'
+[Method: POST, Route: GeogController/setDefault/94]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 2 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 3 APPPATH\Controllers\GeogController.php(304): App\Models\GeogModel->resetDefaultSightseeing('1940', '94')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('94')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 05:02:58 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_default_ss' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 4 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 5 APPPATH\Controllers\GeogController.php(304): App\Models\GeogModel->resetDefaultSightseeing('1940', '94')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('94')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 05:02:58 --> [Caused by] mysqli_sql_exception: Unknown column 'is_default_ss' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 5 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 6 APPPATH\Controllers\GeogController.php(304): App\Models\GeogModel->resetDefaultSightseeing('1940', '94')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('94')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-11 08:12:20 --> mysqli_sql_exception: Unknown column 'is_default_ss' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_obj...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update(Array)
+#5 C:\wamp64\www\khm\app\Controllers\GeogController.php(304): App\Models\GeogModel->resetDefaultSightseeing('1949', '103')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('103')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-11 08:12:20 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_default_ss' in 'field list'
+[Method: POST, Route: GeogController/setDefault/103]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 2 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 3 APPPATH\Controllers\GeogController.php(304): App\Models\GeogModel->resetDefaultSightseeing('1949', '103')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('103')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 08:12:20 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_default_ss' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1949\'
+AND `sightseeing_id` != \'103\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1949\'
+AND `sightseeing_id` != \'103\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 4 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 5 APPPATH\Controllers\GeogController.php(304): App\Models\GeogModel->resetDefaultSightseeing('1949', '103')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('103')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 08:12:20 --> [Caused by] mysqli_sql_exception: Unknown column 'is_default_ss' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1949\'
+AND `sightseeing_id` != \'103\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1949\'
+AND `sightseeing_id` != \'103\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1949\'
+AND `sightseeing_id` != \'103\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 5 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 6 APPPATH\Controllers\GeogController.php(304): App\Models\GeogModel->resetDefaultSightseeing('1949', '103')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('103')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-11 11:19:10 --> mysqli_sql_exception: Unknown column 'khm_obj_facility.deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `khm_obj...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `khm_obj...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `khm_obj...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `khm_obj...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\FacilityCombinedModel.php(72): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Facility.php(64): App\Models\FacilityCombinedModel->getFacilityList()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Facility->getFacilities()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-11 11:19:10 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_obj_facility.deleted' in 'where clause'
+[Method: GET, Route: facility/getFacilities]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = :khm_obj_facility.deleted:', [...], false)
+ 2 APPPATH\Models\FacilityCombinedModel.php(72): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Facility.php(64): App\Models\FacilityCombinedModel->getFacilityList()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->getFacilities()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:19:10 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_obj_facility.deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = 0')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = 0')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = :khm_obj_facility.deleted:', [...], false)
+ 4 APPPATH\Models\FacilityCombinedModel.php(72): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Facility.php(64): App\Models\FacilityCombinedModel->getFacilityList()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->getFacilities()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:19:10 --> [Caused by] mysqli_sql_exception: Unknown column 'khm_obj_facility.deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = 0', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = 0')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = 0')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `khm_obj_facility`.*, `khm_obj_mst`.`object_name`
+FROM `khm_obj_facility`
+JOIN `khm_obj_mst` ON `khm_obj_facility`.`object_id` = `khm_obj_mst`.`object_id`
+WHERE `khm_obj_facility`.`deleted` = :khm_obj_facility.deleted:', [...], false)
+ 5 APPPATH\Models\FacilityCombinedModel.php(72): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Facility.php(64): App\Models\FacilityCombinedModel->getFacilityList()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->getFacilities()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-11 11:19:17 --> mysqli_sql_exception: Unknown column 'deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\FacilityCombinedModel.php(151): CodeIgniter\Database\BaseBuilder->countAllResults()
+#5 C:\wamp64\www\khm\app\Controllers\Facility.php(77): App\Models\FacilityCombinedModel->checkDuplicateFacility('sx', '')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Facility->checkDuplicate()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-11 11:19:17 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+[Method: POST, Route: facility/checkDuplicate]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `khm_obj_facility`
+WHERE `facility_name` = :facility_name:
+AND `deleted` = :deleted:', [...], false)
+ 2 APPPATH\Models\FacilityCombinedModel.php(151): CodeIgniter\Database\BaseBuilder->countAllResults()
+ 3 APPPATH\Controllers\Facility.php(77): App\Models\FacilityCombinedModel->checkDuplicateFacility('sx', '')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->checkDuplicate()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:19:17 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `khm_obj_facility`
+WHERE `facility_name` = \'sx\'
+AND `deleted` = 0')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `khm_obj_facility`
+WHERE `facility_name` = \'sx\'
+AND `deleted` = 0')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `khm_obj_facility`
+WHERE `facility_name` = :facility_name:
+AND `deleted` = :deleted:', [...], false)
+ 4 APPPATH\Models\FacilityCombinedModel.php(151): CodeIgniter\Database\BaseBuilder->countAllResults()
+ 5 APPPATH\Controllers\Facility.php(77): App\Models\FacilityCombinedModel->checkDuplicateFacility('sx', '')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->checkDuplicate()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:19:17 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `khm_obj_facility`
+WHERE `facility_name` = \'sx\'
+AND `deleted` = 0', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `khm_obj_facility`
+WHERE `facility_name` = \'sx\'
+AND `deleted` = 0')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `khm_obj_facility`
+WHERE `facility_name` = \'sx\'
+AND `deleted` = 0')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1728): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `khm_obj_facility`
+WHERE `facility_name` = :facility_name:
+AND `deleted` = :deleted:', [...], false)
+ 5 APPPATH\Models\FacilityCombinedModel.php(151): CodeIgniter\Database\BaseBuilder->countAllResults()
+ 6 APPPATH\Controllers\Facility.php(77): App\Models\FacilityCombinedModel->checkDuplicateFacility('sx', '')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->checkDuplicate()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:22:06 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "facility_view.php"
+[Method: GET, Route: Facility]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('facility_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('facility_view', [], true)
+ 3 APPPATH\Controllers\Facility.php(20): view('facility_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:22:24 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "facility_view.php"
+[Method: GET, Route: Facility]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('facility_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('facility_view', [], true)
+ 3 APPPATH\Controllers\Facility.php(19): view('facility_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:22:25 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "facility_view.php"
+[Method: GET, Route: Facility]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('facility_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('facility_view', [], true)
+ 3 APPPATH\Controllers\Facility.php(19): view('facility_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:22:25 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "facility_view.php"
+[Method: GET, Route: Facility]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('facility_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('facility_view', [], true)
+ 3 APPPATH\Controllers\Facility.php(19): view('facility_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:22:25 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "facility_view.php"
+[Method: GET, Route: Facility]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('facility_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('facility_view', [], true)
+ 3 APPPATH\Controllers\Facility.php(19): view('facility_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:22:25 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "facility_view.php"
+[Method: GET, Route: Facility]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('facility_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('facility_view', [], true)
+ 3 APPPATH\Controllers\Facility.php(19): view('facility_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:44:38 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "facility_view.php"
+[Method: GET, Route: Facility]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('facility_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('facility_view', [], true)
+ 3 APPPATH\Controllers\Facility.php(55): view('facility_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Facility->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Facility))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:47:37 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: Facility]
+in APPPATH\Controllers\Facility.php on line 55.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Facility', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Facility')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Facility')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:47:39 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: Facility]
+in APPPATH\Controllers\Facility.php on line 55.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Facility', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Facility')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Facility')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:47:39 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: Facility]
+in APPPATH\Controllers\Facility.php on line 55.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Facility', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Facility')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Facility')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:47:39 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: Facility]
+in APPPATH\Controllers\Facility.php on line 55.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Facility', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Facility')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Facility')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:47:39 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: Facility]
+in APPPATH\Controllers\Facility.php on line 55.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Facility', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Facility')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Facility')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:47:39 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: Facility]
+in APPPATH\Controllers\Facility.php on line 55.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Facility', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Facility')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Facility')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:47:40 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: Facility]
+in APPPATH\Controllers\Facility.php on line 55.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Facility', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Facility')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Facility')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:47:40 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: Facility]
+in APPPATH\Controllers\Facility.php on line 55.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Facility', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Facility')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Facility')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:47:40 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: Facility]
+in APPPATH\Controllers\Facility.php on line 55.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Facility', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Facility')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Facility')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:47:40 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: Facility]
+in APPPATH\Controllers\Facility.php on line 55.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Facility', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Facility')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Facility')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 11:47:40 --> ParseError: syntax error, unexpected token "return"
+[Method: GET, Route: Facility]
+in APPPATH\Controllers\Facility.php on line 55.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Facility', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Facility')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Facility')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 13:15:03 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 93.
+ 1 APPPATH\Models\TerritoryModel.php(93): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 93)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 13:17:05 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 93.
+ 1 APPPATH\Models\TerritoryModel.php(93): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 93)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 13:24:09 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 93.
+ 1 APPPATH\Models\TerritoryModel.php(93): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 93)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 13:25:05 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 93.
+ 1 APPPATH\Models\TerritoryModel.php(93): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 93)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 13:29:29 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 93.
+ 1 APPPATH\Models\TerritoryModel.php(93): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 93)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 13:29:59 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 93.
+ 1 APPPATH\Models\TerritoryModel.php(93): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 93)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 13:32:16 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 92.
+ 1 APPPATH\Models\TerritoryModel.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 92)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 15:05:15 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 92.
+ 1 APPPATH\Models\TerritoryModel.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 92)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 15:09:13 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 92.
+ 1 APPPATH\Models\TerritoryModel.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 92)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:12:28 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 92.
+ 1 APPPATH\Models\TerritoryModel.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 92)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:12:40 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 92.
+ 1 APPPATH\Models\TerritoryModel.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 92)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:16:03 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 92.
+ 1 APPPATH\Models\TerritoryModel.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 92)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:48:59 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'bootstrap-colorpicker', 'bootstrap-colorpicker.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/select2/select2.min.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'select2', 'select2.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/datatable/dataTables.bootstrap4.min.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'sidemenu-responsive-tabs', 'css', 'sidemenu-responsive-tabs.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/time-picker/jquery.timepicker.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'time-picker', 'jquery.timepicker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/date-picker/date-picker.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'date-picker', 'date-picker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/multipleselect/multiple-select.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'multipleselect', 'multiple-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/fileuploads/css/dropify.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'fileuploads', 'css', 'dropify.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/jquery-nice-select/css/nice-select.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'jquery-nice-select', 'css', 'nice-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/datatable/jquery.dataTables.min.js]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'datatable', 'jquery.dataTables.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/datatable/dataTables.bootstrap4.min.js]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/datatable/datatable.js]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'datatable', 'datatable.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:08 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'bootstrap-colorpicker', 'bootstrap-colorpicker.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:08 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/time-picker/jquery.timepicker.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'time-picker', 'jquery.timepicker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:08 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/date-picker/date-picker.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'date-picker', 'date-picker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:08 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/select2/select2.min.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'select2', 'select2.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:08 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'sidemenu-responsive-tabs', 'css', 'sidemenu-responsive-tabs.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:08 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/datatable/dataTables.bootstrap4.min.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:08 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/multipleselect/multiple-select.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'multipleselect', 'multiple-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:08 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/fileuploads/css/dropify.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'fileuploads', 'css', 'dropify.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:08 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/jquery-nice-select/css/nice-select.css]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'jquery-nice-select', 'css', 'nice-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:08 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/datatable/jquery.dataTables.min.js]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'datatable', 'jquery.dataTables.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:09 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/datatable/dataTables.bootstrap4.min.js]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 16:49:09 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object_rc/assets/plugins/datatable/datatable.js]
+in APPPATH\Controllers\Dashboard.php on line 3958.
+ 1 APPPATH\Controllers\Dashboard.php(3958): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3958)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object_rc('assets', 'plugins', 'datatable', 'datatable.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 18:19:28 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 92.
+ 1 APPPATH\Models\TerritoryModel.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 92)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 19:05:55 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 92.
+ 1 APPPATH\Models\TerritoryModel.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 92)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-11 19:09:29 --> ErrorException: Array to string conversion
+[Method: POST, Route: TerritoryController/getEmployeeAssignments]
+in APPPATH\Models\TerritoryModel.php on line 92.
+ 1 APPPATH\Models\TerritoryModel.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\wamp64\\www\\khm\\app\\Models\\TerritoryModel.php', 92)
+ 2 APPPATH\Controllers\TerritoryController.php(288): App\Models\TerritoryModel->getEmployeeAssignments()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->getEmployeeAssignments()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

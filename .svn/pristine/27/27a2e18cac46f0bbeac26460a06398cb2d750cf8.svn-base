@@ -1,0 +1,115 @@
+<?php 
+namespace App\Controllers;
+
+use App\Models\Geogdistancecrudmodel;
+use CodeIgniter\Controller;
+use App\Models\Dashboard_m;
+
+class Geogdistancecrudcontroller extends Controller
+{
+    public function index()
+    {
+        $Dashboard_model = new Dashboard_m();
+        $entity_id = session('user_id');
+        $active_role = session('active_role');
+        $all_roles = $Dashboard_model->get_all_entity_roles($entity_id);
+        $all_systems = $Dashboard_model->get_all_systems($entity_id);
+        $data['all_systems'] = $all_systems;
+        if(!empty($all_roles)){
+            $data['all_roles_assn'] = $all_roles;
+            $all_menus = $Dashboard_model->get_all_role_menus($active_role);
+            if(!empty($all_menus)){
+                $data['all_menus'] = $all_menus;
+            }
+            else{
+                $data['all_menus'] = [];
+            }
+            $all_permissions = $Dashboard_model->get_all_entity_permissions($active_role,3);
+            if(!empty($all_permissions)){
+                $data['all_permissions'] = $all_permissions;
+            }
+            else{
+                $data['all_permissions'] = [];
+            }
+            
+        }
+        else{
+            $data['all_roles_assn'] = [];
+            $data['all_menus'] = [];
+            $data['all_permissions'] = [];
+        }
+        $parent_menu = $Dashboard_model->get_parent_menus();
+        $sub_menu = $Dashboard_model->get_sub_menus();
+        $data['parent_menu'] = $parent_menu;
+        $data['sub_menu'] = $sub_menu;
+        // Get the list of geographies for the dropdowns from table khm_loc_mst_geography.
+        $data['geographies'] = $this->getGeographies();
+        return view('masters/geog_distance_crud', $data);
+    }
+    
+    // Utility method to fetch geography list (only non-deleted items using "deleted_at" as filter)
+    private function getGeographies()
+    {
+        $db = \Config\Database::connect();
+        $builder = $db->table('khm_loc_mst_geography');
+        // Assuming that a null deleted_at means active (adjust if necessary)
+        $builder->where('deleted_at', null);
+        $query = $builder->get();
+        return $query->getResult();
+    }
+    
+    // Return list of active records as JSON for DataTable
+    public function getAll()
+    {
+        $model = new Geogdistancecrudmodel();
+        $records = $model->where('deleted', 0)->findAll();
+        echo json_encode($records);
+    }
+    
+    // Create new record via AJAX
+    public function create()
+    {
+        $model = new Geogdistancecrudmodel();
+        $postData = $this->request->getPost();
+        $data = [
+            'geog_from_id'   => $postData['geog_from_id'],
+            'geog_to_id'     => $postData['geog_to_id'],
+            'geog_km_distance' => $postData['geog_km_distance']
+        ];
+        $model->insert($data);
+        echo json_encode(['status' => 'success']);
+    }
+    
+    // Update record via AJAX
+    public function update()
+    {
+        $model = new Geogdistancecrudmodel();
+        $postData = $this->request->getPost();
+        $id = $postData['geog_dist_id'];
+        $data = [
+            'geog_from_id'     => $postData['geog_from_id'],
+            'geog_to_id'       => $postData['geog_to_id'],
+            'geog_km_distance' => $postData['geog_km_distance']
+        ];
+        $model->update($id, $data);
+        echo json_encode(['status' => 'success']);
+    }
+    
+    // Soft delete: update the "deleted" field to 1
+    public function delete()
+    {
+        $id = $this->request->getPost('geog_dist_id');
+        $model = new Geogdistancecrudmodel();
+        $model->update($id, ['deleted' => 1]);
+        echo json_encode(['status' => 'success']);
+    }
+    
+    // Fetch a single record (by id) for editing
+    public function getRecord()
+    {
+        $id = $this->request->getPost('geog_dist_id');
+        $model = new Geogdistancecrudmodel();
+        $record = $model->find($id);
+        echo json_encode($record);
+    }
+}

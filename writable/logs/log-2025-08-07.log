@@ -1,0 +1,268 @@
+CRITICAL - 2025-08-07 04:56:06 --> ErrorException: foreach() argument must be of type array|object, null given
+[Method: POST, Route: Dashboard/updatePermissions]
+in APPPATH\Controllers\Dashboard.php on line 2631.
+ 1 APPPATH\Controllers\Dashboard.php(2631): CodeIgniter\Debug\Exceptions->errorHandler(2, 'foreach() argument must be of type array|object, null given', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 2631)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->updatePermissions()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-07 04:57:00 --> TypeError: CodeIgniter\HTTP\SiteURI::stringifyRelativePath(): Return value must be of type string, null returned
+[Method: GET, Route: Dashboard/view_transactions/1]
+in SYSTEMPATH\HTTP\SiteURI.php on line 407.
+ 1 SYSTEMPATH\HTTP\SiteURI.php(421): CodeIgniter\HTTP\SiteURI->stringifyRelativePath(null)
+ 2 SYSTEMPATH\Helpers\url_helper.php(39): CodeIgniter\HTTP\SiteURI->siteUrl(null, null, null)
+ 3 APPPATH\Views\dashboard\role_trans.php(479): site_url(null)
+ 4 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\role_trans.php')
+ 5 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/role_trans', [], true)
+ 7 APPPATH\Controllers\Dashboard.php(2729): view('dashboard/role_trans', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->view_transactions('1')
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-07 05:19:00 --> TypeError: CodeIgniter\HTTP\SiteURI::stringifyRelativePath(): Return value must be of type string, null returned
+[Method: GET, Route: Dashboard/view_transactions/1]
+in SYSTEMPATH\HTTP\SiteURI.php on line 407.
+ 1 SYSTEMPATH\HTTP\SiteURI.php(421): CodeIgniter\HTTP\SiteURI->stringifyRelativePath(null)
+ 2 SYSTEMPATH\Helpers\url_helper.php(39): CodeIgniter\HTTP\SiteURI->siteUrl(null, null, null)
+ 3 APPPATH\Views\dashboard\role_trans.php(479): site_url(null)
+ 4 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\role_trans.php')
+ 5 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/role_trans', [], true)
+ 7 APPPATH\Controllers\Dashboard.php(2729): view('dashboard/role_trans', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->view_transactions('1')
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-07 05:19:02 --> TypeError: CodeIgniter\HTTP\SiteURI::stringifyRelativePath(): Return value must be of type string, null returned
+[Method: GET, Route: Dashboard/assign_menus]
+in SYSTEMPATH\HTTP\SiteURI.php on line 407.
+ 1 SYSTEMPATH\HTTP\SiteURI.php(421): CodeIgniter\HTTP\SiteURI->stringifyRelativePath(null)
+ 2 SYSTEMPATH\Helpers\url_helper.php(39): CodeIgniter\HTTP\SiteURI->siteUrl(null, null, null)
+ 3 APPPATH\Views\dashboard\menu_assign.php(474): site_url(null)
+ 4 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\menu_assign.php')
+ 5 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/menu_assign', [], true)
+ 7 APPPATH\Controllers\Dashboard.php(844): view('dashboard/menu_assign', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->assign_menus()
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-07 05:19:05 --> TypeError: CodeIgniter\HTTP\SiteURI::stringifyRelativePath(): Return value must be of type string, null returned
+[Method: GET, Route: dashboard]
+in SYSTEMPATH\HTTP\SiteURI.php on line 407.
+ 1 SYSTEMPATH\HTTP\SiteURI.php(421): CodeIgniter\HTTP\SiteURI->stringifyRelativePath(null)
+ 2 SYSTEMPATH\Helpers\url_helper.php(39): CodeIgniter\HTTP\SiteURI->siteUrl(null, null, null)
+ 3 APPPATH\Views\dashboard\dashboard.php(256): site_url(null)
+ 4 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\dashboard.php')
+ 5 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/dashboard', [], true)
+ 7 APPPATH\Controllers\Dashboard.php(451): view('dashboard/dashboard', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-07 05:19:14 --> TypeError: CodeIgniter\HTTP\SiteURI::stringifyRelativePath(): Return value must be of type string, null returned
+[Method: GET, Route: dashboard]
+in SYSTEMPATH\HTTP\SiteURI.php on line 407.
+ 1 SYSTEMPATH\HTTP\SiteURI.php(421): CodeIgniter\HTTP\SiteURI->stringifyRelativePath(null)
+ 2 SYSTEMPATH\Helpers\url_helper.php(39): CodeIgniter\HTTP\SiteURI->siteUrl(null, null, null)
+ 3 APPPATH\Views\dashboard\dashboard.php(256): site_url(null)
+ 4 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\dashboard.php')
+ 5 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 6 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/dashboard', [], true)
+ 7 APPPATH\Controllers\Dashboard.php(451): view('dashboard/dashboard', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-07 05:32:02 --> mysqli_sql_exception: Unknown column 'r.deleted' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `r`.`rol...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `r`.`rol...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `r`.`rol...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `r`.`rol...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminRoleModel.php(37): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminRole.php(51): App\Models\SuperAdminRoleModel->getAllRoles()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminRole->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-07 05:32:02 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'r.deleted' in 'field list'
+[Method: GET, Route: SuperAdminRole/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = :r.deleted:
+ORDER BY `r`.`role_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminRoleModel.php(37): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminRole.php(51): App\Models\SuperAdminRoleModel->getAllRoles()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-07 05:32:02 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'r.deleted' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = 0
+ORDER BY `r`.`role_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = 0
+ORDER BY `r`.`role_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = :r.deleted:
+ORDER BY `r`.`role_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminRoleModel.php(37): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminRole.php(51): App\Models\SuperAdminRoleModel->getAllRoles()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-07 05:32:02 --> [Caused by] mysqli_sql_exception: Unknown column 'r.deleted' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = 0
+ORDER BY `r`.`role_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = 0
+ORDER BY `r`.`role_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = 0
+ORDER BY `r`.`role_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = :r.deleted:
+ORDER BY `r`.`role_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminRoleModel.php(37): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminRole.php(51): App\Models\SuperAdminRoleModel->getAllRoles()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-08-07 05:32:02 --> mysqli_sql_exception: Unknown column 'r.deleted' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `r`.`rol...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `r`.`rol...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `r`.`rol...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `r`.`rol...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminRoleModel.php(37): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminRole.php(51): App\Models\SuperAdminRoleModel->getAllRoles()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminRole->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-08-07 05:32:02 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'r.deleted' in 'field list'
+[Method: GET, Route: SuperAdminRole/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = :r.deleted:
+ORDER BY `r`.`role_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminRoleModel.php(37): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminRole.php(51): App\Models\SuperAdminRoleModel->getAllRoles()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-07 05:32:02 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'r.deleted' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = 0
+ORDER BY `r`.`role_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = 0
+ORDER BY `r`.`role_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = :r.deleted:
+ORDER BY `r`.`role_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminRoleModel.php(37): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminRole.php(51): App\Models\SuperAdminRoleModel->getAllRoles()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-07 05:32:02 --> [Caused by] mysqli_sql_exception: Unknown column 'r.deleted' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = 0
+ORDER BY `r`.`role_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = 0
+ORDER BY `r`.`role_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = 0
+ORDER BY `r`.`role_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `r`.`role_id`, `r`.`deleted`, `r`.`role_name`, `r`.`parent_id`, `r`.`hierarchy_id`, `r`.`enterprise_id`
+FROM `khm_sys_usg_mst_roles` AS `r`
+WHERE `r`.`deleted` = :r.deleted:
+ORDER BY `r`.`role_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminRoleModel.php(37): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminRole.php(51): App\Models\SuperAdminRoleModel->getAllRoles()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-07 09:43:46 --> ErrorException: Undefined array key "draw"
+[Method: GET, Route: Enquiry/cost_list_view]
+in APPPATH\Models\Enquiry_m.php on line 2489.
+ 1 APPPATH\Models\Enquiry_m.php(2489): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "draw"', 'C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php', 2489)
+ 2 APPPATH\Controllers\Enquiry.php(5736): App\Models\Enquiry_m->cost_list_view([])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->cost_list_view()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-07 09:45:44 --> ErrorException: Undefined array key "draw"
+[Method: GET, Route: Enquiry/cost_list_view]
+in APPPATH\Models\Enquiry_m.php on line 2489.
+ 1 APPPATH\Models\Enquiry_m.php(2489): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "draw"', 'C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php', 2489)
+ 2 APPPATH\Controllers\Enquiry.php(5736): App\Models\Enquiry_m->cost_list_view([])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->cost_list_view()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

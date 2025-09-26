@@ -1,0 +1,74 @@
+CRITICAL - 2025-05-13 06:32:47 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: CheckinoutReport]
+in APPPATH\Models\CheckinoutReportModel.php on line 151.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\CheckinoutReportModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\CheckinoutReportModel')
+ 3 APPPATH\Controllers\CheckinoutReport.php(27): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\CheckinoutReportModel')
+ 4 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\CheckinoutReport->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 5 SYSTEMPATH\CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-13 06:32:49 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: GET, Route: CheckinoutReport]
+in APPPATH\Models\CheckinoutReportModel.php on line 151.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\CheckinoutReportModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\CheckinoutReportModel')
+ 3 APPPATH\Controllers\CheckinoutReport.php(27): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\CheckinoutReportModel')
+ 4 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\CheckinoutReport->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 5 SYSTEMPATH\CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-13 06:54:35 --> BadMethodCallException: Call to undefined method App\Models\CheckinoutReportModel::baseQuery
+[Method: GET, Route: CheckinoutReport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\CheckinoutReport.php(99): CodeIgniter\Model->__call('baseQuery', [])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CheckinoutReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CheckinoutReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-13 06:54:39 --> BadMethodCallException: Call to undefined method App\Models\CheckinoutReportModel::baseQuery
+[Method: GET, Route: CheckinoutReport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\CheckinoutReport.php(99): CodeIgniter\Model->__call('baseQuery', [])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CheckinoutReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CheckinoutReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-13 06:54:41 --> BadMethodCallException: Call to undefined method App\Models\CheckinoutReportModel::baseQuery
+[Method: GET, Route: CheckinoutReport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\CheckinoutReport.php(99): CodeIgniter\Model->__call('baseQuery', [])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CheckinoutReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CheckinoutReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-13 06:54:46 --> BadMethodCallException: Call to undefined method App\Models\CheckinoutReportModel::baseQuery
+[Method: GET, Route: CheckinoutReport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\CheckinoutReport.php(99): CodeIgniter\Model->__call('baseQuery', [])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CheckinoutReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CheckinoutReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-13 06:54:51 --> BadMethodCallException: Call to undefined method App\Models\CheckinoutReportModel::baseQuery
+[Method: GET, Route: CheckinoutReport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\CheckinoutReport.php(99): CodeIgniter\Model->__call('baseQuery', [])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\CheckinoutReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CheckinoutReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

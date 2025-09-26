@@ -1,0 +1,921 @@
+CRITICAL - 2025-06-27 12:27:45 --> Error: Class "app\Models\SuperAdminTableOftableModel" not found
+[Method: GET, Route: SuperAdminTableOfTableFields]
+in APPPATH\Controllers\SuperAdminTableOfTableFields.php on line 20.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\SuperAdminTableOfTableFields->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:29:05 --> Error: Class "app\Models\SuperAdminTableOftableModel" not found
+[Method: GET, Route: SuperAdminTableOfTableFields]
+in APPPATH\Controllers\SuperAdminTableOfTableFields.php on line 20.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\SuperAdminTableOfTableFields->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:29:17 --> Error: Class "app\Models\SuperAdminTableOftableModel" not found
+[Method: GET, Route: SuperAdminTableOfTableFields]
+in APPPATH\Controllers\SuperAdminTableOfTableFields.php on line 20.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\SuperAdminTableOfTableFields->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:31:23 --> Error: Class "app\Models\SuperAdminTableOftableModel" not found
+[Method: GET, Route: SuperAdminTableOfTableFields]
+in APPPATH\Controllers\SuperAdminTableOfTableFields.php on line 20.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\SuperAdminTableOfTableFields->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:32:14 --> Error: Class "app\Models\SuperAdminTableOfTableModel" not found
+[Method: GET, Route: SuperAdminTableOfTableFields]
+in APPPATH\Controllers\SuperAdminTableOfTableFields.php on line 20.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\SuperAdminTableOfTableFields->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:33:00 --> Error: Class "app\Models\SuperAdminTableOfTableModel" not found
+[Method: GET, Route: SuperAdminTableOfTableFields]
+in APPPATH\Controllers\SuperAdminTableOfTableFields.php on line 20.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\SuperAdminTableOfTableFields->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:33:01 --> Error: Class "app\Models\SuperAdminTableOfTableModel" not found
+[Method: GET, Route: SuperAdminTableOfTableFields]
+in APPPATH\Controllers\SuperAdminTableOfTableFields.php on line 20.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\SuperAdminTableOfTableFields->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(500): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-27 12:48:48 --> mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+#6 C:\wamp64\www\khm\app\Models\SuperAdminTableOfTableFieldsModel.php(25): CodeIgniter\BaseModel->find(1019)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-27 12:48:48 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+[Method: GET, Route: SuperAdminTableOfTableFields/edit/1019]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 4 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(25): CodeIgniter\BaseModel->find(1019)
+ 5 APPPATH\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:48:48 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 4 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 6 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(25): CodeIgniter\BaseModel->find(1019)
+ 7 APPPATH\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:48:48 --> [Caused by] mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 7 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(25): CodeIgniter\BaseModel->find(1019)
+ 8 APPPATH\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-27 12:48:50 --> mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1018)
+#6 C:\wamp64\www\khm\app\Models\SuperAdminTableOfTableFieldsModel.php(25): CodeIgniter\BaseModel->find(1018)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1018)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1018)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-27 12:48:50 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+[Method: GET, Route: SuperAdminTableOfTableFields/edit/1018]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1018)
+ 4 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(25): CodeIgniter\BaseModel->find(1018)
+ 5 APPPATH\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1018)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1018)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:48:50 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1018')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1018')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 4 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1018)
+ 6 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(25): CodeIgniter\BaseModel->find(1018)
+ 7 APPPATH\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1018)
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1018)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:48:50 --> [Caused by] mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1018', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1018')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1018')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1018)
+ 7 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(25): CodeIgniter\BaseModel->find(1018)
+ 8 APPPATH\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1018)
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1018)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-27 12:55:54 --> mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+#6 C:\wamp64\www\khm\app\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-27 12:55:54 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+[Method: GET, Route: SuperAdminTableOfTableFields/edit/1019]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 4 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+ 5 APPPATH\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:55:54 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 4 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 6 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+ 7 APPPATH\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:55:54 --> [Caused by] mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 7 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+ 8 APPPATH\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-27 12:56:01 --> mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1018)
+#6 C:\wamp64\www\khm\app\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1018)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1018)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1018)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-27 12:56:01 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+[Method: GET, Route: SuperAdminTableOfTableFields/edit/1018]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1018)
+ 4 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1018)
+ 5 APPPATH\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1018)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1018)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:56:01 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1018')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1018')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 4 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1018)
+ 6 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1018)
+ 7 APPPATH\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1018)
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1018)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:56:01 --> [Caused by] mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1018', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1018')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1018')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1018)
+ 7 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1018)
+ 8 APPPATH\Controllers\SuperAdminTableOfTableFields.php(88): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1018)
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1018)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-27 12:58:00 --> mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+#6 C:\wamp64\www\khm\app\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTableOfTableFields.php(90): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-27 12:58:00 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+[Method: GET, Route: SuperAdminTableOfTableFields/edit/1019]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 4 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+ 5 APPPATH\Controllers\SuperAdminTableOfTableFields.php(90): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:58:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 4 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 6 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+ 7 APPPATH\Controllers\SuperAdminTableOfTableFields.php(90): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 12:58:00 --> [Caused by] mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 7 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+ 8 APPPATH\Controllers\SuperAdminTableOfTableFields.php(90): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-27 13:00:23 --> mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+#6 C:\wamp64\www\khm\app\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTableOfTableFields.php(90): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-27 13:00:23 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+[Method: GET, Route: SuperAdminTableOfTableFields/edit/1019]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 4 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+ 5 APPPATH\Controllers\SuperAdminTableOfTableFields.php(90): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 13:00:23 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 4 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 6 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+ 7 APPPATH\Controllers\SuperAdminTableOfTableFields.php(90): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 13:00:23 --> [Caused by] mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 7 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+ 8 APPPATH\Controllers\SuperAdminTableOfTableFields.php(90): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-27 13:00:27 --> mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+#6 C:\wamp64\www\khm\app\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTableOfTableFields.php(90): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-27 13:00:27 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+[Method: GET, Route: SuperAdminTableOfTableFields/edit/1019]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 4 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+ 5 APPPATH\Controllers\SuperAdminTableOfTableFields.php(90): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 13:00:27 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 4 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 6 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+ 7 APPPATH\Controllers\SuperAdminTableOfTableFields.php(90): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 13:00:28 --> [Caused by] mysqli_sql_exception: Unknown column 'khm_sys_mst_table_of_table_fields.id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = 1019')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_sys_mst_table_of_table_fields`
+WHERE `khm_sys_mst_table_of_table_fields`.`id` = :khm_sys_mst_table_of_table_fields.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(210): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(609): CodeIgniter\Model->doFind(true, 1019)
+ 7 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(29): CodeIgniter\BaseModel->find(1019)
+ 8 APPPATH\Controllers\SuperAdminTableOfTableFields.php(90): App\Models\SuperAdminTableOfTableFieldsModel->getOne(1019)
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->edit(1019)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-27 13:15:44 --> mysqli_sql_exception: Unknown column 'mtt._table_name' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `mtt`.`t...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `mtt`.`t...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `mtt`.`t...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`t...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-27 13:15:44 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'mtt._table_name' in 'field list'
+[Method: GET, Route: SuperAdminTableOfTableFields/list2]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = :mtt.deleted:
+ORDER BY `ttf`.`table_field_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 13:15:44 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'mtt._table_name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_field_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_field_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = :mtt.deleted:
+ORDER BY `ttf`.`table_field_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 13:15:44 --> [Caused by] mysqli_sql_exception: Unknown column 'mtt._table_name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_field_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_field_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_field_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = :mtt.deleted:
+ORDER BY `ttf`.`table_field_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-27 13:16:21 --> mysqli_sql_exception: Unknown column 'mtt._table_name' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `mtt`.`t...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `mtt`.`t...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `mtt`.`t...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`t...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-27 13:16:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'mtt._table_name' in 'field list'
+[Method: GET, Route: SuperAdminTableOfTableFields/list2]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = :mtt.deleted:
+ORDER BY `ttf`.`table_field_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 13:16:21 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'mtt._table_name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_field_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_field_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = :mtt.deleted:
+ORDER BY `ttf`.`table_field_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 13:16:21 --> [Caused by] mysqli_sql_exception: Unknown column 'mtt._table_name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_field_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_field_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_field_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = :mtt.deleted:
+ORDER BY `ttf`.`table_field_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-27 13:20:27 --> mysqli_sql_exception: Unknown column 'mtt._table_name' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `mtt`.`t...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `mtt`.`t...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `mtt`.`t...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`t...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-27 13:20:27 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'mtt._table_name' in 'field list'
+[Method: GET, Route: SuperAdminTableOfTableFields/list2]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = :mtt.deleted:
+ORDER BY `ttf`.`table_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 13:20:27 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'mtt._table_name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = :mtt.deleted:
+ORDER BY `ttf`.`table_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 13:20:27 --> [Caused by] mysqli_sql_exception: Unknown column 'mtt._table_name' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`table_id`, `mtt`.`_table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = :mtt.deleted:
+ORDER BY `ttf`.`table_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-27 13:20:55 --> mysqli_sql_exception: Unknown column 'ttf.table_id' in 'order clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `mtt`.`t...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `mtt`.`t...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `mtt`.`t...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`t...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-27 13:20:55 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ttf.table_id' in 'order clause'
+[Method: GET, Route: SuperAdminTableOfTableFields/list2]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`table_id`, `mtt`.`table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = :mtt.deleted:
+ORDER BY `ttf`.`table_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 13:20:55 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ttf.table_id' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `mtt`.`table_id`, `mtt`.`table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `mtt`.`table_id`, `mtt`.`table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`table_id`, `mtt`.`table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = :mtt.deleted:
+ORDER BY `ttf`.`table_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-27 13:20:55 --> [Caused by] mysqli_sql_exception: Unknown column 'ttf.table_id' in 'order clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `mtt`.`table_id`, `mtt`.`table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `mtt`.`table_id`, `mtt`.`table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `mtt`.`table_id`, `mtt`.`table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = 0
+ORDER BY `ttf`.`table_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `mtt`.`table_id`, `mtt`.`table_name`, `mtt`.`deleted`
+FROM `khm_sys_mst_table_of_tables` AS `mtt`
+WHERE `mtt`.`deleted` = :mtt.deleted:
+ORDER BY `ttf`.`table_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminTableOfTableFieldsModel.php(34): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminTableOfTableFields.php(54): App\Models\SuperAdminTableOfTableFieldsModel->getTable()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTableOfTableFields->list2()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTableOfTableFields))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

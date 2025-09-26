@@ -1,0 +1,94 @@
+CRITICAL - 2025-07-25 07:37:42 --> ErrorException: Undefined array key "occupancy_name"
+[Method: POST, Route: Dashboard/getRoomfunction]
+in APPPATH\Views\dashboard\all_room_tariff_details.php on line 22.
+ 1 APPPATH\Views\dashboard\all_room_tariff_details.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "occupancy_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details.php', 22)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_room_tariff_details', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(3275): view('dashboard/all_room_tariff_details', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->getRoomfunction()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-25 07:37:56 --> ErrorException: Undefined array key "occupancy_name"
+[Method: POST, Route: Dashboard/getRoomfunction]
+in APPPATH\Views\dashboard\all_room_tariff_details.php on line 22.
+ 1 APPPATH\Views\dashboard\all_room_tariff_details.php(22): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "occupancy_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details.php', 22)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_room_tariff_details', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(3275): view('dashboard/all_room_tariff_details', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->getRoomfunction()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-25 07:44:23 --> ErrorException: Undefined variable $tariff_data
+[Method: POST, Route: Dashboard/getRoomfunctionSeason]
+in APPPATH\Views\dashboard\all_room_tariff_details_season.php on line 3.
+ 1 APPPATH\Views\dashboard\all_room_tariff_details_season.php(3): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $tariff_data', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details_season.php', 3)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details_season.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_room_tariff_details_season', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(3399): view('dashboard/all_room_tariff_details_season', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->getRoomfunctionSeason()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-25 07:45:39 --> ErrorException: Undefined variable $tariff_data
+[Method: POST, Route: Dashboard/getRoomfunctionSeason]
+in APPPATH\Controllers\Dashboard.php on line 3361.
+ 1 APPPATH\Controllers\Dashboard.php(3361): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $tariff_data', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 3361)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->getRoomfunctionSeason()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-25 09:47:23 --> ErrorException: Undefined array key "room_type_name("
+[Method: POST, Route: Dashboard/getRoomfunctionSeason]
+in APPPATH\Views\dashboard\all_room_tariff_details_season.php on line 84.
+ 1 APPPATH\Views\dashboard\all_room_tariff_details_season.php(84): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "room_type_name("', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details_season.php', 84)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details_season.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_room_tariff_details_season', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(3370): view('dashboard/all_room_tariff_details_season', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->getRoomfunctionSeason()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-25 09:47:29 --> ErrorException: Undefined array key "room_type_name("
+[Method: POST, Route: Dashboard/getRoomfunctionSeason]
+in APPPATH\Views\dashboard\all_room_tariff_details_season.php on line 84.
+ 1 APPPATH\Views\dashboard\all_room_tariff_details_season.php(84): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "room_type_name("', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details_season.php', 84)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details_season.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_room_tariff_details_season', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(3370): view('dashboard/all_room_tariff_details_season', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->getRoomfunctionSeason()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-25 09:47:31 --> ErrorException: Undefined array key "room_type_name("
+[Method: POST, Route: Dashboard/getRoomfunctionSeason]
+in APPPATH\Views\dashboard\all_room_tariff_details_season.php on line 84.
+ 1 APPPATH\Views\dashboard\all_room_tariff_details_season.php(84): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "room_type_name("', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details_season.php', 84)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details_season.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_room_tariff_details_season', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(3370): view('dashboard/all_room_tariff_details_season', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->getRoomfunctionSeason()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

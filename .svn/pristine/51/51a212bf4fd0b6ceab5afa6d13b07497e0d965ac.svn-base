@@ -1,0 +1,205 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class DepartureReportModel extends Model
+{
+    protected $table = 'khm_obj_departure_follow_up';
+    protected $primaryKey = 'departure_follow_up_id';
+    protected $returnType = 'array';
+    protected $allowedFields = [
+
+        'followup_type_id',
+        'enquiry_header_id',
+        'call_date',
+        'mode_of_departure',
+        'city',
+        'flight_train_no',
+        'departure_date',
+        'comments',
+        'deleted',
+        'enterprise_id',
+    ];
+
+
+    protected function baseQuery()
+    {
+        // 1) latest “departure” row per enquiry
+        $latestDepartureSubquery = $this->db
+            ->table('khm_obj_departure_follow_up')
+            ->select('enquiry_header_id, MAX(departure_follow_up_id) AS latest_departure_id')
+            ->where('deleted', 0)
+            ->groupBy('enquiry_header_id');
+
+        // 2) latest “call” row per enquiry, from the all_call_follow_up table, using call_time
+        $latestCallSubquery = $this->db
+            ->table('khm_obj_all_call_follow_up')
+            ->select('enquiry_header_id, MAX(call_time) AS latest_call_time')
+            ->where('followup_type_id', 10)
+            ->groupBy('enquiry_header_id');
+
+        return $this->db
+            ->table('khm_obj_departure_follow_up AS dr')
+            ->select([
+                'dr.departure_follow_up_id',
+                'dr.followup_type_id',
+                'dr.enquiry_header_id',
+                'dr.call_date',
+                'dr.mode_of_departure',
+                'dr.city',
+                'dr.flight_train_no',
+                'dr.departure_date',
+                'dr.comments',
+                'dr.deleted',
+                'dr.enterprise_id',
+                'eh.object_id',
+                'om.object_name',
+                'cf.call_time',
+                'e11.entity_name',
+                'e11.entity_id',
+                'oeh.ref_no',
+                'tf.driver_name  AS drivername',
+                'tf.phone_number AS driverphone',
+
+
+            ])
+            // only the latest departure per enquiry
+            ->join(
+                "({$latestDepartureSubquery->getCompiledSelect()}) AS last_dep",
+                'dr.departure_follow_up_id = last_dep.latest_departure_id',
+                'inner'
+            )
+            ->join(
+                'khm_obj_enquiry_header AS oeh',
+                'oeh.enquiry_header_id=dr.enquiry_header_id',
+                'left'
+            )
+            //trsansport
+            ->join(
+                'khm_obj_transport_follow_up AS tf',
+                'tf.enquiry_header_id=oeh.enquiry_header_id',
+                'left'
+            )
+            ->join(
+                'khm_entity_mst AS em4',
+                'em4.entity_id=tf.transporter_id',
+                'left'
+            )
+            // ->where('tf.is_active', 1)
+            // join header → object
+            ->join(
+                'khm_obj_enquiry_edit_request AS eer',
+                'eer.enquiry_header_id=dr.enquiry_header_id',
+                'left'
+            )
+            ->where('eer.is_active', 1)
+            ->join(
+                'khm_obj_enquiry_status AS s',
+                's.edit_request_id=eer.enquiry_edit_request_id',
+                'left'
+            )
+            ->where('s.current_status_id', 1)
+            ->join(
+                'khm_entity_mst AS e11',
+                'e11.entity_id=s.assigned_to',
+                'left'
+            )
+
+            ->join(
+                'khm_obj_enquiry_header AS eh',
+                'eh.enquiry_header_id = dr.enquiry_header_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_mst AS om',
+                'om.object_id = eh.object_id',
+                'left'
+            )
+            // join latest call
+            ->join(
+                "({$latestCallSubquery->getCompiledSelect()}) AS last_call",
+                'last_call.enquiry_header_id = dr.enquiry_header_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_all_call_follow_up AS cf',
+                'cf.enquiry_header_id    = last_call.enquiry_header_id
+               AND cf.call_time         = last_call.latest_call_time
+               AND cf.followup_type_id  = 10',
+                'left'
+            )
+
+            //
+            // ----- joins for vehicles & drivers -----
+            //
+            ->join(
+                'khm_obj_enquiry_details AS ed',
+                'ed.enquiry_header_id = dr.enquiry_header_id',
+                'left'
+            )
+            ->join(
+                "JSON_TABLE(
+                ed.vehicle_type_id,
+                '$[*]' COLUMNS(
+                   vehicle_type_id INT PATH '$.vehicle_type_id'
+                )
+            ) AS vt",
+                '1=1',
+                'left'
+            )
+            ->join(
+                'khm_obj_vehicle AS v',
+                'v.vehicle_type_id = vt.vehicle_type_id
+               AND v.is_active = 1',
+                'left'
+            )
+            ->join(
+                'khm_entity_attribute AS ea',
+                'ea.entity_attr_value      = v.vehicle_id
+               AND ea.entity_class_attr_id = 1967',
+                'left'
+            )
+            ->join(
+                'khm_entity_mst AS em',
+                'em.entity_id = ea.entity_id
+               AND em.deleted = 0',
+                'left'
+            )
+
+            //
+            // ----- joins for “executive” -----
+            //
+            // pick only the “open” status row
+
+
+            // only non-deleted departures
+            ->where('dr.deleted', 0)
+
+            // aggregate per departure row
+            ->groupBy('dr.departure_follow_up_id')
+
+            ->orderBy('dr.departure_follow_up_id', 'DESC');
+    }
+
+
+
+    public function getByDateRange(string $fromYmd, string $toYmd): array
+    {
+        return $this->baseQuery()
+            ->where('dr.departure_date >=', $fromYmd)
+            ->where('dr.departure_date <',  $toYmd)
+            ->get()
+            ->getResultArray();
+    }
+
+
+    public function getDepartureReport(): array
+    {
+        // simply returns everything (no date filter)
+        return $this->baseQuery()
+            ->get()
+            ->getResultArray();
+    }
+}

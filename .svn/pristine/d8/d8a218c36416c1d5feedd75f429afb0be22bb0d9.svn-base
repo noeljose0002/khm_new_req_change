@@ -1,0 +1,105 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class SourceReportModel extends Model
+{
+    protected $table = 'khm_obj_enquiry_details';
+    protected $primaryKey = 'enquiry_details_id';
+    protected $returnType = 'array';
+    protected $allowedFields = [
+        'enquiry_header_id',
+        'enquiry_source',
+        'date_of_tour_start',
+        'total_no_of_pax',
+        'enq_description',
+
+    ];
+
+
+    protected function baseQuery()
+    {
+        // Build a subquery to get the most recent enquiry_status_id per enquiry_header_id
+        $latestStatusSub = $this->db
+            ->table('khm_obj_enquiry_status')
+            ->select([
+                'enquiry_header_id',
+                'MAX(enquiry_status_id) AS enquiry_status_id',
+            ])
+            ->groupBy('enquiry_header_id')
+            ->getCompiledSelect();
+
+        return $this->db
+            ->table('khm_obj_enquiry_details AS ed')
+            ->distinct()
+            ->select([
+                'eh.ref_no',
+                'ed.enquiry_header_id',
+                'ed.enquiry_source',
+                'ed.date_of_tour_start',
+                'ed.total_no_of_pax',
+                'ed.enq_description',
+                'om.object_name',
+                'eh.enq_added_date',
+                'mes.status_name',
+            ])
+            // join to header
+            ->join('khm_obj_enquiry_header AS eh', 'eh.enquiry_header_id = ed.enquiry_header_id', 'left')
+            // join to edit request, filtering active ones
+            ->join(
+                'khm_obj_enquiry_edit_request AS er',
+                'er.enquiry_header_id = eh.enquiry_header_id AND er.is_active = 1',
+                'left'
+            )
+            // join to master object
+            ->join('khm_obj_mst AS om', 'om.object_id = eh.object_id', 'left')
+            // join raw status table
+            ->join('khm_obj_enquiry_status AS es', 'es.enquiry_header_id = eh.enquiry_header_id', 'left')
+            // inner-join to subquery for latest status
+            ->join(
+                "({$latestStatusSub}) AS ls",
+                'ls.enquiry_header_id = eh.enquiry_header_id',
+                'left'
+            )
+            // re-join to get full status details
+            ->join(
+                'khm_obj_enquiry_status AS oes',
+                'oes.enquiry_header_id = ls.enquiry_header_id
+             AND oes.enquiry_status_id = ls.enquiry_status_id',
+                'left'
+            )
+            // final join for human-readable status
+            ->join(
+                'khm_obj_mst_enquiry_status AS mes',
+                'mes.status_id = oes.enquiry_status_id AND mes.is_active = 1',
+                'left'
+            )
+            // apply your filters on main entities
+            ->where('eh.is_active', 1)
+            ->where('ed.is_active', 1)
+            // final ordering
+            ->orderBy('ed.enquiry_details_id', 'DESC');
+    }
+
+
+
+
+    public function getByDateRange(string $fromYmd, string $toYmd): array
+    {
+        return $this->baseQuery()
+            ->where('eh.enq_added_date >=', $fromYmd)
+            ->where('eh.enq_added_date <',  $toYmd)
+            ->get()
+            ->getResultArray();
+    }
+
+    public function getSourceReport(): array
+    {
+        // simply returns everything (no date filter)
+        return $this->baseQuery()
+            ->get()
+            ->getResultArray();
+    }
+}

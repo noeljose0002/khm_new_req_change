@@ -1,0 +1,125 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class TerritoryModel extends Model
+{
+    protected $table         = 'khm_obj_mst_territory';
+    protected $primaryKey    = 'territory_id';
+    protected $allowedFields = ['territory_name', 'locations', 'deleted', 'enterprise_id'];
+
+    protected $assignTable   = 'khm_entity_mst_emp_teritory_assign';
+
+    public function getTerritories()
+    {
+        return $this->where('deleted', 0)->findAll();
+    }
+
+    public function saveTerritory($data)
+    {
+        $territoryName = trim($data['territory_name']);
+        $data['territory_name'] = $territoryName;
+        
+        $existing = $this->db->table($this->table)
+                    ->where('deleted', 0)
+                    ->where('LOWER(territory_name)', strtolower($territoryName))
+                    ->get()
+                    ->getRowArray();
+        if ($existing) {
+            return "Duplicate territory name exists.";
+        }
+
+        return $this->save($data);
+    }
+
+    public function updateTerritory($id, $data)
+    {
+        $territoryName = trim($data['territory_name']);
+        $data['territory_name'] = $territoryName;
+
+        $builder = $this->db->table($this->table);
+        $builder->where('deleted', 0);
+        $builder->where('territory_id !=', $id);
+        $builder->where('LOWER(territory_name)', strtolower($territoryName));
+        $existing = $builder->get()->getRowArray();
+        if ($existing) {
+            return "Duplicate territory name exists.";
+        }
+
+        return $this->update($id, $data);
+    }
+
+    public function deleteTerritory($id)
+    {
+        return $this->update($id, ['deleted' => 1]);
+    }
+
+    // New: Cascade deletion for assignments of a given territory.
+    public function deleteAssignmentsForTerritory($territory_id)
+    {
+        $builder = $this->db->table($this->assignTable);
+        return $builder->update(['deleted' => 1], ['territory_id' => $territory_id]);
+    }
+
+    public function getLocationsLevel4()
+    {
+        $builder = $this->db->table('khm_loc_mst_geography');
+        $builder->select('*');
+        $builder->where('geog_level_id', 4);
+        $builder->where('deleted', 0);
+        //$builder->where('deleted IS NULL', null, false);
+        return $builder->get()->getResultArray();
+    }
+
+    public function assignEmployee($data)
+    {
+        return $this->db->table($this->assignTable)->insert($data);
+    }
+
+    public function getEmployeeAssignments()
+    {
+        $builder = $this->db->table($this->assignTable . ' as a');
+        $builder->select('a.*, t.territory_name');
+        $builder->join($this->table . ' as t', 't.territory_id = a.territory_id', 'left');
+        $builder->where('a.deleted',0);
+        $assignments = $builder->get()->getResultArray();
+        $empQuery = $this->db->table('khm_entity_mst')
+                             ->select('entity_id, entity_name')
+                             ->where('deleted',0)
+                             ->get()
+                             ->getResultArray();
+                            
+        $empMapping = [];
+        foreach ($empQuery as $emp) {
+            $empMapping[$emp['entity_id']] = $emp['entity_name'];
+        }
+
+        foreach ($assignments as &$assign) {
+            $empIds = json_decode($assign['entity_id'], true);
+            if (is_array($empIds)) {
+                $names = [];
+                foreach ($empIds as $id) {
+                    $names[] = $empMapping[$id] ?? $id;
+                }
+                $assign['entity_name'] = implode(', ', $names);
+            } else {
+                $assign['entity_name'] = $empMapping[$assign['entity_id']] ?? $assign['entity_id'];
+            }
+        }
+        return $assignments;
+    }
+
+    public function updateEmployeeAssignment($assignment_id, $data)
+    {
+        $builder = $this->db->table($this->assignTable);
+        return $builder->update($data, ['emp_teritory_assign_id' => $assignment_id]);
+    }
+
+    public function deleteEmployeeAssignment($assignment_id)
+    {
+        $builder = $this->db->table($this->assignTable);
+        return $builder->update(['deleted' => 1], ['emp_teritory_assign_id' => $assignment_id]);
+    }
+}

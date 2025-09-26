@@ -1,0 +1,122 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class AssignmentModel extends Model
+{
+    protected $DBGroup = 'default';
+
+    /**
+     * Get all employees from khm_entity_mst.
+     */
+    public function getAllEmployees()
+    {
+        return $this->db->table('khm_entity_mst')
+                        ->select('entity_id, entity_name')
+                        ->where('entity_class_id',3)
+                        ->where('deleted', 0)
+                        ->get()
+                        ->getResultArray();
+    }
+
+    /**
+     * Get all targets from khm_obj_mst_target.
+     */
+    public function getAllTargets()
+    {
+        return $this->db->table('khm_obj_mst_target')
+                        ->select('target_id, target_name, target_from_date, target_to_date, amount')
+                        ->where('deleted', 0)
+                        ->get()
+                        ->getResultArray();
+    }
+
+    /**
+     * Get a single target by its ID.
+     */
+    public function getTargetById($targetId)
+    {
+        return $this->db->table('khm_obj_mst_target')
+                        ->select('*')
+                        ->where('target_id', $targetId)
+                        ->get()
+                        ->getRowArray();
+    }
+
+    /**
+     * Save an assignment and record the target amount.
+     * For a new assignment (empty $assignmentId):
+     *   - Check if the employee already has an assignment.
+     * For an edit (non-empty $assignmentId), update is allowed.
+     *
+     * Note: This method does NOT update the original target table.
+     */
+    public function saveAssignment($assignmentId, $employeeId, $targetId, $fromDate, $toDate, $amount)
+    {
+        $trimmedAmount = trim($amount);
+
+        // Validate that the amount is numeric
+        if (!is_numeric($trimmedAmount)) {
+            return [
+                'status'  => 'error',
+                'message' => 'Amount must be a valid number.'
+            ];
+        }
+
+        // Reject negative values
+        if (substr($trimmedAmount, 0, 1) === '-') {
+            return [
+                'status'  => 'error',
+                'message' => 'Negative values are not allowed.'
+            ];
+        }
+
+        // Round the value to 2 decimals
+        $value = number_format((float)$trimmedAmount, 2, '.', '');
+
+        // Check if amount exceeds target limit
+        $target = $this->getTargetById($targetId);
+        if ($target && isset($target['amount'])) {
+            $targetLimit = (float)$target['amount'];
+         
+        }
+
+        $builder = $this->db->table('khm_entity_mst_target_assign');
+
+        if(empty($assignmentId)) {
+            // Check if this employee already has an assignment
+            $existing = $builder->select('*')
+                                ->where('entity_id', $employeeId)
+                                ->where('deleted', 0)
+                                ->get()
+                                ->getRowArray();
+            if($existing) {
+                return [
+                    'status'  => 'error',
+                    'message' => 'This employee already has an assigned target.'
+                ];
+            }
+            // Insert new assignment. Using set() with escape false to pass value as-is.
+            $builder->set('entity_id', $employeeId);
+            $builder->set('target_id', $targetId);
+            $builder->set('target_amount', $value, false);
+            $builder->set('deleted', 0);
+            $builder->set('enterprise_id', 1);
+            $builder->insert();
+        } else {
+            // Update existing assignment using set() with escape false.
+            $builder->set('entity_id', $employeeId);
+            $builder->set('target_id', $targetId);
+            $builder->set('target_amount', $value, false);
+            $builder->where('target_assign_id', $assignmentId);
+            $builder->update();
+        }
+        
+        return [
+            'status'  => 'success',
+            'message' => 'Assignment saved successfully.'
+        ];
+    }
+}

@@ -1,0 +1,549 @@
+ERROR - 2025-05-05 05:03:37 --> [getExecutiveFollowups] no header found for object_id=
+CRITICAL - 2025-05-05 10:44:07 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "masters/arrival_report_list.php"
+[Method: GET, Route: ArrivalReport]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('masters/arrival_report_list.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/arrival_report_list', [], true)
+ 3 APPPATH\Controllers\ArrivalReport.php(73): view('masters/arrival_report_list', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:45:03 --> BadMethodCallException: Call to undefined method App\Models\ArrivalReportModel::baseQuery
+[Method: GET, Route: arrivalreport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Models\ArrivalReportModel.php(68): CodeIgniter\Model->__call('baseQuery', [])
+ 2 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:45:36 --> BadMethodCallException: Call to undefined method App\Models\ArrivalReportModel::baseQuery
+[Method: GET, Route: arrivalreport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Models\ArrivalReportModel.php(68): CodeIgniter\Model->__call('baseQuery', [])
+ 2 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('2020-02-04', '1970-01-01')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:45:41 --> BadMethodCallException: Call to undefined method App\Models\ArrivalReportModel::baseQuery
+[Method: GET, Route: arrivalreport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Models\ArrivalReportModel.php(68): CodeIgniter\Model->__call('baseQuery', [])
+ 2 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:45:47 --> BadMethodCallException: Call to undefined method App\Models\ArrivalReportModel::baseQuery
+[Method: GET, Route: arrivalreport/exportExcel]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Models\ArrivalReportModel.php(68): CodeIgniter\Model->__call('baseQuery', [])
+ 2 APPPATH\Controllers\ArrivalReport.php(89): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->exportExcel()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:45:49 --> BadMethodCallException: Call to undefined method App\Models\ArrivalReportModel::baseQuery
+[Method: GET, Route: arrivalreport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Models\ArrivalReportModel.php(68): CodeIgniter\Model->__call('baseQuery', [])
+ 2 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:46:42 --> BadMethodCallException: Call to undefined method App\Models\ArrivalReportModel::baseQuery
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Models\ArrivalReportModel.php(68): CodeIgniter\Model->__call('baseQuery', [])
+ 2 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:47:09 --> BadMethodCallException: Call to undefined method App\Models\ArrivalReportModel::baseQuery
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Models\ArrivalReportModel.php(68): CodeIgniter\Model->__call('baseQuery', [])
+ 2 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:47:13 --> BadMethodCallException: Call to undefined method App\Models\ArrivalReportModel::baseQuery
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Models\ArrivalReportModel.php(68): CodeIgniter\Model->__call('baseQuery', [])
+ 2 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:47:23 --> BadMethodCallException: Call to undefined method App\Models\ArrivalReportModel::baseQuery
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Models\ArrivalReportModel.php(68): CodeIgniter\Model->__call('baseQuery', [])
+ 2 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:48:18 --> BadMethodCallException: Call to undefined method App\Models\ArrivalReportModel::baseQuery
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Models\ArrivalReportModel.php(68): CodeIgniter\Model->__call('baseQuery', [])
+ 2 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-05-05 10:49:24 --> mysqli_sql_exception: Table 'khm_touracle_db.arrival_follow_up' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`ar...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`ar...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`ar...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`ar...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-05 10:49:24 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.arrival_follow_up' doesn't exist
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:', [...], false)
+ 2 APPPATH\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:49:24 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.arrival_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:', [...], false)
+ 4 APPPATH\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:49:24 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.arrival_follow_up' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:', [...], false)
+ 5 APPPATH\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-05-05 10:52:15 --> mysqli_sql_exception: Unknown column 'ar.call_time' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`ar...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`ar...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`ar...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`ar...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-05 10:52:15 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ar.call_time' in 'field list'
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:', [...], false)
+ 2 APPPATH\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:52:15 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ar.call_time' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:', [...], false)
+ 4 APPPATH\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 10:52:15 --> [Caused by] mysqli_sql_exception: Unknown column 'ar.call_time' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:', [...], false)
+ 5 APPPATH\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-05-05 11:25:10 --> mysqli_sql_exception: Unknown column 'ar.call_time' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`ar...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`ar...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`ar...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`ar...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-05 11:25:10 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ar.call_time' in 'field list'
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:', [...], false)
+ 2 APPPATH\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 11:25:10 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ar.call_time' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:', [...], false)
+ 4 APPPATH\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 11:25:10 --> [Caused by] mysqli_sql_exception: Unknown column 'ar.call_time' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'1970-01-01\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:', [...], false)
+ 5 APPPATH\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('1970-01-01', '1970-01-01')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-05-05 11:25:35 --> mysqli_sql_exception: Unknown column 'ar.call_time' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`ar...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`ar...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`ar...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`ar...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('2025-05-02', '1970-01-01')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-05 11:25:35 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ar.call_time' in 'field list'
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:', [...], false)
+ 2 APPPATH\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('2025-05-02', '1970-01-01')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 11:25:35 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'ar.call_time' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-02\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-02\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:', [...], false)
+ 4 APPPATH\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('2025-05-02', '1970-01-01')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 11:25:35 --> [Caused by] mysqli_sql_exception: Unknown column 'ar.call_time' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-02\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-02\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = 0
+AND `ar`.`arrival_date` >= \'2025-05-02\'
+AND `ar`.`arrival_date` <= \'1970-01-01\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `ar`.`arrival_follow_up_id`, `ar`.`followup_type_id`, `ar`.`enquiry_header_id`, `ar`.`call_date`, `ar`.`call_time`, `ar`.`mode_of_arrival`, `ar`.`city`, `ar`.`flight_train_no`, `ar`.`arrival_date`, `ar`.`comments`, `ar`.`deleted`, `ar`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`
+FROM `khm_obj_arrival_follow_up` AS `ar`
+JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+JOIN `khm_obj_mst` AS `om` ON `om`.`object_id`         = `eh`.`object_id`
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`arrival_date` >= :ar.arrival_date:
+AND `ar`.`arrival_date` <= :ar.arrival_date.1:', [...], false)
+ 5 APPPATH\Models\ArrivalReportModel.php(66): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\ArrivalReport.php(80): App\Models\ArrivalReportModel->getByDateRange('2025-05-02', '1970-01-01')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 12:50:16 --> Error: Class "PhpOffice\PhpSpreadsheet\Spreadsheet" not found
+[Method: GET, Route: ArrivalReport/exportExcel]
+in APPPATH\Controllers\ArrivalReport.php on line 115.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->exportExcel()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-05 12:50:17 --> Error: Class "PhpOffice\PhpSpreadsheet\Spreadsheet" not found
+[Method: GET, Route: ArrivalReport/exportExcel]
+in APPPATH\Controllers\ArrivalReport.php on line 115.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->exportExcel()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

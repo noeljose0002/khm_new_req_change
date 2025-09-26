@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Controllers;
+use App\Models\Login_m;
+
+class Login extends BaseController
+{
+    public function index()
+    {
+        $session = session();
+        $session->destroy();
+        return view('login/login_page');
+    }
+    public function logout()
+    {
+        $session = session();
+        $session->destroy();
+        return redirect()->to('Login');
+    }
+    public function login()
+    {
+        $loginmodel = new Login_m();
+        $user_id = $this->request->getPost('login_userid');
+        $password = $this->request->getPost('login_password');
+        $response = $loginmodel->check_valid_login($user_id,$password);
+        if(!empty($response)){
+            
+            //$email = $rdatas[0]['email'];
+            $all_roles = $loginmodel->get_all_entity_roles($response[0]['entity_id']);
+            if(!empty($all_roles)){
+                $active_role = $all_roles[0]['role_id'];
+                $active_role_name = $all_roles[0]['role_name'];
+                $parent_id = $all_roles[0]['parent_id'];
+                $hierarchy_id = $all_roles[0]['hierarchy_id'];
+            }
+            else{
+                $active_role = null;
+                $active_role_name = "No Roles Assigned";
+                $parent_id = null;
+                $hierarchy_id = null;
+            }
+
+            $all_systems = $loginmodel->get_all_systems($response[0]['entity_id']);
+            if(!empty($all_systems)){
+                $system_id = $all_systems[0]['entity_boolean_id'];
+                $system_name = $all_systems[0]['boolean_name'];
+            }
+            else{
+                $system_id = null;
+                $system_name = "No System Assigned";
+            }
+            
+            $session = session();
+            $newdata = [
+                'user_id' => $response[0]['entity_id'],
+                'user_name' => $response[0]['entity_name'],
+                'active_role' => $active_role,
+                'active_role_name' => $active_role_name,
+                'system_id' => $system_id,
+                'system_name' => $system_name,
+                'parent_id' => $parent_id,
+                'hierarchy_id' => $hierarchy_id
+            ];
+            $session->set($newdata);
+            
+            session()->set("logged_in", true);
+            return redirect()->to('dashboard');
+        }
+        else{
+            session()->setFlashdata('error', 'Invalid User ID or Password. Please try again.');
+            return redirect()->to('Login');
+        }
+    }
+}

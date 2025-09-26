@@ -1,0 +1,147 @@
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\Controller;
+use App\Models\SuperAdminTransactionProcessModel;
+use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\Dashboard_m;
+class SuperAdminTransactionProcess extends Controller
+{
+    protected $transModel;
+    protected $dashboardModel;
+
+    public function __construct()
+    {
+        $this->transModel = new SuperAdminTransactionProcessModel();
+        $this->dashboardModel = new Dashboard_m();
+    }
+
+    public function index()
+    {
+        $entityId   = session('user_id');
+        $activeRole = session('active_role');
+
+        // Fetch entity roles & systems
+        $allRoles  = $this->dashboardModel->get_all_entity_roles($entityId);
+        $allSys    = $this->dashboardModel->get_all_systems($entityId);
+
+        // Prepare data for the sidebar/menu
+        $data = [
+            'all_systems'       => $allSys,
+            'all_roles_assn'    => $allRoles ?: [],
+            'all_menus'         => $allRoles ? $this->dashboardModel->get_all_role_menus($activeRole) : [],
+            'all_permissions'   => $allRoles ? $this->dashboardModel->get_all_entity_permissions($activeRole, 3) : [],
+            'parent_menu'       => $this->dashboardModel->get_parent_menus(),
+            'sub_menu'          => $this->dashboardModel->get_sub_menus(),
+        ];
+
+        return view('masters/super_admin_transaction', $data);
+    }
+
+
+    /**
+     * Return JSON list for DataTables
+     */
+    public function list(): ResponseInterface
+    {
+        $data = $this->transModel->getAll();
+        return $this->response->setJSON(['data' => $data]);
+    }
+
+    public function listType():ResponseInterface
+    {
+        $data=$this->transModel->getTypes();
+        return $this->response->setJSON(['data'=>$data]);
+    }
+
+    /**
+     * Handle create request
+     */
+    public function create(): ResponseInterface
+    {
+        $rules = [
+            'entity_trans_name' => 'required|max_length[100]',
+            'prs_type_id'       => 'required|integer',
+            'prs_parent_id'     => 'permit_empty|integer',
+            'enterprise_id'     => 'required|integer',
+            'menu_link'         => 'required|max_length[255]',
+        ];
+
+        if (! $this->validate($rules)) {
+            return $this->response->setStatusCode(422)
+                                   ->setJSON(['errors' => $this->validator->getErrors()]);
+        }
+
+        $payload = [
+            'entity_trans_name' => $this->request->getPost('entity_trans_name'),
+            'prs_type_id'       => $this->request->getPost('prs_type_id'),
+            'prs_parent_id'     => $this->request->getPost('prs_parent_id') ?: null,
+            'enterprise_id'     => $this->request->getPost('enterprise_id'),
+            'menu_link'         => $this->request->getPost('menu_link'),
+        ];
+
+        $this->transModel->insert($payload);
+        return $this->response->setJSON(['message' => 'Created successfully']);
+    }
+
+    /**
+     * Fetch single record for editing
+     */
+    public function edit(int $id): ResponseInterface
+    {
+        $record = $this->transModel->find($id);
+        if (! $record) {
+            return $this->response->setStatusCode(404)
+                                   ->setJSON(['error' => 'Record not found']);
+        }
+        return $this->response->setJSON($record);
+    }
+
+    /**
+     * Update record
+     */
+    public function update(int $id): ResponseInterface
+    {
+        $rules = [
+            'entity_trans_name' => 'required|max_length[100]',
+            'prs_type_id'       => 'required|integer',
+            'prs_parent_id'     => 'permit_empty|integer',
+            'enterprise_id'     => 'required|integer',
+            'menu_link'         => 'required|max_length[255]',
+        ];
+
+        if (! $this->validate($rules)) {
+            return $this->response->setStatusCode(422)
+                                   ->setJSON(['errors' => $this->validator->getErrors()]);
+        }
+
+        $payload = [
+            'entity_trans_name' => $this->request->getPost('entity_trans_name'),
+            'prs_type_id'       => $this->request->getPost('prs_type_id'),
+            'prs_parent_id'     => $this->request->getPost('prs_parent_id') ?: null,
+            'enterprise_id'     => $this->request->getPost('enterprise_id'),
+            'menu_link'         => $this->request->getPost('menu_link'),
+        ];
+
+        $updated = $this->transModel->update($id, $payload);
+        if ($updated === false) {
+            return $this->response->setStatusCode(500)
+                                   ->setJSON(['error' => 'Update failed']);
+        }
+        return $this->response->setJSON(['message' => 'Updated successfully']);
+    }
+
+    /**
+     * Delete record
+     */
+    public function delete(int $id): ResponseInterface
+    {
+        $deleted = $this->transModel->softDelete($id);
+        if (! $deleted) {
+            return $this->response->setStatusCode(500)
+                                   ->setJSON(['error' => 'Delete failed']);
+        }
+        return $this->response->setJSON(['message' => 'Deleted successfully']);
+    }
+}

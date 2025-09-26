@@ -1,0 +1,311 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class PurchaseReportModel extends Model
+{
+    protected $table      = 'khm_obj_enquiry_header';
+    protected $primaryKey = 'enquiry_header_id';
+    protected $returnType = 'array';
+
+    protected $allowedFields = [
+        'object_id',
+        'guest_entity_id',
+        'agent_entity_id',
+        'employee_entity_id',
+        'enq_added_date',
+        'enq_type_id',
+        'enterprise_id',
+    ];
+
+    /**
+     * Build the “inner” query (all joins + aggregates) and return its SQL as plain text
+     * (no enclosing parentheses).
+     */
+    private function compileInnerSql(): string
+    {
+        $b = $this->db
+            ->table('khm_obj_enquiry_header AS h')
+            ->distinct()
+            ->select([
+                'h.ref_no',
+                'h.enquiry_header_id',
+                'h.object_id',
+                'h.guest_entity_id',
+                'h.agent_entity_id',
+                'h.employee_entity_id',
+                'h.enq_added_date',
+                'h.enq_type_id',
+                'h.is_active AS header_active',
+
+                // Object master for enquiry’s object name
+                'om.object_name',
+
+                // Guest / agent / employee names
+                'ge.entity_name AS guest_name',
+                'ae.entity_name AS agent_name',
+                'ee.entity_name AS employee_name',
+
+                // Details fields
+                // 'd.no_of_night',
+                'd.enquiry_details_id',
+                'd.date_of_tour_start',
+                'd.total_no_of_pax',
+                'd.is_active AS details_active',
+
+                // Tour‐details fields
+                't.check_in_date',
+                't.check_out_date',
+                't.is_active AS tour_active',
+                'lmg.geog_name',
+                't.no_of_days',
+
+                // Extension fields
+                'e.is_active AS extension_active',
+                'e.tpc',
+
+                // Derived hotel name
+                'hkom.object_name AS hotel_name',
+
+                // Agent GST and state
+                'attriagent.entity_attr_value AS agent_gstn',
+                'attr.entity_attr_value      AS agent_state',
+
+                // Transporter name
+                'em4.entity_name AS transporter_name',
+            ])
+            // ─── All your original JOINs up through hkom, lmg, etc. ───
+            ->join(
+                'khm_obj_transport_follow_up AS tf',
+                'tf.enquiry_header_id = h.enquiry_header_id',
+                'left'
+            )
+            ->join(
+                'khm_entity_mst AS em4',
+                'em4.entity_id = tf.transporter_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_enquiry_details AS d',
+                'd.enquiry_header_id = h.enquiry_header_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_enquiry_tour_details AS t',
+                't.enquiry_header_id = h.enquiry_header_id
+                 AND t.enquiry_details_id = d.enquiry_details_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_enquiry_itinerary_details AS koei',
+                'koei.tour_details_id = t.tour_details_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_hotel AS koh',
+                'koh.hotel_id = koei.hotel_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_mst AS hkom',
+                'hkom.object_id = koh.object_id',
+                'left'
+            )
+            ->join(
+                'khm_loc_mst_geography AS lmg',
+                'lmg.geog_id = hkom.object_location_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_enquiry_detail_extensions AS e',
+                'e.enquiry_header_id = h.enquiry_header_id
+                 AND e.enquiry_details_id = d.enquiry_details_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_mst AS om',
+                'om.object_id = h.object_id',
+                'left'
+            )
+            ->join(
+                'khm_entity_mst AS ge',
+                'ge.entity_id = h.guest_entity_id',
+                'left'
+            )
+            ->join(
+                'khm_entity_mst AS ae',
+                'ae.entity_id = h.agent_entity_id',
+                'left'
+            )
+            ->join(
+                'khm_entity_mst AS ee',
+                'ee.entity_id = h.employee_entity_id',
+                'left'
+            )
+            ->join(
+                'khm_entity_attribute AS attr',
+                'attr.entity_id = h.agent_entity_id
+                 AND attr.entity_class_attr_id = 1978',
+                'left'
+            )
+            ->join(
+                'khm_entity_attribute AS attriagent',
+                'attriagent.entity_id = h.agent_entity_id
+                 AND attriagent.entity_class_attr_id = 1970',
+                'left'
+            )
+            ->join(
+                'khm_obj_mst AS hm',
+                'hm.object_id = attr.entity_attr_value',
+                'left'
+            )
+            ->join(
+                'khm_obj_itinerary_costing_details AS icd',
+                'icd.itinerary_details_id = koei.itinerary_details_id',
+                'left'
+            )
+
+            // ─── Aggregated total_value ───
+            ->select("
+                COALESCE(
+                  SUM(
+                    CASE
+                      WHEN icd.cost_component_id = 6 
+                       AND icd.room_type_id = 2 
+                        THEN icd.tariff * COALESCE(koei.double_room, 0)
+                      WHEN icd.cost_component_id = 6
+                       AND icd.room_type_id = 1
+                        THEN icd.tariff * COALESCE(koei.single_room, 0)
+                      WHEN icd.cost_component_id = 9
+                       AND icd.room_type_id = 2
+                        THEN icd.tariff * COALESCE(koei.extra_bed, 0)
+                      WHEN icd.cost_component_id = 12
+                       AND icd.room_type_id = 2
+                        THEN icd.tariff * COALESCE(koei.child_with_bed, 0)
+                      WHEN icd.cost_component_id = 15
+                       AND icd.room_type_id = 2
+                        THEN icd.tariff * COALESCE(koei.child_without_bed, 0)
+                      ELSE 0
+                    END
+                  ),
+                  0
+                ) AS total_value
+            ", FALSE)
+
+            // ─── Aggregated extra_cost ───
+            ->select("
+                COALESCE(
+                  SUM(
+                    CASE
+                      WHEN icd.cost_component_id = 19
+                       AND icd.room_type_id = 1
+                        THEN icd.tariff
+                      ELSE 0
+                    END
+                  ),
+                  0
+                ) AS extra_cost
+            ", FALSE)
+
+            // Only rows marked active across all joined tables
+            ->where('h.is_active',    1)
+            ->where('d.is_active',    1)
+            ->where('t.is_active',    1)
+            ->where('koei.is_active', 1)
+            ->where('icd.is_active',  1)
+            ->where('e.is_active',    1)
+
+            // Group so that aggregates collapse per tour_details_id
+            ->groupBy('t.tour_details_id')
+
+            // Sort by tour start date descending
+            ->orderBy('d.date_of_tour_start', 'DESC')
+        ;
+
+        // Return raw SQL (no enclosing parentheses)
+        return $b->getCompiledSelect();
+    }
+
+    /**
+     * Returns all rows (no filters), plus a correlated subquery that picks
+     * the one tax_rate_percent whose range covers base.total_value.
+     */
+    public function getSourceReport(): array
+    {
+        $innerSql = $this->compileInnerSql();
+
+        // Wrap inner SQL exactly once, then LEFT JOIN via correlated subquery
+        $sql = "
+            SELECT
+                base.*,
+
+                (
+                  SELECT COALESCE(tr.tax_rate_percent, 0)
+                  FROM khm_obj_tax_rate AS tr
+                  WHERE
+                    base.total_value BETWEEN tr.applicable_hotel_range_from
+                                         AND tr.applicable_hotel_range_to
+                    AND tr.deleted = 0
+                  LIMIT 1
+                ) AS tax_rate_percent
+
+            FROM
+                ( $innerSql ) AS base
+        ";
+
+        return $this->db
+                    ->query($sql)
+                    ->getResultArray();
+    }
+
+    /**
+     * Filters by date range (check_in_date or check_out_date) and by enq_type_id.
+     * Uses the same correlated subquery for tax_rate_percent.
+     */
+    public function getByDateRange(string $fromYmd, string $toYmd, int $checkRaw, int $system): array
+    {
+        $dateColumn = $checkRaw === 1
+            ? 'check_in_date'
+            : 'check_out_date';
+
+        $innerSql = $this->compileInnerSql();
+
+        $sql = "
+            SELECT
+                base.*,
+
+                (
+                  SELECT COALESCE(tr.tax_rate_percent, 0)
+                  FROM khm_obj_tax_rate AS tr
+                  WHERE
+                    base.total_value BETWEEN tr.applicable_hotel_range_from
+                                         AND tr.applicable_hotel_range_to
+                    AND tr.deleted = 0
+                  LIMIT 1
+                ) AS tax_rate_percent
+
+            FROM
+                ( $innerSql ) AS base
+            WHERE
+                1 = 1
+                " . ($system
+                    ? " AND base.enq_type_id = ? "
+                    : ""
+                  ) . "
+                AND base.$dateColumn >= ?
+                AND base.$dateColumn < ?
+        ";
+
+        $params = [];
+        if ($system) {
+            $params[] = $system;
+        }
+        $params[] = $fromYmd;
+        $params[] = $toYmd;
+
+        return $this->db->query($sql, $params)
+                        ->getResultArray();
+    }
+}

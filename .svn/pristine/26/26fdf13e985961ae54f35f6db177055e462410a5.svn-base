@@ -1,0 +1,463 @@
+<?php
+$tariff_datas = [];
+foreach ($tariff_data as $item) {
+    $roomId = $item['room_id'];
+    if (!isset($tariff_datas[$roomId])) {
+        $tariff_datas[$roomId] = [
+            "room_category_name" => $item["room_category_name"],
+            "room_category_id" => $item["room_category_id"],
+            "room_type_name" => $item["room_type_name"],
+            "room_id" => $item["room_id"],
+            "enterprise_id" => $item["enterprise_id"]
+        ];
+    }
+    $tariff_datas[$roomId]["meal_tariff"][] = [
+        "hotel_room_meal_id" => $item["hotel_room_meal_id"],
+        "meal_plan_id" => $item["meal_plan_id"],
+        "meal_plan_name" => $item["meal_plan_name"],
+        "tariff" => $item["tariff"]
+    ];
+}
+$tariff_datas = array_values($tariff_datas);
+?>
+<style>
+    .table td {
+    padding: 0.2rem;
+    vertical-align: top;
+    border-top: 0;
+}
+input[type="date"],
+		input[type="text"],
+		label,
+		select,
+		option {
+			font-size: 11px;
+		}
+</style>
+<table class="table table-bordered table-responsive-md table-striped mb-0 text-nowrap">
+	<tr>
+		<td colspan ="2" style="background-color: #c2d6d6;text-align:center;font-weight: bold;">ROOM TYPE / TARIFFS</td>
+		<td colspan ="2" style="background-color: #c2c2d6;text-align:center;font-weight: bold;">Dinner<input type="text" id="wdinner1" class="form-control input-sm" value="0"></td>
+        <td colspan ="2" style="background-color: #c2c2d6;text-align:center;font-weight: bold;">Lunch<input type="text" id="wlunch1" class="form-control input-sm" value="0"></td>
+        <td colspan ="2" style="background-color: #cccccc;text-align:center;font-weight: bold;">Dinner<input type="text" id="wdinner2" class="form-control input-sm" value="0"></td>
+        <td colspan ="2" style="background-color: #cccccc;text-align:center;font-weight: bold;">Lunch<input type="text" id="wlunch2" class="form-control input-sm" value="0"></td>
+        <td colspan ="2" style="background-color: #c2c2d6;text-align:center;font-weight: bold;">Dinner<input type="text" id="wdinner3" class="form-control input-sm" value="0"></td>
+        <td colspan ="2" style="background-color: #c2c2d6;text-align:center;font-weight: bold;">Lunch<input type="text" id="wlunch3" class="form-control input-sm" value="0"></td>
+        <td colspan ="2" style="background-color: #cccccc;text-align:center;font-weight: bold;">Dinner<input type="text" id="wdinner4" class="form-control input-sm" value="0"></td>
+    	<td colspan ="2" style="background-color: #cccccc;text-align:center;font-weight: bold;">Lunch<input type="text" id="wlunch4" class="form-control input-sm" value="0"></td>
+	</tr>
+	<tr>
+        <td rowspan ="2" style="background-color: #c2d6d6;text-align:center;font-weight: bold;">Room Category</td>
+        <td rowspan ="2" style="background-color: #c2d6d6;text-align:center;font-weight: bold;">Room Type</td>
+        <td colspan ="4" style="background-color: #c2c2d6;text-align:center;font-weight: bold;">Adult tariff</td>
+        <td colspan ="4" style="background-color: #cccccc;text-align:center;font-weight: bold;">Child tariff with bed</td>
+        <td colspan ="4" style="background-color: #c2c2d6;text-align:center;font-weight: bold;">Child tariff without bed</td>
+    	<td colspan ="4" style="background-color: #cccccc;text-align:center;font-weight: bold;">Extra bed tariff</td>
+    </tr>
+    <tr>        
+        <td style="background-color: #c2c2d6;text-align:center;font-weight: bold;">EP</td>
+        <td style="background-color: #c2c2d6;text-align:center;font-weight: bold;">CP</td>
+    	<td style="background-color: #c2c2d6;text-align:center;font-weight: bold;">MAP</td>
+        <td style="background-color: #c2c2d6;text-align:center;font-weight: bold;">AP</td>
+
+        <td style="background-color: #cccccc;text-align:center;font-weight: bold;">EP</td>
+        <td style="background-color: #cccccc;text-align:center;font-weight: bold;">CP</td>
+        <td style="background-color: #cccccc;text-align:center;font-weight: bold;">MAP</td>
+    	<td style="background-color: #cccccc;text-align:center;font-weight: bold;">AP</td>
+
+        <td style="background-color: #c2c2d6;text-align:center;font-weight: bold;">EP</td>
+        <td style="background-color: #c2c2d6;text-align:center;font-weight: bold;">CP</td>
+        <td style="background-color: #c2c2d6;text-align:center;font-weight: bold;">MAP</td>
+        <td style="background-color: #c2c2d6;text-align:center;font-weight: bold;">AP</td>
+
+        <td style="background-color: #cccccc;text-align:center;font-weight: bold;">EP</td>
+        <td style="background-color: #cccccc;text-align:center;font-weight: bold;">CP</td>
+        <td style="background-color: #cccccc;text-align:center;font-weight: bold;">MAP</td>
+        <td style="background-color: #cccccc;text-align:center;font-weight: bold;">AP</td>
+    </tr>
+    <?php 
+if (!empty($tariff_datas)) {
+    foreach ($tariff_datas as $key => $val) { ?>
+        <tr>
+            <td><input type="checkbox" class="wchk_room" value="<?php echo $val['room_id']; ?>"> <?php echo $val['room_category_name']; ?></td>
+            <td><input type="hidden" id="wrt<?php echo $val['room_id']; ?>" value="<?php echo $val['room_type_name']; ?>"> <?php echo $val['room_type_name']; ?></td>
+
+            <?php 
+                $index = 1;
+                foreach ($val['meal_tariff'] as $key1 => $val1) { 
+                    $id = "{$val1['meal_plan_name']}_{$index}_{$val['room_id']}_w";
+                ?>
+                    <td>
+                        <input type="text" id="<?php echo $id; ?>" class="form-control input-sm meal_class wmc<?php echo $val['room_id']; ?> wml<?php echo $val1['hotel_room_meal_id']; ?>" data-id="<?php echo $id; ?>" value="0" readonly>
+                    </td>
+                <?php 
+                } 
+
+                $index = 2;
+                foreach ($val['meal_tariff'] as $key1 => $val1) { 
+                    $id = "{$val1['meal_plan_name']}_{$index}_{$val['room_id']}_w";
+                ?>
+                    <td>
+                        <input type="text" id="<?php echo $id; ?>" class="form-control input-sm meal_class wmc<?php echo $val['room_id']; ?> wml<?php echo $val1['hotel_room_meal_id']; ?>" data-id="<?php echo $id; ?>" value="0" readonly>
+                    </td>
+                <?php 
+                } 
+
+                $index = 3;
+                foreach ($val['meal_tariff'] as $key1 => $val1) { 
+                    $id = "{$val1['meal_plan_name']}_{$index}_{$val['room_id']}_w";
+                ?>
+                    <td>
+                        <input type="text" id="<?php echo $id; ?>" class="form-control input-sm meal_class wmc<?php echo $val['room_id']; ?> wml<?php echo $val1['hotel_room_meal_id']; ?>" data-id="<?php echo $id; ?>" value="0" readonly>
+                    </td>
+                <?php 
+                } 
+
+                $index = 4;
+                foreach ($val['meal_tariff'] as $key1 => $val1) { 
+                    $id = "{$val1['meal_plan_name']}_{$index}_{$val['room_id']}_w";
+                ?>
+                    <td>
+                        <input type="text" id="<?php echo $id; ?>" class="form-control input-sm meal_class wmc<?php echo $val['room_id']; ?> wml<?php echo $val1['hotel_room_meal_id']; ?>" data-id="<?php echo $id; ?>" value="0" readonly>
+                    </td>
+                <?php 
+                } 
+                
+            ?>
+        </tr> 
+<?php 
+    } 
+} 
+?>
+</table>
+<br>
+<button type="button" id="wbtn_save_all_tariff" class="btn btn-success" style="float:right;">Save All</button>
+<span id="wtariff-alert"></span>
+<script>
+$(document).ready(function () {
+    $(document).on("input", '#wdinner1', function () {
+        var tariff_datas = <?php echo json_encode($tariff_datas); ?>;
+        var dinnerValue = parseInt($(this).val()) || 0;
+        //var lunchValue = parseInt($('#lunch1').val()) || 0;
+        $.each(tariff_datas, function (index, data) {
+            var room_id = data.room_id;
+            var meal_id = data.meal_tariff[2]['hotel_room_meal_id'];
+            var element_id = "MAP_1_"+room_id+"_w";
+            var cp_id = "CP_1_"+room_id+"_w";
+            var cpval = parseInt($('#'+cp_id).val()) || 0;
+            if(data.room_type_name == "Double"){
+                $('#'+element_id).val((dinnerValue*2)+cpval);
+            }
+            else{
+                $('#'+element_id).val(dinnerValue+cpval);
+            }
+        });   
+    });
+});
+
+$(document).ready(function () {
+    $(document).on("input", '#wdinner2', function () {
+        var tariff_datas = <?php echo json_encode($tariff_datas); ?>;
+        var dinnerValue = parseInt($(this).val()) || 0;
+        //var lunchValue = parseInt($('#lunch2').val()) || 0;
+        $.each(tariff_datas, function (index, data) {
+            var room_id = data.room_id;
+            var meal_id = data.meal_tariff[2]['hotel_room_meal_id'];
+            var element_id = "MAP_2_"+room_id+"_w";
+            var cp_id = "CP_2_"+room_id+"_w";
+            var cpval = parseInt($('#'+cp_id).val()) || 0;
+            if(data.room_type_name == "Double"){
+                $('#'+element_id).val(dinnerValue+cpval);
+            }
+        });   
+    });
+});
+
+$(document).ready(function () {
+    $(document).on("input", '#wdinner3', function () {
+        var tariff_datas = <?php echo json_encode($tariff_datas); ?>;
+        var dinnerValue = parseInt($(this).val()) || 0;
+        //var lunchValue = parseInt($('#lunch3').val()) || 0;
+        $.each(tariff_datas, function (index, data) {
+            var room_id = data.room_id;
+            var meal_id = data.meal_tariff[2]['hotel_room_meal_id'];
+            var element_id = "MAP_3_"+room_id+"_w";
+            var cp_id = "CP_3_"+room_id+"_w";
+            var cpval = parseInt($('#'+cp_id).val()) || 0;
+            if(data.room_type_name == "Double"){
+                $('#'+element_id).val(dinnerValue+cpval);
+            }
+        });   
+    });
+});
+
+$(document).ready(function () {
+    $(document).on("input", '#wdinner4', function () {
+        var tariff_datas = <?php echo json_encode($tariff_datas); ?>;
+        var dinnerValue = parseInt($(this).val()) || 0;
+        //var lunchValue = parseInt($('#lunch4').val()) || 0;
+        $.each(tariff_datas, function (index, data) {
+            var room_id = data.room_id;
+            var meal_id = data.meal_tariff[2]['hotel_room_meal_id'];
+            var element_id = "MAP_4_"+room_id+"_w";
+            var cp_id = "CP_4_"+room_id+"_w";
+            var cpval = parseInt($('#'+cp_id).val()) || 0;
+            if(data.room_type_name == "Double"){
+                $('#'+element_id).val(dinnerValue+cpval);
+            }
+        });   
+    });
+});
+</script>
+
+
+<script>
+$(document).ready(function () {
+    $(document).on("input", '#wlunch1', function () {
+        var tariff_datas = <?php echo json_encode($tariff_datas); ?>;
+        var lunchValue = parseInt($(this).val()) || 0;
+        var dinnerValue = parseInt($('#wdinner1').val()) || 0;
+        $.each(tariff_datas, function (index, data) {
+            var room_id = data.room_id;
+            var meal_id = data.meal_tariff[3]['hotel_room_meal_id'];
+            var element_id = "AP_1_"+room_id+"_w";
+            var cp_id = "CP_1_"+room_id+"_w";
+            var cpval = parseInt($('#'+cp_id).val()) || 0;
+            if(data.room_type_name == "Double"){
+                var vals = (dinnerValue+lunchValue)*2;
+                $('#'+element_id).val(vals+cpval);
+            }
+            else{
+                $('#'+element_id).val(dinnerValue+lunchValue+cpval);
+            }
+        });   
+    });
+});
+
+$(document).ready(function () {
+    $(document).on("input", '#wlunch2', function () {
+        var tariff_datas = <?php echo json_encode($tariff_datas); ?>;
+        var lunchValue = parseInt($(this).val()) || 0;
+        var dinnerValue = parseInt($('#wdinner2').val()) || 0;
+        $.each(tariff_datas, function (index, data) {
+            var room_id = data.room_id;
+            var meal_id = data.meal_tariff[3]['hotel_room_meal_id'];
+            var element_id = "AP_2_"+room_id+"_w";
+            var cp_id = "CP_2_"+room_id+"_w";
+            var cpval = parseInt($('#'+cp_id).val()) || 0;
+            if(data.room_type_name == "Double"){
+                $('#'+element_id).val(dinnerValue+lunchValue+cpval);
+            }
+        });   
+    });
+});
+
+$(document).ready(function () {
+    $(document).on("input", '#wlunch3', function () {
+        var tariff_datas = <?php echo json_encode($tariff_datas); ?>;
+        var lunchValue = parseInt($(this).val()) || 0;
+        var dinnerValue = parseInt($('#wdinner3').val()) || 0;
+        $.each(tariff_datas, function (index, data) {
+            var room_id = data.room_id;
+            var meal_id = data.meal_tariff[3]['hotel_room_meal_id'];
+            var element_id = "AP_3_"+room_id+"_w";
+            var cp_id = "CP_3_"+room_id+"_w";
+            var cpval = parseInt($('#'+cp_id).val()) || 0;
+            if(data.room_type_name == "Double"){
+                $('#'+element_id).val(dinnerValue+lunchValue+cpval);
+            }
+        });   
+    });
+});
+
+$(document).ready(function () {
+    $(document).on("input", '#wlunch4', function () {
+        var tariff_datas = <?php echo json_encode($tariff_datas); ?>;
+        var lunchValue = parseInt($(this).val()) || 0;
+        var dinnerValue = parseInt($('#wdinner4').val()) || 0;
+        $.each(tariff_datas, function (index, data) {
+            var room_id = data.room_id;
+            var meal_id = data.meal_tariff[3]['hotel_room_meal_id'];
+            var element_id = "AP_4_"+room_id+"_w";
+            var cp_id = "CP_4_"+room_id+"_w";
+            var cpval = parseInt($('#'+cp_id).val()) || 0;
+            if(data.room_type_name == "Double"){
+                $('#'+element_id).val(dinnerValue+lunchValue+cpval);
+            }
+        });   
+    });
+});
+</script>
+<script>
+    $(document).ready(function () {
+    $(document).on("input", '.meal_class', function () {
+        var tariff_datas = <?php echo json_encode($tariff_datas); ?>;
+        var id = $(this).attr('data-id');
+        var parts = id.split("_"); // Splitting the string by "_"
+        if(parts[0] == "CP"){
+        var part = parts[1];  // Extracts 1
+        var room_id = parts[2]; // Extracts 22
+        var cpvalue = parseInt($('#'+id).val()) || 0;
+        var dinnerValue = parseInt($('#wdinner'+part).val()) || 0;
+        var lunchValue = parseInt($('#wlunch'+part).val()) || 0;
+
+        var map_id = "MAP_"+part+"_"+room_id+"_w";
+        var ap_id = "AP_"+part+"_"+room_id+"_w";
+        var room_type_name = $('#wrt'+room_id).val();
+        if(part == 1){
+            map_id = "MAP_"+part+"_"+room_id+"_w";
+            ap_id = "AP_"+part+"_"+room_id+"_w";
+            if(room_type_name == "Double"){
+                $('#'+map_id).val((dinnerValue*2)+cpvalue);
+                var vals = (dinnerValue+lunchValue)*2;
+                $('#'+ap_id).val(vals+cpvalue);
+            }
+            else{
+                $('#'+map_id).val(dinnerValue+cpvalue);
+                $('#'+ap_id).val(dinnerValue+lunchValue+cpvalue);
+            }
+        }
+        else{
+            $.each(tariff_datas, function (index, data) {
+                if(data.room_type_name == "Double"){
+                    var room_ids = data.room_id;
+                    var meal_ids = data.meal_tariff[3]['hotel_room_meal_id'];
+                    var map_ids = "MAP_"+part+"_"+room_ids+"_w";
+                    var ap_ids = "AP_"+part+"_"+room_ids+"_w";
+                    var cp_ids = "CP_"+part+"_"+room_ids+"_w";
+                    $('#'+map_ids).val(dinnerValue+cpvalue);
+                    $('#'+ap_ids).val(dinnerValue+lunchValue+cpvalue);
+                    $('#'+cp_ids).val(cpvalue);
+                }
+            });    
+        }
+    }
+    });
+});
+</script>
+<script>
+    $(document).ready(function() {
+        
+    $('.wchk_room').on('change', function() {
+        var roomId = $(this).val(); 
+        var isChecked = $(this).is(':checked'); // Check if the checkbox is checked
+        $('.wmc' + roomId).prop('readonly', !isChecked);
+    });
+});
+</script>
+<script>
+$(document).ready(function () {
+    $(document).on("click", '#wbtn_save_all_tariff', function () {
+        var object_id = "<?php echo $object_id; ?>";
+        var tariff_datas = <?php echo json_encode($tariff_datas); ?>;
+        var season_id = $('#weekends_id').val();
+        var room_id;
+        var ep_adult;
+        var ep_child;
+        var ep_child_wb;
+        var ep_extra;
+        var tariff = 0;
+        var child_tariff =0;
+        var child_wb_tariff=0;
+        var extra_tariff =0;
+        var flag = 0;
+        var dinner_adult = $('#wdinner1').val();
+        var lunch_adult = $('#wlunch1').val();
+        var dinner_child = $('#wdinner2').val();
+        var lunch_child = $('#wlunch2').val();
+        var dinner_child_wb = $('#wdinner3').val();
+        var lunch_child_wb = $('#wlunch3').val();
+        var dinner_extra = $('#wdinner4').val();
+        var lunch_extra = $('#wlunch4').val();
+		if(season_id == '' || season_id == null || season_id == 'undefined'){
+			alert("Please select Weekend");
+		}
+        else{
+            $.each(tariff_datas, function (index, data) {
+                room_id = data.room_id;
+
+                for(var i = 0; i < 4; i++){
+                    var hotel_room_meal_id = data.meal_tariff[i]['hotel_room_meal_id'];
+                    if(i == 0){
+                        ep_adult = "EP_1_"+room_id+"_w";
+                        ep_child = "EP_2_"+room_id+"_w";
+                        ep_child_wb = "EP_3_"+room_id+"_w";
+                        ep_extra = "EP_4_"+room_id+"_w";
+                    }
+                    if(i == 1){
+                        ep_adult = "CP_1_"+room_id+"_w";
+                        ep_child = "CP_2_"+room_id+"_w";
+                        ep_child_wb = "CP_3_"+room_id+"_w";
+                        ep_extra = "CP_4_"+room_id+"_w";
+                    }
+                    if(i == 2){
+                        ep_adult = "MAP_1_"+room_id+"_w";
+                        ep_child = "MAP_2_"+room_id+"_w";
+                        ep_child_wb = "MAP_3_"+room_id+"_w";
+                        ep_extra = "MAP_4_"+room_id+"_w";
+                    }
+                    if(i == 3){
+                        ep_adult = "AP_1_"+room_id+"_w";
+                        ep_child = "AP_2_"+room_id+"_w";
+                        ep_child_wb = "AP_3_"+room_id+"_w";
+                        ep_extra = "AP_4_"+room_id+"_w";
+                    }
+
+                    tariff = $('#'+ep_adult).val();
+                    child_tariff = $('#'+ep_child).val();
+                    child_wb_tariff = $('#'+ep_child_wb).val();
+                    extra_tariff = $('#'+ep_extra).val();
+
+                    $.ajax({
+                            url: '<?=site_url('Dashboard/saveRoomfunctionWeekend');?>',
+                            method: 'POST',
+                            data: {
+                                object_id:object_id,
+                                hotel_room_meal_id:hotel_room_meal_id,
+                                tariff:tariff,
+                                season_id:season_id,
+                                child_tariff:child_tariff,
+                                child_wb_tariff:child_wb_tariff,
+                                extra_tariff:extra_tariff,
+                                dinner_adult:dinner_adult,
+                                lunch_adult:lunch_adult,
+                                dinner_child:dinner_child,
+                                lunch_child:lunch_child,
+                                dinner_child_wb:dinner_child_wb,
+                                lunch_child_wb:lunch_child_wb,
+                                dinner_extra:dinner_extra,
+                                lunch_extra:lunch_extra
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                if(response == 1){
+                                    var alerttHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <span class="alert-inner--icon"><i class="fe fe-info"></i></span>
+                                        <span class="alert-inner--text">Tariff Updated</span>
+                                        <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>`;
+
+                                    $('#wtariff-alert').html(alerttHTML);
+                                    setTimeout(function () {
+                                        $(".alert").fadeOut("slow", function () {
+                                            $(this).remove();
+                                        });
+                                    }, 2000);
+                                }
+                                else{
+                                    //alert("Please try later");
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error adding node:', error);
+                            }
+                    });
+                }
+            });  
+          
+         }
+    });
+});
+</script>

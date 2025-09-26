@@ -1,0 +1,173 @@
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\Controller;
+use App\Models\Dashboard_m;
+use App\Models\PurchaseReportModel;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
+
+class PurchaseReport extends Controller
+{
+    protected $PurchaseReportModel;
+    protected $helpers = ['url', 'date'];
+
+    /**
+     * initController is called before any other method.
+     * We use it to load our PurchaseReportModel.
+     */
+    public function initController(
+        RequestInterface $request,
+        ResponseInterface $response,
+        LoggerInterface $logger
+    ) {
+        parent::initController($request, $response, $logger);
+        $this->PurchaseReportModel = new PurchaseReportModel();
+    }
+
+    /**
+     * index() loads the main purchase report page.
+     * We fetch “reports” and also ensure that $all_roles_assn is always defined.
+     */
+    public function index()
+    {
+         $Dashboard_model = new Dashboard_m();
+        $entity_id   = session('user_id');
+        $active_role = session('active_role');
+
+        // Fetch roles & menus (same as before)
+        $all_roles   = $Dashboard_model->get_all_entity_roles($entity_id);
+        $all_systems = $Dashboard_model->get_all_systems($entity_id);
+        $data['all_systems'] = $all_systems;
+
+        if (! empty($all_roles)) {
+            $data['all_roles_assn'] = $all_roles;
+            $all_menus     = $Dashboard_model->get_all_role_menus($active_role);
+            $data['all_menus'] = $all_menus ?: [];
+            $all_permissions = $Dashboard_model->get_all_entity_permissions($active_role, 3);
+            $data['all_permissions'] = $all_permissions ?: [];
+        } else {
+            $data['all_roles_assn'] = [];
+            $data['all_menus']     = [];
+            $data['all_permissions'] = [];
+        }
+
+        $data['parent_menu'] = $Dashboard_model->get_parent_menus();
+        $data['sub_menu']    = $Dashboard_model->get_sub_menus();
+
+
+        // … your existing menu/permission code here …
+        // (e.g. check if $active_role is allowed to view this page, etc.)
+
+        // 1) Fetch all purchase‐report rows (base + tax merged).
+        $data['reports'] = $this->PurchaseReportModel->getSourceReport();
+
+        // 2) Ensure $all_roles_assn is always defined for the view.
+        //    OPTION A (if you actually need assigned‐roles from Dashboard_m):
+        //        $data['all_roles_assn'] = $Dashboard_model->getAssignedRoles($entity_id);
+        //    Replace getAssignedRoles(...) with whatever method fetches roles.
+        //
+        //    OPTION B (if you do NOT need real roles here), pass an empty array so
+        //    the view can always safely do “foreach ($all_roles_assn …)”.
+        $data['all_roles_assn'] = [];
+
+        return view('masters/purchase_report_list', $data);
+    }
+
+    /**
+     * data() is called via DataTables Ajax to fetch JSON data within a date‐range.
+     */
+    public function data()
+    {
+        // 1) Read DataTables parameters
+        $draw      = intval($this->request->getGet('draw'));
+        $start     = intval($this->request->getGet('start'));
+        $length    = intval($this->request->getGet('length'));
+        $searchVal = $this->request->getGet('search')['value'] ?? '';
+        $order     = $this->request->getGet('order')[0] ?? [];
+        $colIdx    = $order['column'] ?? 0;
+        $dir       = $order['dir']    ?? 'asc';
+        $system    = $this->request->getGet('system');
+
+        // 2) Parse date filters (d-m-Y to Y-m-d 00:00:00, plus one‐day end date)
+        $fromRaw  = $this->request->getGet('from_date');
+        $toRaw    = $this->request->getGet('to_date');
+        $checkRaw = intval($this->request->getGet('check_value'));
+
+        $fromDt = \DateTime::createFromFormat('d-m-Y', $fromRaw);
+        $toDt   = \DateTime::createFromFormat('d-m-Y', $toRaw);
+
+        if (! $fromDt || ! $toDt) {
+            // If dates are invalid or missing, return an empty DataTables response
+            return $this->response->setJSON([
+                'draw'            => $draw,
+                'recordsTotal'    => 0,
+                'recordsFiltered' => 0,
+                'data'            => []
+            ]);
+        }
+
+        $fromYmd = $fromDt->format('Y-m-d') . ' 00:00:00';
+        // Add one day to $toDt, set time to 00:00:00, then format
+        $toYmd   = $toDt->modify('+1 day')->setTime(0, 0, 0)->format('Y-m-d H:i:s');
+
+        // 3) Fetch all matching rows from the model
+        $all = $this->PurchaseReportModel
+                    ->getByDateRange($fromYmd, $toYmd, $checkRaw, $system);
+
+        // 4) Calculate total records before filtering
+        $recordsTotal = count($all);
+
+        // 5) If there’s a search term, filter client‐side on certain fields
+        if ($searchVal) {
+            $all = array_filter($all, function ($row) use ($searchVal) {
+                return stripos($row['agent_name'], $searchVal) !== false
+                    || stripos($row['guest_name'], $searchVal) !== false
+                    || stripos($row['hotel_name'], $searchVal) !== false;
+            });
+        }
+
+        // 6) Count after filtering
+        $recordsFiltered = count($all);
+
+        // 7) Define which column index maps to which key
+        $columns = [
+            0 => 'enquiry_header_id',
+            1 => 'agent_name',
+            2 => 'agent_gstn',
+            3 => 'agent_state',
+            4 => 'guest_name',
+            5 => 'hotel_name',
+            6 => 'check_in_date',
+            7 => 'check_out_date',
+            8 => 'tpc'
+        ];
+        $sortKey = $columns[$colIdx] ?? 'check_in_date';
+
+        // 8) Sort $all by $sortKey, ascending or descending
+        usort($all, function ($a, $b) use ($sortKey, $dir) {
+            if ($a[$sortKey] == $b[$sortKey]) return 0;
+            if ($dir === 'asc') {
+                return ($a[$sortKey] < $b[$sortKey]) ? -1 : 1;
+            }
+            return ($a[$sortKey] > $b[$sortKey]) ? -1 : 1;
+        });
+
+        // 9) Slice the array for pagination
+        if ($length === -1) {
+            $pagedData = array_slice($all, $start);
+        } else {
+            $pagedData = array_slice($all, $start, $length);
+        }
+
+        // 10) Return JSON formatted for DataTables
+        return $this->response->setJSON([
+            'draw'            => $draw,
+            'recordsTotal'    => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data'            => $pagedData
+        ]);
+    }
+}

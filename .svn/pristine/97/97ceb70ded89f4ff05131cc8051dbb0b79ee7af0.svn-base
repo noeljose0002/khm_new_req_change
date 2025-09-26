@@ -1,0 +1,80 @@
+																				<table class="table table-bordered table-responsive-md table-striped mb-0 text-nowrap">
+																					<tr style="background-color:#c8ead9;">
+																						<th class="">Category</th>
+																						<th class="">Room type</th>
+																						<th class="">Occupancy</th>
+																						<th class="">Status</th>
+																						<!--<th class="">EP</th>
+																						<th class="">CP</th>
+																						<th class="">MAP</th>
+																						<th class="">AP</th>-->
+																						<th class="">Action</th>
+																					</tr>
+																					<?php 
+																					if(!empty($tariff_data)){
+																					
+																					foreach($tariff_data as $key => $val){ 
+																						$status = "Not Saved";
+																						?>
+																						<tr>
+																							<td class="pt-3-half"><?php echo $val['room_category_name']; ?></td>
+																							<td class="pt-3-half"><?php echo $val['room_type_name']; ?></td>
+																							<td class="pt-3-half"><?php echo $val['occupancy_name']; ?></td>
+																							<?php if(!empty($tariff_exist)){ 
+																								$ep_temp = 0;
+																								$cp_temp = 0;
+																								$map_temp = 0;
+																								$ap_temp = 0;
+																								foreach($tariff_exist as $key1 => $val1){ 
+																									if($val['room_id'] == $val1['room_id']){
+																										if($val1['meal_plan_id'] == 1){
+																											$ep_temp = $val1['tariff'];
+																										}
+																										if($val1['meal_plan_id'] == 2){
+																											$cp_temp = $val1['tariff'];
+																										}
+																										if($val1['meal_plan_id'] == 3){
+																											$map_temp = $val1['tariff'];
+																										}
+																										if($val1['meal_plan_id'] == 4){
+																											$ap_temp = $val1['tariff'];
+																										}	
+																										$status = "Saved";											
+																									}
+																								}	
+																									?>
+																								<?php if($status == "Saved"){ ?>
+																									<td class="pt-3-half"><h6 style="color:#339966;font-weight:bold;"><?php echo $status; ?></h6></td>	
+																								<?php } else { ?>
+																									<td class="pt-3-half"><h6 style="color:#cc0066;font-weight:bold;"><?php echo $status; ?></h6></td>	
+																								<?php } ?>
+																								<input type="hidden" class="form-control input-sm" id="ep<?php echo $val['room_id']; ?>" value="0" style="width:90px;" inputmode="numeric" pattern="[0-9]*" maxlength="6">
+																								
+																								
+																								<input type="hidden" class="form-control input-sm" id="cp<?php echo $val['room_id']; ?>" value="0" style="width:90px;" inputmode="numeric" pattern="[0-9]*" maxlength="6">
+																								
+																								
+																								<input type="hidden" class="form-control input-sm" id="map<?php echo $val['room_id']; ?>" value="0" style="width:90px;" inputmode="numeric" pattern="[0-9]*" maxlength="6">
+																							
+																									
+																								<input type="hidden" class="form-control input-sm" id="ap<?php echo $val['room_id']; ?>" value="0" style="width:90px;" inputmode="numeric" pattern="[0-9]*" maxlength="6">
+																							<?php   }else { ?>
+																								<td class="pt-3-half"><?php echo $status; ?></td>	
+																								<input type="hidden" class="form-control input-sm" id="ep<?php echo $val['room_id']; ?>" value="0" style="width:90px;" inputmode="numeric" pattern="[0-9]*" maxlength="6">
+																								<input type="hidden" class="form-control input-sm" id="cp<?php echo $val['room_id']; ?>" value="0" style="width:90px;" inputmode="numeric" pattern="[0-9]*" maxlength="6">
+																								<input type="hidden" class="form-control input-sm" id="map<?php echo $val['room_id']; ?>" value="0" style="width:90px;" inputmode="numeric" pattern="[0-9]*" maxlength="6">
+																								<input type="hidden" class="form-control input-sm" id="ap<?php echo $val['room_id']; ?>" value="0" style="width:90px;" inputmode="numeric" pattern="[0-9]*" maxlength="6">
+																							<?php } ?>
+																								
+																							<td>
+																								<button type="button" class="btn btn-dark btn-rounded btn-sm my-0" onclick="save_room(<?php echo $val['room_id']; ?>)" data-bs-toggle="tooltip" data-bs-placement="top" title="Update"><i class="fa fa-save"></i></button>
+																								<button type="button" class="btn btn-danger btn-rounded btn-sm my-0" onclick="delete_room(<?php echo $val['room_id']; ?>)" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+																							</td>
+																						</tr>
+																					<?php } } else { ?>
+																						<tr>
+																							<td colspan="8" style="text-align:center;">No rooms added yet</td>
+																						</tr>
+																					<?php } ?>
+																				</table>
+																				

@@ -1,0 +1,48 @@
+			
+						<input type="hidden" id="hidden_entity_id" value="<?php echo $entity_id; ?>">
+						<div class="row">
+							<div class="col-md-12 col-lg-12">
+								<div class="card">
+									<div class="card-header">
+										<div class="card-title">Assign Roles to <?php echo $entity_name; ?></div>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive forminputs-dt ">
+											<table id="entity-role-datatable" class="table table-bordered text-nowrap">
+												<thead>
+													<tr>
+														<th>Role Name</th>
+														<th>Select</th>
+														
+													</tr>
+												</thead>
+												<tbody>
+													<?php foreach($all_roles as $key => $val){ 
+														$checked = "";
+														?>
+														<tr>
+															<td><?php echo $val['role_name']; ?></td>
+															<td>
+																<?php if(empty($assigned_roles)) { ?>
+																	<input type="checkbox" class="entity-role-input" value="<?php echo $val['role_id']; ?>">
+																<?php } else { 
+																	foreach($assigned_roles as $keys => $vals){
+                                                                         if($val['role_id'] == $vals['role_id']){
+																			$checked = "checked";
+																		 }
+																	}
+																	?>
+																	<input type="checkbox" class="entity-role-input" value="<?php echo $val['role_id']; ?>" <?php echo $checked; ?>>
+																<?php } ?>
+															</td>
+															
+														</tr>
+													<?php } ?>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+

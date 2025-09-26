@@ -1,0 +1,153 @@
+<?php
+
+namespace App\Controllers;
+
+use CodeIgniter\Controller;
+use App\Models\Dashboard_m;
+use App\Models\CheckinoutReportModel;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Psr\Log\LoggerInterface;
+
+class CheckinoutReport extends Controller
+{
+    protected $CheckinoutReportModel;
+
+    protected $helpers = ['url', 'date'];
+
+    public function initController(
+        RequestInterface $request,
+        ResponseInterface $response,
+        LoggerInterface $logger
+    ) {
+        // Do NOT remove this
+        parent::initController($request, $response, $logger);
+
+        // now it's safe to use $this->request, $this->response, $this->logger
+        $this->CheckinoutReportModel = new CheckinoutReportModel();
+    }
+
+
+    public function index()
+    {
+        $Dashboard_model = new Dashboard_m();
+        $entity_id = session('user_id');
+        $active_role = session('active_role');
+        $all_roles = $Dashboard_model->get_all_entity_roles($entity_id);
+        $all_systems = $Dashboard_model->get_all_systems($entity_id);
+        $data['all_systems'] = $all_systems;
+        if (!empty($all_roles)) {
+            $data['all_roles_assn'] = $all_roles;
+            $all_menus = $Dashboard_model->get_all_role_menus($active_role);
+            if (!empty($all_menus)) {
+                $data['all_menus'] = $all_menus;
+            } else {
+                $data['all_menus'] = [];
+            }
+            $all_permissions = $Dashboard_model->get_all_entity_permissions($active_role, 3);
+            if (!empty($all_permissions)) {
+                $data['all_permissions'] = $all_permissions;
+            } else {
+                $data['all_permissions'] = [];
+            }
+        } else {
+            $data['all_roles_assn'] = [];
+            $data['all_menus'] = [];
+            $data['all_permissions'] = [];
+        }
+        $parent_menu = $Dashboard_model->get_parent_menus();
+        $sub_menu = $Dashboard_model->get_sub_menus();
+        $data['parent_menu'] = $parent_menu;
+        $data['sub_menu'] = $sub_menu;
+
+        return view('masters/checkinout_report_list', $data);
+    }
+
+    public function data()
+    {
+        // 1) Read DataTables parameters
+        $draw      = intval($this->request->getGet('draw'));
+        $start     = intval($this->request->getGet('start'));
+        $length    = intval($this->request->getGet('length'));
+        $searchVal = $this->request->getGet('search')['value'];
+        $order     = $this->request->getGet('order')[0] ?? [];
+        $colIdx    = $order['column'] ?? 0;
+        $dir       = $order['dir']    ?? 'asc';
+        $system    =$this->request->getGet('system');
+
+        // 2) Parse date filters
+        $fromRaw  = $this->request->getGet('from_date');
+        $toRaw    = $this->request->getGet('to_date');
+        $checkRaw = intval($this->request->getGet('check_value'));
+        $fromDt   = \DateTime::createFromFormat('d-m-Y', $fromRaw);
+        $toDt     = \DateTime::createFromFormat('d-m-Y', $toRaw);
+
+        if (! $fromDt || ! $toDt) {
+            return $this->response->setJSON([
+                'draw'            => $draw,
+                'recordsTotal'    => 0,
+                'recordsFiltered' => 0,
+                'data'            => []
+            ]);
+        }
+
+        $fromYmd = $fromDt->format('Y-m-d') . ' 00:00:00';
+        $toYmd   = $toDt->modify('+1 day')->setTime(0, 0, 0)
+            ->format('Y-m-d H:i:s');
+
+        // 3) Grab all rows in the date range
+        $all = $this->CheckinoutReportModel
+            ->getByDateRange($fromYmd, $toYmd, $checkRaw,$system);
+
+        // 4) Total before search
+        $recordsTotal = count($all);
+
+        // 5) Apply global search (if any)
+        if ($searchVal) {
+            $all = array_filter($all, function ($row) use ($searchVal) {
+                return stripos($row['agent_name'], $searchVal) !== false
+                    || stripos($row['guest_name'], $searchVal) !== false
+                    || stripos($row['hotel_name'], $searchVal) !== false;
+            });
+        }
+
+        // 6) Total after search
+        $recordsFiltered = count($all);
+
+        // 7) Sort by requested column
+        $columns = [
+            0 => 'enquiry_header_id',
+            1 => 'agent_name',
+            2 => 'agent_gstn',
+            3 => 'agent_state',
+            4 => 'guest_name',
+            5 => 'hotel_name',
+            6 => 'check_in_date',
+            7 => 'check_out_date',
+            8 => 'tpc'
+        ];
+        $sortKey = $columns[$colIdx] ?? 'check_in_date';
+        usort($all, function ($a, $b) use ($sortKey, $dir) {
+            if ($a[$sortKey] == $b[$sortKey]) return 0;
+            if ($dir === 'asc') {
+                return ($a[$sortKey] < $b[$sortKey]) ? -1 : 1;
+            }
+            return ($a[$sortKey] > $b[$sortKey]) ? -1 : 1;
+        });
+
+        // 8) Slice the current page
+        if ($length === -1) {
+            $data = array_slice($all, $start);
+        } else {
+            $data = array_slice($all, $start, $length);
+        }
+
+        // 9) Return the DataTables JSON envelope
+        return $this->response->setJSON([
+            'draw'            => $draw,
+            'recordsTotal'    => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data'            => $data
+        ]);
+    }
+}

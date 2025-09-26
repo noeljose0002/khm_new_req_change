@@ -1,0 +1,401 @@
+CRITICAL - 2025-07-16 10:33:23 --> ErrorException: Undefined variable $ep_temp
+[Method: POST, Route: Dashboard/getRoomfunction]
+in APPPATH\Views\dashboard\all_room_tariff_details.php on line 39.
+ 1 APPPATH\Views\dashboard\all_room_tariff_details.php(39): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $ep_temp', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details.php', 39)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_room_tariff_details', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(3129): view('dashboard/all_room_tariff_details', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->getRoomfunction()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 10:33:25 --> ErrorException: Undefined variable $ep_temp
+[Method: POST, Route: Dashboard/getRoomfunction]
+in APPPATH\Views\dashboard\all_room_tariff_details.php on line 39.
+ 1 APPPATH\Views\dashboard\all_room_tariff_details.php(39): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $ep_temp', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details.php', 39)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_room_tariff_details', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(3129): view('dashboard/all_room_tariff_details', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->getRoomfunction()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 10:33:31 --> ErrorException: Undefined variable $ep_temp
+[Method: POST, Route: Dashboard/getRoomfunction]
+in APPPATH\Views\dashboard\all_room_tariff_details.php on line 39.
+ 1 APPPATH\Views\dashboard\all_room_tariff_details.php(39): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $ep_temp', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details.php', 39)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_room_tariff_details.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_room_tariff_details', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(3129): view('dashboard/all_room_tariff_details', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->getRoomfunction()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 11:03:56 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: POST, Route: Dashboard/saveRoomfunction]
+in APPPATH\Models\Dashboard_m.php on line 45.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Dashboard_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Dashboard_m')
+ 3 APPPATH\Controllers\Dashboard.php(3384): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Dashboard_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->saveRoomfunction()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 11:04:08 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: POST, Route: Dashboard/addRoomfunction]
+in APPPATH\Models\Dashboard_m.php on line 45.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Dashboard_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Dashboard_m')
+ 3 APPPATH\Controllers\Dashboard.php(3081): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Dashboard_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->addRoomfunction()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 11:04:20 --> ParseError: syntax error, unexpected token "}", expecting ";"
+[Method: POST, Route: Dashboard/addRoomfunction]
+in APPPATH\Models\Dashboard_m.php on line 45.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Dashboard_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Dashboard_m')
+ 3 APPPATH\Controllers\Dashboard.php(3081): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Dashboard_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->addRoomfunction()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 11:31:01 --> ArgumentCountError: Too few arguments to function App\Controllers\Dashboard::editroom_nj(), 0 passed in C:\wamp64\www\khm\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: POST, Route: Dashboard/editroom_nj]
+in APPPATH\Controllers\Dashboard.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 11:31:02 --> ArgumentCountError: Too few arguments to function App\Controllers\Dashboard::editroom_nj(), 0 passed in C:\wamp64\www\khm\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: POST, Route: Dashboard/editroom_nj]
+in APPPATH\Controllers\Dashboard.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 11:31:03 --> ArgumentCountError: Too few arguments to function App\Controllers\Dashboard::editroom_nj(), 0 passed in C:\wamp64\www\khm\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: POST, Route: Dashboard/editroom_nj]
+in APPPATH\Controllers\Dashboard.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 11:31:03 --> ArgumentCountError: Too few arguments to function App\Controllers\Dashboard::editroom_nj(), 0 passed in C:\wamp64\www\khm\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: POST, Route: Dashboard/editroom_nj]
+in APPPATH\Controllers\Dashboard.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 11:31:06 --> ArgumentCountError: Too few arguments to function App\Controllers\Dashboard::editroom_nj(), 0 passed in C:\wamp64\www\khm\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: POST, Route: Dashboard/editroom_nj]
+in APPPATH\Controllers\Dashboard.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 11:31:18 --> ArgumentCountError: Too few arguments to function App\Controllers\Dashboard::editroom_nj(), 0 passed in C:\wamp64\www\khm\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: POST, Route: Dashboard/editroom_nj]
+in APPPATH\Controllers\Dashboard.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 12:09:02 --> ArgumentCountError: Too few arguments to function App\Controllers\Dashboard::editroom_nj(), 0 passed in C:\wamp64\www\khm\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: POST, Route: Dashboard/editroom_nj]
+in APPPATH\Controllers\Dashboard.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 12:09:06 --> ArgumentCountError: Too few arguments to function App\Controllers\Dashboard::editroom_nj(), 0 passed in C:\wamp64\www\khm\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: POST, Route: Dashboard/editroom_nj]
+in APPPATH\Controllers\Dashboard.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 12:09:08 --> ArgumentCountError: Too few arguments to function App\Controllers\Dashboard::editroom_nj(), 0 passed in C:\wamp64\www\khm\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: POST, Route: Dashboard/editroom_nj]
+in APPPATH\Controllers\Dashboard.php on line 12.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-07-16 12:10:18 --> mysqli_sql_exception: Unknown column 'id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1782): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(45): CodeIgniter\Database\BaseBuilder->getWhere(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(26): App\Models\Dashboard_m->get_one_room('30')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-07-16 12:10:18 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'id' in 'where clause'
+[Method: POST, Route: Dashboard/editroom_nj]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1782): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = :id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(45): CodeIgniter\Database\BaseBuilder->getWhere([...])
+ 3 APPPATH\Controllers\Dashboard.php(26): App\Models\Dashboard_m->get_one_room('30')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 12:10:18 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = \'30\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = \'30\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1782): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = :id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(45): CodeIgniter\Database\BaseBuilder->getWhere([...])
+ 5 APPPATH\Controllers\Dashboard.php(26): App\Models\Dashboard_m->get_one_room('30')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 12:10:18 --> [Caused by] mysqli_sql_exception: Unknown column 'id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = \'30\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = \'30\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = \'30\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1782): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = :id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(45): CodeIgniter\Database\BaseBuilder->getWhere([...])
+ 6 APPPATH\Controllers\Dashboard.php(26): App\Models\Dashboard_m->get_one_room('30')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-07-16 12:10:21 --> mysqli_sql_exception: Unknown column 'id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1782): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(45): CodeIgniter\Database\BaseBuilder->getWhere(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(26): App\Models\Dashboard_m->get_one_room('31')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-07-16 12:10:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'id' in 'where clause'
+[Method: POST, Route: Dashboard/editroom_nj]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1782): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = :id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(45): CodeIgniter\Database\BaseBuilder->getWhere([...])
+ 3 APPPATH\Controllers\Dashboard.php(26): App\Models\Dashboard_m->get_one_room('31')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 12:10:21 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = \'31\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = \'31\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1782): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = :id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(45): CodeIgniter\Database\BaseBuilder->getWhere([...])
+ 5 APPPATH\Controllers\Dashboard.php(26): App\Models\Dashboard_m->get_one_room('31')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 12:10:21 --> [Caused by] mysqli_sql_exception: Unknown column 'id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = \'31\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = \'31\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = \'31\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1782): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_obj_room`
+WHERE `id` = :id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(45): CodeIgniter\Database\BaseBuilder->getWhere([...])
+ 6 APPPATH\Controllers\Dashboard.php(26): App\Models\Dashboard_m->get_one_room('31')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 12:42:42 --> ErrorException: Undefined array key "hotel_room_category_id"
+[Method: POST, Route: Dashboard/editroom_nj]
+in APPPATH\Controllers\Dashboard.php on line 34.
+ 1 APPPATH\Controllers\Dashboard.php(34): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "hotel_room_category_id"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 34)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->editroom_nj()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 13:31:45 --> ErrorException: Undefined variable $selected_room_category_id
+[Method: GET, Route: dashboard/view_tariff/707]
+in APPPATH\Views\dashboard\tariff_generation.php on line 396.
+ 1 APPPATH\Views\dashboard\tariff_generation.php(396): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $selected_room_category_id', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\tariff_generation.php', 396)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\tariff_generation.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/tariff_generation', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(438): view('dashboard/tariff_generation', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->view_tariff('707')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 13:35:54 --> ErrorException: Undefined variable $selected_room_category_id
+[Method: GET, Route: dashboard/view_tariff/707]
+in APPPATH\Views\dashboard\tariff_generation.php on line 398.
+ 1 APPPATH\Views\dashboard\tariff_generation.php(398): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $selected_room_category_id', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\tariff_generation.php', 398)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\tariff_generation.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/tariff_generation', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(438): view('dashboard/tariff_generation', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->view_tariff('707')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 13:36:01 --> ErrorException: Undefined variable $selected_room_category_id
+[Method: GET, Route: dashboard/view_tariff/707]
+in APPPATH\Views\dashboard\tariff_generation.php on line 398.
+ 1 APPPATH\Views\dashboard\tariff_generation.php(398): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $selected_room_category_id', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\tariff_generation.php', 398)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\tariff_generation.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/tariff_generation', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(438): view('dashboard/tariff_generation', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->view_tariff('707')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-07-16 14:27:44 --> mysqli_sql_exception: Column 'room_type_id' cannot be null in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\Dashboard.php(66): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->updateRoom()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-07-16 14:27:44 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'room_type_id' cannot be null
+[Method: GET, Route: Dashboard/updateRoom]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_room` (`room_category_id`, `room_type_id`, `occupancy_id`) VALUES (:room_category_id:, :room_type_id:, :occupancy_id:)', [...], false)
+ 2 APPPATH\Controllers\Dashboard.php(66): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->updateRoom()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 14:27:44 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'room_type_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `khm_obj_room` (`room_category_id`, `room_type_id`, `occupancy_id`) VALUES (NULL, NULL, NULL)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `khm_obj_room` (`room_category_id`, `room_type_id`, `occupancy_id`) VALUES (NULL, NULL, NULL)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_room` (`room_category_id`, `room_type_id`, `occupancy_id`) VALUES (:room_category_id:, :room_type_id:, :occupancy_id:)', [...], false)
+ 4 APPPATH\Controllers\Dashboard.php(66): CodeIgniter\Database\BaseBuilder->insert([...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->updateRoom()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-16 14:27:44 --> [Caused by] mysqli_sql_exception: Column 'room_type_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `khm_obj_room` (`room_category_id`, `room_type_id`, `occupancy_id`) VALUES (NULL, NULL, NULL)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `khm_obj_room` (`room_category_id`, `room_type_id`, `occupancy_id`) VALUES (NULL, NULL, NULL)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `khm_obj_room` (`room_category_id`, `room_type_id`, `occupancy_id`) VALUES (NULL, NULL, NULL)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_room` (`room_category_id`, `room_type_id`, `occupancy_id`) VALUES (:room_category_id:, :room_type_id:, :occupancy_id:)', [...], false)
+ 5 APPPATH\Controllers\Dashboard.php(66): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->updateRoom()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

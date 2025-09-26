@@ -1,0 +1,69 @@
+<?php 
+
+namespace App\Models;
+use CodeIgniter\Model;
+
+class SourceReportModel extends Model
+{
+    protected $table='khm_obj_enquiry_details';
+    protected $primaryKey='enquiry_details_id';
+    protected $returnType='array';
+    protected $allowedFields=[
+        'enquiry_header_id',
+        'enquiry_source',
+        'date_of_tour_start',
+        'total_no_of_pax',
+        'enq_description',
+      
+    ];
+
+
+    protected function baseQuery()
+    {
+        return $this->db
+        ->table('khm_obj_enquiry_details AS ed')
+        ->select([
+            'eh.ref_no',
+            'ed.enquiry_header_id',
+            'ed.enquiry_source',
+            'ed.date_of_tour_start',
+            'ed.total_no_of_pax',
+            'ed.enq_description',
+            'om.object_name',
+            'eh.enq_added_date',
+        ])
+        ->join(
+            'khm_obj_enquiry_header AS eh',
+            'eh.enquiry_header_id = ed.enquiry_header_id',
+            'left'
+        )
+        ->join(
+            'khm_obj_mst AS om',
+            'om.object_id = eh.object_id',
+            'left'
+        )
+      
+            ->orderBy('ed.enquiry_details_id', 'DESC');
+    }
+
+
+    public function getByDateRange(string $fromYmd, string $toYmd): array
+    {
+        return $this->baseQuery()
+            ->where('eh.enq_added_date >=', $fromYmd)
+            ->where('eh.enq_added_date <',  $toYmd)
+            ->get()
+            ->getResultArray();
+    }
+
+    public function getSourceReport(): array
+    {
+        // simply returns everything (no date filter)
+        return $this->baseQuery()
+            ->get()
+            ->getResultArray();
+    }
+}
+
+
+?>

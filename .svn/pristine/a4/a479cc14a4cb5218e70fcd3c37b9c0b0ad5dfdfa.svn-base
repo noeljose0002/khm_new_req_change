@@ -1,0 +1,95 @@
+<input type="hidden" id="ac_enquiry_header_id" value="<?php echo $enquiry_header_id; ?>">
+<table class="table table-bordered table-responsive-md table-striped mb-0 text-nowrap" id="ac_table_id">
+    <tr style="background-color:#c8ead9;">
+        <th class="">Day</th>
+	    <th class="">Location</th>
+		<th class="">Tour Date</th>
+        <th class="">Hotel</th>										
+	    <th class="">Room Category</th>
+        <th class="">Room Type</th>
+        <th class="">Available</th>
+        <th class="">Remarks</th>
+	</tr>
+	<?php 
+		if(!empty($hot_det)){			
+            $key_count = 1;									
+			foreach($hot_det as $key => $val){ 
+                $sino = $key + 1;
+                $roomtype = "";
+                if($val['double_room'] > 0){
+                    $roomtype .= "Double(".$val['double_room'].") ";
+                }
+                if($val['single_room'] > 0){
+                    $roomtype .= "Single(".$val['single_room'].") ";
+                }
+
+                $hot_details = json_decode($val['hotel_details']);
+	            ?>
+				<tr>
+                    <td class="pt-3-half"><?php echo $sino; ?></td>
+					<td class="pt-3-half"><?php echo $val['geog_name']; ?></td>
+					<td class="pt-3-half"><?php echo date('d-m-Y', strtotime($val['tour_date'])); ?></td>
+				   
+                    <td class="pt-3-half"><?php echo $val['object_name']; ?></td>
+                    <td class="pt-3-half"><?php echo $val['room_category_name']; ?></td>
+                    <td class="pt-3-half"><?php echo $roomtype; ?></td>
+                    <td class="pt-3-half">
+                        
+                        <input type="hidden" id="ac_location_name<?php echo $key_count; ?>" value="<?php echo $val['geog_name']; ?>">
+                        <input type="hidden" id="ac_tour_date<?php echo $key_count; ?>" value="<?php echo date('d-m-Y', strtotime($val['tour_date'])); ?>">
+                       
+                        <input type="hidden" id="ac_hotel_name<?php echo $key_count; ?>" value="<?php echo $val['object_name']; ?>">
+                        <input type="hidden" id="ac_room_cat_name<?php echo $key_count; ?>" value="<?php echo $val['room_category_name']; ?>">
+                        
+                        <input type="hidden" id="ac_room_type<?php echo $key_count; ?>" value="<?php echo $roomtype; ?>">
+                        <input type="checkbox" id="ac_available<?php echo $key_count; ?>">
+                    </td>
+                    <td class="pt-3-half"><textarea id="ac_remarks<?php echo $key_count; ?>" class="form-control input-sm"></textarea></td>
+			    </tr>
+                <?php 
+                    if(!empty($hot_details)){ 
+					    foreach($hot_details as $key1 => $val1) { 
+                            if($val1->tour_date == $val['tour_date']){ 
+                                $key_count = $key_count + 1;
+                                $roomtype_new = "";
+                                if($val1->double > 0){
+                                    $roomtype_new .= "Double(".$val1->double.") ";
+                                }
+                                if($val1->single > 0){
+                                    $roomtype_new .= "Single(".$val1->single.") ";
+                                }
+                                ?>
+                                <tr>
+                                    <td class="pt-3-half"><?php echo $sino; ?></td>
+                                    <td class="pt-3-half"><?php echo $val['geog_name']; ?></td>
+                                    <td class="pt-3-half"><?php echo date('d-m-Y', strtotime($val['tour_date'])); ?></td>
+                                
+                                    <td class="pt-3-half"><?php echo $val1->hotel_name; ?></td>
+                                    <td class="pt-3-half"><?php echo $val1->room_category_name; ?></td>
+                                    <td class="pt-3-half"><?php echo $roomtype_new; ?></td>
+                                    <td class="pt-3-half">
+                                        
+                                        <input type="hidden" id="ac_location_name<?php echo $key_count; ?>" value="<?php echo $val['geog_name']; ?>">
+                                        <input type="hidden" id="ac_tour_date<?php echo $key_count; ?>" value="<?php echo date('d-m-Y', strtotime($val['tour_date'])); ?>">
+                                    
+                                        <input type="hidden" id="ac_hotel_name<?php echo $key_count; ?>" value="<?php echo $val1->hotel_name; ?>">
+                                        <input type="hidden" id="ac_room_cat_name<?php echo $key_count; ?>" value="<?php echo $val1->room_category_name; ?>">
+                                        
+                                        <input type="hidden" id="ac_room_type<?php echo $key_count; ?>" value="<?php echo $roomtype_new; ?>">
+                                        <input type="checkbox" id="ac_available<?php echo $key_count; ?>">
+                                    </td>
+                                    <td class="pt-3-half"><textarea id="ac_remarks<?php echo $key_count; ?>" class="form-control input-sm"></textarea></td>
+                                </tr>
+		    <?php } } }
+            $key_count = $key_count + 1;
+            } 
+        } else { ?>
+			<tr>
+				<td colspan="8" style="text-align:center;">Availability Check Not Found</td>
+			</tr>
+		<?php } ?>
+	</table>	
+    <?php
+    if(!empty($hot_det)){ ?>
+        <button type="" id="ac_btn_id" class="btn btn-success update_ac_check" style="float:right;">Update Availability Check</button>														
+    <?php } ?>

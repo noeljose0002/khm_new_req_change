@@ -1,0 +1,2447 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+
+	<!-- Meta data -->
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta content="KHM-Touracle" name="description">
+	<meta content="Megatrend Knowledge Management Systems Pvt Ltd" name="author">
+	<meta name="keywords" content="KHM">
+	<!-- Favicon-->
+	<link rel="icon" href="<?php echo base_url('assets/images/brand/favicon.png'); ?>" type="image/x-icon" />
+
+	<!-- Title -->
+	<title>KHM Enquiry</title>
+
+	<!-- Bootstrap css -->
+	<link href="<?php echo base_url('assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css'); ?>" rel="stylesheet" />
+
+	<!-- Style css -->
+	<link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet" />
+
+	<!-- Default css -->
+	<link href="<?php echo base_url('assets/css/default.css'); ?>" rel="stylesheet">
+
+	<!-- Sidemenu css-->
+	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/sidemenu/icon-sidemenu.css'); ?>">
+
+	<!-- Owl-carousel css-->
+	<link href="<?php echo base_url('assets/plugins/owl-carousel/owl.carousel.css'); ?>" rel="stylesheet" />
+
+	<!-- Bootstrap-daterangepicker css -->
+	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-daterangepicker/daterangepicker.css'); ?>">
+
+	<!-- Bootstrap-datepicker css -->
+	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css'); ?>">
+
+	<!-- Custom scroll bar css -->
+	<link href="<?php echo base_url('assets/plugins/scroll-bar/jquery.mCustomScrollbar.css'); ?>" rel="stylesheet" />
+
+	<!-- P-scroll css -->
+	<link href="<?php echo base_url('assets/plugins/p-scroll/p-scroll.css'); ?>" rel="stylesheet" type="text/css">
+
+	<link href="<?php echo base_url('assets/plugins/datatable/dataTables.bootstrap4.min.css'); ?>" rel="stylesheet" />
+
+
+	<!-- Font-icons css -->
+	<link href="<?php echo base_url('assets/css/icons.css'); ?>" rel="stylesheet">
+
+	<!-- Rightsidebar css -->
+	<link href="<?php echo base_url('assets/plugins/sidebar/sidebar.css'); ?>" rel="stylesheet">
+
+	<!-- Nice-select css  -->
+	<link href="<?php echo base_url('assets/plugins/jquery-nice-select/css/nice-select.css'); ?>" rel="stylesheet" />
+
+	<link href="<?php echo base_url('assets/css/responsive.dataTables.css'); ?>" rel="stylesheet" />
+	<link href="<?php echo base_url('assets/css/buttons.dataTables.css'); ?>" rel="stylesheet" />
+
+	<!-- Color-palette css-->
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>" />
+	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/multipleselect/multiple-select.css'); ?>">
+	<script src="<?php echo base_url('assets/tiny_mce/tiny_mce.js'); ?>"></script>
+	<style>
+		.modal-dialog-custom {
+			max-width: 90%;
+			width: 1200px;
+			/* Adjust as needed */
+			margin: auto;
+		}
+
+		.modal-content {
+			overflow: hidden;
+			/* Prevents overflow of content */
+			max-width: 100%;
+			/* Ensures the content does not exceed the modal width */
+			box-sizing: border-box;
+			/* Ensures padding and border are included in the width */
+			height: 100%;
+			/* Make content take full modal height */
+			overflow-y: auto;
+			/* Enable scrollbars if necessary */
+		}
+
+		.modal-footer {
+			display: flex;
+			justify-content: flex-end;
+			/* Align buttons to the right */
+			padding: 15px;
+			/* Add appropriate padding */
+			border-top: 1px solid #dee2e6;
+			/* Optional: Add a top border for separation */
+			width: 100%;
+			/* Ensure the footer fits within the modal */
+			box-sizing: border-box;
+			/* Prevents overflow due to padding */
+		}
+
+		.custom-modal-width {
+			max-width: 90%;
+			/* Adjust as needed */
+			width: 90%;
+			height: 80%;
+		}
+
+		.custom-modal-widths {
+			max-width: 50%;
+			/* Adjust as needed */
+			width: 50%;
+			height: 80%;
+		}
+
+		.table th,
+		.text-wrap table th {
+			color: rgb(4, 96, 4) !important;
+		}
+
+		.modal-header {
+			background-color: #339966;
+			/* Change to your desired background color */
+			color: white;
+			/* Change to your desired text color */
+		}
+
+		.modal-title {
+			color: white;
+			/* Ensures the title text is also white */
+		}
+
+		.close {
+			color: white;
+			opacity: 1;
+		}
+
+		.close:hover {
+			color: #ccc;
+		}
+
+		table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
+		table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+			top: 0px !important;
+		}
+
+
+		#hotel_table {
+			width: 100%;
+			/* Ensure the table takes up the full width of its container */
+			table-layout: auto;
+			/* Let the browser determine the column widths */
+
+		}
+
+		#hotel_table th,
+		#hotel_table td {
+			white-space: nowrap;
+			/* Prevent text from wrapping */
+			text-overflow: ellipsis;
+			/* Add ellipsis (...) for overflowed content */
+			overflow: hidden;
+			/* Hide overflowed content */
+		}
+
+		.fixed-width-column1 {
+			width: 150px;
+			/* Fixed width for specific columns, adjust as needed */
+		}
+
+		.auto-width {
+			/* No width defined, auto-fit to content */
+		}
+
+		#hotel_table th.auto-width,
+		#hotel_table td.auto-width {
+			width: auto;
+			/* Auto width for content */
+			max-width: 200px;
+			/* Optional: Limit max width */
+		}
+
+		#create_nw_enquiry_btn,
+		#ac_btn_id {
+			background: #339966;
+			color: white;
+			border: 1px solid #006600;
+			border-radius: 12px;
+			backdrop-filter: blur(8px);
+			-webkit-backdrop-filter: blur(8px);
+			padding: 6px 14px;
+			font-size: 16px;
+			font-weight: 600;
+			float: right;
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+		}
+
+		#create_nw_enquiry_btn:hover,
+		#ac_btn_id:hover {
+			background: #006600;
+			transform: scale(1.05);
+		}
+
+		.modal-backdrop.modal-stack {
+			z-index: 1049 !important;
+		}
+
+
+		#enquiry_table {
+			width: 100%;
+			/* Ensure the table takes up the full width of its container */
+			table-layout: auto;
+			/* Let the browser determine the column widths */
+
+		}
+
+		#enquiry_table th,
+		#enquiry_table td {
+			white-space: nowrap;
+			/* Prevent text from wrapping */
+			text-overflow: ellipsis;
+			/* Add ellipsis (...) for overflowed content */
+			overflow: hidden;
+			/* Hide overflowed content */
+		}
+
+		.fixed-width-column1 {
+			width: 150px;
+			/* Fixed width for specific columns, adjust as needed */
+		}
+
+		.auto-width {
+			/* No width defined, auto-fit to content */
+		}
+
+		#enquiry_table th.auto-width,
+		#enquiry_table td.auto-width {
+			width: auto;
+			/* Auto width for content */
+			max-width: 200px;
+			/* Optional: Limit max width */
+		}
+	</style>
+
+
+</head>
+
+<body class="app sidebar-mini">
+
+	<!-- Loader -->
+	<div id="loading">
+		<img src="<?php echo base_url('assets/images/other/loader.svg'); ?>" class="loader-img" alt="Loader">
+	</div>
+
+	<div class="modal fade" id="moreEnquiryModal" data-keyboard="false" data-backdrop="static">
+		<div class="modal-dialog custom-modal-width" role="document">
+
+			<div class="modal-content">
+				<div class="modal-header custom-modal-header">
+					<h6 class="modal-title" id="exampleModalLabel"><span id="morenqspanid"></span><i> (Enquiry - More Details)</i></h6>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body more_enquiry_details">
+
+
+				</div>
+				<div class="modal-footer">
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="modal fade" id="editRequestModal" data-keyboard="false" data-backdrop="static">
+		<div class="modal-dialog custom-modal-width" role="document">
+
+			<div class="modal-content">
+				<div class="modal-header custom-modal-header">
+					<h6 class="modal-title" id="exampleModalLabel"><span id="editreqspanid"></span><i> - Edit Request Details</i></h6>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body edit_req_details">
+
+
+				</div>
+				<div class="modal-footer">
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="modal fade overflow-hidden" id="modal_enquiry" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+		<div class="modal-dialog custom-modal-widths" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="example-Modal3">Enquiry <span id="h_guest_name"></span> - View Details</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body tab_con">
+
+				</div>
+
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-success  ml-auto" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade overflow-hidden" id="modal_tour_edit" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+		<div class="modal-dialog custom-modal-width" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="example-Modal3">Tour Plan View</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body tab_con">
+
+				</div>
+
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-success  ml-auto" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade displaycontent" id="viewCostitiModal" data-keyboard="false" data-backdrop="false">
+		<div class="modal-dialog custom-modal-width" role="document">
+			<div class='modal-content'>
+				<div class="modal-header custom-modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"><b>Costing Sheet - CS-<span id="cs_name_span"></span></b></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="modal-body ct_tariff">
+
+				</div>
+				<div class="modal-footer">
+					<!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade displaycontent" id="viewItineraryModal" data-keyboard="false" data-backdrop="false">
+		<div class="modal-dialog custom-modal-width" role="document">
+			<div class='modal-content'>
+				<div class="modal-header custom-modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"><b>Itinerary View - CS-<span id="iti_name_span"></span></b></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+				</div>
+				<div class="modal-body iti_tariff">
+
+				</div>
+				<div class="modal-footer">
+					<!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="seasonsmodal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog custom-modal-width" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="example-Modal3">Vehicle <span id="ssn_header"></span> - Season Details</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<div class="row">
+						<div class="col-lg-3">
+							<input type="hidden" name="hd_edit" id="hd_edit_ssn" value="0">
+							<label class="form-control-label">Season Name <span style="color: red;">*</span></label>
+							<input class="form-control" type="text" id="season_name">
+						</div>
+						<div class="col-lg-3">
+							<input type="hidden" name="hd_object_id_ssn" id="hd_object_id_ssn" value="">
+							<label class="form-control-label">Start Date <span style="color: red;">*</span></label>
+							<input class="form-control" type="date" id="ssn_start_date">
+						</div>
+						<div class="col-lg-3">
+							<label class="form-control-label">End Date <span style="color: red;">*</span></label>
+							<input class="form-control" type="date" id="ssn_end_date">
+						</div>
+						<div class="col-lg-3">
+
+						</div>
+
+
+					</div>
+					<div class="row">
+						<div class="col-lg-3">
+							<label class="form-control-label">Rate / Day</label>
+							<input class="form-control" type="text" id="rate_per_day" inputmode="decimal" pattern="[0-9]*" maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+						</div>
+						<div class="col-lg-3">
+							<label class="form-control-label">KM Rate</label>
+							<input class="form-control" type="text" id="km_rate" inputmode="decimal" pattern="[0-9]*" maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+						</div>
+						<div class="col-lg-3">
+							<label class="form-control-label">Extra KM Rate</label>
+							<input class="form-control" type="text" id="extra_km_rate" inputmode="decimal" pattern="[0-9]*" maxlength="6" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+						</div>
+
+
+						<div class="col-lg-3" style="padding-top:25px;">
+
+							<button type="button" id="btn_seasons" class="btn btn-success"><span id="ssn_span_btn"></span></button>
+						</div>
+					</div>
+
+					<div id="season-alert" style="padding-top:10px;"></div>
+
+					<div class="row" style="padding-top:5px;">
+						<div class="col-lg-12">
+							<table class="table" id="table_seasons" style="width: 100%;">
+								<thead style="background-color:#c6ecd9;">
+									<tr>
+										<th scope="col">Season Name</th>
+										<th scope="col">Start Date</th>
+										<th scope="col">End Date</th>
+
+										<th scope="col">Rate/Day</th>
+										<th scope="col">KM Rate</th>
+										<th scope="col">Extra KM Rate</th>
+
+										<th scope="col">Edit</th>
+
+									</tr>
+								</thead>
+								<tbody>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="enquiryeditmodal" data-keyboard="false" data-backdrop="static">
+		<div class="modal-dialog custom-modal-width" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="example-Modal3">Enquiry Edit Details : Guest - <span id="enq_edit_header"></span> </h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<div class="row" style="padding-top:5px;">
+						<div class="col-lg-12 cls_enquiry_edit">
+
+
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="ac_check_modal" data-keyboard="false" data-backdrop="static">
+		<div class="modal-dialog custom-modal-width" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="example-Modal3">Hotel Availability Check : Guest - <span id="ac_header"></span> </h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<div class="row" style="padding-top:5px;">
+						<div class="col-lg-12 cls_ac_edit">
+
+
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- PAGE -->
+	<div class="page">
+		<div class="page-main">
+
+			<!-- Top-header opened -->
+			<div class="header-main header sticky">
+				<div class="app-header header top-header navbar-collapse ">
+					<div class="container-fluid">
+						<div class="d-flex">
+							<a class="header-brand" href="index.html">
+								<img src="<?php echo base_url('assets/images/brand/logo.png'); ?>" class="header-brand-img desktop-logo " alt="Dashlot logo">
+								<img src="<?php echo base_url('assets/images/brand/logo1.png'); ?>" class="header-brand-img desktop-logo-1 " alt="Dashlot logo">
+								<img src="<?php echo base_url('assets/images/brand/favicon.png'); ?>" class="mobile-logo" alt="Dashlot logo">
+								<img src="<?php echo base_url('assets/images/brand/favicon1.png'); ?>" class="mobile-logo-1" alt="Dashlot logo">
+							</a>
+							<a href="#" data-toggle="sidebar" class="nav-link icon toggle"><i class="fe fe-align-justify fs-20"></i></a>
+							<div class="d-flex header-left left-header">
+								<div class="d-none d-lg-block horizontal">
+									<ul class="nav">
+										<li class="">
+											<div class="dropdown d-none d-md-flex">
+												<a href="#" class="d-flex nav-link pr-0  pt-2 mt-3 country-flag1" data-toggle="dropdown">
+													<span class="d-flex"><img src="<?php echo base_url('assets/images/roles.jpg'); ?>" alt="img" class="avatar country-Flag mr-2 align-self-center"></span>
+													<div>
+														<span class="d-flex fs-14 mr-3 mt-0"><?php echo session('active_role_name'); ?><span><i class="mdi mdi-chevron-down"></i></span></span>
+													</div>
+												</a>
+												<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+													<?php foreach ($all_roles_assn as $data) : ?>
+														<a href="#" onclick="switchroles(<?php echo $data['role_id']; ?>,'<?php echo $data['role_name']; ?>');" class="dropdown-item d-flex align-items-center mt-2">
+															<div>
+																<span><?php echo $data['role_name']; ?></span>
+															</div>
+														</a>
+													<?php endforeach; ?>
+
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="d-flex header-left left-header">
+								<div class="d-none d-lg-block horizontal">
+									<ul class="nav">
+										<li class="">
+											<div class="dropdown d-none d-md-flex">
+												<a href="#" class="d-flex nav-link pr-0  pt-2 mt-3 country-flag1" data-toggle="dropdown">
+													<span class="d-flex"><img src="<?php echo base_url('assets/images/system.jpg'); ?>" alt="img" class="avatar country-Flag mr-2 align-self-center"></span>
+													<div>
+														<span class="d-flex fs-14 mr-3 mt-0"><?php echo session('system_name'); ?><span><i class="mdi mdi-chevron-down"></i></span></span>
+													</div>
+												</a>
+												<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+													<?php foreach ($all_systems as $datas) : ?>
+														<a href="#" onclick="switchsystems(<?php echo $datas['entity_boolean_id']; ?>,'<?php echo $datas['boolean_name']; ?>');" class="dropdown-item d-flex align-items-center mt-2">
+															<div>
+																<span><?php echo $datas['boolean_name']; ?></span>
+															</div>
+														</a>
+													<?php endforeach; ?>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="d-flex header-right ml-auto">
+								<div class="dropdown header-fullscreen">
+									<a class="nav-link icon full-screen-link" id="fullscreen-button">
+										<i class="mdi mdi-arrow-collapse fs-20"></i>
+									</a>
+								</div>
+
+								<div class="dropdown drop-profile">
+									<a class="nav-link pr-0 leading-none" href="#" data-toggle="dropdown" aria-expanded="false">
+										<div class="profile-details mt-1">
+											<span class="mr-3 mb-0  fs-15 font-weight-semibold"><?php echo session('user_name'); ?></span>
+											<!--<small class="text-muted mr-3">appdeveloper</small>-->
+										</div>
+										<img class="avatar avatar-md brround" src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="image">
+									</a>
+									<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated bounceInDown w-250">
+										<div class="user-profile bg-header-image border-bottom p-3">
+											<div class="user-image text-center">
+												<img class="user-images" src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="image">
+											</div>
+											<div class="user-details text-center">
+												<h4 class="mb-0"><?php echo session('user_name'); ?></h4>
+												<!--<p class="mb-1 fs-13 text-white-50">Jonathan@gmail.com</p>-->
+											</div>
+										</div>
+										<a class="dropdown-item" href="#">
+											<i class="dropdown-icon mdi mdi-account-outline "></i> Profile
+										</a>
+										<a class="dropdown-item" href="#">
+											<i class="dropdown-icon  mdi mdi-settings"></i> Settings
+										</a>
+										<a class="dropdown-item" href="#">
+											<span class="float-right"><span class="badge badge-success">6</span></span>
+											<i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
+										</a>
+										<a class="dropdown-item" href="#">
+											<i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
+										</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">
+											<i class="dropdown-icon mdi mdi-compass"></i> Need help?
+										</a>
+										<a class="dropdown-item mb-1" href="<?= site_url('Login/logout'); ?>">
+											<i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+										</a>
+									</div>
+								</div><!-- Profile -->
+								<!--<div class="sidebar-link">
+										<a href="#" class="nav-link icon" data-toggle="sidebar-right" data-target=".sidebar-right">
+											<i class="fe fe-align-right" ></i>
+										</a>
+									</div>-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Top-header closed -->
+
+			<!-- Sidebar menu-->
+			<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+			<aside class="app-sidebar toggle-sidebar">
+				<div class="app-sidebar__user">
+					<div class="user-body">
+						<img src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="profile-img" class="rounded-circle w-25">
+					</div>
+					<div class="user-info">
+						<a href="#" class=""><span class="app-sidebar__user-name font-weight-semibold"><?php echo session('user_name'); ?></span><br>
+							<!--span class="text-muted app-sidebar__user-designation text-sm">App Developer</span>-->
+						</a>
+					</div>
+				</div>
+				<ul class="side-menu toggle-menu">
+					<?php foreach ($parent_menu as $key1 => $val1) {
+						$img_tmp = $val1['entity_trans_id'] . ".svg";
+					?>
+						<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href=""><span class="icon-menu-img"><img src="<?php echo base_url('assets/images/svgs/' . $img_tmp); ?>" class="side_menu_img svg-1" alt="image"></span><span class="side-menu__label"><?php echo $val1['entity_trans_name']; ?></span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<?php foreach ($sub_menu as $key2 => $val2) {
+									if ($val1['entity_trans_id'] == $val2['prs_parent_id']) {
+										foreach ($all_menus as $key3 => $val3) {
+											if ($val3['entity_trans_id'] == $val2['entity_trans_id']) {
+								?>
+												<li><a class="slide-item" href="<?= site_url($val2['menu_link']); ?>"><span><?php echo $val2['entity_trans_name']; ?></span></a></li>
+								<?php }
+										}
+									}
+								} ?>
+							</ul>
+						</li>
+					<?php } ?>
+				</ul>
+			</aside>
+			<!-- Sidemenu closed -->
+
+			<!-- App-content opened -->
+			<div class="app-content icon-content">
+				<div class="section">
+
+					<!-- Page-header opened -->
+					<div class="page-header">
+						<div class="page-leftheader">
+							<!--<h4 class="page-title mb-0"><?php echo $object_class_name; ?></h4>-->
+							<button class="btn btn-success btn-sm" onclick="history.back()" title="Go Back"><i class="fa fa-arrow-left"></i> Back</button>
+						</div>
+
+
+
+						<div class="page-rightheader">
+							<div class="ml-3 ml-auto d-flex">
+								<!--<div class="mt-3 mt-md-0">
+										<div class="border-right pr-4 mt-1 d-xl-block">
+											<p class="text-muted mb-2">Category</p>
+											<h6 class="font-weight-semibold mb-0">All Categories</h6>
+										</div>
+									</div>
+									<div class="mt-3 mt-md-0">
+										<div class="border-right pl-0 pl-md-4 pr-4 mt-1 d-xl-block">
+											<p class="text-muted mb-1">Customer Rating</p>
+											<div class="wideget-user-rating">
+												<a href="#">
+													<i class="fa fa-star text-warning"></i>
+												</a>
+												<a href="#">
+													<i class="fa fa-star text-warning"></i>
+												</a>
+												<a href="#">
+													<i class="fa fa-star text-warning"></i>
+												</a>
+												<a href="#">
+													<i class="fa fa-star text-warning"></i>
+												</a>
+												<a href="#">
+													<i class="fa fa-star-o text-warning mr-1"></i>
+												</a>
+												<span class="">(4.5/5)</span>
+											</div>
+										</div>
+									</div>-->
+								<span class="mt-3 mt-md-0 pg-header">
+									<a href="<?= site_url('Enquiry/add_object_enquiry/' . $object_class_id); ?>" class="btn btn-success ml-0 ml-md-4 mt-1 " id="create_nw_enquiry_btn"><i class="typcn typcn-plus mr-1"></i>Create New Enquiry</a>
+								</span>
+							</div>
+						</div>
+					</div>
+					<!-- Page-header closed -->
+
+					<div class="row">
+						<div class="col-md-12 col-lg-12">
+							<div class="card">
+								<?php if (session()->getFlashdata('error')): ?>
+									<div class="alert alert-danger" id="error-alert">
+										<?= session()->getFlashdata('error') ?>
+									</div>
+
+									<script>
+										setTimeout(function() {
+											var alertBox = document.getElementById("error-alert");
+											if (alertBox) {
+												alertBox.style.transition = "opacity 0.5s ease";
+												alertBox.style.opacity = "0";
+												setTimeout(() => alertBox.remove(), 500);
+											}
+										}, 3000);
+									</script>
+								<?php endif; ?>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table id="enquiry_table" class="table table-bordered table-striped" cellspacing="0" width="100%">
+											<thead style="background-color:#c6ecd9;">
+												<tr>
+													<th>Guest Name</th>
+													<th>Enq Date</th>
+													<th>Ref No</th>
+													<th>Status</th>
+													<th>Start Date</th>
+													<th>Night</th>
+													<th>End Date</th>
+
+													<th>Actions</th>
+													<th>VCS</th>
+
+													<th>Arrival</th>
+													<th>Departure</th>
+													<th>Agent Name</th>
+													<th>Adults</th>
+													<th>System</th>
+													<th>Created By</th>
+													<th>Assigned</th>
+
+
+
+													<!--<th>CS & Itinerary View</th>-->
+
+
+
+
+												</tr>
+											</thead>
+											<tbody>
+
+											</tbody>
+										</table>
+
+									</div>
+								</div>
+								<!-- table-wrapper -->
+							</div>
+							<!-- section-wrapper -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- App-content closed -->
+		</div>
+
+		<!-- Right-sidebar-->
+
+		<!-- Right-sidebar-closed -->
+
+		<!-- Footer opened -->
+		<footer class="footer-main icon-footer">
+			<div class="container">
+				<div class="  mt-2 mb-2 text-center">
+					Copyright © 2025 <a href="#" class="fs-14 text-primary">KHM</a>. Designed by <a href="https://megatrendkms.co.in" class="fs-14 text-primary" target="_blank">Megatrend Knowledge Management Systems Pvt Ltd</a> All rights reserved.
+				</div>
+			</div>
+		</footer>
+		<!-- Footer closed -->
+	</div>
+
+	<!-- Back-to-top -->
+	<a href="#top" id="back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+	<!-- Jquery-scripts -->
+	<script src="<?php echo base_url('assets/js/vendors/jquery-3.2.1.min.js'); ?>"></script>
+
+	<!-- Moment js-->
+	<script src="<?php echo base_url('assets/plugins/moment/moment.min.js'); ?>"></script>
+
+	<!-- Bootstrap-scripts js -->
+	<script src="<?php echo base_url('assets/js/vendors/bootstrap.bundle.min.js'); ?>"></script>
+
+	<!-- Sparkline JS-->
+	<script src="<?php echo base_url('assets/js/vendors/jquery.sparkline.min.js'); ?>"></script>
+
+	<!-- Bootstrap-daterangepicker js -->
+	<script src="<?php echo base_url('assets/plugins/bootstrap-daterangepicker/daterangepicker.js'); ?>"></script>
+
+	<!-- Bootstrap-datepicker js -->
+	<script src="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js'); ?>"></script>
+
+	<!-- Chart-circle js -->
+	<script src="<?php echo base_url('assets/js/vendors/circle-progress.min.js'); ?>"></script>
+
+	<!-- Rating-star js -->
+	<script src="<?php echo base_url('assets/plugins/rating/jquery.rating-stars.js'); ?>"></script>
+
+	<!-- Clipboard js -->
+	<script src="<?php echo base_url('assets/plugins/clipboard/clipboard.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/plugins/clipboard/clipboard.js'); ?>"></script>
+
+	<!-- Prism js -->
+	<script src="<?php echo base_url('assets/plugins/prism/prism.js'); ?>"></script>
+
+	<!-- Custom scroll bar js-->
+	<script src="<?php echo base_url('assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js'); ?>"></script>
+
+	<!-- Nice-select js-->
+	<script src="<?php echo base_url('assets/plugins/jquery-nice-select/js/jquery.nice-select.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/plugins/jquery-nice-select/js/nice-select.js'); ?>"></script>
+
+	<!-- P-scroll js -->
+	<script src="<?php echo base_url('assets/plugins/p-scroll/p-scroll.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/plugins/p-scroll/p-scroll-1.js'); ?>"></script>
+
+	<!-- Sidemenu js-->
+	<script src="<?php echo base_url('assets/plugins/sidemenu/icon-sidemenu.js'); ?>"></script>
+
+	<!-- JQVMap -->
+	<script src="<?php echo base_url('assets/plugins/jqvmap/jquery.vmap.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/plugins/jqvmap/maps/jquery.vmap.world.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/plugins/jqvmap/jquery.vmap.sampledata.js'); ?>"></script>
+
+	<!-- Apexchart js-->
+	<script src="<?php echo base_url('assets/js/apexcharts.js'); ?>"></script>
+
+	<!-- Chart js-->
+	<script src="<?php echo base_url('assets/plugins/chart/chart.min.js'); ?>"></script>
+
+	<!-- Index js -->
+	<script src="<?php echo base_url('assets/js/index.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/index-map.js'); ?>"></script>
+
+	<!-- Rightsidebar js -->
+	<script src="<?php echo base_url('assets/plugins/sidebar/sidebar.js'); ?>"></script>
+
+	<!-- Custom js -->
+	<script src="<?php echo base_url('assets/js/custom.js'); ?>"></script>
+
+
+
+
+	<!-- Bootstrap-colorpicker js -->
+	<script src="<?php echo base_url('assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js'); ?>"></script>
+
+	<!-- Bootstrap-timepicker js -->
+	<script src="<?php echo base_url('assets/plugins/bootstrap-timepicker/bootstrap-timepicker.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/plugins/select2/select2.full.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/select2.js'); ?>"></script>
+
+
+
+	<script src="<?php echo base_url('assets/plugins/datatable/jquery.dataTables.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/plugins/datatable/dataTables.bootstrap4.min.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/plugins/datatable/datatable.js'); ?>"></script>
+
+	<script src="<?php echo base_url('assets/js/dataTables.responsive.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/dataTables.buttons.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/js/buttons.colVis.js'); ?>"></script>
+
+	<script src="<?php echo base_url('assets/plugins/multipleselect/multiple-select.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/plugins/multipleselect/multi-select.js'); ?>"></script>
+</body>
+
+</html>
+
+<script>
+	$(document).ready(function() {
+		var object_class_id = "<?php echo $object_class_id; ?>";
+		var parent_id = "<?php echo $parent_id; ?>";
+		var hierarchy_id = "<?php echo $hierarchy_id; ?>";
+
+		$('#enquiry_table').DataTable({
+			'processing': true,
+			'serverSide': true,
+			'responsive': true,
+			'serverMethod': 'post',
+			'pageLength': 10,
+			'dom': 'Bfrtip',
+			'buttons': [
+				'colvis'
+			],
+			'ajax': {
+				'url': '<?= site_url('Enquiry/enquiry_list_data'); ?>',
+				'type': 'POST',
+				'data': {
+					'object_class_id': object_class_id
+				}
+			},
+			'columns': [{
+					data: 'object_name'
+				},
+				{
+					data: 'enq_date'
+				},
+
+
+				{
+					data: 'ref_no'
+				},
+				{
+					data: 'edit_request',
+					render: function(data, type, row, meta) {
+						if (data == 2) {
+							return 'Edit';
+						} else {
+							return row.status_name;
+						}
+					}
+				},
+				{
+					data: 'start_date'
+				},
+				{
+					data: 'no_of_night'
+				},
+				{
+					data: 'end_date'
+				},
+
+				{
+					data: 'object_id',
+					orderable: false,
+					render: function(data, type, row, meta) {
+						let obj_name = row.object_name.replace(/ /g, "_");
+						/*if(row.enquiry_edit_request_id > 0 && parent_id < 11){
+							if (parent_id == 2 || parent_id == 7) {
+								return '<a><i class="fa fa-ban" aria-hidden="true"></i></a>';
+							}
+							else{
+								if(row.cs_confirmed_id > 0){
+									return '<a><i class="fa fa-ban" aria-hidden="true"></i></a>';
+								}
+								else{
+									return '<a class="enquiry_view" data-id-object=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Enquiry View" href=""><i class="fa fa-eye" style="color:#003366"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/tour_plan/'); ?>'+data+'" data-toggle="tooltip" title="Tour Plan"><i class="fa fa-bus" aria-hidden="true" style="color:#ff0066"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/itinerary/'); ?>'+data+'/0" data-toggle="tooltip" title="Itinerary Details"><i class="fa fa-calendar" aria-hidden="true" style="color:#003300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/followup_form/'); ?>'+row.enquiry_header_id+'/'+row.cs_confirmed_id+'" data-toggle="tooltip" title="Follow Up"><i class="fa fa-phone-square" aria-hidden="true" style="color:#cc3300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/payments/'); ?>'+row.enquiry_header_id+'/'+row.cs_confirmed_id+'" data-toggle="tooltip" title="Payments"><i class="fa fa-inr" aria-hidden="true" style="color:#000099"></i></a> &nbsp;&nbsp; <a class="enquiry_edit_form" data-id-object=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Enquiry Edit" href=""><i class="fa fa-edit" style="color:#800000"></i></a>';
+								}
+							}
+						}else{
+							return '<a><i class="fa fa-ban" aria-hidden="true"></i></a>';
+						}	*/
+						if (row.edit_request == 1) {
+							return '<a class="enquiry_view" data-id-object=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Enquiry View" href=""><i class="fa fa-eye" style="color:#003366"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/tour_plan/'); ?>' + data + '" data-toggle="tooltip" title="Tour Plan"><i class="fa fa-bus" aria-hidden="true" style="color:#ff0066"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/itinerary/'); ?>' + data + '/0" data-toggle="tooltip" title="Itinerary Details"><i class="fa fa-calendar" aria-hidden="true" style="color:#003300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/followup_form/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Follow Up"><i class="fa fa-phone-square" aria-hidden="true" style="color:#cc3300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/payments/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Payments"><i class="fa fa-inr" aria-hidden="true" style="color:#000099"></i></a>';
+						}
+						else if(row.cs_confirmed_id > 0){
+							return '<a class="enquiry_view" data-id-object=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Enquiry View" href=""><i class="fa fa-eye" style="color:#003366"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/tour_plan/'); ?>' + data + '" data-toggle="tooltip" title="Tour Plan"><i class="fa fa-bus" aria-hidden="true" style="color:#ff0066"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/itinerary/'); ?>' + data + '/0" data-toggle="tooltip" title="Itinerary Details"><i class="fa fa-calendar" aria-hidden="true" style="color:#003300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/followup_form/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Follow Up"><i class="fa fa-phone-square" aria-hidden="true" style="color:#cc3300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/payments/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Payments"><i class="fa fa-inr" aria-hidden="true" style="color:#000099"></i></a>';
+						}
+						else{
+							return '<a class="enquiry_view" data-id-object=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Enquiry View" href=""><i class="fa fa-eye" style="color:#003366"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/tour_plan/'); ?>' + data + '" data-toggle="tooltip" title="Tour Plan"><i class="fa fa-bus" aria-hidden="true" style="color:#ff0066"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/itinerary/'); ?>' + data + '/0" data-toggle="tooltip" title="Itinerary Details"><i class="fa fa-calendar" aria-hidden="true" style="color:#003300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/followup_form/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Follow Up"><i class="fa fa-phone-square" aria-hidden="true" style="color:#cc3300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/payments/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Payments"><i class="fa fa-inr" aria-hidden="true" style="color:#000099"></i></a> &nbsp;&nbsp; <a class="enquiry_edit_form" data-id-object=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Enquiry Edit" href=""><i class="fa fa-edit" style="color:#800000"></i></a>';
+						}
+					}
+				},
+				{
+					data: 'enquiry_header_id',
+					orderable: false,
+					render: function(data, type, row, meta) {
+						let obj_name = row.object_name.replace(/ /g, "_");
+						if (row.enquiry_edit_request_id > 0 && parent_id < 11) {
+							if (parent_id == 2 || parent_id == 7) {
+								return '<a class="ac_check_form" data-hid=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" data-original-title="Availability Check" href=""><i class="fa fa-list-ol" style="color:#003300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/confirm_costing_sheet/'); ?>' + data + '/' + row.object_id + '" data-toggle="tooltip" title="View CS"><i class="fa fa-file-pdf-o" aria-hidden="true" style="color:#ff0066"></i></a>';
+							} else {
+								return '<a href="<?= site_url('Enquiry/confirm_costing_sheet/'); ?>' + data + '/' + row.object_id + '" data-toggle="tooltip" title="View CS"><i class="fa fa-file-pdf-o" aria-hidden="true" style="color:#ff0066"></i></a>';
+							}
+						} else {
+							return '<a><i class="fa fa-ban" aria-hidden="true"></i></a>';
+						}
+					}
+				},
+
+				{
+					data: 'arrival_loc'
+				},
+				{
+					data: 'departure_loc'
+				},
+				{
+					data: 'agent_name'
+				},
+				{
+					data: 'no_of_adult'
+				},
+				{
+					data: 'enq_type_id',
+					render: function(data, type, row, meta) {
+						if (data == 3) {
+							return 'B2B';
+						} else {
+							return 'B2C';
+						}
+					}
+				},
+				{
+					data: 'guest_name'
+				},
+				{
+					data: 'enquiry_header_id',
+					render: function(data, type, row, meta) {
+						let obj_name = row.object_name.replace(/ /g, "_");
+						if (row.enquiry_edit_request_id > 0) {
+							return 'Executive : ' + row.executive + ' <a class="more_enquiry" data-id-name=' + obj_name + ' data-id=' + data + ' href=""><i class="fa fa-plus-circle" style="color:#006600"></i></a>';
+						} else {
+							if (hierarchy_id == 1) {
+								return 'Edit Request : <a class="edit_request_view" data-id-name=' + obj_name + ' data-id=' + data + ' href=""><i class="fa fa-plus-circle" style="color:#006600"></i></a>';
+							} else {
+								return '<a><i class="fa fa-ban" aria-hidden="true"></i></a>';
+							}
+						}
+					}
+				}
+
+
+
+				/*{
+                data: 'object_id',
+				orderable: false,
+                render: function (data, type, row, meta) {
+					let obj_name = row.object_name.replace(/ /g, "_");
+					if(row.enquiry_edit_request_id > 0){
+						if (type == 'display' && row.extension_ref_id) {
+							return '<a href="" class="view_cost_sheet" data-did='+row.enquiry_ref_id+' data-tid='+row.tour_plan_ref_id+' data-eid='+row.extension_ref_id+' data-id='+row.enquiry_detail_details_id+'><i class="fa fa-file-text-o" style="color:rgb(7, 138, 2); padding-right:10px;" type="button" title="Costing Sheet"></i></a>  <a href="" class="view_iti_sheet" data-did='+row.enquiry_ref_id+' data-tid='+row.tour_plan_ref_id+' data-eid='+row.extension_ref_id+' data-id='+row.enquiry_detail_details_id+'><i class="fa fa-file-text" style="color:rgb(7, 138, 2); padding-right:10px;" type="button" title="Itinerary"></i></a>';
+						
+						}
+						else{
+							return '<a><i class="fa fa-ban" aria-hidden="true"></i></a>';
+						}
+					}else{
+						return '<a><i class="fa fa-ban" aria-hidden="true"></i></a>';
+					}	
+                }
+            },*/
+
+
+
+
+
+			]
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).on('click', '.season_form', function(e) {
+		e.preventDefault();
+		var v_names = $(this).attr('data-id-name');
+		var object_id = $(this).attr('data-id-object');
+		let vehicle_name = v_names.replace(/_/g, " ");
+		$('#ssn_header').html(vehicle_name);
+		season_form_datatable(object_id);
+	});
+
+	$(document).on('click', '#btn_seasons', function(e) {
+		e.preventDefault();
+		var hd_edit_ssn = $('#hd_edit_ssn').val();
+		var object_id = $('#hd_object_id_ssn').val();
+		var start_date = $('#ssn_start_date').val();
+		var end_date = $('#ssn_end_date').val();
+		var season_name = $('#season_name').val();
+
+
+		var rate_per_day = $('#rate_per_day').val();
+		var extra_km_rate = $('#extra_km_rate').val();
+		var km_rate = $('#km_rate').val();
+		if (season_name == '' || season_name == null || season_name == 'undefined') {
+			alert("Please Enter Season Name");
+		} else if (start_date == '' || start_date == null || start_date == 'undefined') {
+			alert("Please select Start Date");
+		} else if (end_date == '' || end_date == null || end_date == 'undefined') {
+			alert("Please select End Date");
+		} else if (start_date > end_date) {
+			alert("Start date must be less than or equal to end date");
+		} else {
+			$.ajax({
+				url: '<?= site_url('Dashboard/addnewvehSeasons'); ?>',
+				method: 'POST',
+				data: {
+					hd_edit_ssn: hd_edit_ssn,
+					object_id: object_id,
+					start_date: start_date,
+					end_date: end_date,
+					season_name: season_name,
+					rate_per_day: rate_per_day,
+					extra_km_rate: extra_km_rate,
+					km_rate: km_rate
+				},
+				dataType: 'json',
+				success: function(response) {
+					if (response == 1) {
+						alertHtml = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+								<span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>
+								<span class="alert-inner--text"><strong>Success!</strong> Vehicle Season Added.</span>
+								<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>`;
+
+						season_form_datatable(object_id);
+						$('#ssn_start_date').val('');
+						$('#ssn_end_date').val('');
+						$('#season_name').val('');
+						$('#max_pax').val('');
+						$('#rate_per_day').val('');
+						$('#extra_km_rate').val('');
+						$('#max_km_per_day').val('');
+					} else if (response == 2) {
+						alertHtml = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+								<span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>
+								<span class="alert-inner--text"><strong>Success!</strong> Vehicle Season Updated.</span>
+								<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>`;
+
+						season_form_datatable(object_id);
+						$('#ssn_start_date').val('');
+						$('#ssn_end_date').val('');
+						$('#season_name').val('');
+						$('#max_pax').val('');
+						$('#rate_per_day').val('');
+						$('#extra_km_rate').val('');
+						$('#max_km_per_day').val('');
+					} else {
+						alertHtml = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+								<span class="alert-inner--icon"><i class="fe fe-info"></i></span>
+								<span class="alert-inner--text"><strong>Warning!</strong> This season already exist!</span>
+								<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>`;
+
+					}
+					$('#season-alert').html(alertHtml);
+					setTimeout(function() {
+						$(".alert").fadeOut("slow", function() {
+							$(this).remove();
+						});
+					}, 2000);
+				},
+				error: function(xhr, status, error) {
+					console.error('Error adding node:', error);
+				}
+			});
+		}
+	});
+
+	function season_form_datatable(object_id) {
+		if ($.fn.DataTable.isDataTable('#table_seasons')) {
+			$('#table_seasons').DataTable().destroy();
+		}
+		var table = $('#table_seasons').DataTable({
+			'processing': true,
+			'serverSide': true,
+			'serverMethod': 'post',
+			'ajax': {
+				'url': '<?= site_url('Dashboard/veh_seasons_modal'); ?>',
+				'data': {
+					'object_id': object_id
+				}
+			},
+			'columns': [{
+					data: 'season_name'
+				},
+				{
+					data: 'sdate'
+				},
+				{
+					data: 'edate'
+				},
+				{
+					data: 'rate_per_day'
+				},
+				{
+					data: 'km_rate'
+				},
+				{
+					data: 'extra_km_rate'
+				},
+				{
+					data: 'season_id',
+					render: function(data, type, row, meta) {
+						if (data) {
+							return '<a href="" class="ssn_edit_id" data-id="' + data + '"><i class="fa fa-edit" style="color:rgb(7, 138, 2); padding-right:10px;" type="button" title="Edit Season"></i></a>';
+						} else {
+							return '';
+						}
+					}
+				}
+
+			],
+			paging: true, // Ensure paging is enabled
+			pageLength: 10, // Number of rows per page
+			lengthMenu: [5, 10, 25, 50], // Options for rows per page
+			order: [
+				[0, 'asc']
+			] // Default sorting
+		});
+		/*$('#refreshButton').on('click', function() {
+		    table.ajax.reload();
+		});*/
+		$('#hd_object_id_ssn').val(object_id);
+		$('#hd_edit_ssn').val(0);
+		$('#ssn_span_btn').html("Save");
+		$('#seasonsmodal').modal('show');
+	}
+</script>
+<script type="text/javascript">
+	$(document).on('click', '.ssn_edit_id', function(e) {
+		e.preventDefault();
+		var season_id = $(this).attr('data-id');
+		$.ajax({
+			url: '<?= site_url('Dashboard/fetchvehSeasonDetails'); ?>',
+			method: 'POST',
+			data: {
+				season_id: season_id
+			},
+			dataType: 'json',
+			success: function(response) {
+				$('#hd_edit_ssn').val(season_id);
+				$('#ssn_span_btn').html("Update");
+				$('#ssn_start_date').val(response[0].season_start_date);
+				$('#ssn_end_date').val(response[0].season_end_date);
+				$('#season_name').val(response[0].season_name);
+				$('#rate_per_day').val(response[0].rate_per_day);
+				$('#extra_km_rate').val(response[0].extra_km_rate);
+				$('#km_rate').val(response[0].km_rate);
+			},
+			error: function(xhr, status, error) {
+				console.error('Error fetching weekend data:', error);
+			}
+		});
+	});
+</script>
+<script>
+	function switchroles(role_id, role_name) {
+		const newUrl = '<?php echo site_url('Dashboard'); ?>'
+		$.ajax({
+			url: '<?php echo site_url('Dashboard/system_role_change'); ?>',
+			type: 'POST',
+			data: {
+				role_id: role_id,
+				role_name: role_name
+			},
+			success: function(response) {
+				location.reload();
+
+			},
+			error: function(xhr, status, error) {
+				// Handle any errors
+				console.error(error);
+			}
+		});
+	}
+</script>
+<script>
+	function switchsystems(system_id, system_name) {
+		const newUrl = '<?php echo site_url('Dashboard/add_entity/3'); ?>'
+		$.ajax({
+			url: '<?php echo site_url('Dashboard/khm_system_change'); ?>',
+			type: 'POST',
+			data: {
+				system_id: system_id,
+				system_name: system_name
+			},
+			success: function(response) {
+				location.reload();
+
+			},
+			error: function(xhr, status, error) {
+				// Handle any errors
+				console.error(error);
+			}
+		});
+	}
+</script>
+<script type="text/javascript">
+	$(document).on('click', '.enquiry_view', function(e) {
+		e.preventDefault();
+		var v_names = $(this).attr('data-id-name');
+		var object_id = $(this).attr('data-id-object');
+		var guest_name = v_names.replace(/_/g, " ");
+		var html = '';
+		var vehs = '';
+		$.ajax({
+			url: '<?= site_url('Enquiry/fetchEnquiryDetails'); ?>',
+			method: 'POST',
+			data: {
+				object_id: object_id
+			},
+			dataType: 'json',
+			success: function(response) {
+				if (response[0].meal_plan == 1) {
+					var meal_plan = "EP";
+				} else if (response[0].meal_plan == 2) {
+					var meal_plan = "CP";
+				} else if (response[0].meal_plan == 3) {
+					var meal_plan = "MAP";
+				} else if (response[0].meal_plan == 4) {
+					var meal_plan = "AP";
+				} else {
+					var meal_plan = "";
+				}
+				let vehicleData = JSON.parse(response[0].vehicle_type_id);
+
+				$.each(vehicleData, function(index, item) {
+					vehs += "Vehicle Model: " + item.vehicle_model_name + ", Count: " + item.vehicle_count + "<br>";
+				});
+				if (response.length > 0) {
+					if (response[0].enquiry_source == 1) {
+						var s_name = "Email";
+					} else if (response[0].enquiry_source == 2) {
+						var s_name = "Reference";
+					} else if (response[0].enquiry_source == 3) {
+						var s_name = "Phone";
+					} else {
+						var s_name = "Others";
+					}
+					$('#h_guest_name').html(guest_name);
+					html += '<table class="table">';
+					html += '<tr>';
+					html += '<th> Guest Name </th>';
+					html += '<td>' + response[0].object_name + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Enquiry Date </th>';
+					html += '<td>' + response[0].enq_date + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Executive Name </th>';
+					html += '<td>' + response[0].guest_name + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Agent Name </th>';
+					html += '<td>' + response[0].agent_name + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Start Date </th>';
+					html += '<td>' + response[0].start_date + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> No Of Nights </th>';
+					html += '<td>' + response[0].no_of_night + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> End Date </th>';
+					html += '<td>' + response[0].end_date + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Source </th>';
+					html += '<td>' + s_name + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Arrival </th>';
+					html += '<td>' + response[0].arrival_loc + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Departure </th>';
+					html += '<td>' + response[0].departure_loc + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> No Of Adult </th>';
+					html += '<td>' + response[0].no_of_adult + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> No Of Child With Bed</th>';
+					html += '<td>' + response[0].no_of_child_with_bed + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> No Of Child Without Bed </th>';
+					html += '<td>' + response[0].no_of_child_without_bed + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Total No Of Pax </th>';
+					html += '<td>' + response[0].total_no_of_pax + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Double Room </th>';
+					html += '<td>' + response[0].no_of_double_room + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Single Room </th>';
+					html += '<td>' + response[0].no_of_single_room + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Extra Bed </th>';
+					html += '<td>' + response[0].no_of_extra_bed + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> GSTIN </th>';
+					html += '<td>' + response[0].gstin + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Meal Plan </th>';
+					html += '<td>' + meal_plan + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Hub Location </th>';
+					html += '<td>' + response[0].hub_location_name + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Hotel Category </th>';
+					html += '<td>' + response[0].hotel_category_name + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Vehicle Type </th>';
+					html += '<td>' + vehs + '</td>';
+					html += '</tr>';
+					html += '</table>';
+					$('.tab_con').html(html);
+					$('#modal_enquiry').modal('show');
+
+				} else {
+					//$('#not_found').html("");
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error('Error fetching weekend data:', error);
+			}
+		});
+	});
+</script>
+<script type="text/javascript">
+	$(document).on('click', '.enquiry_edit_form', function(e) {
+		e.preventDefault();
+		var guest_names = $(this).attr('data-id-name');
+		var object_id = $(this).attr('data-id-object');
+		var object_class_id = "<?php echo $object_class_id; ?>";
+		let guest_name = guest_names.replace(/_/g, " ");
+
+		$.ajax({
+			url: '<?= site_url('Enquiry/get_all_enquiry_foredit'); ?>',
+			method: 'POST',
+			data: {
+				object_id: object_id,
+				object_class_id: object_class_id,
+				guest_name: guest_name
+			},
+			dataType: 'html',
+			success: function(response) {
+				$('#enq_edit_header').html(guest_name);
+				$('.cls_enquiry_edit').html(response);
+				$('#enquiryeditmodal').modal('show');
+
+			},
+			error: function(xhr, status, error) {
+				console.error('Error', error);
+			}
+		});
+	});
+</script>
+<script type="text/javascript">
+	$(document).on('click', '.ac_check_form', function(e) {
+		e.preventDefault();
+		var guest_names = $(this).attr('data-id-name');
+		var enquiry_header_id = $(this).attr('data-hid');
+		let guest_name = guest_names.replace(/_/g, " ");
+
+		$.ajax({
+			url: '<?= site_url('Enquiry/availabilitycheckform'); ?>',
+			method: 'POST',
+			data: {
+				enquiry_header_id: enquiry_header_id
+			},
+			dataType: 'html',
+			success: function(response) {
+				$('#ac_header').html(guest_name);
+				$('.cls_ac_edit').html(response);
+				$('#ac_check_modal').modal('show');
+
+			},
+			error: function(xhr, status, error) {
+				console.error('Error', error);
+			}
+		});
+	});
+</script>
+
+<script>
+	$(document).on('show.bs.modal', '.modal', function() {
+		var zIndex = 1050 + (10 * $('.modal:visible').length);
+		$(this).css('z-index', zIndex);
+
+		setTimeout(function() {
+			$('.modal-backdrop:not(.modal-stack)')
+				.first()
+				.css('z-index', zIndex - 1)
+				.addClass('modal-stack');
+		}, 0);
+	});
+	$(document).on('click', '.view_cost_sheet', function(e) {
+		e.preventDefault();
+
+		var id = $(this).data('id');
+		var extension_ref_id = $(this).data('eid');
+		var tourplan_ref_id = $(this).data('tid');
+		var enq_ref_id = $(this).data('did');
+
+		$.ajax({
+			type: "POST",
+			url: "<?= site_url('Enquiry/viewCostingSheet'); ?>",
+			data: {
+				id: id,
+				extension_ref_id: extension_ref_id,
+				tourplan_ref_id: tourplan_ref_id,
+				enq_ref_id: enq_ref_id
+			},
+			dataType: 'html',
+			success: function(response) {
+				$('.ct_tariff').html(response);
+				$('#cs_name_span').text(id);
+				$('#viewCostitiModal').appendTo('body');
+				$('#viewCostitiModal').modal('show');
+				$('#viewCostitiModal').on('shown.bs.modal', function() {
+					tinymce.remove('#cost_sheet_template');
+					tinyMCE.init({
+						theme: "advanced",
+						theme_advanced_toolbar_location: "top",
+						theme_advanced_toolbar_align: "left",
+						mode: "exact",
+						elements: "cost_sheet_template",
+						readonly: true
+					});
+				});
+			}
+		});
+	});
+
+
+	$(document).on('click', '.view_cost_sheet_edit', function(e) {
+		e.preventDefault();
+
+		var id = $(this).data('id');
+		var extension_ref_id = $(this).data('eid');
+		var tourplan_ref_id = $(this).data('tid');
+		var enq_ref_id = $(this).data('did');
+
+		$.ajax({
+			type: "POST",
+			url: "<?= site_url('Enquiry/viewCostingSheet'); ?>",
+			data: {
+				id: id,
+				extension_ref_id: extension_ref_id,
+				tourplan_ref_id: tourplan_ref_id,
+				enq_ref_id: enq_ref_id
+			},
+			dataType: 'html',
+			success: function(response) {
+				$('.ct_tariff').html(response);
+				$('#cs_name_span').text(id);
+				$('#viewCostitiModal').appendTo('body');
+				$('#viewCostitiModal').modal('show');
+				$('#viewCostitiModal').on('shown.bs.modal', function() {
+					tinymce.remove('#cost_sheet_template');
+					tinyMCE.init({
+						theme: "advanced",
+						theme_advanced_toolbar_location: "top",
+						theme_advanced_toolbar_align: "left",
+						mode: "exact",
+						elements: "cost_sheet_template",
+						readonly: true
+					});
+				});
+			}
+		});
+	});
+</script>
+
+<script>
+	$(document).on('click', '.view_iti_sheet', function(e) {
+		e.preventDefault();
+
+		var id = $(this).data('id');
+		var extension_ref_id = $(this).data('eid');
+		var tourplan_ref_id = $(this).data('tid');
+		var enq_ref_id = $(this).data('did');
+
+		$.ajax({
+			type: "POST",
+			url: "<?= site_url('Enquiry/viewItinerarySheet'); ?>",
+			data: {
+				id: id,
+				extension_ref_id: extension_ref_id,
+				tourplan_ref_id: tourplan_ref_id,
+				enq_ref_id: enq_ref_id
+			},
+			dataType: 'html',
+			success: function(response) {
+				$('.iti_tariff').html(response);
+				$('#iti_name_span').text(id);
+				$('#viewItineraryModal').appendTo('body');
+				$('#viewItineraryModal').modal('show');
+				$('#viewItineraryModal').on('shown.bs.modal', function() {
+					tinymce.remove('#iti_sheet_template');
+					tinyMCE.init({
+						theme: "advanced",
+						theme_advanced_toolbar_location: "top",
+						theme_advanced_toolbar_align: "left",
+						mode: "exact",
+						elements: "iti_sheet_template",
+						readonly: true
+					});
+				});
+			}
+		});
+	});
+</script>
+
+<script>
+	$(document).on('click', '.tour_view_edit', function() {
+		var object_id = $(this).attr('data-id-object');
+		var enquiry_header_id = $(this).attr('data-id-head');
+		var enquiry_details_id = $(this).attr('data-id-det');
+		var extension_ref_id = $(this).attr('data-id-ext');
+		var hotel_categories = <?php echo json_encode($hotel_categories); ?>;
+
+
+		$.ajax({
+			url: "<?= site_url('Enquiry/getselectedtourplandetails'); ?>",
+			method: "POST",
+			data: {
+				object_id: object_id,
+				enquiry_header_id: enquiry_header_id,
+				enquiry_details_id: enquiry_details_id
+			},
+			dataType: 'json',
+			success: function(data) {
+				console.log(data);
+				var hotel_category_exist = data[0].hotel_category;
+				var meal_plan_exist = data[0].meal_plan;
+				var no_of_night = data[0].no_of_night;
+				var total_no_of_pax = data[0].total_no_of_pax;
+				var no_of_adult = data[0].no_of_adult;
+				var no_of_child_with_bed = data[0].no_of_child_with_bed;
+				var no_of_child_without_bed = data[0].no_of_child_without_bed;
+				var no_of_double_room = data[0].no_of_double_room;
+				var no_of_single_room = data[0].no_of_single_room;
+				var no_of_extra_bed = data[0].no_of_extra_bed;
+				var is_vehicle_required = data[0].is_vehicle_required;
+				var is_quick_quote = data[0].is_quick_quote;
+				var vehicle_models = JSON.parse(data[0].vehicle_type_id);
+
+				var child_t_d = 0;
+				var child_t_s = 0;
+				var child_wb_t_d = 0;
+				var child_wb_t_s = 0;
+				var extra_t_d = 0;
+				var extra_t_s = 0;
+				var room_t_d = 0;
+				var room_t_s = 0;
+
+				var start_date = data[0].start_date;
+
+				var totalDays = 0;
+				var vid_t;
+				var v_day_rent;
+				var v_max_km_day;
+				var v_extra_km_rate;
+				var v_veh_total;
+				var v_veh_header;
+
+				$.ajax({
+					url: '<?= site_url('Enquiry/loadTourLocationEdit'); ?>',
+					type: 'POST',
+					data: {
+						enquiry_header_id: enquiry_header_id,
+						enquiry_details_id: enquiry_details_id,
+						extension_ref_id: extension_ref_id
+					},
+					dataType: 'json',
+					success: function(response) {
+						// Clear existing location cards if necessary
+
+						var newCard = ``;
+						$.each(response, function(index, item) {
+							// Create a new location card element
+							var vehicleDetails = JSON.parse(item.vehicle_details);
+							var count = index + 1;
+
+							var isFirst = count === 1;
+							var prevCheckout = $('.tour_plan_div .location-card:last input[name^="addloc["][name$="[checkout]"]').val();
+							var checkinDate = isFirst ? start_date : prevCheckout || '';
+							ep_sel = '';
+							cp_sel = '';
+							map_sel = '';
+							ap_sel = '';
+							if (item.meal_plan_id == 1) {
+								ep_sel = "selected";
+							}
+							if (item.meal_plan_id == 2) {
+								cp_sel = "selected";
+							}
+							if (item.meal_plan_id == 3) {
+								map_sel = "selected";
+							}
+							if (item.meal_plan_id == 4) {
+								ap_sel = "selected";
+							}
+							$.each(item.cost, function(index1, item3) {
+								if ((item3.cost_component_id == "6" || item3.cost_component_id == "7") && item3.room_type_id == "2") {
+									room_t_d = item3.quick_quote_tariff;
+								}
+								if ((item3.cost_component_id == "12" || item3.cost_component_id == "13") && item3.room_type_id == "2") {
+									child_t_d = item3.quick_quote_tariff;
+								}
+								if ((item3.cost_component_id == "15" || item3.cost_component_id == "16") && item3.room_type_id == "2") {
+									child_wb_t_d = item3.quick_quote_tariff;
+								}
+								if ((item3.cost_component_id == "9" || item3.cost_component_id == "10") && item3.room_type_id == "2") {
+									extra_t_d = item3.quick_quote_tariff;
+								}
+								if ((item3.cost_component_id == "6" || item3.cost_component_id == "7") && item3.room_type_id == "1") {
+									room_t_s = item3.quick_quote_tariff;
+								}
+								if ((item3.cost_component_id == "12" || item3.cost_component_id == "13") && item3.room_type_id == "1") {
+									child_t_s = item3.quick_quote_tariff;
+								}
+								if ((item3.cost_component_id == "15" || item3.cost_component_id == "16") && item3.room_type_id == "1") {
+									child_wb_t_s = item3.quick_quote_tariff;
+								}
+								if ((item3.cost_component_id == "9" || item3.cost_component_id == "10") && item3.room_type_id == "1") {
+									extra_t_s = item3.quick_quote_tariff;
+								}
+							});
+							var room_total = parseInt(no_of_double_room) * parseInt(room_t_d);
+							var child_total = parseInt(no_of_child_with_bed) * parseInt(child_t_d);
+							var child_wb_total = parseInt(no_of_child_without_bed) * parseInt(child_wb_t_d);
+							var extra_total = parseInt(no_of_extra_bed) * parseInt(extra_t_d);
+							var d_totals = (room_total + child_total + child_wb_total + extra_total) * parseInt(item.no_of_days);
+							var s_totals = (parseInt(no_of_single_room) * parseInt(room_t_s)) * parseInt(item.no_of_days);
+							newCard += `
+                                
+                                    <div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <input type="hidden" id="own_arrange${count}" name="addloc[${count}][own_arrange]" value="${item.is_own_arrangement}">
+                                                <input type="hidden" id="tour_location_id${count}" name="addloc[${count}][tour_location_id]" value="${item.tour_location}">
+                                                <input type="hidden" id="location_sequence${count}" name="addloc[${count}][location_sequence]" value="${count}">
+                                                <div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${item.geog_name}</span></div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="ibox teams mb-30 bg-boxshadow">
+                                                    <div class="ibox-content teams">
+                                                        <div class="row mt-2">
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Checkin</b></div>
+                                                                <span class="text-muted">
+                                                                    <input type="date" value="${item.check_in_date}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Nights</b></div>
+                                                                <span class="text-muted">
+                                                                    <input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" value="${item.no_of_days}" class="form-control input-sm no_of_night" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count});" readonly>
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Checkout</b></div>
+                                                                <span class="text-muted">
+                                                                    <input type="date" id="checkout${count}" value="${item.check_out_date}" name="addloc[${count}][checkout]" class="form-control input-sm" required readonly>
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Hotel Category</b></div>
+																<input type="text" id="hotelcat${count}" name="addloc[${count}][hotelcat]" value="${item.hotel_category_name}" class="form-control input-sm"" readonly>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Hotel</b></div>
+																<input type="text" id="hotelid${count}" name="addloc[${count}][hotelid]" value="${item.object_name}" class="form-control input-sm"" readonly>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Room Category</b></div>
+																<input type="text" id="roomcat${count}" name="addloc[${count}][roomcat]" value="${item.room_category_name}" class="form-control input-sm"" readonly>
+                                                            	</div>
+                                                        </div>
+
+                                                    
+                                                        <div class="row mt-2">
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Meal Plan</b></div>
+                                                                <span class="text-muted">
+                                                                    <select id="mealplan${count}" name="addloc[${count}][mealplan]" class="form-control select2-show-search input-sm mp_change" data-id="${count}" readonly>
+                                                                    <option value="">Select</option>
+                                                                    <option value="1" ${ep_sel}>EP</option>
+                                                                    <option value="2" ${cp_sel}>CP</option>
+                                                                    <option value="3" ${map_sel}>MAP</option>
+                                                                    <option value="4" ${ap_sel}>AP</option>
+                                                                    </select>
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>No Of Adult</b></div>
+                                                                <input type="text" id="no_of_adult${count}" name="addloc[${count}][no_of_adult]" value="${no_of_adult}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>C.With Bed Qty</b></div>
+                                                                <input type="text" id="no_of_ch${count}" name="addloc[${count}][no_of_ch]" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>C.Without Bed Qty</b></div>
+                                                                <input type="text" id="no_of_cw${count}" name="addloc[${count}][no_of_cw]" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Extra Bed Qty</b></div>
+                                                                <input type="text" id="no_of_extra${count}" name="addloc[${count}][no_of_extra]" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Total Pax</b></div>
+                                                                <input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly>
+                                                            </div>
+                                                            
+                                                        </div>`;
+							if (no_of_double_room > 0) {
+
+								newCard += `<div class="row mt-2 double_row">
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>Double Room</b></div>
+                                                                    <input type="text" id="double${count}" name="addloc[${count}][double]" value="${no_of_double_room}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+                                                                </div>
+                                                    
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>Daily Room Rate</b></div>
+                                                                    <input type="text" id="d_adult_rate${count}" name="addloc[${count}][d_adult_rate]" value="${room_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+                                                                </div>
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>C.With Bed Rate</b></div>
+                                                                    <input type="text" id="d_child_rate${count}" name="addloc[${count}][d_child_rate]" value="${child_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+                                                                </div>
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>C.Without Bed Rate</b></div>
+                                                                    <input type="text" id="d_child_wb_rate${count}" name="addloc[${count}][d_child_wb_rate]" value="${child_wb_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+                                                                </div>
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>Extra Bed Rate</b></div>
+                                                                    <input type="text" id="d_extra_bed_rate${count}" name="addloc[${count}][d_extra_bed_rate]" value="${extra_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+                                                                </div>
+                                                                    <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>Total</b></div>
+                                                                    <input type="text" id="d_total_rate${count}" name="addloc[${count}][d_total_rate]" value="${d_totals}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+                                                                </div>
+                                                                
+                                                            </div>`;
+							} else {
+								newCard += `<input type="hidden" id="double${count}" name="addloc[${count}][double]" value="0">
+                                                                        <input type="hidden" id="d_adult_rate${count}" name="addloc[${count}][d_adult_rate]" value="0">
+                                                                        <input type="hidden" id="d_child_rate${count}" name="addloc[${count}][d_child_rate]" value="0">
+                                                                        <input type="hidden" id="d_child_wb_rate${count}" name="addloc[${count}][d_child_wb_rate]" value="0">
+                                                                        <input type="hidden" id="d_extra_bed_rate${count}" name="addloc[${count}][d_extra_bed_rate]" value="0">
+                                                                        <input type="hidden" id="d_total_rate${count}" name="addloc[${count}][d_total_rate]" value="0">`;
+							}
+							if (no_of_single_room > 0) {
+								newCard += `<div class="row mt-2 single_row">
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Single Room</b></div>
+                                                                <input type="text" id="single${count}" name="addloc[${count}][single]" value="${no_of_single_room}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+                                                            </div>
+                                                
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Daily Room Rate</b></div>
+                                                                <input type="text" id="s_adult_rate${count}" name="addloc[${count}][s_adult_rate]" value="${room_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>C.With Bed Rate</b></div>
+                                                                <input type="text" id="s_child_rate${count}" name="addloc[${count}][s_child_rate]" value="${child_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>C.Without Bed Rate</b></div>
+                                                                <input type="text" id="s_child_wb_rate${count}" name="addloc[${count}][s_child_wb_rate]" value="${child_wb_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+                                                            </div>
+                                                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Extra Bed Rate</b></div>
+                                                                <input type="text" id="s_extra_bed_rate${count}" name="addloc[${count}][s_extra_bed_rate]" value="${extra_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+                                                            </div>
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                <div class="teams-rank"><b>Total</b></div>
+                                                                <input type="text" id="s_total_rate${count}" name="addloc[${count}][s_total_rate]" value="${s_totals}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
+                                                            </div>
+                                                            
+                                                        </div>`;
+							} else {
+								newCard += `<input type="hidden" id="single${count}" name="addloc[${count}][single]" value="0">
+                                                                        <input type="hidden" id="s_adult_rate${count}" name="addloc[${count}][s_adult_rate]" value="0">
+                                                                        <input type="hidden" id="s_child_rate${count}" name="addloc[${count}][s_child_rate]" value="0">
+                                                                        <input type="hidden" id="s_child_wb_rate${count}" name="addloc[${count}][s_child_wb_rate]" value="0">
+                                                                        <input type="hidden" id="s_extra_bed_rate${count}" name="addloc[${count}][s_extra_bed_rate]" value="0">
+                                                                        <input type="hidden" id="s_total_rate${count}" name="addloc[${count}][s_total_rate]" value="0">`;
+							}
+							if (is_vehicle_required == 1) {
+
+								$.each(vehicle_models, function(vindex, vmodel) {
+									$.each(vehicleDetails, function(v_index, v_item) {
+										if (vmodel.vehicle_type_id == v_item.veh_type_id) {
+											vid_t = count + vmodel.vehicle_type_id;
+											v_day_rent = v_item.day_rent;
+											v_max_km_day = v_item.max_km_day;
+											v_travel_distance = v_item.travel_distance;
+											v_extra_kilometer = v_item.extra_kilometer;
+											v_extra_km_rate = v_item.extra_km_rate;
+											v_veh_total = v_item.veh_total;
+											v_veh_header = v_item.veh_header;
+
+											v_pre_to_cur = v_item.pre_to_cur;
+											v_cur_to_dep = v_item.cur_to_dep;
+											v_dep_to_arr = v_item.dep_to_arr;
+
+											v_hub_to_arr = v_item.hub_to_arr;
+											v_arr_to_loc = v_item.arr_to_loc;
+										}
+									});
+									if (vindex == 0) {
+										newCard += `
+                                                            <center><div class="col-md-12 col-lg-12 col-xl-12"style="padding-top:10px;"><h5 style="color:#003300;">Vehicle Details<span id="v_from_to${count}">${v_veh_header}</span></h5></div></center>
+                                                            <input type="hidden" id="veh_header${count}" name="addloc[${count}][veh_header]" value="${v_veh_header}">
+
+                                                            <input type="hidden" id="pre_to_cur${count}" name="addloc[${count}][pre_to_cur]" value="${v_pre_to_cur}">
+                                                            <input type="hidden" id="cur_to_dep${count}" name="addloc[${count}][cur_to_dep]" value="${v_cur_to_dep}">
+                                                            <input type="hidden" id="dep_to_arr${count}" name="addloc[${count}][dep_to_arr]" value="${v_dep_to_arr}">
+
+                                                            <input type="hidden" id="hub_to_arr${count}" name="addloc[${count}][hub_to_arr]" value="${v_hub_to_arr}">
+                                                            <input type="hidden" id="arr_to_loc${count}" name="addloc[${count}][arr_to_loc]" value="${v_arr_to_loc}">
+
+                                                            <div class="row mt-2 single_row">
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>Vehicle Model</b></div>
+                                                                </div>		
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>Vehicle Count</b></div>
+                                                                </div>
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>Daily Rent</b></div>
+                                                                </div>
+                                                                <div class="col-xl-1 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>Max KM/Day</b></div>
+                                                                </div>
+                                                                <div class="col-xl-1 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>Distance</b></div>
+                                                                </div>
+                                                                <div class="col-xl-1 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>Extra KM</b></div>
+                                                                </div>
+                                                                <div class="col-xl-1 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>Extra KM Rate</b></div>
+                                                                </div>
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    <div class="teams-rank"><b>Total</b></div>
+                                                                </div>
+                                                            </div>
+                                                                    `;
+									}
+									vid = count + vmodel.vehicle_type_id;
+									newCard += `<div class="row mt-2 single_row">
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    
+                                                                    <input type="text" id="veh_model${vid}" name="addloc[${count}][veh_model][${vindex}]" value="${vmodel.vehicle_model_name}" class="form-control input-sm veh_model${vindex}" readonly>
+                                                                    <input type="hidden" id="veh_type_id${vid}" name="addloc[${count}][veh_type_id][${vindex}]" value="${vmodel.vehicle_type_id}" class="form-control input-sm veh_type_id${vindex}">
+                                                                </div>
+                                                    
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    
+                                                                    <input type="text" id="veh_count${vid}" name="addloc[${count}][veh_count][${vindex}]" value="${vmodel.vehicle_count}" class="form-control input-sm veh_count${vindex}" maxlength="2" oninput="validateNumericInput(this);" readonly>
+                                                                </div>
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                
+                                                                    <input type="text" id="day_rent${vid}" name="addloc[${count}][day_rent][${vindex}]" value="${v_day_rent}" class="form-control input-sm cls_daily day_rent${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this);" readonly>
+                                                                </div>
+                                                                <div class="col-xl-1 col-sm-12 col-md-2">
+                                                                
+                                                                    <input type="text" id="max_km_day${vid}" name="addloc[${count}][max_km_day][${vindex}]" value="${v_max_km_day}" class="form-control input-sm max_km_day${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
+                                                                </div>
+                                                                <div class="col-xl-1 col-sm-12 col-md-2">
+                                                                
+                                                                    <input type="text" id="travel_distance${vid}" name="addloc[${count}][travel_distance][${vindex}]" value="${v_travel_distance}" class="form-control input-sm cls_dist travel_distance${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this);" readonly>
+                                                                </div>
+                                                                <div class="col-xl-1 col-sm-12 col-md-2">
+                                                                
+                                                                    <input type="text" id="extra_kilometer${vid}" name="addloc[${count}][extra_kilometer][${vindex}]" value="${v_extra_kilometer}" class="form-control input-sm extra_kilometer${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
+                                                                </div>
+                                                                <div class="col-xl-1 col-sm-12 col-md-2">
+                                                                    
+                                                                    <input type="text" id="extra_km_rate${vid}" name="addloc[${count}][extra_km_rate][${vindex}]" value="${v_extra_km_rate}" class="form-control input-sm extra_km_rate${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
+                                                                </div>
+                                                                <div class="col-xl-2 col-sm-12 col-md-2">
+                                                                    
+                                                                    <input type="text" id="veh_total${vid}" name="addloc[${count}][veh_total][${vindex}]" value="${v_veh_total}" class="form-control input-sm veh_total${vindex}" maxlength="5" oninput="validateNumericInput(this);"readonly>
+                                                                </div>
+                                                                
+                                                            </div>`;
+								});
+							} else {
+								newCard += `<input type="hidden" id="veh_model${count}0" name="addloc[${count}][veh_model][0]" value="">
+                                                                        <input type="hidden" id="veh_count${count}0" name="addloc[${count}][veh_count][0]" value="0">
+                                                                        <input type="hidden" id="day_rent${count}0" name="addloc[${count}][day_rent][0]" value="0">
+                                                                        <input type="hidden" id="max_km_day${count}0" name="addloc[${count}][max_km_day][0]" value="0">
+                                                                        <input type="hidden" id="extra_km_rate${count}0" name="addloc[${count}][extra_km_rate][0]" value="0">
+                                                                        <input type="hidden" id="veh_total${count}0" name="addloc[${count}][veh_total][0]" value="0">`;
+							}
+							newCard += `
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                `;
+							setTimeout(function() {
+								var hotelCat = $('#hotelcat' + count);
+								console.log("Dropdown found?", hotelCat.length);
+
+								if (hotelCat.length > 0) {
+									hotelCat.empty();
+									hotelCat.append('<option value="">Select</option>');
+
+									$.each(hotel_categories, function(hIndex, hotelcat) {
+										var selected = (hotelcat.hotel_category_id == item.hot_cat_id) ? "selected" : "";
+										hotelCat.append('<option value="' + hotelcat.hotel_category_id + '" ' + selected + '>' + hotelcat.hotel_category_name + '</option>');
+									});
+
+									hotelCat.trigger('change');
+								} else {
+									console.log("Dropdown not found. Ensure it exists before updating.");
+								}
+							}, 500);
+						});
+						//$(".tour_plan_div").append(newCard);
+
+						$('.tab_con').html(newCard);
+						$('#modal_tour_edit').modal('show');
+
+
+					},
+					error: function(xhr, status, error) {
+						console.error(error);
+					}
+				});
+			}
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).on('click', '.enquiry_view_edit', function(e) {
+		e.preventDefault();
+		var v_names = $(this).attr('data-id-name');
+		var object_id = $(this).attr('data-id-object');
+		var enquiry_details_id = $(this).attr('data-id-det');
+
+		var guest_name = '';
+		var html = '';
+		var vehs = '';
+		$.ajax({
+			url: '<?= site_url('Enquiry/fetchEnquiryDetailsEdit'); ?>',
+			method: 'POST',
+			data: {
+				object_id: object_id,
+				enquiry_details_id: enquiry_details_id
+			},
+			dataType: 'json',
+			success: function(response) {
+				if (response[0].meal_plan == 1) {
+					var meal_plan = "EP";
+				} else if (response[0].meal_plan == 2) {
+					var meal_plan = "CP";
+				} else if (response[0].meal_plan == 3) {
+					var meal_plan = "MAP";
+				} else if (response[0].meal_plan == 4) {
+					var meal_plan = "AP";
+				} else {
+					var meal_plan = "";
+				}
+				let vehicleData = JSON.parse(response[0].vehicle_type_id);
+
+				$.each(vehicleData, function(index, item) {
+					vehs += "Vehicle Model: " + item.vehicle_model_name + ", Count: " + item.vehicle_count + "<br>";
+				});
+				if (response.length > 0) {
+					$('#h_guest_name').html(guest_name);
+					html += '<table class="table">';
+					html += '<tr>';
+					html += '<th> Guest Name </th>';
+					html += '<td>' + response[0].object_name + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Enquiry Date </th>';
+					html += '<td>' + response[0].enq_date + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Executive Name </th>';
+					html += '<td>' + response[0].guest_name + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Agent Name </th>';
+					html += '<td>' + response[0].agent_name + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Start Date </th>';
+					html += '<td>' + response[0].start_date + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> No Of Days </th>';
+					html += '<td>' + response[0].no_of_night + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> End Date </th>';
+					html += '<td>' + response[0].end_date + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Arrival </th>';
+					html += '<td>' + response[0].arrival_loc + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> Departure </th>';
+					html += '<td>' + response[0].departure_loc + '</td>';
+					html += '</tr>';
+					html += '<tr>';
+					html += '<th> No Of Adult </th>';
+					html += '<td>' + response[0].no_of_adult + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> No Of Child With Bed</th>';
+					html += '<td>' + response[0].no_of_child_with_bed + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> No Of Child Without Bed </th>';
+					html += '<td>' + response[0].no_of_child_without_bed + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Total No Of Pax </th>';
+					html += '<td>' + response[0].total_no_of_pax + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Double Room </th>';
+					html += '<td>' + response[0].no_of_double_room + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Single Room </th>';
+					html += '<td>' + response[0].no_of_single_room + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Extra Bed </th>';
+					html += '<td>' + response[0].no_of_extra_bed + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> GSTIN </th>';
+					html += '<td>' + response[0].gstin + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Meal Plan </th>';
+					html += '<td>' + meal_plan + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Hub Location </th>';
+					html += '<td>' + response[0].hub_location_name + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Hotel Category </th>';
+					html += '<td>' + response[0].hotel_category_name + '</td>';
+					html += '</tr>';
+
+					html += '<tr>';
+					html += '<th> Vehicle Type </th>';
+					html += '<td>' + vehs + '</td>';
+					html += '</tr>';
+					html += '</table>';
+					$('.tab_con').html(html);
+					$('#modal_enquiry').modal('show');
+
+				} else {
+					//$('#not_found').html("");
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error('Error fetching weekend data:', error);
+			}
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).on('click', '.more_enquiry', function(e) {
+		e.preventDefault();
+		var enquiry_header_id = $(this).attr('data-id');
+		var guest_name = $(this).attr('data-id-name');
+		let newguest_name = guest_name.replace(/_/g, ' ');
+		$.ajax({
+			type: "POST",
+			url: '<?= site_url('Enquiry/getMoreEnquiryDetails'); ?>',
+			data: {
+				enquiry_header_id: enquiry_header_id
+			},
+			dataType: 'html',
+			success: function(response) {
+				$('.more_enquiry_details').html(response);
+				$('#morenqspanid').text(newguest_name);
+				$('#moreEnquiryModal').modal('show');
+			}
+		});
+	});
+	$('#moreEnquiryModal').on('hidden.bs.modal', function() {
+		$("#moreEnquiryModal .modal-body").mCustomScrollbar('destroy');
+		$("#moreEnquiryModal .modal-body").html('');
+		location.reload();
+	})
+</script>
+
+<script type="text/javascript">
+	$(document).on('click', '.edit_request_view', function(e) {
+		e.preventDefault();
+		var enquiry_header_id = $(this).attr('data-id');
+		var guest_name = $(this).attr('data-id-name');
+		let newguest_name = guest_name.replace(/_/g, ' ');
+		$.ajax({
+			type: "POST",
+			url: '<?= site_url('Enquiry/getEditRequestDetailsforAdmin'); ?>',
+			data: {
+				enquiry_header_id: enquiry_header_id
+			},
+			dataType: 'html',
+			success: function(response) {
+				$('.edit_req_details').html(response);
+				$('#editreqspanid').text(newguest_name);
+				$('#editRequestModal').modal('show');
+			}
+		});
+	});
+	$('#editRequestModal').on('hidden.bs.modal', function() {
+		$("#editRequestModal .modal-body").mCustomScrollbar('destroy');
+		$("#editRequestModal .modal-body").html('');
+		location.reload();
+	})
+</script>
+
+
+<script type="text/javascript">
+	$(document).on('change', '.reassign_executive', function(e) {
+		e.preventDefault();
+		var assigned_to = $(this).val();
+		var enquiry_header_id = $(this).attr('data-enq-id');
+		var status_id = $(this).attr('data-pid');
+		$.ajax({
+			type: "POST",
+			url: '<?= site_url('Enquiry/reassignEmployee'); ?>',
+			data: {
+				assigned_to: assigned_to,
+				enquiry_header_id: enquiry_header_id,
+				status_id: status_id
+			},
+			dataType: 'json',
+			success: function(response) {
+				alert("Reassigned");
+			}
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).on('change', '.edit_request', function(e) {
+		e.preventDefault();
+		if (!confirm("Are you sure you want to submit the edit request?")) {
+			return;
+		}
+		var edit_request_reason_id = $(this).val();
+		//var edit_request_reason_id = $('#edit_request_id').val();
+		var enquiry_header_id = $(this).attr('data-enq-id');
+		var status_id = $(this).attr('data-pid');
+		var object_id = $(this).attr('data-oid');
+		$.ajax({
+			type: "POST",
+			url: '<?= site_url('Enquiry/submitEditRequest'); ?>',
+			data: {
+				object_id: object_id,
+				edit_request_reason_id: edit_request_reason_id,
+				enquiry_header_id: enquiry_header_id,
+				status_id: status_id
+			},
+			dataType: 'json',
+			success: function(response) {
+				if (response == 0) {
+					alert("Edit Requset Already existing");
+				} else {
+					alert("Edit Requset Submitted");
+				}
+			}
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).on('change', '.edit_request_action', function(e) {
+		e.preventDefault();
+		var object_id = $(this).attr('data-oid');
+		var enquiry_edit_request_id = $(this).attr('data-id');
+		var edit_request_action_id = $(this).val();
+		//var edit_request_action_id = $('#edit_request_action').val();
+		if (edit_request_action_id == 1) {
+			var edit_request_action = "Accept";
+		} else if (edit_request_action_id == 3) {
+			var edit_request_action = "Reject";
+		} else {
+			var edit_request_action = "";
+		}
+		if (!confirm("Are you sure you want to " + edit_request_action)) {
+			return;
+		}
+		if (edit_request_action_id == '' || edit_request_action_id == null || edit_request_action_id == 'undefined') {
+			alert("Please Selct Action");
+			return;
+		}
+		var enquiry_header_id = $(this).attr('data-enq-id');
+		$.ajax({
+			type: "POST",
+			url: '<?= site_url('Enquiry/submitEditRequestAction'); ?>',
+			data: {
+				object_id: object_id,
+				edit_request_action_id: edit_request_action_id,
+				enquiry_header_id: enquiry_header_id,
+				enquiry_edit_request_id: enquiry_edit_request_id
+			},
+			dataType: 'json',
+			success: function(response) {
+				if (response == 1) {
+					alert("Edit Requset " + edit_request_action + "ed");
+				} else {
+					alert("Please try again");
+				}
+			}
+		});
+	});
+</script>
+
+
+<script>
+	$(document).on('click', '#ac_btn_id', function() {
+		if (!confirm("Are you sure you want to submit the availability check?")) {
+			return; // Stop if user cancels
+		}
+		const enquiry_header_id = $('#ac_enquiry_header_id').val();
+		const tableRows = $('#ac_table_id tr:has(td)');
+		const availabilityData = [];
+
+		tableRows.each(function(index) {
+			const sino = index + 1;
+
+			// Skip if hidden inputs don't exist (non-data row)
+			const location = $(`#ac_location_name${sino}`).val();
+			if (typeof location === "undefined") return;
+
+			availabilityData.push({
+				enquiry_header_id: enquiry_header_id,
+				si_no: sino,
+				location: location,
+				tour_date: $(`#ac_tour_date${sino}`).val(),
+				hotel_name: $(`#ac_hotel_name${sino}`).val(),
+				room_category: $(`#ac_room_cat_name${sino}`).val(),
+				room_type: $(`#ac_room_type${sino}`).val(),
+				available: $(`#ac_available${sino}`).is(':checked') ? 1 : 0,
+				remarks: $(`#ac_remarks${sino}`).val()
+			});
+		});
+		const allChecked = availabilityData.every(item => item.available === 1);
+		const overallStatus = allChecked ? 2 : 3;
+		$.ajax({
+			url: '<?= site_url("Enquiry/saveAvailabilityCheck"); ?>',
+			type: 'POST',
+			data: {
+				availabilityData: JSON.stringify(availabilityData),
+				enquiry_header_id: enquiry_header_id,
+				overallStatus: overallStatus
+			},
+			success: function(response) {
+				if (response) {
+					alert('Availability Check Updated');
+					location.reload();
+				} else {
+					alert('Please try again');
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error(error);
+			}
+		});
+
+	});
+</script>

@@ -1,0 +1,50 @@
+CRITICAL - 2025-06-18 11:59:43 --> Error: Call to a member function get_all_entity_roles() on null
+[Method: GET, Route: SuperAdminEntityClass]
+in APPPATH\Controllers\SuperAdminEntityClass.php on line 26.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityClass->index()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityClass))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-18 12:00:07 --> Error: Call to a member function get_all_entity_roles() on null
+[Method: GET, Route: SuperAdminEntityClass]
+in APPPATH\Controllers\SuperAdminEntityClass.php on line 26.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityClass->index()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityClass))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-18 12:01:28 --> Error: Call to a member function get_all_entity_roles() on null
+[Method: GET, Route: SuperAdminEntityClass]
+in APPPATH\Controllers\SuperAdminEntityClass.php on line 27.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityClass->index()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityClass))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-18 12:04:02 --> ErrorException: Undefined array key "entity_class_name"
+[Method: GET, Route: SuperAdminEntityClass]
+in APPPATH\Views\masters\super_admin_entity_class.php on line 124.
+ 1 APPPATH\Views\masters\super_admin_entity_class.php(124): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "entity_class_name"', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_entity_class.php', 124)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\super_admin_entity_class.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/super_admin_entity_class', [], true)
+ 5 APPPATH\Controllers\SuperAdminEntityClass.php(40): view('masters/super_admin_entity_class', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminEntityClass->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminEntityClass))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-18 12:50:44 --> Error: Call to a member function get_all_entity_roles() on null
+[Method: GET, Route: SuperAdminObjectClass]
+in APPPATH\Controllers\SuperAdminObjectClass.php on line 29.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminObjectClass->index()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminObjectClass))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

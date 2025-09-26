@@ -1,0 +1,220 @@
+CRITICAL - 2025-06-12 05:48:37 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/12]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(12)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:38 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/11]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(11)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:39 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/10]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(10)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:40 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/9]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(9)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:40 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/9]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(9)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:40 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/9]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(9)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:41 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/8]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(8)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:42 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/8]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(8)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:42 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/8]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(8)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:42 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/8]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(8)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:43 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/7]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(7)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:43 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/7]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(7)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:43 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/7]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(7)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:56 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/12]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(12)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:56 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/12]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(12)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:56 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/12]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(12)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:57 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/11]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(11)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:57 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/11]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(11)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:57 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/10]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(10)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:58 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/10]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(10)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:59 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/9]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(9)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-12 05:48:59 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminRoleModel::getRole
+[Method: GET, Route: SuperAdminRole/edit/9]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminRole.php(78): CodeIgniter\Model->__call('getRole', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->edit(9)
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

@@ -1,0 +1,52 @@
+CRITICAL - 2025-05-07 10:10:20 --> TypeError: CodeIgniter\Database\BaseBuilder::hasOperator(): Argument #1 ($str) must be of type string, Closure given, called in C:\wamp64\www\khm\system\Database\BaseBuilder.php on line 659
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Database\BaseBuilder.php on line 3434.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(659): CodeIgniter\Database\BaseBuilder->hasOperator(Object(Closure))
+ 2 APPPATH\Models\ArrivalReportModel.php(75): CodeIgniter\Database\BaseBuilder->join('khm_obj_all_call_follow_up AS cf', Object(Closure), 'LEFT ', false)
+ 3 APPPATH\Models\ArrivalReportModel.php(89): App\Models\ArrivalReportModel->baseQuery()
+ 4 APPPATH\Controllers\ArrivalReport.php(95): App\Models\ArrivalReportModel->getByDateRange('2025-01-01 00:00:00', '2025-05-08 00:00:00')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-07 10:10:24 --> TypeError: CodeIgniter\Database\BaseBuilder::hasOperator(): Argument #1 ($str) must be of type string, Closure given, called in C:\wamp64\www\khm\system\Database\BaseBuilder.php on line 659
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Database\BaseBuilder.php on line 3434.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(659): CodeIgniter\Database\BaseBuilder->hasOperator(Object(Closure))
+ 2 APPPATH\Models\ArrivalReportModel.php(75): CodeIgniter\Database\BaseBuilder->join('khm_obj_all_call_follow_up AS cf', Object(Closure), 'LEFT ', false)
+ 3 APPPATH\Models\ArrivalReportModel.php(89): App\Models\ArrivalReportModel->baseQuery()
+ 4 APPPATH\Controllers\ArrivalReport.php(95): App\Models\ArrivalReportModel->getByDateRange('2025-01-01 00:00:00', '2025-05-08 00:00:00')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-07 10:10:26 --> TypeError: CodeIgniter\Database\BaseBuilder::hasOperator(): Argument #1 ($str) must be of type string, Closure given, called in C:\wamp64\www\khm\system\Database\BaseBuilder.php on line 659
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Database\BaseBuilder.php on line 3434.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(659): CodeIgniter\Database\BaseBuilder->hasOperator(Object(Closure))
+ 2 APPPATH\Models\ArrivalReportModel.php(75): CodeIgniter\Database\BaseBuilder->join('khm_obj_all_call_follow_up AS cf', Object(Closure), 'LEFT ', false)
+ 3 APPPATH\Models\ArrivalReportModel.php(89): App\Models\ArrivalReportModel->baseQuery()
+ 4 APPPATH\Controllers\ArrivalReport.php(95): App\Models\ArrivalReportModel->getByDateRange('2025-01-01 00:00:00', '2025-05-08 00:00:00')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-07 10:10:33 --> TypeError: CodeIgniter\Database\BaseBuilder::hasOperator(): Argument #1 ($str) must be of type string, Closure given, called in C:\wamp64\www\khm\system\Database\BaseBuilder.php on line 659
+[Method: GET, Route: ArrivalReport/data]
+in SYSTEMPATH\Database\BaseBuilder.php on line 3434.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(659): CodeIgniter\Database\BaseBuilder->hasOperator(Object(Closure))
+ 2 APPPATH\Models\ArrivalReportModel.php(75): CodeIgniter\Database\BaseBuilder->join('khm_obj_all_call_follow_up AS cf', Object(Closure), 'LEFT ', false)
+ 3 APPPATH\Models\ArrivalReportModel.php(89): App\Models\ArrivalReportModel->baseQuery()
+ 4 APPPATH\Controllers\ArrivalReport.php(95): App\Models\ArrivalReportModel->getByDateRange('2025-01-01 00:00:00', '2025-05-08 00:00:00')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ArrivalReport->data()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ArrivalReport))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

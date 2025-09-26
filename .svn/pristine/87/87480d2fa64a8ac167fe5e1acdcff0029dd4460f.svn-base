@@ -1,0 +1,389 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class PurchaseReportModel extends Model
+{
+    protected $table      = 'khm_obj_enquiry_header';
+    protected $primaryKey = 'enquiry_header_id';
+    protected $returnType = 'array';
+
+    protected $allowedFields = [
+        'object_id',
+        'guest_entity_id',
+        'agent_entity_id',
+        'employee_entity_id',
+        'enq_added_date',
+        'enq_type_id',
+        'enterprise_id',
+    ];
+
+    /**
+     * 1) Run the “base” query (all your JOINs & aggregates), but do NOT join to khm_obj_tax_rate.
+     *    Return each row as an array with at least:
+     *      - enquiry_header_id
+     *      - ref_no
+     *      - hotel_object_id      (so we know which hotel’s rate to look up)
+     *      - total_value
+     *      - extra_cost
+     *      - any other columns you need (guest_name, agent_name, etc.)
+     */
+    public function getBaseData(): array
+    {
+        // Build the same inner QueryBuilder that you had (all JOINs up through hkom)…
+        $builder = $this->db
+            ->table('khm_obj_enquiry_header AS h')
+            ->distinct()
+            ->select([
+                'h.ref_no',
+                'h.enquiry_header_id',
+                'h.object_id',         // enquiry’s object, if you need it
+                'h.guest_entity_id',
+                'h.agent_entity_id',
+                'h.employee_entity_id',
+                'h.enq_added_date',
+                'h.enq_type_id',
+                'h.is_active AS header_active',
+
+                // (1) join to object master for the enquiry’s object name
+                'om.object_name',
+
+                // guest / agent / employee names
+                'ge.entity_name AS guest_name',
+                'ae.entity_name AS agent_name',
+                'ee.entity_name AS employee_name',
+
+                // details fields
+                'd.no_of_night',
+                'd.enquiry_details_id',
+                'd.date_of_tour_start',
+                'd.total_no_of_pax',
+                'd.is_active AS details_active',
+
+                // tour-details fields
+                't.check_in_date',
+                't.check_out_date',
+                't.is_active AS tour_active',
+                'lmg.geog_name',
+
+                // extension fields
+                'e.is_active AS extension_active',
+                'e.tpc',
+
+                // derived hotel object name 
+                'hkom.object_name AS hotel_name',
+
+                // ─── VERY IMPORTANT: grab the hotel’s object_id ───
+                'hkom.object_id AS hotel_object_id',
+
+                // agent gstn no and state
+                'attriagent.entity_attr_value AS agent_gstn',
+                'attr.entity_attr_value      AS agent_state',
+
+                // transporter name
+                'em4.entity_name AS transporter_name',
+            ])
+
+            // transport follow‐up → transporter
+            ->join(
+                'khm_obj_transport_follow_up AS tf',
+                'tf.enquiry_header_id = h.enquiry_header_id',
+                'left'
+            )
+            ->join(
+                'khm_entity_mst AS em4',
+                'em4.entity_id = tf.transporter_id',
+                'left'
+            )
+
+            // join header → details
+            ->join(
+                'khm_obj_enquiry_details AS d',
+                'd.enquiry_header_id = h.enquiry_header_id',
+                'left'
+            )
+            // join header + details → tour details
+            ->join(
+                'khm_obj_enquiry_tour_details AS t',
+                't.enquiry_header_id = h.enquiry_header_id
+                 AND t.enquiry_details_id = d.enquiry_details_id',
+                'left'
+            )
+            // join tour → itinerary details
+            ->join(
+                'khm_obj_enquiry_itinerary_details AS koei',
+                'koei.tour_details_id = t.tour_details_id',
+                'left'
+            )
+            // join itinerary → hotel → object master (hotel)
+            ->join(
+                'khm_obj_hotel AS koh',
+                'koh.hotel_id = koei.hotel_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_mst AS hkom',
+                'hkom.object_id = koh.object_id',
+                'left'
+            )
+            ->join(
+                'khm_loc_mst_geography AS lmg',
+                'lmg.geog_id = hkom.object_location_id',
+                'left'
+            )
+
+            // join header + details → detail extensions
+            ->join(
+                'khm_obj_enquiry_detail_extensions AS e',
+                'e.enquiry_header_id = h.enquiry_header_id
+                 AND e.enquiry_details_id = d.enquiry_details_id',
+                'left'
+            )
+            // join object master for enquiry’s object_name
+            ->join(
+                'khm_obj_mst AS om',
+                'om.object_id = h.object_id',
+                'left'
+            )
+            // guest entity
+            ->join(
+                'khm_entity_mst AS ge',
+                'ge.entity_id = h.guest_entity_id',
+                'left'
+            )
+            // agent entity
+            ->join(
+                'khm_entity_mst AS ae',
+                'ae.entity_id = h.agent_entity_id',
+                'left'
+            )
+            // employee entity
+            ->join(
+                'khm_entity_mst AS ee',
+                'ee.entity_id = h.employee_entity_id',
+                'left'
+            )
+            // join entity attributes to get agent_state / agent_gstn
+            ->join(
+                'khm_entity_attribute AS attr',
+                'attr.entity_id = h.agent_entity_id
+                 AND attr.entity_class_attr_id = 1978',
+                'left'
+            )
+            ->join(
+                'khm_entity_attribute AS attriagent',
+                'attriagent.entity_id = h.agent_entity_id
+                 AND attriagent.entity_class_attr_id = 1970',
+                'left'
+            )
+            // join hotel object master to resolve hotel_id if needed
+            ->join(
+                'khm_obj_mst AS hm',
+                'hm.object_id = attr.entity_attr_value',
+                'left'
+            )
+            // join itinerary → costing details
+            ->join(
+                'khm_obj_itinerary_costing_details AS icd',
+                'icd.itinerary_details_id = koei.itinerary_details_id',
+                'left'
+            )
+
+            // ─── compute total_value ───
+            ->select("
+                COALESCE(
+                  SUM(
+                    CASE
+                      WHEN icd.cost_component_id = 6 
+                       AND icd.room_type_id = 2 
+                        THEN icd.tariff * COALESCE(koei.double_room, 0)
+                      WHEN icd.cost_component_id = 6
+                       AND icd.room_type_id = 1
+                        THEN icd.tariff * COALESCE(koei.single_room, 0)
+                      WHEN icd.cost_component_id = 9
+                       AND icd.room_type_id = 2
+                        THEN icd.tariff * COALESCE(koei.extra_bed, 0)
+                      WHEN icd.cost_component_id = 12
+                       AND icd.room_type_id = 2
+                        THEN icd.tariff * COALESCE(koei.child_with_bed, 0)
+                      WHEN icd.cost_component_id = 15
+                       AND icd.room_type_id = 2
+                        THEN icd.tariff * COALESCE(koei.child_without_bed, 0)
+                      ELSE 0
+                    END
+                  ),
+                  0
+                ) AS total_value
+            ", FALSE)
+
+            // ─── compute extra_cost ───
+            ->select("
+                COALESCE(
+                  SUM(
+                    CASE
+                      WHEN icd.cost_component_id = 19
+                       AND icd.room_type_id = 1
+                        THEN icd.tariff
+                      ELSE 0
+                    END
+                  ),
+                  0
+                ) AS extra_cost
+            ", FALSE)
+
+            // only “active” rows across all joined tables
+            ->where('h.is_active',    1)
+            ->where('d.is_active',    1)
+            ->where('t.is_active',    1)
+            ->where('koei.is_active', 1)
+            ->where('icd.is_active',  1)
+            ->where('e.is_active',    1)
+
+            // group by tour_details_id
+            ->groupBy('t.tour_details_id')
+
+            // sort by tour start
+            ->orderBy('d.date_of_tour_start', 'DESC');
+
+        // Run it and return an array of rows:
+        return $builder->get()->getResultArray();
+    }
+
+    /**
+     * 2) Fetch **all** non‐deleted rows from khm_obj_tax_rate.
+     *    We’ll return an array of arrays, each with:
+     *      - object_id
+     *      - applicable_hotel_range_from
+     *      - applicable_hotel_range_to
+     *      - tax_rate_percent
+     */
+    public function getAllTaxRates(): array
+    {
+        // You can add a WHERE enterprise_id=… if needed
+        $builder = $this->db
+            ->table('khm_obj_tax_rate AS tr')
+            ->select([
+                'tr.object_id',
+                'tr.applicable_hotel_range_from',
+                'tr.applicable_hotel_range_to',
+                'tr.tax_rate_percent',
+            ])
+            ->where('tr.deleted', 0);
+
+        return $builder->get()->getResultArray();
+    }
+
+    /**
+     * 3) Given:
+     *      - $baseRows: array of base data (with keys hotel_object_id & total_value)
+     *      - $taxRates: array of all tax‐rate rows
+     *
+     *   For each $baseRows[$i], find the one tax‐rate row in $taxRates
+     *   where
+     *     taxRate['object_id'] == baseRows[$i]['hotel_object_id']
+     *   AND
+     *     baseRows[$i]['total_value'] is between
+     *     applicable_hotel_range_from…applicable_hotel_range_to.
+     *
+     *   If found, set `'tax_rate_percent'` to that value; otherwise 0.
+     *
+     *   Return a brand new array where each row is the original base row
+     *   plus a `'tax_rate_percent'` key.
+     */
+    public function attachTaxToBase(array $baseRows, array $taxRates): array
+    {
+        // 1) Build a lookup: for each hotel_object_id, store a list of its tax‐rate rows
+        $ratesByHotel = [];
+        foreach ($taxRates as $r) {
+            $hid = $r['object_id'];
+            if (! isset($ratesByHotel[$hid])) {
+                $ratesByHotel[$hid] = [];
+            }
+            $ratesByHotel[$hid][] = [
+                'from'   => (float) $r['applicable_hotel_range_from'],
+                'to'     => (float) $r['applicable_hotel_range_to'],
+                'percent'=> (float) $r['tax_rate_percent'],
+            ];
+        }
+
+        $output = [];
+        // 2) For each base row, find matching tax rate
+        foreach ($baseRows as $row) {
+            $hotelId    = (int) $row['hotel_object_id'];
+            $totalValue = (float) $row['total_value'];
+            $taxPercent = 0;
+
+            if (isset($ratesByHotel[$hotelId])) {
+                // Look through that hotel’s ranges
+                foreach ($ratesByHotel[$hotelId] as $range) {
+                    if ($totalValue >= $range['from'] && $totalValue <= $range['to']) {
+                        $taxPercent = $range['percent'];
+                        break;
+                    }
+                }
+            }
+
+            // Copy the row and append tax_rate_percent
+            $newRow            = $row;
+            $newRow['tax_rate_percent'] = $taxPercent;
+            $output[] = $newRow;
+        }
+
+        return $output;
+    }
+
+    /**
+     * 4) For your “all rows” report (no filters), simply chain the above three steps.
+     */
+    public function getSourceReport(): array
+    {
+        // Step 1: get the base data
+        $baseRows = $this->getBaseData();
+
+        // Step 2: get all tax‐rate rows
+        $taxRates = $this->getAllTaxRates();
+
+        // Step 3: merge them in PHP
+        return $this->attachTaxToBase($baseRows, $taxRates);
+    }
+
+    /**
+     * 5) For filtered data (date range + system), you can do the same—just
+     *    replace getBaseData() with a version that also applies your WHERE.
+     *
+     *    For brevity, here’s a quick example that re‐uses getBaseData() and
+     *    then filters the results in PHP. (You could also modify getBaseData()
+     *    to take a date range + system and apply in SQL.)
+     */
+    public function getByDateRange(string $fromYmd, string $toYmd, int $checkRaw, int $system): array
+    {
+        // 5a) Grab everything first
+        $allBase = $this->getBaseData();
+
+        // 5b) Filter by enq_type_id = $system (if needed)
+        if ($system) {
+            $allBase = array_filter($allBase, function($r) use ($system) {
+                return ((int) $r['enq_type_id']) === $system;
+            });
+        }
+
+        // 5c) Filter by date column
+        // Decide which column: 1→check_in_date, else check_out_date
+        $dateCol = ($checkRaw === 1) ? 'check_in_date' : 'check_out_date';
+
+        $allBase = array_filter($allBase, function($r) use ($fromYmd, $toYmd, $dateCol) {
+            // $r[$dateCol] is “YYYY-MM-DD HH:MM:SS” or “YYYY-MM-DD” from the DB
+            $dt = $r[$dateCol];
+            if (! $dt) return false;
+
+            // Compare strings lexicographically, since "YYYY-MM-DD HH:MM:SS" works for range checks
+            return ($dt >= $fromYmd) && ($dt < $toYmd);
+        });
+
+        // 5d) Now attach tax rates exactly as before
+        $taxRates = $this->getAllTaxRates();
+        return $this->attachTaxToBase(array_values($allBase), $taxRates);
+    }
+}

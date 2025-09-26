@@ -1,0 +1,930 @@
+ERROR - 2025-05-08 08:27:23 --> mysqli_sql_exception: Unknown column 'call_time' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dr`.`de...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`de...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`de...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`de...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\DepartureReportModel.php(90): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-01-08 00:0...', '2025-05-09 00:0...')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-08 08:27:23 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'call_time' in 'field list'
+[Method: GET, Route: DepartureReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`departure_date` >= :ar.departure_date:
+AND `ar`.`departure_date` < :ar.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 2 APPPATH\Models\DepartureReportModel.php(90): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-01-08 00:00:00', '2025-05-09 00:00:00')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-08 08:27:23 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'call_time' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`departure_date` >= :ar.departure_date:
+AND `ar`.`departure_date` < :ar.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 4 APPPATH\Models\DepartureReportModel.php(90): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-01-08 00:00:00', '2025-05-09 00:00:00')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-08 08:27:23 --> [Caused by] mysqli_sql_exception: Unknown column 'call_time' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`departure_date` >= :ar.departure_date:
+AND `ar`.`departure_date` < :ar.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 5 APPPATH\Models\DepartureReportModel.php(90): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-01-08 00:00:00', '2025-05-09 00:00:00')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-05-08 08:27:27 --> mysqli_sql_exception: Unknown column 'call_time' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dr`.`de...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`de...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`de...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`de...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\DepartureReportModel.php(90): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-01-08 00:0...', '2025-05-09 00:0...')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-08 08:27:27 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'call_time' in 'field list'
+[Method: GET, Route: DepartureReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`departure_date` >= :ar.departure_date:
+AND `ar`.`departure_date` < :ar.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 2 APPPATH\Models\DepartureReportModel.php(90): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-01-08 00:00:00', '2025-05-09 00:00:00')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-08 08:27:27 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'call_time' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`departure_date` >= :ar.departure_date:
+AND `ar`.`departure_date` < :ar.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 4 APPPATH\Models\DepartureReportModel.php(90): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-01-08 00:00:00', '2025-05-09 00:00:00')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-08 08:27:27 --> [Caused by] mysqli_sql_exception: Unknown column 'call_time' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`departure_date` >= :ar.departure_date:
+AND `ar`.`departure_date` < :ar.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 5 APPPATH\Models\DepartureReportModel.php(90): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-01-08 00:00:00', '2025-05-09 00:00:00')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-05-08 08:27:31 --> mysqli_sql_exception: Unknown column 'call_time' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dr`.`de...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`de...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`de...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`de...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\DepartureReportModel.php(90): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-01-08 00:0...', '2025-05-09 00:0...')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-08 08:27:31 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'call_time' in 'field list'
+[Method: GET, Route: DepartureReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`departure_date` >= :ar.departure_date:
+AND `ar`.`departure_date` < :ar.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 2 APPPATH\Models\DepartureReportModel.php(90): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-01-08 00:00:00', '2025-05-09 00:00:00')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-08 08:27:31 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'call_time' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`departure_date` >= :ar.departure_date:
+AND `ar`.`departure_date` < :ar.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 4 APPPATH\Models\DepartureReportModel.php(90): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-01-08 00:00:00', '2025-05-09 00:00:00')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-08 08:27:31 --> [Caused by] mysqli_sql_exception: Unknown column 'call_time' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `ar`.`departure_date` >= \'2025-01-08 00:00:00\'
+AND `ar`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_time) AS latest_call_time
+FROM `khm_obj_departure_follow_up`
+WHERE `followup_type_id` = 10
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `ar`.`departure_date` >= :ar.departure_date:
+AND `ar`.`departure_date` < :ar.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 5 APPPATH\Models\DepartureReportModel.php(90): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-01-08 00:00:00', '2025-05-09 00:00:00')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-05-08 08:36:26 --> mysqli_sql_exception: Unknown column 'call_date' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dr`.`de...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`de...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`de...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`de...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\DepartureReportModel.php(89): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2021-01-01 00:0...', '2025-05-09 00:0...')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-08 08:36:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'call_date' in 'field list'
+[Method: GET, Route: DepartureReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `dr`.`departure_date` >= :dr.departure_date:
+AND `dr`.`departure_date` < :dr.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 2 APPPATH\Models\DepartureReportModel.php(89): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2021-01-01 00:00:00', '2025-05-09 00:00:00')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-08 08:36:26 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'call_date' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `dr`.`departure_date` >= \'2021-01-01 00:00:00\'
+AND `dr`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `dr`.`departure_date` >= \'2021-01-01 00:00:00\'
+AND `dr`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `dr`.`departure_date` >= :dr.departure_date:
+AND `dr`.`departure_date` < :dr.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 4 APPPATH\Models\DepartureReportModel.php(89): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2021-01-01 00:00:00', '2025-05-09 00:00:00')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-08 08:36:26 --> [Caused by] mysqli_sql_exception: Unknown column 'call_date' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `dr`.`departure_date` >= \'2021-01-01 00:00:00\'
+AND `dr`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `dr`.`departure_date` >= \'2021-01-01 00:00:00\'
+AND `dr`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = 0
+AND `dr`.`departure_date` >= \'2021-01-01 00:00:00\'
+AND `dr`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `ar`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id` = `last_call`.`enquiry_header_id` AND `cf`.`call_time` = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `ar`.`deleted` = :ar.deleted:
+AND `dr`.`departure_date` >= :dr.departure_date:
+AND `dr`.`departure_date` < :dr.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 5 APPPATH\Models\DepartureReportModel.php(89): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2021-01-01 00:00:00', '2025-05-09 00:00:00')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-05-08 08:38:08 --> mysqli_sql_exception: Unknown column 'call_date' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dr`.`de...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`de...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`de...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`de...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\DepartureReportModel.php(97): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-05-08 00:0...', '2025-05-09 00:0...')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-08 08:38:08 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'call_date' in 'field list'
+[Method: GET, Route: DepartureReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_date` AS `call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id`    = `last_call`.`enquiry_header_id` AND `cf`.`call_date`        = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `dr`.`deleted` = :dr.deleted:
+AND `dr`.`departure_date` >= :dr.departure_date:
+AND `dr`.`departure_date` < :dr.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 2 APPPATH\Models\DepartureReportModel.php(97): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-05-08 00:00:00', '2025-05-09 00:00:00')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-08 08:38:08 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'call_date' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_date` AS `call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id`    = `last_call`.`enquiry_header_id` AND `cf`.`call_date`        = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `dr`.`deleted` = 0
+AND `dr`.`departure_date` >= \'2025-05-08 00:00:00\'
+AND `dr`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_date` AS `call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id`    = `last_call`.`enquiry_header_id` AND `cf`.`call_date`        = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `dr`.`deleted` = 0
+AND `dr`.`departure_date` >= \'2025-05-08 00:00:00\'
+AND `dr`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_date` AS `call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id`    = `last_call`.`enquiry_header_id` AND `cf`.`call_date`        = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `dr`.`deleted` = :dr.deleted:
+AND `dr`.`departure_date` >= :dr.departure_date:
+AND `dr`.`departure_date` < :dr.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 4 APPPATH\Models\DepartureReportModel.php(97): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-05-08 00:00:00', '2025-05-09 00:00:00')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-08 08:38:08 --> [Caused by] mysqli_sql_exception: Unknown column 'call_date' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_date` AS `call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id`    = `last_call`.`enquiry_header_id` AND `cf`.`call_date`        = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `dr`.`deleted` = 0
+AND `dr`.`departure_date` >= \'2025-05-08 00:00:00\'
+AND `dr`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_date` AS `call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id`    = `last_call`.`enquiry_header_id` AND `cf`.`call_date`        = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `dr`.`deleted` = 0
+AND `dr`.`departure_date` >= \'2025-05-08 00:00:00\'
+AND `dr`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_date` AS `call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id`    = `last_call`.`enquiry_header_id` AND `cf`.`call_date`        = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `dr`.`deleted` = 0
+AND `dr`.`departure_date` >= \'2025-05-08 00:00:00\'
+AND `dr`.`departure_date` < \'2025-05-09 00:00:00\'
+ORDER BY `dr`.`departure_follow_up_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `dr`.`departure_follow_up_id`, `dr`.`followup_type_id`, `dr`.`enquiry_header_id`, `dr`.`call_date`, `dr`.`mode_of_departure`, `dr`.`city`, `dr`.`flight_train_no`, `dr`.`departure_date`, `dr`.`comments`, `dr`.`deleted`, `dr`.`enterprise_id`, `eh`.`object_id`, `om`.`object_name`, `cf`.`call_date` AS `call_time`
+FROM `khm_obj_departure_follow_up` AS `dr`
+INNER JOIN (SELECT `enquiry_header_id`, MAX(departure_follow_up_id) AS latest_departure_id
+FROM `khm_obj_departure_follow_up`
+WHERE `deleted` = 0
+GROUP BY `enquiry_header_id`) AS last_dep ON `dr`.`departure_follow_up_id` = `last_dep`.`latest_departure_id`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT `enquiry_header_id`, MAX(call_date) AS latest_call_time
+FROM `khm_obj_all_call_follow_up`
+WHERE `followup_type_id` = 15
+GROUP BY `enquiry_header_id`) AS last_call ON `last_call`.`enquiry_header_id` = `dr`.`enquiry_header_id`
+LEFT JOIN `khm_obj_all_call_follow_up` AS `cf` ON `cf`.`enquiry_header_id`    = `last_call`.`enquiry_header_id` AND `cf`.`call_date`        = `last_call`.`latest_call_time` AND `cf`.`followup_type_id` = 15
+WHERE `dr`.`deleted` = :dr.deleted:
+AND `dr`.`departure_date` >= :dr.departure_date:
+AND `dr`.`departure_date` < :dr.departure_date.1:
+ORDER BY `dr`.`departure_follow_up_id` DESC', [...], false)
+ 5 APPPATH\Models\DepartureReportModel.php(97): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\DepartureReport.php(95): App\Models\DepartureReportModel->getByDateRange('2025-05-08 00:00:00', '2025-05-09 00:00:00')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-08 08:41:13 --> BadMethodCallException: Call to undefined method App\Models\DepartureReportModel::getByDateRange
+[Method: GET, Route: DepartureReport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\DepartureReport.php(95): CodeIgniter\Model->__call('getByDateRange', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-08 08:41:16 --> BadMethodCallException: Call to undefined method App\Models\DepartureReportModel::getByDateRange
+[Method: GET, Route: DepartureReport/data]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\DepartureReport.php(95): CodeIgniter\Model->__call('getByDateRange', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DepartureReport->data()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DepartureReport))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

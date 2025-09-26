@@ -1,0 +1,558 @@
+ERROR - 2025-05-16 05:29:41 --> mysqli_sql_exception: Unknown column 'es2.is_active' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT DISTINCT...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SourceReportModel.php(69): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:0...', '2025-06-01 00:0...')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-16 05:29:41 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'es2.is_active' in 'where clause'
+[Method: GET, Route: SourceReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, (  
+            SELECT mes2.status_name
+            FROM khm_obj_enquiry_status AS es2
+            LEFT JOIN khm_obj_mst_enquiry_status AS mes2
+              ON mes2.status_id = es2.current_status_id
+             AND mes2.is_active = 1
+            WHERE es2.enquiry_header_id = eh.enquiry_header_id
+              AND es2.is_active = 1
+            ORDER BY es2.updated_time DESC
+            LIMIT 1
+        ) AS latest_status
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+WHERE `eh`.`is_active` = :eh.is_active:
+AND `ed`.`is_active` = :ed.is_active:
+AND `eh`.`enq_added_date` >= :eh.enq_added_date:
+AND `eh`.`enq_added_date` < :eh.enq_added_date.1:
+ORDER BY `ed`.`enquiry_details_id` DESC', [...], false)
+ 2 APPPATH\Models\SourceReportModel.php(69): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-01 00:00:00')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-16 05:29:41 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'es2.is_active' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, (  
+            SELECT mes2.status_name
+            FROM khm_obj_enquiry_status AS es2
+            LEFT JOIN khm_obj_mst_enquiry_status AS mes2
+              ON mes2.status_id = es2.current_status_id
+             AND mes2.is_active = 1
+            WHERE es2.enquiry_header_id = eh.enquiry_header_id
+              AND es2.is_active = 1
+            ORDER BY es2.updated_time DESC
+            LIMIT 1
+        ) AS latest_status
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, (  
+            SELECT mes2.status_name
+            FROM khm_obj_enquiry_status AS es2
+            LEFT JOIN khm_obj_mst_enquiry_status AS mes2
+              ON mes2.status_id = es2.current_status_id
+             AND mes2.is_active = 1
+            WHERE es2.enquiry_header_id = eh.enquiry_header_id
+              AND es2.is_active = 1
+            ORDER BY es2.updated_time DESC
+            LIMIT 1
+        ) AS latest_status
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, (  
+            SELECT mes2.status_name
+            FROM khm_obj_enquiry_status AS es2
+            LEFT JOIN khm_obj_mst_enquiry_status AS mes2
+              ON mes2.status_id = es2.current_status_id
+             AND mes2.is_active = 1
+            WHERE es2.enquiry_header_id = eh.enquiry_header_id
+              AND es2.is_active = 1
+            ORDER BY es2.updated_time DESC
+            LIMIT 1
+        ) AS latest_status
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+WHERE `eh`.`is_active` = :eh.is_active:
+AND `ed`.`is_active` = :ed.is_active:
+AND `eh`.`enq_added_date` >= :eh.enq_added_date:
+AND `eh`.`enq_added_date` < :eh.enq_added_date.1:
+ORDER BY `ed`.`enquiry_details_id` DESC', [...], false)
+ 4 APPPATH\Models\SourceReportModel.php(69): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-01 00:00:00')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-16 05:29:41 --> [Caused by] mysqli_sql_exception: Unknown column 'es2.is_active' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, (  
+            SELECT mes2.status_name
+            FROM khm_obj_enquiry_status AS es2
+            LEFT JOIN khm_obj_mst_enquiry_status AS mes2
+              ON mes2.status_id = es2.current_status_id
+             AND mes2.is_active = 1
+            WHERE es2.enquiry_header_id = eh.enquiry_header_id
+              AND es2.is_active = 1
+            ORDER BY es2.updated_time DESC
+            LIMIT 1
+        ) AS latest_status
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, (  
+            SELECT mes2.status_name
+            FROM khm_obj_enquiry_status AS es2
+            LEFT JOIN khm_obj_mst_enquiry_status AS mes2
+              ON mes2.status_id = es2.current_status_id
+             AND mes2.is_active = 1
+            WHERE es2.enquiry_header_id = eh.enquiry_header_id
+              AND es2.is_active = 1
+            ORDER BY es2.updated_time DESC
+            LIMIT 1
+        ) AS latest_status
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, (  
+            SELECT mes2.status_name
+            FROM khm_obj_enquiry_status AS es2
+            LEFT JOIN khm_obj_mst_enquiry_status AS mes2
+              ON mes2.status_id = es2.current_status_id
+             AND mes2.is_active = 1
+            WHERE es2.enquiry_header_id = eh.enquiry_header_id
+              AND es2.is_active = 1
+            ORDER BY es2.updated_time DESC
+            LIMIT 1
+        ) AS latest_status
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, (  
+            SELECT mes2.status_name
+            FROM khm_obj_enquiry_status AS es2
+            LEFT JOIN khm_obj_mst_enquiry_status AS mes2
+              ON mes2.status_id = es2.current_status_id
+             AND mes2.is_active = 1
+            WHERE es2.enquiry_header_id = eh.enquiry_header_id
+              AND es2.is_active = 1
+            ORDER BY es2.updated_time DESC
+            LIMIT 1
+        ) AS latest_status
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+WHERE `eh`.`is_active` = :eh.is_active:
+AND `ed`.`is_active` = :ed.is_active:
+AND `eh`.`enq_added_date` >= :eh.enq_added_date:
+AND `eh`.`enq_added_date` < :eh.enq_added_date.1:
+ORDER BY `ed`.`enquiry_details_id` DESC', [...], false)
+ 5 APPPATH\Models\SourceReportModel.php(69): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-01 00:00:00')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-05-16 05:34:32 --> mysqli_sql_exception: Unknown column 'is_active' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT DISTINCT...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SourceReportModel.php(87): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:0...', '2025-06-01 00:0...')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-16 05:34:32 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_active' in 'where clause'
+[Method: GET, Route: SourceReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = :eh.is_active:
+AND `ed`.`is_active` = :ed.is_active:
+AND `eh`.`enq_added_date` >= :eh.enq_added_date:
+AND `eh`.`enq_added_date` < :eh.enq_added_date.1:
+ORDER BY `ed`.`enquiry_details_id` DESC', [...], false)
+ 2 APPPATH\Models\SourceReportModel.php(87): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-01 00:00:00')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-16 05:34:32 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_active' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = :eh.is_active:
+AND `ed`.`is_active` = :ed.is_active:
+AND `eh`.`enq_added_date` >= :eh.enq_added_date:
+AND `eh`.`enq_added_date` < :eh.enq_added_date.1:
+ORDER BY `ed`.`enquiry_details_id` DESC', [...], false)
+ 4 APPPATH\Models\SourceReportModel.php(87): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-01 00:00:00')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-16 05:34:32 --> [Caused by] mysqli_sql_exception: Unknown column 'is_active' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = :eh.is_active:
+AND `ed`.`is_active` = :ed.is_active:
+AND `eh`.`enq_added_date` >= :eh.enq_added_date:
+AND `eh`.`enq_added_date` < :eh.enq_added_date.1:
+ORDER BY `ed`.`enquiry_details_id` DESC', [...], false)
+ 5 APPPATH\Models\SourceReportModel.php(87): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-01 00:00:00')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-05-16 05:34:40 --> mysqli_sql_exception: Unknown column 'is_active' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT DISTINCT...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SourceReportModel.php(87): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:0...', '2025-06-01 00:0...')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-05-16 05:34:40 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_active' in 'where clause'
+[Method: GET, Route: SourceReport/data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = :eh.is_active:
+AND `ed`.`is_active` = :ed.is_active:
+AND `eh`.`enq_added_date` >= :eh.enq_added_date:
+AND `eh`.`enq_added_date` < :eh.enq_added_date.1:
+ORDER BY `ed`.`enquiry_details_id` DESC', [...], false)
+ 2 APPPATH\Models\SourceReportModel.php(87): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-01 00:00:00')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-16 05:34:40 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_active' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = :eh.is_active:
+AND `ed`.`is_active` = :ed.is_active:
+AND `eh`.`enq_added_date` >= :eh.enq_added_date:
+AND `eh`.`enq_added_date` < :eh.enq_added_date.1:
+ORDER BY `ed`.`enquiry_details_id` DESC', [...], false)
+ 4 APPPATH\Models\SourceReportModel.php(87): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-01 00:00:00')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-16 05:34:40 --> [Caused by] mysqli_sql_exception: Unknown column 'is_active' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = 1
+AND `ed`.`is_active` = 1
+AND `eh`.`enq_added_date` >= \'2025-05-01 00:00:00\'
+AND `eh`.`enq_added_date` < \'2025-06-01 00:00:00\'
+ORDER BY `ed`.`enquiry_details_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT DISTINCT `eh`.`ref_no`, `ed`.`enquiry_header_id`, `ed`.`enquiry_source`, `ed`.`date_of_tour_start`, `ed`.`total_no_of_pax`, `ed`.`enq_description`, `om`.`object_name`, `eh`.`enq_added_date`, `mes`.`status_name` AS `latest_status`
+FROM `khm_obj_enquiry_details` AS `ed`
+LEFT JOIN `khm_obj_enquiry_header` AS `eh` ON `eh`.`enquiry_header_id` = `ed`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst` AS `om` ON `om`.`object_id` = `eh`.`object_id`
+LEFT JOIN (SELECT enquiry_header_id, MAX(updated_time) AS max_time
+              FROM khm_obj_enquiry_status
+             WHERE is_active = 1
+             GROUP BY enquiry_header_id
+            ) AS lts ON lts.enquiry_header_id = eh.enquiry_header_id
+LEFT JOIN `khm_obj_enquiry_status` AS `es` ON `es`.`enquiry_header_id` = `lts`.`enquiry_header_id` AND `es`.`updated_time`        = `lts`.`max_time` AND `es`.`is_active`           = 1
+LEFT JOIN `khm_obj_mst_enquiry_status` AS `mes` ON `mes`.`status_id`   = `es`.`current_status_id` AND `mes`.`is_active` = 1
+WHERE `eh`.`is_active` = :eh.is_active:
+AND `ed`.`is_active` = :ed.is_active:
+AND `eh`.`enq_added_date` >= :eh.enq_added_date:
+AND `eh`.`enq_added_date` < :eh.enq_added_date.1:
+ORDER BY `ed`.`enquiry_details_id` DESC', [...], false)
+ 5 APPPATH\Models\SourceReportModel.php(87): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-01 00:00:00')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-05-16 05:52:08 --> TypeError: CodeIgniter\Database\BaseBuilder::limit(): Argument #1 ($value) must be of type ?int, string given, called in C:\wamp64\www\khm\app\Models\SourceReportModel.php on line 65
+[Method: GET, Route: SourceReport/data]
+in SYSTEMPATH\Database\BaseBuilder.php on line 1509.
+ 1 APPPATH\Models\SourceReportModel.php(65): CodeIgniter\Database\BaseBuilder->limit('es.updated_time', 1)
+ 2 APPPATH\Models\SourceReportModel.php(73): App\Models\SourceReportModel->baseQuery()
+ 3 APPPATH\Controllers\SourceReport.php(90): App\Models\SourceReportModel->getByDateRange('2025-05-01 00:00:00', '2025-06-01 00:00:00')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SourceReport->data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SourceReport))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

@@ -1,0 +1,369 @@
+ERROR - 2025-04-12 05:08:08 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:08:32 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:08:50 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:10:00 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:10:03 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:10:19 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:10:32 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:19:22 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:19:33 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:19:35 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:19:35 --> mysqli_sql_exception: Column 'tax_name' cannot be null in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(67): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:22:25 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:22:38 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:23:17 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:23:20 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:25:33 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store('1')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-12 05:25:41 --> ArgumentCountError: Too few arguments to function App\Controllers\Tax::update(), 0 passed in C:\wamp64\www\khm\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: POST, Route: Tax/update]
+in APPPATH\Controllers\Tax.php on line 98.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Tax->update()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-12 05:31:37 --> mysqli_sql_exception: Column 'object_location_id' cannot be null in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-04-12 05:34:16 --> mysqli_sql_exception: Column 'object_ph_no' cannot be null in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\TaxModel.php(52): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Tax.php(89): App\Models\TaxModel->createTax(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Tax->store()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Tax))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-12 14:58:33 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "hub_locations.php"
+[Method: GET, Route: HubLocation]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('hub_locations.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('hub_locations', [], true)
+ 3 APPPATH\Controllers\HubLocation.php(47): view('hub_locations', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\HubLocation->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\HubLocation))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-12 14:58:44 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "hub_locations.php"
+[Method: GET, Route: HubLocation]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('hub_locations.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('hub_locations', [], true)
+ 3 APPPATH\Controllers\HubLocation.php(47): view('hub_locations', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\HubLocation->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\HubLocation))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-12 15:17:31 --> ParseError: syntax error, unexpected token "/"
+[Method: GET, Route: HubLocation]
+in APPPATH\Views\masters\hub_locations.php on line 2107.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/hub_locations', [], true)
+ 3 APPPATH\Controllers\HubLocation.php(47): view('masters/hub_locations', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\HubLocation->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\HubLocation))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-12 17:43:20 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "vehicle_view.php"
+[Method: GET, Route: VehicleController]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 41.
+ 1 SYSTEMPATH\View\View.php(222): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('vehicle_view.php')
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('vehicle_view', [], true)
+ 3 APPPATH\Controllers\VehicleController.php(57): view('vehicle_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\VehicleController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\VehicleController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-12 20:34:12 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: Insurances]
+in APPPATH\Views\masters\insurance_view.php on line 97.
+ 1 APPPATH\Views\masters\insurance_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\insurance_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\insurance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/insurance_view', [], true)
+ 5 APPPATH\Controllers\Insurances.php(46): view('masters/insurance_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Insurances->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Insurances))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-12 20:35:40 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: Insurances]
+in APPPATH\Views\masters\insurance_view.php on line 97.
+ 1 APPPATH\Views\masters\insurance_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\insurance_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\insurance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/insurance_view', [], true)
+ 5 APPPATH\Controllers\Insurances.php(46): view('masters/insurance_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Insurances->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Insurances))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-12 20:35:52 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: Insurances]
+in APPPATH\Views\masters\insurance_view.php on line 97.
+ 1 APPPATH\Views\masters\insurance_view.php(97): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\insurance_view.php', 97)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\insurance_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/insurance_view', [], true)
+ 5 APPPATH\Controllers\Insurances.php(46): view('masters/insurance_view')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Insurances->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Insurances))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

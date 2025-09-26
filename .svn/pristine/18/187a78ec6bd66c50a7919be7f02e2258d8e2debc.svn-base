@@ -1,0 +1,106 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class EditRequestReasonModel extends Model
+{
+    protected $table            = 'khm_obj_mst_edit_request_reason';
+    protected $primaryKey       = 'edit_request_reason_id';
+    protected $allowedFields    = [
+        'edit_request_reason',
+        'object_id',
+        'deleted',
+        'enterprise_id'
+    ];
+    protected $returnType       = 'array';
+    protected $useAutoIncrement = true;
+
+    /**
+     * Get all active (non-soft-deleted) edit request reasons.
+     */
+    public function getActiveEditRequestReasons()
+    {
+        return $this->where('deleted', 0)
+                    ->orderBy('edit_request_reason_id', 'DESC')
+                    ->findAll();
+    }
+
+    /**
+     * Insert a new edit request reason record.
+     * Also creates a new record in khm_obj_mst with:
+     *  - object_type_id = 5
+     *  - object_class_id = 16
+     *  - object_name = edit_request_reason
+     */
+    public function insertEditRequestReason($editRequestReason)
+    {
+        $db = \Config\Database::connect();
+
+        // Insert into khm_obj_mst table
+        $builderObj = $db->table('khm_obj_mst');
+        $dataObj = [
+            'object_type_id'   => 5,
+            'object_class_id'  => 16,
+            'object_name'      => $editRequestReason,
+            'deleted_at'       => 0,
+            'enterprise_id'    => 1,
+        ];
+        $builderObj->insert($dataObj);
+        $objectId = $db->insertID();
+
+        // Insert into khm_obj_mst_edit_request_reason table
+        $data = [
+            'edit_request_reason' => $editRequestReason,
+            'object_id'           => $objectId,
+            'deleted'             => 0,
+            'enterprise_id'       => 1
+        ];
+        return $this->insert($data);
+    }
+
+    /**
+     * Update an existing edit request reason record.
+     * Also updates the corresponding object record in khm_obj_mst.
+     */
+    public function updateEditRequestReason($id, $editRequestReason)
+    {
+        // Update this table
+        $this->update($id, [
+            'edit_request_reason' => $editRequestReason
+        ]);
+
+        // Update the corresponding record in khm_obj_mst
+        $db  = \Config\Database::connect();
+        $row = $this->find($id);
+        if ($row && isset($row['object_id'])) {
+            $objectId   = $row['object_id'];
+            $builderObj = $db->table('khm_obj_mst');
+            $builderObj->where('object_id', $objectId)
+                       ->update(['object_name' => $editRequestReason]);
+        }
+        return true;
+    }
+
+    /**
+     * Soft-delete an edit request reason record.
+     * Also soft-deletes the corresponding object record in khm_obj_mst.
+     */
+    public function softDeleteEditRequestReason($id)
+    {
+        // Soft-delete in this table
+        $this->update($id, ['deleted' => 1]);
+
+        // Soft-delete in khm_obj_mst
+        $db  = \Config\Database::connect();
+        $row = $this->find($id);
+        if ($row && isset($row['object_id'])) {
+            $objectId   = $row['object_id'];
+            $builderObj = $db->table('khm_obj_mst');
+            $builderObj->where('object_id', $objectId)
+                       ->update(['deleted_at' => 1]);
+        }
+        return true;
+    }
+}

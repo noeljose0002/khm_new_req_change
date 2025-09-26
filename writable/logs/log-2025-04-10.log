@@ -1,0 +1,1164 @@
+ERROR - 2025-04-10 07:53:27 --> mysqli_sql_exception: Unknown column 'is_default_ss' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_obj...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update(Array)
+#5 C:\wamp64\www\khm\app\Controllers\GeogController.php(261): App\Models\GeogModel->resetDefaultSightseeing('1940', '94')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('94')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-10 07:53:27 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_default_ss' in 'field list'
+[Method: POST, Route: GeogController/setDefault/94]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 2 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 3 APPPATH\Controllers\GeogController.php(261): App\Models\GeogModel->resetDefaultSightseeing('1940', '94')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('94')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 07:53:27 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_default_ss' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 4 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 5 APPPATH\Controllers\GeogController.php(261): App\Models\GeogModel->resetDefaultSightseeing('1940', '94')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('94')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 07:53:27 --> [Caused by] mysqli_sql_exception: Unknown column 'is_default_ss' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 5 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 6 APPPATH\Controllers\GeogController.php(261): App\Models\GeogModel->resetDefaultSightseeing('1940', '94')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('94')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 07:53:30 --> mysqli_sql_exception: Unknown column 'is_default_ss' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_obj...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update(Array)
+#5 C:\wamp64\www\khm\app\Controllers\GeogController.php(261): App\Models\GeogModel->resetDefaultSightseeing('2547', '166')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('166')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-10 07:53:30 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_default_ss' in 'field list'
+[Method: POST, Route: GeogController/setDefault/166]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 2 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 3 APPPATH\Controllers\GeogController.php(261): App\Models\GeogModel->resetDefaultSightseeing('2547', '166')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('166')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 07:53:30 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_default_ss' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'2547\'
+AND `sightseeing_id` != \'166\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'2547\'
+AND `sightseeing_id` != \'166\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 4 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 5 APPPATH\Controllers\GeogController.php(261): App\Models\GeogModel->resetDefaultSightseeing('2547', '166')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('166')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 07:53:30 --> [Caused by] mysqli_sql_exception: Unknown column 'is_default_ss' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'2547\'
+AND `sightseeing_id` != \'166\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'2547\'
+AND `sightseeing_id` != \'166\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'2547\'
+AND `sightseeing_id` != \'166\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 5 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 6 APPPATH\Controllers\GeogController.php(261): App\Models\GeogModel->resetDefaultSightseeing('2547', '166')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('166')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 07:57:47 --> mysqli_sql_exception: Unknown column 'is_default_ss' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_obj...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update(Array)
+#5 C:\wamp64\www\khm\app\Controllers\GeogController.php(261): App\Models\GeogModel->resetDefaultSightseeing('1940', '94')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('94')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-10 07:57:47 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_default_ss' in 'field list'
+[Method: POST, Route: GeogController/setDefault/94]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 2 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 3 APPPATH\Controllers\GeogController.php(261): App\Models\GeogModel->resetDefaultSightseeing('1940', '94')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('94')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 07:57:47 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'is_default_ss' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 4 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 5 APPPATH\Controllers\GeogController.php(261): App\Models\GeogModel->resetDefaultSightseeing('1940', '94')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('94')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 07:57:47 --> [Caused by] mysqli_sql_exception: Unknown column 'is_default_ss' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = 0
+WHERE `object_id` = \'1940\'
+AND `sightseeing_id` != \'94\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_obj_sightseeing` SET `is_default_ss` = :is_default_ss:
+WHERE `object_id` = :object_id:
+AND `sightseeing_id` != :sightseeing_id:', [...], false)
+ 5 APPPATH\Models\GeogModel.php(130): CodeIgniter\Database\BaseBuilder->update([...])
+ 6 APPPATH\Controllers\GeogController.php(261): App\Models\GeogModel->resetDefaultSightseeing('1940', '94')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\GeogController->setDefault('94')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GeogController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 09:12:28 --> mysqli_sql_exception: Unknown column 'deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-04-10 09:12:28 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+[Method: GET, Route: TerritoryController]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 2 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:12:28 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 4 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:12:28 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 5 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 09:20:06 --> mysqli_sql_exception: Unknown column 'deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-04-10 09:20:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+[Method: GET, Route: TerritoryController]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 2 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:20:06 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 4 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:20:06 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 5 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 09:21:00 --> mysqli_sql_exception: Unknown column 'deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-04-10 09:21:00 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+[Method: GET, Route: TerritoryController]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 2 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:21:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 4 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:21:00 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 5 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 09:23:57 --> mysqli_sql_exception: Unknown column 'deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-04-10 09:23:57 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+[Method: GET, Route: TerritoryController]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 2 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:23:57 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 4 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:23:57 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 5 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 09:23:58 --> mysqli_sql_exception: Unknown column 'deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-04-10 09:23:58 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+[Method: GET, Route: TerritoryController]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 2 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:23:58 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 4 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:23:58 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 5 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 09:23:59 --> mysqli_sql_exception: Unknown column 'deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-04-10 09:23:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+[Method: GET, Route: TerritoryController]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 2 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:23:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 4 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:23:59 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 5 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 09:23:59 --> mysqli_sql_exception: Unknown column 'deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-04-10 09:23:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+[Method: GET, Route: TerritoryController]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 2 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:23:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 4 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:23:59 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 5 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 09:23:59 --> mysqli_sql_exception: Unknown column 'deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-04-10 09:23:59 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+[Method: GET, Route: TerritoryController]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 2 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:23:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 4 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:23:59 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 5 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 09:27:07 --> mysqli_sql_exception: Unknown column 'deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-04-10 09:27:07 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+[Method: GET, Route: TerritoryController]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 2 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:27:07 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 4 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:27:07 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 5 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 09:27:17 --> mysqli_sql_exception: Unknown column 'deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-04-10 09:27:17 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+[Method: GET, Route: TerritoryController]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 2 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:27:17 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 4 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:27:17 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 5 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-10 09:27:18 --> mysqli_sql_exception: Unknown column 'deleted' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-04-10 09:27:18 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+[Method: GET, Route: TerritoryController]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 2 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:27:18 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 4 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:27:18 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = 0
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `entity_id`, `entity_name`
+FROM `khm_entity_mst`
+WHERE `deleted` = :deleted:
+AND `entity_id` IN (SELECT entity_id FROM khm_entity_boolean WHERE boolean_value = 1)', [...], false)
+ 5 APPPATH\Controllers\TerritoryController.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:32:17 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: TerritoryController]
+in APPPATH\Views\masters\territory_view.php on line 181.
+ 1 APPPATH\Views\masters\territory_view.php(181): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php', 181)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/territory_view', [], true)
+ 5 APPPATH\Controllers\TerritoryController.php(34): view('masters/territory_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:32:22 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: TerritoryController]
+in APPPATH\Views\masters\territory_view.php on line 181.
+ 1 APPPATH\Views\masters\territory_view.php(181): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php', 181)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/territory_view', [], true)
+ 5 APPPATH\Controllers\TerritoryController.php(34): view('masters/territory_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:32:22 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: TerritoryController]
+in APPPATH\Views\masters\territory_view.php on line 181.
+ 1 APPPATH\Views\masters\territory_view.php(181): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php', 181)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/territory_view', [], true)
+ 5 APPPATH\Controllers\TerritoryController.php(34): view('masters/territory_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:32:22 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: TerritoryController]
+in APPPATH\Views\masters\territory_view.php on line 181.
+ 1 APPPATH\Views\masters\territory_view.php(181): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php', 181)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/territory_view', [], true)
+ 5 APPPATH\Controllers\TerritoryController.php(34): view('masters/territory_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:32:23 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: TerritoryController]
+in APPPATH\Views\masters\territory_view.php on line 181.
+ 1 APPPATH\Views\masters\territory_view.php(181): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php', 181)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/territory_view', [], true)
+ 5 APPPATH\Controllers\TerritoryController.php(34): view('masters/territory_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:40:11 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: TerritoryController]
+in APPPATH\Views\masters\territory_view.php on line 94.
+ 1 APPPATH\Views\masters\territory_view.php(94): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php', 94)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/territory_view', [], true)
+ 5 APPPATH\Controllers\TerritoryController.php(34): view('masters/territory_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:53:15 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: TerritoryController]
+in APPPATH\Views\masters\territory_view.php on line 94.
+ 1 APPPATH\Views\masters\territory_view.php(94): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php', 94)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/territory_view', [], true)
+ 5 APPPATH\Controllers\TerritoryController.php(69): view('masters/territory_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:53:16 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: TerritoryController]
+in APPPATH\Views\masters\territory_view.php on line 94.
+ 1 APPPATH\Views\masters\territory_view.php(94): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php', 94)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/territory_view', [], true)
+ 5 APPPATH\Controllers\TerritoryController.php(69): view('masters/territory_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:55:18 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: TerritoryController]
+in APPPATH\Views\masters\territory_view.php on line 94.
+ 1 APPPATH\Views\masters\territory_view.php(94): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php', 94)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/territory_view', [], true)
+ 5 APPPATH\Controllers\TerritoryController.php(69): view('masters/territory_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-10 09:55:19 --> ErrorException: Undefined variable $all_roles_assn
+[Method: GET, Route: TerritoryController]
+in APPPATH\Views\masters\territory_view.php on line 94.
+ 1 APPPATH\Views\masters\territory_view.php(94): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $all_roles_assn', 'C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php', 94)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\masters\\territory_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('masters/territory_view', [], true)
+ 5 APPPATH\Controllers\TerritoryController.php(69): view('masters/territory_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\TerritoryController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TerritoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

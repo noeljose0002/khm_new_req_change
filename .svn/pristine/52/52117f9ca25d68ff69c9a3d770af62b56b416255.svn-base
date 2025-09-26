@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Edit Geography Record</title>
+  <!-- Bootstrap 4 CSS, Font Awesome, jQuery UI, Leaflet, DataTables CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+  <link rel="stylesheet" href="<?= base_url('masters/leaflet/leaflet.css'); ?>">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+  <meta name="csrf-token" content="<?= csrf_hash() ?>" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container-custom {
+      width: 80%;
+      max-width: 1000px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .1);
+      margin-bottom: 2rem;
+    }
+
+    #map {
+      height: 400px;
+      margin-top: 15px;
+      display: none;
+    }
+
+    .actions-col {
+      min-width: 150px;
+      white-space: nowrap;
+    }
+
+    .desc-col,
+    .timezone-col {
+      max-width: 10ch;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .table tr:hover {
+      background: #d4edda;
+      transition: background-color .3s ease;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-5 text-center">
+    <!-- Form Section -->
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-10">
+        <div class="container-custom mx-auto">
+          <h2 id="formHeading" class="mb-4">Add Geography Record</h2>
+          <div id="success-message" class="alert alert-success d-none"></div>
+          <div id="error-messages" class="alert alert-danger d-none"></div>
+          <form id="addGeogForm" class="needs-validation" novalidate>
+            <!-- For client-side use only; not sent to DB -->
+            <input type="hidden" id="geog_parent_name" name="geog_parent_name" value="" />
+            <input type="hidden" id="editing_geog_id" value="" />
+            <input type="hidden" id="enterprise_id" name="enterprise_id" value="1" />
+            <div class="form-row mb-3">
+              <div class="form-group col-md-6">
+                <label for="geog_level_id">Select Geography Level</label>
+                <select id="geog_level_id" name="geog_level_id" class="form-control" required>
+                  <option value="">-- Select Geography Level --</option>
+                  <?php if (isset($levels) && is_array($levels)): foreach ($levels as $level): ?>
+                      <option value="<?= $level['geog_level_id'] ?>"><?= strtolower($level['geog_level_name']) ?></option>
+                  <?php endforeach;
+                  endif; ?>
+                </select>
+                <div class="invalid-feedback">Please select a geography level.</div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Geography Record Details</label>
+              <div id="geog-container" class="border p-3 mb-2">
+                <div class="form-row">
+                  <div class="form-group col-md-6 mb-2">
+                    <label for="geog_name">Geography Name</label>
+                    <input type="text" id="geog_name" name="geog_name" class="form-control" placeholder="Enter your location" required />
+                    <div class="invalid-feedback">Geography Name is required.</div>
+                  </div>
+                  <!-- Parent container: dropdown for both add & edit mode -->
+                  <div class="form-group col-md-6 mb-2" id="parentContainer">
+                    <label for="geog_parent_id">Parent ID</label>
+                    <select id="geog_parent_id" name="geog_parent_id" class="form-control" required>
+                      <option value="">-- Select Parent --</option>
+                    </select>
+                    <!-- This read-only field is hidden by default; we won't use it to lock editing -->
+                    <input type="text" id="geog_parent_text" class="form-control mt-1" readonly style="display:none;" />
+                    <div class="invalid-feedback">Please select a Parent ID.</div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6 mb-2">
+                    <label for="geog_is_arrival">Is Arrival?</label>
+                    <select id="geog_is_arrival" name="geog_is_arrival" class="form-control" required>
+                      <option value="">Select</option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                    <div class="invalid-feedback">Select arrival status.</div>
+                  </div>
+                  <div class="form-group col-md-6 mb-2">
+                    <label for="geog_is_departure">Is Departure?</label>
+                    <select id="geog_is_departure" name="geog_is_departure" class="form-control" required>
+                      <option value="">Select</option>
+                      <option value="1">Yes</option>
+                      <option value="0">No</option>
+                    </select>
+                    <div class="invalid-feedback">Select departure status.</div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-4 mb-2">
+                    <label for="geog_longitude">Longitude</label>
+                    <input type="number" step="any" id="geog_longitude" name="geog_longitude" class="form-control" placeholder="Longitude" />
+                  </div>
+                  <div class="form-group col-md-4 mb-2">
+                    <label for="geog_latitude">Latitude</label>
+                    <input type="number" step="any" id="geog_latitude" name="geog_latitude" class="form-control" placeholder="Latitude" />
+                  </div>
+                  <div class="form-group col-md-4 mb-2">
+                    <label for="geog_timezone">Timezone</label>
+                    <input type="text" id="geog_timezone" name="geog_timezone" class="form-control" placeholder="Timezone" readonly />
+                  </div>
+                </div>
+                <div class="form-group mb-2">
+                  <label for="geog_description">Description</label>
+                  <textarea id="geog_description" name="geog_description" class="form-control" placeholder="Description" rows="3"></textarea>
+                </div>
+                <div class="text-right">
+                  <button type="button" id="clearEntry" class="btn btn-warning">Clear</button>
+                </div>
+              </div>
+              <button type="button" id="toggleMap" class="btn btn-primary">View in Map</button>
+              <div id="map"></div>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary" id="submitBtn">Add Geography Record</button>
+              <button type="button" id="cancelEdit" class="btn btn-secondary" style="display:none;">Cancel Edit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Table Section -->
+    <div class="row justify-content-center mt-5">
+      <h2 class="mb-4">Geography Records List</h2>
+      <table class="table table-bordered table-hover" id="recordsTable">
+        <thead class="thead-dark">
+          <tr>
+            <th>Geog ID</th>
+            <th>Level ID</th>
+            <th>Name</th>
+            <th>Parent ID</th>
+            <th>Arrival</th>
+            <th>Departure</th>
+            <th>Longitude</th>
+            <th>Latitude</th>
+            <th class="timezone-col">Timezone</th>
+            <th class="desc-col">Description</th>
+            <th>Level Name</th>
+            <th class="actions-col text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="geogRecordList">
+          <?php if (isset($records) && is_array($records) && count($records)): ?>
+            <?php foreach ($records as $record): ?>
+              <tr id="row_<?= $record['geog_id'] ?>">
+                <td><?= $record['geog_id'] ?></td>
+                <td><?= $record['geog_level_id'] ?></td>
+                <td><?= $record['geog_name'] ?></td>
+                <td><?= $record['geog_parent_id'] ?></td>
+                <td><?= $record['geog_is_arrival'] == 1 ? 'Yes' : 'No' ?></td>
+                <td><?= $record['geog_is_departure'] == 1 ? 'Yes' : 'No' ?></td>
+                <td><?= $record['geog_longitude'] ?></td>
+                <td><?= $record['geog_latitude'] ?></td>
+                <td class="timezone-col"><?= $record['geog_timezone'] ?? '' ?></td>
+                <td class="desc-col"><?= $record['geog_description'] ?></td>
+                <td><?= $record['geog_level_name'] ?></td>
+                <td class="actions-col text-center">
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-info btn-sm view-btn" data-record='<?= htmlspecialchars(json_encode($record), ENT_QUOTES, "UTF-8") ?>'><i class="fas fa-eye"></i></button>
+                    <button class="btn btn-success btn-sm edit-btn" data-record='<?= htmlspecialchars(json_encode($record), ENT_QUOTES, "UTF-8") ?>'><i class="fas fa-pencil-alt"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteRecord('<?= $record['geog_id'] ?>')"><i class="fas fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+            <?php endforeach;
+          else: ?>
+            <tr>
+              <td colspan="12" class="text-center">No records found.</td>
+            </tr>
+          <?php endif; ?>
+        </tbody>
+      </table>
+      <div class="col-auto">
+        <div class="row mb-3">
+          <!-- If you want a search box, uncomment below:
+        <div class="col-md-4 ml-auto">
+          <input type="text" id="searchBox" class="form-control" placeholder="Search Records..."/>
+        </div>
+        -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Modal -->
+  <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewModalLabel">Geography Record Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS Libraries -->
+  <script src="<?= base_url('masters/js/jquery-3.7.1.min.js'); ?>"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <script src="<?= base_url('masters/leaflet/leaflet.js'); ?>"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+  <script>
+    // Remove trailing slash from baseURL if present.
+    var baseURL = "<?= rtrim(site_url(), '/') ?>";
+    console.log("Records from PHP:", <?= json_encode($records) ?>);
+    var records = <?= json_encode($records) ?>;
+
+    // A map from a level to the next-lower level that can be a parent
+    var parentMapping = {
+      5: 4,
+      4: 3,
+      3: 2,
+      2: 1
+    };
+    
+
+    // Keep track of the last item selected from autoComplete
+    var lastGeoItem = null,
+      map,
+      marker;
+
+    $(function() {
+      initFormValidation();
+      initAutoComplete();
+      initEventHandlers();
+      initDataTable();
+      checkForQueryParams(); // see if there's a ?geog_id= or ?parentId=, etc.
+    });
+
+    function initFormValidation() {
+      // Simple form validation
+      window.addEventListener("load", function() {
+        $("#addGeogForm").on("submit", function(e) {
+          if (!this.checkValidity()) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          this.classList.add("was-validated");
+        });
+      });
+    }
+
+    function initAutoComplete() {
+      $("#geog_name").autocomplete({
+        minLength: 3,
+        appendTo: "body",
+        autoFocus: true,
+        source: (req, res) => {
+          var searchText = req.term;
+          if (parentName) {
+            searchText = parentName + " " + req.term; // e.g., "Kerala Kochi"
+          }
+          var apiUrl = "https://api.geoapify.com/v1/geocode/search?text=" + encodeURIComponent(searchText) + "&format=json&apiKey=46ab7b49387d4b59984151af1ce71554";
+          if (parentLat && parentLng) {
+            apiUrl += "&bias=proximity:" + parentLng + "," + parentLat; // Bias towards parent's location
+          }
+          $.ajax({
+            type: "GET",
+            url: apiUrl,
+            dataType: "json",
+            success: data => {
+              var results = data.results || [];
+              res(
+                results.length ?
+                $.map(results, item => ({
+                  label: item.formatted,
+                  value: item.formatted,
+                  lat: item.lat,
+                  lon: item.lon,
+                  timezone: item.timezone || {},
+                  country: item.country,
+                  state: item.state,
+                  county: item.county,
+                  city: item.city,
+                  town: item.town,
+                  suburb: item.suburb
+                })) :
+                []
+              );
+            },
+            error: (xhr, st, err) => {
+              console.error("Geoapify API error:", st, err);
+              res([]);
+            }
+          });
+        },
+        select: (e, ui) => {
+          lastGeoItem = ui.item;
+          $("#geog_latitude").val(ui.item.lat);
+          $("#geog_longitude").val(ui.item.lon);
+          $("#geog_timezone").val(
+            ui.item.timezone && Object.keys(ui.item.timezone).length ?
+            JSON.stringify(ui.item.timezone) :
+            '{"name":"UTC","offset_STD":"+00:00","offset_STD_seconds":0,"offset_DST":"+00:00","offset_DST_seconds":0,"abbreviation_STD":"UTC","abbreviation_DST":"UTC"}'
+          );
+          if ($("#editing_geog_id").val() || !$("#geog_parent_id").val()) {
+            autoDetectLevel(ui.item);
+          }
+          if (map) {
+            map.setView([ui.item.lat, ui.item.lon], 15);
+            if (marker) marker.setLatLng([ui.item.lat, ui.item.lon]);
+            else marker = L.marker([ui.item.lat, ui.item.lon]).addTo(map);
+          }
+        }
+      });
+    }
+
+    function autoDetectLevel(locationProps) {
+      // Attempt to auto-detect the level from location data
+      let detected = "";
+      if ((locationProps.suburb && locationProps.suburb.trim()) ||
+        (locationProps.town && locationProps.town.trim())) {
+        detected = "5";
+      } else if (locationProps.county && locationProps.county.trim() &&
+        locationProps.city && locationProps.city.trim()) {
+        detected = "4";
+      } else if (locationProps.state && locationProps.state.trim()) {
+        detected = "3";
+      } else if (locationProps.country && locationProps.country.trim()) {
+        detected = "2";
+      }
+      if (detected) {
+        $("#geog_level_id").val(detected).trigger("change");
+      }
+      // Set a default description
+      $("#geog_description").val(locationProps.label + " - ");
+    }
+
+    function initEventHandlers() {
+      // When geography level changes, rebuild the parent dropdown
+      $("#geog_level_id").on("change", function() {
+        updateParentDropdown();
+        // If sublocation (5), force arrival & departure to 0
+        if ($(this).val() === "5") {
+          $("#geog_is_arrival").val("0").prop("readonly", true);
+          $("#geog_is_departure").val("0").prop("readonly", true);
+        } else {
+          $("#geog_is_arrival").prop("readonly", false);
+          $("#geog_is_departure").prop("readonly", false);
+        }
+      });
+
+      // Keep track of the parent's name in a hidden input
+      $("#geog_parent_id").on("change", function() {
+        $("#geog_parent_name").val($("#geog_parent_id option:selected").text());
+      });
+
+      // Clear form
+      $("#clearEntry, #cancelEdit").on("click", resetForm);
+
+      // Submit form
+      $("#addGeogForm").on("submit", function(e) {
+        e.preventDefault();
+        if (!this.checkValidity()) return; // HTML5 validation
+
+        const edit = $("#editing_geog_id").val();
+        const name = $("#geog_name").val().trim().toLowerCase();
+        const ent = $("#enterprise_id").val().trim();
+
+        // Check for duplicates
+        const isDuplicate = records.some(r =>
+          r.geog_name.trim().toLowerCase() === name &&
+          r.enterprise_id.toString() === ent &&
+          (!edit || r.geog_id.toString() !== edit)
+        );
+        if (isDuplicate) {
+          Swal.fire("Duplicate Entry", "A record with this Geography Name already exists.", "warning");
+          return;
+        }
+
+        // Build data object
+        const dataObj = {
+          geog_level_id: $("#geog_level_id").val(),
+          enterprise_id: $("#enterprise_id").val(),
+          geog_name: $("#geog_name").val(),
+          geog_parent_id: $("#geog_parent_id").val(),
+          geog_is_arrival: $("#geog_is_arrival").val(),
+          geog_is_departure: $("#geog_is_departure").val(),
+          geog_longitude: $("#geog_longitude").val(),
+          geog_latitude: $("#geog_latitude").val(),
+          geog_timezone: $("#geog_timezone").val(),
+          geog_description: $("#geog_description").val()
+        };
+
+        let url = edit ? "GeogController/updateGeog/" + edit : "GeogController/insertGeog";
+        let method = edit ? "PUT" : "POST";
+
+        $.ajax({
+          url: baseURL + "/" + url,
+          method: method,
+          contentType: "application/json",
+          dataType: "json",
+          data: JSON.stringify(dataObj),
+          success: resp => {
+            if (resp.success) {
+              Swal.fire({
+                title: "Success!",
+                text: resp.message,
+                icon: "success",
+                allowOutsideClick: false
+              }).then(() => {
+                resetForm();
+                location.reload();
+              });
+            } else {
+              Swal.fire("Error!", resp.message || "Error processing request.", "error");
+            }
+          },
+          error: x => {
+            Swal.fire("Error!", (x.responseJSON && x.responseJSON.message) ? x.responseJSON.message : "Error processing request.", "error");
+          }
+        });
+      });
+
+      // Edit button
+      $(document).on("click", ".edit-btn", function() {
+        var rec = $(this).data("record");
+        if (typeof rec === "string") rec = JSON.parse(rec);
+        populateFormForEdit(rec);
+      });
+
+      // View button
+      $(document).on("click", ".view-btn", function() {
+        var rec = $(this).data("record");
+        if (typeof rec === "string") rec = JSON.parse(rec);
+        showViewModal(rec);
+      });
+
+      // Delete button
+      window.deleteRecord = id => {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "This will mark the record as deleted (soft delete).",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then(r => {
+          if (r.isConfirmed) {
+            $.ajax({
+              url: baseURL + "/GeogController/deleteGeog/" + id,
+              method: "DELETE",
+              dataType: "json",
+              success: resp => {
+                if (resp.success) {
+                  Swal.fire({
+                    title: "Deleted!",
+                    text: "Record deleted successfully.",
+                    icon: "success",
+                    allowOutsideClick: false
+                  }).then(() => {
+                    $("#row_" + id).fadeOut(500, () => $(this).remove());
+                  });
+                } else {
+                  Swal.fire("Error!", resp.message || "Failed to delete record.", "error");
+                }
+              },
+              error: () => Swal.fire("Error!", "Failed to delete record.", "error")
+            });
+          }
+        });
+      };
+
+      // Toggle map
+      $("#toggleMap").on("click", function() {
+        var m = $("#map");
+        if (m.is(":visible")) {
+          m.slideUp();
+          $(this).text("View in Map");
+        } else {
+          m.slideDown(() => {
+            if (!map) initMap();
+            setTimeout(() => map.invalidateSize(), 200);
+            const lat = parseFloat($("#geog_latitude").val());
+            const lon = parseFloat($("#geog_longitude").val());
+            if (!isNaN(lat) && !isNaN(lon)) {
+              map.setView([lat, lon], 15);
+              if (!marker) marker = L.marker([lat, lon]).addTo(map);
+              else marker.setLatLng([lat, lon]);
+            }
+          });
+          $(this).text("Hide Map");
+        }
+      });
+    }
+
+    // Build or rebuild the parent dropdown for the selected level
+    function updateParentDropdown() {
+      let lvl = parseInt($("#geog_level_id").val(), 10);
+      $("#geog_parent_id").empty().append('<option value="">-- Select Parent --</option>');
+
+      let p = parentMapping[lvl];
+      if (!p) {
+        $("#geog_parent_id").append('<option value="">No matching parent</option>');
+        return;
+      }
+      if (p === 1) {
+        var w = records.find(r => parseInt(r.geog_level_id) === 1);
+        if (w) {
+          $("#geog_parent_id").append(`<option value="${w.geog_id}">${w.geog_name}</option>`);
+        } else {
+          $("#geog_parent_id").append('<option value="">No matching parent records</option>');
+        }
+        return;
+      }
+      let filtered = records.filter(r => parseInt(r.geog_level_id) === p);
+      if (filtered.length) {
+        filtered.forEach(r => {
+          $("#geog_parent_id").append(`<option value="${r.geog_id}">${r.geog_name}</option>`);
+        });
+      } else {
+        $("#geog_parent_id").append('<option value="">No matching parent records</option>');
+      }
+    }
+
+    function resetForm() {
+      $("#editing_geog_id").val("");
+      $("#addGeogForm").removeClass("was-validated")[0].reset();
+      $("#formHeading").text("Add Geography Record");
+      $("#submitBtn").text("Add Geography Record");
+      $("#cancelEdit").hide();
+      $("#geog_parent_text").hide().val("");
+      $("#geog_is_arrival").prop("readonly", false);
+      $("#geog_is_departure").prop("readonly", false);
+      updateParentDropdown();
+    }
+
+    function populateFormForEdit(rec) {
+      // Populate all fields for editing
+      $("#editing_geog_id").val(rec.geog_id);
+      $("#geog_level_id").val(rec.geog_level_id);
+      $("#geog_name").val(rec.geog_name);
+      $("#geog_longitude").val(rec.geog_longitude);
+      $("#geog_latitude").val(rec.geog_latitude);
+      $("#geog_timezone").val(rec.geog_timezone ?? "");
+      $("#geog_description").val(rec.geog_description);
+      $("#formHeading").text("Edit Geography Record");
+      $("#submitBtn").text("Update Geography Record");
+      $("#cancelEdit").show();
+
+      // Rebuild the parent dropdown, then set the correct parent
+      updateParentDropdown();
+      $("#geog_parent_id").val(rec.geog_parent_id);
+      $("#geog_parent_id").show();
+      $("#geog_parent_text").hide().val("");
+
+      // For sublocations (level 5), keep arrival/departure forced to "0"
+      if (rec.geog_level_id == 5) {
+        $("#geog_is_arrival").val("0").prop("readonly", true);
+        $("#geog_is_departure").val("0").prop("readonly", true);
+      } else {
+        $("#geog_is_arrival").val(rec.geog_is_arrival).prop("readonly", false);
+        $("#geog_is_departure").val(rec.geog_is_departure).prop("readonly", false);
+      }
+
+      // Scroll to top so user sees the form
+      $("html, body").animate({
+        scrollTop: 0
+      }, "fast");
+
+      // If we have lat/long, show on the map
+      let lat = parseFloat(rec.geog_latitude),
+        lon = parseFloat(rec.geog_longitude);
+      if (!isNaN(lat) && !isNaN(lon)) {
+        if (!map) {
+          $("#map").slideDown();
+          $("#toggleMap").text("Hide Map");
+          initMap();
+        }
+        map.setView([lat, lon], 15);
+        if (!marker) marker = L.marker([lat, lon]).addTo(map);
+        else marker.setLatLng([lat, lon]);
+      }
+    }
+
+    function showViewModal(rec) {
+      var html = `
+      <p><strong>Geog ID:</strong> ${rec.geog_id}</p>
+      <p><strong>Level ID:</strong> ${rec.geog_level_id}</p>
+      <p><strong>Name:</strong> ${rec.geog_name}</p>
+      <p><strong>Parent ID:</strong> ${rec.geog_parent_id}</p>
+      <p><strong>Is Arrival:</strong> ${rec.geog_is_arrival == 1 ? "Yes" : "No"}</p>
+      <p><strong>Is Departure:</strong> ${rec.geog_is_departure == 1 ? "Yes" : "No"}</p>
+      <p><strong>Longitude:</strong> ${rec.geog_longitude}</p>
+      <p><strong>Latitude:</strong> ${rec.geog_latitude}</p>
+      <p><strong>Timezone:</strong> ${rec.geog_timezone ?? ''}</p>
+      <p><strong>Description:</strong> ${rec.geog_description}</p>
+      <p><strong>Level Name:</strong> ${rec.geog_level_name}</p>
+    `;
+      $("#viewModal .modal-body").html(html);
+      $("#viewModal").modal("show");
+    }
+
+    // Set up DataTable
+    function initDataTable() {
+      $("#recordsTable").DataTable({
+        order: []
+      });
+      // If you have a #searchBox:
+      // $("#searchBox").on("keyup", function(){
+      //   var v = $(this).val().toLowerCase();
+      //   $("#geogRecordList tr").filter(function(){
+      //     $(this).toggle($(this).text().toLowerCase().indexOf(v) > -1);
+      //   });
+      // });
+    }
+
+    // Initialize the Leaflet map
+    function initMap() {
+      if (map) return;
+      var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+          attribution: "&copy; OpenStreetMap contributors",
+          noWrap: true
+        }),
+        esri = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+          maxZoom: 19,
+          attribution: "Tiles &copy; Esri",
+          noWrap: true
+        });
+      map = L.map("map", {
+        center: [20, 0],
+        zoom: 2,
+        layers: [osm],
+        maxBounds: [
+          [-90, -180],
+          [90, 180]
+        ],
+        maxBoundsViscosity: 1.0,
+        worldCopyJump: false
+      });
+      L.control.layers({
+        "OpenStreetMap": osm,
+        "Esri World Imagery": esri
+      }).addTo(map);
+
+      // On map click, reverse geocode (only in add mode)
+      map.on("click", function(e) {
+        // If in edit mode, do not update fields on map click
+        if ($("#editing_geog_id").val() !== "") return;
+
+        var lat = e.latlng.lat,
+          lon = e.latlng.lng;
+        if (lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+          console.error("Invalid coords:", lat, lon);
+          return;
+        }
+        if (!marker) marker = L.marker(e.latlng).addTo(map);
+        else marker.setLatLng(e.latlng);
+
+        // Reverse geocode
+        $.ajax({
+          url: "https://api.geoapify.com/v1/geocode/reverse",
+          dataType: "json",
+          data: {
+            lat: lat,
+            lon: lon,
+            apiKey: "46ab7b49387d4b59984151af1ce71554"
+          },
+          success: d => {
+            if (d.features && d.features.length > 0) {
+              var props = d.features[0].properties,
+                addr = props.formatted || "Unknown location",
+                tz = props.timezone ? JSON.stringify(props.timezone) : '{"name":"UTC","offset_STD":"+00:00"}';
+              $("#geog_name").val(addr);
+              $("#geog_latitude").val(lat);
+              $("#geog_longitude").val(lon);
+              $("#geog_description").val(addr + " - ");
+              $("#geog_timezone").val(tz);
+              // Only auto-detect level if parent id is empty
+              if ($("#editing_geog_id").val() || !$("#geog_parent_id").val()) {
+                autoDetectLevel(props);
+              }
+            }
+          },
+          error: (x, s, err) => console.error("Reverse geocoding error:", s, err)
+        });
+      });
+    }
+
+    // If there's a ?geog_id=, load that record for editing automatically.
+    // If there's ?parentId= & ?newLevel=, pre-fill the parent field with that default value (but allow editing).
+    // At the top of the script, after var records = ...
+    var parentLat = getQueryParam('parentLat');
+    var parentLng = getQueryParam('parentLng');
+    var parentName = getQueryParam('parentName');
+
+    function checkForQueryParams() {
+      let editGeogId = getQueryParam('geog_id');
+      if (editGeogId) {
+        let editRecord = records.find(r => r.geog_id == editGeogId);
+        if (editRecord) populateFormForEdit(editRecord);
+      } else {
+        const params = new URLSearchParams(window.location.search),
+          parentId = params.get('parentId'),
+          parentName = params.get('parentName'), // Already stored globally
+          newLevel = params.get('newLevel');
+        if (parentId && parentName && newLevel) {
+          $("#geog_level_id").val(newLevel);
+          updateParentDropdown();
+          $("#geog_parent_id").val(parentId);
+          $("#geog_parent_name").val(parentName);
+          let headingText = "Add Sub Location"; // Adjust based on newLevel if needed
+          $("#formHeading").text(headingText);
+          $("#submitBtn").text(headingText);
+        } else {
+          updateParentDropdown();
+        }
+      }
+    }
+
+    function getQueryParam(param) {
+      var params = new URLSearchParams(window.location.search);
+      return params.get(param);
+    }
+  </script>
+</body>
+
+</html>

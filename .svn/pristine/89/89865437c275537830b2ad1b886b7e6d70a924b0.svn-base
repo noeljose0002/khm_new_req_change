@@ -1,0 +1,102 @@
+<?php
+
+namespace App\Controllers;
+
+use App\Models\HubLocationModel;
+use CodeIgniter\Controller;
+use App\Models\Dashboard_m;
+
+class HubLocation extends Controller
+{
+    // Display the list view
+    public function index()
+    {
+        $Dashboard_model = new Dashboard_m();
+        $entity_id = session('user_id');
+        $active_role = session('active_role');
+        $all_roles = $Dashboard_model->get_all_entity_roles($entity_id);
+        $all_systems = $Dashboard_model->get_all_systems($entity_id);
+        $data['all_systems'] = $all_systems;
+        if(!empty($all_roles)){
+            $data['all_roles_assn'] = $all_roles;
+            $all_menus = $Dashboard_model->get_all_role_menus($active_role);
+            if(!empty($all_menus)){
+                $data['all_menus'] = $all_menus;
+            }
+            else{
+                $data['all_menus'] = [];
+            }
+            $all_permissions = $Dashboard_model->get_all_entity_permissions($active_role,3);
+            if(!empty($all_permissions)){
+                $data['all_permissions'] = $all_permissions;
+            }
+            else{
+                $data['all_permissions'] = [];
+            }
+            
+        }
+        else{
+            $data['all_roles_assn'] = [];
+            $data['all_menus'] = [];
+            $data['all_permissions'] = [];
+        }
+        $parent_menu = $Dashboard_model->get_parent_menus();
+        $sub_menu = $Dashboard_model->get_sub_menus();
+        $data['parent_menu'] = $parent_menu;
+        $data['sub_menu'] = $sub_menu;
+        return view('masters/hub_locations',$data);
+    }
+    
+    // Return the hub locations list as JSON (AJAX)
+    public function list()
+    {
+        $model = new HubLocationModel();
+        $data = $model->getAll();
+        return $this->response->setJSON($data);
+    }
+    
+    // Show create/edit form
+    public function create()
+    {
+        $data = [];
+        $id = $this->request->getGet('id');
+        if ($id) {
+            $model = new HubLocationModel();
+            $data['hubLocation'] = $model->where('deleted', 0)->find($id);
+        }
+        return view('hub_location_form', $data);
+    }
+    
+    // Save data via AJAX (handles both create and update)
+    public function save()
+    {
+        $model = new HubLocationModel();
+        $postData = $this->request->getPost();
+        
+        // Basic validation can be added here
+        
+        if (!empty($postData['hub_location_id'])) {
+            // Update record
+            $id = $postData['hub_location_id'];
+            unset($postData['hub_location_id']);
+            $result = $model->update($id, $postData);
+        } else {
+            // Insert new record
+            $result = $model->insert($postData);
+        }
+        
+        return $this->response->setJSON(['success' => $result ? true : false]);
+    }
+    
+    // Soft delete hub location via AJAX
+    public function delete()
+    {
+        $model = new HubLocationModel();
+        $id = $this->request->getPost('hub_location_id');
+        if ($id) {
+            $result = $model->update($id, ['deleted' => 1]);
+            return $this->response->setJSON(['success' => $result ? true : false]);
+        }
+        return $this->response->setJSON(['success' => false]);
+    }
+}

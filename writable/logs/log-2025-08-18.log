@@ -1,0 +1,160 @@
+CRITICAL - 2025-08-18 06:22:36 --> ErrorException: Undefined array key "tax_status"
+[Method: GET, Route: Enquiry/itinerary/2586/0/218/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 953.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(953): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "tax_status"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 953)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(4020): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2586', '0', '218', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-18 06:22:52 --> ErrorException: Undefined array key "tax_status"
+[Method: GET, Route: Enquiry/itinerary/2587/0/219/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 953.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(953): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "tax_status"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 953)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(4020): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2587', '0', '219', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-18 06:23:07 --> ErrorException: Undefined array key "tax_status"
+[Method: GET, Route: Enquiry/itinerary/2587/0/219/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 953.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(953): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "tax_status"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 953)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(4020): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2587', '0', '219', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-18 06:46:33 --> ErrorException: Undefined array key "tax_status"
+[Method: GET, Route: Enquiry/itinerary/2587/0/219/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 953.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(953): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "tax_status"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 953)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(4020): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2587', '0', '219', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-18 15:18:27 --> Error: Undefined constant "voucherIndex"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 351.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-18 15:18:29 --> Error: Undefined constant "voucherIndex"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 351.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-18 15:18:30 --> Error: Undefined constant "voucherIndex"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 351.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-18 15:18:30 --> Error: Undefined constant "voucherIndex"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 351.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-18 15:18:30 --> Error: Undefined constant "voucherIndex"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 351.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-18 15:18:30 --> Error: Undefined constant "voucherIndex"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 351.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-18 15:18:34 --> Error: Undefined constant "voucherIndex"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 351.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-08-18 15:18:34 --> Error: Undefined constant "voucherIndex"
+[Method: POST, Route: Enquiry/getHotelVoucherData]
+in APPPATH\Views\enquiry\hotel_voucher_view.php on line 351.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/hotel_voucher_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(1485): view('enquiry/hotel_voucher_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getHotelVoucherData()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

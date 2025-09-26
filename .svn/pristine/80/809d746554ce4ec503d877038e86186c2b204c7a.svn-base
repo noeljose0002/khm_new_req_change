@@ -1,0 +1,1036 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+	<head>
+
+		<!-- Meta data -->
+		<meta charset="UTF-8">
+		<meta http-equiv="x-ua-compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta content="KHM-Touracle" name="description">
+		<meta content="Megatrend Knowledge Management Systems Pvt Ltd" name="author">
+		<meta name="keywords" content="KHM">
+		<!-- Favicon-->
+		<link rel="icon" href="<?php echo base_url('assets/images/brand/favicon.png'); ?>" type="image/x-icon"/>
+
+		<!-- Title -->
+		<title>KHM Dashboard</title>
+
+		<!-- Bootstrap css -->
+		<link href="<?php echo base_url('assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css'); ?>" rel="stylesheet" />
+
+		<!-- Style css -->
+		<link  href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet" />
+
+		<!-- Default css -->
+		<link href="<?php echo base_url('assets/css/default.css'); ?>" rel="stylesheet">
+
+		<!-- Sidemenu css-->
+		<link rel="stylesheet" href="<?php echo base_url('assets/plugins/sidemenu/icon-sidemenu.css'); ?>">
+
+		<!-- Owl-carousel css-->
+		<link href="<?php echo base_url('assets/plugins/owl-carousel/owl.carousel.css'); ?>" rel="stylesheet" />
+
+		<!-- Bootstrap-daterangepicker css -->
+		<link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-daterangepicker/daterangepicker.css'); ?>">
+
+		<!-- Bootstrap-datepicker css -->
+		<link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css'); ?>">
+
+		<!-- Custom scroll bar css -->
+		<link href="<?php echo base_url('assets/plugins/scroll-bar/jquery.mCustomScrollbar.css'); ?>" rel="stylesheet"/>
+
+		<!-- P-scroll css -->
+		<link href="<?php echo base_url('assets/plugins/p-scroll/p-scroll.css'); ?>" rel="stylesheet" type="text/css">
+
+		<!-- Font-icons css -->
+		<link  href="<?php echo base_url('assets/css/icons.css'); ?>" rel="stylesheet">
+
+		<!-- Rightsidebar css -->
+		<link href="<?php echo base_url('assets/plugins/sidebar/sidebar.css'); ?>" rel="stylesheet">
+
+		<!-- Nice-select css  -->
+		<link href="<?php echo base_url('assets/plugins/jquery-nice-select/css/nice-select.css'); ?>" rel="stylesheet"/>
+
+		<!-- Color-palette css-->
+		<link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>"/>
+		<link href="<?php echo base_url('assets/plugins/datatable/dataTables.bootstrap4.min.css'); ?>" rel="stylesheet" />
+		<link rel="stylesheet" href="https://pn-ciamis.go.id/asset/DataTables/extensions/Responsive/css/responsive.dataTables.css">
+		<link rel="stylesheet" href="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/css/buttons.dataTables.css">
+		<script src="<?php echo base_url('assets/tiny_mce/tiny_mce.js');?>"></script>
+		<style>
+				
+		table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
+    		top: 0px !important;
+		}
+		#hotel_table {
+			width: 100%; /* Ensure the table takes up the full width of its container */
+			table-layout: auto; /* Let the browser determine the column widths */
+		
+		}
+
+		#hotel_table th, #hotel_table td {
+			white-space: nowrap; /* Prevent text from wrapping */
+			text-overflow: ellipsis; /* Add ellipsis (...) for overflowed content */
+			overflow: hidden; /* Hide overflowed content */
+		}
+
+		.fixed-width-column1 {
+			width: 150px; /* Fixed width for specific columns, adjust as needed */
+		}
+
+		.auto-width {
+			/* No width defined, auto-fit to content */
+		}
+
+		#hotel_table th.auto-width, #hotel_table td.auto-width {
+			width: auto; /* Auto width for content */
+			max-width: 200px; /* Optional: Limit max width */
+		}
+		.custom-modal-width {
+			max-width: 90%; /* Adjust as needed */
+			width: 90%;
+		}
+
+		#send_multiple_iti,#save_cs_btn,#save_iti_btn {
+			background: #339966;
+			color: white;
+			border: 1px solid #006600;
+			border-radius: 12px;
+			backdrop-filter: blur(8px);
+			-webkit-backdrop-filter: blur(8px);
+			padding: 6px 14px;
+			font-size: 16px;
+			font-weight: 600;
+			float: right;
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+		}
+
+		#send_multiple_iti:hover,#save_cs_btn:hover,#save_iti_btn:hover {
+			background: #006600;
+			transform: scale(1.05);
+		}
+		</style>
+
+	</head>
+
+	<body class="app sidebar-mini">	
+
+		<!-- Loader -->
+		<div id="loading">
+			<img src="<?php echo base_url('assets/images/other/loader.svg'); ?>" class="loader-img" alt="Loader">
+		</div>
+
+		<div class="modal fade" id="enquiryeditmodal" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog custom-modal-width" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="example-Modal3">Enquiry Edit Details</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+						
+								<div class="row" style="padding-top:5px;">
+									<div class="col-lg-12 cls_enquiry_edit">
+
+										
+									</div>
+								</div>
+							
+						
+						</div>
+						
+					</div>
+				</div>
+			</div>
+
+		<div class="modal fade displaycontent" id="viewCostitiModal" data-keyboard="false" data-backdrop="static">
+												<div class="modal-dialog custom-modal-width" role="document">
+													<div class='modal-content'>
+													<div class="modal-header custom-modal-header">
+														<h5 class="modal-title" id="exampleModalLabel"><b>Costing Sheet - CS-<span id="cs_name_span"></span></b></h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+
+													</div>
+													<input type="hidden" id="cs_hidden_id" value="">
+													<div class="modal-body ct_tariff">
+
+													</div>
+													<div class="row">
+														<div class="col-xl-3">
+														</div>
+														<div class="col-xl-3">
+														</div>
+														<div class="col-xl-3">
+														</div>
+														<div class="col-xl-3">
+															<button type="button" id="save_cs_btn" class="btn btn-success btn-sm" style="float:right;margin-right:20px;">Save</button>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+													</div>
+													</div>
+												</div>
+											</div>
+
+			<div class="modal fade displaycontent" id="viewItineraryModal" data-keyboard="false" data-backdrop="false">
+												<div class="modal-dialog custom-modal-width" role="document">
+													<div class='modal-content'>
+													<div class="modal-header custom-modal-header">
+														<h5 class="modal-title" id="exampleModalLabel"><b>Itinerary View - CS-<span id="iti_name_span"></span></b></h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+
+													</div>
+													<input type="hidden" id="iti_hidden_id" value="">
+													<div class="modal-body iti_tariff">
+
+													</div>
+													<div class="row">
+														<div class="col-xl-3">
+														</div>
+														<div class="col-xl-3">
+														</div>
+														<div class="col-xl-3">
+														</div>
+														<div class="col-xl-3">
+															<button type="button" id="save_iti_btn" class="btn btn-success btn-sm" style="float:right;margin-right:20px;">Save</button>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+													</div>
+													</div>
+												</div>
+											</div>
+
+	    <div class="modal fade displaycontent" id="viewmultipleItineraryModal" data-keyboard="false" data-backdrop="false">
+												<div class="modal-dialog custom-modal-width" role="document">
+													<div class='modal-content'>
+													<div class="modal-header custom-modal-header">
+														<h5 class="modal-title" id="exampleModalLabel"><b>Itinerary View - CS-<span id="iti_name_spanm"></span></b></h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+
+													</div>
+													<div class="modal-body iti_tariffm">
+
+													</div>
+													<div class="modal-footer">
+														<!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+													</div>
+													</div>
+												</div>
+											</div>
+
+
+		    <div class="modal fade" id="ac_check_hna_modal" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog custom-modal-width" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="example-Modal3">Hotel Availability Check Details </h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+						
+								<div class="row" style="padding-top:5px;">
+									<div class="col-lg-12 cls_ac_hna">
+
+										
+									</div>
+								</div>
+							
+						
+						</div>
+						
+					</div>
+				</div>
+			</div>
+
+		<!-- PAGE -->
+		<div class="page">
+			<div class="page-main">
+
+				<!-- Top-header opened -->
+				<div class="header-main header sticky">
+					<div class="app-header header top-header navbar-collapse ">
+						<div class="container-fluid">
+							<div class="d-flex">
+								<a class="header-brand" href="index.html">
+									<img src="<?php echo base_url('assets/images/brand/logo.png'); ?>" class="header-brand-img desktop-logo " alt="Dashlot logo">
+									<img src="<?php echo base_url('assets/images/brand/logo1.png'); ?>" class="header-brand-img desktop-logo-1 " alt="Dashlot logo">
+									<img src="<?php echo base_url('assets/images/brand/favicon.png'); ?>" class="mobile-logo" alt="Dashlot logo">
+									<img src="<?php echo base_url('assets/images/brand/favicon1.png'); ?>" class="mobile-logo-1" alt="Dashlot logo">
+								</a>
+								<a href="#" data-toggle="sidebar" class="nav-link icon toggle"><i class="fe fe-align-justify fs-20"></i></a>
+								<div class="d-flex header-left left-header">
+									<div class="d-none d-lg-block horizontal">
+										<ul class="nav">
+											<li class="">
+												<div class="dropdown d-none d-md-flex">
+													<a href="#" class="d-flex nav-link pr-0  pt-2 mt-3 country-flag1" data-toggle="dropdown">
+														<span class="d-flex"><img src="<?php echo base_url('assets/images/roles.jpg'); ?>" alt="img" class="avatar country-Flag mr-2 align-self-center"></span>
+														<div>
+															<span class="d-flex fs-14 mr-3 mt-0"><?php echo session('active_role_name'); ?><span><i class="mdi mdi-chevron-down"></i></span></span>
+														</div>
+													</a>
+													<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+													<?php foreach ($all_roles_assn as $data) : ?>
+														<a href="#" onclick="switchroles(<?php echo $data['role_id']; ?>,'<?php echo $data['role_name']; ?>');" class="dropdown-item d-flex align-items-center mt-2">
+															<div>
+																<span><?php echo $data['role_name']; ?></span>
+															</div>
+														</a>
+													<?php endforeach; ?>
+														
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="d-flex header-left left-header">
+									<div class="d-none d-lg-block horizontal">
+										<ul class="nav">
+											<li class="">
+												<div class="dropdown d-none d-md-flex">
+													<a href="#" class="d-flex nav-link pr-0  pt-2 mt-3 country-flag1" data-toggle="dropdown">
+														<span class="d-flex"><img src="<?php echo base_url('assets/images/system.jpg'); ?>" alt="img" class="avatar country-Flag mr-2 align-self-center"></span>
+														<div>
+															<span class="d-flex fs-14 mr-3 mt-0"><?php echo session('system_name'); ?><span><i class="mdi mdi-chevron-down"></i></span></span>
+														</div>
+													</a>
+													<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+														<?php foreach ($all_systems as $datas) : ?>
+															<a href="#" onclick="switchsystems(<?php echo $datas['entity_boolean_id']; ?>,'<?php echo $datas['boolean_name']; ?>');" class="dropdown-item d-flex align-items-center mt-2">
+																<div>
+																	<span><?php echo $datas['boolean_name']; ?></span>
+																</div>
+															</a>
+														<?php endforeach; ?>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="d-flex header-right ml-auto">
+									<div class="dropdown header-fullscreen">
+										<a class="nav-link icon full-screen-link" id="fullscreen-button">
+											<i class="mdi mdi-arrow-collapse fs-20"></i>
+										</a>
+									</div>
+									
+									<div class="dropdown drop-profile">
+										<a class="nav-link pr-0 leading-none" href="#" data-toggle="dropdown" aria-expanded="false">
+											<div class="profile-details mt-1">
+												<span class="mr-3 mb-0  fs-15 font-weight-semibold"><?php echo session('user_name'); ?></span>
+												<!--<small class="text-muted mr-3">appdeveloper</small>-->
+											</div>
+											<img class="avatar avatar-md brround" src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="image">
+										 </a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated bounceInDown w-250">
+											<div class="user-profile bg-header-image border-bottom p-3">
+												<div class="user-image text-center">
+													<img class="user-images" src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="image">
+												</div>
+												<div class="user-details text-center">
+													<h4 class="mb-0"><?php echo session('user_name'); ?></h4>
+													<!--<p class="mb-1 fs-13 text-white-50">Jonathan@gmail.com</p>-->
+												</div>
+											</div>
+											<a class="dropdown-item" href="#">
+												<i class="dropdown-icon mdi mdi-account-outline "></i> Profile
+											</a>
+											<a class="dropdown-item" href="#">
+												<i class="dropdown-icon  mdi mdi-settings"></i> Settings
+											</a>
+											<a class="dropdown-item" href="#">
+												<span class="float-right"><span class="badge badge-success">6</span></span>
+												<i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
+											</a>
+											<a class="dropdown-item" href="#">
+												<i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
+											</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item" href="#">
+												<i class="dropdown-icon mdi mdi-compass"></i> Need help?
+											</a>
+											<a class="dropdown-item mb-1" href="<?=site_url('Login/logout');?>">
+												<i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+											</a>
+										</div>
+									</div><!-- Profile -->
+									<!--<div class="sidebar-link">
+										<a href="#" class="nav-link icon" data-toggle="sidebar-right" data-target=".sidebar-right">
+											<i class="fe fe-align-right" ></i>
+										</a>
+									</div>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Top-header closed -->
+
+				<!-- Sidebar menu-->
+				<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+				<aside class="app-sidebar toggle-sidebar">
+					<div class="app-sidebar__user">
+						<div class="user-body">
+							<img src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="profile-img" class="rounded-circle w-25">
+						</div>
+						<div class="user-info">
+							<a href="#" class=""><span class="app-sidebar__user-name font-weight-semibold"><?php echo session('user_name'); ?></span><br>
+							<!--span class="text-muted app-sidebar__user-designation text-sm">App Developer</span>-->
+							</a>
+						</div>
+					</div>
+					<ul class="side-menu toggle-menu">
+						<?php foreach($parent_menu as $key1 => $val1){ 
+							$img_tmp = $val1['entity_trans_id'].".svg";
+							?>
+							<li class="slide">
+								<a class="side-menu__item"  data-toggle="slide" href=""><span class="icon-menu-img"><img src="<?php echo base_url('assets/images/svgs/'.$img_tmp); ?>" class="side_menu_img svg-1" alt="image"></span><span class="side-menu__label"><?php echo $val1['entity_trans_name']; ?></span><i class="angle fa fa-angle-right"></i></a>
+								<ul class="slide-menu">
+									<?php foreach($sub_menu as $key2 => $val2){ 
+										if($val1['entity_trans_id'] == $val2['prs_parent_id']){
+											foreach($all_menus as $key3 => $val3){
+												if($val3['entity_trans_id'] == $val2['entity_trans_id']){
+										?>
+											<li><a class="slide-item" href="<?=site_url($val2['menu_link']);?>"><span><?php echo $val2['entity_trans_name']; ?></span></a></li>
+									<?php } } } } ?>
+								</ul>
+							</li>
+						<?php } ?>
+					</ul>
+				</aside>
+				<!-- Sidemenu closed -->
+
+				<!-- App-content opened -->
+				<div class="app-content icon-content">
+					<div class="section">
+
+						<!-- Page-header opened -->
+						<div class="page-header">
+							<div class="page-leftheader">
+								<button class="btn btn-success btn-sm" onclick="history.back()" title="Go Back"><i class="fa fa-arrow-left"></i> Back</button>
+								
+							</div>
+							<div class="d-flex header-right ml-auto">
+									<div class="dropdown d-md-flex message" style="padding-top:10px;">
+										<span class="separator"></span>
+											<p class="h5" style="color:#003300;font-weight:bold;">Guest Name : <?php echo $object_det[0]['object_name']; ?></p>
+										<span class="separator"></span>
+									</div>
+									<?php if($object_det[0]['enq_type_id'] == "3"){ ?>
+										<div class="dropdown d-md-flex message" style="padding-top:10px;">
+											<p class="h5" style="color:#003300;font-weight:bold;">Agent Name : <?php echo $object_det[0]['agent_name']; ?></p>
+											<span class="separator"></span>
+										</div>
+									<?php } ?>
+								
+							</div>
+							
+						</div>
+						<!-- Page-header closed -->
+
+						<div class="row">
+							<div class="col-md-12 col-lg-12">
+								<div class="card">
+									
+									<div class="card-body">
+										<div class="table-responsive">
+										    <table id="hotel_table" class="table table-bordered table-striped" cellspacing="0" width="100%">
+											<thead style="background-color:#c6ecd9;">
+													<tr>
+														<th>Si No</th>
+														<th>Costing Sheet ID</th>
+														<th>Multiple</th>
+														<th>CS</th>
+														<th>Itinerary</th>
+														<th>Edit</th>
+														<th>TPC</th>
+														<th>Created Date</th>
+														<th>Status</th>
+														<th>Availability Check</th>
+													
+													</tr>
+												</thead>
+												<tbody>
+													
+												</tbody>
+											</table>
+											
+											<button type="button" id="send_multiple_iti" class="btn btn-success btn-sm send_multiple_itinerary" style="float:left;">Send Multiple Itinerary</button>
+										</div>
+									</div>
+									<!-- table-wrapper -->
+								</div>
+								<!-- section-wrapper -->
+							</div>
+						</div>
+			
+						<!-- row closed -->
+					</div>
+				</div>
+				<!-- App-content closed -->
+			</div>
+
+			<!-- Footer opened -->
+			<footer class="footer-main icon-footer">
+				<div class="container">
+					<div class="  mt-2 mb-2 text-center">
+						Copyright © 2025 <a href="#" class="fs-14 text-primary">KHM</a>. Designed by <a href="https://megatrendkms.co.in" class="fs-14 text-primary" target="_blank">Megatrend Knowledge Management Systems Pvt Ltd</a> All rights reserved.
+					</div>
+				</div>
+			</footer>
+			<!-- Footer closed -->
+		</div>
+
+		<!-- Back-to-top -->
+		<a href="#top" id="back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+		<!-- Jquery-scripts -->
+		<script src="<?php echo base_url('assets/js/vendors/jquery-3.2.1.min.js'); ?>"></script>
+
+		<!-- Moment js-->
+        <script src="<?php echo base_url('assets/plugins/moment/moment.min.js'); ?>"></script>
+
+		<!-- Bootstrap-scripts js -->
+		<script src="<?php echo base_url('assets/js/vendors/bootstrap.bundle.min.js'); ?>"></script>
+
+		<!-- Sparkline JS-->
+		<script src="<?php echo base_url('assets/js/vendors/jquery.sparkline.min.js'); ?>"></script>
+
+		<!-- Bootstrap-daterangepicker js -->
+		<script src="<?php echo base_url('assets/plugins/bootstrap-daterangepicker/daterangepicker.js'); ?>"></script>
+
+		<!-- Bootstrap-datepicker js -->
+		<script src="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js'); ?>"></script>
+
+		<!-- Chart-circle js -->
+		<script src="<?php echo base_url('assets/js/vendors/circle-progress.min.js'); ?>"></script>
+
+		<!-- Rating-star js -->
+		<script src="<?php echo base_url('assets/plugins/rating/jquery.rating-stars.js'); ?>"></script>
+
+		<!-- Clipboard js -->
+		<script src="<?php echo base_url('assets/plugins/clipboard/clipboard.min.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/clipboard/clipboard.js'); ?>"></script>
+
+		<!-- Prism js -->
+		<script src="<?php echo base_url('assets/plugins/prism/prism.js'); ?>"></script>
+
+		<!-- Custom scroll bar js-->
+		<script src="<?php echo base_url('assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js'); ?>"></script>
+
+		<!-- Nice-select js-->
+		<script src="<?php echo base_url('assets/plugins/jquery-nice-select/js/jquery.nice-select.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/jquery-nice-select/js/nice-select.js'); ?>"></script>
+
+        <!-- P-scroll js -->
+		<script src="<?php echo base_url('assets/plugins/p-scroll/p-scroll.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/p-scroll/p-scroll-1.js'); ?>"></script>
+
+		<!-- Sidemenu js-->
+		<script src="<?php echo base_url('assets/plugins/sidemenu/icon-sidemenu.js'); ?>"></script>
+
+		<!-- JQVMap -->
+		<script src="<?php echo base_url('assets/plugins/jqvmap/jquery.vmap.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/jqvmap/maps/jquery.vmap.world.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/jqvmap/jquery.vmap.sampledata.js'); ?>"></script>
+
+		<!-- Apexchart js-->
+		<script src="<?php echo base_url('assets/js/apexcharts.js'); ?>"></script>
+
+		<!-- Chart js-->
+		<script src="<?php echo base_url('assets/plugins/chart/chart.min.js'); ?>"></script>
+
+		<!-- Index js -->
+		<script src="<?php echo base_url('assets/js/index.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/js/index-map.js'); ?>"></script>
+
+		<!-- Rightsidebar js -->
+		<script src="<?php echo base_url('assets/plugins/sidebar/sidebar.js'); ?>"></script>
+
+		<!-- Custom js -->
+		<script src="<?php echo base_url('assets/js/custom.js'); ?>"></script>
+
+		<script src="<?php echo base_url('assets/plugins/datatable/jquery.dataTables.min.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/datatable/dataTables.bootstrap4.min.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/datatable/datatable.js'); ?>"></script>
+		
+		<script src="https://pn-ciamis.go.id/asset/DataTables/extensions/Responsive/js/dataTables.responsive.js"></script>
+		<script src="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/js/dataTables.buttons.js"></script>
+		<script src="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/js/buttons.colVis.js"></script>
+
+	</body>
+</html>
+<script>
+      function switchroles(role_id,role_name) {
+        const newUrl = '<?php echo site_url('Dashboard'); ?>'
+        $.ajax({
+          url: '<?php echo site_url('Dashboard/system_role_change'); ?>',
+          type: 'POST',
+          data: {role_id:role_id,role_name:role_name},
+          success: function(response) {
+			location.reload();
+
+          },
+          error: function(xhr, status, error) {
+            // Handle any errors
+            console.error(error);
+          }
+        });
+      }
+</script>
+<script>
+      function switchsystems(system_id,system_name) {
+        const newUrl = '<?php echo site_url('Dashboard/add_entity/3'); ?>'
+        $.ajax({
+          url: '<?php echo site_url('Dashboard/khm_system_change'); ?>',
+          type: 'POST',
+          data: {system_id:system_id,system_name:system_name},
+          success: function(response) {
+			location.reload();
+
+          },
+          error: function(xhr, status, error) {
+            // Handle any errors
+            console.error(error);
+          }
+        });
+      }
+</script>
+<script>
+$(document).ready(function() {
+	cs_confirm_table();
+});
+
+function cs_confirm_table(){
+	var enquiry_header_id = "<?php echo $enquiry_header_id; ?>";
+	var object_id = "<?php echo $object_id; ?>";
+	if ($.fn.DataTable.isDataTable('#hotel_table')) {
+        $('#hotel_table').DataTable().destroy();
+    }
+    var table = $('#hotel_table').DataTable({
+		'processing': true,
+        'serverSide': true,
+        'responsive': true,
+		'serverMethod': 'post',
+        'pageLength': 10,
+        'dom': 'Bfrtip',
+        'buttons': [
+            'colvis'
+        ],
+		'ajax': {
+                'url': '<?=site_url('Enquiry/cost_list_view');?>',
+                'type': 'POST',
+				'data': {
+                    'enquiry_header_id': enquiry_header_id
+                }
+            },
+
+			'columnDefs': [
+				{ "orderable": false, "targets": [3, 4] }
+			],
+
+            'columns': [{
+				data: null,
+				orderable: false,
+				searchable: false,
+				render: function (data, type, row, meta) {
+					if(row.cs_confirmed_id > 0){
+						if(row.enquiry_detail_details_id == row.cs_confirmed_id){
+							return '<input type="radio" id="cs_finalize'+data+'" name="cs_finalize" data-id="'+row.enquiry_detail_details_id+'" class="costing_sheet_finalize" disabled checked>' + (meta.row + meta.settings._iDisplayStart + 1);
+						}
+						else{
+							return '<input type="radio" id="cs_finalize'+data+'" name="cs_finalize" data-id="'+row.enquiry_detail_details_id+'" class="costing_sheet_finalize" disabled>' + (meta.row + meta.settings._iDisplayStart + 1);
+						}
+					}
+					else{
+						return '<input type="radio" id="cs_finalize'+data+'" name="cs_finalize" data-id="'+row.enquiry_detail_details_id+'" class="costing_sheet_finalize">' + (meta.row + meta.settings._iDisplayStart + 1);
+					}
+				}
+			},
+			{
+				data: 'enquiry_detail_details_id',
+				render: function (data, type, row, meta) {
+					return row.cs_name + '-' + data;
+				}
+			},
+			{
+				data: 'enquiry_detail_details_id',
+				render: function (data, type, row, meta) {
+					return '<input type="checkbox" id="cs_multiple'+data+'" name="cs_multiple" value="'+data+'" class="csmultiple">';
+				}
+			},
+			{
+                data: 'enquiry_detail_details_id',
+				orderable: false,
+                render: function (data, type, row, meta) {
+					if (type == 'display') {
+						return '<a href="" class="view_cost_sheet_confirm" data-did='+row.enquiry_ref_id+' data-tid='+row.tour_plan_ref_id+' data-eid='+row.extension_ref_id+' data-id='+row.enquiry_detail_details_id+'><i class="fa fa-file-text-o" style="color:rgb(7, 138, 2); padding-right:10px;" type="button" title="Costing Sheet"></i></a>';
+					}
+					else{
+						return '';
+					}
+                }
+            },
+			{
+                data: 'enquiry_detail_details_id',
+				orderable: false,
+                render: function (data, type, row, meta) {
+					if (type == 'display') {
+						return '<a href="" class="view_iti_sheet_confirm" data-did='+row.enquiry_ref_id+' data-tid='+row.tour_plan_ref_id+' data-eid='+row.extension_ref_id+' data-id='+row.enquiry_detail_details_id+'><i class="fa fa-file-text" style="color:rgb(7, 138, 2); padding-right:10px;" type="button" title="Itinerary"></i></a>';
+					}
+					else{
+						return '';
+					}
+                }
+            },
+			
+			{
+                data: 'enquiry_detail_details_id',
+				orderable: false,
+                render: function (data, type, row, meta) {
+					let obj_name = "";
+					if (type == 'display') {
+						return '<a class="enquiry_edit_form" data-id-object=' + object_id + ' data-id-name=' + obj_name + ' data-toggle="tooltip" data-original-title="Enquiry Edit" href=""><i class="fa fa-edit" style="color:#339966"></i></a>';
+					}
+					else{
+						return '';
+					}
+                }
+            },
+			{
+                data: 'tpc'
+            },
+            {
+                data: 'fdate'
+            },
+		
+			{
+				data: 'is_active',
+				render: function (data, type, row, meta) {
+					return (data == 1) ? 'Current' : 'Previous';
+				}
+			},
+			{
+				data: 'enquiry_detail_details_id',
+				render: function (data, type, row, meta) {
+					if(row.availability_check == 1){
+						return '<h6 style="font-weight: bold;color:#0066cc">In Progress</h6>';
+					}
+					else if(row.availability_check == 2){
+						return '<h6 style="font-weight: bold;color:#339966">Available</h6>';
+					}
+					else if(row.availability_check == 3){
+						return '<h6 style="font-weight: bold;color:#cc3399">Not Available <a href="" class="hotel_not_available" data-id='+row.enquiry_detail_details_id+'><i class="fa fa-question-circle" style="color:rgb(7, 138, 2); padding-right:10px;" type="button" title="Hotel Not Available"></i></a></h6>';
+					}
+					else{
+						if(row.cs_confirmed_id > 0){
+							return '<input type="radio" id="cs_availability'+data+'" name="cs_availability" data-id="'+data+'" class="availabilitycheck" disabled>';
+						}
+						else{
+							return '<input type="radio" id="cs_availability'+data+'" name="cs_availability" data-id="'+data+'" class="availabilitycheck">';
+						}
+					}
+				}
+			},
+			
+        ],
+		'drawCallback': function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        }
+    });
+}
+</script>
+
+<script>
+	$(document).on('click', '.view_cost_sheet_confirm', function (e) {
+        e.preventDefault();
+
+        var id = $(this).data('id');
+        var extension_ref_id = $(this).data('eid');
+        var tourplan_ref_id = $(this).data('tid');
+        var enq_ref_id = $(this).data('did');
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('Enquiry/viewCostingSheet'); ?>",
+            data: {
+                id: id,
+                extension_ref_id: extension_ref_id,
+                tourplan_ref_id: tourplan_ref_id,
+                enq_ref_id: enq_ref_id
+            },
+            dataType: 'html',
+            success: function (response) {
+                $('.ct_tariff').html(response);
+                $('#cs_name_span').text(id);
+				$('#cs_hidden_id').val(id);
+                $('#viewCostitiModal').appendTo('body');
+                $('#viewCostitiModal').modal('show');
+                $('#viewCostitiModal').on('shown.bs.modal', function () {
+                    tinymce.remove('#cost_sheet_template');
+                    tinyMCE.init({
+                        theme: "advanced",
+                        theme_advanced_toolbar_location: "top",
+                        theme_advanced_toolbar_align: "left",
+                        mode: "exact",
+                        elements: "cost_sheet_template",
+                        readonly: true
+                    });
+                });
+            }
+        });
+    });
+    
+</script>
+
+<script>
+    $(document).on('click', '.view_iti_sheet_confirm', function (e) {
+        e.preventDefault();
+
+        var id = $(this).data('id');
+        var extension_ref_id = $(this).data('eid');
+        var tourplan_ref_id = $(this).data('tid');
+        var enq_ref_id = $(this).data('did');
+
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('Enquiry/viewItinerarySheet'); ?>",
+            data: {
+                id: id,
+                extension_ref_id: extension_ref_id,
+                tourplan_ref_id: tourplan_ref_id,
+                enq_ref_id: enq_ref_id
+            },
+            dataType: 'html',
+            success: function (response) {
+                $('.iti_tariff').html(response);
+                $('#iti_name_span').text(id);
+				$('#iti_hidden_id').val(id);
+                $('#viewItineraryModal').appendTo('body');
+                $('#viewItineraryModal').modal('show');
+                $('#viewItineraryModal').on('shown.bs.modal', function () {
+                    tinymce.remove('#iti_sheet_template');
+                    tinyMCE.init({
+                        theme: "advanced",
+                        theme_advanced_toolbar_location: "top",
+                        theme_advanced_toolbar_align: "left",
+                        mode: "exact",
+                        elements: "iti_sheet_template",
+                        readonly: true
+                    });
+                });
+            }
+        });
+    });
+</script>
+<script>
+	$(document).on('click', '#send_multiple_iti', function() {
+		var table = $('#hotel_table').DataTable();
+		var selectedIDs = [];
+
+		table.rows().every(function () {
+			var row = this.node();
+			var $checkbox = $(row).find('.csmultiple');
+			if ($checkbox.is(':checked')) {
+				selectedIDs.push($checkbox.val());
+			}
+		});
+
+		if (selectedIDs.length === 0) {
+			alert("Please select at least one itinerary.");
+		} else {
+			$.ajax({
+				type: "POST",
+				url: "<?= site_url('Enquiry/viewMultipleItinerarySheet'); ?>",
+				data: {
+					selectedIDs: selectedIDs
+				},
+				dataType: 'html',
+				success: function (response) {
+					$('.iti_tariffm').html(response);
+					//$('#iti_name_spanm').text(id);
+					$('#viewmultipleItineraryModal').appendTo('body');
+					$('#viewmultipleItineraryModal').modal('show');
+					$('#viewmultipleItineraryModal').on('shown.bs.modal', function () {
+						tinymce.remove('#multiple_iti_sheet_template');
+						tinyMCE.init({
+							theme: "advanced",
+							theme_advanced_toolbar_location: "top",
+							theme_advanced_toolbar_align: "left",
+							mode: "exact",
+							elements: "multiple_iti_sheet_template",
+							readonly: true
+						});
+					});
+				}
+			});
+		}
+	});
+</script>
+<script type="text/javascript">
+    $(document).on('click', '.availabilitycheck', function (e) {
+        e.preventDefault();
+		var enquiry_detail_details_id = $(this).attr('data-id');
+        $.ajax({
+            type: "POST",
+            url: '<?=site_url('Enquiry/availabilityCheck');?>',
+            data: {enquiry_detail_details_id:enquiry_detail_details_id},
+            dataType: 'json',
+            success: function (response) {
+                if(response == 0){
+					alert("Availability Check Already exist!");
+				}
+				else{
+					alert("Hotel Details are sent to "+response[0].entity_name+" for availability check");
+					cs_confirm_table();
+				}
+            }
+        });
+    });
+</script>
+<script>
+    $(document).on('click', '.hotel_not_available', function (e) {
+        e.preventDefault();
+        var enquiry_detail_details_id = $(this).data('id');
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('Enquiry/hotel_not_available_details'); ?>",
+            data: {
+                enquiry_detail_details_id: enquiry_detail_details_id
+            },
+            dataType: 'html',
+            success: function (response) {
+				$('.cls_ac_hna').html(response);
+        		$('#ac_check_hna_modal').modal('show'); 
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).on('click', '.costing_sheet_finalize', function (e) {
+        e.preventDefault();
+		if (!confirm("Are you sure you want to confirm this costing sheet?")) {
+			return;
+		}
+		var enquiry_detail_details_id = $(this).attr('data-id');
+		
+			$.ajax({
+				type: "POST",
+				url: '<?=site_url('Enquiry/confirmCostingSheet');?>',
+				data: {enquiry_detail_details_id:enquiry_detail_details_id},
+				dataType: 'json',
+				success: function (response) {
+					if(response == 1){
+						alert("The costing sheet has not been saved. Please save it before confirming");
+					}
+					else if(response == 2){
+						alert("The Itinerary has not been saved. Please save it before confirming");
+					}
+					else{
+						alert("Costing Sheet Confirmed");
+						cs_confirm_table();
+					}
+				}
+			});
+		
+    });
+</script>
+<script>
+    $(document).on('click', '#save_cs_btn', function (e) {
+        e.preventDefault();
+        var cs_content = $('#cost_sheet_template').val();
+		var enquiry_detail_details_id = $('#cs_hidden_id').val();
+		
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('Enquiry/save_final_costing_sheet'); ?>",
+            data: {
+                enquiry_detail_details_id: enquiry_detail_details_id,
+				cs_content:cs_content
+            },
+            dataType: 'json',
+            success: function (response) {
+				if(response){
+					alert("Costing Sheet Updated");
+					cs_confirm_table();
+				}
+				else{
+					alert("Please try again");
+				}
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).on('click', '#save_iti_btn', function (e) {
+        e.preventDefault();
+        var iti_content = $('#iti_sheet_template').val();
+		var enquiry_detail_details_id = $('#iti_hidden_id').val();
+		
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('Enquiry/save_final_itinerary_sheet'); ?>",
+            data: {
+                enquiry_detail_details_id: enquiry_detail_details_id,
+				iti_content:iti_content
+            },
+            dataType: 'json',
+            success: function (response) {
+				if(response){
+					alert("Itinerary Updated");
+					cs_confirm_table();
+				}
+				else{
+					alert("Please try again");
+				}
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).on('click', '.enquiry_edit_form', function(e) {
+        e.preventDefault();
+		var guest_names = "";
+		var object_id = $(this).attr('data-id-object');
+		var object_class_id = 10;
+		let guest_name = "";
+
+		$.ajax({
+			url: '<?=site_url('Enquiry/get_all_enquiry_foredit');?>',
+			method: 'POST',
+			data: { 
+				object_id: object_id,
+				object_class_id:object_class_id,
+				guest_name:guest_name
+			 },
+			dataType: 'html',
+			success: function (response) {
+				$('#enq_edit_header').html(guest_name);
+				$('.cls_enquiry_edit').html(response);
+        		$('#enquiryeditmodal').modal('show'); 
+				
+			},
+			error: function (xhr, status, error) {
+				console.error('Error', error);
+			}
+		});
+    });
+</script>
+

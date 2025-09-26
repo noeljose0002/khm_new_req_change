@@ -1,0 +1,902 @@
+CRITICAL - 2025-01-13 06:29:40 --> ErrorException: Undefined array key "menulink"
+[Method: GET, Route: dashboard]
+in APPPATH\Views\dashboard\dashboard.php on line 425.
+ 1 APPPATH\Views\dashboard\dashboard.php(425): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "menulink"', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\dashboard.php', 425)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\dashboard.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/dashboard', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(15): view('dashboard/dashboard', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 06:29:42 --> ErrorException: Undefined array key "menulink"
+[Method: GET, Route: dashboard]
+in APPPATH\Views\dashboard\dashboard.php on line 425.
+ 1 APPPATH\Views\dashboard\dashboard.php(425): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "menulink"', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\dashboard.php', 425)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\dashboard.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/dashboard', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(15): view('dashboard/dashboard', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 06:29:45 --> ErrorException: Undefined array key "menulink"
+[Method: GET, Route: dashboard]
+in APPPATH\Views\dashboard\dashboard.php on line 425.
+ 1 APPPATH\Views\dashboard\dashboard.php(425): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "menulink"', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\dashboard.php', 425)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\dashboard.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/dashboard', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(15): view('dashboard/dashboard', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 08:02:41 --> ErrorException: Undefined variable $users_list
+[Method: GET, Route: dashboard/add_user]
+in APPPATH\Views\dashboard\view_users.php on line 1299.
+ 1 APPPATH\Views\dashboard\view_users.php(1299): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $users_list', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\view_users.php', 1299)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\view_users.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/view_users', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(34): view('dashboard/view_users', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_user()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 08:02:45 --> ErrorException: Undefined variable $users_list
+[Method: GET, Route: dashboard/add_user]
+in APPPATH\Views\dashboard\view_users.php on line 1299.
+ 1 APPPATH\Views\dashboard\view_users.php(1299): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $users_list', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\view_users.php', 1299)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\view_users.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/view_users', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(34): view('dashboard/view_users', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_user()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-01-13 12:21:43 --> mysqli_sql_exception: Table 'khm_touracle_db.entity_mst_class' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-01-13 12:21:43 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+[Method: GET, Route: dashboard/add_entity/3]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 12:21:43 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 12:21:43 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-01-13 12:22:00 --> mysqli_sql_exception: Table 'khm_touracle_db.entity_mst_class' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-01-13 12:22:00 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+[Method: GET, Route: dashboard/add_entity/3]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 12:22:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 12:22:00 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-01-13 12:22:01 --> mysqli_sql_exception: Table 'khm_touracle_db.entity_mst_class' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-01-13 12:22:01 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+[Method: GET, Route: dashboard/add_entity/3]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 12:22:01 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 12:22:01 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-01-13 12:23:35 --> mysqli_sql_exception: Table 'khm_touracle_db.entity_mst_class' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-01-13 12:23:35 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+[Method: GET, Route: dashboard/add_entity/3]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 12:23:35 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 12:23:35 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-01-13 12:23:39 --> mysqli_sql_exception: Table 'khm_touracle_db.entity_mst_class' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-01-13 12:23:39 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+[Method: GET, Route: dashboard/add_entity/3]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 12:23:39 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 12:23:39 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-01-13 12:23:46 --> mysqli_sql_exception: Table 'khm_touracle_db.entity_mst_class' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-01-13 12:23:46 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+[Method: GET, Route: dashboard/add_entity/3]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 12:23:46 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 12:23:46 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.entity_mst_class' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = \'3\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `entity_mst_class`
+WHERE `entity_class_id` = :entity_class_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(170): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(30): App\Models\Dashboard_m->get_entity_class_details('3')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 14:10:00 --> ArgumentCountError: Too few arguments to function App\Models\Dashboard_m::get_all_attributes(), 0 passed in C:\wamp64\www\khm\app\Controllers\Dashboard.php on line 31 and exactly 1 expected
+[Method: GET, Route: dashboard/add_entity/3]
+in APPPATH\Models\Dashboard_m.php on line 193.
+ 1 APPPATH\Controllers\Dashboard.php(31): App\Models\Dashboard_m->get_all_attributes()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 14:10:05 --> ArgumentCountError: Too few arguments to function App\Models\Dashboard_m::get_all_attributes(), 0 passed in C:\wamp64\www\khm\app\Controllers\Dashboard.php on line 31 and exactly 1 expected
+[Method: GET, Route: dashboard/add_entity/3]
+in APPPATH\Models\Dashboard_m.php on line 193.
+ 1 APPPATH\Controllers\Dashboard.php(31): App\Models\Dashboard_m->get_all_attributes()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-01-13 14:11:14 --> mysqli_sql_exception: Unknown column '$entity_class_id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(199): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(31): App\Models\Dashboard_m->get_all_attributes('3')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-01-13 14:11:14 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column '$entity_class_id' in 'where clause'
+[Method: GET, Route: dashboard/add_entity/3]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = :$entity_class_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(199): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(31): App\Models\Dashboard_m->get_all_attributes('3')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 14:11:14 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column '$entity_class_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = \'3\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = :$entity_class_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(199): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(31): App\Models\Dashboard_m->get_all_attributes('3')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 14:11:14 --> [Caused by] mysqli_sql_exception: Unknown column '$entity_class_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = \'3\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = \'3\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = :$entity_class_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(199): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(31): App\Models\Dashboard_m->get_all_attributes('3')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-01-13 14:12:19 --> mysqli_sql_exception: Unknown column '$entity_class_id' in 'where clause' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(199): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(31): App\Models\Dashboard_m->get_all_attributes('3')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-01-13 14:12:19 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column '$entity_class_id' in 'where clause'
+[Method: GET, Route: dashboard/add_entity/3]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = :$entity_class_id:', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(199): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Dashboard.php(31): App\Models\Dashboard_m->get_all_attributes('3')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 14:12:19 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column '$entity_class_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = \'3\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = :$entity_class_id:', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(199): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Dashboard.php(31): App\Models\Dashboard_m->get_all_attributes('3')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 14:12:19 --> [Caused by] mysqli_sql_exception: Unknown column '$entity_class_id' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = \'3\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = \'3\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = \'3\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `khm_entity_mst_attribute`
+WHERE `$entity_class_id` = :$entity_class_id:', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(199): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Dashboard.php(31): App\Models\Dashboard_m->get_all_attributes('3')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 14:13:56 --> ErrorException: Undefined variable $enterprise_id
+[Method: GET, Route: dashboard/add_entity/3]
+in APPPATH\Controllers\Dashboard.php on line 46.
+ 1 APPPATH\Controllers\Dashboard.php(46): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $enterprise_id', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 46)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 14:14:08 --> ErrorException: Undefined variable $enterprise_id
+[Method: GET, Route: dashboard/add_entity/3]
+in APPPATH\Controllers\Dashboard.php on line 46.
+ 1 APPPATH\Controllers\Dashboard.php(46): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $enterprise_id', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 46)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 14:14:58 --> ParseError: syntax error, unexpected token "as", expecting ")"
+[Method: GET, Route: dashboard/add_entity/3]
+in APPPATH\Views\dashboard\add_entity.php on line 1349.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/add_entity', [], true)
+ 3 APPPATH\Controllers\Dashboard.php(50): view('dashboard/add_entity', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 14:19:30 --> ParseError: syntax error, unexpected token "as", expecting ")"
+[Method: GET, Route: dashboard/add_entity/3]
+in APPPATH\Views\dashboard\add_entity.php on line 1349.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/add_entity', [], true)
+ 3 APPPATH\Controllers\Dashboard.php(50): view('dashboard/add_entity', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 14:19:32 --> ParseError: syntax error, unexpected token "as", expecting ")"
+[Method: GET, Route: dashboard/add_entity/3]
+in APPPATH\Views\dashboard\add_entity.php on line 1349.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/add_entity', [], true)
+ 3 APPPATH\Controllers\Dashboard.php(50): view('dashboard/add_entity', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 14:19:44 --> ParseError: syntax error, unexpected token "as", expecting ")"
+[Method: GET, Route: dashboard/add_entity/3]
+in APPPATH\Views\dashboard\add_entity.php on line 1349.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/add_entity', [], true)
+ 3 APPPATH\Controllers\Dashboard.php(50): view('dashboard/add_entity', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_entity('3')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 17:58:59 --> Error: Call to undefined function bse_url()
+[Method: GET, Route: dashboard/view_users]
+in APPPATH\Views\dashboard\view_users.php on line 482.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/view_users', [], true)
+ 4 APPPATH\Controllers\Dashboard.php(25): view('dashboard/view_users', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->view_users()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 17:59:01 --> Error: Call to undefined function bse_url()
+[Method: GET, Route: dashboard/view_users]
+in APPPATH\Views\dashboard\view_users.php on line 482.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/view_users', [], true)
+ 4 APPPATH\Controllers\Dashboard.php(25): view('dashboard/view_users', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->view_users()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 18:09:46 --> ArgumentCountError: Too few arguments to function App\Controllers\Dashboard::view_users(), 0 passed in C:\wamp64\www\khm\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: GET, Route: dashboard/view_users]
+in APPPATH\Controllers\Dashboard.php on line 17.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->view_users()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 18:15:16 --> ArgumentCountError: Too few arguments to function App\Controllers\Dashboard::view_users(), 0 passed in C:\wamp64\www\khm\system\CodeIgniter.php on line 933 and exactly 1 expected
+[Method: GET, Route: dashboard/view_users]
+in APPPATH\Controllers\Dashboard.php on line 17.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->view_users()
+ 2 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 3 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 18:17:43 --> Error: Call to undefined function bayse_url()
+[Method: GET, Route: dashboard/view_users/3]
+in APPPATH\Views\dashboard\view_users.php on line 482.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/view_users', [], true)
+ 4 APPPATH\Controllers\Dashboard.php(25): view('dashboard/view_users', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->view_users('3')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 18:17:49 --> Error: Call to undefined function bayse_url()
+[Method: GET, Route: dashboard/view_users/3]
+in APPPATH\Views\dashboard\view_users.php on line 482.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/view_users', [], true)
+ 4 APPPATH\Controllers\Dashboard.php(25): view('dashboard/view_users', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->view_users('3')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 20:35:56 --> ErrorException: Undefined variable $array
+[Method: POST, Route: dashboard/saveEntity]
+in APPPATH\Controllers\Dashboard.php on line 62.
+ 1 APPPATH\Controllers\Dashboard.php(62): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $array', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 62)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->saveEntity()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 20:45:56 --> ErrorException: Undefined array key "entity_mobile"
+[Method: POST, Route: dashboard/saveEntity]
+in APPPATH\Controllers\Dashboard.php on line 64.
+ 1 APPPATH\Controllers\Dashboard.php(64): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "entity_mobile"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 64)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->saveEntity()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 20:50:18 --> ErrorException: Undefined array key "entity_mobile"
+[Method: POST, Route: dashboard/saveEntity]
+in APPPATH\Controllers\Dashboard.php on line 62.
+ 1 APPPATH\Controllers\Dashboard.php(62): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "entity_mobile"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 62)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->saveEntity()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 20:54:07 --> ErrorException: Undefined array key "entity_mobile"
+[Method: POST, Route: dashboard/saveEntity]
+in APPPATH\Controllers\Dashboard.php on line 62.
+ 1 APPPATH\Controllers\Dashboard.php(62): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "entity_mobile"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 62)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->saveEntity()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 22:06:19 --> ErrorException: Undefined variable $Dashboard_model
+[Method: POST, Route: dashboard/saveEntity]
+in APPPATH\Controllers\Dashboard.php on line 89.
+ 1 APPPATH\Controllers\Dashboard.php(89): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $Dashboard_model', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 89)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->saveEntity()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-01-13 22:08:58 --> mysqli_sql_exception: Unknown column 'enquiry_location_id' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Dashboard_m.php(79): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Dashboard.php(90): App\Models\Dashboard_m->insert_entity(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Dashboard->saveEntity()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-01-13 22:08:58 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enquiry_location_id' in 'field list'
+[Method: POST, Route: dashboard/saveEntity]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_entity_mst` (`entity_name`, `enquiry_location_id`, `entity_class_id`, `entity_type_id`, `enterprise_id`, `entity_mobile`, `entity_email`, `entity_address`) VALUES (:entity_name:, :enquiry_location_id:, :entity_class_id:, :entity_type_id:, :enterprise_id:, :entity_mobile:, :entity_email:, :entity_address:)', [...], false)
+ 2 APPPATH\Models\Dashboard_m.php(79): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 APPPATH\Controllers\Dashboard.php(90): App\Models\Dashboard_m->insert_entity([...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->saveEntity()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 22:08:58 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enquiry_location_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `khm_entity_mst` (`entity_name`, `enquiry_location_id`, `entity_class_id`, `entity_type_id`, `enterprise_id`, `entity_mobile`, `entity_email`, `entity_address`) VALUES (\'Anish T S\', \'9\', \'3\', \'1\', \'1\', \'[\\"8921207806\\",\\"2323233233\\"]\', \'[\\"anish@gmail.com\\",\\"dsd\\"]\', \'[\\"ssdsd\\",\\"sdsd\\"]\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `khm_entity_mst` (`entity_name`, `enquiry_location_id`, `entity_class_id`, `entity_type_id`, `enterprise_id`, `entity_mobile`, `entity_email`, `entity_address`) VALUES (\'Anish T S\', \'9\', \'3\', \'1\', \'1\', \'[\\"8921207806\\",\\"2323233233\\"]\', \'[\\"anish@gmail.com\\",\\"dsd\\"]\', \'[\\"ssdsd\\",\\"sdsd\\"]\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_entity_mst` (`entity_name`, `enquiry_location_id`, `entity_class_id`, `entity_type_id`, `enterprise_id`, `entity_mobile`, `entity_email`, `entity_address`) VALUES (:entity_name:, :enquiry_location_id:, :entity_class_id:, :entity_type_id:, :enterprise_id:, :entity_mobile:, :entity_email:, :entity_address:)', [...], false)
+ 4 APPPATH\Models\Dashboard_m.php(79): CodeIgniter\Database\BaseBuilder->insert([...])
+ 5 APPPATH\Controllers\Dashboard.php(90): App\Models\Dashboard_m->insert_entity([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->saveEntity()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 22:08:58 --> [Caused by] mysqli_sql_exception: Unknown column 'enquiry_location_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `khm_entity_mst` (`entity_name`, `enquiry_location_id`, `entity_class_id`, `entity_type_id`, `enterprise_id`, `entity_mobile`, `entity_email`, `entity_address`) VALUES (\'Anish T S\', \'9\', \'3\', \'1\', \'1\', \'[\\"8921207806\\",\\"2323233233\\"]\', \'[\\"anish@gmail.com\\",\\"dsd\\"]\', \'[\\"ssdsd\\",\\"sdsd\\"]\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `khm_entity_mst` (`entity_name`, `enquiry_location_id`, `entity_class_id`, `entity_type_id`, `enterprise_id`, `entity_mobile`, `entity_email`, `entity_address`) VALUES (\'Anish T S\', \'9\', \'3\', \'1\', \'1\', \'[\\"8921207806\\",\\"2323233233\\"]\', \'[\\"anish@gmail.com\\",\\"dsd\\"]\', \'[\\"ssdsd\\",\\"sdsd\\"]\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `khm_entity_mst` (`entity_name`, `enquiry_location_id`, `entity_class_id`, `entity_type_id`, `enterprise_id`, `entity_mobile`, `entity_email`, `entity_address`) VALUES (\'Anish T S\', \'9\', \'3\', \'1\', \'1\', \'[\\"8921207806\\",\\"2323233233\\"]\', \'[\\"anish@gmail.com\\",\\"dsd\\"]\', \'[\\"ssdsd\\",\\"sdsd\\"]\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_entity_mst` (`entity_name`, `enquiry_location_id`, `entity_class_id`, `entity_type_id`, `enterprise_id`, `entity_mobile`, `entity_email`, `entity_address`) VALUES (:entity_name:, :enquiry_location_id:, :entity_class_id:, :entity_type_id:, :enterprise_id:, :entity_mobile:, :entity_email:, :entity_address:)', [...], false)
+ 5 APPPATH\Models\Dashboard_m.php(79): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 APPPATH\Controllers\Dashboard.php(90): App\Models\Dashboard_m->insert_entity([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->saveEntity()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-13 22:11:37 --> ErrorException: Uninitialized string offset 1
+[Method: POST, Route: dashboard/saveEntity]
+in APPPATH\Controllers\Dashboard.php on line 109.
+ 1 APPPATH\Controllers\Dashboard.php(109): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Uninitialized string offset 1', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 109)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->saveEntity()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

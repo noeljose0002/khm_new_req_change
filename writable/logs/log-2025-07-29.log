@@ -1,0 +1,108 @@
+ERROR - 2025-07-29 06:18:02 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:187
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(187): mysqli->real_connect('localhost', 'root', '', 'khm_touracle_db', 3306, '', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `u`.*, `...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Login_m.php(15): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Login.php(25): App\Models\Login_m->check_valid_login('maintenance', 'Asdf@123')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Login->login()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `u`.*, `...', Array, false)
+#3 C:\wamp64\www\khm\app\Models\Login_m.php(15): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\wamp64\www\khm\app\Controllers\Login.php(25): App\Models\Login_m->check_valid_login('maintenance', 'Asdf@123')
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Login->login()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-07-29 06:18:02 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: NO)
+[Method: POST, Route: Login/login]
+in SYSTEMPATH\Database\BaseConnection.php on line 467.
+ 1 SYSTEMPATH\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `u`.*, `m`.`entity_name`
+FROM `khm_sys_usg_entity_users` `u`
+LEFT JOIN `khm_entity_mst` `m` ON `m`.`entity_id` = `u`.`entity_id`
+WHERE `u`.`user_id` = :u.user_id:
+AND `u`.`password` = :u.password:', [...], false)
+ 3 APPPATH\Models\Login_m.php(15): CodeIgniter\Database\BaseBuilder->get()
+ 4 APPPATH\Controllers\Login.php(25): App\Models\Login_m->check_valid_login('maintenance', 'Asdf@123')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Login->login()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-07-29 06:34:43 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:187
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(187): mysqli->real_connect('localhost', 'root', '', 'khm_touracle_db', 3306, '', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `u`.*, `...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Login_m.php(15): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Login.php(25): App\Models\Login_m->check_valid_login('maintenance', 'Asdf@123')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Login->login()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `u`.*, `...', Array, false)
+#3 C:\wamp64\www\khm\app\Models\Login_m.php(15): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\wamp64\www\khm\app\Controllers\Login.php(25): App\Models\Login_m->check_valid_login('maintenance', 'Asdf@123')
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Login->login()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-07-29 06:34:43 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: NO)
+[Method: POST, Route: Login/login]
+in SYSTEMPATH\Database\BaseConnection.php on line 467.
+ 1 SYSTEMPATH\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `u`.*, `m`.`entity_name`
+FROM `khm_sys_usg_entity_users` `u`
+LEFT JOIN `khm_entity_mst` `m` ON `m`.`entity_id` = `u`.`entity_id`
+WHERE `u`.`user_id` = :u.user_id:
+AND `u`.`password` = :u.password:', [...], false)
+ 3 APPPATH\Models\Login_m.php(15): CodeIgniter\Database\BaseBuilder->get()
+ 4 APPPATH\Controllers\Login.php(25): App\Models\Login_m->check_valid_login('maintenance', 'Asdf@123')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Login->login()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-07-29 06:58:23 --> ParseError: syntax error, unexpected token "<<"
+[Method: GET, Route: dashboard]
+in APPPATH\Models\Dashboard_m.php on line 2691.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Dashboard_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Dashboard_m')
+ 3 APPPATH\Controllers\Dashboard.php(138): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Dashboard_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

@@ -1,0 +1,261 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class GuestTrackingReportModel extends model
+{
+
+    protected $table = 'khm_obj_enquiry_header';
+    protected $primaryKey = 'enquiry_header_id';
+    protected $returnType = 'array';
+    protected $allowedFields = [
+        'object_id',
+        'guest_entity_id',
+        'agent_entity_id',
+        'employee_entity_id',
+        'enq_added_date',
+        'enq_type_id',
+        'is_active',
+        'ref_no',
+        'enterprise_id,'
+
+    ];
+
+
+
+
+
+    protected function baseQuery()
+    {
+        return $this->db
+            ->table('khm_obj_enquiry_header AS h')
+            ->distinct()
+            ->select([
+                //itinery
+                'koei.tour_date',
+                // header fields
+                'h.enquiry_header_id',
+                'h.object_id',
+                'h.guest_entity_id',
+                'h.agent_entity_id',
+                'h.employee_entity_id',
+                'h.enq_added_date',
+                'h.enq_type_id',
+                'h.ref_no',
+                'h.is_active AS header_active',
+
+                // object master
+                'om.object_name',
+
+                // guest / agent / employee names
+                'ge.entity_name AS guest_name',
+                'ge.entity_mobile AS guest_phone',
+                'ae.entity_name AS agent_name',
+                'ee.entity_name AS employee_name',
+
+                // details fields
+                'd.enquiry_details_id',
+                'd.date_of_tour_start',
+                // 'd.total_no_of_pax',
+                'd.is_active AS details_active',
+
+                // tour-details fields
+                // 'tf.check_in_date',
+                // 'tf.check_out_date',
+                // 'tf.is_active AS tour_active',
+
+                // extension fields
+                'e.is_active AS extension_active',
+                'e.tpc',
+
+                // arrival / departure
+                'arr.geog_name AS arrival_location_name',
+                'dep.geog_name AS departure_location_name',
+
+                // hotel info
+                'komen.object_name AS hotel_name',
+                'kogen.geog_name   AS hotel_location',
+
+                // agent GSTN & state
+                // 'attriagent.entity_attr_value AS agent_gstn',
+                // 'attr.entity_attr_value    AS agent_state',
+
+                // executive fields
+                'e9.entity_name                         AS executive',
+                'e8.entity_name AS sop_executive',
+
+                // --- aggregated vehicles pulled straight from JSON ---
+                // 'GROUP_CONCAT(DISTINCT vt.vehicle_count)        AS all_vehicle_counts',
+                'GROUP_CONCAT(DISTINCT vt.vehicle_type_id)      AS all_vehicle_type_ids',
+                'GROUP_CONCAT(DISTINCT vt.vehicle_model_name)   AS all_vehicle_model_names',
+                'GROUP_CONCAT(DISTINCT geo.geog_name)           AS all_vehicle_locations',
+
+                // vehicle / driver aggregate
+                't.driver_name  AS drivername',
+                't.phone_number AS driverphone',
+
+            ])
+            // header → details
+            ->join('khm_obj_enquiry_details AS d',   'd.enquiry_header_id = h.enquiry_header_id', 'left')
+            ->join('khm_loc_mst_geography AS arr',   'arr.geog_id = d.arrival_location',      'left')
+            ->join('khm_loc_mst_geography AS dep',   'dep.geog_id = d.departure_location',    'left')
+
+            //trsansport
+            ->join(
+                'khm_obj_transport_follow_up AS t',
+                't.enquiry_header_id=h.enquiry_header_id',
+                'left'
+            )
+            ->join(
+                'khm_entity_mst AS em4',
+                'em4.entity_id=t.transporter_id',
+                'left'
+            )
+            ->where('t.is_active', 1)
+
+            // details → tour details
+               ->join(
+                'khm_obj_enquiry_edit_request AS eer',
+                'eer.enquiry_header_id=h.enquiry_header_id',
+                'left'
+            )
+            ->where('eer.is_active', 1)
+
+            // details → extensions
+            ->join(
+                'khm_obj_enquiry_detail_extensions AS e',
+                'e.enquiry_detail_details_id  = eer.cs_confirmed_id',
+                'left'
+            )
+            ->where('e.is_active',1)
+            // ->join(
+            //     'khm_obj_enquiry_tour_details AS tf',
+            //     "tf.enquiry_header_id = h.enquiry_header_id AND tf.enquiry_details_id = d.enquiry_details_id",
+            //     'left'
+            // )
+            ->join(
+                'khm_obj_enquiry_itinerary_details AS koei',
+                'koei.extension_ref_id=e.extension_ref_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_hotel AS kohel',
+                'kohel.hotel_id=koei.hotel_id',
+                'left'
+
+            )
+            ->join(
+                'khm_obj_mst AS komen',
+                'komen.object_id=kohel.object_id',
+                'left'
+            )
+            ->join(
+                'khm_loc_mst_geography kogen',
+                'kogen.geog_id=komen.object_location_id',
+                'left'
+            )
+          
+            // object master for booking object
+            ->join('khm_obj_mst AS om', 'om.object_id = h.object_id', 'left')
+            // guest / agent / employee
+            ->join('khm_entity_mst AS ge', 'ge.entity_id = h.guest_entity_id',  'left')
+            ->join('khm_entity_mst AS ae', 'ae.entity_id = h.agent_entity_id',  'left')
+            ->join('khm_entity_mst AS ee', 'ee.entity_id = h.employee_entity_id', 'left')
+            // agent → hotel mapping attrs
+            // ->join('khm_entity_attribute AS attr',      "attr.entity_id = h.agent_entity_id    AND attr.entity_class_attr_id = 1978", 'left')
+            // ->join('khm_entity_attribute AS attriagent',"attriagent.entity_id = h.agent_entity_id AND attriagent.entity_class_attr_id = 1970", 'left')
+            // ->join('khm_obj_mst AS hm',   'hm.object_id = attr.entity_attr_value',  'left')
+            // ->join('khm_loc_mst_geography AS lg','lg.geog_id = hm.object_location_id','left')
+
+            // ----- JSON_TABLE for vehicle JSON in enquiry_details -----
+            ->join('khm_obj_enquiry_details AS ed', 'ed.enquiry_header_id = h.enquiry_header_id', 'left')
+            ->join(
+                "JSON_TABLE(
+                ed.vehicle_type_id,
+                '$[*]' COLUMNS(
+                    vehicle_count      INT            PATH '$.vehicle_count',
+                    vehicle_type_id    INT            PATH '$.vehicle_type_id',
+                    vehicle_model_name VARCHAR(255)   PATH '$.vehicle_model_name'
+                )
+            ) AS vt",
+                '1=1',
+                'left'
+            )
+
+            // optional joins for extra lookups (locations, drivers…)
+            ->join('khm_obj_vehicle AS v',    "v.vehicle_type_id = vt.vehicle_type_id AND v.is_active = 1", 'left')
+            ->join('khm_obj_mst AS vobj',     'vobj.object_id = v.object_id',          'left')
+            ->join('khm_loc_mst_geography AS geo', 'geo.geog_id = vobj.object_location_id', 'left')
+            ->join('khm_entity_attribute AS ea', "ea.entity_attr_value = v.vehicle_id AND ea.entity_class_attr_id = 1967", 'left')
+            ->join('khm_entity_mst AS em',    "em.entity_id = ea.entity_id AND em.deleted = 0", 'left')
+
+            // executives
+          ->join(
+                'khm_obj_enquiry_status AS es',
+                'es.edit_request_id =eer.enquiry_edit_request_id',
+                'left'
+            )
+           
+
+            ->join(
+                'khm_entity_mst AS e9',
+                'e9.entity_id=es.assigned_to',
+                'left'
+            )
+
+
+            ->join(
+                'khm_obj_enquiry_status AS es2',
+                'es2.edit_request_id =eer.enquiry_edit_request_id',
+                'left'
+            )
+            ->where('es2.current_status_id', 13)
+            ->join(
+                'khm_entity_mst AS e8',
+                'e8.entity_id=es2.assigned_to',
+                'left'
+            )
+
+            // filters
+            ->where('h.is_active', 1)
+            ->where('e.is_active', 1)
+            // ->where('tf.is_active', 1)
+            ->where('d.is_active', 1)
+            // ->where('koei.is_active', 1)
+
+
+            // group & order
+            ->groupBy('koei.itinerary_details_id')    // <-- add this line)
+            ->orderBy('d.date_of_tour_start', 'DESC');
+    }
+
+
+    public function getByDateRange($fromYmd, $system): array
+    {
+        $qb = $this->baseQuery()
+            ->where('koei.tour_date=', $fromYmd);
+        // ->where('t.check_in_date <=', $fromYmd)
+        // ->where('t.check_out_date >=', $fromYmd);
+
+
+        if ($system) {
+            $qb->where('h.enq_type_id', $system);
+        }
+
+        return $qb->get()->getResultArray();
+    }
+
+
+    /**
+     * (Optional) legacy method if you still need it:
+     */
+    public function getArrivalReport(): array
+    {
+        // simply returns everything (no date filter)
+        return $this->baseQuery()
+            ->get()
+            ->getResultArray();
+    }
+}

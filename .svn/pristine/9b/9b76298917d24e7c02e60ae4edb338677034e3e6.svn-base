@@ -1,0 +1,226 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class GroupEnquiryMisReportModel extends Model
+{
+    protected $table = 'khm_obj_enquiry_header';
+    protected $primaryKey = 'enquiry_header_id';
+    protected $allowedFields = [
+        'object_id',
+        'guest_entity_id',
+        'agent_entity_id',
+        'employee_entity_id',
+        'enq_added_date',
+        'enq_type_id',
+        'is_active',
+        'ref_no',
+        'enterprise_id',
+    ];
+
+
+    protected function baseQuery()
+    {
+        // 1) build a subquery that finds the latest status_id per header
+        $latestStatusSub = $this->db
+            ->table('khm_obj_enquiry_status')
+            ->select([
+                'enquiry_header_id',
+                'current_status_id',
+                'MAX(enquiry_status_id) AS enquiry_status_id',
+            ])
+            ->groupBy('enquiry_header_id')
+            ->getCompiledSelect();
+
+        return $this->db
+            ->table('khm_obj_enquiry_header AS h')
+            ->select([
+                'h.enquiry_header_id',
+                'h.enq_type_id',
+                'h.ref_no',
+                'h.enq_added_date',
+                'ede.tpc',
+                'mes.status_id',
+                'mes.status_name',
+                'e.entity_name        AS assigned_entity_name',
+                'e.entity_id          AS assigned_entity_id',
+                'ed.no_of_double_room',
+                'ed.total_no_of_pax',
+                'ed.no_of_night',
+                'ed.date_of_tour_start',
+                'ed.enquiry_source',
+                'e2.entity_id         AS agent_entity_id',
+                'e2.entity_name       AS agent_entity_name',
+                'e3.entity_id         AS guest_entity_id',
+                'e3.entity_name       AS guest_entity_name',
+                'GROUP_CONCAT(DISTINCT vt.vehicle_model_name) AS all_vehicle_model_names',
+                // mobile/email JSON → comma list
+                "REPLACE(
+                REPLACE(
+                    REPLACE(JSON_UNQUOTE(JSON_EXTRACT(e3.entity_mobile, '$')),
+                            '\\\"',''
+                    ),'[',''
+                ),']',''
+            ) AS entity_mobile",
+                "REPLACE(
+                REPLACE(
+                    REPLACE(JSON_UNQUOTE(JSON_EXTRACT(e3.entity_email,  '$')),
+                            '\\\"',''
+                    ),'[',''
+                ),']',''
+            ) AS entity_email",
+            ])
+            ->where('h.is_active', 1)
+
+            // your existing joins up to detail/extensions
+            ->join(
+                'khm_obj_enquiry_edit_request AS er',
+                'er.enquiry_header_id = h.enquiry_header_id',
+                'left'
+            )
+            ->where('er.is_active', 1)
+            ->join(
+                'khm_obj_enquiry_status AS es',
+                'es.edit_request_id = er.enquiry_edit_request_id',
+                'left'
+            )
+            ->where('es.current_status_id', 1)
+            ->join(
+                'khm_entity_mst AS e',
+                'e.entity_id = es.assigned_to',
+                'left'
+            )
+            ->join(
+                'khm_obj_enquiry_details AS ed',
+                'ed.enquiry_header_id = h.enquiry_header_id',
+                'left'
+            )
+            ->join(
+                "JSON_TABLE(
+                ed.vehicle_type_id, '$[*]'
+                COLUMNS(
+                  vehicle_count      INT            PATH '$.vehicle_count',
+                  vehicle_type_id    INT            PATH '$.vehicle_type_id',
+                  vehicle_model_name VARCHAR(255)   PATH '$.vehicle_model_name'
+                )
+            ) AS vt",
+                '1=1',
+                'left'
+            )
+            ->join(
+                'khm_entity_mst AS e2',
+                'e2.entity_id = h.agent_entity_id',
+                'left'
+            )
+            ->join(
+                'khm_entity_mst AS e3',
+                'e3.entity_id = h.guest_entity_id',
+                'left'
+            )
+            ->join(
+                'khm_obj_enquiry_detail_extensions AS ede',
+                'ede.enquiry_header_id = h.enquiry_header_id',
+                'left'
+            )
+
+            // 2) join the subquery of latest statuses
+            ->join(
+                "($latestStatusSub) AS ls",
+                'ls.enquiry_header_id = h.enquiry_header_id',
+                'left'
+            )
+
+            // 3) re‐join to full status row so you can pull any other columns
+            ->join(
+                'khm_obj_enquiry_status AS oes',
+                'oes.enquiry_header_id = ls.enquiry_header_id
+                AND oes.enquiry_status_id = ls.enquiry_status_id',
+                'left'
+            )
+
+            // 4) finally pull the human‐readable status name
+            ->join(
+                'khm_obj_mst_enquiry_status AS mes',
+                'mes.status_id = oes.current_status_id',
+                'left'
+            )
+
+            // because of GROUP_CONCAT on vehicles
+            ->groupBy('h.enquiry_header_id');
+    }
+
+    public function getAllEmployees(): array
+    {
+        return $this->db
+            ->table('khm_sys_usg_mst_entity_role AS e4')
+            ->select([
+                'e5.entity_id AS id',
+                'e5.entity_name AS name',
+            ])
+            ->join('khm_entity_mst AS e5',
+            'e5.entity_id=e4.entity_id',
+            'left'
+            )
+            ->where('e4.role_id ', 5)
+            ->orderBy('e5.entity_name', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function getAllStatus(): array
+    {
+        return $this->db
+            ->table(' khm_obj_mst_enquiry_status AS mes2')
+            ->select([
+                'mes2.status_id AS id',
+                'mes2.status_name AS name',
+            ])
+            ->where('mes2.is_active', 1)
+            ->orderBy('mes2.status_name', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function getAllAgents(): array
+    {
+        return $this->db
+            ->table('khm_entity_mst AS e5')
+            ->select([
+                'e5.entity_id AS id',
+                'e5.entity_name AS name',
+            ])
+            ->where('e5.entity_class_id ', 4)
+            ->orderBy('e5.entity_name', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function getByDateRange($fromYmd, $toYmd, $executive_id, $agents_id, $status_id,$system): array
+    {
+        $qb = $this->baseQuery()
+            ->where('h.enq_added_date >=', $fromYmd)
+            ->where('h.enq_added_date <=', $toYmd);
+
+         
+        // Only apply agent filter if user selected a specific agent
+        if ($executive_id !== 'all') {
+            $qb->where('e.entity_id  ', $executive_id);
+        }
+        if ($agents_id !== 'all') {
+            $qb->where('e2.entity_id', $agents_id);
+        }
+        if ($status_id !== 'all') {
+            $qb->where('mes.status_id', $status_id);
+        }
+        
+        if ($system) {
+            $qb->where('h.enq_type_id', $system);
+         }
+        
+
+        return $qb->get()
+            ->getResultArray();
+    }
+}

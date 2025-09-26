@@ -1,0 +1,2840 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+	<head>
+
+		<!-- Meta data -->
+		<meta charset="UTF-8">
+		<meta http-equiv="x-ua-compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta content="KHM-Touracle" name="description">
+		<meta content="Megatrend Knowledge Management Systems Pvt Ltd" name="author">
+		<meta name="keywords" content="KHM">
+		<!-- Favicon-->
+	<link rel="icon" href="<?php echo base_url('assets/images/brand/favicon.png'); ?>" type="image/x-icon" />
+
+		<!-- Title -->
+		<title>KHM - Tariff Generation</title>
+
+		<!-- Bootstrap css -->
+		<link href="<?php echo base_url('assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css'); ?>" rel="stylesheet" />
+
+		<!-- Style css -->
+		<link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet" />
+
+		<!-- Default css -->
+		<link href="<?php echo base_url('assets/css/default.css'); ?>" rel="stylesheet">
+
+		<!-- Sidemenu css-->
+		<link rel="stylesheet" href="<?php echo base_url('assets/plugins/sidemenu/icon-sidemenu.css'); ?>">
+
+		<!-- Owl-carousel css-->
+		<link href="<?php echo base_url('assets/plugins/owl-carousel/owl.carousel.css'); ?>" rel="stylesheet" />
+
+		<!-- Bootstrap-daterangepicker css -->
+		<link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-daterangepicker/daterangepicker.css'); ?>">
+
+		<!-- Bootstrap-datepicker css -->
+		<link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css'); ?>">
+
+		<!-- Custom scroll bar css -->
+	<link href="<?php echo base_url('assets/plugins/scroll-bar/jquery.mCustomScrollbar.css'); ?>" rel="stylesheet" />
+
+		<!-- Sidemenu-repsonsive-tabs  css -->
+		<link href="<?php echo base_url('assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css'); ?>" rel="stylesheet">
+
+		<!-- P-scroll css -->
+		<link href="<?php echo base_url('assets/plugins/p-scroll/p-scroll.css'); ?>" rel="stylesheet" type="text/css">
+
+		<!-- Font-icons css -->
+	<link href="<?php echo base_url('assets/css/icons.css'); ?>" rel="stylesheet">
+
+		<!-- Rightsidebar css -->
+		<link href="<?php echo base_url('assets/plugins/sidebar/sidebar.css'); ?>" rel="stylesheet">
+
+		<!-- Data table css -->
+	<link href="<?php echo base_url('assets/plugins/datatable1/css/dataTables.bootstrap4.min.css'); ?>" rel="stylesheet" />
+		<link href="<?php echo base_url('assets/plugins/datatable1/css/buttons.bootstrap4.min.css'); ?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/plugins/datatable1/responsive.bootstrap4.min.css'); ?>" rel="stylesheet" />
+
+		<!-- Nice-select css  -->
+	<link href="<?php echo base_url('assets/plugins/jquery-nice-select/css/nice-select.css'); ?>" rel="stylesheet" />
+
+		<!-- Color-palette css-->
+	<link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>" />
+    <style>
+		.table th,
+		.text-wrap table th {
+			color: #009933 !important;
+		}
+
+		.nice-select {
+			border: 1px solid #045511 !important;
+		}
+
+		.custom-modal-width {
+			max-width: 90%;
+			/* Adjust as needed */
+			width: 90%;
+		}
+
+		#btn_add_bt,
+		#btn_season,
+		#btn_save_all,
+		#btn_clear_bt,
+		#btn_cust_nj {
+			background: #339966;
+			color: white;
+			border: 1px solid #006600;
+			border-radius: 12px;
+			backdrop-filter: blur(8px);
+			-webkit-backdrop-filter: blur(8px);
+			padding: 6px 14px;
+			font-size: 16px;
+			font-weight: 600;
+			float: right;
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+		}
+
+		#btn_add_bt:hover,
+		#btn_season:hover,
+		#btn_clear_bt:hover,
+		#btn_cust_nj:hover,
+		#btn_save_all:hover {
+			background: #006600;
+			transform: scale(1.05);
+		}
+
+		#btn_update_bt:hover {
+			background: #006600;
+			transform: scale(1.05);
+		}
+
+		#btn_update_bt {
+			background: #339966;
+			color: white;
+			border: 1px solid #006600;
+			border-radius: 12px;
+			backdrop-filter: blur(8px);
+			-webkit-backdrop-filter: blur(8px);
+			padding: 6px 14px;
+			font-size: 16px;
+			font-weight: 600;
+			float: right;
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+		}
+	</style>
+	</head>
+
+	<body class="app sidebar-mini">	
+
+		<!-- Loader -->
+		<div id="loading">
+			<img src="<?php echo base_url('assets/images/other/loader.svg'); ?>" class="loader-img" alt="Loader">
+		</div>
+
+
+	<div class="modal fade" id="seasonsmodal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog custom-modal-width" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="example-Modal3"><span id="ssn_header"></span> - Season</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+						
+									<div class="row">
+										<div class="col-lg-3">
+											<input type="hidden" name="hd_hotel_id_ssn" id="hd_hotel_id_ssn" value="">
+											<input type="hidden" name="hd_object_id_ssn" id="hd_object_id_ssn" value="">
+											<label class="form-control-label">Start Date</label>
+											<input class="form-control" type="date" id="ssn_start_date">
+										</div>
+										<div class="col-lg-3">
+											<label class="form-control-label">End Date</label>
+											<input class="form-control" type="date" id="ssn_end_date">
+										</div>
+										<div class="col-lg-3">
+											<label class="form-control-label">Season Name</label>
+											<input class="form-control" type="text" id="season_name">
+										</div>
+										<div class="col-lg-3">
+											
+											<button type="button" id="btn_seasons" class="btn btn-success" style="float:right;">Add New Season</button>
+										</div>
+									</div>
+								
+							
+							
+								<div class="row" style="padding-top:5px;">
+									<div class="col-lg-12">
+										<table class="table" id="table_seasons" style="width: 100%;">
+											<thead style="background-color:#c6ecd9;"> 
+												<tr>
+													<th scope="col">Start Date</th>
+													<th scope="col">End Date</th>
+													<th scope="col">Season Name</th>
+													<th scope="col">Tariff</th>
+												</tr>
+											</thead>
+											<tbody>
+
+											</tbody>
+										</table>
+									</div>
+								</div>
+							
+						
+						</div>
+						
+					</div>
+				</div>
+			</div>
+
+
+
+		<!-- PAGE -->
+		<div class="page">
+			<div class="page-main">
+
+				<!-- Top-header opened -->
+				<div class="header-main header sticky">
+					<div class="app-header header top-header navbar-collapse ">
+						<div class="container-fluid">
+							<div class="d-flex">
+								<a class="header-brand" href="index.html">
+									<img src="<?php echo base_url('assets/images/brand/logo.png'); ?>" class="header-brand-img desktop-logo " alt="Dashlot logo">
+									<img src="<?php echo base_url('assets/images/brand/logo1.png'); ?>" class="header-brand-img desktop-logo-1 " alt="Dashlot logo">
+									<img src="<?php echo base_url('assets/images/brand/favicon.png'); ?>" class="mobile-logo" alt="Dashlot logo">
+									<img src="<?php echo base_url('assets/images/brand/favicon1.png'); ?>" class="mobile-logo-1" alt="Dashlot logo">
+								</a>
+								<a href="#" data-toggle="sidebar" class="nav-link icon toggle"><i class="fe fe-align-justify fs-20"></i></a>
+								<div class="d-flex header-left left-header">
+									<div class="d-none d-lg-block horizontal">
+										<ul class="nav">
+											<li class="">
+												<div class="dropdown d-none d-md-flex">
+													<a href="#" class="d-flex nav-link pr-0  pt-2 mt-3 country-flag1" data-toggle="dropdown">
+														<span class="d-flex"><img src="<?php echo base_url('assets/images/roles.jpg'); ?>" alt="img" class="avatar country-Flag mr-2 align-self-center"></span>
+														<div>
+															<span class="d-flex fs-14 mr-3 mt-0"><?php echo session('active_role_name'); ?><span><i class="mdi mdi-chevron-down"></i></span></span>
+														</div>
+													</a>
+													<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+													<?php foreach ($all_roles_assn as $data) : ?>
+														<a href="#" onclick="switchroles(<?php echo $data['role_id']; ?>,'<?php echo $data['role_name']; ?>');" class="dropdown-item d-flex align-items-center mt-2">
+															<div>
+																<span><?php echo $data['role_name']; ?></span>
+															</div>
+														</a>
+													<?php endforeach; ?>
+														
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="d-flex header-left left-header">
+									<div class="d-none d-lg-block horizontal">
+										<ul class="nav">
+											<li class="">
+												<div class="dropdown d-none d-md-flex">
+													<a href="#" class="d-flex nav-link pr-0  pt-2 mt-3 country-flag1" data-toggle="dropdown">
+														<span class="d-flex"><img src="<?php echo base_url('assets/images/system.jpg'); ?>" alt="img" class="avatar country-Flag mr-2 align-self-center"></span>
+														<div>
+															<span class="d-flex fs-14 mr-3 mt-0"><?php echo session('system_name'); ?><span><i class="mdi mdi-chevron-down"></i></span></span>
+														</div>
+													</a>
+													<div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+														<?php foreach ($all_systems as $datas) : ?>
+															<a href="#" onclick="switchsystems(<?php echo $datas['entity_boolean_id']; ?>,'<?php echo $datas['boolean_name']; ?>');" class="dropdown-item d-flex align-items-center mt-2">
+																<div>
+																	<span><?php echo $datas['boolean_name']; ?></span>
+																</div>
+															</a>
+														<?php endforeach; ?>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="d-flex header-right ml-auto">
+									<div class="dropdown header-fullscreen">
+										<a class="nav-link icon full-screen-link" id="fullscreen-button">
+											<i class="mdi mdi-arrow-collapse fs-20"></i>
+										</a>
+									</div><!-- Fullscreen -->
+									
+									<div class="dropdown drop-profile">
+										<a class="nav-link pr-0 leading-none" href="#" data-toggle="dropdown" aria-expanded="false">
+											<div class="profile-details mt-1">
+												<span class="mr-3 mb-0  fs-15 font-weight-semibold"><?php echo session('user_name'); ?></span>
+												<!--<small class="text-muted mr-3">appdeveloper</small>-->
+											</div>
+											<img class="avatar avatar-md brround" src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="image">
+										 </a>
+										<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated bounceInDown w-250">
+											<div class="user-profile bg-header-image border-bottom p-3">
+												<div class="user-image text-center">
+													<img class="user-images" src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="image">
+												</div>
+												<div class="user-details text-center">
+													<h4 class="mb-0"><?php echo session('user_name'); ?></h4>
+													<!--<p class="mb-1 fs-13 text-white-50">Jonathan@gmail.com</p>-->
+												</div>
+											</div>
+											<a class="dropdown-item" href="#">
+												<i class="dropdown-icon mdi mdi-account-outline "></i> Profile
+											</a>
+											<a class="dropdown-item" href="#">
+												<i class="dropdown-icon  mdi mdi-settings"></i> Settings
+											</a>
+											<a class="dropdown-item" href="#">
+												<span class="float-right"><span class="badge badge-success">6</span></span>
+												<i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
+											</a>
+											<a class="dropdown-item" href="#">
+												<i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
+											</a>
+											<div class="dropdown-divider"></div>
+											<a class="dropdown-item" href="#">
+												<i class="dropdown-icon mdi mdi-compass"></i> Need help?
+											</a>
+										<a class="dropdown-item mb-1" href="<?= site_url('Login/logout'); ?>">
+												<i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+											</a>
+										</div>
+									</div><!-- Profile -->
+								
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Top-header closed -->
+
+				<!-- Sidebar menu-->
+				<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+				<aside class="app-sidebar toggle-sidebar">
+					<div class="app-sidebar__user">
+						<div class="user-body">
+							<img src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="profile-img" class="rounded-circle w-25">
+						</div>
+						<div class="user-info">
+							<a href="#" class=""><span class="app-sidebar__user-name font-weight-semibold"><?php echo session('user_name'); ?></span><br>
+							<!--span class="text-muted app-sidebar__user-designation text-sm">App Developer</span>-->
+							</a>
+						</div>
+					</div>
+					<ul class="side-menu toggle-menu">
+					<?php foreach ($parent_menu as $key1 => $val1) {
+						$img_tmp = $val1['entity_trans_id'] . ".svg";
+							?>
+							<li class="slide">
+							<a class="side-menu__item" data-toggle="slide" href=""><span class="icon-menu-img"><img src="<?php echo base_url('assets/images/svgs/' . $img_tmp); ?>" class="side_menu_img svg-1" alt="image"></span><span class="side-menu__label"><?php echo $val1['entity_trans_name']; ?></span><i class="angle fa fa-angle-right"></i></a>
+								<ul class="slide-menu">
+								<?php foreach ($sub_menu as $key2 => $val2) {
+									if ($val1['entity_trans_id'] == $val2['prs_parent_id']) {
+										foreach ($all_menus as $key3 => $val3) {
+											if ($val3['entity_trans_id'] == $val2['entity_trans_id']) {
+										?>
+												<li><a class="slide-item" href="<?= site_url($val2['menu_link']); ?>"><span><?php echo $val2['entity_trans_name']; ?></span></a></li>
+								<?php }
+										}
+									}
+								} ?>
+								</ul>
+							</li>
+						<?php } ?>
+					</ul>
+				</aside>
+				<!-- Sidemenu closed -->
+
+				<!-- App-content opened -->
+				<div class="app-content icon-content">
+					<div class="section">
+
+						<!-- Page-header opened -->
+						<div class="page-header">
+							<div class="page-leftheader">
+							<h4 class="page-title mb-0">
+								<?php echo $hotel_det[0]['object_name'] . ', ' . $hotel_det[0]['geog_name'] . ''; ?> - Tariff Generation
+							</h4>
+
+								<small class="text-muted mt-0">Hotel <?php echo $hotel_det[0]['object_name']; ?> Tariff Generation</small>
+							</div>
+							<div class="page-rightheader">
+								<!--<div class="ml-3 ml-auto d-flex">
+									<ul class="pagination mt-xl-0 pt-0 mt-4 mb-0 mr-3">
+										<li class="page-item"><a class="page-link text-black" href="#">Day</a></li>
+										<li class="page-item"><a class="page-link text-black" href="#">Week</a></li>
+										<li class="page-item"><a class="page-link text-black" href="#">Month</a></li>
+										<li class="page-item"><a class="page-link text-black" href="#">Year</a></li>
+									</ul>
+									<div class="mt-4 mt-xl-0 mt-lg-4 mt-md-4 mt-md-0">
+										<button type="button" class="btn btn-secondary ">Create New</button>
+									</div>
+								</div>-->
+							</div>
+						</div>
+						<!-- Page-header closed -->
+
+						<!-- row opened -->
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="wideget-user-tab wideget-user-tab3 border-bottom">
+									<div class="tab-menu-heading">
+										<div class="tabs-menu1">
+											<ul class="nav">
+												<li class=""><a href="#tab-5" class="h5 active" data-toggle="tab"><b>Create Room</b></a></li>
+												<!--<li><a href="#tab-6" data-toggle="tab" class="h5"><b>Basic Tariff with Pax</b></a></li>-->
+												<li><a href="#tab-9" data-toggle="tab" class="h5"><b>Season Tariff</b></a></li>
+												<!--<li><a href="#tab-7" data-toggle="tab" class="h5"><b>Week End Tariff</b></a></li>-->
+												<!--<li><a href="#tab-8" data-toggle="tab" class="h5"><b>Week End Tariff with Pax</b></a></li>
+					
+												<li><a href="#tab-10" data-toggle="tab" class="h5"><b>Season Tariff with Pax</b></a></li>-->
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="bg-white widget-user mb-0">
+									<div class="card-body">
+										<div class="border-0">
+											<div class="tab-content">
+												<div class="tab-pane active" id="tab-5">
+													<div class="profile-log-switch">
+														<!-- Row-->
+														<div class="row">
+															<div class="col-xl-12 ">
+																<div class="">
+																	<div class="card mb-0 box-shadow-0">
+																		<div class="card-header ">
+																		    <div class="col-xl-3">
+																			<input type="hidden" id="room_id" name="room_id" value="">
+
+
+
+																				<label class="form-control-label"><b>Room Category</b></label>
+																				<select class="form-control" name="room_category_id" id="room_category_id">
+																					<option value="">Select</option>
+																						<?php
+																				if (!empty($room_categories3)) {
+																					foreach ($room_categories3 as $keys => $vals) {
+																								echo '<option value="' . $vals['room_category_id'] . '">' . $vals['room_category_name'] . '</option>';
+																							}
+																						} else {
+																						?>
+																						<option value="">Room Category not found</option>
+																						<?php } ?>
+																				</select>
+																			</div>
+																			<div class="col-xl-3">
+																				<label class="form-control-label"><b>Room Type</b></label>
+																				<select class="form-control" name="room_type_id" id="room_type_id">
+																					<option value="">Select</option>
+																						<?php
+																						foreach ($room_types as $keys1 => $vals1) {
+																							echo '<option value="' . $vals1['room_type_id'] . '">' . $vals1['room_type_name'] . '</option>';
+																						}
+																						?>
+																				</select>
+																			</div>
+																			<div class="col-xl-3">
+																				<label class="form-control-label"><b>Room Occupancy</b></label>
+																				<select class="form-control" name="occupancy_id" id="occupancy_id">
+																					<option value="">Select</option>
+																				<?php foreach ($occupancy as $keys2 => $vals2) {
+																							echo '<option value="' . $vals2['occupancy_id'] . '">' . $vals2['occupancy_name'] . '</option>';
+																				} ?>
+																				</select>
+																			</div>
+																		<input type="hidden" id="current_hotel_id" value="<?= $hotel_id ?>">
+																		<?php if (!empty($hotel_det[0]['object_name'])) : ?>
+																			<input type="hidden" id="current_object_name" value="<?= $hotel_det[0]['object_name'] ?>">
+																		<?php endif; ?>
+																			<div class="col-xl-3" style="padding-top:20px;">
+																			<button type="button" class="btn btn-success btn-sm" id="btn_add_bt">
+																				Add Room <i class="fa fa-plus ml-2"></i>
+																			</button>
+																			<button type="button" class="btn btn-primary btn-sm" id="btn_update_bt" style="display:none;">
+																				Update Room <i class="fa fa-edit ml-2"></i>
+																			</button>
+																			<button type="button" class="btn btn-success btn-sm ml-2" id="btn_clear_bt" style="display:none;">
+																				Clear <i class="fa fa-times ml-2"></i>
+																			</button>
+																			</div>
+																		</div>
+																		<div class="">
+																			<!--<div class="d-flex table-responsive p-3">
+																				<div class="btn-group mr-2">
+																					<button class="btn btn-sm btn-primary fs-14"><i class="mdi mdi-plus-circle-outline"></i> Add</button>
+																				</div>
+																				<div class="btn-group mr-2">
+																					<button type="button" class="btn btn-light mr-2"><i class="mdi mdi-alert-circle-outline"></i>
+																					</button>
+																					<button type="button" class="btn btn-light"><i class="mdi mdi-delete-empty"></i>
+																					</button>
+																				</div>
+																				<div class="btn-group mr-2">
+																					<button type="button" class="btn btn-light"><i class="mdi mdi-printer"></i>
+																					</button>
+																				</div>
+																				<div class="btn-group ml-auto mr-2 mt-1 border-0 d-none d-md-block">
+																					<input type="text" class="form-control" placeholder="Search Here">
+																				</div>
+																			</div>-->
+																			<div id="table1" class="table-responsive table-editable dyn_tariff_table">
+																			<!-- empty or rows here -->
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<!-- End Row -->
+
+													<?php if (!empty($tariff_data)) { ?>
+															<div class="row" style="padding-top:10px;">
+															<div class="col-xl-3"></div>
+																<div class="col-xl-3">
+																	<button type="button" class="btn btn-success btn-sm" id="btn_save_all">Save All</button>
+																</div>
+																<div class="col-xl-3">	
+																<button type="button" class="btn btn-success btn-sm open-room-cat" id="btn_cust_nj">
+																	BACK TO ROOM CATEGORY <i class="fa fa-plus ml-2"></i>
+																</button>
+																</div>
+															<div class="col-xl-3"></div>
+														</div>
+													<?php } else { ?>
+														<div class="row" style="padding-top:10px;">
+															<div class="col-xl-9"></div>
+																<div class="col-xl-3">	
+																<button type="button" class="btn btn-success btn-sm open-room-cat" id="btn_cust_nj">
+																	BACK TO ROOM CATEGORY <i class="fa fa-plus ml-2"></i>
+																</button>
+																</div>
+															</div>
+													<?php } ?>
+
+													</div>
+												</div>
+												<div class="tab-pane" id="tab-6">
+													<!-- Row-->
+													<div class="row">
+														<div class="col-xl-12 ">
+															<div class="">
+																<div class="card mb-0 box-shadow-0">
+																
+																	<div class="">
+																		
+																		<div id="table1" class="table-responsive table-editable dyn_tariff_table_pax">
+																				
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<!-- End Row -->
+												</div>
+												
+												<div class="tab-pane userprof-tab" id="tab-9">
+													<div class="row">
+														<div class="col-lg-12 col-xl-12 col-sm-12 ">
+																		<div class="card-header">
+																		    <div class="col-xl-3">
+																				<label class="form-control-label"><b>Seasons</b></label>
+																<?php if (!empty($all_seasons)) { ?>
+																					<select class="form-control" name="season_id" id="season_id">
+																						<option value="">Select</option>
+																							<?php
+																							foreach ($all_seasons as $keys => $vals) {
+																			if ($vals['season_id'] == $tariff_ids) {
+																									echo '<option value="' . $vals['season_id'] . '" selected>' . $vals['season_name'] . '</option>';
+																			} else {
+																									echo '<option value="' . $vals['season_id'] . '">' . $vals['season_name'] . '</option>';
+																								}
+																							}
+																							?>
+																					</select>
+																				<?php } else { ?>
+																					<select class="form-control" name="season_id" id="season_id">
+																						<option value="">Select</option>
+																						<option value="">Seasons are not defined</option>	
+																					</select>
+																				<?php } ?>
+																			</div>
+
+																			
+																			<div class="col-xl-3">
+																				<label class="form-control-label"><b>Weekends</b></label>
+																<?php if (!empty($all_weekends)) { ?>
+																					<select class="form-control" name="weekends_id" id="weekends_id">
+																						<option value="">Select</option>
+																							<?php
+																							foreach ($all_weekends as $keys => $vals) {
+																							
+																			echo '<option value="' . $vals['weekend_id'] . '">From ' . date("d-M-Y", strtotime($vals['weekend_start_date'])) . ' to ' . date("d-M-Y", strtotime($vals['weekend_end_date'])) . '</option>';
+																							}
+																							?>
+																					</select>
+																				<?php } else { ?>
+																					<select class="form-control" name="weekends_id" id="weekends_id">
+																						<option value="">Select</option>
+																						<option value="">Weekends are not defined</option>	
+																					</select>
+																				<?php } ?>
+																			</div>
+
+																			<div class="col-xl-3">
+																				<label class="form-control-label"><b>Copy Seasons</b></label>
+																<?php if (!empty($all_seasons)) { ?>
+																					<select class="form-control" name="copy_season_id" id="copy_season_id">
+																						<option value="">Select</option>
+																							<?php
+																							foreach ($all_seasons as $keys => $vals) {
+																								echo '<option value="' . $vals['season_id'] . '">' . $vals['season_name'] . '</option>';
+																							}
+																							?>
+																					</select>
+																				<?php } else { ?>
+																					<select class="form-control" name="copy_season_id" id="copy_season_id">
+																						<option value="">Select</option>
+																						<option value="">Seasons are not defined</option>	
+																					</select>
+																				<?php } ?>
+																			</div> 
+															<div class="col-xl-3" style="padding-top:30px;">
+																<a id="btn_season" class="btn btn-success btn-sm mb-2 mb-xl-0 text-white season_form"
+																	data-id-object="<?php echo $object_id; ?>"
+																	data-id-name="<?php echo $hotel_det[0]['object_name']; ?>"
+																	data-id="<?php echo $hotel_id; ?>"
+																	data-toggle="tooltip"
+																	data-original-title="Season"
+																	href="">
+																	Create New Season
+																</a>
+																			</div>
+																		</div>
+														<div id="table3" class="table-responsive table-editable dyn_tariff_table_season"><!-- renamed from table1 -->
+															<!-- season rows here -->
+														</div>
+																</div>
+																
+															</div>
+														</div>
+													</div>
+												</div>
+												
+
+											<!-- /////noel////////////////////////////////////////////////////////////////////// -->
+											<div class="modal fade" id="roomcatmodal" tabindex="-1" role="dialog" aria-hidden="true">
+												<div class="modal-dialog custom-modal-widths" role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="example-Modal3">Hotel <span id="rc_header"></span> - Room Category Details</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															<label class="form-control-label">Room Category <span style="color: red;">*</span></label>
+															<div class="row" style="padding-bottom:5px;">
+																<div class="col-lg-6">
+																	<input type="hidden" name="hd_hotel_id" id="hd_hotel_id" value="">
+																	<input type="hidden" name="hd_edit" id="hd_edit" value="0">
+
+
+
+																	<select class="form-control custom-select" name="hd_room_category_id" id="hd_room_category_id">
+																		<option value="">Select</option>
+																		<?php
+																		foreach ($room_categories2 as $keys => $vals) {
+																			echo '<option value="' . $vals['room_category_id'] . '">' . $vals['room_category_name'] . '</option>';
+																		}
+																		?>
+																	</select>
+																	<div class="mt-2">
+																		<div class="form-check form-check-inline">
+																	<input type="hidden" name="is_b2b" value="0">
+																	<input class="form-check-input" type="checkbox" id="is_b2b" name="is_b2b" checked value="1">
+																			<label class="form-check-label" for="is_b2b">B2B</label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																	<input type="hidden" name="is_b2c" value="0">
+																	<input class="form-check-input" type="checkbox" id="is_b2c" name="is_b2c" checked value="1">
+																			<label class="form-check-label" for="is_b2c">B2C</label>
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<button type="button" id="btn_room_cat" class="btn btn-success"><span id="rc_span_btn"></span></button>
+																</div>
+															</div>
+
+
+															<div id="roomcat-alert" style="padding-top:10px;"></div>
+
+															<div class="row">
+																<div class="col-lg-12">
+																	<table class="table" id="table_room_category" style="width: 100%;">
+																		<thead style="background-color:#c6ecd9;">
+																			<tr>
+																				<th scope="col">Room Catrgory</th>
+																				<th scope="col">Edit</th>
+																				<th scope="col">Order</th>
+																				<th scope="col">B2B</th>
+																				<th scope="col">B2C</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+
+
+														</div>
+
+													</div>
+												</div>
+											</div>
+											<!-- noelend -->
+
+												<!--<div class="tab-pane userprof-tab" id="tab-8">
+													<div class="row">
+														<div class="col-12">
+															<div class="">
+																
+																<div id="table1" class="table-responsive table-editable dyn_tariff_table_wnd_pax">
+																				
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="tab-pane userprof-tab" id="tab-10">
+													<div class="row">
+														<div class="col-12">
+															<div class="">
+																
+																<div id="table1" class="table-responsive table-editable dyn_tariff_table_ssn_pax">
+																				
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>-->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- row closed -->
+					</div>
+				</div>
+				<!-- App-content closed -->
+			</div>
+
+			<!-- Right-sidebar-->
+			<div class="sidebar sidebar-right sidebar-animate">
+				<div class="p-3">
+					<a href="#" class="text-right float-right" data-toggle="sidebar-right" data-target=".sidebar-right"><i class="fe fe-x"></i></a>
+				</div>
+				<div class="tab-menu-heading  siderbar-tabs border-0">
+					<div class="tabs-menu ">
+						<!-- Tabs -->
+						<ul class="nav panel-tabs">
+							<li class=""><a href="#tab" class="active show" data-toggle="tab">Profile</a></li>
+							<li class=""><a href="#tab1" data-toggle="tab" class="">Friends</a></li>
+							<li><a href="#tab2" data-toggle="tab" class="">Activity</a></li>
+							<li><a href="#tab3" data-toggle="tab" class="">Todo</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="panel-body tabs-menu-body side-tab-body p-0 border-0 ">
+					<div class="tab-content border-top">
+						<div class="tab-pane active" id="tab">
+							<div class="card-body p-0">
+								<div class="header-user text-center mt-4 pb-4">
+									<span class="avatar avatar-xxl brround"><img src="<?php echo base_url('assets/images/users/2.jpg'); ?>" alt="Profile-img" class="avatar avatar-xxl brround"></span>
+									<div class="dropdown-item text-center font-weight-semibold user h3 mb-0">Jonathan Mills</div>
+									<small>App Developer</small>
+									<div class="card-body mb-6">
+										<div class="form-group ">
+											<label class="form-label  text-left">Offline/Online</label>
+											<select class="form-control mb-4 nice-select " data-placeholder="Choose one">
+												<option value="1">Online</option>
+												<option value="2">Offline</option>
+											</select>
+										</div>
+										<div class="form-group mt-3">
+											<label class="form-label text-left">Website</label>
+											<select class="form-control nice-select " data-placeholder="Choose one">
+												<option value="1">Spruko.com</option>
+												<option value="2">sprukosoft.com</option>
+												<option value="3">sprukotechnologies.com</option>
+												<option value="4">sprukoinfo.com</option>
+												<option value="5">sprukotech.com</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<a class="dropdown-item  border-top" href="#">
+									<i class="dropdown-icon mdi mdi-account-edit"></i> Edit Profile
+								</a>
+								<a class="dropdown-item  border-top" href="#">
+									<i class="dropdown-icon mdi mdi-account-outline"></i> Spruko technologies
+								</a>
+								<a class="dropdown-item border-top" href="#">
+									<i class="dropdown-icon  mdi mdi-account-plus"></i> Add Another Account
+								</a>
+								<a class="dropdown-item  border-top" href="#">
+									<i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
+								</a>
+								<a class="dropdown-item  border-top" href="#">
+									<i class="dropdown-icon zmdi zmdi-pin-help"></i> Need Help?
+								</a>
+								<div class="card-body border-top">
+									<h4>Gallery</h4>
+									<div class="row mt-4">
+										<div class="col-12">
+											<div class="avatar-list">
+												<ul>
+											<li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/users/5.jpg'); ?>"></a></li>
+											<li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/photos/2.jpg'); ?>"></a></li>
+											<li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/photos/3.jpg'); ?>"></a></li>
+											<li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/photos/5.jpg'); ?>"></a></li>
+											<li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/photos/3.jpg'); ?>"></a></li>
+											<li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/photos/15.jpg'); ?>"></a></li>
+											<li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/photos/16.jpg'); ?>"></a></li>
+											<li><a href="#" class="avatar avatar-lg cover-image">+48</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="card-body border-top border-bottom">
+									<div class="row">
+										<div class="col-4 text-center">
+											<a class="" href=""><i class="dropdown-icon mdi  mdi-message-outline fs-20 m-0 leading-tight"></i></a>
+											<div>Inbox</div>
+										</div>
+										<div class="col-4 text-center">
+											<a class="" href=""><i class="dropdown-icon mdi mdi-tune fs-20 m-0 leading-tight"></i></a>
+											<div>Settings</div>
+										</div>
+										<div class="col-4 text-center">
+											<a class="" href=""><i class="dropdown-icon mdi mdi-logout-variant fs-20 m-0 leading-tight"></i></a>
+											<div>Sign out</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab1">
+							<div class="chat">
+								<div class="contacts_card">
+									<div class="input-group mb-0 p-3">
+										<input type="text" placeholder="Search..." class="form-control search">
+										<div class="input-group-prepend mr-0">
+											<span class="input-group-text  search_btn  btn-secondary"><i class="fa fa-search text-white"></i></span>
+										</div>
+									</div>
+									<ul class="contacts mb-0">
+										<li class="active">
+											<div class="d-flex bd-highlight w-100">
+												<div class="img_cont">
+													<img src="<?php echo base_url('assets/images/users/12.jpg'); ?>" class="rounded-circle user_img" alt="img">
+													<span class="online_icon"></span>
+												</div>
+												<div class="user_info">
+													<h5 class="mt-1 mb-1">Maryam Naz</h5>
+													<small class="text-muted">is online</small>
+												</div>
+												<div class="float-right text-right ml-auto mt-auto mb-auto"><small>01-02-2019</small></div>
+											</div>
+										</li>
+										<li>
+											<div class="d-flex bd-highlight w-100">
+												<div class="img_cont">
+													<img src="<?php echo base_url('assets/images/users/2.jpg'); ?>" class="rounded-circle user_img" alt="img">
+													<span class=" online_icon"></span>
+												</div>
+												<div class="user_info">
+													<h5 class="mt-1 mb-1">Sahar Darya</h5>
+													<small class="text-muted">left 7 mins ago</small>
+												</div>
+												<div class="float-right text-right ml-auto mt-auto mb-auto"><small>01-02-2019</small></div>
+											</div>
+										</li>
+										<li>
+											<div class="d-flex bd-highlight w-100">
+												<div class="img_cont">
+													<img src="<?php echo base_url('assets/images/users/5.jpg'); ?>" class="rounded-circle user_img" alt="img">
+													<span class="online_icon"></span>
+												</div>
+												<div class="user_info">
+													<h5 class="mt-1 mb-1">Maryam Naz</h5>
+													<small class="text-muted">online</small>
+												</div>
+												<div class="float-right text-right ml-auto mt-auto mb-auto"><small>01-02-2019</small></div>
+											</div>
+										</li>
+										<li>
+											<div class="d-flex bd-highlight w-100">
+												<div class="img_cont">
+													<img src="<?php echo base_url('assets/images/users/7.jpg'); ?>" class="rounded-circle user_img" alt="img">
+													<span class="online_icon"></span>
+												</div>
+												<div class="user_info">
+													<h5 class="mt-1 mb-1">Yolduz Rafi</h5>
+													<small class="text-muted">online</small>
+												</div>
+												<div class="float-right text-right ml-auto mt-auto mb-auto"><small>02-02-2019</small></div>
+											</div>
+										</li>
+										<li>
+											<div class="d-flex bd-highlight w-100">
+												<div class="img_cont">
+													<img src="<?php echo base_url('assets/images/users/8.jpg'); ?>" class="rounded-circle user_img" alt="img">
+													<span class="online_icon"></span>
+												</div>
+												<div class="user_info">
+													<h5 class="mt-1 mb-1">Nargis Hawa</h5>
+													<small class="text-muted">30 mins ago</small>
+												</div>
+												<div class="float-right text-right ml-auto mt-auto mb-auto"><small>02-02-2019</small></div>
+											</div>
+										</li>
+										<li>
+											<div class="d-flex bd-highlight w-100">
+												<div class="img_cont">
+													<img src="<?php echo base_url('assets/images/users/3.jpg'); ?>" class="rounded-circle user_img" alt="img">
+													<span class="online_icon"></span>
+												</div>
+												<div class="user_info">
+													<h5 class="mt-1 mb-1">Khadija Mehr</h5>
+													<small class="text-muted">50 mins ago</small>
+												</div>
+												<div class="float-right text-right ml-auto mt-auto mb-auto"><small>03-02-2019</small></div>
+											</div>
+										</li>
+										<li>
+											<div class="d-flex bd-highlight w-100">
+												<div class="img_cont">
+													<img src="<?php echo base_url('assets/images/users/14.jpg'); ?>" class="rounded-circle user_img" alt="img">
+													<span class="online_icon"></span>
+												</div>
+												<div class="user_info">
+													<h5 class="mt-1 mb-1">Petey Cruiser</h5>
+													<small class="text-muted">1hr ago</small>
+												</div>
+												<div class="float-right text-right ml-auto mt-auto mb-auto"><small>03-02-2019</small></div>
+											</div>
+										</li>
+										<li>
+											<div class="d-flex bd-highlight w-100">
+												<div class="img_cont">
+													<img src="<?php echo base_url('assets/images/users/11.jpg'); ?>" class="rounded-circle user_img" alt="img">
+												</div>
+												<div class="user_info">
+													<h5 class="mt-1 mb-1">Khadija Mehr</h5>
+													<small class="text-muted">2hr ago</small>
+												</div>
+												<div class="float-right text-right ml-auto mt-auto mb-auto"><small>03-02-2019</small></div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab2">
+							<div class="list d-flex align-items-center border-bottom p-4">
+								<div class="">
+									<span class="avatar bg-primary brround avatar-md">CH</span>
+								</div>
+								<div class="wrapper w-100 ml-3">
+									<p class="mb-0 d-flex">
+										<b>New Websites is Created</b>
+									</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="d-flex align-items-center">
+											<i class="mdi mdi-clock text-muted mr-1"></i>
+											<small class="text-muted ml-auto">30 mins ago</small>
+											<p class="mb-0"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="list d-flex align-items-center border-bottom p-4">
+								<div class="">
+									<span class="avatar bg-danger brround avatar-md">N</span>
+								</div>
+								<div class="wrapper w-100 ml-3">
+									<p class="mb-0 d-flex">
+										<b>Prepare For the Next Project</b>
+									</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="d-flex align-items-center">
+											<i class="mdi mdi-clock text-muted mr-1"></i>
+											<small class="text-muted ml-auto">2 hours ago</small>
+											<p class="mb-0"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="list d-flex align-items-center border-bottom p-4">
+								<div class="">
+									<span class="avatar bg-info brround avatar-md">S</span>
+								</div>
+								<div class="wrapper w-100 ml-3">
+									<p class="mb-0 d-flex">
+										<b>Decide the live Discussion Time</b>
+									</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="d-flex align-items-center">
+											<i class="mdi mdi-clock text-muted mr-1"></i>
+											<small class="text-muted ml-auto">3 hours ago</small>
+											<p class="mb-0"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="list d-flex align-items-center border-bottom p-4">
+								<div class="">
+									<span class="avatar bg-warning brround avatar-md">K</span>
+								</div>
+								<div class="wrapper w-100 ml-3">
+									<p class="mb-0 d-flex">
+										<b>Team Review meeting</b>
+									</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="d-flex align-items-center">
+											<i class="mdi mdi-clock text-muted mr-1"></i>
+											<small class="text-muted ml-auto">4 hours ago</small>
+											<p class="mb-0"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="list d-flex align-items-center border-bottom p-4">
+								<div class="">
+									<span class="avatar bg-success brround avatar-md">R</span>
+								</div>
+								<div class="wrapper w-100 ml-3">
+									<p class="mb-0 d-flex">
+										<b>Prepare for Presentation</b>
+									</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="d-flex align-items-center">
+											<i class="mdi mdi-clock text-muted mr-1"></i>
+											<small class="text-muted ml-auto">1 days ago</small>
+											<p class="mb-0"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="list d-flex align-items-center  border-bottom p-4">
+								<div class="">
+									<span class="avatar bg-pink brround avatar-md">MS</span>
+								</div>
+								<div class="wrapper w-100 ml-3">
+									<p class="mb-0 d-flex">
+										<b>Prepare for Presentation</b>
+									</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="d-flex align-items-center">
+											<i class="mdi mdi-clock text-muted mr-1"></i>
+											<small class="text-muted ml-auto">1 days ago</small>
+											<p class="mb-0"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="list d-flex align-items-center border-bottom p-4">
+								<div class="">
+									<span class="avatar bg-purple brround avatar-md">L</span>
+								</div>
+								<div class="wrapper w-100 ml-3">
+									<p class="mb-0 d-flex">
+										<b>Prepare for Presentation</b>
+									</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="d-flex align-items-center">
+											<i class="mdi mdi-clock text-muted mr-1"></i>
+											<small class="text-muted ml-auto">45 mintues ago</small>
+											<p class="mb-0"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="list d-flex align-items-center border-bottom p-4">
+								<div class="">
+									<span class="avatar bg-primary brround avatar-md">CH</span>
+								</div>
+								<div class="wrapper w-100 ml-3">
+									<p class="mb-0 d-flex">
+										<b>New Websites is Created</b>
+									</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="d-flex align-items-center">
+											<i class="mdi mdi-clock text-muted mr-1"></i>
+											<small class="text-muted ml-auto">30 mins ago</small>
+											<p class="mb-0"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="list d-flex align-items-center p-4">
+								<div class="">
+									<span class="avatar bg-blue brround avatar-md">U</span>
+								</div>
+								<div class="wrapper w-100 ml-3">
+									<p class="mb-0 d-flex">
+										<b>Prepare for Presentation</b>
+									</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="d-flex align-items-center">
+											<i class="mdi mdi-clock text-muted mr-1"></i>
+											<small class="text-muted ml-auto">2 days ago</small>
+											<p class="mb-0"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab3">
+							<div class="">
+								<div class="d-flex p-3">
+									<label class="custom-control custom-checkbox mb-0">
+										<input type="checkbox" class="custom-control-input" name="example-checkbox1" value="option1" checked="">
+										<span class="custom-control-label">Do Even More..</span>
+									</label>
+									<span class="ml-auto">
+										<a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+										<a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+									</span>
+								</div>
+								<div class="d-flex p-3 border-top">
+									<label class="custom-control custom-checkbox mb-0">
+										<input type="checkbox" class="custom-control-input" name="example-checkbox2" value="option2" checked="">
+										<span class="custom-control-label">Find an idea.</span>
+									</label>
+									<span class="ml-auto">
+										<a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+										<a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+									</span>
+								</div>
+								<div class="d-flex p-3 border-top">
+									<label class="custom-control custom-checkbox mb-0">
+										<input type="checkbox" class="custom-control-input" name="example-checkbox3" value="option3" checked="">
+										<span class="custom-control-label">Hangout with friends</span>
+									</label>
+									<span class="ml-auto">
+										<a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+										<a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+									</span>
+								</div>
+								<div class="d-flex p-3 border-top">
+									<label class="custom-control custom-checkbox mb-0">
+										<input type="checkbox" class="custom-control-input" name="example-checkbox4" value="option4">
+										<span class="custom-control-label">Do Something else</span>
+									</label>
+									<span class="ml-auto">
+										<a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+										<a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+									</span>
+								</div>
+								<div class="d-flex p-3 border-top">
+									<label class="custom-control custom-checkbox mb-0">
+										<input type="checkbox" class="custom-control-input" name="example-checkbox5" value="option5">
+										<span class="custom-control-label">Eat healthy, Eat Fresh..</span>
+									</label>
+									<span class="ml-auto">
+										<a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+										<a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+									</span>
+								</div>
+								<div class="d-flex p-3 border-top">
+									<label class="custom-control custom-checkbox mb-0">
+										<input type="checkbox" class="custom-control-input" name="example-checkbox6" value="option6" checked="">
+										<span class="custom-control-label">Finsh something more..</span>
+									</label>
+									<span class="ml-auto">
+										<a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+										<a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+									</span>
+								</div>
+								<div class="d-flex p-3 border-top">
+									<label class="custom-control custom-checkbox mb-0">
+										<input type="checkbox" class="custom-control-input" name="example-checkbox7" value="option7" checked="">
+										<span class="custom-control-label">Do something more</span>
+									</label>
+									<span class="ml-auto">
+										<a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+										<a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+									</span>
+								</div>
+								<div class="d-flex p-3 border-top">
+									<label class="custom-control custom-checkbox mb-0">
+										<input type="checkbox" class="custom-control-input" name="example-checkbox8" value="option8">
+										<span class="custom-control-label">Updated more files</span>
+									</label>
+									<span class="ml-auto">
+										<a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+										<a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+									</span>
+								</div>
+								<div class="d-flex p-3 border-top">
+									<label class="custom-control custom-checkbox mb-0">
+										<input type="checkbox" class="custom-control-input" name="example-checkbox9" value="option9">
+										<span class="custom-control-label">System updated</span>
+									</label>
+									<span class="ml-auto">
+										<a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+										<a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+									</span>
+								</div>
+								<div class="d-flex p-3 border-top border-bottom">
+									<label class="custom-control custom-checkbox mb-0">
+										<input type="checkbox" class="custom-control-input" name="example-checkbox10" value="option10">
+										<span class="custom-control-label">Settings Changings...</span>
+									</label>
+									<span class="ml-auto">
+										<a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+										<a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+									</span>
+								</div>
+								<div class="text-center pt-5">
+									<a href="#" class="btn btn-primary">Add more</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Right-sidebar-closed -->
+
+			<!-- Footer opened -->
+			<footer class="footer-main icon-footer">
+				<div class="container">
+					<div class="  mt-2 mb-2 text-center">
+					Copyright © 2025 <a href="#" class="fs-14 text-primary">KHM</a>. Designed by <a href="https://megatrendkms.co.in" class="fs-14 text-primary" target="_blank">Megatrend Knowledge Management Systems Pvt Ltd</a> All rights reserved.
+					</div>
+				</div>
+			</footer>
+			<!-- Footer closed -->
+		</div>
+
+		<!-- Back to top -->
+		<a href="#top" id="back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+		<!-- Jquery-scripts -->
+		<script src="<?php echo base_url('assets/js/vendors/jquery-3.2.1.min.js'); ?>"></script>
+
+		<!-- Moment js-->
+        <script src="<?php echo base_url('assets/plugins/moment/moment.min.js'); ?>"></script>
+
+		<!-- Bootstrap-scripts js -->
+		<script src="<?php echo base_url('assets/js/vendors/bootstrap.bundle.min.js'); ?>"></script>
+
+		<!-- Sparkline JS-->
+		<script src="<?php echo base_url('assets/js/vendors/jquery.sparkline.min.js'); ?>"></script>
+
+		<!-- Bootstrap-daterangepicker js -->
+		<script src="<?php echo base_url('assets/plugins/bootstrap-daterangepicker/daterangepicker.js'); ?>"></script>
+
+		<!-- Bootstrap-datepicker js -->
+		<script src="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js'); ?>"></script>
+
+		<!-- Chart-circle js -->
+		<script src="<?php echo base_url('assets/js/vendors/circle-progress.min.js'); ?>"></script>
+
+		<!-- Rating-star js -->
+		<script src="<?php echo base_url('assets/plugins/rating/jquery.rating-stars.js'); ?>"></script>
+
+		<!-- Custom scroll bar js-->
+		<script src="<?php echo base_url('assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js'); ?>"></script>
+
+		<!-- Nice-select js-->
+		<script src="<?php echo base_url('assets/plugins/jquery-nice-select/js/jquery.nice-select.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/jquery-nice-select/js/nice-select.js'); ?>"></script>
+
+        <!-- P-scroll js -->
+		<script src="<?php echo base_url('assets/plugins/p-scroll/p-scroll.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/p-scroll/p-scroll-1.js'); ?>"></script>
+
+		<!-- Sidemenu js-->
+		<script src="<?php echo base_url('assets/plugins/sidemenu/icon-sidemenu.js'); ?>"></script>
+
+		<!-- Sidemenu-respoansive-tabs js -->
+		<script src="<?php echo base_url('assets/plugins/sidemenu-responsive-tabs/js/sidemenu-responsive-tabs.js'); ?>"></script>
+
+		<!-- Leftmenu js -->
+		<script src="<?php echo base_url('assets/js/left-menu.js'); ?>"></script>
+
+		<!-- Data tables -->
+		<script src="<?php echo base_url('assets/plugins/datatable1/js/jquery.dataTables.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/datatable1/js/dataTables.bootstrap4.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/datatable1/js/dataTables.buttons.min.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/datatable1/js/buttons.bootstrap4.min.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/datatable1/dataTables.responsive.min.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/plugins/datatable1/responsive.bootstrap4.min.js'); ?>"></script>
+		<script src="<?php echo base_url('assets/js/editable.js'); ?>"></script>
+
+		<!-- Rightsidebar js -->
+		<script src="<?php echo base_url('assets/plugins/sidebar/sidebar.js'); ?>"></script>
+
+		<!-- Custom js -->
+		<script src="<?php echo base_url('assets/js/custom.js'); ?>"></script>
+
+	</body>
+
+</html>
+
+<!-- ///noel/// -->
+
+<script type="text/javascript">
+	$(document).on('click', '.room_category', function(e) {
+		e.preventDefault();
+		var hotel_id = $(this).attr('data-id');
+		var hotel_names = $(this).attr('data-id-name');
+		var object_id = $(this).attr('data-id-object');
+		let hotel_name = hotel_names.replace(/_/g, " ");
+		$('#rc_header').html(hotel_name);
+		room_category_datatable(hotel_id);
+	});
+	///up and down in datatble in room cat mst add
+
+
+	$(document).on('click', '#btn_room_cat', function(e) {
+		e.preventDefault();
+		var hotel_id = $('#hd_hotel_id').val();
+		var hd_edit = $('#hd_edit').val();
+		var b2b_active = $('#is_b2b').is(':checked') ? 1 : 0;
+		var b2c_active = $('#is_b2c').is(':checked') ? 1 : 0;
+		var room_category_id = $('#hd_room_category_id').val();
+		if (room_category_id == '' || room_category_id == null || room_category_id == 'undefined') {
+			alert("Please select Room Category");
+		} else {
+			$.ajax({
+				url: '<?= site_url('Dashboard/addnewRoomCategory'); ?>',
+				method: 'POST',
+				data: {
+					hotel_id: hotel_id,
+					hd_edit: hd_edit,
+					room_category_id: room_category_id,
+					b2b_active: b2b_active,
+					b2c_active: b2c_active
+				},
+				dataType: 'json',
+				success: function(response) {
+					if (response == 1) {
+						alertHtml = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+								<span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>
+								<span class="alert-inner--text"><strong>Success!</strong> Room Category Added.</span>
+								<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>`;
+
+						room_category_datatable(hotel_id);
+					} else if (response == 2) {
+						alertHtml = `<div class="alert alert-success alert-dismissible fade show" role="alert">
+								<span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>
+								<span class="alert-inner--text"><strong>Success!</strong> Room Category Updated.</span>
+								<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>`;
+
+						room_category_datatable(hotel_id);
+					} else {
+						alertHtml = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+								<span class="alert-inner--icon"><i class="fe fe-info"></i></span>
+								<span class="alert-inner--text"><strong>Warning!</strong> This room category already exist!</span>
+								<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>`;
+
+					}
+					$('#roomcat-alert').html(alertHtml);
+					setTimeout(function() {
+						$(".alert").fadeOut("slow", function() {
+							$(this).remove();
+						});
+					}, 2000);
+				},
+				error: function(xhr, status, error) {
+					console.error('Error adding node:', error);
+				}
+			});
+		}
+	});
+
+
+	function room_category_datatable(hotel_id) {
+		if ($.fn.DataTable.isDataTable('#table_room_category')) {
+			$('#table_room_category').DataTable().destroy();
+		}
+		var table = $('#table_room_category').DataTable({
+			'processing': true,
+			'serverSide': true,
+			'responsive': true,
+			'serverMethod': 'post',
+			'pageLength': 10,
+			'ajax': {
+				'url': '<?= site_url('Dashboard/room_category_modal'); ?>',
+				'type': 'POST',
+				'data': {
+					'hotel_id': hotel_id
+				}
+			},
+			'columns': [
+
+				{
+					data: 'room_category_name'
+				},
+				{
+					data: 'hotel_room_category_id',
+					render: function(data, type, row, meta) {
+						if (data) {
+							return '<i class="fa fa-edit" style="color:rgb(0, 115, 12); padding-right:10px;" type="button" onclick="fetchroomcatData(' + data + ');" title="Edit Room Category"></i>';
+						} else {
+							return '';
+						}
+					}
+				},
+				{
+					data: 'hotel_room_category_id',
+					render: function(data, type, row, meta) {
+						return `
+						<i class="fa fa-arrow-up text-success" title="Move Up" style="cursor:pointer;" onclick="moveRoomCat(${data}, 'up')"></i>
+						&nbsp;
+						<i class="fa fa-arrow-down text-success" title="Move Down" style="cursor:pointer;" onclick="moveRoomCat(${data}, 'down')"></i>
+					`;
+					}
+				},
+				{
+					title: 'B2B',
+					data: 'b2b_active',
+					render: function(data, type, row) {
+						return data == 1 ?
+							'<span class="badge badge-success">Active</span>' :
+							'<span class="badge badge-danger">Inactive</span>';
+					}
+				}, {
+					title: 'B2C',
+					data: 'b2c_active',
+					render: function(data, type, row) {
+						return data == 1 ?
+							'<span class="badge badge-success">Active</span>' :
+							'<span class="badge badge-danger">Inactive</span>';
+					}
+				}
+			]
+		});
+		/*$('#refreshButton').on('click', function() {
+		    table.ajax.reload();
+		});*/
+		$('#hd_hotel_id').val(hotel_id);
+		$('#hd_edit').val(0);
+		$('#rc_span_btn').html("Save");
+		$('#roomcatmodal').modal('show');
+	}
+
+
+	function fetchroomcatData(hotel_room_category_id) {
+		var room_categories_array = <?php echo json_encode($room_categories2); ?>;
+
+		$('#hd_room_category_id').empty().append('<option value="">Select</option>');
+		$.ajax({
+			url: '<?= site_url('Dashboard/fetchRoomCatDetails'); ?>',
+			method: 'POST',
+			data: {
+				hotel_room_category_id: hotel_room_category_id
+			},
+			dataType: 'json',
+			success: function(response) {
+				var details = response[0] || {};
+				$('#hd_edit').val(hotel_room_category_id);
+				$('#is_b2b').prop('checked', details.b2b_active == 1);
+				$('#is_b2c').prop('checked', details.b2c_active == 1);
+
+
+				$('#rc_span_btn').html("Update");
+				if (room_categories_array.length > 0) {
+					$.each(room_categories_array, function(index, value) {
+						if (value.room_category_id == response[0].room_category_id) {
+							$('#hd_room_category_id').append('<option value="' + value.room_category_id + '" selected>' + value.room_category_name + '</option>');
+						} else {
+							$('#hd_room_category_id').append('<option value="' + value.room_category_id + '">' + value.room_category_name + '</option>');
+						}
+					});
+				} else {
+					$('#hd_room_category_id').append('<option value="">No Room Category</option>');
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error('Error adding node:', error);
+			}
+		});
+	}
+
+
+	$(document).on('click', '.open-room-cat', function(e) {
+		e.preventDefault();
+
+		// pull data‑attributes off the button
+		const hotelId = $('#current_hotel_id').val();
+		console.log('Dynamic hotel ID =', hotelId);
+		const rawObjectName = $('#current_object_name').val(); // e.g. "Sunrise_Hotel"
+		const objectName = rawObjectName.replace(/_/g, ' '); // -> "Sunrise Hotel"
+
+		// const rawName = $(this).data('hotel-name'); // e.g. "Sunrise_Hotel"
+		// const pretty = rawName.replace(/_/g, ' '); // -> "Sunrise Hotel"
+
+		// populate your modal header and hidden fields
+		// $('#rc_header').text(pretty);
+		$('#rc_header').text(objectName);
+		$('#hd_hotel_id').val(hotelId);
+		$('#hd_edit').val(0);
+		$('#rc_span_btn').text('Save');
+
+		// load the DataTable for this hotel
+		room_category_datatable(hotelId);
+
+		// finally, show the Bootstrap modal
+		$('#roomcatmodal').modal('show');
+	});
+
+	$('#roomcatmodal').on('hidden.bs.modal', function() {
+		location.reload();
+	});
+</script>
+
+<script>
+	$(document).on('click', '#btn_update_bt', function(e) {
+		e.preventDefault();
+
+		// 1) read the hidden PK that edit_room() set
+		var room_id = $('#room_id').val();
+		console.log('update: reading room_id =', room_id);
+		if (!room_id) {
+			return alert('No room selected to update');
+		}
+
+		// 2) grab all the form values
+		var room_category_id = $('#room_category_id').val();
+		var room_type_id = $('#room_type_id').val();
+		var occupancy_id = $('#occupancy_id').val();
+		var hotel_id = $('#current_hotel_id').val();
+		var object_id = $('#current_object_name').val(); // or wherever you keep it
+
+		// 3) simple front‑end validation
+		if (!room_category_id) return alert('Please select Room Category');
+		if (!room_type_id) return alert('Please select Room Type');
+		if (!occupancy_id) return alert('Please select Room Occupancy');
+
+		// 4) fire the AJAX to your existing controller
+		$.ajax({
+			url: '<?= site_url("Dashboard/updateRoomfunction") ?>',
+			type: 'POST',
+			dataType: 'html',
+			data: {
+				room_id: room_id,
+				room_category_id: room_category_id,
+				room_type_id: room_type_id,
+				occupancy_id: occupancy_id,
+				hotel_id: hotel_id,
+				object_id: object_id
+			},
+			success: function(html) {
+				// replace your table and reset the form
+				//   $('.dyn_tariff_table').html(html);
+				// if you want to clear the form & toggle back to Add:
+				$('#room_id').val('');
+				$('#room_category_id, #room_type_id, #occupancy_id').val('').niceSelect('update');
+				$('#btn_update_bt').hide();
+				$('#btn_clear_bt').hide();
+				$('#btn_add_bt').show();
+
+				location.reload()
+			},
+			error: function(xhr, status, err) {
+				console.error('Error updating room:', err);
+				alert('Update failed – check console');
+			}
+		});
+	});
+
+	$(document).on('click', '#btn_clear_bt', function() {
+		// Reset values
+		$('#room_category_id').val('').niceSelect('update');
+		$('#room_type_id').val('').niceSelect('update');
+		$('#occupancy_id').val('').niceSelect('update');
+		$('#room_id').val('');
+
+		// Optional: reset other inputs if needed
+		$('#object_id').val('');
+		$('#enterprise_id').val('');
+
+		// Toggle buttons if required
+		$('#btn_update_bt').hide();
+		$('#btn_add_bt').show();
+	});
+
+	//////noel/////
+	$(document).on('click', '#btn_add_bt', function(e) {
+        e.preventDefault();
+		var room_category_id = $('#room_category_id').val();
+		var room_type_id = $('#room_type_id').val();
+		var occupancy_id = $('#occupancy_id').val();
+		var hotel_id = "<?php echo $hotel_id; ?>";
+		var object_id = "<?php echo $object_id; ?>";
+		if (room_category_id == '' || room_category_id == null || room_category_id == 'undefined') {
+			alert("Please select Room Category");
+		} else if (room_type_id == '' || room_type_id == null || room_type_id == 'undefined') {
+			alert("Please select Room Type");
+		} else if (occupancy_id == '' || occupancy_id == null || occupancy_id == 'undefined') {
+			alert("Please select Room Occupancy");
+		} else {
+				$.ajax({
+				url: '<?= site_url('Dashboard/addRoomfunction'); ?>',
+					method: 'POST',
+					data: {
+					room_category_id: room_category_id,
+                		room_type_id: room_type_id,
+						occupancy_id: occupancy_id,
+					hotel_id: hotel_id,
+					object_id: object_id
+					},
+					dataType: 'html',
+				success: function(response) {
+					if (response == 0) {
+							alert("Already exist");
+					} else {
+							$('.dyn_tariff_table').html(response);
+							location.reload();
+						}
+					},
+				error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+			}
+    });
+
+</script>
+<script>
+$(document).ready(function() {
+	var hotel_id = "<?php echo $hotel_id; ?>";
+	var object_id = "<?php echo $object_id; ?>";
+		var systemId   = "<?= esc(session('system_id')) ?>";
+	$.ajax({
+			url: '<?= site_url('Dashboard/getRoomfunction'); ?>',
+					method: 'POST',
+					data: {
+						
+				hotel_id: hotel_id,
+				object_id: object_id,
+				system_id:  systemId 
+					},
+					dataType: 'html',
+			success: function(response) {
+					
+							$('.dyn_tariff_table').html(response);
+						
+					},
+			error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+});
+
+$(document).ready(function() {
+	var hotel_id = "<?php echo $hotel_id; ?>";
+	var object_id = "<?php echo $object_id; ?>";
+	$.ajax({
+			url: '<?= site_url('Dashboard/getRoomfunctionPax'); ?>',
+					method: 'POST',
+					data: {
+				object_id: object_id
+					},
+					dataType: 'html',
+			success: function(response) {
+					
+							$('.dyn_tariff_table_pax').html(response);
+						
+					},
+			error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+});
+
+/*$(document).ready(function() {
+	var hotel_id = "<?php echo $hotel_id; ?>";
+	var object_id = "<?php echo $object_id; ?>";
+	$.ajax({
+						url: '<?= site_url('Dashboard/getRoomfunctionWndPax'); ?>',
+					method: 'POST',
+					data: {
+						object_id:object_id
+					},
+					dataType: 'html',
+					success: function (response) {
+					
+							$('.dyn_tariff_table_wnd_pax').html(response);
+						
+					},
+					error: function (xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+});*/
+
+/*$(document).ready(function() {
+	var hotel_id = "<?php echo $hotel_id; ?>";
+	var object_id = "<?php echo $object_id; ?>";
+	$.ajax({
+						url: '<?= site_url('Dashboard/getRoomfunctionSsnPax'); ?>',
+					method: 'POST',
+					data: {
+						object_id:object_id
+					},
+					dataType: 'html',
+					success: function (response) {
+					
+							$('.dyn_tariff_table_ssn_pax').html(response);
+						
+					},
+					error: function (xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+});*/
+
+
+
+$(document).ready(function() {
+	var hotel_id = "<?php echo $hotel_id; ?>";
+	var object_id = "<?php echo $object_id; ?>"; 
+	var wnd_exist = "<?php echo $wnd_exist; ?>"; 
+		var systemId   = "<?= esc(session('system_id')) ?>";
+	$.ajax({
+			url: '<?= site_url('Dashboard/getRoomfunctionSeason'); ?>',
+					method: 'POST',
+					data: {
+						
+				object_id: object_id,
+				wnd_exist: wnd_exist,
+				system_id:systemId 
+					},
+					dataType: 'html',
+			success: function(response) {
+					
+							$('.dyn_tariff_table_season').html(response);
+						
+					},
+			error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+});
+</script>
+<script>
+	function delete_room(room_id) {
+		const userConfirmed = confirm("Are you sure you want to delete this room ?");
+            if (userConfirmed) {
+				$.ajax({
+				url: '<?= site_url('Dashboard/deleteRoomfunction'); ?>',
+					method: 'POST',
+					data: {
+					room_id: room_id
+					},
+					dataType: 'json',
+				success: function(response) {
+					if (response == 2) {
+							alert("Cannot be deleted! This room is dependent on hotel meals");
+					} else if (response == 1) {
+							location.reload();
+					} else {
+							alert("Please try later");
+						}
+					},
+				error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+            } 
+	}
+
+	function save_room(room_id) {
+		var ep_tariff = $('#ep' + room_id).val();
+		var cp_tariff = $('#cp' + room_id).val();
+		var map_tariff = $('#map' + room_id).val();
+		var ap_tariff = $('#ap' + room_id).val();
+				var hotel_id = "<?php echo $hotel_id; ?>";
+				var object_id = "<?php echo $object_id; ?>";
+				$.ajax({
+			url: '<?= site_url('Dashboard/saveRoomfunction'); ?>',
+					method: 'POST',
+					data: {
+				room_id: room_id,
+				ep_tariff: ep_tariff,
+				cp_tariff: cp_tariff,
+				map_tariff: map_tariff,
+				ap_tariff: ap_tariff,
+				hotel_id: hotel_id,
+				object_id: object_id
+					},
+					dataType: 'json',
+			success: function(response) {
+				if (response == 1) {
+							alert("Room Tariff Updated");
+							location.reload();
+				} else {
+							alert("Please try later");
+						}
+					},
+			error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+            
+	}
+	///noel///
+	function edit_room(room_id) {
+		$.ajax({
+			url: "<?= site_url('Dashboard/editroom_nj'); ?>",
+			type: "POST",
+			data: {
+				id: room_id
+			},
+			dataType: "json",
+
+			success: function(data) {
+				console.log("edit: received room_id =", data.room_id);
+				if (!data) return;
+
+				$('#room_id').val(data.room_id);
+
+				// Simple inputs
+				$('#object_id').val(data.object_id);
+				$('#enterprise_id').val(data.enterprise_id);
+
+				// Selects: set value, then update Nice Select
+				$('#room_category_id').val(data.room_category_id).niceSelect('update');
+				$('#room_type_id').val(data.room_type_id).niceSelect('update');
+				$('#occupancy_id').val(data.occupancy_id).niceSelect('update');
+
+
+
+
+				// Button text
+				$('#btn_add_bt').hide();
+				$('#btn_update_bt').show();
+				$('#btn_clear_bt').show();
+				// $('#btn_add_bt').text('update Room');
+			},
+			error: function(xhr, status, err) {
+				console.error('update room failed:', status, err);
+			}
+		});
+	}
+	// $('#btn_add_bt').on('click', function() {
+	// 	var room_id = $('#room_id_form').val(); // If editing, this will have value
+	// 	var room_category_id = $('#room_category_id').val();
+	// 	var room_type_id = $('#room_type_id').val();
+	// 	var occupancy_id = $('#occupancy_id').val();
+
+	// 	console.log("Sending room_id:", room_id);
+	// 	$.ajax({
+	// 		url: "<?= site_url('Dashboard/updateRoom'); ?>",
+	// 		type: "POST",
+	// 		data: {
+	// 			room_id: room_id,
+	// 			room_category_id: room_category_id,
+	// 			room_type_id: room_type_id,
+	// 			occupancy_id: occupancy_id
+	// 		},
+	// 		dataType: "json",
+	// 		success: function(response) {
+
+
+	// 			if (response == 1) {
+	// 				alert('Room updated successfully!');
+
+	// 			} else {
+	// 				alert('Update failed. Please try again.');
+	// 			}
+	// 		},
+	// 		error: function(xhr, status, error) {
+	// 			console.error('Update error:', status, error);
+	// 		}
+	// 	});
+	// });
+
+	///noel///
+</script>
+<script>
+	function save_room_weekend(hotel_room_meal_id) {
+		       
+	var object_id = "<?php echo $object_id; ?>";
+		var tariff = $('#wnd' + hotel_room_meal_id).val();
+		var child_tariff = $('#wnd_c' + hotel_room_meal_id).val();
+		var child_wb_tariff = $('#wnd_cw' + hotel_room_meal_id).val();
+		var extra_tariff = $('#wnd_e' + hotel_room_meal_id).val();
+				var weekends_id = $('#weekends_id').val();
+		if (weekends_id == '' || weekends_id == null || weekends_id == 'undefined') {
+					alert("Please select Weekend");
+		} else {
+					$.ajax({
+				url: '<?= site_url('Dashboard/saveRoomfunctionWeekend'); ?>',
+						method: 'POST',
+						data: {
+					object_id: object_id,
+					hotel_room_meal_id: hotel_room_meal_id,
+					tariff: tariff,
+					season_id: weekends_id,
+					child_tariff: child_tariff,
+					child_wb_tariff: child_wb_tariff,
+					extra_tariff: extra_tariff
+						},
+						dataType: 'json',
+				success: function(response) {
+					if (response == 1) {
+								alert("Weekend Tariff Updated");
+					} else {
+								alert("Please try later");
+							}
+						},
+				error: function(xhr, status, error) {
+							console.error('Error adding node:', error);
+						}
+					});
+				}
+            
+	}
+</script>
+
+<script>
+	function save_room_season(hotel_room_meal_id) {
+		       
+				var object_id = "<?php echo $object_id; ?>";
+		var tariff = $('#ssn' + hotel_room_meal_id).val();
+		var child_tariff = $('#ssn_c' + hotel_room_meal_id).val();
+		var child_wb_tariff = $('#ssn_cw' + hotel_room_meal_id).val();
+		var extra_tariff = $('#ssn_e' + hotel_room_meal_id).val();
+				var season_id = $('#season_id').val();
+		if (season_id == '' || season_id == null || season_id == 'undefined') {
+					alert("Please select Season");
+		} else {
+					$.ajax({
+				url: '<?= site_url('Dashboard/saveRoomfunctionSeason'); ?>',
+						method: 'POST',
+						data: {
+					object_id: object_id,
+					hotel_room_meal_id: hotel_room_meal_id,
+					tariff: tariff,
+					season_id: season_id,
+					child_tariff: child_tariff,
+					child_wb_tariff: child_wb_tariff,
+					extra_tariff: extra_tariff
+						},
+						dataType: 'json',
+				success: function(response) {
+					if (response == 1) {
+								alert("Season Tariff Updated");
+					} else {
+								alert("Please try later");
+							}
+						},
+				error: function(xhr, status, error) {
+							console.error('Error adding node:', error);
+						}
+					});
+				}
+            
+	}
+</script>
+<script>
+	function delete_room_pax(room_id, pax_id) {
+		const userConfirmed = confirm("Are you sure you want to delete this room ?");
+            if (userConfirmed) {
+				$.ajax({
+				url: '<?= site_url('Dashboard/deleteRoomfunction'); ?>',
+					method: 'POST',
+					data: {
+					room_id: room_id
+					},
+					dataType: 'json',
+				success: function(response) {
+					if (response == 1) {
+							location.reload();
+					} else {
+							alert("Please try later");
+						}
+					},
+				error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+            } 
+	}
+
+	function save_room_pax(hotel_room_meal_id) {
+		var child_tariff = $('#c' + hotel_room_meal_id).val();
+		var child_wb_tariff = $('#cw' + hotel_room_meal_id).val();
+		var extra_tariff = $('#e' + hotel_room_meal_id).val();
+			
+				var hotel_id = "<?php echo $hotel_id; ?>";
+				var object_id = "<?php echo $object_id; ?>";
+				$.ajax({
+			url: '<?= site_url('Dashboard/saveRoomfunctionPax'); ?>',
+					method: 'POST',
+					data: {
+				object_id: object_id,
+				hotel_room_meal_id: hotel_room_meal_id,
+				child_tariff: child_tariff,
+				child_wb_tariff: child_wb_tariff,
+				extra_tariff: extra_tariff
+					},
+					dataType: 'json',
+			success: function(response) {
+				if (response == 1) {
+							alert("Pax Tariff Updated");
+				} else {
+							alert("Please try later");
+						}
+					},
+			error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+            
+	}
+
+	function save_room_wn_pax(special_tariff_id) {
+		var child_tariff = $('#wnd_c' + special_tariff_id).val();
+		var child_wb_tariff = $('#wnd_cw' + special_tariff_id).val();
+		var extra_tariff = $('#wnd_e' + special_tariff_id).val();
+			
+				var hotel_id = "<?php echo $hotel_id; ?>";
+				var object_id = "<?php echo $object_id; ?>";
+				$.ajax({
+			url: '<?= site_url('Dashboard/saveRoomfunctionWndPax'); ?>',
+					method: 'POST',
+					data: {
+				object_id: object_id,
+				special_tariff_id: special_tariff_id,
+				child_tariff: child_tariff,
+				child_wb_tariff: child_wb_tariff,
+				extra_tariff: extra_tariff
+					},
+					dataType: 'json',
+			success: function(response) {
+				if (response == 1) {
+							alert("Weekend Pax Tariff Updated");
+				} else {
+							alert("Please try later");
+						}
+					},
+			error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+            
+	}
+
+	function save_room_ssn_pax(special_tariff_id) {
+		var child_tariff = $('#ssn_c' + special_tariff_id).val();
+		var child_wb_tariff = $('#ssn_cw' + special_tariff_id).val();
+		var extra_tariff = $('#ssn_e' + special_tariff_id).val();
+			
+				var hotel_id = "<?php echo $hotel_id; ?>";
+				var object_id = "<?php echo $object_id; ?>";
+				$.ajax({
+			url: '<?= site_url('Dashboard/saveRoomfunctionSsnPax'); ?>',
+					method: 'POST',
+					data: {
+				object_id: object_id,
+				special_tariff_id: special_tariff_id,
+				child_tariff: child_tariff,
+				child_wb_tariff: child_wb_tariff,
+				extra_tariff: extra_tariff
+					},
+					dataType: 'json',
+			success: function(response) {
+				if (response == 1) {
+							alert("Weekend Pax Tariff Updated");
+				} else {
+							alert("Please try later");
+						}
+					},
+			error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+            
+	}
+
+	function save_room_wnd(hotel_room_meal_id) {
+		var child_tariff = $('#c' + hotel_room_meal_id).val();
+		var child_wb_tariff = $('#cw' + hotel_room_meal_id).val();
+		var extra_tariff = $('#e' + hotel_room_meal_id).val();
+			
+				var hotel_id = "<?php echo $hotel_id; ?>";
+				var object_id = "<?php echo $object_id; ?>";
+				$.ajax({
+			url: '<?= site_url('Dashboard/saveRoomfunctionWnd'); ?>',
+					method: 'POST',
+					data: {
+				object_id: object_id,
+				hotel_room_meal_id: hotel_room_meal_id,
+				child_tariff: child_tariff,
+				child_wb_tariff: child_wb_tariff,
+				extra_tariff: extra_tariff
+					},
+					dataType: 'json',
+			success: function(response) {
+				if (response == 1) {
+							alert("Weekend Tariff Updated");
+				} else {
+							alert("Please try later");
+						}
+					},
+			error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+            
+	}
+</script>
+<script>
+	$(document).ready(function() {
+        // Get the saved active tab from localStorage
+        var activeTab = localStorage.getItem("activeTab");
+        if (activeTab) {
+            $('.tabs-menu1 a[href="' + activeTab + '"]').tab('show'); // Show the saved tab
+        }
+
+        // When a tab is clicked, save it and reload the page
+		$('.tabs-menu1 a[data-toggle="tab"]').on('click', function(e) {
+            e.preventDefault(); // Prevent default tab behavior
+            var tabId = $(this).attr('href');
+            localStorage.setItem("activeTab", tabId);
+            location.reload(); // Reload the page
+        });
+    });
+</script>
+<script>
+	$(document).ready(function() {
+
+    // Function to clear only season-related fields (without "_w" suffix)
+    function clearSeasonFields() {
+        $('input[type="text"]').not('[id$="_w"]').not('[id^="w"]').val('');
+        $('#dinner1,#dinner2,#dinner3,#dinner4,#lunch1,#lunch2,#lunch3,#lunch4').val('');
+    }
+
+    // Function to clear only weekend-related fields (with "_w" suffix or starting with "w")
+    function clearWeekendFields() {
+        $('input[id$="_w"], input[id^="w"]').val('');
+    }
+
+    function loadSeasonData() {
+        var season_id = $("#season_id").val();
+        var object_id = "<?php echo $object_id; ?>";
+        var wnd_exist = "<?php echo $wnd_exist; ?>"; 
+
+        // Clear only season fields, preserve weekend fields
+        clearSeasonFields();
+
+        $.ajax({
+            url: '<?= site_url('Dashboard/getRoomfunctionSeason'); ?>',
+            method: 'POST',
+            data: {
+                object_id: object_id,
+                wnd_exist: wnd_exist
+            },
+            dataType: 'html',
+            success: function() {
+                $.ajax({
+                    url: '<?= site_url('Dashboard/getSeasonDatas'); ?>',
+                    method: 'POST',
+                    data: {
+                        object_id: object_id,
+                        season_id: season_id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('response:', response);
+
+                        if (response.length === 0) {
+                            // Set season fields to zero, but don't touch weekend fields
+                            $('input[type="text"]').not('[id$="_w"]').not('[id^="w"]').val(0);
+                            $('#dinner1,#dinner2,#dinner3,#dinner4,#lunch1,#lunch2,#lunch3,#lunch4').val(0);
+                        } else {
+                            var meal_plan, child_id, child_wb_id, extra_id, room_id;
+
+                            $.each(response, function(index, value) {
+                                if (value.meal_plan_id == 1) meal_plan = "EP";
+                                if (value.meal_plan_id == 2) meal_plan = "CP";
+                                if (value.meal_plan_id == 3) meal_plan = "MAP";
+                                if (value.meal_plan_id == 4) meal_plan = "AP";
+
+                                if (value.pax_id == 1) {
+                                    child_id = meal_plan + "_2_" + value.room_id;
+                                    $('#' + child_id).val(value.pax_tariff);
+
+                                    room_id = meal_plan + "_1_" + value.room_id;
+                                    $('#' + room_id).val(value.tariff);
+
+                                    $('#dinner2').val(value.pax_dinner);
+                                    $('#lunch2').val(value.pax_lunch);
+                                }
+
+                                if (value.pax_id == 2) {
+                                    child_wb_id = meal_plan + "_3_" + value.room_id;
+                                    $('#' + child_wb_id).val(value.pax_tariff);
+
+                                    room_id = meal_plan + "_1_" + value.room_id;
+                                    $('#' + room_id).val(value.tariff);
+
+                                    $('#dinner3').val(value.pax_dinner);
+                                    $('#lunch3').val(value.pax_lunch);
+                                }
+
+                                if (value.pax_id == 3) {
+                                    extra_id = meal_plan + "_4_" + value.room_id;
+                                    $('#' + extra_id).val(value.pax_tariff);
+
+                                    room_id = meal_plan + "_1_" + value.room_id;
+                                    $('#' + room_id).val(value.tariff);
+
+                                    $('#dinner4').val(value.pax_dinner);
+                                    $('#lunch4').val(value.pax_lunch);
+                                }
+
+                                $('#dinner1').val(value.dinner);
+                                $('#lunch1').val(value.lunch);
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching season data:', error);
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching room function season:', error);
+            }
+        });
+    }
+
+    // Season dropdown change handler
+    $('#season_id').on('change', loadSeasonData);
+    
+    var season_id = $("#season_id").val();
+    if (season_id) {
+        loadSeasonData();
+    }
+});
+
+
+</script>
+
+<script>
+	$(document).ready(function() {
+		$('#copy_season_id').on('change', function() {
+		var season_id = $("#copy_season_id").val();
+		var season_id_new = $("#season_id").val();
+		var object_id = "<?php echo $object_id; ?>";
+		var wnd_exist = "<?php echo $wnd_exist; ?>"; 
+			if (season_id_new == '' || season_id_new == null || season_id_new == 'undefined') {
+			alert("Please select Season");
+			} else {
+		const userConfirmed = confirm("Are you sure you want to copy data ?");
+		if (userConfirmed) {
+		$.ajax({
+						url: '<?= site_url('Dashboard/getRoomfunctionSeason'); ?>',
+					method: 'POST',
+					data: {
+						
+							object_id: object_id,
+							wnd_exist: wnd_exist
+					},
+					dataType: 'html',
+						success: function(response) {
+						$('.dyn_tariff_table_season').html(response);
+						$.ajax({
+								url: '<?= site_url('Dashboard/getSeasonDatas'); ?>',
+								method: 'POST',
+								data: {
+									
+									object_id: object_id,
+									season_id: season_id
+								},
+								dataType: 'json',
+								success: function(response) {
+									
+									if (response.length > 0) {
+										var meal_plan;
+										var child_id;
+										var child_wb_id;
+										var extra_id;
+										var room_id;
+										$.each(response, function(index, value) {
+											if (value.meal_plan_id == 1) {
+												meal_plan = "EP";
+											}
+											if (value.meal_plan_id == 2) {
+												meal_plan = "CP";
+											}
+											if (value.meal_plan_id == 3) {
+												meal_plan = "MAP";
+											}
+											if (value.meal_plan_id == 4) {
+												meal_plan = "AP";
+											}
+											if (value.pax_id == 1) {
+												child_id = meal_plan + "_2_" + value.room_id;
+												$('#' + child_id).val(value.pax_tariff);
+
+												room_id = meal_plan + "_1_" + value.room_id;
+												$('#' + room_id).val(value.tariff);
+
+												$('#dinner2').val(value.pax_dinner);
+												$('#lunch2').val(value.pax_lunch);
+											}
+											if (value.pax_id == 2) {
+												child_wb_id = meal_plan + "_3_" + value.room_id;
+												$('#' + child_wb_id).val(value.pax_tariff);
+
+												room_id = meal_plan + "_1_" + value.room_id;
+												$('#' + room_id).val(value.tariff);
+
+												$('#dinner3').val(value.pax_dinner);
+												$('#lunch3').val(value.pax_lunch);
+											}
+											if (value.pax_id == 3) {
+												extra_id = meal_plan + "_4_" + value.room_id;
+												$('#' + extra_id).val(value.pax_tariff);
+
+												room_id = meal_plan + "_1_" + value.room_id;
+												$('#' + room_id).val(value.tariff);
+
+												$('#dinner4').val(value.pax_dinner);
+												$('#lunch4').val(value.pax_lunch);
+											}
+											$('#dinner1').val(value.dinner);
+											$('#lunch1').val(value.lunch);
+										});
+									}
+									
+								},
+								error: function(xhr, status, error) {
+									console.error('Error adding node:', error);
+								}
+						});
+                       
+						
+					},
+						error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+		});
+
+
+	}
+   }
+	});
+});
+</script>
+<script>
+	$(document).ready(function() {
+	
+		var season_id = $("#season_id").val();
+		var object_id = "<?php echo $object_id; ?>";
+		var tariff_id = "<?php echo $tariff_ids; ?>";
+		var wnd_exist = "<?php echo $wnd_exist; ?>"; 
+		if (tariff_id == '' || tariff_id == null || tariff_id == 'undefined') {
+			
+		} else {
+		$.ajax({
+				url: '<?= site_url('Dashboard/getRoomfunctionSeason'); ?>',
+					method: 'POST',
+					data: {
+						
+					object_id: object_id,
+					wnd_exist: wnd_exist
+					},
+					dataType: 'html',
+				success: function(response) {
+						$('.dyn_tariff_table_season').html(response);
+
+                        $.ajax({
+						url: '<?= site_url('Dashboard/getSeasonDatas'); ?>',
+								method: 'POST',
+								data: {
+									
+							object_id: object_id,
+							season_id: tariff_id
+								},
+								dataType: 'json',
+						success: function(response) {
+									
+							if (response.length > 0) {
+								$.each(response, function(index, value) {
+									if (value.pax_id == 1) {
+										$('#ssn_c' + value.hotel_room_meal_id).val(value.pax_tariff);
+											}
+									if (value.pax_id == 2) {
+										$('#ssn_cw' + value.hotel_room_meal_id).val(value.pax_tariff);
+											}
+									if (value.pax_id == 3) {
+										$('#ssn_e' + value.hotel_room_meal_id).val(value.pax_tariff);
+											}
+									$('#ssn' + value.hotel_room_meal_id).val(value.tariff);
+										});
+									}
+									
+								},
+						error: function(xhr, status, error) {
+									console.error('Error adding node:', error);
+								}
+					});
+						
+					},
+				error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+		});
+
+
+	}
+
+});
+</script>
+
+<script>
+/*$(document).ready(function () {
+	$('#weekends_id').on('change', function(){ 
+		var season_id = $("#weekends_id").val();
+		var object_id = "<?php echo $object_id; ?>";
+
+		$.ajax({
+					url: '<?= site_url('Dashboard/getRoomfunctionWnd'); ?>',
+					method: 'POST',
+					data: {
+						
+						object_id:object_id
+					},
+					dataType: 'html',
+					success: function (response) {
+						$('.dyn_tariff_table_wnd').html(response);
+
+                        $.ajax({
+								url: '<?= site_url('Dashboard/getWeekendDatas'); ?>',
+								method: 'POST',
+								data: {
+									
+									object_id:object_id,
+									season_id:season_id
+								},
+								dataType: 'json',
+								success: function (response) {
+									
+									if(response.length > 0) {
+										$.each(response, function(index, value){
+											if(value.pax_id == 1){
+												$('#wnd_c'+value.hotel_room_meal_id).val(value.pax_tariff);
+											}
+											if(value.pax_id == 2){
+												$('#wnd_cw'+value.hotel_room_meal_id).val(value.pax_tariff);
+											}
+											if(value.pax_id == 3){
+												$('#wnd_e'+value.hotel_room_meal_id).val(value.pax_tariff);
+											}
+											$('#wnd'+value.hotel_room_meal_id).val(value.tariff);
+										});
+									}
+									
+								},
+								error: function (xhr, status, error) {
+									console.error('Error adding node:', error);
+								}
+					});
+						
+					},
+					error: function (xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+		});
+
+
+		
+	});
+});*/
+</script>
+
+<script type="text/javascript">
+    $(document).on('click', '.season_form', function(e) {
+        e.preventDefault();
+        var hotel_id = $(this).attr('data-id');
+		var hotel_name = $(this).attr('data-id-name');
+		var object_id = $(this).attr('data-id-object');
+		$('#ssn_header').html(hotel_name);
+		season_form_datatable(hotel_id, object_id);
+    });
+
+	$(document).on('click', '#btn_seasons', function(e) {
+        e.preventDefault();
+		var hotel_id = $('#hd_hotel_id_ssn').val();
+		var object_id = $('#hd_object_id_ssn').val();
+		var start_date = $('#ssn_start_date').val();
+		var end_date = $('#ssn_end_date').val();
+		var season_name = $('#season_name').val();
+		if (start_date == '' || start_date == null || start_date == 'undefined') {
+            alert("Please select Start Date");
+		} else if (end_date == '' || end_date == null || end_date == 'undefined') {
+            alert("Please select End Date");
+		} else if (season_name == '' || season_name == null || season_name == 'undefined') {
+            alert("Please Enter Season Name");
+		} else {
+				$.ajax({
+				url: '<?= site_url('Dashboard/addnewSeasons'); ?>',
+					method: 'POST',
+					data: {
+					object_id: object_id,
+                		start_date: start_date,
+						end_date: end_date,
+						season_name: season_name
+					},
+					dataType: 'json',
+				success: function(response) {
+					if (response > 0) {
+							alert("Season Added");
+						season_form_datatable(hotel_id, object_id);
+							$('#ssn_start_date').val('');
+							$('#ssn_end_date').val('');
+							$('#season_name').val('');
+							location.reload();
+					} else {
+							alert("Season Already Exist");
+						}
+					},
+				error: function(xhr, status, error) {
+						console.error('Error adding node:', error);
+					}
+				});
+			}
+    	});
+
+	function season_form_datatable(hotel_id, object_id) {
+		if ($.fn.DataTable.isDataTable('#table_seasons')) {
+            $('#table_seasons').DataTable().destroy();
+        }
+        var table = $('#table_seasons').DataTable({
+            'processing': true,
+            'serverSide': true,
+            'serverMethod': 'post',
+            'ajax': {
+				'url': '<?= site_url('Dashboard/seasons_modal'); ?>',
+                'data': {
+                    'hotel_id': hotel_id,
+					'object_id': object_id
+                }
+            },
+            'columns': [
+            
+            {
+                data: 'sdate'
+            },
+			{
+                data: 'edate'
+            },
+			{
+                data: 'season_name'
+            },
+            {
+                data: 'season_id',
+					render: function(data, type, row, meta) {
+                    if (data) {
+						
+							return '<a href="<?= site_url('Dashboard/view_tariff'); ?>/' + object_id + '/' + data + '" class="btn btn-dark btn-sm mb-2 mb-xl-0 text-white"><i class="fa fa-edit"></i></a>';
+                    } else {
+                        return '';
+                    }
+                }
+            }
+            ],
+			paging: true, // Ensure paging is enabled
+    		pageLength: 10, // Number of rows per page
+    		lengthMenu: [5, 10, 25, 50], // Options for rows per page
+			order: [
+				[0, 'asc']
+			] // Default sorting
+        });
+        /*$('#refreshButton').on('click', function() {
+            table.ajax.reload();
+        });*/
+        $('#hd_hotel_id_ssn').val(hotel_id);
+		$('#hd_object_id_ssn').val(object_id);
+		
+        $('#seasonsmodal').modal('show');
+	}
+</script>
+<script>
+	function switchroles(role_id, role_name) {
+        const newUrl = '<?php echo site_url('Dashboard/add_entity/3'); ?>'
+        $.ajax({
+          url: '<?php echo site_url('Dashboard/system_role_change'); ?>',
+          type: 'POST',
+			data: {
+				role_id: role_id,
+				role_name: role_name
+			},
+          success: function(response) {
+            location.reload();
+
+          },
+          error: function(xhr, status, error) {
+            // Handle any errors
+            console.error(error);
+          }
+        });
+      }
+</script>
+<script>
+	function switchsystems(system_id, system_name) {
+        const newUrl = '<?php echo site_url('Dashboard/add_entity/3'); ?>'
+        $.ajax({
+          url: '<?php echo site_url('Dashboard/khm_system_change'); ?>',
+          type: 'POST',
+			data: {
+				system_id: system_id,
+				system_name: system_name
+			},
+          success: function(response) {
+            location.reload();
+
+          },
+          error: function(xhr, status, error) {
+            // Handle any errors
+            console.error(error);
+          }
+        });
+      }
+</script>
+
+<script>
+$(document).ready(function() {
+    
+    // Function to clear only weekend-related fields (with "_w" suffix or starting with "w")
+    function clearWeekendFields() {
+        $('input[id$="_w"], input[id^="w"]').val('');
+    }
+
+    $('#weekends_id').on('change', function() {
+        var season_id = $("#weekends_id").val();
+        var object_id = "<?php echo $object_id; ?>";
+        
+        // Clear only weekend fields, preserve season fields
+        clearWeekendFields();
+
+        $.ajax({
+            url: '<?= site_url('Dashboard/getRoomfunctionWnd'); ?>',
+            method: 'POST',
+            data: {
+                object_id: object_id
+            },
+            dataType: 'html',
+            success: function(response) {
+                $('.dyn_tariff_table_wnd').html(response);
+
+                $.ajax({
+                    url: '<?= site_url('Dashboard/getWeekendDatas'); ?>',
+                    method: 'POST',
+                    data: {
+                        object_id: object_id,
+                        season_id: season_id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        
+                        if (response.length > 0) {
+                            var meal_plan;
+                            var child_id;
+                            var child_wb_id;
+                            var extra_id;
+                            var room_id;
+                            
+                            $.each(response, function(index, value) {
+                                if (value.meal_plan_id == 1) {
+                                    meal_plan = "EP";
+                                }
+                                if (value.meal_plan_id == 2) {
+                                    meal_plan = "CP";
+                                }
+                                if (value.meal_plan_id == 3) {
+                                    meal_plan = "MAP";
+                                }
+                                if (value.meal_plan_id == 4) {
+                                    meal_plan = "AP";
+                                }
+                                if (value.pax_id == 1) {
+                                    child_id = meal_plan + "_2_" + value.room_id + "_w";
+                                    $('#' + child_id).val(value.pax_tariff);
+
+                                    room_id = meal_plan + "_1_" + value.room_id + "_w";
+                                    $('#' + room_id).val(value.tariff);
+
+                                    $('#wdinner2').val(value.pax_dinner);
+                                    $('#wlunch2').val(value.pax_lunch);
+                                }
+                                if (value.pax_id == 2) {
+                                    child_wb_id = meal_plan + "_3_" + value.room_id + "_w";
+                                    $('#' + child_wb_id).val(value.pax_tariff);
+
+                                    room_id = meal_plan + "_1_" + value.room_id + "_w";
+                                    $('#' + room_id).val(value.tariff);
+
+                                    $('#wdinner3').val(value.pax_dinner);
+                                    $('#wlunch3').val(value.pax_lunch);
+                                }
+                                if (value.pax_id == 3) {
+                                    extra_id = meal_plan + "_4_" + value.room_id + "_w";
+                                    $('#' + extra_id).val(value.pax_tariff);
+
+                                    room_id = meal_plan + "_1_" + value.room_id + "_w";
+                                    $('#' + room_id).val(value.tariff);
+
+                                    $('#wdinner4').val(value.pax_dinner);
+                                    $('#wlunch4').val(value.pax_lunch);
+                                }
+                                $('#wdinner1').val(value.dinner);
+                                $('#wlunch1').val(value.lunch);
+                            });
+                        } else {
+                            // Set only weekend fields to zero
+                            $('input[id^="EP_2_"][id$="_w"]').val(0);
+                            $('input[id^="EP_1_"][id$="_w"]').val(0);
+                            $('input[id^="EP_3_"][id$="_w"]').val(0);
+                            $('input[id^="EP_4_"][id$="_w"]').val(0);
+
+                            $('input[id^="CP_3_"][id$="_w"]').val(0);
+                            $('input[id^="CP_1_"][id$="_w"]').val(0);
+                            $('input[id^="CP_2_"][id$="_w"]').val(0);
+                            $('input[id^="CP_4_"][id$="_w"]').val(0);
+
+                            $('input[id^="MAP_4_"][id$="_w"]').val(0);
+                            $('input[id^="MAP_1_"][id$="_w"]').val(0);
+                            $('input[id^="MAP_2_"][id$="_w"]').val(0);
+                            $('input[id^="MAP_3_"][id$="_w"]').val(0);
+
+                            $('input[id^="AP_4_"][id$="_w"]').val(0);
+                            $('input[id^="AP_1_"][id$="_w"]').val(0);
+                            $('input[id^="AP_2_"][id$="_w"]').val(0);
+                            $('input[id^="AP_3_"][id$="_w"]').val(0);
+
+                            // Clear weekend dinner and lunch fields
+                            $('#wdinner1,#wdinner2,#wdinner3,#wdinner4,#wlunch1,#wlunch2,#wlunch3,#wlunch4').val(0);
+                        }
+                        
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error adding node:', error);
+                    }
+                });
+                
+            },
+            error: function(xhr, status, error) {
+                console.error('Error adding node:', error);
+            }
+        });
+    });
+});
+</script>
+<script>
+	$('#btn_save_all').on('click', function() {
+    var total = $('input[id^="ep"]').length;
+    var successCount = 0;
+    var failureCount = 0;
+
+		$('input[id^="ep"]').each(function() {
+        var room_id = this.id.replace('ep', '');
+        save_room_all(room_id, function(success) { 
+            if (success) successCount++; 
+            else failureCount++;
+			
+            // When all AJAX calls are done
+            if (successCount + failureCount === total) {
+                alert(successCount + ' Room(s) Updated');
+				location.reload();
+            }
+			
+        });
+    });
+	//location.reload();
+});
+
+	function save_room_all(room_id, callback) {
+		var ep_tariff = $('#ep' + room_id).val();
+		var cp_tariff = $('#cp' + room_id).val();
+		var map_tariff = $('#map' + room_id).val();
+		var ap_tariff = $('#ap' + room_id).val();
+    var hotel_id = "<?php echo $hotel_id; ?>";
+    var object_id = "<?php echo $object_id; ?>";
+
+    $.ajax({
+			url: '<?= site_url('Dashboard/saveRoomfunction'); ?>',
+        method: 'POST',
+        data: {
+            room_id: room_id,
+            ep_tariff: ep_tariff,
+            cp_tariff: cp_tariff,
+            map_tariff: map_tariff,
+            ap_tariff: ap_tariff,
+            hotel_id: hotel_id,
+            object_id: object_id
+        },
+        dataType: 'json',
+			success: function(response) {
+            callback(response == 1);
+        },
+			error: function() {
+            callback(false);
+        }
+    });
+}
+</script>
+
+<!-- ////////noel/////////// -->
+<script>
+	function moveRoomCat(roomCategoryId, direction) {
+		$.ajax({
+			url: "<?= site_url('Dashboard/switchRoomCategoryOrder') ?>",
+			method: "POST",
+			data: {
+				hotel_room_category_id: roomCategoryId,
+				direction: direction
+			},
+			success: function(res) {
+				$('#table_room_category').DataTable().ajax.reload(null, false);
+			}
+		});
+	}
+</script>

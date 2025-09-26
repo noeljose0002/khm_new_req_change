@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class DriverReportModel extends Model
+{
+    protected $table = 'khm_obj_enquiry_header';
+    protected $primaryKey = 'enquiry_header_id';
+    protected $allowedFields = [
+        'object_id',
+        'guest_entity_id',
+        'agent_entity_id',
+        'employee_entity_id',
+        'enq_added_date',
+        'enq_type_id',
+        'is_active',
+        'ref_no',
+        'enterprise_id',
+
+    ];
+
+
+    protected function baseQuery()
+    {
+        return $this->db
+            ->table('khm_obj_enquiry_header AS h')
+            ->distinct()
+            ->select([
+                'h.enq_type_id',
+                'h.enquiry_header_id',
+                'h.enq_added_date',
+                'h.ref_no',
+                'ed.date_of_tour_start',
+                'ed.date_of_tour_completion',
+                'em2.entity_name AS agent_name',
+                'em1.entity_name AS guest_name',
+                'em3.entity_name AS executive_name',
+                'em4.entity_name AS transporter_name',
+                't.driver_name',
+                't.phone_number',
+                'vm.vehicle_model_name',
+
+            ])
+
+            ->join('khm_obj_enquiry_details AS ed',
+                'ed.enquiry_header_id=h.enquiry_header_id',
+                'left'
+            )
+
+            ->join('khm_entity_mst AS em1',
+            'em1.entity_id=h.guest_entity_id',
+            'left'
+            )
+
+            ->join('khm_entity_mst AS em2',
+            'em2.entity_id=h.agent_entity_id',
+            'left'
+            )
+
+            ->join('khm_obj_enquiry_edit_request AS eer',
+                'eer.enquiry_header_id=h.enquiry_header_id',
+                'left'
+            )
+            
+            ->where('eer.is_active',1)
+            ->join('khm_obj_enquiry_status AS es',
+                'es.edit_request_id=eer.enquiry_edit_request_id',
+                'left'
+           )
+           ->where('es.current_status_id',1)
+            ->join('khm_entity_mst AS em3',
+            'em3.entity_id=es.assigned_to',
+            'left'
+            )
+           
+
+            ->join('khm_obj_transport_follow_up AS t',
+                't.enquiry_header_id=h.enquiry_header_id',
+                'left'
+            )
+             ->join('khm_entity_mst AS em4',
+            'em4.entity_id=t.transporter_id',
+            'left'
+            )
+            ->where('t.is_active',1)
+            ->join('khm_obj_mst_vehicle_model AS vm',
+                'vm.vehicle_model_id=t.vehicle_model_id',
+                'left'
+            )
+            ->where('vm.deleted',0)
+    ;}
+
+    
+    public function getByDateRange(string $fromYmd, string $toYmd): array
+    {
+        $qb = $this->baseQuery()
+            ->where('h.enq_added_date >=', $fromYmd)
+            ->where('h.enq_added_date <=', $toYmd);
+
+
+        // Only apply agent filter if user selected a specific agent
+   
+        return $qb->get()
+            ->getResultArray();
+    }
+}

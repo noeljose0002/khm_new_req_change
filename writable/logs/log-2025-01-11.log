@@ -1,0 +1,20 @@
+CRITICAL - 2025-01-11 11:33:04 --> Error: Class "App\Models\Hash" not found
+[Method: POST, Route: Login/login]
+in APPPATH\Models\Login_m.php on line 13.
+ 1 APPPATH\Controllers\Login.php(25): App\Models\Login_m->check_valid_login('maintenance', '12345678')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Login->login()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-11 11:33:34 --> Error: Class "App\Models\Hash" not found
+[Method: POST, Route: Login/login]
+in APPPATH\Models\Login_m.php on line 13.
+ 1 APPPATH\Controllers\Login.php(25): App\Models\Login_m->check_valid_login('maintenance', '12345678')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Login->login()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

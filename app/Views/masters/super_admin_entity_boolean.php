@@ -1,0 +1,2255 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+
+    <!-- Meta data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="KHM-Touracle" name="description">
+    <meta content="Megatrend Knowledge Management Systems Pvt Ltd" name="author">
+    <meta name="keywords" content="KHM">
+    <!-- Favicon-->
+    <link rel="icon" href="<?php echo base_url('assets/images/brand/favicon.png'); ?>" type="image/x-icon" />
+
+    <!-- Title -->
+    <title>KHM Dashboard</title>
+
+    <!-- Bootstrap css -->
+    <link href="<?php echo base_url('assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css'); ?>" rel="stylesheet" />
+
+    <!-- Style css -->
+    <link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet" />
+
+    <!-- Default css -->
+    <link href="<?php echo base_url('assets/css/default.css'); ?>" rel="stylesheet">
+
+    <!-- Sidemenu css-->
+    <link rel="stylesheet" href="<?php echo base_url('assets/plugins/sidemenu/icon-sidemenu.css'); ?>">
+
+    <!-- Owl-carousel css-->
+    <link href="<?php echo base_url('assets/plugins/owl-carousel/owl.carousel.css'); ?>" rel="stylesheet" />
+
+    <!-- Bootstrap-daterangepicker css -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-daterangepicker/daterangepicker.css'); ?>">
+
+    <!-- Bootstrap-datepicker css -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css'); ?>">
+
+    <!-- Custom scroll bar css -->
+    <link href="<?php echo base_url('assets/plugins/scroll-bar/jquery.mCustomScrollbar.css'); ?>" rel="stylesheet" />
+
+    <!-- P-scroll css -->
+    <link href="<?php echo base_url('assets/plugins/p-scroll/p-scroll.css'); ?>" rel="stylesheet" type="text/css">
+
+    <!-- Font-icons css -->
+    <link href="<?php echo base_url('assets/css/icons.css'); ?>" rel="stylesheet">
+
+    <!-- Rightsidebar css -->
+    <link href="<?php echo base_url('assets/plugins/sidebar/sidebar.css'); ?>" rel="stylesheet">
+
+    <!-- Nice-select css  -->
+    <link href="<?php echo base_url('assets/plugins/jquery-nice-select/css/nice-select.css'); ?>" rel="stylesheet" />
+
+    <!-- Color-palette css-->
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>" />
+
+    <!-- your css -->
+
+</head>
+
+<body class="app sidebar-mini">
+
+    <!-- Loader -->
+    <div id="loading">
+        <img src="<?php echo base_url('assets/images/other/loader.svg'); ?>" class="loader-img" alt="Loader">
+    </div>
+
+    <!-- PAGE -->
+    <div class="page">
+        <div class="page-main">
+
+            <!-- Top-header opened -->
+            <div class="header-main header sticky">
+                <div class="app-header header top-header navbar-collapse ">
+                    <div class="container-fluid">
+                        <div class="d-flex">
+                            <a class="header-brand" href="index.html">
+                                <img src="<?php echo base_url('assets/images/brand/logo.png'); ?>" class="header-brand-img desktop-logo " alt="Dashlot logo">
+                                <img src="<?php echo base_url('assets/images/brand/logo1.png'); ?>" class="header-brand-img desktop-logo-1 " alt="Dashlot logo">
+                                <img src="<?php echo base_url('assets/images/brand/favicon.png'); ?>" class="mobile-logo" alt="Dashlot logo">
+                                <img src="<?php echo base_url('assets/images/brand/favicon1.png'); ?>" class="mobile-logo-1" alt="Dashlot logo">
+                            </a>
+                            <a href="#" data-toggle="sidebar" class="nav-link icon toggle"><i class="fe fe-align-justify fs-20"></i></a>
+                            <div class="d-flex header-left left-header">
+                                <div class="d-none d-lg-block horizontal">
+                                    <ul class="nav">
+                                        <li class="">
+                                            <div class="dropdown d-none d-md-flex">
+                                                <a href="#" class="d-flex nav-link pr-0  pt-2 mt-3 country-flag1" data-toggle="dropdown">
+                                                    <span class="d-flex"><img src="<?php echo base_url('assets/images/roles.jpg'); ?>" alt="img" class="avatar country-Flag mr-2 align-self-center"></span>
+                                                    <div>
+                                                        <span class="d-flex fs-14 mr-3 mt-0"><?php echo session('active_role_name'); ?><span><i class="mdi mdi-chevron-down"></i></span></span>
+                                                    </div>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+                                                    <?php foreach ($all_roles_assn as $data) : ?>
+                                                        <a href="#" onclick="switchroles(<?php echo $data['role_id']; ?>,'<?php echo $data['role_name']; ?>');" class="dropdown-item d-flex align-items-center mt-2">
+                                                            <div>
+                                                                <span><?php echo $data['role_name']; ?></span>
+                                                            </div>
+                                                        </a>
+                                                    <?php endforeach; ?>
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="d-flex header-left left-header">
+                                <div class="d-none d-lg-block horizontal">
+                                    <ul class="nav">
+                                        <li class="">
+                                            <div class="dropdown d-none d-md-flex">
+                                                <a href="#" class="d-flex nav-link pr-0  pt-2 mt-3 country-flag1" data-toggle="dropdown">
+                                                    <span class="d-flex"><img src="<?php echo base_url('assets/images/system.jpg'); ?>" alt="img" class="avatar country-Flag mr-2 align-self-center"></span>
+                                                    <div>
+                                                        <span class="d-flex fs-14 mr-3 mt-0"><?php echo session('system_name'); ?><span><i class="mdi mdi-chevron-down"></i></span></span>
+                                                    </div>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-left dropdown-menu-arrow">
+                                                    <?php foreach ($all_systems as $datas) : ?>
+                                                        <a href="#" onclick="switchsystems(<?php echo $datas['entity_boolean_id']; ?>,'<?php echo $datas['boolean_name']; ?>');" class="dropdown-item d-flex align-items-center mt-2">
+                                                            <div>
+                                                                <span><?php echo $datas['boolean_name']; ?></span>
+                                                            </div>
+                                                        </a>
+                                                    <?php endforeach; ?>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="d-flex header-right ml-auto">
+                                <div class="dropdown header-fullscreen">
+                                    <a class="nav-link icon full-screen-link" id="fullscreen-button">
+                                        <i class="mdi mdi-arrow-collapse fs-20"></i>
+                                    </a>
+                                </div>
+                                <!--<div class="" id="bs-example-navbar-collapse-1">
+										<form class="navbar-form" role="search">
+											<div class="input-group ">
+												<input type="text" class="form-control" placeholder="Search...">
+												<span class="input-group-btn">
+													<button type="reset" class="btn btn-default">
+														<i class="fa fa-times"></i>
+													</button>
+													<button type="submit" class="btn btn-default">
+														<i class="fa fa-search"></i>
+													</button>
+												</span>
+											</div>
+										</form>
+									</div>
+									<div class="dropdown header-notify">
+										<a class="nav-link icon text-center" data-toggle="dropdown">
+											<i class="typcn typcn-bell bell-animations"></i>
+											<span class="pulse bg-success"></span>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right animated bounceInDown dropdown-menu-arrow w-250">
+											<div class="dropdown-header p-4 mb-2 bg-header-image p-5 text-white">
+												<h5 class="dropdown-title mb-1 font-weight-semibold text-drak">Notifications</h5>
+												<p class="dropdown-title-text subtext mb-0 pb-0 fs-13">You have 4 new notifications</p>
+											</div>
+											<div class="drop-notify">
+												<a href="#" class="dropdown-item d-flex pb-3 pl-4 pr-2 border-bottom">
+													<div class="notifyimg bg-success-transparent text-success-shadow"><i class="fa fa-calendar fs-18 text-success"></i></div>
+													<div><strong>Completed One task</strong>
+														<div class="small fs-14 text-muted">3 min ago</div>
+													</div>
+												</a>
+												<a href="#" class="dropdown-item d-flex pb-3 pl-4  pr-2 border-bottom">
+													<div class="notifyimg bg-secondary-transparent text-secondary-shadow"><i class="fa fa-cogs fs-18 text-secondary"></i></div>
+													<div><strong>Server Rebooted.</strong>
+														<div class="small fs-14 text-muted">5 days ago</div>
+													</div>
+												</a>
+												<a href="#" class="dropdown-item d-flex pb-3 pl-4 pr-2 border-bottom">
+													<div class="notifyimg bg-info-transparent text-info-shadow"><i class="fa fa-envelope-o fs-18 text-info"></i></div>
+													<div><strong> 3 new Comments</strong>
+														<div class="small fs-14 text-muted">5 days ago</div>
+													</div>
+												</a>
+												<a href="#" class="dropdown-item d-flex pb-3 pl-4 pr-2 border-bottom">
+													<div class="notifyimg bg-primary-transparent text-primary-shadow"><i class="fa fa-thumbs-o-up fs-18 text-primary"></i></div>
+													<div><strong>Anna likes our posts.</strong>
+														<div class="small fs-14 text-muted">5 days ago</div>
+													</div>
+												</a>
+												<a href="#" class="dropdown-item d-flex pb-3 pl-4 pr-2">
+													<div class="notifyimg bg-secondary-transparent text-secondary-shadow"><i class="fa fa-exclamation-triangle fs-18 text-secondary"></i></div>
+													<div><strong> Application Error</strong>
+														<div class="small fs-14 text-muted">5 days ago</div>
+													</div>
+												</a>
+											</div>
+											<div class="dropdown-divider mb-0"></div>
+											<a href="#" class="dropdown-item text-center br-br-6 br-bl-6">See all Messages</a>
+										</div>
+									</div>
+									<div class="dropdown d-md-flex message">
+										<a class="nav-link icon" data-toggle="dropdown">
+											<i class="typcn typcn-messages"></i>
+											<span class="badge badge-secondary pulse-secondary">5</span>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right animated bounceInDown dropdown-menu-arrow">
+											<div class="dropdown-header bg-header-image text-white w-300 p-5 mb-2">
+												<h5 class="dropdown-title mb-1 font-weight-semibold text-drak">Messages</h5>
+												<p class="dropdown-title-text subtext mb-0 pb-0 fs-13 ">You have 4 unread messages</p>
+											</div>
+											<div class="drop-scroll">
+												<a href="#" class="p-3 d-flex border-bottom">
+													<div class="avatar avatar-md  mr-3 d-block cover-image brround default-shadow" data-image-src="<?php echo base_url('assets/images/users/6.jpg'); ?>">
+														<span class="avatar-status bg-success"></span>
+													</div>
+													<div class="w-80">
+														<div class="d-flex">
+															<h5 class="mb-2">Madeleine</h5>
+															<i class="fa fa-circle-thin text-right ml-auto fs-10 text-success float-right"></i>
+														</div>
+														<p class="mb-1">I'm sorry but i'm not sure how to help you with that...</p>
+														<span class="font-weight-normal fs-13 text-muted">Mar15 3:55 PM</span>
+													</div>
+												</a>
+												<a href="#" class="p-3 d-flex border-bottom">
+													<div class="avatar avatar-md  mr-3 d-block cover-image brround default-shadow" data-image-src="<?php echo base_url('assets/images/users/7.jpg'); ?>">
+														<span class="avatar-status bg-danger"></span>
+													</div>
+													<div class="w-80">
+														<div class="d-flex">
+															<h5 class="mb-2">Nargis Hawa</h5>
+															<i class="fa fa-circle-thin text-right ml-auto fs-10 text-danger float-right"></i>
+														</div>
+														<p class="mb-1">All set! Now, time to get to you now...</p>
+														<span class="font-weight-normal fs-13 text-muted">Mar15 3:55 PM</span>
+													</div>
+												</a>
+												<a href="#" class="p-3 d-flex border-bottom">
+													<div class="avatar avatar-md  mr-3 d-block cover-image brround default-shadow" data-image-src="<?php echo base_url('assets/images/users/10.jpg'); ?>">
+														<span class="avatar-status bg-info"></span>
+													</div>
+													<div class="w-80">
+														<div class="d-flex">
+															<h5 class="mb-2">Sahar Darya</h5>
+															<i class="fa fa-circle-thin text-right ml-auto fs-10 text-info float-right"></i>
+														</div>
+														<p class="mb-1">Here are some products i found for you form database...</p>
+														<span class="font-weight-normal fs-13 text-muted">Mar15 3:55 PM</span>
+													</div>
+												</a>
+												<a href="#" class="p-3 d-flex border-bottom">
+													<div class="avatar avatar-md  mr-3 d-block cover-image brround default-shadow" data-image-src="<?php echo base_url('assets/images/users/11.jpg'); ?>">
+														<span class="avatar-status bg-warning"></span>
+													</div>
+													<div class="w-80">
+														<div class="d-flex">
+															<h5 class="mb-2">Khadija Mehr</h5>
+															<i class="fa fa-circle-thin text-right ml-auto fs-10 text-warning float-right"></i>
+														</div>
+														<p class="mb-1">Are you ready to pickup your Delivery...</p>
+														<span class="font-weight-normal fs-13 text-muted">Mar15 3:55 PM</span>
+													</div>
+												</a>
+											</div>
+											<div class="dropdown-divider mb-0 mt-0"></div>
+											<a href="#" class="dropdown-item text-center p-3">See all Messages</a>
+										</div>
+									</div>
+									<div class="dropdown d-md-flex d-cart">
+										<a class="nav-link icon" data-toggle="dropdown">
+											<i class="fe fe-shopping-cart"></i>
+											<span class="badge badge-danger pulse-danger">4</span>
+										</a>
+										<div class="dropdown-menu dropdown-menu-right animated bounceInDown dropdown-menu-arrow">
+											<div class="dropdown-header bg-header-image text-white w-300 p-5 mb-2">
+												<h5 class="dropdown-title mb-1 font-weight-semibold text-drak">Cart</h5>
+												<p class="dropdown-title-text subtext mb-0 pb-0 fs-13 ">You have 4 Items Cart</p>
+											</div>
+											<div class="drop-cart">
+												<div class="border-bottom">
+													<div class="d-flex pl-3 pr-4 pt-2 pb-3 cart align-items-center">
+														<div class="text-warning drop-cart-img">
+															<img src="<?php echo base_url('assets/images/media/ecommerce/2.png'); ?>" class="" alt="Smart Watch">
+														</div>
+														<div class="flex dropdown-cart">
+															<div class="d-flex align-items-center">
+																<div class="pl-3">
+																	<span class="fs-16 font-weight-semibold d-block">Apple Watch OS</span>
+																	<div class="para fs-14 text-muted">Mens Solid Bomber jacket, Brown jacket , Winter Wear.</div>
+																</div>
+																<div class="pl-8 ml-auto">
+																	<a href="#" class="text-nowrap text-danger"><i class="fa fa-trash fs-16"></i></a>
+																</div>
+															</div>
+															<div class="d-flex pl-3">
+																<div>x2</div>
+																<div class="ml-auto">$49</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="border-bottom">
+													<div class="d-flex pl-3 pr-4 pt-2 pb-3 cart align-items-center">
+														<div class="text-warning drop-cart-img">
+															<img src="<?php echo base_url('assets/images/media/ecommerce/4.png'); ?>" class="" alt="Smart Watch">
+														</div>
+														<div class="flex dropdown-cart">
+															<div class="d-flex align-items-center">
+																<div class="pl-3">
+																	<span class="fs-16 font-weight-semibold d-block"> Handbag</span>
+																	<div class="para fs-14 text-muted">Womens Red color Handbag.</div>
+																</div>
+																<div class="pl-8 ml-auto">
+																	<a href="#" class="text-nowrap text-danger"><i class="fa fa-trash fs-16"></i></a>
+																</div>
+															</div>
+															<div class="d-flex pl-3">
+																<div>x1</div>
+																<div class="ml-auto">$76</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="border-bottom">
+													<div class="d-flex pl-3 pr-4 pt-2 pb-3 cart align-items-center">
+														<div class="text-warning drop-cart-img">
+															<img src="<?php echo base_url('assets/images/media/ecommerce/7.png'); ?>" class="" alt="Smart Watch">
+														</div>
+														<div class="flex dropdown-cart">
+															<div class="d-flex align-items-center">
+																<div class="pl-3">
+																	<span class="fs-16 font-weight-semibold d-block">HeadPhones</span>
+																	<div class="para fs-14 text-muted">Wireless Headphones to make to business.</div>
+																</div>
+																<div class="pl-8 ml-auto">
+																	<a href="#" class="text-nowrap text-danger"><i class="fa fa-trash fs-16"></i></a>
+																</div>
+															</div>
+															<div class="d-flex pl-3">
+																<div>x2</div>
+																<div class="ml-auto">$45</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="border-bottom">
+													<div class="d-flex pl-3 pr-4 pt-2 pb-3 cart align-items-center">
+														<div class="text-warning drop-cart-img">
+															<img src="<?php echo base_url('assets/images/media/ecommerce/15.png'); ?>" class="" alt="Smart Watch">
+														</div>
+														<div class="flex dropdown-cart">
+															<div class="d-flex align-items-center">
+																<div class="pl-3">
+																	<span class="fs-16 font-weight-semibold d-block">College bag</span>
+																	<div class="para fs-14 text-muted">Yellow college bag for student.</div>
+																</div>
+																<div class="pl-8 ml-auto">
+																	<a href="#" class="text-nowrap text-danger"><i class="fa fa-trash fs-16"></i></a>
+																</div>
+															</div>
+															<div class="d-flex pl-3">
+																<div>x1</div>
+																<div class="ml-auto">$57</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="dropdown-divider mb-0 mt-0"></div>
+											<a href="#" class="dropdown-item text-center p-3">See all Items</a>
+										</div>
+									</div>-->
+                                <div class="dropdown drop-profile">
+                                    <a class="nav-link pr-0 leading-none" href="#" data-toggle="dropdown" aria-expanded="false">
+                                        <div class="profile-details mt-1">
+                                            <span class="mr-3 mb-0  fs-15 font-weight-semibold"><?php echo session('user_name'); ?></span>
+                                            <!--<small class="text-muted mr-3">appdeveloper</small>-->
+                                        </div>
+                                        <img class="avatar avatar-md brround" src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="image">
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow animated bounceInDown w-250">
+                                        <div class="user-profile bg-header-image border-bottom p-3">
+                                            <div class="user-image text-center">
+                                                <img class="user-images" src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="image">
+                                            </div>
+                                            <div class="user-details text-center">
+                                                <h4 class="mb-0"><?php echo session('user_name'); ?></h4>
+                                                <!--<p class="mb-1 fs-13 text-white-50">Jonathan@gmail.com</p>-->
+                                            </div>
+                                        </div>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="dropdown-icon mdi mdi-account-outline "></i> Profile
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="dropdown-icon  mdi mdi-settings"></i> Settings
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <span class="float-right"><span class="badge badge-success">6</span></span>
+                                            <i class="dropdown-icon mdi  mdi-message-outline"></i> Inbox
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="dropdown-icon mdi mdi-compass"></i> Need help?
+                                        </a>
+                                        <a class="dropdown-item mb-1" href="<?= site_url('Login/logout'); ?>">
+                                            <i class="dropdown-icon mdi  mdi-logout-variant"></i> Sign out
+                                        </a>
+                                    </div>
+                                </div><!-- Profile -->
+                                <!--<div class="sidebar-link">
+										<a href="#" class="nav-link icon" data-toggle="sidebar-right" data-target=".sidebar-right">
+											<i class="fe fe-align-right" ></i>
+										</a>
+									</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Top-header closed -->
+
+            <!-- Sidebar menu-->
+            <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+            <aside class="app-sidebar toggle-sidebar">
+                <div class="app-sidebar__user">
+                    <div class="user-body">
+                        <img src="<?php echo base_url('assets/images/users/user.png'); ?>" alt="profile-img" class="rounded-circle w-25">
+                    </div>
+                    <div class="user-info">
+                        <a href="#" class=""><span class="app-sidebar__user-name font-weight-semibold"><?php echo session('user_name'); ?></span><br>
+                            <!--span class="text-muted app-sidebar__user-designation text-sm">App Developer</span>-->
+                        </a>
+                    </div>
+                </div>
+                <ul class="side-menu toggle-menu">
+                    <?php foreach ($parent_menu as $key1 => $val1) {
+                        $img_tmp = $val1['entity_trans_id'] . ".svg";
+                    ?>
+                        <li class="slide">
+                            <a class="side-menu__item" data-toggle="slide" href=""><span class="icon-menu-img"><img src="<?php echo base_url('assets/images/svgs/' . $img_tmp); ?>" class="side_menu_img svg-1" alt="image"></span><span class="side-menu__label"><?php echo $val1['entity_trans_name']; ?></span><i class="angle fa fa-angle-right"></i></a>
+                            <ul class="slide-menu">
+                                <?php foreach ($sub_menu as $key2 => $val2) {
+                                    if ($val1['entity_trans_id'] == $val2['prs_parent_id']) {
+                                        foreach ($all_menus as $key3 => $val3) {
+                                            if ($val3['entity_trans_id'] == $val2['entity_trans_id']) {
+                                ?>
+                                                <li><a class="slide-item" href="<?= site_url($val2['menu_link']); ?>"><span><?php echo $val2['entity_trans_name']; ?></span></a></li>
+                                <?php }
+                                        }
+                                    }
+                                } ?>
+                            </ul>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </aside>
+            <!-- Sidemenu closed -->
+
+            <!-- App-content opened -->
+            <div class="app-content icon-content">
+                <div class="section">
+
+                    <!-- Page-header opened -->
+                    <div class="page-header">
+                        <div class="page-leftheader">
+                            <h4 class="page-title mb-0">Add New Entity Boolean</h4>
+                            <small class="text-muted mt-0 fs-14">Welcome back, <?php echo session('user_name'); ?></small>
+                        </div>
+
+                        <!--<div class="page-rightheader">
+								<div class="ml-3 ml-auto d-flex">
+									<div class="mt-3 mt-md-0">
+										<div class="border-right pr-4 mt-1 d-xl-block">
+											<p class="text-muted mb-2">Category</p>
+											<h6 class="font-weight-semibold mb-0">All Categories</h6>
+										</div>
+									</div>
+									<div class="mt-3 mt-md-0">
+										<div class="border-right pl-0 pl-md-4 pr-4 mt-1 d-xl-block">
+											<p class="text-muted mb-1">Customer Rating</p>
+											<div class="wideget-user-rating">
+												<a href="#">
+													<i class="fa fa-star text-warning"></i>
+												</a>
+												<a href="#">
+													<i class="fa fa-star text-warning"></i>
+												</a>
+												<a href="#">
+													<i class="fa fa-star text-warning"></i>
+												</a>
+												<a href="#">
+													<i class="fa fa-star text-warning"></i>
+												</a>
+												<a href="#">
+													<i class="fa fa-star-o text-warning mr-1"></i>
+												</a>
+												<span class="">(4.5/5)</span>
+											</div>
+										</div>
+									</div>
+									<span class="mt-3 mt-md-0 pg-header">
+										<a href="#" class="btn btn-info ml-0 ml-md-4 mt-1 "><i class="typcn typcn-shopping-cart mr-1"></i>Buy Now</a>
+									</span>
+								</div>
+							</div>-->
+                    </div>
+                    <!-- Page-header closed -->
+
+                    <!-- Banner opened -->
+                    <!--<div class="row">
+							<div class="col-xl-12">
+								<div class="banner banner-color mt-0">
+									<div class="col-xl-2 col-lg-3 col-md-12">
+										<img src="<?php echo base_url('assets/images/svg/new_message.svg'); ?>" alt="image" class="image">
+									</div>
+									<div class="page-content col-xl-7 col-lg-6 col-md-12">
+										<h3 class="mb-1">Welcome back! Dashlot</h3>
+										<p class="mb-0 fs-16">Want to be the first to know about Dashlot updates? Subscribe Now</p>
+									</div>
+									<div class="col-xl-3 col-lg-3 col-md-3 text-right d-flex d-block">
+										<a href="#" class="btn btn-success mr-3" id="skip">Skip</a>
+										<a href="#" class="btn btn-primary">Subscribe Now</a>
+									</div>
+								</div>
+							</div>
+						</div>-->
+                    <!-- Banner opened -->
+
+                    <!-- row opened -->
+                    <!--<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-6 col-xl-3">
+								<div class="card overflow-hidden">
+									<div class="card-body">
+										<div class="d-flex">
+											<div class="">
+												<p class="mb-2 h6">Active Client</p>
+												<h2 class="mb-1 ">253</h2>
+												<p class="mb-0 text-muted"><span class="text-success">(+0.35%)<i class="fe fe-arrow-up text-success"></i></span>Increase</p>
+											</div>
+											<div class=" my-auto ml-auto">
+												<div class="chart-wrapper text-center">
+													<canvas id="areaChart1" class="areaChart2 chartjs-render-monitor chart-dropshadow-primary overflow-hidden mx-auto"></canvas>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-6 col-xl-3">
+								<div class="card overflow-hidden">
+									<div class="card-body">
+										<div class="d-flex">
+											<div class="">
+												<p class="mb-2 h6">Total Revenue</p>
+												<h2 class="mb-1 ">$365</h2>
+												<p class="mb-0 text-muted"><span class="text-danger">(+0.54%)</span><i class="fe fe-arrow-down text-danger"></i>Decrease</p>
+											</div>
+											<div class=" my-auto ml-auto">
+												<div class="chart-wrapper">
+													<canvas id="areaChart2" class="areaChart2 chartjs-render-monitor chart-dropshadow-secondary overflow-hidden"></canvas>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-6 col-xl-3">
+								<div class="card overflow-hidden">
+									<div class="card-body">
+										<div class="d-flex">
+											<div class="">
+												<p class="mb-2 h6">Sales</p>
+												<h2 class="mb-1 ">15,89</h2>
+												<p class="mb-0 text-muted"><span class="text-success">(+0.96%)<i class="fe fe-arrow-up text-success"></i></span>Increase</p>
+											</div>
+											<div class="my-auto ml-auto">
+												<div class="chart-wrapper">
+													<canvas id="areaChart3" class="areaChart3 chartjs-render-monitor chart-dropshadow-info overflow-hidden"></canvas>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-12 col-md-12 col-lg-6 col-xl-3">
+								<div class="card overflow-hidden">
+									<div class="card-body">
+										<div class="d-flex">
+											<div class="">
+												<p class="mb-2 h6">Running Projects</p>
+												<h2 class="mb-1 ">25</h2>
+												<p class="mb-0 text-muted"><span class="text-danger">(+0.42%)</span><i class="fe fe-arrow-down text-danger"></i>Decrease</p>
+											</div>
+											<div class="my-auto ml-auto">
+												<div class="chart-wrapper">
+													<canvas id="areaChart4" class="areaChart4 chartjs-render-monitor chart-dropshadow-success overflow-hidden"></canvas>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>-->
+                    <!-- row closed -->
+
+                    <!-- row opened -->
+                    <!--<div class="row">
+							<div class="col-xl-12 product">
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">Revenue</h3>
+										<div class="card-options ">
+											<a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+													<a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
+											<a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-lg-12 col-xl-8">
+												<div class="chart-wrapper">
+													<canvas id="line-chart" class=" chartjs-render-monitor chart-dropshadow2 overflow-hidden"></canvas>
+												</div>
+											</div>
+											<div class="col-lg-12 col-xl-4 lg-mt-5">
+												<div class="row">
+													<div class="col-6">
+														<div class="card box-shadow-0 overflow-hidden">
+															<div class="card-body p-4">
+																<div class="text-center">
+																   <i class="fa fa-tasks fa-2x text-primary text-primary-shadow"></i>
+																   <h3 class="mt-3 mb-0 ">07</h3>
+																   <small class="text-muted">Progress Tasks</small>
+																</div>
+															</div>
+														</div>
+													</div>
+													 <div class="col-6">
+														<div class="card box-shadow-0 overflow-hidden">
+															<div class="card-body p-4">
+																<div class="text-center">
+																   <i class="fa fa-ticket fa-2x text-secondary text-secondary-shadow"></i>
+																	<h3 class="mt-3 mb-0 ">03</h3>
+																   <small class="text-muted">Open Ticket</small>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-6">
+														<div class="card box-shadow-0 mb-0 overflow-hidden">
+															<div class="card-body p-4">
+																<div class="text-center">
+																   <i class="fa fa-bug fa-2x text-success text-success-shadow"></i>
+																   <h3 class="mt-3 mb-0 ">02</h3>
+																   <small class="text-muted">In Progress Bugs</small>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="col-6 ">
+														<div class="card box-shadow-0 mb-0 overflow-hidden">
+															<div class="card-body p-4">
+																<div class="text-center">
+																   <i class="fa fa-folder-open-o fa-2x text-info text-info-shadow"></i>
+																   <h3 class="mt-3 mb-0 ">04</h3>
+																   <small class="text-muted">Progress Projects</small>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>-->
+                    <!-- row closed -->
+
+                    <!-- row opened -->
+                    <!--<div class="row">
+							<div class="col-xl-4 col-lg-6 col-md-12">
+								<div class="card overflow-hidden">
+									<div class="card-header">
+										<h3 class="card-title">Activity</h3>
+										<div class="card-options ">
+											<a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+													<a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
+											<a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="latest-timeline-1 activity-scroll mh-300">
+											<ul class="timeline-1 mb-0">
+												<li class="mt-0">
+													<i class="fe fe-check bg-primary text-white product-icon primary-dropshadow"></i>
+													<a target="_blank" href="#" class="font-weight-semibold mb-4 fs-15">Task finished</a>
+													<a href="#" class="float-right fs-12 text-muted">01 Jun, 2019</a>
+													<p class="mb-0 mt-2 text-muted"><span class="text-primary font-weight-semibold">Adam	Berry</span>  finished task on<a href="#" class="text-info font-weight-semibold"> Project Management</a></p>
+													<div class="mt-2">
+														<span class="badge badge-success-light">Bootstrap</span>
+														<span class="badge badge-danger-light">HTML</span>
+														<span class="badge badge-warning-light">Css</span>
+													</div>
+												</li>
+												<li class="mt-0">
+													<i class="fe fe-message-square bg-secondary text-white product-icon secondary-dropshadow"></i>
+													<a target="_blank" href="#" class="font-weight-semibold mb-4 fs-15">New Comment</a>
+													<a href="#" class="float-right fs-12 text-muted">05 Jun, 2019</a>
+													<p class="mb-0 mt-2 text-muted"><span class="text-primary font-weight-semibold">Victoria</span> commented on Project <a href="#" class="text-info font-weight-semibold"> AngularJS Template</a></p>
+												</li>
+												<li class="mt-0">
+													<i class="fe fe-alert-triangle bg-danger text-white product-icon danger-dropshadow"></i>
+													<a target="_blank" href="#" class="font-weight-semibold mb-4 fs-15">Task Overdue</a>
+													<a href="#" class="float-right fs-12 text-muted">01 Jun, 2019</a>
+													<p class="mb-0 mt-2"> Task the <span class="text-info font-weight-semibold">Wordpress Project</span> is on hold its takes longer than usual.</p>
+													<div class="mt-2">
+														<span class="badge badge-success-light">Bootstrap</span>
+														<span class="badge badge-danger-light">HTML</span>
+														<span class="badge badge-warning-light">Css</span>
+													</div>
+												</li>
+												<li class="mt-0">
+													<i class="fe fe-check bg-success text-white product-icon success-dropshadow"></i>
+													<a target="_blank" href="#" class="font-weight-semibold mb-4 fs-15">Task finished</a>
+													<a href="#" class="float-right fs-12 text-muted">01 Jun, 2019</a>
+													<p class="mb-0 mt-2"><span class="text-primary font-weight-semibold">Petey Cruiser</span> finished task <a href="#" class="text-info font-weight-semibold"> Integrated management</a></p>
+													<div class="mt-2">
+														<span class="badge badge-success-light">Bootstrap</span>
+														<span class="badge badge-danger-light">HTML</span>
+														<span class="badge badge-warning-light">Css</span>
+													</div>
+												</li>
+												<li class="mt-0">
+													<i class="fe fe-check bg-success text-white product-icon success-dropshadow"></i>
+													<a target="_blank" href="#" class="font-weight-semibold mb-4 fs-15">Task finished</a>
+													<a href="#" class="float-right fs-12 text-muted">01 Jun, 2019</a>
+													<p class="mb-0 mt-2"><span class="text-primary font-weight-semibold">Manuel Labor</span> finished task <a href="#" class="text-info font-weight-semibold"> Program Management</a></p>
+													<div class="mt-2">
+														<span class="badge badge-success-light">Bootstrap</span>
+														<span class="badge badge-danger-light">HTML</span>
+														<span class="badge badge-warning-light">Css</span>
+													</div>
+												</li>
+												<li class="mt-0 mb-0">
+													<i class="fe fe-message-square bg-info text-white product-icon info-dropshadow"></i>
+													<a target="_blank" href="#" class="font-weight-semibold mb-4 fs-15">Warren Peace</a>
+													<a href="#" class="float-right fs-12 text-muted">01 Jun, 2019</a>
+													<p class="mb-0 mt-2"><span class="text-primary font-weight-semibold">Adam	Berry</span> commented on task <a href="#" class="text-info font-weight-semibold"> AngularJS Template</a></p>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-4 col-lg-6">
+								<div class="card">
+									<div id="carousel-indicator" class="carousel slide dashboard-carousel" data-ride="carousel">
+										<div class="carousel-inner">
+											<div class="carousel-item active">
+												<div class="card-body">
+													<h4 class="card-title mb-4">Open Payements</h4>
+													<small class=""> Since last month</small>
+													<div class="d-flex  align-items-center">
+														<h2 class=" mb-0">$3500.00<span class="font-weight-normal text-muted fs-13">/ per month</span></h2>
+														<div class="text-success mt-0 mb-2  ml-auto">
+															<i class="mdi mdi-chevron-down mdi-24px"></i> <span class=" ">23.8%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="carousel-item carousel slide dashboard-carousel" data-ride="carousel">
+												<div class="card-body">
+													<h4 class="card-title mb-4">Open Tasks</h4>
+													<small class=""> Since last month</small>
+													<div class="d-flex  align-items-center">
+														<h2 class=" mb-0">23<span class="font-weight-normal text-muted fs-13">/ per month</span></h2>
+														<div class="text-danger mt-0 mb-2  ml-auto">
+															<i class="mdi mdi-chevron-down mdi-24px"></i> <span class=" ">12.8%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<a class="carousel-control-prev" href="#carousel-indicator" role="button" data-slide="prev">
+											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+											<span class="sr-only">Previous</span>
+										</a>
+										<a class="carousel-control-next" href="#carousel-indicator" role="button" data-slide="next">
+											<span class="carousel-control-next-icon" aria-hidden="true"></span>
+											<span class="sr-only">Next</span>
+										</a>
+									</div>
+								</div>
+								<div class="card overflow-hidden">
+									<div class="card-header border-bottom-0">
+										<div class="card-title d-block">Earnings</div>
+										<div class="card-options">
+
+										</div>
+									</div>
+									<div class="card-body pt-0 pb-0">
+										<small class="">Weekly Earning Report</small>
+										<div class="d-flex mb-4">
+											<div class="d-flex  align-items-center">
+												<h2 class="">$7450.40<span class="font-weight-normal text-muted fs-13">/ per month</span></h2>
+											</div>
+											<span class="text-success ml-auto"><i class="fe fe-arrow-up mr-2"></i>24.05%</span>
+										</div>
+
+									</div>
+									<div class="chart-wrapper ">
+										<canvas id="earning" class="earning chart-dropshadow-primary mb-3 mt-2 h-50"></canvas>
+									</div>
+									<div class="row mb-5">
+										<div class="col-6 text-center border-right">
+											<div class="text-muted fs-14">Daily Profit</div>
+											<div class="h3 mt-1 mb-0">$540</div>
+											<span class="text-muted mb-0 fs-14"><span class="text-success mr-1"><i class="fe fe-arrow-up ml-1"></i>34.5%</span>increase</span>
+										</div>
+										<div class="col-6 text-center">
+											<div class="text-muted fs-14">Last Month Profit</div>
+											<div class="h3 mt-1 mb-0">36</div>
+											<span class="text-muted mb-0 fs-14"><span class="text-danger mr-1"><i class="fe fe-arrow-down ml-1"></i>34.5%</span>Decrease</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-4 col-lg-12 col-md-12">
+								<div class="card">
+									<div id="carousel-indicator1" class="carousel slide dashboard-carousel" data-ride="carousel">
+										<div class="carousel-inner">
+											<div class="carousel-item active">
+												<div class="card-body">
+													<h4 class="card-title mb-4">Open Invoice</h4>
+													<small class=""> Since last month</small>
+													<div class="d-flex  align-items-center">
+														<h2 class=" mb-0">45,981<span class="font-weight-normal text-muted fs-13">/ per month</span></h2>
+														<div class="text-success mt-0 mb-2  ml-auto">
+															<i class="mdi mdi-chevron-down mdi-24px"></i> <span class=" ">38.5%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="carousel-item carousel slide dashboard-carousel" data-ride="carousel">
+												<div class="card-body">
+													<h4 class="card-title mb-4">Paid Invoices</h4>
+													<small class=""> Since last month</small>
+													<div class="d-flex  align-items-center">
+														<h2 class=" mb-0">32,579<span class="font-weight-normal text-muted fs-13">/ per month</span></h2>
+														<div class="text-danger mt-0 mb-2  ml-auto">
+															<i class="mdi mdi-chevron-down mdi-24px"></i> <span class=" ">22.8%</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<a class="carousel-control-prev" href="#carousel-indicator1" role="button" data-slide="prev">
+											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+											<span class="sr-only">Previous</span>
+										</a>
+										<a class="carousel-control-next" href="#carousel-indicator1" role="button" data-slide="next">
+											<span class="carousel-control-next-icon" aria-hidden="true"></span>
+											<span class="sr-only">Next</span>
+										</a>
+									</div>
+								</div>
+								<div class="card">
+									<div class="card-header">
+										<h3 class="card-title">Project Status</h3>
+										<div class="card-options ">
+											<a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+											<a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
+											<a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+										</div>
+									</div>
+									<div class="card-body">
+										<div class="mb-4">
+											<div class="clearfix mb-4">
+												<div class="float-left">
+													<strong class="fs-15 font-weight-semibold">Project1</strong>
+												</div>
+												<div class="float-right">
+													<small class="badge badge-success-light">Completed</small>
+												</div>
+											</div>
+											<div class="progress progress-xs mt-2">
+												<div class="progress-bar   bg-primary w-95"></div>
+											</div>
+										</div>
+										<div class="mb-4">
+											<div class="clearfix mb-4">
+												<div class="float-left">
+													<strong class="fs-15 font-weight-semibold">Project2</strong>
+												</div>
+												<div class="float-right">
+													<small class="badge badge-warning-light">On-going</small>
+												</div>
+											</div>
+											<div class="progress progress-xs mt-2">
+												<div class="progress-bar  bg-warning w-65"></div>
+											</div>
+										</div>
+										<div class="mb-4">
+											<div class="clearfix mb-4">
+												<div class="float-left">
+													<strong class="fs-15 font-weight-semibold">Project3</strong>
+												</div>
+												<div class="float-right">
+													<small class="badge badge-danger-light">Pending</small>
+												</div>
+											</div>
+											<div class="progress progress-xs mt-2">
+												<div class="progress-bar   bg-danger w-45"></div>
+											</div>
+										</div>
+										<div class="mb-4">
+											<div class="clearfix mb-4">
+												<div class="float-left">
+													<strong class="fs-15 font-weight-semibold">Project4</strong>
+												</div>
+												<div class="float-right">
+													<small class="badge badge-success-light">Completed</small>
+												</div>
+											</div>
+											<div class="progress progress-xs mt-2">
+												<div class="progress-bar   bg-success w-95"></div>
+											</div>
+										</div>
+										<div class="mb-2">
+											<div class="clearfix mb-3">
+												<div class="float-left">
+													<strong class="fs-15 font-weight-semibold">Project5</strong>
+												</div>
+												<div class="float-right">
+													<small class="badge badge-warning-light">Ongoing</small>
+												</div>
+											</div>
+											<div class="progress progress-xs mt-2">
+												<div class="progress-bar   bg-info w-65"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>-->
+                    <!-- row closed -->
+
+                    <!-- row opened -->
+                    <!--<div class="row">
+							<div class="col-lg-12 col-xl-8 col-md-12 col-sm-12">
+								<div class="card overflow-hidden">
+									<div class="card-header">
+										<div class="card-title">Lead Stats</div>
+										<div class="card-options">
+											<a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+											<a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
+											<a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+										</div>
+									</div>
+									<div class="card-body pt-0 overflow-hidden">
+										<div class="chart-wrapper">
+											<canvas id="leads" class="h-300"></canvas>
+										</div>
+										<div class="mt-4">
+											<div class="row">
+												<div class="col-xl-4 col-sm-12">
+													<small class="">Total Leads</small>
+													<div class="clearfix mt-2">
+														<div class="float-left">
+															<div class="align-items-center">
+																<h3 class=" mb-0">2154<span class="font-weight-normal text-muted fs-13"> / per month</span></h3>
+															</div>
+														</div>
+														<div class="float-right">
+															<small class="badge badge-info-light">75%</small>
+														</div>
+													</div>
+													<div class="progress progress-xs mt-2">
+														<div class="progress-bar  bg-info w-75"></div>
+													</div>
+												</div>
+												<div class="col-xl-4 col-sm-12 mt-3 mt-md-0">
+													<small class="">Open Leads</small>
+													<div class="clearfix mt-2">
+														<div class="float-left">
+															<div class="align-items-center">
+																<h3 class=" mb-0">950<span class="font-weight-normal text-muted fs-13"> / active</span></h3>
+															</div>
+														</div>
+														<div class="float-right">
+															<small class="badge badge-primary-light">65%</small>
+														</div>
+													</div>
+													<div class="progress progress-xs mt-2">
+														<div class="progress-bar  bg-primary w-65"></div>
+													</div>
+												</div>
+												<div class="col-xl-4 col-sm-12 mt-3 mt-md-0">
+													<small class="">Closed Leads</small>
+													<div class="clearfix mt-2">
+														<div class="float-left">
+															<div class="align-items-center">
+																<h3 class=" mb-0">480<span class="font-weight-normal text-muted fs-13"> / active</span></h3>
+															</div>
+														</div>
+														<div class="float-right">
+															<small class="badge badge-secondary-light">40%</small>
+														</div>
+													</div>
+													<div class="progress progress-xs mt-2">
+														<div class="progress-bar  bg-secondary w-40"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-12 col-xl-4 col-md-12 col-sm-12">
+								<div class="card ">
+									<div class="card-header">
+										<div class="card-title">Upcoming Events</div>
+										<div class="card-options">
+											<a href="#" class="card-options-collapse" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+														<a href="#" class="card-options-fullscreen" data-toggle="card-fullscreen"><i class="fe fe-maximize"></i></a>
+											<a href="#" class="card-options-remove" data-toggle="card-remove"><i class="fe fe-x"></i></a>
+										</div>
+									</div>
+									<div class="card-body coming-events p-0">
+										<div class="list-group list-group-flush ">
+											<div class="list-group-item d-flex pt-3 pb-3 align-items-center">
+												<div class="mr-3 mr-xs-0">
+													<div class="calendar-icon icons">
+														<div class="icon">
+															<span class="month">Thu</span>
+															<span class="date">25</span>
+														</div>
+													</div>
+												</div>
+												<div class="">
+													<div class="h5 fs-15 mb-1">Strategy Planning</div>
+													<small class="text-muted">25th sept,Delhi
+													</small>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-primary">Email</a>
+												</div>
+											</div>
+											<div class="list-group-item d-flex pt-3 pb-3 align-items-center">
+												<div class="mr-3 mr-xs-0">
+													<div class="calendar-icon icons">
+														<div class="icon">
+															<span class="month bg-info">Wed</span>
+															<span class="date">31</span>
+														</div>
+													</div>
+												</div>
+												<div class="">
+													<div class="h5 fs-15 mb-1">Hiring Employees</div>
+													<small class="text-muted">31st jan,Mumbai
+													</small>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-info">Skype</a>
+												</div>
+											</div>
+											<div class="list-group-item d-flex pt-3 pb-3 align-items-center">
+												<div class="mr-3 mr-xs-0">
+													<div class="calendar-icon icons">
+														<div class="icon">
+															<span class="month bg-success">Mon</span>
+															<span class="date">05</span>
+														</div>
+													</div>
+												</div>
+												<div class="">
+													<div class="h5 fs-15 mb-1">Traning</div>
+													<small class="text-muted">5th feb,Pune
+													</small>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-success">Mobile</a>
+												</div>
+											</div>
+											<div class="list-group-item d-flex pt-3 pb-3 align-items-center">
+												<div class="mr-3 mr-xs-0">
+													<div class="calendar-icon icons">
+														<div class="icon">
+															<span class="month bg-warning">Sat</span>
+															<span class="date">12</span>
+														</div>
+													</div>
+												</div>
+												<div class="">
+													<div class="h5 fs-15 mb-1">Finance policy </div>
+													<small class="text-muted">12th mar,Banglore
+													</small>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-warning">Phone</a>
+												</div>
+											</div>
+											<div class="list-group-item pt-3 pb-3 d-flex align-items-center">
+												<div class="mr-3 mr-xs-0">
+													<div class="calendar-icon icons">
+														<div class="icon">
+															<span class="month bg-danger">Tue</span>
+															<span class="date">17</span>
+														</div>
+													</div>
+												</div>
+												<div class="">
+													<div class="h5 fs-15 mb-1">Marketing Policy</div>
+													<small class="text-muted">17th Mar,Spain
+													</small>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-primary">Skype</a>
+												</div>
+											</div>
+											<div class="list-group-item pt-3 pb-3 d-flex align-items-center">
+												<div class="mr-3 mr-xs-0">
+													<div class="calendar-icon icons">
+														<div class="icon">
+															<span class="month bg-dark">Fri</span>
+															<span class="date">19</span>
+														</div>
+													</div>
+												</div>
+												<div class="">
+													<div class="h5 fs-15 mb-1">Accounting Policy</div>
+													<small class="text-muted">19th may,Australia
+													</small>
+												</div>
+												<div class="ml-auto">
+													<a href="#" class="btn btn-sm btn-pink">Email</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>-->
+                    <!-- row opened -->
+
+                    <!-- row open -->
+                    <!--<div class="row">
+							<div class="col-xl-4 col-lg-6">
+								<div class="card recent-leads">
+									<div class="card-header">
+										<h4 class="card-title">Recent Leads</h4>
+									</div>
+									<div class="card-body">
+										<div class="media mt-0 pt-0 mb-5">
+											<img class="mr-3 avatar avatar-lg brround default-shadow" src="<?php echo base_url('assets/images/users/2.jpg'); ?>" alt="image">
+											<div class="media-body">
+												<h5 class="mt-0 mb-0">Petey Cruiser</h5>
+												<span class="fs-14 text-muted">PeteyCruiser@gmail.com</span>
+											</div>
+											<span class="badge badge-warning-light fs-12">Cold lead</span>
+										</div>
+										<div class="media mb-5">
+											<img class="mr-3 avatar avatar-lg brround default-shadow" src="<?php echo base_url('assets/images/users/11.jpg'); ?>" alt="image">
+											<div class="media-body">
+												<h5 class="mt-0 mb-0">Paul Molive</h5>
+												<span class="fs-14 text-muted">PaulMolive65@gmail.com</span>
+											</div>
+											<span class="badge badge-success-light fs-12">Won lead</span>
+										</div>
+										<div class="media mb-5">
+											<img class="mr-3 avatar avatar-lg brround default-shadow" src="<?php echo base_url('assets/images/users/5.jpg'); ?>" alt="image">
+											<div class="media-body">
+												<h5 class="mt-0 mb-0">Barney Cull</h5>
+												<span class="fs-14 text-muted">BarneyCull@gmail.com</span>
+											</div>
+											<span class="badge badge-danger-light fs-12">Lost lead</span>
+										</div>
+										<div class="media mb-5">
+											<img class="mr-3 avatar avatar-lg brround default-shadow" src="<?php echo base_url('assets/images/users/12.jpg'); ?>" alt="image">
+											<div class="media-body">
+												<h5 class="mt-0 mb-0">Manuel Labor</h5>
+												<span class="fs-14 text-muted">ManuelLabor@gmail.com</span>
+											</div>
+											<span class="badge badge-warning-light fs-12">Cold lead</span>
+										</div>
+										<div class="media">
+											<img class="mr-3 avatar avatar-lg brround default-shadow" src="<?php echo base_url('assets/images/users/6.jpg'); ?>" alt="image">
+											<div class="media-body">
+												<h5 class="mt-0 mb-0">Risa Pearson</h5>
+												<span class="fs-14 text-muted">richardjohn@mail.com</span>
+											</div>
+											<span class="badge badge-success-light fs-12">Won lead</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 col-xl-4 col-sm-12">
+								<div class="card overflow-hidden">
+									<div class="">
+										<div class="text-center">
+											<img src="<?php echo base_url('assets/images/media/project-1.jpg'); ?>" alt="img" class="h-200 w-100">
+										</div>
+										<div class="mt-3">
+											<div class="row pt-2 pb-2 pl-5 pr-5 mt-0 ">
+												<div class="col">
+													<span class="mb-0 mt-1 fs-15">Project name:</span>
+												</div>
+												<div class="col col-auto text-muted fs-15">Project Management</div>
+											</div>
+
+											<div class="row pt-2 pb-2 pl-5 pr-5">
+												<div class="col">
+													<span class="mb-0 mt-1 fs-15">Duration:</span>
+												</div>
+												<div class="col col-auto text-muted fs-15">5months</div>
+											</div>
+											<div class="row pt-2 pb-2 pl-5 pr-5">
+												<div class="col">
+													<span class="mb-0 mt-1 fs-15">Budget:</span>
+												</div>
+												<div class="col col-auto text-muted fs-15">$35,7364</div>
+											</div>
+											<div class="mb-2 mt-3 pl-5 pb-5 pr-5">
+												<div class="clearfix mb-3">
+													<div class="float-left">
+														<strong class="fs-15 font-weight-semibold">Project5</strong>
+													</div>
+													<div class="float-right">
+														<small class="badge badge-success-light">ongoing</small>
+													</div>
+												</div>
+												<div class="progress progress-xs mt-2">
+													<div class="progress-bar   bg-primary w-65"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-12 col-xl-4 col-sm-12">
+								<div class="card">
+									<div class="card-header custom-header">
+										<div>
+											<h3 class="card-title">Top Ongoing Projects</h3>
+										</div>
+									</div>
+									<div class="card-body p-0 m-scroll mh-350">
+										<div class="list-group projects-list">
+											<a href="#" class="list-group-item list-group-item-action flex-column align-items-start border-top-0">
+												<div class="d-flex w-100 justify-content-between">
+													<h5 class="mb-1 font-weight-semibold">PSD Projects</h5>
+													<small class="text-danger"><i class="fa fa-caret-down mr-1"></i>5 days ago</small>
+												</div>
+												<p class="mb-0 text-muted mb-1">Started:17-02-2019</p>
+												<small class="text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit...</small>
+											</a>
+											<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+												<div class="d-flex w-100 justify-content-between">
+													<h5 class="mb-1 font-weight-semibold">Wordpress Projects</h5>
+													<small class="text-success"><i class="fa fa-caret-up mr-1"></i>2 days ago</small>
+												</div>
+												<p class="mb-0 text-muted mb-1">Started:15-02-2019</p>
+												<small class="text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit..</small>
+											</a>
+											<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+												<div class="d-flex w-100 justify-content-between">
+													<h5 class="mb-1 font-weight-semibold">HTML &amp; CSS3 Projects</h5>
+													<small class="text-danger"><i class="fa fa-caret-down mr-1"></i>1 days ago</small>
+												</div>
+												<p class="mb-0 text-muted mb-1">Started:26-02-2019</p>
+												<small class="text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit..</small>
+											</a>
+											<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+												<div class="d-flex w-100 justify-content-between">
+													<h5 class="mb-1 font-weight-semibold">HTML &amp; CSS3 Projects</h5>
+													<small class="text-danger"><i class="fa fa-caret-down mr-1"></i>1 days ago</small>
+												</div>
+												<p class="mb-0 text-muted mb-1">Started:26-02-2019</p>
+												<small class="text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit..</small>
+											</a>
+											<a href="#" class="list-group-item list-group-item-action flex-column align-items-start br-br-7 br-bl-7">
+												<div class="d-flex w-100 justify-content-between">
+													<h5 class="mb-1 font-weight-semibold">Java Projects</h5>
+													<small class="text-success"><i class="fa fa-caret-up mr-1"></i>10 days ago</small>
+												</div>
+												<p class="mb-1">Started:06-02-2019</p>
+												<small class="text-muted">Lorem ipsum dolor sit amet, consectetuer adipiscing elit..</small>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>-->
+                    <!-- row closed -->
+                </div>
+
+
+                <!-- Write code here ---------->
+                <!DOCTYPE html>
+                <html lang="en">
+
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Entity-Boolean</title>
+                    <!-- Bootstrap 4 CSS -->
+                    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+                    <!-- DataTables CSS -->
+                    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+                    <!-- SweetAlert2 CSS -->
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+                    <!-- Font Awesome for icon buttons -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+                    <style>
+                        .card {
+                            margin: 20px 0;
+                        }
+
+                        .form-header {
+                            margin-bottom: 15px;
+                        }
+
+                        .card-header {
+                            background-color: #fff;
+                            padding: 8px 30px 8px 12px;
+                            color: #242338;
+                            font: 14px Roboto, sans-serif;
+                        }
+
+                        #booleanTable thead th {
+                            background-color: #d4edda !important;
+                            border-color: #dbdfe0;
+                            padding: 8px 30px 8px 12px;
+                            color: #242338;
+                            font: 14px Roboto, sans-serif;
+                        }
+
+                        .action-icon {
+                            color: green;
+                            cursor: pointer;
+                            margin-right: 10px;
+                            font-size: 18px;
+                        }
+                    </style>
+                </head>
+
+                <body>
+                    <div class="container mt-5">
+
+                        <!-- Add Boolean Master Section -->
+                        <div id="addSection" class="card">
+                            <div class="card-header form-header">
+                                <h4>Add New Boolean Master</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="addForm">
+                                    <div class="form-row">
+                                        <!-- boolean_id is AUTO_INCREMENT, so we don’t include it in the form -->
+
+                                        <div class="form-group col-md-4">
+                                            <label for="boolean_name">Boolean Name</label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="boolean_name"
+                                                name="boolean_name"
+                                                maxlength="20"
+                                                required>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="enterprise_id">Enterprise ID</label>
+                                            <input
+                                                type="number"
+                                                class="form-control"
+                                                id="enterprise_id"
+                                                name="enterprise_id"
+                                                required>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="entity_class_id">Entity Class</label>
+                                            <select
+                                                class="form-control"
+                                                id="entity_class_id"
+                                                name="entity_class_id">
+                                                <option value="">-- Select Class --</option>
+                                                <!-- Populate options dynamically -->
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        
+
+                                        <div class="col-md-4 d-flex align-items-end">
+                                            <button type="submit" class="btn btn-success mr-2">Save</button>
+                                            <button type="button" class="btn btn-secondary" id="clearAdd">Clear</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Edit Boolean Master Section -->
+                        <div id="editSection" class="card" style="display:none;">
+                            <div class="card-header form-header">
+                                <h4>Edit Boolean Master</h4>
+                            </div>
+                            <div class="card-body">
+                                <form id="editForm">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <!-- hidden field to hold the PK -->
+                                    <input type="hidden" id="edit_boolean_id" name="boolean_id">
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="edit_boolean_name">Boolean Name</label>
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="edit_boolean_name"
+                                                name="boolean_name"
+                                                maxlength="20"
+                                                required>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="edit_enterprise_id">Enterprise ID</label>
+                                            <input
+                                                type="number"
+                                                class="form-control"
+                                                id="edit_enterprise_id"
+                                                name="enterprise_id"
+                                                required>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="edit_entity_class_id">Entity Class</label>
+                                            <select
+                                                class="form-control"
+                                                id="edit_entity_class_id"
+                                                name="entity_class_id">
+                                                <option value="">-- Select Class --</option>
+                                                <!-- Populate options dynamically -->
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                       
+
+                                        <div class="col-md-4 d-flex align-items-end">
+                                            <button type="submit" class="btn btn-success mr-2">Update</button>
+                                            <button type="button" class="btn btn-secondary" id="cancelEdit">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Boolean Master List Table -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Boolean Master List</h4>
+                            </div>
+                            <div class="card-body">
+                                <table id="booleanTable" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>boolean_id</th>
+                                            <th>boolean_name</th>
+                                            <th>enterprise_id</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Rows to be populated via JS/DataTables -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </body>
+
+                </html>
+
+            </div>
+            <!-- App-content closed -->
+        </div>
+
+        <!-- Right-sidebar-->
+        <div class="sidebar sidebar-right sidebar-animate">
+            <div class="p-3">
+                <a href="#" class="text-right float-right" data-toggle="sidebar-right" data-target=".sidebar-right"><i class="fe fe-x"></i></a>
+            </div>
+            <div class="tab-menu-heading  siderbar-tabs border-0">
+                <div class="tabs-menu ">
+                    <!-- Tabs -->
+                    <ul class="nav panel-tabs">
+                        <li class=""><a href="#tab" class="active show" data-toggle="tab">Profile</a></li>
+                        <li class=""><a href="#tab1" data-toggle="tab" class="">Friends</a></li>
+                        <li><a href="#tab2" data-toggle="tab" class="">Activity</a></li>
+                        <li><a href="#tab3" data-toggle="tab" class="">Todo</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body tabs-menu-body side-tab-body p-0 border-0 ">
+                <div class="tab-content border-top">
+                    <div class="tab-pane active" id="tab">
+                        <div class="card-body p-0">
+                            <div class="header-user text-center mt-4 pb-4">
+                                <span class="avatar avatar-xxl brround"><img src="<?php echo base_url('assets/images/users/2.jpg'); ?>" alt="Profile-img" class="avatar avatar-xxl brround"></span>
+                                <div class="dropdown-item text-center font-weight-semibold user h3 mb-0">Jonathan Mills</div>
+                                <small>App Developer</small>
+                                <div class="card-body">
+                                    <div class="form-group ">
+                                        <label class="form-label  text-left">Offline/Online</label>
+                                        <select class="form-control mb-4 nice-select " data-placeholder="Choose one">
+                                            <option value="1">Online</option>
+                                            <option value="2">Offline</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mt-5 mb-6">
+                                        <label class="form-label text-left">Website</label>
+                                        <select class="form-control nice-select " data-placeholder="Choose one">
+                                            <option value="1">Spruko.com</option>
+                                            <option value="2">sprukosoft.com</option>
+                                            <option value="3">sprukotechnologies.com</option>
+                                            <option value="4">sprukoinfo.com</option>
+                                            <option value="5">sprukotech.com</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="dropdown-item  border-top" href="#">
+                                <i class="dropdown-icon mdi mdi-account-edit"></i> Edit Profile
+                            </a>
+                            <a class="dropdown-item  border-top" href="#">
+                                <i class="dropdown-icon mdi mdi-account-outline"></i> Spruko technologies
+                            </a>
+                            <a class="dropdown-item border-top" href="#">
+                                <i class="dropdown-icon  mdi mdi-account-plus"></i> Add Another Account
+                            </a>
+                            <a class="dropdown-item  border-top" href="#">
+                                <i class="dropdown-icon mdi mdi-comment-check-outline"></i> Message
+                            </a>
+                            <a class="dropdown-item  border-top" href="#">
+                                <i class="dropdown-icon zmdi zmdi-pin-help"></i> Need Help?
+                            </a>
+                            <div class="card-body border-top">
+                                <h4>Gallery</h4>
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <div class="avatar-list">
+                                            <ul>
+                                                <li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/users/5.jpg'); ?>"></a></li>
+                                                <li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/photos/2.jpg'); ?>"></a></li>
+                                                <li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/photos/3.jpg'); ?>"></a></li>
+                                                <li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/photos/5.jpg'); ?>"></a></li>
+                                                <li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/users/3.jpg'); ?>"></a></li>
+                                                <li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/photos/15.jpg'); ?>"></a></li>
+                                                <li><a href="#" class="avatar avatar-lg cover-image" data-image-src="<?php echo base_url('assets/images/photos/16.jpg'); ?>"></a></li>
+                                                <li><a href="#" class="avatar avatar-lg cover-image">+48</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body border-top border-bottom">
+                                <div class="row">
+                                    <div class="col-4 text-center">
+                                        <a class="" href=""><i class="dropdown-icon mdi  mdi-message-outline fs-20 m-0 leading-tight"></i></a>
+                                        <div>Inbox</div>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <a class="" href=""><i class="dropdown-icon mdi mdi-tune fs-20 m-0 leading-tight"></i></a>
+                                        <div>Settings</div>
+                                    </div>
+                                    <div class="col-4 text-center">
+                                        <a class="" href=""><i class="dropdown-icon mdi mdi-logout-variant fs-20 m-0 leading-tight"></i></a>
+                                        <div>Sign out</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab1">
+                        <div class="chat">
+                            <div class="contacts_card">
+                                <div class="input-group mb-0 p-3">
+                                    <input type="text" placeholder="Search..." class="form-control search">
+                                    <div class="input-group-prepend mr-0">
+                                        <span class="input-group-text  search_btn  btn-secondary"><i class="fa fa-search text-white"></i></span>
+                                    </div>
+                                </div>
+                                <ul class="contacts mb-0">
+                                    <li class="active">
+                                        <div class="d-flex bd-highlight w-100">
+                                            <div class="img_cont">
+                                                <img src="<?php echo base_url('assets/images/users/12.jpg'); ?>" class="rounded-circle user_img" alt="img">
+                                                <span class="online_icon"></span>
+                                            </div>
+                                            <div class="user_info">
+                                                <h5 class="mt-1 mb-1">Maryam Naz</h5>
+                                                <small class="text-muted">is online</small>
+                                            </div>
+                                            <div class="float-right text-right ml-auto mt-auto mb-auto"><small>01-02-2019</small></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex bd-highlight w-100">
+                                            <div class="img_cont">
+                                                <img src="<?php echo base_url('assets/images/users/2.jpg'); ?>" class="rounded-circle user_img" alt="img">
+                                                <span class=" online_icon"></span>
+                                            </div>
+                                            <div class="user_info">
+                                                <h5 class="mt-1 mb-1">Sahar Darya</h5>
+                                                <small class="text-muted">left 7 mins ago</small>
+                                            </div>
+                                            <div class="float-right text-right ml-auto mt-auto mb-auto"><small>01-02-2019</small></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex bd-highlight w-100">
+                                            <div class="img_cont">
+                                                <img src="<?php echo base_url('assets/images/users/5.jpg'); ?>" class="rounded-circle user_img" alt="img">
+                                                <span class="online_icon"></span>
+                                            </div>
+                                            <div class="user_info">
+                                                <h5 class="mt-1 mb-1">Maryam Naz</h5>
+                                                <small class="text-muted">online</small>
+                                            </div>
+                                            <div class="float-right text-right ml-auto mt-auto mb-auto"><small>01-02-2019</small></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex bd-highlight w-100">
+                                            <div class="img_cont">
+                                                <img src="<?php echo base_url('assets/images/users/7.jpg'); ?>" class="rounded-circle user_img" alt="img">
+                                                <span class="online_icon"></span>
+                                            </div>
+                                            <div class="user_info">
+                                                <h5 class="mt-1 mb-1">Yolduz Rafi</h5>
+                                                <small class="text-muted">online</small>
+                                            </div>
+                                            <div class="float-right text-right ml-auto mt-auto mb-auto"><small>02-02-2019</small></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex bd-highlight w-100">
+                                            <div class="img_cont">
+                                                <img src="<?php echo base_url('assets/images/users/8.jpg'); ?>" class="rounded-circle user_img" alt="img">
+                                                <span class="online_icon"></span>
+                                            </div>
+                                            <div class="user_info">
+                                                <h5 class="mt-1 mb-1">Nargis Hawa</h5>
+                                                <small class="text-muted">30 mins ago</small>
+                                            </div>
+                                            <div class="float-right text-right ml-auto mt-auto mb-auto"><small>02-02-2019</small></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex bd-highlight w-100">
+                                            <div class="img_cont">
+                                                <img src="<?php echo base_url('assets/images/users/3.jpg'); ?>" class="rounded-circle user_img" alt="img">
+                                                <span class="online_icon"></span>
+                                            </div>
+                                            <div class="user_info">
+                                                <h5 class="mt-1 mb-1">Khadija Mehr</h5>
+                                                <small class="text-muted">50 mins ago</small>
+                                            </div>
+                                            <div class="float-right text-right ml-auto mt-auto mb-auto"><small>03-02-2019</small></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex bd-highlight w-100">
+                                            <div class="img_cont">
+                                                <img src="<?php echo base_url('assets/images/users/14.jpg'); ?>" class="rounded-circle user_img" alt="img">
+                                                <span class="online_icon"></span>
+                                            </div>
+                                            <div class="user_info">
+                                                <h5 class="mt-1 mb-1">Petey Cruiser</h5>
+                                                <small class="text-muted">1hr ago</small>
+                                            </div>
+                                            <div class="float-right text-right ml-auto mt-auto mb-auto"><small>03-02-2019</small></div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="d-flex bd-highlight w-100">
+                                            <div class="img_cont">
+                                                <img src="<?php echo base_url('assets/images/users/11.jpg'); ?>" class="rounded-circle user_img" alt="img">
+                                            </div>
+                                            <div class="user_info">
+                                                <h5 class="mt-1 mb-1">Khadija Mehr</h5>
+                                                <small class="text-muted">2hr ago</small>
+                                            </div>
+                                            <div class="float-right text-right ml-auto mt-auto mb-auto"><small>03-02-2019</small></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab2">
+                        <div class="list d-flex align-items-center border-bottom p-4">
+                            <div class="">
+                                <span class="avatar bg-primary brround avatar-md">CH</span>
+                            </div>
+                            <div class="wrapper w-100 ml-3">
+                                <p class="mb-0 d-flex">
+                                    <b>New Websites is Created</b>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="mdi mdi-clock text-muted mr-1"></i>
+                                        <small class="text-muted ml-auto">30 mins ago</small>
+                                        <p class="mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list d-flex align-items-center border-bottom p-4">
+                            <div class="">
+                                <span class="avatar bg-danger brround avatar-md">N</span>
+                            </div>
+                            <div class="wrapper w-100 ml-3">
+                                <p class="mb-0 d-flex">
+                                    <b>Prepare For the Next Project</b>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="mdi mdi-clock text-muted mr-1"></i>
+                                        <small class="text-muted ml-auto">2 hours ago</small>
+                                        <p class="mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list d-flex align-items-center border-bottom p-4">
+                            <div class="">
+                                <span class="avatar bg-info brround avatar-md">S</span>
+                            </div>
+                            <div class="wrapper w-100 ml-3">
+                                <p class="mb-0 d-flex">
+                                    <b>Decide the live Discussion Time</b>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="mdi mdi-clock text-muted mr-1"></i>
+                                        <small class="text-muted ml-auto">3 hours ago</small>
+                                        <p class="mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list d-flex align-items-center border-bottom p-4">
+                            <div class="">
+                                <span class="avatar bg-warning brround avatar-md">K</span>
+                            </div>
+                            <div class="wrapper w-100 ml-3">
+                                <p class="mb-0 d-flex">
+                                    <b>Team Review meeting</b>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="mdi mdi-clock text-muted mr-1"></i>
+                                        <small class="text-muted ml-auto">4 hours ago</small>
+                                        <p class="mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list d-flex align-items-center border-bottom p-4">
+                            <div class="">
+                                <span class="avatar bg-success brround avatar-md">R</span>
+                            </div>
+                            <div class="wrapper w-100 ml-3">
+                                <p class="mb-0 d-flex">
+                                    <b>Prepare for Presentation</b>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="mdi mdi-clock text-muted mr-1"></i>
+                                        <small class="text-muted ml-auto">1 days ago</small>
+                                        <p class="mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list d-flex align-items-center  border-bottom p-4">
+                            <div class="">
+                                <span class="avatar bg-pink brround avatar-md">MS</span>
+                            </div>
+                            <div class="wrapper w-100 ml-3">
+                                <p class="mb-0 d-flex">
+                                    <b>Prepare for Presentation</b>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="mdi mdi-clock text-muted mr-1"></i>
+                                        <small class="text-muted ml-auto">1 days ago</small>
+                                        <p class="mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list d-flex align-items-center border-bottom p-4">
+                            <div class="">
+                                <span class="avatar bg-purple brround avatar-md">L</span>
+                            </div>
+                            <div class="wrapper w-100 ml-3">
+                                <p class="mb-0 d-flex">
+                                    <b>Prepare for Presentation</b>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="mdi mdi-clock text-muted mr-1"></i>
+                                        <small class="text-muted ml-auto">45 mintues ago</small>
+                                        <p class="mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list d-flex align-items-center border-bottom p-4">
+                            <div class="">
+                                <span class="avatar bg-primary brround avatar-md">CH</span>
+                            </div>
+                            <div class="wrapper w-100 ml-3">
+                                <p class="mb-0 d-flex">
+                                    <b>New Websites is Created</b>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="mdi mdi-clock text-muted mr-1"></i>
+                                        <small class="text-muted ml-auto">30 mins ago</small>
+                                        <p class="mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list d-flex align-items-center p-4">
+                            <div class="">
+                                <span class="avatar bg-blue brround avatar-md">U</span>
+                            </div>
+                            <div class="wrapper w-100 ml-3">
+                                <p class="mb-0 d-flex">
+                                    <b>Prepare for Presentation</b>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="mdi mdi-clock text-muted mr-1"></i>
+                                        <small class="text-muted ml-auto">2 days ago</small>
+                                        <p class="mb-0"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab3">
+                        <div class="">
+                            <div class="d-flex p-3">
+                                <label class="custom-control custom-checkbox mb-0">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox1" value="option1" checked="">
+                                    <span class="custom-control-label">Do Even More..</span>
+                                </label>
+                                <span class="ml-auto">
+                                    <a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                    <a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                </span>
+                            </div>
+                            <div class="d-flex p-3 border-top">
+                                <label class="custom-control custom-checkbox mb-0">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox2" value="option2" checked="">
+                                    <span class="custom-control-label">Find an idea.</span>
+                                </label>
+                                <span class="ml-auto">
+                                    <a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                    <a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                </span>
+                            </div>
+                            <div class="d-flex p-3 border-top">
+                                <label class="custom-control custom-checkbox mb-0">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox3" value="option3" checked="">
+                                    <span class="custom-control-label">Hangout with friends</span>
+                                </label>
+                                <span class="ml-auto">
+                                    <a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                    <a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                </span>
+                            </div>
+                            <div class="d-flex p-3 border-top">
+                                <label class="custom-control custom-checkbox mb-0">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox4" value="option4">
+                                    <span class="custom-control-label">Do Something else</span>
+                                </label>
+                                <span class="ml-auto">
+                                    <a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                    <a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                </span>
+                            </div>
+                            <div class="d-flex p-3 border-top">
+                                <label class="custom-control custom-checkbox mb-0">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox5" value="option5">
+                                    <span class="custom-control-label">Eat healthy, Eat Fresh..</span>
+                                </label>
+                                <span class="ml-auto">
+                                    <a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                    <a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                </span>
+                            </div>
+                            <div class="d-flex p-3 border-top">
+                                <label class="custom-control custom-checkbox mb-0">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox6" value="option6" checked="">
+                                    <span class="custom-control-label">Finsh something more..</span>
+                                </label>
+                                <span class="ml-auto">
+                                    <a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                    <a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                </span>
+                            </div>
+                            <div class="d-flex p-3 border-top">
+                                <label class="custom-control custom-checkbox mb-0">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox7" value="option7" checked="">
+                                    <span class="custom-control-label">Do something more</span>
+                                </label>
+                                <span class="ml-auto">
+                                    <a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                    <a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                </span>
+                            </div>
+                            <div class="d-flex p-3 border-top">
+                                <label class="custom-control custom-checkbox mb-0">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox8" value="option8">
+                                    <span class="custom-control-label">Updated more files</span>
+                                </label>
+                                <span class="ml-auto">
+                                    <a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                    <a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                </span>
+                            </div>
+                            <div class="d-flex p-3 border-top">
+                                <label class="custom-control custom-checkbox mb-0">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox9" value="option9">
+                                    <span class="custom-control-label">System updated</span>
+                                </label>
+                                <span class="ml-auto">
+                                    <a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                    <a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                </span>
+                            </div>
+                            <div class="d-flex p-3 border-top border-bottom">
+                                <label class="custom-control custom-checkbox mb-0">
+                                    <input type="checkbox" class="custom-control-input" name="example-checkbox10" value="option10">
+                                    <span class="custom-control-label">Settings Changings...</span>
+                                </label>
+                                <span class="ml-auto">
+                                    <a href="#"><i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></a>
+                                    <a href="#"><i class="si si-trash text-danger mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Delete"></i></a>
+                                </span>
+                            </div>
+                            <div class="text-center pt-5">
+                                <a href="#" class="btn btn-primary">Add more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Right-sidebar-closed -->
+
+        <!-- Footer opened -->
+        <footer class="footer-main icon-footer">
+            <div class="container">
+                <div class="  mt-2 mb-2 text-center">
+                    Copyright © 2025 <a href="#" class="fs-14 text-primary">KHM</a>. Designed by <a href="https://megatrendkms.co.in" class="fs-14 text-primary" target="_blank">Megatrend Knowledge Management Systems Pvt Ltd</a> All rights reserved.
+                </div>
+            </div>
+        </footer>
+        <!-- Footer closed -->
+    </div>
+
+    <!-- Back-to-top -->
+    <a href="#top" id="back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- Jquery-scripts -->
+    <script src="<?php echo base_url('assets/js/vendors/jquery-3.2.1.min.js'); ?>"></script>
+
+    <!-- Moment js-->
+    <script src="<?php echo base_url('assets/plugins/moment/moment.min.js'); ?>"></script>
+
+    <!-- Bootstrap-scripts js -->
+    <script src="<?php echo base_url('assets/js/vendors/bootstrap.bundle.min.js'); ?>"></script>
+
+    <!-- Sparkline JS-->
+    <script src="<?php echo base_url('assets/js/vendors/jquery.sparkline.min.js'); ?>"></script>
+
+    <!-- Bootstrap-daterangepicker js -->
+    <script src="<?php echo base_url('assets/plugins/bootstrap-daterangepicker/daterangepicker.js'); ?>"></script>
+
+    <!-- Bootstrap-datepicker js -->
+    <script src="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js'); ?>"></script>
+
+    <!-- Chart-circle js -->
+    <script src="<?php echo base_url('assets/js/vendors/circle-progress.min.js'); ?>"></script>
+
+    <!-- Rating-star js -->
+    <script src="<?php echo base_url('assets/plugins/rating/jquery.rating-stars.js'); ?>"></script>
+
+    <!-- Clipboard js -->
+    <script src="<?php echo base_url('assets/plugins/clipboard/clipboard.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/plugins/clipboard/clipboard.js'); ?>"></script>
+
+    <!-- Prism js -->
+    <script src="<?php echo base_url('assets/plugins/prism/prism.js'); ?>"></script>
+
+    <!-- Custom scroll bar js-->
+    <script src="<?php echo base_url('assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js'); ?>"></script>
+
+    <!-- Nice-select js-->
+    <script src="<?php echo base_url('assets/plugins/jquery-nice-select/js/jquery.nice-select.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/plugins/jquery-nice-select/js/nice-select.js'); ?>"></script>
+
+    <!-- P-scroll js -->
+    <script src="<?php echo base_url('assets/plugins/p-scroll/p-scroll.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/plugins/p-scroll/p-scroll-1.js'); ?>"></script>
+
+    <!-- Sidemenu js-->
+    <script src="<?php echo base_url('assets/plugins/sidemenu/icon-sidemenu.js'); ?>"></script>
+
+    <!-- JQVMap -->
+    <script src="<?php echo base_url('assets/plugins/jqvmap/jquery.vmap.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/plugins/jqvmap/maps/jquery.vmap.world.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/plugins/jqvmap/jquery.vmap.sampledata.js'); ?>"></script>
+
+    <!-- Apexchart js-->
+    <script src="<?php echo base_url('assets/js/apexcharts.js'); ?>"></script>
+
+    <!-- Chart js-->
+    <script src="<?php echo base_url('assets/plugins/chart/chart.min.js'); ?>"></script>
+
+    <!-- Index js -->
+    <script src="<?php echo base_url('assets/js/index.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/index-map.js'); ?>"></script>
+
+    <!-- Rightsidebar js -->
+    <script src="<?php echo base_url('assets/plugins/sidebar/sidebar.js'); ?>"></script>
+
+    <!-- Custom js -->
+    <script src="<?php echo base_url('assets/js/custom.js'); ?>"></script>
+
+</body>
+
+</html>
+<script>
+    function switchroles(role_id, role_name) {
+        const newUrl = '<?php echo site_url('Dashboard'); ?>'
+        $.ajax({
+            url: '<?php echo site_url('Dashboard/system_role_change'); ?>',
+            type: 'POST',
+            data: {
+                role_id: role_id,
+                role_name: role_name
+            },
+            success: function(response) {
+                location.reload();
+
+            },
+            error: function(xhr, status, error) {
+                // Handle any errors
+                console.error(error);
+            }
+        });
+    }
+</script>
+<script>
+    function switchsystems(system_id, system_name) {
+        const newUrl = '<?php echo site_url('Dashboard/add_entity/3'); ?>'
+        $.ajax({
+            url: '<?php echo site_url('Dashboard/khm_system_change'); ?>',
+            type: 'POST',
+            data: {
+                system_id: system_id,
+                system_name: system_name
+            },
+            success: function(response) {
+                location.reload();
+
+            },
+            error: function(xhr, status, error) {
+                // Handle any errors
+                console.error(error);
+            }
+        });
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.all.min.js"></script>
+<script>
+$(document).ready(function() {
+  let allClasses = [];
+
+  // 1) Fetch entity classes for the dropdowns
+  $.getJSON('<?= site_url("SuperAdminEntityBoolean/entClass") ?>', function(res) {
+    allClasses = res.data;
+    const buildOptions = (arr, noneLabel, selected) => {
+      let html = `<option value="">${noneLabel}</option>`;
+      arr.forEach(o => {
+        const sel = (''+o.entity_class_id === ''+selected) ? ' selected' : '';
+        html += `<option value="${o.entity_class_id}"${sel}>${o.entity_class_name}</option>`;
+      });
+      return html;
+    };
+    // inject into ADD form
+    $('#entity_class_id').html(buildOptions(allClasses, '-- Select Class --'));
+    // inject into EDIT form
+    $('#edit_entity_class_id').html(buildOptions(allClasses, '-- Select Class --'));
+  });
+
+  // 2) Initialize DataTable
+  const table = $('#booleanTable').DataTable({
+    ajax: {
+      url: '<?= site_url("SuperAdminEntityBoolean/list") ?>',
+      dataSrc: 'data'
+    },
+    columns: [
+      { data: 'boolean_id', title: 'ID' },
+      { data: 'boolean_name', title: 'Name' },
+      { data: 'enterprise_id', title: 'Enterprise ID' },
+      { 
+        data: 'entity_class_id',
+        title: 'Entity Class',
+        render: function(cid) {
+          const cls = allClasses.find(c=>''+c.entity_class_id===''+cid);
+          return cls ? cls.entity_class_name : '';
+        }
+      },
+     
+      {
+        data: 'boolean_id',
+        orderable: false,
+        render: id => `
+          <i class="fas fa-edit action-icon editBtn" data-id="${id}"></i>
+          <i class="fas fa-trash-alt action-icon deleteBtn" data-id="${id}"></i>`
+      }
+    ],
+    order: [[0,'desc']],
+    lengthMenu: [[10,25,50,-1],[10,25,50,"All"]],
+    processing: true,
+    language: { processing: 'Processing...', zeroRecords: 'No matching records' }
+  });
+
+  // 3) Clear Add form
+  $('#clearAdd').click(() => $('#addForm')[0].reset());
+
+  // 4) CREATE
+  $('#addForm').submit(function(e) {
+    e.preventDefault();
+    $.post(
+      '<?= site_url("SuperAdminEntityBoolean/create") ?>',
+      $(this).serialize()
+    )
+    .done(() => {
+      $('#addForm')[0].reset();
+      table.ajax.reload();
+      Swal.fire('Saved!', 'New boolean added.', 'success');
+    })
+    .fail(xhr => {
+      Swal.fire('Error', xhr.responseJSON?.errors?.boolean_name || 'Failed', 'error');
+    });
+  });
+
+  // 5) SHOW EDIT
+  $('#booleanTable').on('click', '.editBtn', function() {
+    const id = $(this).data('id');
+    $.getJSON(`<?= site_url("SuperAdminEntityBoolean/edit") ?>/${id}`, function(data) {
+      $('#edit_boolean_id').val(data.boolean_id);
+      $('#edit_boolean_name').val(data.boolean_name);
+      $('#edit_enterprise_id').val(data.enterprise_id);
+      $('#edit_deleted').prop('checked', data.deleted==1);
+
+      // rebuild entity_class select with current selection
+      $('#edit_entity_class_id').html(
+        allClasses.reduce((h,c) => {
+          const sel = c.entity_class_id==data.entity_class_id ? ' selected' : '';
+          return h + `<option value="${c.entity_class_id}"${sel}>${c.entity_class_name}</option>`;
+        }, '<option value="">-- Select Class --</option>')
+      );
+
+      $('#addSection').hide();
+      $('#editSection').show();
+    });
+  });
+
+  // 6) CANCEL EDIT
+  $('#cancelEdit').click(() => {
+    $('#editForm')[0].reset();
+    $('#editSection').hide();
+    $('#addSection').show();
+  });
+
+  // 7) UPDATE
+  $('#editForm').submit(function(e) {
+    e.preventDefault();
+    const id = $('#edit_boolean_id').val();
+    $.ajax({
+      url: `<?= site_url("SuperAdminEntityBoolean/update") ?>/${id}`,
+      type: 'POST',
+      data: $(this).serialize()
+    })
+    .done(() => {
+      $('#editForm')[0].reset();
+      $('#editSection').hide();
+      $('#addSection').show();
+      table.ajax.reload();
+      Swal.fire('Updated!', 'Boolean updated.', 'success');
+    })
+    .fail(xhr => {
+      Swal.fire('Error', xhr.responseJSON?.errors?.boolean_name || 'Failed', 'error');
+    });
+  });
+
+  // 8) DELETE
+  $('#booleanTable').on('click', '.deleteBtn', function() {
+    const id = $(this).data('id');
+    Swal.fire({
+      title: 'Delete?',
+      text: 'This cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true
+    }).then(res => {
+      if (res.isConfirmed) {
+        $.ajax({
+          url: `<?= site_url("SuperAdminEntityBoolean/delete") ?>/${id}`,
+          type: 'DELETE'
+        })
+        .done(() => {
+          table.ajax.reload();
+          Swal.fire('Deleted!', 'Entry removed.', 'success');
+        });
+      }
+    });
+  });
+
+});
+</script>

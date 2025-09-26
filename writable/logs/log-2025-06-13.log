@@ -1,0 +1,1239 @@
+CRITICAL - 2025-06-13 05:59:41 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminTransactionProcessModel::getType
+[Method: GET, Route: SuperAdminTransactionProcess/listType]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminTransactionProcess.php(54): CodeIgniter\Model->__call('getType', [])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->listType()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 06:02:07 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminTransactionProcessModel::getType
+[Method: GET, Route: SuperAdminTransactionProcess/listType]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminTransactionProcess.php(54): CodeIgniter\Model->__call('getType', [])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->listType()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 06:05:19 --> BadMethodCallException: Call to undefined method App\Models\SuperAdminTransactionProcessModel::getType
+[Method: GET, Route: SuperAdminTransactionProcess/listType]
+in SYSTEMPATH\Model.php on line 930.
+ 1 APPPATH\Controllers\SuperAdminTransactionProcess.php(54): CodeIgniter\Model->__call('getType', [])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->listType()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 07:21:07 --> CodeIgniter\Database\Exceptions\DataException: There is no data to update.
+[Method: DELETE, Route: SuperAdminRole/delete/13]
+in SYSTEMPATH\BaseModel.php on line 1010.
+ 1 SYSTEMPATH\BaseModel.php(1010): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH\Controllers\SuperAdminRole.php(117): CodeIgniter\Model->update(13, [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->delete(13)
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 07:23:50 --> CodeIgniter\Database\Exceptions\DataException: There is no data to update.
+[Method: DELETE, Route: SuperAdminRole/delete/13]
+in SYSTEMPATH\BaseModel.php on line 1010.
+ 1 SYSTEMPATH\BaseModel.php(1010): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH\Models\SuperAdminRoleModel.php(47): CodeIgniter\Model->update(13, [...])
+ 4 APPPATH\Controllers\SuperAdminRole.php(117): App\Models\SuperAdminRoleModel->softDelete(13)
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminRole->delete(13)
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminRole))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 10:43:50 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ) in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\wamp64\www\khm\system\BaseModel.php(1027): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\wamp64\www\khm\system\Model.php(863): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, Array)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-13 10:43:50 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+[Method: PUT, Route: SuperAdminTransactionProcess/update/73]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 2 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:43:50 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 4 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 5 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 6 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 7 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:43:50 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 5 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 10:43:58 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ) in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\wamp64\www\khm\system\BaseModel.php(1027): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\wamp64\www\khm\system\Model.php(863): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, Array)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-13 10:43:58 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+[Method: PUT, Route: SuperAdminTransactionProcess/update/73]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 2 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:43:58 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 4 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 5 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 6 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 7 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:43:58 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 5 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 10:44:03 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ) in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\wamp64\www\khm\system\BaseModel.php(1027): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\wamp64\www\khm\system\Model.php(863): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, Array)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-13 10:44:03 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+[Method: PUT, Route: SuperAdminTransactionProcess/update/73]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 2 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:44:03 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 4 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 5 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 6 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 7 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:44:03 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 5 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 10:44:06 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ) in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\wamp64\www\khm\system\BaseModel.php(1027): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\wamp64\www\khm\system\Model.php(863): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, Array)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-13 10:44:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+[Method: PUT, Route: SuperAdminTransactionProcess/update/73]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 2 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:44:06 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 4 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 5 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 6 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 7 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:44:06 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 5 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 10:44:18 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ) in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\wamp64\www\khm\system\BaseModel.php(1027): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\wamp64\www\khm\system\Model.php(863): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, Array)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-13 10:44:18 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+[Method: PUT, Route: SuperAdminTransactionProcess/update/73]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 2 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:44:18 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 4 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 5 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 6 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 7 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:44:18 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 5 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 10:48:51 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ) in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\wamp64\www\khm\system\BaseModel.php(1027): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\wamp64\www\khm\system\Model.php(863): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, Array)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-13 10:48:51 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+[Method: PUT, Route: SuperAdminTransactionProcess/update/73]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 2 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:48:51 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 4 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 5 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 6 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 7 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:48:51 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 5 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 10:49:10 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ) in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\wamp64\www\khm\system\BaseModel.php(1027): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\wamp64\www\khm\system\Model.php(863): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, Array)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-13 10:49:10 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+[Method: PUT, Route: SuperAdminTransactionProcess/update/73]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 2 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:49:10 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 4 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 5 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 6 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 7 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:49:10 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 5 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 10:49:14 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ) in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys...', Array, false)
+#4 C:\wamp64\www\khm\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\wamp64\www\khm\system\BaseModel.php(1027): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\wamp64\www\khm\system\Model.php(863): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, Array)
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+#10 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-06-13 10:49:14 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+[Method: PUT, Route: SuperAdminTransactionProcess/update/73]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 2 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:49:14 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 4 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 5 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 6 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 7 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 10:49:14 --> [Caused by] mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`khm_touracle_db`.`khm_sys_mst_transaction_process`, CONSTRAINT `khm_sys_mst_transaction_process_ibfk_1` FOREIGN KEY (`prs_type_id`) REFERENCES `khm_sys_mst_process_transaction_type` (`prs_typ)
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = NULL, `prs_type_id` = NULL, `prs_parent_id` = NULL, `enterprise_id` = NULL, `menu_link` = NULL
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN (73)')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2516): CodeIgniter\Database\BaseConnection->query('UPDATE `khm_sys_mst_transaction_process` SET `entity_trans_name` = :entity_trans_name:, `prs_type_id` = :prs_type_id:, `prs_parent_id` = :prs_parent_id:, `enterprise_id` = :enterprise_id:, `menu_link` = :menu_link:
+WHERE `khm_sys_mst_transaction_process`.`entity_trans_id` IN :khm_sys_mst_transaction_process.entity_trans_id:', [...], false)
+ 5 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(1027): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\SuperAdminTransactionProcess.php(127): CodeIgniter\Model->update(73, [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcess->update(73)
+10 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcess))
+11 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 11:02:06 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`pr...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`pr...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`pr...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`pr...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-13 11:02:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+[Method: GET, Route: SuperAdminTransactionProcessType/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:02:06 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:02:06 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 11:02:06 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`pr...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`pr...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`pr...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`pr...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-13 11:02:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+[Method: GET, Route: SuperAdminTransactionProcessType/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:02:06 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:02:06 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 11:02:22 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`pr...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`pr...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`pr...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`pr...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-13 11:02:22 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+[Method: GET, Route: SuperAdminTransactionProcessType/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:02:22 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:02:22 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 11:02:26 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`pr...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`pr...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`pr...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`pr...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-13 11:02:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+[Method: GET, Route: SuperAdminTransactionProcessType/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:02:26 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:02:26 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 11:03:54 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`pr...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`pr...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`pr...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`pr...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-13 11:03:54 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+[Method: GET, Route: SuperAdminTransactionProcessType/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:03:54 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:03:54 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 11:04:06 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`pr...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`pr...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`pr...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`pr...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-13 11:04:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+[Method: GET, Route: SuperAdminTransactionProcessType/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:04:06 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:04:06 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 11:04:58 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`pr...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`pr...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`pr...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`pr...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-13 11:04:58 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+[Method: GET, Route: SuperAdminTransactionProcessType/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:04:58 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:04:58 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-06-13 11:04:58 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`pr...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`pr...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`pr...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`pr...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-06-13 11:04:58 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+[Method: GET, Route: SuperAdminTransactionProcessType/list]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 2 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:04:58 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 4 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-06-13 11:04:58 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_sys_mst_process_transaction_typeas' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = 0
+ORDER BY `tt`.`prs_type_id` DESC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `tt`.`prs_type_id`, `tt`.`prs_name`, `tt`.`deleted`, `tt`.`enterprise_id`
+FROM `khm_sys_mst_process_transaction_typeAS` `tt`
+WHERE `tt`.`deleted` = :tt.deleted:
+ORDER BY `tt`.`prs_type_id` DESC', [...], false)
+ 5 APPPATH\Models\SuperAdminTransactionProcessTypeModel.php(25): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\SuperAdminTransactionProcessType.php(46): App\Models\SuperAdminTransactionProcessTypeModel->getAll()
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SuperAdminTransactionProcessType->list()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SuperAdminTransactionProcessType))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

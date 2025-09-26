@@ -1,0 +1,1074 @@
+ERROR - 2025-09-02 05:35:08 --> mysqli_sql_exception: Unknown column 'h.edit_request' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT SQL_CALC...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Enquiry_m.php(133): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Enquiry.php(417): App\Models\Enquiry_m->enquiry_list_data(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-09-02 05:35:08 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'h.edit_request' in 'field list'
+[Method: POST, Route: Enquiry/enquiry_list_data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = :a.object_class_id:
+AND `h`.`is_active` = :h.is_active:
+AND `t`.`is_active` = :t.is_active:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10', [...], false)
+ 2 APPPATH\Models\Enquiry_m.php(133): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Enquiry.php(417): App\Models\Enquiry_m->enquiry_list_data([...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 05:35:08 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'h.edit_request' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = :a.object_class_id:
+AND `h`.`is_active` = :h.is_active:
+AND `t`.`is_active` = :t.is_active:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10', [...], false)
+ 4 APPPATH\Models\Enquiry_m.php(133): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Enquiry.php(417): App\Models\Enquiry_m->enquiry_list_data([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 05:35:08 --> [Caused by] mysqli_sql_exception: Unknown column 'h.edit_request' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = :a.object_class_id:
+AND `h`.`is_active` = :h.is_active:
+AND `t`.`is_active` = :t.is_active:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10', [...], false)
+ 5 APPPATH\Models\Enquiry_m.php(133): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Enquiry.php(417): App\Models\Enquiry_m->enquiry_list_data([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-02 05:35:11 --> mysqli_sql_exception: Unknown column 'h.edit_request' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT SQL_CALC...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Enquiry_m.php(133): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Enquiry.php(417): App\Models\Enquiry_m->enquiry_list_data(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-09-02 05:35:11 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'h.edit_request' in 'field list'
+[Method: POST, Route: Enquiry/enquiry_list_data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = :a.object_class_id:
+AND `h`.`is_active` = :h.is_active:
+AND `t`.`is_active` = :t.is_active:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `h`.`enquiry_header_id` DESC, `arrival_loc` ASC
+ LIMIT 10', [...], false)
+ 2 APPPATH\Models\Enquiry_m.php(133): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Enquiry.php(417): App\Models\Enquiry_m->enquiry_list_data([...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 05:35:11 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'h.edit_request' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `arrival_loc` ASC
+ LIMIT 10')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `arrival_loc` ASC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = :a.object_class_id:
+AND `h`.`is_active` = :h.is_active:
+AND `t`.`is_active` = :t.is_active:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `h`.`enquiry_header_id` DESC, `arrival_loc` ASC
+ LIMIT 10', [...], false)
+ 4 APPPATH\Models\Enquiry_m.php(133): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Enquiry.php(417): App\Models\Enquiry_m->enquiry_list_data([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 05:35:11 --> [Caused by] mysqli_sql_exception: Unknown column 'h.edit_request' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `arrival_loc` ASC
+ LIMIT 10', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `arrival_loc` ASC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `arrival_loc` ASC
+ LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = :a.object_class_id:
+AND `h`.`is_active` = :h.is_active:
+AND `t`.`is_active` = :t.is_active:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `h`.`enquiry_header_id` DESC, `arrival_loc` ASC
+ LIMIT 10', [...], false)
+ 5 APPPATH\Models\Enquiry_m.php(133): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Enquiry.php(417): App\Models\Enquiry_m->enquiry_list_data([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-02 05:35:13 --> mysqli_sql_exception: Unknown column 'h.edit_request' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT SQL_CALC...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Enquiry_m.php(133): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\app\Controllers\Enquiry.php(417): App\Models\Enquiry_m->enquiry_list_data(Array)
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_data()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-09-02 05:35:13 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'h.edit_request' in 'field list'
+[Method: POST, Route: Enquiry/enquiry_list_data]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = :a.object_class_id:
+AND `h`.`is_active` = :h.is_active:
+AND `t`.`is_active` = :t.is_active:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10', [...], false)
+ 2 APPPATH\Models\Enquiry_m.php(133): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\Enquiry.php(417): App\Models\Enquiry_m->enquiry_list_data([...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_data()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 05:35:13 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'h.edit_request' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = :a.object_class_id:
+AND `h`.`is_active` = :h.is_active:
+AND `t`.`is_active` = :t.is_active:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10', [...], false)
+ 4 APPPATH\Models\Enquiry_m.php(133): CodeIgniter\Database\BaseBuilder->get()
+ 5 APPPATH\Controllers\Enquiry.php(417): App\Models\Enquiry_m->enquiry_list_data([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_data()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-02 05:35:13 --> [Caused by] mysqli_sql_exception: Unknown column 'h.edit_request' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = \'10\'
+AND `h`.`is_active` = 1
+AND `t`.`is_active` = 1
+AND `h`.`enq_type_id` = \'3\'
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request
+FROM `khm_obj_mst` `a`
+LEFT JOIN `khm_obj_enquiry_header` `h` ON `h`.`object_id` = `a`.`object_id`
+LEFT JOIN `khm_obj_enquiry_edit_request` `er` ON `er`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `er`.`is_active` = 1
+LEFT JOIN `khm_entity_mst` `ag` ON `ag`.`entity_id` = `h`.`agent_entity_id`
+LEFT JOIN `khm_entity_mst` `gs` ON `gs`.`entity_id` = `h`.`employee_entity_id`
+LEFT JOIN `khm_obj_enquiry_details` `t` ON `t`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_loc_mst_geography` `m` ON `m`.`geog_id` = `a`.`object_location_id`
+LEFT JOIN `khm_loc_mst_geography` `arr` ON `arr`.`geog_id` = `t`.`arrival_location`
+LEFT JOIN `khm_loc_mst_geography` `dep` ON `dep`.`geog_id` = `t`.`departure_location`
+LEFT JOIN `khm_obj_mst_hotel_category` `hc` ON `hc`.`hotel_category_id` = `t`.`hotel_category`
+LEFT JOIN `khm_obj_enquiry_detail_extensions` `ex` ON `ex`.`enquiry_header_id` = `h`.`enquiry_header_id` AND `ex`.`is_active` = 1
+LEFT JOIN `khm_obj_enquiry_status` `st` ON `st`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `st`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `st`.`current_status_id` = 1
+LEFT JOIN `khm_entity_mst` `exe` ON `exe`.`entity_id` =`st`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `tl` ON `tl`.`entity_id` = `st`.`assigned_to` AND `tl`.`role_id` = 5
+LEFT JOIN `khm_obj_enquiry_status` `sts` ON `sts`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `sts`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `sts`.`current_status_id` = 13
+LEFT JOIN `khm_entity_mst` `sop` ON `sop`.`entity_id` =`sts`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stl` ON `stl`.`entity_id` = `sts`.`assigned_to` AND `stl`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `ac` ON `ac`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `ac`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `ac`.`current_status_id` = 8 AND `ac`.`assigned_status` = 1
+LEFT JOIN `khm_entity_mst` `acp` ON `acp`.`entity_id` =`ac`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `stlac` ON `stlac`.`entity_id` = `ac`.`assigned_to` AND `stlac`.`role_id` = 8
+LEFT JOIN `khm_obj_enquiry_status` `stt` ON `stt`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `stt`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `stt`.`current_status_id` = 14
+LEFT JOIN `khm_entity_mst` `top` ON `top`.`entity_id` =`stt`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `ttl` ON `ttl`.`entity_id` = `stt`.`assigned_to` AND `ttl`.`role_id` = 10
+LEFT JOIN `khm_obj_enquiry_status` `att` ON `att`.`enquiry_header_id` = `er`.`enquiry_header_id` AND `att`.`edit_request_id` = `er`.`enquiry_edit_request_id` AND `att`.`current_status_id` = 17
+LEFT JOIN `khm_entity_mst` `acc` ON `acc`.`entity_id` =`att`.`assigned_to`
+LEFT JOIN `khm_sys_usg_mst_entity_role` `atl` ON `atl`.`entity_id` = `att`.`assigned_to` AND `atl`.`role_id` = 11
+LEFT JOIN (SELECT `s`.`enquiry_status_id`, `s`.`enquiry_header_id`, `s`.`current_status_id`, `s`.`updated_time`
+FROM `khm_obj_enquiry_status` `s`
+INNER JOIN (SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest ON `s`.`enquiry_header_id` = `latest`.`enquiry_header_id` AND `s`.`enquiry_status_id` = `latest`.`max_status_id`) est ON `est`.`enquiry_header_id` = `h`.`enquiry_header_id`
+LEFT JOIN `khm_obj_mst_enquiry_status` `ss` ON `ss`.`status_id` = `est`.`current_status_id`
+WHERE `a`.`object_class_id` = :a.object_class_id:
+AND `h`.`is_active` = :h.is_active:
+AND `t`.`is_active` = :t.is_active:
+AND `h`.`enq_type_id` = :h.enq_type_id:
+ORDER BY `h`.`enquiry_header_id` DESC, `object_name` ASC
+ LIMIT 10', [...], false)
+ 5 APPPATH\Models\Enquiry_m.php(133): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH\Controllers\Enquiry.php(417): App\Models\Enquiry_m->enquiry_list_data([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_data()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

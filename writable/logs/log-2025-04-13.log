@@ -1,0 +1,186 @@
+ERROR - 2025-04-13 05:08:08 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\WhatsappDocumentModel.php(49): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\WhatsappDocumentController.php(109): App\Models\WhatsappDocumentModel->insertDocument('HOLA', 'uploads/1744520...', '1')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\WhatsappDocumentController->save()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\WhatsappDocumentController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-13 05:08:08 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'field list'
+[Method: POST, Route: WhatsappDocumentController/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (:object_type_id:, :object_class_id:, :object_name:, :deleted_at:, :enterprise_id:)', [...], false)
+ 2 APPPATH\Models\WhatsappDocumentModel.php(49): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 APPPATH\Controllers\WhatsappDocumentController.php(109): App\Models\WhatsappDocumentModel->insertDocument('HOLA', 'uploads/1744520888_3cadd14394ee832c26b8.png', '1')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\WhatsappDocumentController->save()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\WhatsappDocumentController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-13 05:08:08 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (:object_type_id:, :object_class_id:, :object_name:, :deleted_at:, :enterprise_id:)', [...], false)
+ 4 APPPATH\Models\WhatsappDocumentModel.php(49): CodeIgniter\Database\BaseBuilder->insert([...])
+ 5 APPPATH\Controllers\WhatsappDocumentController.php(109): App\Models\WhatsappDocumentModel->insertDocument('HOLA', 'uploads/1744520888_3cadd14394ee832c26b8.png', '1')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\WhatsappDocumentController->save()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\WhatsappDocumentController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-13 05:08:08 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (:object_type_id:, :object_class_id:, :object_name:, :deleted_at:, :enterprise_id:)', [...], false)
+ 5 APPPATH\Models\WhatsappDocumentModel.php(49): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 APPPATH\Controllers\WhatsappDocumentController.php(109): App\Models\WhatsappDocumentModel->insertDocument('HOLA', 'uploads/1744520888_3cadd14394ee832c26b8.png', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\WhatsappDocumentController->save()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\WhatsappDocumentController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-13 05:08:20 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\WhatsappDocumentModel.php(49): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\WhatsappDocumentController.php(109): App\Models\WhatsappDocumentModel->insertDocument('HOLA', 'uploads/1744520...', '1')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\WhatsappDocumentController->save()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\WhatsappDocumentController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-13 05:08:20 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'field list'
+[Method: POST, Route: WhatsappDocumentController/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (:object_type_id:, :object_class_id:, :object_name:, :deleted_at:, :enterprise_id:)', [...], false)
+ 2 APPPATH\Models\WhatsappDocumentModel.php(49): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 APPPATH\Controllers\WhatsappDocumentController.php(109): App\Models\WhatsappDocumentModel->insertDocument('HOLA', 'uploads/1744520900_dd4506078504c010dba2.png', '1')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\WhatsappDocumentController->save()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\WhatsappDocumentController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-13 05:08:20 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (:object_type_id:, :object_class_id:, :object_name:, :deleted_at:, :enterprise_id:)', [...], false)
+ 4 APPPATH\Models\WhatsappDocumentModel.php(49): CodeIgniter\Database\BaseBuilder->insert([...])
+ 5 APPPATH\Controllers\WhatsappDocumentController.php(109): App\Models\WhatsappDocumentModel->insertDocument('HOLA', 'uploads/1744520900_dd4506078504c010dba2.png', '1')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\WhatsappDocumentController->save()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\WhatsappDocumentController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-13 05:08:20 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (:object_type_id:, :object_class_id:, :object_name:, :deleted_at:, :enterprise_id:)', [...], false)
+ 5 APPPATH\Models\WhatsappDocumentModel.php(49): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 APPPATH\Controllers\WhatsappDocumentController.php(109): App\Models\WhatsappDocumentModel->insertDocument('HOLA', 'uploads/1744520900_dd4506078504c010dba2.png', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\WhatsappDocumentController->save()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\WhatsappDocumentController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-04-13 05:08:26 --> mysqli_sql_exception: Unknown column 'deleted_at' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\WhatsappDocumentModel.php(49): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\WhatsappDocumentController.php(109): App\Models\WhatsappDocumentModel->insertDocument('HOLA', 'uploads/1744520...', '1')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\WhatsappDocumentController->save()
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\WhatsappDocumentController))
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+CRITICAL - 2025-04-13 05:08:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'field list'
+[Method: POST, Route: WhatsappDocumentController/save]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (:object_type_id:, :object_class_id:, :object_name:, :deleted_at:, :enterprise_id:)', [...], false)
+ 2 APPPATH\Models\WhatsappDocumentModel.php(49): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 APPPATH\Controllers\WhatsappDocumentController.php(109): App\Models\WhatsappDocumentModel->insertDocument('HOLA', 'uploads/1744520906_47121d6d8fab1377d8dd.png', '1')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\WhatsappDocumentController->save()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\WhatsappDocumentController))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-13 05:08:26 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'deleted_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (:object_type_id:, :object_class_id:, :object_name:, :deleted_at:, :enterprise_id:)', [...], false)
+ 4 APPPATH\Models\WhatsappDocumentModel.php(49): CodeIgniter\Database\BaseBuilder->insert([...])
+ 5 APPPATH\Controllers\WhatsappDocumentController.php(109): App\Models\WhatsappDocumentModel->insertDocument('HOLA', 'uploads/1744520906_47121d6d8fab1377d8dd.png', '1')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\WhatsappDocumentController->save()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\WhatsappDocumentController))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-13 05:08:26 --> [Caused by] mysqli_sql_exception: Unknown column 'deleted_at' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (5, 18, \'HOLA\', 0, \'1\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_mst` (`object_type_id`, `object_class_id`, `object_name`, `deleted_at`, `enterprise_id`) VALUES (:object_type_id:, :object_class_id:, :object_name:, :deleted_at:, :enterprise_id:)', [...], false)
+ 5 APPPATH\Models\WhatsappDocumentModel.php(49): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 APPPATH\Controllers\WhatsappDocumentController.php(109): App\Models\WhatsappDocumentModel->insertDocument('HOLA', 'uploads/1744520906_47121d6d8fab1377d8dd.png', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\WhatsappDocumentController->save()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\WhatsappDocumentController))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-13 12:45:28 --> CodeIgniter\Database\Exceptions\DataException: There is no data to update.
+[Method: POST, Route: Geogdistancecrudcontroller/delete]
+in SYSTEMPATH\BaseModel.php on line 1010.
+ 1 SYSTEMPATH\BaseModel.php(1010): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH\Controllers\Geogdistancecrudcontroller.php(69): CodeIgniter\Model->update('1154', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Geogdistancecrudcontroller->delete()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Geogdistancecrudcontroller))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-04-13 12:49:26 --> CodeIgniter\Database\Exceptions\DataException: There is no data to update.
+[Method: POST, Route: Geogdistancecrudcontroller/delete]
+in SYSTEMPATH\BaseModel.php on line 1010.
+ 1 SYSTEMPATH\BaseModel.php(1010): CodeIgniter\Database\Exceptions\DataException::forEmptyDataset('update')
+ 2 SYSTEMPATH\Model.php(863): CodeIgniter\BaseModel->update([...], [])
+ 3 APPPATH\Controllers\Geogdistancecrudcontroller.php(69): CodeIgniter\Model->update('1154', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Geogdistancecrudcontroller->delete()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Geogdistancecrudcontroller))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

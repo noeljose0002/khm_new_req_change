@@ -1,0 +1,232 @@
+<?php
+
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class GeogModel extends Model
+{
+    // ----- Geography Configuration -----
+    protected $table      = 'khm_loc_mst_geography';
+    protected $primaryKey = 'geog_id';
+    protected $allowedFields = [
+        'geog_level_id',
+        'geog_name',
+        'geog_parent_id',
+        'geog_is_arrival',
+        'geog_is_departure',
+        'geog_longitude',
+        'geog_latitude',
+        'goeg_timezone',   // Remapped from "geog_timezone"
+        'geog_description',
+        'enterprise_id'
+    ];
+    protected $useSoftDeletes = true;
+    protected $deletedField   = 'deleted_at';
+
+    // Get all geography levels from the master table.
+    public function getLevels()
+    {
+        return $this->db->table('khm_loc_mst_geography_level')->get()->getResultArray();
+    }
+
+    // Get all geography records joined with their level names.
+    public function getAllGeogRecordsWithLevel()
+    {
+        $builder = $this->db->table($this->table);
+        $builder->select("{$this->table}.*, lvl.geog_level_name");
+        $builder->join('khm_loc_mst_geography_level as lvl', 'lvl.geog_level_id = ' . $this->table . '.geog_level_id', 'left');
+        $builder->where("{$this->table}.deleted_at", 0);
+        return $builder->get()->getResultArray();
+    }
+
+    // Get a single geography record by its ID.
+    public function getGeogById($id)
+    {
+        $builder = $this->db->table($this->table);
+        $builder->where($this->primaryKey, $id);
+        return $builder->get()->getRowArray();
+    }
+
+    // Insert a new geography record.
+    public function insertGeogRecord(array $data)
+    {
+        if (isset($data['geog_timezone'])) {
+            $data['goeg_timezone'] = (trim($data['geog_timezone']) !== '' ? $data['geog_timezone'] : null);
+            unset($data['geog_timezone']);
+        }
+        $builder = $this->db->table($this->table);
+        if ($builder->insert($data)) {
+            return $this->db->insertID();
+        }
+        return false;
+    }
+
+    // Update an existing geography record.
+    public function updateGeogRecord($id, array $data)
+    {
+        if (isset($data['geog_timezone'])) {
+            $data['goeg_timezone'] = (trim($data['geog_timezone']) !== '' ? $data['geog_timezone'] : null);
+            unset($data['geog_timezone']);
+        }
+        $builder = $this->db->table($this->table);
+        return $builder->update($data, [$this->primaryKey => $id]);
+    }
+
+    // Soft delete a geography record.
+    public function deleteGeogRecord($id)
+    {
+        $builder = $this->db->table($this->table);
+        return $builder->delete([$this->primaryKey => $id]);
+    }
+
+    // Get child records for a given parent ID.
+    public function getChildren($parentId)
+    {
+        $builder = $this->db->table($this->table);
+        $builder->where('geog_parent_id', $parentId);
+        $builder->where("deleted_at IS NULL", null, false);
+        return $builder->get()->getResultArray();
+    }
+
+    // ----- Sightseeing Configuration -----
+    protected $sightseeingTable      = 'khm_obj_sightseeing';
+    protected $sightseeingPrimaryKey = 'sightseeing_id';
+    protected $sightseeingAllowedFields = [
+        'object_id',
+        'sightseeing_name',
+        'sightseeing_description',
+        'sightseeing_distance',
+        'sightseeing_sub_location_id',
+        'tariff',
+        'vendor_id',
+        'img_name',
+        'img_ext',
+        'img_path',
+        'is_pax',
+        'is_default_ss',
+        'enterprise_id'
+    ];
+
+    // Get sightseeing records by matching the object_location_id.
+    public function getSightseeingByLocation($location_id)
+    {
+        $builder = $this->db->table($this->sightseeingTable);
+        $builder->select("{$this->sightseeingTable}.*, khm_obj_mst.object_name");
+        $builder->join('khm_obj_mst', "{$this->sightseeingTable}.object_id = khm_obj_mst.object_id", 'left');
+        $builder->where('khm_obj_mst.object_location_id', $location_id);
+        return $builder->get()->getResultArray();
+    }
+
+    //Reset Default for a Group:
+        public function resetDefaultSightseeing($objectId, $selectedId)
+        {
+            $builder = $this->db->table('khm_obj_sightseeing');
+            
+            // Ensure only previous selections are reset
+            $builder->where('object_id', $objectId);
+            $builder->where('sightseeing_id !=', $selectedId);
+        
+            $builder->update(['is_default_ss' => 0]);  // Reset previous defaults
+        
+            return $this->db->affectedRows(); // Returns number of rows updated
+        }
+        public function resetAllDefaultSS($sightseeing_id)
+        {
+            $builder = $this->db->table('khm_obj_sightseeing');
+            $builder->where('sightseeing_id', $sightseeing_id);
+            $builder->update(['is_default_ss' => 0]);
+            return $this->db->affectedRows();
+        }
+        public function resetDefaultSS($location_id,$selectd_id)
+        {
+            $response = [];
+            $query = $this->db->table($this->sightseeingTable);
+            $query->select("{$this->sightseeingTable}.*, khm_obj_mst.object_name");
+            $query->join('khm_obj_mst', "{$this->sightseeingTable}.object_id = khm_obj_mst.object_id", 'left');
+            $query->where('khm_obj_mst.object_location_id', $location_id);
+            $response =  $query->get()->getResultArray();
+
+            foreach($response as $key => $val){
+                $update = $this->resetAllDefaultSS($val['sightseeing_id']);
+            }
+
+            $builder = $this->db->table('khm_obj_sightseeing');
+            $builder->where('sightseeing_id', $selectd_id);
+            $builder->update(['is_default_ss' => 1]);
+            return $this->db->affectedRows();
+        }
+    //Fetch a Single Sightseeing Record:
+    public function getSightseeingById($id)
+    {
+        $builder = $this->db->table('khm_obj_sightseeing'); // Replace with your actual table name.
+        $builder->where('sightseeing_id', $id);
+        return $builder->get()->getRowArray();
+    }
+
+
+    // Update a sightseeing record.
+    public function updateSightseeingRecord($id, $data)
+    {
+        $builder = $this->db->table($this->sightseeingTable);
+        return $builder->update($data, [$this->sightseeingPrimaryKey => $id]);
+    }
+
+    // ----- Distance Configuration -----
+    protected $distanceTable      = 'khm_loc_mst_geography_distance';
+    protected $distancePrimaryKey = 'geog_dist_id';
+    protected $distanceAllowedFields = ['geog_from_id', 'geog_to_id', 'geog_km_distance'];
+
+    /**
+     * Save a new distance record.
+     * Checks for duplicate records before inserting.
+     * 
+     * @param array $data Must include 'geog_from_id', 'geog_to_id', and 'geog_km_distance'.
+     * @return mixed Returns the new record ID on success, 'duplicate' if record exists, or false on failure.
+     */
+    public function saveDistanceRecord(array $data)
+    {
+        if (!isset($data['geog_from_id']) || !isset($data['geog_to_id']) || !isset($data['geog_km_distance'])) {
+            return false;
+        }
+        // Check for an existing record with the same from/to IDs.
+        $builder = $this->db->table($this->distanceTable);
+        $builder->where('geog_from_id', $data['geog_from_id']);
+        $builder->where('geog_to_id', $data['geog_to_id']);
+        $exists = $builder->get()->getRowArray();
+        if ($exists) {
+            // Duplicate record exists.
+            return 'duplicate';
+        }
+        if ($builder->insert($data)) {
+            return $this->db->insertID();
+        }
+        return false;
+    }
+
+    /**
+     * Update an existing distance record.
+     * Finds a record based on geog_from_id and geog_to_id.
+     * 
+     * @param array $data Must include 'geog_from_id', 'geog_to_id', and 'geog_km_distance'.
+     * @return mixed Returns true on success, 'not_found' if no record exists, or false on failure.
+     */
+    public function updateDistanceRecord(array $data)
+    {
+        if (!isset($data['geog_from_id']) || !isset($data['geog_to_id']) || !isset($data['geog_km_distance'])) {
+            return false;
+        }
+        $builder = $this->db->table($this->distanceTable);
+        $builder->where('geog_from_id', $data['geog_from_id']);
+        $builder->where('geog_to_id', $data['geog_to_id']);
+        $existing = $builder->get()->getRowArray();
+        if (!$existing) {
+            return 'not_found';
+        }
+        // Update the record.
+        if ($builder->update(['geog_km_distance' => $data['geog_km_distance']], [$this->distancePrimaryKey => $existing['geog_dist_id']])) {
+            return true;
+        }
+        return false;
+    }
+}

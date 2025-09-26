@@ -1,0 +1,188 @@
+CRITICAL - 2025-01-16 01:02:03 --> ErrorException: Undefined array key "entity_role_id"
+[Method: POST, Route: dashboard/assign_employee_roles]
+in APPPATH\Views\dashboard\all_role_view.php on line 35.
+ 1 APPPATH\Views\dashboard\all_role_view.php(35): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "entity_role_id"', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php', 35)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_role_view', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(209): view('dashboard/all_role_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->assign_employee_roles()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-16 01:02:04 --> ErrorException: Undefined array key "entity_role_id"
+[Method: POST, Route: dashboard/assign_employee_roles]
+in APPPATH\Views\dashboard\all_role_view.php on line 35.
+ 1 APPPATH\Views\dashboard\all_role_view.php(35): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "entity_role_id"', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php', 35)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_role_view', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(209): view('dashboard/all_role_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->assign_employee_roles()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-16 01:04:04 --> ErrorException: Undefined array key "entity_role_id"
+[Method: POST, Route: dashboard/assign_employee_roles]
+in APPPATH\Views\dashboard\all_role_view.php on line 37.
+ 1 APPPATH\Views\dashboard\all_role_view.php(37): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "entity_role_id"', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php', 37)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_role_view', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(209): view('dashboard/all_role_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->assign_employee_roles()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-16 01:04:05 --> ErrorException: Undefined array key "entity_role_id"
+[Method: POST, Route: dashboard/assign_employee_roles]
+in APPPATH\Views\dashboard\all_role_view.php on line 37.
+ 1 APPPATH\Views\dashboard\all_role_view.php(37): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "entity_role_id"', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php', 37)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_role_view', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(209): view('dashboard/all_role_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->assign_employee_roles()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-16 01:04:06 --> ErrorException: Undefined array key "entity_role_id"
+[Method: POST, Route: dashboard/assign_employee_roles]
+in APPPATH\Views\dashboard\all_role_view.php on line 37.
+ 1 APPPATH\Views\dashboard\all_role_view.php(37): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "entity_role_id"', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php', 37)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_role_view', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(209): view('dashboard/all_role_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->assign_employee_roles()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-16 02:04:58 --> ErrorException: Undefined variable $role_id
+[Method: POST, Route: dashboard/assign_employee_roles]
+in APPPATH\Views\dashboard\all_role_view.php on line 57.
+ 1 APPPATH\Views\dashboard\all_role_view.php(57): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $role_id', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php', 57)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_role_view', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(209): view('dashboard/all_role_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->assign_employee_roles()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-16 02:04:59 --> ErrorException: Undefined variable $role_id
+[Method: POST, Route: dashboard/assign_employee_roles]
+in APPPATH\Views\dashboard\all_role_view.php on line 57.
+ 1 APPPATH\Views\dashboard\all_role_view.php(57): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $role_id', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php', 57)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_role_view', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(209): view('dashboard/all_role_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->assign_employee_roles()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-16 02:06:00 --> ErrorException: Undefined variable $role_id
+[Method: POST, Route: dashboard/assign_employee_roles]
+in APPPATH\Views\dashboard\all_role_view.php on line 57.
+ 1 APPPATH\Views\dashboard\all_role_view.php(57): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $role_id', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php', 57)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_role_view', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(209): view('dashboard/all_role_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->assign_employee_roles()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-16 02:06:01 --> ErrorException: Undefined variable $role_id
+[Method: POST, Route: dashboard/assign_employee_roles]
+in APPPATH\Views\dashboard\all_role_view.php on line 57.
+ 1 APPPATH\Views\dashboard\all_role_view.php(57): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $role_id', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php', 57)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\all_role_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/all_role_view', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(209): view('dashboard/all_role_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->assign_employee_roles()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-01-16 02:17:03 --> ErrorException: Undefined variable $users_list
+[Method: GET, Route: dashboard/view_transactions/2/1]
+in APPPATH\Views\dashboard\role_trans.php on line 1319.
+ 1 APPPATH\Views\dashboard\role_trans.php(1319): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $users_list', 'C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\role_trans.php', 1319)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\dashboard\\role_trans.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('dashboard/role_trans', [], true)
+ 5 APPPATH\Controllers\Dashboard.php(269): view('dashboard/role_trans', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->view_transactions('2', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-01-16 10:36:21 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in D:\wamp64\www\khm\system\Database\MySQLi\Connection.php:187
+Stack trace:
+#0 D:\wamp64\www\khm\system\Database\MySQLi\Connection.php(187): mysqli->real_connect('localhost', 'root', '', 'khm_touracle_db', 3306, '', 0)
+#1 D:\wamp64\www\khm\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 D:\wamp64\www\khm\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#3 D:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `u`.*, `...', Array, false)
+#4 D:\wamp64\www\khm\app\Models\Login_m.php(15): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\wamp64\www\khm\app\Controllers\Login.php(25): App\Models\Login_m->check_valid_login('maintenance', '12345678')
+#6 D:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Login->login()
+#7 D:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#8 D:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 D:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 D:\wamp64\www\khm\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: Access denied for user '****'@'localhost' (using password: NO) in D:\wamp64\www\khm\system\Database\MySQLi\Connection.php:231
+Stack trace:
+#0 D:\wamp64\www\khm\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 D:\wamp64\www\khm\system\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+#2 D:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `u`.*, `...', Array, false)
+#3 D:\wamp64\www\khm\app\Models\Login_m.php(15): CodeIgniter\Database\BaseBuilder->get()
+#4 D:\wamp64\www\khm\app\Controllers\Login.php(25): App\Models\Login_m->check_valid_login('maintenance', '12345678')
+#5 D:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Login->login()
+#6 D:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+#7 D:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 D:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 D:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 D:\wamp64\www\khm\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-01-16 10:36:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: Access denied for user '****'@'localhost' (using password: NO)
+[Method: POST, Route: Login/login]
+in SYSTEMPATH\Database\BaseConnection.php on line 467.
+ 1 SYSTEMPATH\Database\BaseConnection.php(616): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `u`.*, `m`.`entity_name`
+FROM `khm_sys_usg_entity_users` `u`
+LEFT JOIN `khm_entity_mst` `m` ON `m`.`entity_id` = `u`.`entity_id`
+WHERE `u`.`user_id` = :u.user_id:
+AND `u`.`password` = :u.password:', [...], false)
+ 3 APPPATH\Models\Login_m.php(15): CodeIgniter\Database\BaseBuilder->get()
+ 4 APPPATH\Controllers\Login.php(25): App\Models\Login_m->check_valid_login('maintenance', '12345678')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Login->login()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Login))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
