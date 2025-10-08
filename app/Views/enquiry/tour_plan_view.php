@@ -2265,7 +2265,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 			if (no_of_double_room > 0) {
 				$(this).find('[id^="dd_total_rate"]').attr("id", `dd_total_rate${newIndex}`).attr("name", `addloc[${newIndex}][dd_total_rate]`);
-			}  
+			}
 
 			let no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
 			let double_count = no_of_double_room > 0 ? no_of_double_room : 0;
@@ -2527,14 +2527,48 @@ $is_edit = $edit_id ? $edit_id : 0;
 </script>
 <script>
 	$(document).on('change', '.room_cat_change', function() {
+		// updateGrandTotalDouble();
+		// updateGrandTotalSingle();
+		// updateGrandtotalBoth();
 		var id = $(this).attr('data-id');
 		// alert(id);
-		sid
+		
 		var id2 = $(this).attr('count-id');
 		// alert(id2);
 		// console.log("Element HTML:", $(this).prop('outerHTML'));
 		var room_cat_id = $(this).val();
 		//  alert(room_cat_id);
+		// loadVehicles(id2);
+		if (room_cat_id === "" || room_cat_id === "0") {
+			$('#d_total_rate' + id).val(0);
+			$('#s_total_rate' + id).val(0);
+		}
+		updateGrandTotalDouble();
+		updateGrandTotalSingle();
+		// updateGrandtotalBoth();
+		 
+		
+
+		// Update card total
+		let singleCardTotal = updateGrandtotalBoth(id2);
+	
+		$('#loc_total' + id2).text(singleCardTotal + " + " + 0);
+		loadVehicles(id2);
+
+		// Update vehicle total
+		let veh_grand_total = get_veh_grand_total();
+		$('#v_total').text(veh_grand_total);
+
+		// Update overall grand total
+		let allCardTotal = 0;
+		$('.location-card').each(function() {
+			let cardId = $(this).attr('data-index');
+			allCardTotal += updateGrandtotalBoth(cardId);
+		});
+
+		let g_total = allCardTotal + parseFloat(veh_grand_total || 0);
+		$('#g_total').text(g_total);
+		
 		if (room_cat_id == 0) {
 			$('#own_arrange' + id).val(1);
 			$('#d_adult_rate' + id).val(0).prop('readonly', true);
@@ -2900,7 +2934,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 							var accom_grand_total = updateGrandtotalBoth();
 							$('#a_total').text(accom_grand_total);
 							var accom_temp = total_double + total_single;
-							$('#loc_total' + id).text(accom_temp + " + " + 0);
+							// $('#loc_total' + id).text(accom_temp + " + " + 0);
 							var veh_grand_total = get_veh_grand_total();
 							$('#v_total').text(veh_grand_total);
 							var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
@@ -2940,16 +2974,21 @@ $is_edit = $edit_id ? $edit_id : 0;
 							var total_single = parseInt(data.s_room_tariff) * parseInt(no_of_night);
 							$('#s_total_rate' + id).val(total_single);
 							updateGrandTotalSingle();
-							updateGrandtotalBoth();
-							
-						
-							var accom_temp = total_double + total_single;
-							$('#loc_total' + id).text(accom_temp + " + " + 0);
+							let allCardTotal = updateGrandtotalBoth();
+
+							let singleCardTotal = updateGrandtotalBoth(id2);
+							loadVehicles(id2);
+							// $('#loc_total_' + id2).text(singleCardTotal);
+							// $('#loc_total' + id2).text(singleCardTotal + " + " + 0);
+
+							// var accom_temp = total_double + total_single;
+							// $('#loc_total' + id).text(accom_temp + " + " + 0);
 							var veh_grand_total = get_veh_grand_total();
 							$('#v_total').text(veh_grand_total);
 							// var accom_grand_total = updateGrandtotalBoth();
 							// $('#a_total').text(accom_grand_total);
-							var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
+							//var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
+							var g_total = parseInt(allCardTotal) + parseInt(veh_grand_total);
 							$('#g_total').text(g_total);
 						}
 						//}
@@ -3818,66 +3857,76 @@ $is_edit = $edit_id ? $edit_id : 0;
 	});
 </script>
 <script>
-function updateGrandtotalBoth() {
-    let grand_total_double = 0;
-    let grand_total_single = 0;
-    $('.tour_plan_div .location-card').each(function() {
-        $(this).find('.d_total_rate').each(function() {
-            var val = parseFloat($(this).val()) || 0;
-            grand_total_double += val;
-        });
+	function updateGrandtotalBoth(count = null) {
+		let grand_total_double = 0;
+		let grand_total_single = 0;
+		let targetCards = count ?
+			$('.tour_plan_div .location-card[data-index="' + count + '"]') :
+			$('.tour_plan_div .location-card');
 
-        $(this).find('.s_total_rate').each(function() {
-            var val = parseFloat($(this).val()) || 0;
-            grand_total_single += val;
-        });
-    });
+		targetCards.each(function() {
+			$(this).find('.d_total_rate').each(function() {
+				var val = parseFloat($(this).val()) || 0;
+				grand_total_double += val;
+			});
 
-    let grand_total_both = grand_total_double + grand_total_single;
+			$(this).find('.s_total_rate').each(function() {
+				var val = parseFloat($(this).val()) || 0;
+				grand_total_single += val;
+			});
+		});
 
-	$('#a_total').text(grand_total_both);
-    // $('#a_total').val(grand_total_both);
-    console.log("Grand total (all cards) = " + grand_total_both);
-}
+		let grand_total_both = grand_total_double + grand_total_single;
+		if (count) {
+			console.log("Card " + count + " total = " + grand_total_both);
+			return grand_total_both;
+		} else {
+			$('#a_total').text(grand_total_both);
+			console.log("Grand total (all cards) = " + grand_total_both);
+			return grand_total_both;
+		}
+	}
+
 
 
 	function updateGrandTotalDouble() {
-    $('.tour_plan_div .location-card').each(function() {
-        let id2 = $(this).attr('data-index');
-        let grand_total_double = 0;
+		$('.tour_plan_div .location-card').each(function() {
+			let id2 = $(this).attr('data-index');
+			let grand_total_double = 0;
 
-        $(this).find('.d_total_rate').each(function() {
-            var val = parseFloat($(this).val()) || 0;
-            grand_total_double += val;
-        });
+			$(this).find('.d_total_rate').each(function() {
+				var val = parseFloat($(this).val()) || 0;
+				grand_total_double += val;
+			});
 
-        $('#dd_total_rate' + id2).val(grand_total_double);
-    });
-}
+			$('#dd_total_rate' + id2).val(grand_total_double);
+		});
+	}
+
 	function updateGrandTotalSingle() {
-    $('.tour_plan_div .location-card').each(function() {
-        let id2 = $(this).attr('data-index');
-        let grand_total_single = 0;
+		$('.tour_plan_div .location-card').each(function() {
+			let id2 = $(this).attr('data-index');
+			let grand_total_single = 0;
 
-        $(this).find('.s_total_rate').each(function() {
-            var val = parseFloat($(this).val()) || 0;
-            grand_total_single += val;
-        });
+			$(this).find('.s_total_rate').each(function() {
+				var val = parseFloat($(this).val()) || 0;
+				grand_total_single += val;
+			});
 
-        $('#ss_total_rate' + id2).val(grand_total_single);
-    });
-}
+			$('#ss_total_rate' + id2).val(grand_total_single);
+		});
+	}
 
 
-	
-	function double_total_update(rid,count) {
+
+	function double_total_update(rid, count) {
 		// var id = $(this).attr('data-id');
 		var no_of_night = parseInt($('#no_of_night' + count).val()) || 0;
 		var no_of_ch = parseInt($('#no_of_ch' + count).val()) || 0;
 		var no_of_cw = parseInt($('#no_of_cw' + count).val()) || 0;
 		var no_of_extra = parseInt($('#no_of_extra' + count).val()) || 0;
-		
-		$('.tour_plan_div .location-card').each(function() { });
+
+		$('.tour_plan_div .location-card').each(function() {});
 		// var double = parseInt($('#double' + id).val()) || 0;
 		var room = parseInt($('#d_adult_rate' + rid).val()) || 0;
 		var child = parseInt($('#d_child_rate' + rid).val()) || 0;
@@ -3896,13 +3945,13 @@ function updateGrandtotalBoth() {
 			}
 		} else {
 			// var total = ((double * room) + (no_of_ch * child) + (no_of_cw * child_wb) + (no_of_extra * extra)) * no_of_night;
-			var total = (( room) + (no_of_ch * child) + (no_of_cw * child_wb) + (no_of_extra * extra)) * no_of_night;
+			var total = ((room) + (no_of_ch * child) + (no_of_cw * child_wb) + (no_of_extra * extra)) * no_of_night;
 		}
 		// alert(total);
 		$('#d_total_rate' + rid).val(total);
 
-			updateGrandTotalDouble();
-			updateGrandtotalBoth();
+		updateGrandTotalDouble();
+		updateGrandtotalBoth();
 		var svalue = parseInt($('#s_total_rate' + id).val());
 		//$('#loc_total'+id).text(total+svalue);
 		var veh_grand_totalloc = get_veh_grand_total_byloc(id);
@@ -3918,9 +3967,9 @@ function updateGrandtotalBoth() {
 	$(document).on('input', '[id^="double"], [id^="d_adult_rate"], [id^="d_child_rate"], [id^="d_child_wb_rate"], [id^="d_extra_bed_rate"]', function() {
 		var rid = this.id.match(/\d+/)[0];
 		var count = $(this).data('count');
-		double_total_update(rid,count);
+		double_total_update(rid, count);
 
-	
+
 	});
 </script>
 <script>
@@ -3977,7 +4026,7 @@ function updateGrandtotalBoth() {
 	});*/
 </script>
 <script>
-	function single_total_update(sid,count) {
+	function single_total_update(sid, count) {
 		var no_of_night = parseInt($('#no_of_night' + count).val()) || 0;
 		var single = parseInt($('#single' + count).val()) || 0;
 		var room = parseInt($('#s_adult_rate' + sid).val()) || 0;
@@ -4019,7 +4068,7 @@ function updateGrandtotalBoth() {
 		var count = $(this).data('count');
 		// alert(count);
 		// alert(sid);
-		single_total_update(sid,count);
+		single_total_update(sid, count);
 	});
 </script>
 <script>
@@ -5108,7 +5157,7 @@ function updateGrandtotalBoth() {
 	}
 </script>
 
-<script>
+<!-- <script>
 	$(document).on('click', '.load_vehs_click', function() {
 		$(this).attr('data-loaded', 'true');
 		var id = $(this).attr('data-id');
@@ -5233,7 +5282,138 @@ function updateGrandtotalBoth() {
 			});
 		}
 	});
-</script>
+</script> -->
+
+<!-- //nj// -->
+ <!-- loadveh -->
+  <script>
+	function loadVehicles(id) {
+	let no_of_night = $('#no_of_night' + id).val();
+	let checkin = $('#checkin' + id).val();
+	let checkout = $('#checkout' + id).val();
+	let vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
+	let arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
+	let departure_location = <?php echo $object_det[0]['departure_location']; ?>;
+	let tour_location_id = $('#tour_location_id' + id).val();
+
+	let previous_location_id = (id > 1)
+		? $('#tour_location_id' + (parseInt(id) - 1)).val()
+		: null;
+
+	let duration = <?php echo $object_det[0]['no_of_night']; ?>;
+	let totalNights = calculateTotalNights_new(id);
+
+	let veh_total = 0,
+		extra_klm = 0,
+		extra_cost = 0,
+		veh_grand_tot = 0;
+
+	let is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+	let vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
+
+	if (!no_of_night || no_of_night == 'undefined') {
+		alert("Please enter number of nights");
+		$("#roomcat" + id)[0].selectedIndex = 0;
+		return;
+	} else if (no_of_night == 0) {
+		alert("Number of nights must be greater than zero");
+		$('#no_of_night' + id).val('');
+		return;
+	}
+
+	$.ajax({
+		url: "<?= site_url('Enquiry/getVehicleTariffDetails'); ?>",
+		method: "POST",
+		data: {
+			no_of_night: no_of_night,
+			vehicle_models: vehicle_models,
+			id: id,
+			duration: duration,
+			totalNights: totalNights,
+			tour_location_id: tour_location_id,
+			vehicle_from_location: vehicle_from_location,
+			arrival_location: arrival_location,
+			departure_location: departure_location,
+			checkin: checkin,
+			checkout: checkout,
+			previous_location_id: previous_location_id
+		},
+		dataType: 'json',
+		success: function(data) {
+			console.log(data);
+
+			let total_double = parseInt($('#dd_total_rate' + id).val()) || 0;
+			let total_single = parseInt($('#ss_total_rate' + id).val()) || 0;
+
+			let v_from_to_data = "";
+			if (data.distance_type == 1) {
+				v_from_to_data = ` - (Hub Location to Arrival - ${data.dist1} KM, Arrival to Location - ${data.dist2} KM, Location to Departure - ${data.dist3} KM, Departure to Hub Location - ${data.dist4} KM)`;
+				$('#cur_to_dep' + id).val(data.dist3);
+				$('#dep_to_arr' + id).val(data.dist4);
+				$('#hub_to_arr' + id).val(data.dist1);
+				$('#arr_to_loc' + id).val(data.dist2);
+			} else if (data.distance_type == 2) {
+				v_from_to_data = ` - (Hub Location to Arrival - ${data.dist1} KM, Arrival to Location - ${data.dist2} KM)`;
+			} else if (data.distance_type == 3) {
+				v_from_to_data = `(Previous Location to Current Location - ${data.dist3} KM, Location to Departure - ${data.dist1} KM, Departure to Hub Location - ${data.dist2} KM)`;
+				$('#pre_to_cur' + id).val(data.dist3);
+				$('#cur_to_dep' + id).val(data.dist1);
+				$('#dep_to_arr' + id).val(data.dist2);
+			} else {
+				v_from_to_data = ` - (Previous Location to Current Location - ${data.total_distance} KM)`;
+			}
+
+			$('#v_from_to' + id).html(v_from_to_data);
+			$('#veh_header' + id).val(v_from_to_data);
+
+			// Vehicle calculation
+			if (data.vehicles && data.vehicles.length > 0) {
+				$.each(data.vehicles, function(index, item) {
+					if (parseInt(data.total_distance, 10) > parseInt(item.max_km_day, 10)) {
+						extra_klm = parseInt(data.total_distance) - parseInt(item.max_km_day);
+					} else {
+						extra_klm = 0;
+					}
+
+					extra_cost = parseInt(extra_klm) * parseInt(item.extra_km_rate);
+					let vid = id + item.vehicle_type_id;
+					let rate_per_day_temp = parseInt(item.rate_per_day) + parseInt(extra_cost);
+					veh_total = (parseInt(item.vehicle_count) * rate_per_day_temp) * parseInt(no_of_night);
+
+					$('#day_rent' + vid).val(item.rate_per_day);
+					$('#max_km_day' + vid).val(item.max_km_day);
+					$('#extra_km_rate' + vid).val(item.extra_km_rate);
+					$('#veh_total' + vid).val(veh_total);
+					$('#travel_distance' + vid).val(data.total_distance);
+					$('#extra_kilometer' + vid).val(extra_klm);
+
+					veh_grand_tot += veh_total;
+				});
+			}
+
+			let accom_temp = total_double + total_single;
+			$('#loc_total' + id).text(accom_temp + " + " + veh_grand_tot);
+
+			let veh_grand_total = get_veh_grand_total();
+			$('#v_total').text(veh_grand_total);
+
+			let accom_grand_total = updateGrandtotalBoth();
+			$('#a_total').text(accom_grand_total);
+
+			let g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
+			$('#g_total').text(g_total);
+		}
+	});
+}
+
+$(document).on('click', '.load_vehs_click', function() {
+	$(this).attr('data-loaded', 'true');
+	let id = $(this).attr('data-id');
+	loadVehicles(id);
+});
+
+
+  </script>
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
 		const cursor = document.createElement("div");
