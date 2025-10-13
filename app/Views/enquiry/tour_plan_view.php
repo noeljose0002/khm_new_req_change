@@ -1670,47 +1670,91 @@ $is_edit = $edit_id ? $edit_id : 0;
 </script>
 
 <script>
-  // Get DOM refs
-  const dynamicCheckbox = document.getElementById('dynamicNeeded');
-  const addBtn = document.getElementById('btn_add_bt');
+	// Get DOM refs
+	const dynamicCheckbox = document.getElementById('dynamicNeeded');
+	const addBtn = document.getElementById('btn_add_bt');
 
-  // Variable that will hold the current checkbox state (true/false)
-  // Initialize from the checkbox's current state
-  let isDynamic = !!dynamicCheckbox.checked;
+	// Variable that will hold the current checkbox state (true/false)
+	// Initialize from the checkbox's current state
+	let isDynamic = !!dynamicCheckbox.checked;
 
-  // Keep variable in sync if user toggles the checkbox
-  dynamicCheckbox.addEventListener('change', () => {
-    isDynamic = dynamicCheckbox.checked;
-    // optional: expose globally if other scripts need it
-    window.isDynamic = isDynamic;
-    console.log('dynamic toggled ->', isDynamic);
-  });
+	// Keep variable in sync if user toggles the checkbox
+	dynamicCheckbox.addEventListener('change', () => {
+		isDynamic = dynamicCheckbox.checked;
+		// optional: expose globally if other scripts need it
+		window.isDynamic = isDynamic;
+		console.log('dynamic toggled ->', isDynamic);
+	});
 
-  // On button click, read the variable and act accordingly
-  addBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    // Ensure variable is up-to-date (in case code changed it elsewhere)
-    isDynamic = !!dynamicCheckbox.checked;
-    window.isDynamic = isDynamic; // optional global
-    console.log('Add Location clicked. isDynamic =', isDynamic);
+	// On button click, read the variable and act accordingly
+	addBtn.addEventListener('click', (e) => {
+		e.preventDefault();
+		// Ensure variable is up-to-date (in case code changed it elsewhere)
+		isDynamic = !!dynamicCheckbox.checked;
+		window.isDynamic = isDynamic; // optional global
+		console.log('Add Location clicked. isDynamic =', isDynamic);
 
-    if (isDynamic) {
-      // call your dynamic creation function, e.g. createDynamicLocation();
-      // createDynamicLocation();
-      console.log('-> create dynamic location');
-    } else {
-      // call your static behaviour, e.g. createStaticLocation();
-      // createStaticLocation();
-      console.log('-> create static location');
-    }
-  });
+		if (isDynamic) {
+			// call your dynamic creation function, e.g. createDynamicLocation();
+			// createDynamicLocation();
+			console.log('-> create dynamic location');
+		} else {
+			// call your static behaviour, e.g. createStaticLocation();
+			// createStaticLocation();
+			console.log('-> create static location');
+		}
+	});
 
-  // Export helper if you want to get the value programmatically
-  function getIsDynamic() {
-    return !!dynamicCheckbox.checked;
-  }
-  // Example export
-  window.getIsDynamic = getIsDynamic;
+	// Export helper if you want to get the value programmatically
+	function getIsDynamic() {
+		return !!dynamicCheckbox.checked;
+	}
+	// Example export
+	window.getIsDynamic = getIsDynamic;
+</script>
+<script>
+	// Get DOM refs
+	const dynamicCheckbox = document.getElementById('dynamicNeeded');
+	const addBtn = document.getElementById('btn_add_bt');
+
+	// Variable that will hold the current checkbox state (true/false)
+	// Initialize from the checkbox's current state
+	let isDynamic = !!dynamicCheckbox.checked;
+
+	// Keep variable in sync if user toggles the checkbox
+	dynamicCheckbox.addEventListener('change', () => {
+		isDynamic = dynamicCheckbox.checked;
+		// optional: expose globally if other scripts need it
+		window.isDynamic = isDynamic;
+		console.log('dynamic toggled ->', isDynamic);
+		toggleNightsVisibility(); // Toggle visibility on checkbox change
+	});
+
+	// On button click, read the variable and act accordingly
+	addBtn.addEventListener('click', (e) => {
+		e.preventDefault();
+		// Ensure variable is up-to-date (in case code changed it elsewhere)
+		isDynamic = !!dynamicCheckbox.checked;
+		window.isDynamic = isDynamic; // optional global
+		console.log('Add Location clicked. isDynamic =', isDynamic);
+
+		if (isDynamic) {
+			// call your dynamic creation function, e.g. createDynamicLocation();
+			// createDynamicLocation();
+			console.log('-> create dynamic location');
+		} else {
+			// call your static behaviour, e.g. createStaticLocation();
+			// createStaticLocation();
+			console.log('-> create static location');
+		}
+	});
+
+	// Export helper if you want to get the value programmatically
+	function getIsDynamic() {
+		return !!dynamicCheckbox.checked;
+	}
+	// Example export
+	window.getIsDynamic = getIsDynamic;
 </script>
 <script>
 	$(document).on('click', '#btn_add_bt', function(e) {
@@ -1922,6 +1966,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 					var veh_grand_total = get_veh_grand_total();
 					$('#v_total').text(veh_grand_total.toFixed(2));
 					$('#g_total').text((accom_grand_total + veh_grand_total).toFixed(2));
+
+					// Toggle visibility for the new card
+					toggleNightsVisibility();
 				} else {
 					var halert = `<div class="alert alert-success alert-dismissible fade show" role="alert">
                     <span class="alert-inner--icon"><i class="fe fe-info"></i></span>
@@ -2307,6 +2354,29 @@ $is_edit = $edit_id ? $edit_id : 0;
 		// Update totals
 		updateGrandtotalBoth();
 		get_veh_grand_total();
+
+		// Toggle visibility after updating nights
+		toggleNightsVisibility();
+	}
+
+	// Function to toggle visibility of nights based on checkbox
+	function toggleNightsVisibility() {
+		var showAll = getIsDynamic(); // true if checked (dynamic), false otherwise
+		$('.location-card').each(function() {
+			var count = $(this).attr('data-index');
+			$(`#nightly-details${count} .night-section`).each(function() {
+				var night = parseInt($(this).attr('data-night'));
+				if (night > 1) {
+					if (showAll) {
+						$(this).show();
+					} else {
+						$(this).hide();
+					}
+				} else {
+					$(this).show(); // Always show the first night
+				}
+			});
+		});
 	}
 
 	// Function to update room totals for a specific room and night
@@ -2436,6 +2506,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 		updateGrandtotalBoth();
 		get_veh_grand_total();
+		toggleNightsVisibility(); // Re-toggle after removal
 	});
 
 	// Handle close night button
@@ -2514,6 +2585,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		calculateCheckout(count);
 		updateGrandtotalBoth();
 		get_veh_grand_total();
+		toggleNightsVisibility(); // Re-toggle after close
 	});
 
 	// Function to update sequence numbers and adjust input IDs/names
@@ -2625,6 +2697,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		var veh_grand_total = get_veh_grand_total();
 		$('#v_total').text(veh_grand_total.toFixed(2));
 		$('#g_total').text((accom_grand_total + veh_grand_total).toFixed(2));
+		toggleNightsVisibility(); // Re-toggle after update
 	}
 
 	// Function to calculate checkout date
@@ -2734,7 +2807,17 @@ $is_edit = $edit_id ? $edit_id : 0;
 	$(document).on('change', '.room_cat_common_change', function() {
 		var value = $(this).val();
 		var count = $(this).attr('data-id');
-		$(`#nightly-details${count} .room_cat_change`).val(value).trigger('change');
+		var commonOptions = $(this).html();
+		alert(commonOptions); // Get the current options from the common dropdown
+
+		$(`#nightly-details${count} .room_cat_change`).each(function() {
+			$(this).select2('destroy'); // Destroy existing Select2 to allow HTML update
+			$(this).html(commonOptions); // Update options to match common
+			$(this).select2(); // Reinitialize Select2
+			$(this).val(value); // Set the selected value
+			$(this).trigger('change'); // Trigger change to update any dependent logic (e.g., tariffs)
+		});
+		$('.mp_change').trigger('change');
 	});
 
 	$(document).on('change', '.mp_change', function() {
