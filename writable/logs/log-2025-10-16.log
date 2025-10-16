@@ -1,0 +1,10 @@
+CRITICAL - 2025-10-16 11:45:54 --> ErrorException: Undefined array key "roomcat"
+[Method: POST, Route: Enquiry/saveTourPlan]
+in APPPATH\Controllers\Enquiry.php on line 3173.
+ 1 APPPATH\Controllers\Enquiry.php(3173): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "roomcat"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 3173)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->saveTourPlan()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
