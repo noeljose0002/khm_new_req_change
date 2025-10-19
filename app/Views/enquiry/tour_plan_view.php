@@ -219,8 +219,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		#btn_savedraft_tour_plan:hover,
 		#btn_save_tour_plan:hover,
-		#tour_view_id:#hover,
-		#tour_view_id:#hover,
+		#tour_view_id:hover,
+		#tour_view_id:hover,
 		#qq_edit_id:hover,
 		#go_to_iti:hover,
 		#btn_add_bt:hover,
@@ -7150,7 +7150,544 @@ function updateGrandtotalBoth(specificCount = null) {
 
 	});
 </script>
+<!-- //nj// -->
 <script>
+$(document).on('click', '.draft_view', function() {
+    var $this = $(this);
+    if ($this.prop('disabled')) return;
+    $this.prop('disabled', true);
+    $('#spinner_draft').show();
+
+    // Safe PHP variable initialization
+    var enquiry_header_id = <?php echo isset($object_det[0]['enquiry_header_id']) ? $object_det[0]['enquiry_header_id'] : 'null'; ?>;
+    var enquiry_details_id = <?php echo isset($object_det[0]['enquiry_details_id']) ? $object_det[0]['enquiry_details_id'] : 'null'; ?>;
+    var hotel_categories = <?php echo isset($hotel_categories) ? json_encode($hotel_categories) : '[]'; ?>;
+    var no_of_night = <?php echo isset($object_det[0]['no_of_night']) ? $object_det[0]['no_of_night'] : '0'; ?>;
+    var total_no_of_pax = <?php echo isset($object_det[0]['total_no_of_pax']) ? $object_det[0]['total_no_of_pax'] : '0'; ?>;
+    var no_of_adult = <?php echo isset($object_det[0]['no_of_adult']) ? $object_det[0]['no_of_adult'] : '0'; ?>;
+    var no_of_child_with_bed = <?php echo isset($object_det[0]['no_of_child_with_bed']) ? $object_det[0]['no_of_child_with_bed'] : '0'; ?>;
+    var no_of_child_without_bed = <?php echo isset($object_det[0]['no_of_child_without_bed']) ? $object_det[0]['no_of_child_without_bed'] : '0'; ?>;
+    var no_of_double_room = <?php echo isset($object_det[0]['no_of_double_room']) ? $object_det[0]['no_of_double_room'] : '0'; ?>;
+    var no_of_single_room = <?php echo isset($object_det[0]['no_of_single_room']) ? $object_det[0]['no_of_single_room'] : '0'; ?>;
+    var no_of_extra_bed = <?php echo isset($object_det[0]['no_of_extra_bed']) ? $object_det[0]['no_of_extra_bed'] : '0'; ?>;
+    var is_vehicle_required = <?php echo isset($object_det[0]['is_vehicle_required']) ? $object_det[0]['is_vehicle_required'] : '0'; ?>;
+    var is_quick_quote = <?php echo isset($object_det[0]['is_quick_quote']) ? $object_det[0]['is_quick_quote'] : '0'; ?>;
+    var vehicle_models = <?php echo isset($vehicle_data) ? json_encode($vehicle_data) : '[]'; ?>;
+    var start_date = <?php echo isset($start_date) ? json_encode($start_date) : 'null'; ?>;
+
+    // Validate critical inputs
+    if (!enquiry_header_id || !enquiry_details_id) {
+        console.error('Missing enquiry_header_id or enquiry_details_id');
+        $('#spinner_draft').hide();
+        $this.prop('disabled', false);
+        alert('Error: Invalid enquiry data.');
+        return;
+    }
+
+    $('#btn_add_bt').prop('disabled', false);
+
+    $.ajax({
+        url: '<?php echo site_url('Enquiry/loadTourLocation'); ?>',
+        type: 'POST',
+        data: { enquiry_header_id, enquiry_details_id },
+        dataType: 'json',
+        success: function(response) {
+            $('.tour_plan_div').empty();
+            $('.dyn_list').empty();
+
+            if (!response || !Array.isArray(response) || response.length === 0) {
+                console.warn('Empty or invalid response:', response);
+                alert('No tour locations found.');
+                $('#spinner_draft').hide();
+                $this.prop('disabled', false);
+                return;
+            }
+
+            // Group data by tour_details_id
+            var groupedData = {};
+            $.each(response, function(index, item) {
+                var tourDetailsId = item.tour_details_id;
+                if (!groupedData[tourDetailsId]) {
+                    groupedData[tourDetailsId] = {
+                        main: {
+                            tour_details_id: item.tour_details_id,
+                            geog_name: item.geog_name || 'Unknown Location',
+                            check_in_date: item.check_in_date || '',
+                            check_out_date: item.check_out_date || '',
+                            no_of_days: item.no_of_days || 0,
+                            hotel_id: item.hotel_id || '',
+                            hot_cat_id: item.hot_cat_id || '',
+                            room_category_id: item.room_category_id || '',
+                            tax_status: item.tax_status || 0,
+                            is_own_arrangement: item.is_own_arrangement || 0,
+                            tour_location: item.tour_location || '',
+                            meal_plan_id: item.meal_plan_id || ''
+                        },
+                        expansions: []
+                    };
+                }
+                if (item.tour_expansion_id) {
+                    groupedData[tourDetailsId].expansions.push({
+                        tour_expansion_id: item.tour_expansion_id,
+                        tour_expansion_date: item.tour_expansion_date,
+                        expansion_room_category_id: item.expansion_room_category_id || '',
+                        meal_plan_id: item.meal_plan_id || '',
+                        room_rate_double: item.room_rate_double || 0,
+                        child_with_bed_double: item.child_with_bed_double || 0,
+                        child_without_bed_double: item.child_without_bed_double || 0,
+                        extra_bed_double: item.extra_bed_double || 0,
+                        double_total_rate: item.double_total_rate || 0,
+                        room_rate_single: item.room_rate_single || 0,
+                        child_with_bed_single: item.child_with_bed_single || 0,
+                        child_without_bed_single: item.child_without_bed_single || 0,
+                        extra_bed_single: item.extra_bed_single || 0,
+                        single_total_rate: item.single_total_rate || 0,
+                        vehicle_details_json: item.vehicle_details_json || ''
+                    });
+                }
+            });
+
+            var count = 0;
+            $.each(groupedData, function(tourDetailsId, data) {
+                count++;
+                var item = data.main;
+                var expansions = data.expansions.sort((a, b) => new Date(a.tour_expansion_date) - new Date(b.tour_expansion_date));
+
+                $("#btn_savedraft_tour_plan").toggle(count > 0);
+
+                var mealPlanSelections = {
+                    1: item.meal_plan_id == 1 ? "selected" : "",
+                    2: item.meal_plan_id == 2 ? "selected" : "",
+                    3: item.meal_plan_id == 3 ? "selected" : "",
+                    4: item.meal_plan_id == 4 ? "selected" : ""
+                };
+
+                var newCard = `
+                    <div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
+                        <div class="card">
+                            <div class="card-header">
+                                <input type="hidden" id="tax_status${count}" name="addloc[${count}][tax_status]" value="${item.tax_status}">
+                                <input type="hidden" id="own_arrange${count}" name="addloc[${count}][own_arrange]" value="${item.is_own_arrangement}">
+                                <input type="hidden" id="tour_location_id${count}" name="addloc[${count}][tour_location_id]" value="${item.tour_location}">
+                                <input type="hidden" id="location_sequence${count}" name="addloc[${count}][location_sequence]" value="${count}">
+                                <div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${item.geog_name}</span></div>
+                                <div class="card-options">
+                                    <a href="#" class="card-options-remove"><i class="fe fe-x"></i></a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="ibox teams mb-30 bg-boxshadow">
+                                    <div class="ibox-content teams">
+                                        <div class="row mt-2">
+                                            <div class="col-xl col-sm-12 col-md-2">
+                                                <div class="teams-rank"><b>Checkin</b></div>
+                                                <input type="date" value="${item.check_in_date}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
+                                            </div>
+                                            <div class="col-xl col-sm-12 col-md-2">
+                                                <div class="teams-rank"><b>Nights</b></div>
+                                                <input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" value="${item.no_of_days}" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count}); updateNightlyDetails(${count});" required>
+                                            </div>
+                                            <div class="col-xl col-sm-12 col-md-2">
+                                                <div class="teams-rank"><b>Checkout</b></div>
+                                                <input type="date" id="checkout${count}" value="${item.check_out_date}" name="addloc[${count}][checkout]" class="form-control input-sm" required readonly>
+                                            </div>
+                                            <div class="col-xl col-sm-12 col-md-2">
+                                                <div class="teams-rank"><b>Hotel Category</b></div>
+                                                <select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" required>
+                                                    <option value="">Select</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xl col-sm-12 col-md-2">
+                                                <div class="teams-rank"><b>Hotel</b></div>
+                                                <select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" required>
+                                                    <option value="">Select</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xl col-sm-12 col-md-2">
+                                                <div class="teams-rank"><b>Room Category</b></div>
+                                                <select id="roomcat_common${count}" name="addloc[${count}][roomcat_common]" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}">
+                                                    <option value="">Select</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-xl col-sm-12 col-md-2">
+                                                <div class="teams-rank"><b>Meal Plan</b></div>
+                                                <select id="mealplan${count}" name="addloc[${count}][mealplan]" class="form-control select2-show-search input-sm mp_change" data-id="${count}" required>
+                                                    <option value="">Select</option>
+                                                    <option value="1" ${mealPlanSelections[1]}>EP</option>
+                                                    <option value="2" ${mealPlanSelections[2]}>CP</option>
+                                                    <option value="3" ${mealPlanSelections[3]}>MAP</option>
+                                                    <option value="4" ${mealPlanSelections[4]}>AP</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xl col-sm-12 col-md-2">
+                                                <div class="teams-rank"><b>No Of Adult</b></div>
+                                                <input type="text" id="no_of_adult${count}" name="addloc[${count}][no_of_adult]" value="${no_of_adult}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+                                            </div>
+                                            <div class="col-xl col-sm-12 col-md-2">
+                                                <div class="teams-rank"><b>C.With Bed Qty</b></div>
+                                                <input type="text" id="no_of_ch${count}" name="addloc[${count}][no_of_ch]" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+                                            </div>
+                                            <div class="col-xl col-sm-12 col-md-2">
+                                                <div class="teams-rank"><b>C.Without Bed Qty</b></div>
+                                                <input type="text" id="no_of_cw${count}" name="addloc[${count}][no_of_cw]" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+                                            </div>
+                                            <div class="col-xl col-sm-12 col-md-2">
+                                                <div class="teams-rank"><b>Extra Bed Qty</b></div>
+                                                <input type="text" id="no_of_extra${count}" name="addloc[${count}][no_of_extra]" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+                                            </div>
+                                            <div class="col-xl col-sm-12 col-md-2">
+                                                <div class="teams-rank"><b>Total Pax</b></div>
+                                                <input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="nightly-details" id="nightly-details${count}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                $(".tour_plan_div").append(newCard);
+
+                // Populate hotel categories
+                var hotelCat = $(`#hotelcat${count}`);
+                hotelCat.empty().append('<option value="">Select</option>');
+                $.each(hotel_categories, function(hIndex, hotelcat) {
+                    var selected = (hotelcat.hotel_category_id == item.hot_cat_id) ? "selected" : "";
+                    hotelCat.append(`<option value="${hotelcat.hotel_category_id}" ${selected}>${hotelcat.hotel_category_name}</option>`);
+                });
+
+                // Trigger hotel category change to populate hotels
+                hotelCat.trigger('change');
+
+                // Set hotel and room category
+                $(`#hotelid${count}`).val(item.hotel_id).trigger('change');
+                $(`#roomcat_common${count}`).val(item.room_category_id).trigger('change');
+
+                // Generate nightly details
+                var nightlyHtml = '';
+                $.each(expansions, function(nightIndex, expansion) {
+                    var nightDateObj = new Date(expansion.tour_expansion_date);
+                    var day = nightDateObj.getDate().toString().padStart(2, '0');
+                    var month = (nightDateObj.getMonth() + 1).toString().padStart(2, '0');
+                    var year = nightDateObj.getFullYear().toString().slice(-2);
+                    var nightDateStr = `${day}/${month}/${year}`;
+                    var currentNightIndex = nightIndex + 1;
+
+                    nightlyHtml += `
+                        <div class="night-section" data-night="${currentNightIndex}">
+                            <h5 style="color:#003300; text-align: center;">Night ${currentNightIndex} (${nightDateStr}) <a href="#" class="close-night-btn" style="float: right; font-size: 12px;"><i class="fe fe-x"></i></a></h5>
+                            <div class="card p-3 mb-3" id="card_night_${count}_${currentNightIndex}">
+                                <div class="container-fluid px-2">`;
+
+                    // Double Rooms
+                    if (no_of_double_room > 0) {
+                        nightlyHtml += `
+                            <div class="row mt-2 double_row">
+                                <div class="col-12 d-flex justify-content-left">
+                                    <div class="col-xl-1.3 col-sm-12 col-md-2">
+                                        <div class="teams-rank"><b>Double Room</b></div>
+                                        <input type="text" id="double${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][double]" value="${no_of_double_room}" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}">
+                                    </div>
+                                </div>
+                            </div>`;
+
+                        for (let i = 1; i <= no_of_double_room; i++) {
+                            let rid = `${count}${currentNightIndex}${i}`;
+                            nightlyHtml += `
+                                <div class="row mt-2 align-items-center">
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>Room Category</b></div>
+                                        <select id="roomcat${rid}" name="addloc[${count}][nights][${currentNightIndex}][roomcat][${i}]" class="form-control select2-show-search input-sm room_cat_change" count-id="${count}" data-id="${rid}" data-night="${currentNightIndex}" data-room-index="${i}" required>
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>Meal Plan</b></div>
+                                        <select id="mealplan${rid}" name="addloc[${count}][nights][${currentNightIndex}][mealplan][${i}]" class="form-control select2-show-search input-sm mp_row_change" data-id="${rid}" data-type="double" data-count="${count}" data-night="${currentNightIndex}" data-room-index="${i}" required>
+                                            <option value="">Select</option>
+                                            <option value="1" ${expansion.meal_plan_id == 1 ? 'selected' : ''}>EP</option>
+                                            <option value="2" ${expansion.meal_plan_id == 2 ? 'selected' : ''}>CP</option>
+                                            <option value="3" ${expansion.meal_plan_id == 3 ? 'selected' : ''}>MAP</option>
+                                            <option value="4" ${expansion.meal_plan_id == 4 ? 'selected' : ''}>AP</option>
+                                        </select>
+                                    </div>
+                                    <div style="display:none;" class="col-xl col-sm-12 col-md-2">
+                                        <div class="teams-rank"><b>Double Room</b></div>
+                                        <input type="text" id="double${rid}" name="addloc[${count}][nights][${currentNightIndex}][double][${i}]" value="1" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}" data-room-index="${i}">
+                                    </div>
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>Daily Room Rate</b></div>
+                                        <input type="text" id="d_adult_rate${rid}" name="addloc[${count}][nights][${currentNightIndex}][d_adult_rate][${i}]" value="${expansion.room_rate_double}" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${currentNightIndex}, ${i});" required data-night="${currentNightIndex}" data-room-index="${i}">
+                                    </div>
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>C.With Bed Rate</b></div>
+                                        <input type="text" id="d_child_rate${rid}" name="addloc[${count}][nights][${currentNightIndex}][d_child_rate][${i}]" value="${expansion.child_with_bed_double}" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${currentNightIndex}, ${i});" data-night="${currentNightIndex}" data-room-index="${i}">
+                                    </div>
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>C.Without Bed Rate</b></div>
+                                        <input type="text" id="d_child_wb_rate${rid}" name="addloc[${count}][nights][${currentNightIndex}][d_child_wb_rate][${i}]" value="${expansion.child_without_bed_double}" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${currentNightIndex}, ${i});" data-night="${currentNightIndex}" data-room-index="${i}">
+                                    </div>
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>Extra Bed Rate</b></div>
+                                        <input type="text" id="d_extra_bed_rate${rid}" name="addloc[${count}][nights][${currentNightIndex}][d_extra_bed_rate][${i}]" value="${expansion.extra_bed_double}" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${currentNightIndex}, ${i});" data-night="${currentNightIndex}" data-room-index="${i}">
+                                    </div>
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>Total(Double)</b></div>
+                                        <input type="text" id="d_total_rate${rid}" name="addloc[${count}][nights][${currentNightIndex}][d_total_rate][${i}]" value="${expansion.double_total_rate}" class="form-control input-sm d_total_rate" data-count="${count}" maxlength="6" readonly data-night="${currentNightIndex}" data-room-index="${i}">
+                                    </div>
+                                </div>`;
+                        }
+
+                        nightlyHtml += `
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content-end">
+                                    <div class="col-xl-1.3 col-sm-12 col-md-2">
+                                        <div class="teams-rank"><b>Grand Total(Double)</b></div>
+                                        <input type="text" id="dd_total_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][dd_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${currentNightIndex}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" id="sterling_double${count}${currentNightIndex}" data-night="${currentNightIndex}"></div>`;
+                    } else {
+                        nightlyHtml += `
+                            <input type="hidden" id="double${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][double]" value="0" data-night="${currentNightIndex}">
+                            <input type="hidden" id="d_adult_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][d_adult_rate]" value="0" data-night="${currentNightIndex}">
+                            <input type="hidden" id="d_child_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][d_child_rate]" value="0" data-night="${currentNightIndex}">
+                            <input type="hidden" id="d_child_wb_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][d_child_wb_rate]" value="0" data-night="${currentNightIndex}">
+                            <input type="hidden" id="d_extra_bed_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][d_extra_bed_rate]" value="0" data-night="${currentNightIndex}">
+                            <input type="hidden" id="d_total_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][d_total_rate]" value="0" data-night="${currentNightIndex}">
+                            <input type="hidden" id="dd_total_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][dd_total_rate]" value="0" data-night="${currentNightIndex}">`;
+                    }
+
+                    // Single Rooms
+                    let double_count = no_of_double_room > 0 ? no_of_double_room : 0;
+                    if (no_of_single_room > 0) {
+                        nightlyHtml += `
+                            <div class="row mt-2 single_row">
+                                <div class="col-12 d-flex justify-content-left">
+                                    <div class="col-xl-1.3 col-sm-12 col-md-2">
+                                        <div class="teams-rank"><b>Single Room</b></div>
+                                        <input type="text" id="single${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][single]" value="${no_of_single_room}" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}">
+                                    </div>
+                                </div>
+                            </div>`;
+
+                        for (let i = 1; i <= no_of_single_room; i++) {
+                            let seq = double_count + i;
+                            let sid = `${count}${currentNightIndex}${seq}`;
+                            nightlyHtml += `
+                                <div class="row mt-2 align-items-center">
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>Room Category</b></div>
+                                        <select id="roomcat${sid}" name="addloc[${count}][nights][${currentNightIndex}][roomcat][${seq}]" class="form-control select2-show-search input-sm room_cat_change" count-id="${count}" data-id="${sid}" data-night="${currentNightIndex}" data-room-index="${seq}" required>
+                                            <option value="">Select</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>Meal Plan</b></div>
+                                        <select id="mealplan${sid}" name="addloc[${count}][nights][${currentNightIndex}][mealplan][${seq}]" class="form-control select2-show-search input-sm mp_row_change" data-id="${sid}" data-type="single" data-count="${count}" data-night="${currentNightIndex}" data-room-index="${seq}" required>
+                                            <option value="">Select</option>
+                                            <option value="1" ${expansion.meal_plan_id == 1 ? 'selected' : ''}>EP</option>
+                                            <option value="2" ${expansion.meal_plan_id == 2 ? 'selected' : ''}>CP</option>
+                                            <option value="3" ${expansion.meal_plan_id == 3 ? 'selected' : ''}>MAP</option>
+                                            <option value="4" ${expansion.meal_plan_id == 4 ? 'selected' : ''}>AP</option>
+                                        </select>
+                                    </div>
+                                    <div style="display:none;" class="col-xl col-sm-12 col-md-2">
+                                        <div class="teams-rank"><b>Single Room</b></div>
+                                        <input type="text" id="single${sid}" name="addloc[${count}][nights][${currentNightIndex}][single][${seq}]" value="1" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}" data-room-index="${seq}">
+                                    </div>
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>Daily Room Rate</b></div>
+                                        <input type="text" id="s_adult_rate${sid}" name="addloc[${count}][nights][${currentNightIndex}][s_adult_rate][${seq}]" value="${expansion.room_rate_single}" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${currentNightIndex}, ${seq});" data-night="${currentNightIndex}" data-room-index="${seq}">
+                                    </div>
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>C.With Bed Rate</b></div>
+                                        <input type="text" id="s_child_rate${sid}" name="addloc[${count}][nights][${currentNightIndex}][s_child_rate][${seq}]" value="${expansion.child_with_bed_single}" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}" data-room-index="${seq}">
+                                    </div>
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>C.Without Bed Rate</b></div>
+                                        <input type="text" id="s_child_wb_rate${sid}" name="addloc[${count}][nights][${currentNightIndex}][s_child_wb_rate][${seq}]" value="${expansion.child_without_bed_single}" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}" data-room-index="${seq}">
+                                    </div>
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>Extra Bed Rate</b></div>
+                                        <input type="text" id="s_extra_bed_rate${sid}" name="addloc[${count}][nights][${currentNightIndex}][s_extra_bed_rate][${seq}]" value="${expansion.extra_bed_single}" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}" data-room-index="${seq}">
+                                    </div>
+                                    <div class="col-xl col-sm-12 col-md-2 ps-2">
+                                        <div class="teams-rank"><b>Total(Single)</b></div>
+                                        <input type="text" id="s_total_rate${sid}" name="addloc[${count}][nights][${currentNightIndex}][s_total_rate][${seq}]" value="${expansion.single_total_rate}" class="form-control input-sm s_total_rate" data-count="${count}" maxlength="6" readonly data-night="${currentNightIndex}" data-room-index="${seq}">
+                                    </div>
+                                </div>`;
+                        }
+
+                        nightlyHtml += `
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content-end">
+                                    <div class="col-xl-1.3 col-sm-12 col-md-2">
+                                        <div class="teams-rank"><b>Grand Total(Single)</b></div>
+                                        <input type="text" id="ss_total_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][ss_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${currentNightIndex}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card" id="sterling_single${count}${currentNightIndex}" data-night="${currentNightIndex}"></div>`;
+                    } else {
+                        nightlyHtml += `
+                            <input type="hidden" id="single${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][single]" value="0" data-night="${currentNightIndex}">
+                            <input type="hidden" id="s_adult_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][s_adult_rate]" value="0" data-night="${currentNightIndex}">
+                            <input type="hidden" id="s_child_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][s_child_rate]" value="0" data-night="${currentNightIndex}">
+                            <input type="hidden" id="s_child_wb_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][s_child_wb_rate]" value="0" data-night="${currentNightIndex}">
+                            <input type="hidden" id="s_extra_bed_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][s_extra_bed_rate]" value="0" data-night="${currentNightIndex}">
+                            <input type="hidden" id="s_total_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][s_total_rate]" value="0" data-night="${currentNightIndex}">
+                            <input type="hidden" id="ss_total_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][ss_total_rate]" value="0" data-night="${currentNightIndex}">`;
+                    }
+
+                    // Vehicle Details
+                    if (is_vehicle_required == 1) {
+                        nightlyHtml += `
+                            <div class="row mt-2 vehicle-details-section">
+                                <div class="col-xl-1 col-sm-12 col-md-1 ps-2">
+                                    <a id="loadvehs${count}${currentNightIndex}" class="nav-link load_vehs_click" data-id="${count}" data-night="${currentNightIndex}" data-loaded="false"><i class="fa fa-refresh"></i></a>
+                                </div>
+                                <div class="col-xl-11 col-sm-12 col-md-11 ps-2"><h5 style="color:#003300;">Vehicle Details<span id="v_from_to${count}${currentNightIndex}"></span></h5></div>
+                            </div>
+                            <input type="hidden" id="veh_header${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][veh_header]" value="" data-night="${currentNightIndex}">
+                            <input type="hidden" id="pre_to_cur${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][pre_to_cur]" value="" data-night="${currentNightIndex}">
+                            <input type="hidden" id="cur_to_dep${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][cur_to_dep]" value="" data-night="${currentNightIndex}">
+                            <input type="hidden" id="dep_to_arr${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][dep_to_arr]" value="" data-night="${currentNightIndex}">
+                            <input type="hidden" id="hub_to_arr${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][hub_to_arr]" value="" data-night="${currentNightIndex}">
+                            <input type="hidden" id="arr_to_loc${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][arr_to_loc]" value="" data-night="${currentNightIndex}">
+                            <div class="row mt-2 single_row vehicle-rows">
+                                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                                    <div class="teams-rank"><b>Vehicle Model</b></div>
+                                </div>
+                                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                                    <div class="teams-rank"><b>Vehicle Count</b></div>
+                                </div>
+                                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                                    <div class="teams-rank"><b>Daily Rent</b></div>
+                                </div>
+                                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                                    <div class="teams-rank"><b>Max KM/Day</b></div>
+                                </div>
+                                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                                    <div class="teams-rank"><b>Distance</b></div>
+                                </div>
+                                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                                    <div class="teams-rank"><b>Extra KM</b></div>
+                                </div>
+                                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                                    <div class="teams-rank"><b>Extra KM Rate</b></div>
+                                </div>
+                                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                                    <div class="teams-rank"><b>Total</b></div>
+                                </div>
+                            </div>`;
+
+                        var vehicleData = [];
+                        try {
+                            vehicleData = expansion.vehicle_details_json ? JSON.parse(expansion.vehicle_details_json) : [];
+                        } catch (e) {
+                            console.error('Invalid vehicle JSON for tour_details_id', tourDetailsId, 'night', currentNightIndex, ':', expansion.vehicle_details_json);
+                        }
+
+                        $.each(vehicle_models, function(vindex, vmodel) {
+                            let vid = `${count}${currentNightIndex}${vmodel.vehicle_type_id || vindex}`;
+                            var veh = vehicleData.find(v => v.vehicle_type_id == vmodel.vehicle_type_id) || {};
+
+                            nightlyHtml += `
+                                <div class="row mt-2 single_row align-items-center vehicle-row">
+                                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                                        <input type="text" id="veh_model${vid}" name="addloc[${count}][nights][${currentNightIndex}][veh_model][${vindex}]" value="${vmodel.vehicle_model_name || ''}" class="form-control input-sm veh_model${vindex}" readonly data-night="${currentNightIndex}" data-veh-index="${vindex}">
+                                        <input type="hidden" id="veh_type_id${vid}" name="addloc[${count}][nights][${currentNightIndex}][veh_type_id][${vindex}]" value="${vmodel.vehicle_type_id || ''}" class="form-control input-sm veh_type_id${vindex}" data-night="${currentNightIndex}" data-veh-index="${vindex}">
+                                    </div>
+                                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                                        <input type="text" id="veh_count${vid}" name="addloc[${count}][nights][${currentNightIndex}][veh_count][${vindex}]" value="${veh.vehicle_count || vmodel.vehicle_count || 0}" class="form-control input-sm veh_count${vindex}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}" data-veh-index="${vindex}">
+                                    </div>
+                                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                                        <input type="text" id="day_rent${vid}" name="addloc[${count}][nights][${currentNightIndex}][day_rent][${vindex}]" value="${veh.day_rent || 0}" class="form-control input-sm cls_daily day_rent${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this); updateVehicleTotals(${count}, ${currentNightIndex}, ${vindex});" data-night="${currentNightIndex}" data-veh-index="${vindex}">
+                                    </div>
+                                    <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                                        <input type="text" id="max_km_day${vid}" name="addloc[${count}][nights][${currentNightIndex}][max_km_day][${vindex}]" value="${veh.max_km_day || 0}" class="form-control input-sm max_km_day${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}" data-veh-index="${vindex}">
+                                    </div>
+                                    <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                                        <input type="text" id="travel_distance${vid}" name="addloc[${count}][nights][${currentNightIndex}][travel_distance][${vindex}]" value="${veh.travel_distance || 0}" class="form-control input-sm cls_dist travel_distance${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this); updateVehicleTotals(${count}, ${currentNightIndex}, ${vindex});" data-night="${currentNightIndex}" data-veh-index="${vindex}">
+                                    </div>
+                                    <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                                        <input type="text" id="extra_kilometer${vid}" name="addloc[${count}][nights][${currentNightIndex}][extra_kilometer][${vindex}]" value="${veh.extra_kilometer || 0}" class="form-control input-sm extra_kilometer${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}" data-veh-index="${vindex}">
+                                    </div>
+                                    <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                                        <input type="text" id="extra_km_rate${vid}" name="addloc[${count}][nights][${currentNightIndex}][extra_km_rate][${vindex}]" value="${veh.extra_km_rate || 0}" class="form-control input-sm extra_km_rate${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}" data-veh-index="${vindex}">
+                                    </div>
+                                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                                        <input type="text" id="veh_total${vid}" name="addloc[${count}][nights][${currentNightIndex}][veh_total][${vindex}]" value="${veh.veh_total || 0}" class="form-control input-sm munn${vindex}" maxlength="5" readonly data-night="${currentNightIndex}" data-veh-index="${vindex}">
+                                    </div>
+                                </div>`;
+                        });
+
+                        nightlyHtml += `
+                            <div class="row mt-3">
+                                <div class="col-12 d-flex justify-content-end">
+                                    <div class="col-xl-1.3 col-sm-12 col-md-2">
+                                        <div class="teams-rank"><b>Grand Total(Vehicle)</b></div>
+                                        <input type="text" id="veh_grand_total${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][veh_grand_total]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${currentNightIndex}">
+                                    </div>
+                                </div>
+                            </div>`;
+                    } else {
+                        nightlyHtml += `
+                            <input type="hidden" id="veh_grand_total${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][veh_grand_total]" value="0" data-night="${currentNightIndex}">`;
+                    }
+
+                    nightlyHtml += `</div></div></div>`;
+                });
+
+                $(`#nightly-details${count}`).html(nightlyHtml);
+
+                // Initialize Select2 for room categories
+                $(`.location-card[data-index="${count}"] .select2-show-search`).select2();
+                $(`.location-card[data-index="${count}"] .room_cat_change`).each(function() {
+                    var $select = $(this);
+                    var rid = $select.attr('data-id');
+                    var nightIndex = parseInt($select.attr('data-night'));
+                    var roomIndex = parseInt($select.attr('data-room-index'));
+                    var expansion = expansions[nightIndex - 1] || {};
+                    $select.val(expansion.expansion_room_category_id || '').trigger('change');
+                });
+
+                // Calculate totals
+                for (let ni = 1; ni <= expansions.length; ni++) {
+                    updateRoomTotals(count, ni, 1);
+                    if (is_vehicle_required == 1) {
+                        $.each(vehicle_models, function(vindex) {
+                            updateVehicleTotals(count, ni, vindex);
+                        });
+                    }
+                }
+
+                updateGrandtotalBoth();
+                get_veh_grand_total();
+                if (typeof toggleNightsVisibility === 'function') {
+                    toggleNightsVisibility();
+                }
+            });
+
+            $('#spinner_draft').hide();
+            $this.prop('disabled', false);
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', status, error, xhr.responseText);
+            alert('Error loading tour locations.');
+            $('#spinner_draft').hide();
+            $this.prop('disabled', false);
+        }
+    });
+});
+</script>
+<!-- <script>
 	$(document).on('click', '.draft_view', function() {
 		var $this = $(this);
 		if ($this.prop('disabled')) return;
@@ -7628,7 +8165,9 @@ function updateGrandtotalBoth(specificCount = null) {
 			}
 		});
 	});
-</script>
+</script> -->
+
+
 <script>
 	$(document).ready(function() {
 		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;

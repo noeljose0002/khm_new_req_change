@@ -7,6 +7,7 @@ use CodeIgniter\Model;
 class Enquiry_m extends Model
 {
     protected $khm_obj_enquiry_detail_extensions = 'khm_obj_enquiry_detail_extensions';
+    protected $khm_obj_enquiry_tour_expansion = 'khm_obj_enquiry_tour_expansion'; //nj//
     protected $khm_obj_itinerary_costing_details = 'khm_obj_itinerary_costing_details';
     protected $khm_obj_enquiry_itinerary_details = 'khm_obj_enquiry_itinerary_details';
     protected $khm_obj_enquiry_header = 'khm_obj_enquiry_header';
@@ -1135,6 +1136,30 @@ class Enquiry_m extends Model
         $db = \Config\Database::connect();
         return $this->db->table($this->khm_obj_enquiry_tour_details)->update($data, ['tour_details_id' => $tour_details_id]);
     }
+    //nj//
+    public function update_tour_expansion($data, $tour_details_id, $date)
+    {
+        $db = \Config\Database::connect();
+        return $db->table($this->khm_obj_enquiry_tour_expansion)
+                  ->where('tour_details_id', $tour_details_id)
+                  ->where('tour_expansion_date', $date)
+                  ->update($data);
+    }
+    public function tour_expansion_exists($tour_details_id, $date)
+    {
+        $db = \Config\Database::connect();
+        return $db->table($this->khm_obj_enquiry_tour_expansion)
+                  ->where('tour_details_id', $tour_details_id)
+                  ->where('tour_expansion_date', $date)
+                  ->countAllResults() > 0;
+    }
+
+    public function delete_tour_expansion($tour_details_id)
+    {
+        $db = \Config\Database::connect();
+        return $db->table($this->khm_obj_enquiry_tour_expansion)->where('tour_details_id', $tour_details_id)->delete();
+    }
+
 
     public function update_approve_action($data, $payment_id)
     {
@@ -1335,6 +1360,12 @@ class Enquiry_m extends Model
         $response = $this->db->table($this->khm_obj_enquiry_tour_details)->insert($data);
         $insert_id = $this->db->insertID();
         return $insert_id;
+    }
+    //nj//
+    public function insert_tour_expansion($data)
+    {
+        $db = \Config\Database::connect();
+        return $db->table($this->khm_obj_enquiry_tour_expansion)->insert($data);
     }
     public function insert_eighteen_details_double($data)
     {
