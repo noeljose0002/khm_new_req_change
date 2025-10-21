@@ -2162,29 +2162,60 @@ class Enquiry_m extends Model
         return $result;
     }
     //nj//
-    public function loadTourLocation($enquiry_header_id, $enquiry_details_id)
+public function loadTourLocation($enquiry_header_id, $enquiry_details_id)
 {
     $db = \Config\Database::connect();
     $response = [];
-    $selected_table = $db->table('khm_obj_enquiry_tour_details a');
-    $result = $selected_table->select('a.*, g.geog_name, o.object_name, r.room_category_name, t.no_of_adult, t.no_of_child_with_bed, t.no_of_child_without_bed, t.no_of_double_room, t.no_of_single_room, t.no_of_extra_bed, e.tour_expansion_id, e.tour_expansion_date, e.room_category_id as expansion_room_category_id, e.meal_plan_id, e.room_rate_double, e.child_with_bed_double, e.child_without_bed_double, e.extra_bed_double, e.double_total_rate, e.room_rate_single, e.child_with_bed_single, e.child_without_bed_single, e.extra_bed_single, e.single_total_rate, e.vehicle_details_json')
+
+    // STEP 1: Fetch all active tour detail rows
+    $tour_result = $db->table('khm_obj_enquiry_tour_details a')
+        ->select('a.*, g.geog_name, o.object_name, r.room_category_name, 
+                  t.no_of_adult, t.no_of_child_with_bed, t.no_of_child_without_bed, 
+                  t.no_of_double_room, t.no_of_single_room, t.no_of_extra_bed')
         ->join('khm_obj_enquiry_details t', 't.enquiry_details_id = a.enquiry_details_id', 'left')
         ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left')
         ->join('khm_obj_hotel h', 'h.hotel_id = a.hotel_id', 'left')
         ->join('khm_obj_mst o', 'o.object_id = h.object_id', 'left')
         ->join('khm_obj_mst_hotel_room_category r', 'r.room_category_id = a.room_category_id', 'left')
-        ->join('khm_obj_enquiry_tour_expansion e', 'e.tour_details_id = a.tour_details_id', 'left')
         ->where('a.enquiry_header_id', $enquiry_header_id)
         ->where('a.enquiry_details_id', $enquiry_details_id)
         ->where('a.is_active', 1)
-        ->get()->getResultArray();
-    foreach ($result as $key => $vals) {
-        $cost = $this->get_tourcost_byid($vals['tour_details_id']);
+        ->get()
+        ->getResultArray();
+
+    // If no tours found
+    if (empty($tour_result)) {
+        return ['status' => 'no_tours_found'];
+    }
+
+    // STEP 2: Attach expansion and cost
+    foreach ($tour_result as $key => $vals) {
+        $tour_details_id = $vals['tour_details_id'];
+
+        // --- DEBUG: Check if tour_details_id exists ---
+        // log_message('debug', 'Checking expansions for tour_details_id: ' . $tour_details_id);
+
+        // ✅ Fetch expansion details (no join needed)
+        $expansion = $db->table('khm_obj_enquiry_tour_expansion')
+            ->select('*')
+            ->where('tour_details_id', $tour_details_id)
+            ->get()
+            ->getResultArray();
+
+        // --- DEBUG: Check fetched expansion ---
+        // log_message('debug', 'Expansion found: ' . json_encode($expansion));
+
+        // Get cost via your custom method
+        $cost = $this->get_tourcost_byid($tour_details_id);
+
         $response[$key] = $vals;
+        $response[$key]['expansion'] = $expansion;  // multiple expansion rows
         $response[$key]['cost'] = $cost;
     }
+
     return $response;
 }
+
     // public function loadTourLocation($enquiry_header_id,$enquiry_details_id)
     // {
     //     $db = \Config\Database::connect();
