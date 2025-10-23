@@ -70,6 +70,54 @@ $is_edit = $edit_id ? $edit_id : 0;
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>" />
 	<script src="<?php echo base_url('assets/tiny_mce/tiny_mce.js'); ?>"></script>
 	<style>
+		.total-col {
+    flex: 1;
+    min-width: 180px; /* adjust as needed */
+    max-width: 200px; /* keep consistency */
+	
+}
+.textlef{
+	margin-left:10px ;
+}
+
+.total-col .form-control {
+    height: 41px;
+    border: 1px solid #0c502e;
+    border-radius: 10px;
+    display: flex
+;
+    align-items: center;
+	margin-left: 10px;
+    background-color: #fff;
+}
+
+.total-col-room{
+	margin-left: -9px;
+	 flex: 1;
+    min-width: 180px; /* adjust as needed */
+    max-width: 200px; /* keep consistency */
+	
+}
+.col-room{
+	margin-left: 4px;
+}
+
+/* Label (like Total(Double), Grand Total(Double)) */
+.teams-rank {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+/* Input box style */
+.total-col .form-control {
+    height: 41px;
+    border: 1px solid #0c502e;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+}
 		select[id^="hotelcat"]+.select2 .select2-selection,
 		select[id^="hotelid"]+.select2 .select2-selection,
 		select[id^="roomcat_common"]+.select2 .select2-selection,
@@ -1998,7 +2046,7 @@ $is_edit = $edit_id ? $edit_id : 0;
                                             </div>
                                             <div class="col-xl col-sm-12 col-md-2">
                                                 <div class="teams-rank"><b>Total Pax</b></div>
-                                                <input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly>
+                                                <input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly> <br>
                                             </div>
                                         </div>
                                         <div class="nightly-details" id="nightly-details${count}"></div>
@@ -2100,7 +2148,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		// Night header + open card wrapper to contain rows (prevents .row negative margins from overflowing)
 		nightlyHtml += `<div class="night-section" data-night="${night}">
-        <h4 style="color:#003300; text-align: center;">Night ${night} (${nightDateStr}) <a href="#" class="close-night-btn" style="float: right; font-size: 12px;"><i class="fe fe-x"></i></a></h4>
+        <h3 style="color:#0000CD; text-align: center;"><b>Night ${night} (${nightDateStr}) </b><a href="#" class="close-night-btn" style="float: right; font-size: 12px;"><i class="fe fe-x"></i></a></h3>
         <div class="card p-3 mb-3" id="card_night_${count}_${night}">
           <div class="container-fluid px-2">`;
 
@@ -2110,7 +2158,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			nightlyHtml += `
 			
                 <div class="col-12 d-flex justify-content-left">
-                       <div class="col-xl-1.3 col-sm-12 col-md-2">
+                       <div class="col-xl-1.3 col-sm-12 col-md-2 total-col-room">
                             <div class="teams-rank"><b>Double Room</b></div>
                             <input type="text" id="double${count}${night}" name="addloc[${count}][nights][${night}][double]" value="${no_of_double_room}" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}">
                         </div>
@@ -2167,9 +2215,9 @@ $is_edit = $edit_id ? $edit_id : 0;
             </div>
             <div class="row mt-3">
                 <div class="col-12 d-flex justify-content-end">
-                    <div class="col-xl-1.3 col-sm-12 col-md-2">
-                        <div class="teams-rank"><b>Grand Total(Double)</b></div>
-                        <input type="text" id="dd_total_rate${count}${night}" name="addloc[${count}][nights][${night}][dd_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}">
+                    <div class="col-xl col-sm-12 col-md-2 total-col">
+                        <div class="teams-rank textlef"><b>Grand Total(Double)</b></div>
+                        <input type="text" id="dd_total_rate${count}${night}" name="addloc[${count}][nights][${night}][dd_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}"><br>
                     </div>
                 </div>
             </div>
@@ -2194,8 +2242,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 			nightlyHtml += `
 			
                 <div class="col-12 d-flex justify-content-left">
-                       <div class="col-xl-1.3 col-sm-12 col-md-2">
-                            <div class="teams-rank"><b>Single Room</b></div>
+                       <div class="col-xl-1.3 col-sm-12 col-md-2 total-col-room">
+                            <div class="teams-rank col-room"><b>Single Room</b></div>
                              <input type="text" id="single${count}${night}" name="addloc[${count}][nights][${night}][single]" value="${no_of_single_room}" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}" >
                         </div>
                 </div>
@@ -2252,9 +2300,9 @@ $is_edit = $edit_id ? $edit_id : 0;
            
             <div class="row mt-3">
                 <div class="col-12 d-flex justify-content-end">
-                    <div class="col-xl-1.3 col-sm-12 col-md-2">
-                        <div class="teams-rank"><b>Grand Total(Single)</b></div>
-                        <input type="text" id="ss_total_rate${count}${night}" name="addloc[${count}][nights][${night}][ss_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}">
+                    <div class="col-xl-1.3 col-sm-12 col-md-2 total-col">
+                        <div class="teams-rank textlef"><b>Grand Total(Single)</b></div>
+                        <input type="text" id="ss_total_rate${count}${night}" name="addloc[${count}][nights][${night}][ss_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}"> <br>
                     </div>
                 </div>
             </div>
@@ -2697,7 +2745,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 						// When NOT dynamic, hide specific elements in night 1
 
 						// Hide the night count/date header
-						$nightSection.find('> h4').hide();
+						$nightSection.find('> h3').hide();
 
 						// For double rooms - hide all room input rows except the first
 						var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
@@ -2723,7 +2771,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 					} else {
 						// When dynamic, show everything in night 1
-						$nightSection.find('> h4').show();
+						$nightSection.find('> h3').show();
 						$nightSection.find('.row.mt-2.align-items-center').show();
 					}
 				}
@@ -3196,7 +3244,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		var value = $(this).val();
 		var count = $(this).attr('data-id');
 		var commonOptions = $(this).html();
-		alert(commonOptions); // Get the current options from the common dropdown
+		// alert(commonOptions); // Get the current options from the common dropdown
 
 		$(`#nightly-details${count} .room_cat_change`).each(function() {
 			$(this).select2('destroy'); // Destroy existing Select2 to allow HTML update
@@ -7538,7 +7586,7 @@ $is_edit = $edit_id ? $edit_id : 0;
                                     </div>
                                     <div class="col-xl col-sm-12 col-md-2">
                                         <div class="teams-rank"><b>Total Pax</b></div>
-                                        <input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly>
+                                        <input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly ><br>
                                     </div>
                                 </div>
                                 <div class="nightly-details" id="nightly-details${count}"></div>
@@ -7636,7 +7684,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 								nightlyHtml += `
                         <div class="night-section" data-night="${currentNightIndex}">
-                            <h4 style="color:#003300; text-align: center;">Night ${currentNightIndex} (${nightDateStr}) <a href="#" class="close-night-btn" style="float: right; font-size: 12px;"><i class="fe fe-x"></i></a></h4>
+                            <h3 style="color:#0000CD; text-align: center;">Night ${currentNightIndex} (${nightDateStr}) <a href="#" class="close-night-btn" style="float: right; font-size: 12px;"><i class="fe fe-x"></i></a></h3>
                             <div class="card p-3 mb-3" id="card_night_${count}_${currentNightIndex}">
                                 <div class="container-fluid px-2">`;
 
@@ -7648,8 +7696,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 									doubleHtml += `
                             <div class="row mt-2 double_row">
                                 <div class="col-12 d-flex justify-content-left">
-                                    <div class="col-xl-1.3 col-sm-12 col-md-2">
-                                        <div class="teams-rank"><b>Double Room</b></div>
+                                    <div class="col-xl-1.3 col-sm-12 col-md-2 total-col-room">
+                                        <div class="teams-rank col-room"><b>Double Room</b></div>
                                         <input type="text" id="double${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][double]" value="${noDouble}" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}">
                                     </div>
                                 </div>
@@ -7713,9 +7761,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 									doubleHtml += `
                             <div class="row mt-3">
                                 <div class="col-12 d-flex justify-content-end">
-                                    <div class="col-xl-1.3 col-sm-12 col-md-2">
-                                        <div class="teams-rank"><b>Grand Total(Double)</b></div>
-                                        <input type="text" id="dd_total_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][dd_total_rate]" value="${ddTotal}" class="form-control input-sm" maxlength="6" readonly data-night="${currentNightIndex}">
+                                    <div class="col-xl-2 col-sm-12 col-md-2 total-col">
+                                        <div class="teams-rank textlef"><b> Grand Total(Double)</b></div>
+                                        <input type="text" id="dd_total_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][dd_total_rate]" value="${ddTotal}" class="form-control input-sm" maxlength="6" readonly data-night="${currentNightIndex}"><br>
                                     </div>
                                 </div>
                             </div>
@@ -7736,8 +7784,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 									singleHtml += `
                             <div class="row mt-2 single_row">
                                 <div class="col-12 d-flex justify-content-left">
-                                    <div class="col-xl-1.3 col-sm-12 col-md-2">
-                                        <div class="teams-rank"><b>Single Room</b></div>
+                                    <div class="col-xl-1.3 col-sm-12 col-md-2 total-col-room">
+                                        <div class="teams-rank col-room"><b>Single Room</b></div>
                                         <input type="text" id="single${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][single]" value="${noSingle}" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}">
                                     </div>
                                 </div>
@@ -7803,9 +7851,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 									singleHtml += `
                             <div class="row mt-3">
                                 <div class="col-12 d-flex justify-content-end">
-                                    <div class="col-xl-1.3 col-sm-12 col-md-2">
-                                        <div class="teams-rank"><b>Grand Total(Single)</b></div>
-                                        <input type="text" id="ss_total_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][ss_total_rate]" value="${ssTotal}" class="form-control input-sm" maxlength="6" readonly data-night="${currentNightIndex}">
+                                    <div class="col-xl-1.3 col-sm-12 col-md-2 total-col">
+                                        <div class="teams-rank textlef"><b>Grand Total(Single)</b></div>
+                                        <input type="text" id="ss_total_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][ss_total_rate]" value="${ssTotal}" class="form-control input-sm" maxlength="6" readonly data-night="${currentNightIndex}"> <br>
                                     </div>
                                 </div>
                             </div>
