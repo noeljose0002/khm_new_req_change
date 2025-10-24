@@ -70,46 +70,159 @@ $is_edit = $edit_id ? $edit_id : 0;
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>" />
 	<script src="<?php echo base_url('assets/tiny_mce/tiny_mce.js'); ?>"></script>
 	<style>
-		.total-col {
-    flex: 1;
-    min-width: 180px; /* adjust as needed */
-    max-width: 200px; /* keep consistency */
-	
+		select.input-sm + .select2-container {
+    width: 100% !important; /* Force full width of parent container for responsiveness on zoom/resize */
 }
+
+select.input-sm + .select2-container .select2-selection--single {
+    border: 1px solid #0c502e !important;
+    border-radius: 10px !important;
+    min-height: 30px !important; /* Stick with min-height for zoom flexibility */
+    display: flex !important;
+    align-items: center !important;
+    padding-left: 8px !important;
+    background-color: #fff !important;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+    box-sizing: border-box !important;
+    width: 100% !important; /* Ensure selection matches container width */
+}
+
+/* Rendered text adjustments remain the same */
+select.input-sm + .select2-container .select2-selection__rendered {
+    line-height: 1.4 !important;
+    font-size: 13px !important;
+    color: #000 !important;
+    padding: 0 !important;
+    height: auto !important;
+    white-space: nowrap !important; /* Prevent text wrapping if it's causing stretch issues; adjust to normal if needed */
+    overflow: hidden !important; /* Hide overflow to keep it tidy on zoom */
+}
+
+/* Dropdown arrow - keep relative */
+select.input-sm + .select2-container .select2-selection__arrow {
+    height: 100% !important;
+    top: 0 !important;
+    width: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important; /* Prevent arrow from shrinking on narrow zooms */
+}
+
+/* Open/Focus states unchanged */
+select.input-sm + .select2.select2-container--open .select2-selection,
+select.input-sm + .select2.select2-container--focus .select2-selection {
+    border-color: #0c502e !important;
+    box-shadow: 0 0 0 4px rgba(21, 236, 68, 0.2) !important;
+}
+
+/* Ensure dropdown itself is also responsive */
+select.input-sm + .select2-container .select2-dropdown {
+    width: auto !important; /* Let it match selection width naturally */
+    min-width: 100% !important; /* At minimum, full width of trigger */
+}
+
 .textlef{
 	margin-left:10px ;
 }
 
-.total-col .form-control {
-    height: 41px;
-    border: 1px solid #0c502e;
-    border-radius: 10px;
-    display: flex
-;
-    align-items: center;
-	margin-left: 10px;
-    background-color: #fff;
+/* Override form-control styles specifically for inputs inside .total-col-room */
+.total-col .form-control.input-sm{
+    height: 30px !important; /* Match your desired height */
+    min-height: 30px !important; /* For zoom flexibility */
+    border: 1px solid #0c502e !important; /* Custom border */
+    border-radius: 10px !important; /* Rounded corners */
+    display: flex !important;
+    align-items: left !important; /* Center content vertically */
+    background-color: #fff !important; /* White background */
+    width: 87% !important; /* Full width stretch */
+    box-sizing: border-box !important; /* Include padding/border in width */
+    margin-left: 44px !important; /* Override any default margins; adjust if needed */
+    padding: 0 8px !important; /* Add internal padding for text alignment */
+    font-size: 13px !important; /* Small input font */
+
+    text-align: left !important; /* Center numeric input if desired */
+    /* For readonly inputs: subtle focus styles */
+    &:focus {
+        border-color: #0c502e !important;
+        box-shadow: 0 0 0 0.2rem rgba(21, 236, 68, 0.2)!important; /* Subtle glow */
+    }
 }
 
-.total-col-room{
-	margin-left: -9px;
-	 flex: 1;
-    min-width: 180px; /* adjust as needed */
-    max-width: 200px; /* keep consistency */
-	
+/* Ensure the label (.teams-rank) doesn't interfere with input stretching */
+.total-col .teams-rank.col-room {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin-bottom: 5px !important; /* Space between label and input */
+    text-align: left !important;
+    font-weight: bold !important;
 }
+
+/* Parent .total-col-room flex responsiveness (from previous fixes) */
+ .total-col{
+    margin-left: -9px !important;
+    flex: 1 !important;
+    min-width: 180px;
+    width: auto !important;
+    box-sizing: border-box !important;
+    flex-basis: 0 !important;
+    flex-grow: 1 !important;
+    flex-shrink: 1 !important;
+}
+
+.total-col-room .form-control.input-sm{
+    height: 30px !important; /* Match your desired height */
+    min-height: 30px !important; /* For zoom flexibility */
+    border: 1px solid #0c502e !important; /* Custom border */
+    border-radius: 10px !important; /* Rounded corners */
+    display: flex !important;
+    align-items: left !important; /* Center content vertically */
+    background-color: #fff !important; /* White background */
+    width: 87% !important; /* Full width stretch */
+    box-sizing: border-box !important; /* Include padding/border in width */
+    margin-left: 0 !important; /* Override any default margins; adjust if needed */
+    padding: 0 8px !important; /* Add internal padding for text alignment */
+    font-size: 13px !important; /* Small input font */
+
+    text-align: left !important; /* Center numeric input if desired */
+    /* For readonly inputs: subtle focus styles */
+    &:focus {
+        border-color: #0c502e !important;
+        box-shadow: 0 0 0 0.2rem rgba(21, 236, 68, 0.2)!important; /* Subtle glow */
+    }
+}
+
+/* Ensure the label (.teams-rank) doesn't interfere with input stretching */
+.total-col-room .teams-rank.col-room {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin-bottom: 5px !important; /* Space between label and input */
+    text-align: left !important;
+    font-weight: bold !important;
+}
+
+/* Parent .total-col-room flex responsiveness (from previous fixes) */
+.total-col-room {
+    margin-left: -9px !important;
+    flex: 1 !important;
+    min-width: 180px;
+    width: auto !important;
+    box-sizing: border-box !important;
+    flex-basis: 0 !important;
+    flex-grow: 1 !important;
+    flex-shrink: 1 !important;
+}
+
+
+
+
 .col-room{
 	margin-left: 4px;
 }
 
 /* Label (like Total(Double), Grand Total(Double)) */
-.teams-rank {
-    font-weight: bold;
-    margin-bottom: 5px;
-    text-align: left;
-}
 
-/* Input box style */
+
 .total-col .form-control {
     height: 41px;
     border: 1px solid #0c502e;
@@ -118,7 +231,7 @@ $is_edit = $edit_id ? $edit_id : 0;
     align-items: center;
     background-color: #fff;
 }
-		select[id^="hotelcat"]+.select2 .select2-selection,
+		/* select[id^="hotelcat"]+.select2 .select2-selection,
 		select[id^="hotelid"]+.select2 .select2-selection,
 		select[id^="roomcat_common"]+.select2 .select2-selection,
 		select[id^="roomcat"]+.select2 .select2-selection,
@@ -131,7 +244,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			padding-left: 8px;
 			background-color: #fff;
 			transition: box-shadow 0.3s ease, border-color 0.3s ease;
-			/* Smooth transition */
+		
 		}
 
 		select[id^="hotelcat"]+.select2 .select2-selection__rendered ,
@@ -144,7 +257,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			font-size: 14px;
 		}
 
-		/* Add glow effect on focus/open */
+		
 		select[id^="hotelcat"]+.select2.select2-container--open .select2-selection,
 		select[id^="hotelcat"]+.select2.select2-container--focus .select2-selection,
 		select[id^="hotelid"]+.select2.select2-container--open .select2-selection,
@@ -158,9 +271,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 		 {
 			border-color: #0c502e !important;
 			box-shadow: 0 0 0 4px rgba(21, 236, 68, 0.2)!important;
-			/* Alternative softer glow: */
-			/* box-shadow: 0 0 8px rgba(12, 80, 46, 0.4) !important; */
-		}
+			
+		} */
 
 		.table th,
 		.text-wrap table th {
@@ -3498,7 +3610,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			</button>
 		</div>`;
 
-		$('#hotel_alert').html(alertHtml);
+		// $('#hotel_alert').html(alertHtml);
 
 		setTimeout(function() {
 			$(".alert").fadeOut("slow", function() {
@@ -4215,7 +4327,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 												</div>
 												<div class="col-xl-2 col-sm-12 col-md-2">
 													<div class="teams-rank"><b>Hotel Category</b></div>
-														<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change_draft" data-id="${count}" data-hid="${item.hotel_id}" readonly>
+														<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search  hotel_cat_change_draft" data-id="${count}" data-hid="${item.hotel_id}" readonly>
 														<option value="">Select</option>
 														</select>
 												</div>
@@ -5673,7 +5785,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 									doubleHtml += `
                             <div class="row mt-2 double_row">
                                 <div class="col-12 d-flex justify-content-left">
-                                    <div class="col-xl-1.3 col-sm-12 col-md-2 total-col-room">
+                                    <div class="col-xl-2 col-sm-12 col-md-2 total-col-room">
                                         <div class="teams-rank col-room"><b>Double Room</b></div>
                                         <input type="text" id="double${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][double]" value="${noDouble}" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${currentNightIndex}">
                                     </div>
