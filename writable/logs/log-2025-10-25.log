@@ -116,3 +116,153 @@ in APPPATH\Views\enquiry\itinerary_view.php on line 934.
  9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
 10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-25 17:55:23 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT a.tariff...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT a.tariff...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT a.tariff...')
+#3 C:\wamp64\www\khm\app\Models\Enquiry_m.php(2544): CodeIgniter\Database\BaseConnection->query('SELECT a.tariff...')
+#4 C:\wamp64\www\khm\app\Controllers\Enquiry.php(2607): App\Models\Enquiry_m->getTourTariffDetails(6, '1671', 2, '1465', '1761', '')
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-10-25 17:55:23 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+[Method: POST, Route: Enquiry/getTourTariffDetails]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 APPPATH\Models\Enquiry_m.php(2544): CodeIgniter\Database\BaseConnection->query('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 2 APPPATH\Controllers\Enquiry.php(2607): App\Models\Enquiry_m->getTourTariffDetails(6, '1671', 2, '1465', '1761', '')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 17:55:23 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 3 APPPATH\Models\Enquiry_m.php(2544): CodeIgniter\Database\BaseConnection->query('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 4 APPPATH\Controllers\Enquiry.php(2607): App\Models\Enquiry_m->getTourTariffDetails(6, '1671', 2, '1465', '1761', '')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 17:55:23 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 4 APPPATH\Models\Enquiry_m.php(2544): CodeIgniter\Database\BaseConnection->query('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 5 APPPATH\Controllers\Enquiry.php(2607): App\Models\Enquiry_m->getTourTariffDetails(6, '1671', 2, '1465', '1761', '')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-25 17:55:24 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT a.tariff...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT a.tariff...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT a.tariff...')
+#3 C:\wamp64\www\khm\app\Models\Enquiry_m.php(2544): CodeIgniter\Database\BaseConnection->query('SELECT a.tariff...')
+#4 C:\wamp64\www\khm\app\Controllers\Enquiry.php(2607): App\Models\Enquiry_m->getTourTariffDetails(6, '2239', 2, '1465', '1761', '')
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-10-25 17:55:24 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+[Method: POST, Route: Enquiry/getTourTariffDetails]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 APPPATH\Models\Enquiry_m.php(2544): CodeIgniter\Database\BaseConnection->query('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 2239 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 2 APPPATH\Controllers\Enquiry.php(2607): App\Models\Enquiry_m->getTourTariffDetails(6, '2239', 2, '1465', '1761', '')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 17:55:24 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 2239 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 2239 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 3 APPPATH\Models\Enquiry_m.php(2544): CodeIgniter\Database\BaseConnection->query('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 2239 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 4 APPPATH\Controllers\Enquiry.php(2607): App\Models\Enquiry_m->getTourTariffDetails(6, '2239', 2, '1465', '1761', '')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 17:55:24 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 2239 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 2239 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 2239 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 4 APPPATH\Models\Enquiry_m.php(2544): CodeIgniter\Database\BaseConnection->query('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 2239 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 5 APPPATH\Controllers\Enquiry.php(2607): App\Models\Enquiry_m->getTourTariffDetails(6, '2239', 2, '1465', '1761', '')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-25 17:55:26 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1 in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT a.tariff...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT a.tariff...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT a.tariff...')
+#3 C:\wamp64\www\khm\app\Models\Enquiry_m.php(2544): CodeIgniter\Database\BaseConnection->query('SELECT a.tariff...')
+#4 C:\wamp64\www\khm\app\Controllers\Enquiry.php(2607): App\Models\Enquiry_m->getTourTariffDetails(6, '1671', 2, '1465', '1761', '')
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-10-25 17:55:26 --> CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+[Method: POST, Route: Enquiry/getTourTariffDetails]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 APPPATH\Models\Enquiry_m.php(2544): CodeIgniter\Database\BaseConnection->query('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 2 APPPATH\Controllers\Enquiry.php(2607): App\Models\Enquiry_m->getTourTariffDetails(6, '1671', 2, '1465', '1761', '')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 17:55:26 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 3 APPPATH\Models\Enquiry_m.php(2544): CodeIgniter\Database\BaseConnection->query('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 4 APPPATH\Controllers\Enquiry.php(2607): App\Models\Enquiry_m->getTourTariffDetails(6, '1671', 2, '1465', '1761', '')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 17:55:26 --> [Caused by] mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 4 APPPATH\Models\Enquiry_m.php(2544): CodeIgniter\Database\BaseConnection->query('SELECT a.tariff FROM khm_obj_hotel_special_tariff a LEFT JOIN khm_obj_hotel_room_meal h ON h.hotel_room_meal_id = a.hotel_room_meal_id LEFT JOIN khm_obj_room r ON r.room_id = h.room_id WHERE r.room_type_id = 2 AND r.room_category_id = 1671 AND r.object_id = 1761 AND a.special_tariff_id = 1465 AND h.meal_plan_id = ')
+ 5 APPPATH\Controllers\Enquiry.php(2607): App\Models\Enquiry_m->getTourTariffDetails(6, '1671', 2, '1465', '1761', '')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
