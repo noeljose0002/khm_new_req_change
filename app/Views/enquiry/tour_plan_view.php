@@ -73,6 +73,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 		select.input-sm + .select2-container {
     width: 100% !important; /* Force full width of parent container for responsiveness on zoom/resize */
 }
+.cardy{
+	background: #c2d6d6;
+}
 
 select.input-sm + .select2-container .select2-selection--single {
     border: 1px solid #0c502e !important;
@@ -123,7 +126,7 @@ select.input-sm + .select2-container .select2-dropdown {
 }
 
 .textlef{
-	margin-left:10px ;
+	margin-left:16% !important ;
 }
 
 /* Override form-control styles specifically for inputs inside .total-col-room */
@@ -137,7 +140,7 @@ select.input-sm + .select2-container .select2-dropdown {
     background-color: #fff !important; /* White background */
     width: 87% !important; /* Full width stretch */
     box-sizing: border-box !important; /* Include padding/border in width */
-    margin-left: 44px !important; /* Override any default margins; adjust if needed */
+    margin-left: 15% !important; /* Override any default margins; adjust if needed */
     padding: 0 8px !important; /* Add internal padding for text alignment */
     font-size: 13px !important; /* Small input font */
 
@@ -2030,7 +2033,7 @@ select.input-sm + .select2-container .select2-dropdown {
 					newCard += `
                     <div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header cardy">
                                 <div id="eighteen_div_d${count}"></div>
                                 <div id="eighteen_div_s${count}"></div>
                                 <input type="hidden" id="tax_status${count}" name="addloc[${count}][tax_status]" value="0">
@@ -2285,7 +2288,7 @@ select.input-sm + .select2-container .select2-dropdown {
             </div>
             <div class="row mt-3">
                 <div class="col-12 d-flex justify-content-end">
-                    <div class="col-xl col-sm-12 col-md-2 total-col">
+                    <div class="col-xl-2 col-sm-12 col-md-2 total-col">
                         <div class="teams-rank textlef"><b>Grand Total(Double)</b></div>
                         <input type="text" id="dd_total_rate${count}${night}" name="addloc[${count}][nights][${night}][dd_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}"><br>
                     </div>
@@ -4294,7 +4297,7 @@ select.input-sm + .select2-container .select2-dropdown {
 					
 						<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
 							<div class="card">
-								<div class="card-header">
+								<div class="card-header cardy">
 									<div id="eighteen_div_d${count}"></div>
 									<div id="eighteen_div_s${count}"></div>
 									<input type="hidden" id="tax_status${count}" name="addloc[${count}][tax_status]" value="${item.tax_status}">
@@ -5525,7 +5528,7 @@ select.input-sm + .select2-container .select2-dropdown {
 				});
 				var count = 0;
 
-				function processLocation(index) {
+				function processLocation(index) {	
 					if (index > tourDetailsArray.length) {
 						var totalNights = calculateTotalNights();
 						$('#planned_night').text(totalNights + " / ");
@@ -5599,7 +5602,7 @@ select.input-sm + .select2-container .select2-dropdown {
 					var newCard = `
             <div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header cardy">
                         <div id="eighteen_div_d${count}"></div>
                         <div id="eighteen_div_s${count}"></div>
                         <input type="hidden" id="tax_status${count}" name="addloc[${count}][tax_status]" value="${item.tax_status}">
@@ -5940,7 +5943,7 @@ select.input-sm + .select2-container .select2-dropdown {
 									singleHtml += `
                             <div class="row mt-3">
                                 <div class="col-12 d-flex justify-content-end">
-                                    <div class="col-xl-1.3 col-sm-12 col-md-2 total-col">
+                                    <div class="col-xl-2 col-sm-12 col-md-2 total-col">
                                         <div class="teams-rank textlef"><b>Grand Total(Single)</b></div>
                                         <input type="text" id="ss_total_rate${count}${currentNightIndex}" name="addloc[${count}][nights][${currentNightIndex}][ss_total_rate]" value="${ssTotal}" class="form-control input-sm" maxlength="6" readonly data-night="${currentNightIndex}"> <br>
                                     </div>
