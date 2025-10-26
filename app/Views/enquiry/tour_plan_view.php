@@ -70,170 +70,210 @@ $is_edit = $edit_id ? $edit_id : 0;
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>" />
 	<script src="<?php echo base_url('assets/tiny_mce/tiny_mce.js'); ?>"></script>
 	<style>
-		select.input-sm + .select2-container {
-    width: 100% !important; /* Force full width of parent container for responsiveness on zoom/resize */
-}
-.cardy{
-	background: #c2d6d6;
-}
+		select.input-sm+.select2-container {
+			width: 100% !important;
+			/* Force full width of parent container for responsiveness on zoom/resize */
+		}
 
-select.input-sm + .select2-container .select2-selection--single {
-    border: 1px solid #0c502e !important;
-    border-radius: 10px !important;
-    min-height: 30px !important; /* Stick with min-height for zoom flexibility */
-    display: flex !important;
-    align-items: center !important;
-    padding-left: 8px !important;
-    background-color: #fff !important;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
-    box-sizing: border-box !important;
-    width: 100% !important; /* Ensure selection matches container width */
-}
+		.cardy {
+			background: #c2d6d6;
+		}
 
-/* Rendered text adjustments remain the same */
-select.input-sm + .select2-container .select2-selection__rendered {
-    line-height: 1.4 !important;
-    font-size: 13px !important;
-    color: #000 !important;
-    padding: 0 !important;
-    height: auto !important;
-    white-space: nowrap !important; /* Prevent text wrapping if it's causing stretch issues; adjust to normal if needed */
-    overflow: hidden !important; /* Hide overflow to keep it tidy on zoom */
-}
+		select.input-sm+.select2-container .select2-selection--single {
+			border: 1px solid #0c502e !important;
+			border-radius: 10px !important;
+			min-height: 30px !important;
+			/* Stick with min-height for zoom flexibility */
+			display: flex !important;
+			align-items: center !important;
+			padding-left: 8px !important;
+			background-color: #fff !important;
+			transition: box-shadow 0.3s ease, border-color 0.3s ease !important;
+			box-sizing: border-box !important;
+			width: 100% !important;
+			/* Ensure selection matches container width */
+		}
 
-/* Dropdown arrow - keep relative */
-select.input-sm + .select2-container .select2-selection__arrow {
-    height: 100% !important;
-    top: 0 !important;
-    width: 20px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    flex-shrink: 0 !important; /* Prevent arrow from shrinking on narrow zooms */
-}
+		/* Rendered text adjustments remain the same */
+		select.input-sm+.select2-container .select2-selection__rendered {
+			line-height: 1.4 !important;
+			font-size: 13px !important;
+			color: #000 !important;
+			padding: 0 !important;
+			height: auto !important;
+			white-space: nowrap !important;
+			/* Prevent text wrapping if it's causing stretch issues; adjust to normal if needed */
+			overflow: hidden !important;
+			/* Hide overflow to keep it tidy on zoom */
+		}
 
-/* Open/Focus states unchanged */
-select.input-sm + .select2.select2-container--open .select2-selection,
-select.input-sm + .select2.select2-container--focus .select2-selection {
-    border-color: #0c502e !important;
-    box-shadow: 0 0 0 4px rgba(21, 236, 68, 0.2) !important;
-}
+		/* Dropdown arrow - keep relative */
+		select.input-sm+.select2-container .select2-selection__arrow {
+			height: 100% !important;
+			top: 0 !important;
+			width: 20px !important;
+			display: flex !important;
+			align-items: center !important;
+			justify-content: center !important;
+			flex-shrink: 0 !important;
+			/* Prevent arrow from shrinking on narrow zooms */
+		}
 
-/* Ensure dropdown itself is also responsive */
-select.input-sm + .select2-container .select2-dropdown {
-    width: auto !important; /* Let it match selection width naturally */
-    min-width: 100% !important; /* At minimum, full width of trigger */
-}
+		/* Open/Focus states unchanged */
+		select.input-sm+.select2.select2-container--open .select2-selection,
+		select.input-sm+.select2.select2-container--focus .select2-selection {
+			border-color: #0c502e !important;
+			box-shadow: 0 0 0 4px rgba(21, 236, 68, 0.2) !important;
+		}
 
-.textlef{
-	margin-left:16% !important ;
-}
+		/* Ensure dropdown itself is also responsive */
+		select.input-sm+.select2-container .select2-dropdown {
+			width: auto !important;
+			/* Let it match selection width naturally */
+			min-width: 100% !important;
+			/* At minimum, full width of trigger */
+		}
 
-/* Override form-control styles specifically for inputs inside .total-col-room */
-.total-col .form-control.input-sm{
-    height: 30px !important; /* Match your desired height */
-    min-height: 30px !important; /* For zoom flexibility */
-    border: 1px solid #0c502e !important; /* Custom border */
-    border-radius: 10px !important; /* Rounded corners */
-    display: flex !important;
-    align-items: left !important; /* Center content vertically */
-    background-color: #fff !important; /* White background */
-    width: 87% !important; /* Full width stretch */
-    box-sizing: border-box !important; /* Include padding/border in width */
-    margin-left: 15% !important; /* Override any default margins; adjust if needed */
-    padding: 0 8px !important; /* Add internal padding for text alignment */
-    font-size: 13px !important; /* Small input font */
+		.textlef {
+			margin-left: 16% !important;
+		}
 
-    text-align: left !important; /* Center numeric input if desired */
-    /* For readonly inputs: subtle focus styles */
-    &:focus {
-        border-color: #0c502e !important;
-        box-shadow: 0 0 0 0.2rem rgba(21, 236, 68, 0.2)!important; /* Subtle glow */
-    }
-}
+		/* Override form-control styles specifically for inputs inside .total-col-room */
+		.total-col .form-control.input-sm {
+			height: 30px !important;
+			/* Match your desired height */
+			min-height: 30px !important;
+			/* For zoom flexibility */
+			border: 1px solid #0c502e !important;
+			/* Custom border */
+			border-radius: 10px !important;
+			/* Rounded corners */
+			display: flex !important;
+			align-items: left !important;
+			/* Center content vertically */
+			background-color: #fff !important;
+			/* White background */
+			width: 87% !important;
+			/* Full width stretch */
+			box-sizing: border-box !important;
+			/* Include padding/border in width */
+			margin-left: 15% !important;
+			/* Override any default margins; adjust if needed */
+			padding: 0 8px !important;
+			/* Add internal padding for text alignment */
+			font-size: 13px !important;
+			/* Small input font */
 
-/* Ensure the label (.teams-rank) doesn't interfere with input stretching */
-.total-col .teams-rank.col-room {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    margin-bottom: 5px !important; /* Space between label and input */
-    text-align: left !important;
-    font-weight: bold !important;
-}
+			text-align: left !important;
 
-/* Parent .total-col-room flex responsiveness (from previous fixes) */
- .total-col{
-    margin-left: -9px !important;
-    flex: 1 !important;
-    min-width: 180px;
-    width: auto !important;
-    box-sizing: border-box !important;
-    flex-basis: 0 !important;
-    flex-grow: 1 !important;
-    flex-shrink: 1 !important;
-}
+			/* Center numeric input if desired */
+			/* For readonly inputs: subtle focus styles */
+			&:focus {
+				border-color: #0c502e !important;
+				box-shadow: 0 0 0 0.2rem rgba(21, 236, 68, 0.2) !important;
+				/* Subtle glow */
+			}
+		}
 
-.total-col-room .form-control.input-sm{
-    height: 30px !important; /* Match your desired height */
-    min-height: 30px !important; /* For zoom flexibility */
-    border: 1px solid #0c502e !important; /* Custom border */
-    border-radius: 10px !important; /* Rounded corners */
-    display: flex !important;
-    align-items: left !important; /* Center content vertically */
-    background-color: #fff !important; /* White background */
-    width: 87% !important; /* Full width stretch */
-    box-sizing: border-box !important; /* Include padding/border in width */
-    margin-left: 0 !important; /* Override any default margins; adjust if needed */
-    padding: 0 8px !important; /* Add internal padding for text alignment */
-    font-size: 13px !important; /* Small input font */
+		/* Ensure the label (.teams-rank) doesn't interfere with input stretching */
+		.total-col .teams-rank.col-room {
+			width: 100% !important;
+			box-sizing: border-box !important;
+			margin-bottom: 5px !important;
+			/* Space between label and input */
+			text-align: left !important;
+			font-weight: bold !important;
+		}
 
-    text-align: left !important; /* Center numeric input if desired */
-    /* For readonly inputs: subtle focus styles */
-    &:focus {
-        border-color: #0c502e !important;
-        box-shadow: 0 0 0 0.2rem rgba(21, 236, 68, 0.2)!important; /* Subtle glow */
-    }
-}
+		/* Parent .total-col-room flex responsiveness (from previous fixes) */
+		.total-col {
+			margin-left: -9px !important;
+			flex: 1 !important;
+			min-width: 180px;
+			width: auto !important;
+			box-sizing: border-box !important;
+			flex-basis: 0 !important;
+			flex-grow: 1 !important;
+			flex-shrink: 1 !important;
+		}
 
-/* Ensure the label (.teams-rank) doesn't interfere with input stretching */
-.total-col-room .teams-rank.col-room {
-    width: 100% !important;
-    box-sizing: border-box !important;
-    margin-bottom: 5px !important; /* Space between label and input */
-    text-align: left !important;
-    font-weight: bold !important;
-}
+		.total-col-room .form-control.input-sm {
+			height: 30px !important;
+			/* Match your desired height */
+			min-height: 30px !important;
+			/* For zoom flexibility */
+			border: 1px solid #0c502e !important;
+			/* Custom border */
+			border-radius: 10px !important;
+			/* Rounded corners */
+			display: flex !important;
+			align-items: left !important;
+			/* Center content vertically */
+			background-color: #fff !important;
+			/* White background */
+			width: 87% !important;
+			/* Full width stretch */
+			box-sizing: border-box !important;
+			/* Include padding/border in width */
+			margin-left: 0 !important;
+			/* Override any default margins; adjust if needed */
+			padding: 0 8px !important;
+			/* Add internal padding for text alignment */
+			font-size: 13px !important;
+			/* Small input font */
 
-/* Parent .total-col-room flex responsiveness (from previous fixes) */
-.total-col-room {
-    margin-left: -9px !important;
-    flex: 1 !important;
-    min-width: 180px;
-    width: auto !important;
-    box-sizing: border-box !important;
-    flex-basis: 0 !important;
-    flex-grow: 1 !important;
-    flex-shrink: 1 !important;
-}
+			text-align: left !important;
+
+			/* Center numeric input if desired */
+			/* For readonly inputs: subtle focus styles */
+			&:focus {
+				border-color: #0c502e !important;
+				box-shadow: 0 0 0 0.2rem rgba(21, 236, 68, 0.2) !important;
+				/* Subtle glow */
+			}
+		}
+
+		/* Ensure the label (.teams-rank) doesn't interfere with input stretching */
+		.total-col-room .teams-rank.col-room {
+			width: 100% !important;
+			box-sizing: border-box !important;
+			margin-bottom: 5px !important;
+			/* Space between label and input */
+			text-align: left !important;
+			font-weight: bold !important;
+		}
+
+		/* Parent .total-col-room flex responsiveness (from previous fixes) */
+		.total-col-room {
+			margin-left: -9px !important;
+			flex: 1 !important;
+			min-width: 180px;
+			width: auto !important;
+			box-sizing: border-box !important;
+			flex-basis: 0 !important;
+			flex-grow: 1 !important;
+			flex-shrink: 1 !important;
+		}
 
 
 
 
-.col-room{
-	margin-left: 4px;
-}
+		.col-room {
+			margin-left: 4px;
+		}
 
-/* Label (like Total(Double), Grand Total(Double)) */
+		/* Label (like Total(Double), Grand Total(Double)) */
 
 
-.total-col .form-control {
-    height: 41px;
-    border: 1px solid #0c502e;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-}
+		.total-col .form-control {
+			height: 41px;
+			border: 1px solid #0c502e;
+			border-radius: 10px;
+			display: flex;
+			align-items: center;
+			background-color: #fff;
+		}
+
 		/* select[id^="hotelcat"]+.select2 .select2-selection,
 		select[id^="hotelid"]+.select2 .select2-selection,
 		select[id^="roomcat_common"]+.select2 .select2-selection,
@@ -1822,6 +1862,7 @@ select.input-sm + .select2-container .select2-dropdown {
 		});
 	});
 </script>
+
 <script>
 	$(document).ready(function() {
 		var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z]+(\.[a-zA-Z]+)+$/;
@@ -1970,174 +2011,215 @@ select.input-sm + .select2-container .select2-dropdown {
 	});
 </script>
 <script>
-    // New handler for room category changes
-$(document).on('change', '.room_cat_change', function() {
-    var $select = $(this);
-    var roomCatVal = $select.val();
-    var rid = $select.attr('data-id');
-    var count = $select.attr('count-id') || $select.data('count');
-    var night = parseInt($select.attr('data-night'));
-    var roomIndex = parseInt($select.attr('data-room-index'));
-    
-    // **CRITICAL: Get room type from data attribute**
-    var type = $select.attr('data-type');
-    
-    console.log('=== Room Cat Change ===');
-    console.log('rid:', rid, 'count:', count, 'night:', night, 'roomIndex:', roomIndex, 'type:', type, 'value:', roomCatVal);
+	// New handler for room category changes
+	$(document).on('change', '.room_cat_change', function() {
+		var $select = $(this);
+		var roomCatVal = $select.val();
+		var rid = $select.attr('data-id');
+		var count = $select.attr('count-id') || $select.data('count');
+		var night = parseInt($select.attr('data-night'));
+		var roomIndex = parseInt($select.attr('data-room-index'));
 
-    // **VALIDATION: Ensure type is defined**
-    if (!type) {
-        console.error('Room type (data-type) is not defined for room category dropdown with rid:', rid);
-        console.log('Attempting to determine type from DOM...');
-        
-        var $parentRow = $select.closest('.row, .form-group, [class*="room"]');
-        if ($parentRow.find('[id^="d_adult_rate"]').length > 0 || $select.attr('id').includes('d_roomcat')) {
-            type = 'double';
-        } else if ($parentRow.find('[id^="s_adult_rate"]').length > 0 || $select.attr('id').includes('s_roomcat')) {
-            type = 'single';
-        } else {
-            console.error('Unable to determine room type. Please add data-type attribute to the dropdown.');
-            showAlert('error', 'Unable to determine room type. Please contact support.');
-            return;
-        }
-        console.log('Determined type from DOM:', type);
-    }
+		// **CRITICAL: Get room type from data attribute**
+		var type = $select.attr('data-type');
 
-    // **CHECK: Skip if this change was triggered programmatically to prevent infinite loop**
-    if ($select.data('programmatic-change')) {
-        console.log('Skipping propagation for programmatic change - rid:', rid);
-        $select.removeData('programmatic-change');
-    } else {
-        // **STATIC MODE: Propagate room category to ALL rooms across ALL nights OF THE SAME TYPE**
-        if (!getIsDynamic()) {
-            var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-            
-            console.log('Static mode propagation - Room Type:', type, 'Total Nights:', no_of_night);
-            
-            // Loop through ALL nights
-            for (let n = 1; n <= no_of_night; n++) {
-                var totalRoomsForNight = parseInt($(`#${type}${count}${n}`).val()) || 0;
-                
-                console.log(`Night ${n}: Total ${type} rooms = ${totalRoomsForNight}`);
-                
-                // Loop through ALL rooms of the SAME TYPE for this night
-                for (let r = 1; r <= totalRoomsForNight; r++) {
-                    // Skip the current room that user is changing
-                    if (n === night && r === roomIndex) {
-                        console.log('Skipping current room - Night:', n, 'Room:', r);
-                        continue;
-                    }
-                    
-                    var otherRid = `${count}${n}${r}`;
-                    var prefix = type === 'double' ? 'd_' : 's_';
-                    
-                    // **IMPROVED: Use more specific selector with type prefix in ID**
-                    var roomCatId = `${prefix}roomcat${otherRid}`;
-                    var $otherRoomCat = $(`#${roomCatId}`);
-                    
-                    console.log(`Checking Night ${n}, Room ${r} (${type}):`, {
-                        otherRid: otherRid,
-                        roomCatId: roomCatId,
-                        found: $otherRoomCat.length > 0
-                    });
-                    
-                    // Verify this is the correct room type by checking rate field
-                    if ($otherRoomCat.length > 0) {
-                        var $rateField = $(`#${prefix}adult_rate${otherRid}`);
-                        
-                        if ($rateField.length > 0) {
-                            // Confirm this dropdown belongs to the same container as the rate field
-                            var $roomCatContainer = $otherRoomCat.closest('.row, .form-group, div[class*="room"], div[id*="room"]');
-                            var $rateContainer = $rateField.closest('.row, .form-group, div[class*="room"], div[id*="room"]');
-                            
-                            // Check if they share the same container or are in the same section
-                            var sameContainer = $roomCatContainer[0] === $rateContainer[0];
-                            
-                            if (sameContainer) {
-                                console.log('Propagating value:', roomCatVal, 'to', roomCatId);
-                                $otherRoomCat.data('programmatic-change', true).val(roomCatVal).trigger('change');
-                            } else {
-                                console.warn('Container mismatch - skipping', roomCatId);
-                            }
-                        } else {
-                            console.log(`Rate field #${prefix}adult_rate${otherRid} does not exist - room ${r} doesn't exist for night ${n}`);
-                        }
-                    } else {
-                        // Fallback: Try alternative selectors
-                        console.log('Primary selector failed, trying alternative...');
-                        
-                        // Try with data-type attribute
-                        $otherRoomCat = $(`#roomcat${otherRid}[data-type="${type}"]`);
-                        
-                        if ($otherRoomCat.length === 0) {
-                            // Try finding by proximity to rate field
-                            var $rateField = $(`#${prefix}adult_rate${otherRid}`);
-                            if ($rateField.length > 0) {
-                                var $container = $rateField.closest('.row, .form-group, div[class*="room"], div[id*="room"]');
-                                $otherRoomCat = $container.find(`[id="roomcat${otherRid}"]`).first();
-                                
-                                if ($otherRoomCat.length > 0) {
-                                    console.log('Found roomcat by proximity to rate field');
-                                    console.log('Propagating value:', roomCatVal, 'to roomcat', otherRid);
-                                    $otherRoomCat.data('programmatic-change', true).val(roomCatVal).trigger('change');
-                                }
-                            }
-                        } else {
-                            console.log('Found with data-type attribute');
-                            console.log('Propagating value:', roomCatVal, 'to roomcat', otherRid);
-                            $otherRoomCat.data('programmatic-change', true).val(roomCatVal).trigger('change');
-                        }
-                        
-                        if ($otherRoomCat.length === 0) {
-                            console.warn('Room category dropdown not found for:', otherRid, 'type:', type);
-                        }
-                    }
-                }
-            }
-            
-            console.log('Propagation complete');
-        } else {
-            console.log('Dynamic mode - No propagation needed');
-        }
-    }
+		console.log('=== Room Cat Change ===');
+		console.log('rid:', rid, 'count:', count, 'night:', night, 'roomIndex:', roomIndex, 'type:', type, 'value:', roomCatVal);
 
-    // **Process the current room (whether user-triggered or programmatic)**
-    if (!roomCatVal || roomCatVal === "" || roomCatVal === "0") {
-        console.log('Room category cleared - resetting rates');
-        var prefix = type === 'double' ? 'd_' : 's_';
-        $(`#${prefix}adult_rate${rid}`).val(0);
-        $(`#${prefix}child_rate${rid}`).val(0);
-        $(`#${prefix}child_wb_rate${rid}`).val(0);
-        $(`#${prefix}extra_bed_rate${rid}`).val(0);
-        updateRoomTotals(count, night, roomIndex);
-        return;
-    }
+		// **VALIDATION: Ensure type is defined**
+		if (!type) {
+			console.error('Room type (data-type) is not defined for room category dropdown with rid:', rid);
+			console.log('Attempting to determine type from DOM...');
 
-    // Trigger meal plan change to fetch rates
-    var prefix = type === 'double' ? 'd_' : 's_';
-    var mealPlanId = `${prefix}mealplan${rid}`;
-    var $mealPlan = $(`#${mealPlanId}`);
-    
-    // Fallback selectors
-    if ($mealPlan.length === 0) {
-        $mealPlan = $(`#mealplan${rid}[data-type="${type}"]`);
-    }
-    if ($mealPlan.length === 0) {
-        $mealPlan = $(`#mealplan${rid}`);
-    }
-    
-    console.log('Checking meal plan - selector:', mealPlanId, 'found:', $mealPlan.length > 0, 'value:', $mealPlan.val());
-    
-    if ($mealPlan.length > 0 && $mealPlan.val() && $mealPlan.val() !== "" && $mealPlan.val() !== "0") {
-        console.log('Triggering meal plan change');
-        $mealPlan.trigger('change');
-    } else {
-        console.log('Meal plan not selected or not found');
-        showAlert('warning', 'Please select a meal plan to fetch rates for the new room category.');
-    }
-});
+			var $parentRow = $select.closest('.row, .form-group, [class*="room"]');
+			if ($parentRow.find('[id^="d_adult_rate"]').length > 0 || $select.attr('id').includes('d_roomcat')) {
+				type = 'double';
+			} else if ($parentRow.find('[id^="s_adult_rate"]').length > 0 || $select.attr('id').includes('s_roomcat')) {
+				type = 'single';
+			} else {
+				console.error('Unable to determine room type. Please add data-type attribute to the dropdown.');
+				showAlert('error', 'Unable to determine room type. Please contact support.');
+				return;
+			}
+			console.log('Determined type from DOM:', type);
+		}
+
+		// **CHECK: Skip if this change was triggered programmatically to prevent infinite loop**
+		if ($select.data('programmatic-change')) {
+			console.log('Skipping propagation for programmatic change - rid:', rid);
+			$select.removeData('programmatic-change');
+		} else {
+			// **STATIC MODE: Propagate room category to ALL rooms across ALL nights OF THE SAME TYPE**
+			if (!getIsDynamic()) {
+				var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+				console.log('Static mode propagation - Room Type:', type, 'Total Nights:', no_of_night);
+
+				// Loop through ALL nights
+				for (let n = 1; n <= no_of_night; n++) {
+					// Get total double and single rooms for this night
+					var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
+					var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
+
+					console.log(`Night ${n}: Total double rooms = ${totalDoubleRooms}, Total single rooms = ${totalSingleRooms}`);
+
+					// Calculate room index range based on type
+					var startIndex, endIndex;
+					if (type === 'double') {
+						startIndex = 1;
+						endIndex = totalDoubleRooms;
+					} else { // single
+						startIndex = totalDoubleRooms + 1;
+						endIndex = totalDoubleRooms + totalSingleRooms;
+					}
+
+					console.log(`Processing ${type} rooms from index ${startIndex} to ${endIndex}`);
+
+					// Loop through rooms of the SAME TYPE for this night
+					for (let r = startIndex; r <= endIndex; r++) {
+						// Skip the current room that user is changing
+						if (n === night && r === roomIndex) {
+							console.log('Skipping current room - Night:', n, 'Room:', r);
+							continue;
+						}
+
+						var otherRid = `${count}${n}${r}`;
+						var prefix = type === 'double' ? 'd_' : 's_';
+
+						// **IMPROVED: Use more specific selector with type prefix in ID**
+						var roomCatId = `${prefix}roomcat${otherRid}`;
+						var $otherRoomCat = $(`#${roomCatId}`);
+
+						console.log(`Checking Night ${n}, Room ${r} (${type}):`, {
+							otherRid: otherRid,
+							roomCatId: roomCatId,
+							found: $otherRoomCat.length > 0
+						});
+
+						// Verify this is the correct room type by checking rate field
+						if ($otherRoomCat.length > 0) {
+							var $rateField = $(`#${prefix}adult_rate${otherRid}`);
+
+							if ($rateField.length > 0) {
+								// Confirm this dropdown belongs to the same container as the rate field
+								var $roomCatContainer = $otherRoomCat.closest('.row, .form-group, div[class*="room"], div[id*="room"]');
+								var $rateContainer = $rateField.closest('.row, .form-group, div[class*="room"], div[id*="room"]');
+
+								// Check if they share the same container or are in the same section
+								var sameContainer = $roomCatContainer[0] === $rateContainer[0];
+
+								if (sameContainer) {
+									console.log('Propagating value:', roomCatVal, 'to', roomCatId);
+									$otherRoomCat.data('programmatic-change', true)
+										.data('skip-mealplan-alert', true)
+										.val(roomCatVal);
+
+									// Update Select2 if it's being used
+									if ($otherRoomCat.hasClass('select2-hidden-accessible')) {
+										$otherRoomCat.trigger('change.select2');
+									}
+
+									$otherRoomCat.trigger('change');
+								} else {
+									console.warn('Container mismatch - skipping', roomCatId);
+								}
+							} else {
+								console.log(`Rate field #${prefix}adult_rate${otherRid} does not exist - room ${r} doesn't exist for night ${n}`);
+							}
+						} else {
+							// Fallback: Try alternative selectors
+							console.log('Primary selector failed, trying alternative...');
+
+							// Try with data-type attribute
+							$otherRoomCat = $(`#roomcat${otherRid}[data-type="${type}"]`);
+
+							if ($otherRoomCat.length === 0) {
+								// Try finding by proximity to rate field
+								var $rateField = $(`#${prefix}adult_rate${otherRid}`);
+								if ($rateField.length > 0) {
+									var $container = $rateField.closest('.row, .form-group, div[class*="room"], div[id*="room"]');
+									$otherRoomCat = $container.find(`[id="roomcat${otherRid}"]`).first();
+
+									if ($otherRoomCat.length > 0) {
+										console.log('Found roomcat by proximity to rate field');
+										console.log('Propagating value:', roomCatVal, 'to roomcat', otherRid);
+										$otherRoomCat.data('programmatic-change', true)
+											.data('skip-mealplan-alert', true)
+											.val(roomCatVal)
+											.trigger('change');
+									}
+								}
+							} else {
+								console.log('Found with data-type attribute');
+								console.log('Propagating value:', roomCatVal, 'to roomcat', otherRid);
+								$otherRoomCat.data('programmatic-change', true)
+									.data('skip-mealplan-alert', true)
+									.val(roomCatVal)
+									.trigger('change');
+							}
+
+							if ($otherRoomCat.length === 0) {
+								console.warn('Room category dropdown not found for:', otherRid, 'type:', type);
+							}
+						}
+					}
+				}
+
+				console.log('Propagation complete');
+			} else {
+				console.log('Dynamic mode - No propagation needed');
+			}
+		}
+
+		// **Process the current room (whether user-triggered or programmatic)**
+		if (!roomCatVal || roomCatVal === "" || roomCatVal === "0") {
+			console.log('Room category cleared - resetting rates');
+			var prefix = type === 'double' ? 'd_' : 's_';
+			$(`#${prefix}adult_rate${rid}`).val(0);
+			$(`#${prefix}child_rate${rid}`).val(0);
+			$(`#${prefix}child_wb_rate${rid}`).val(0);
+			$(`#${prefix}extra_bed_rate${rid}`).val(0);
+			updateRoomTotals(count, night, roomIndex);
+			return;
+		}
+
+		// Trigger meal plan change to fetch rates
+		var prefix = type === 'double' ? 'd_' : 's_';
+		var mealPlanId = `${prefix}mealplan${rid}`;
+		var $mealPlan = $(`#${mealPlanId}`);
+
+		// Fallback selectors
+		if ($mealPlan.length === 0) {
+			$mealPlan = $(`#mealplan${rid}[data-type="${type}"]`);
+		}
+		if ($mealPlan.length === 0) {
+			$mealPlan = $(`#mealplan${rid}`);
+		}
+
+		console.log('Checking meal plan - selector:', mealPlanId, 'found:', $mealPlan.length > 0, 'value:', $mealPlan.val());
+
+		if ($mealPlan.length > 0 && $mealPlan.val() && $mealPlan.val() !== "" && $mealPlan.val() !== "0") {
+			console.log('Triggering meal plan change to fetch rates');
+			$mealPlan.trigger('change');
+		} else {
+			console.log('Meal plan not selected - rates will be fetched when meal plan is selected');
+			// Don't show alert for programmatic changes or when meal plan simply hasn't been selected yet
+			// Only show alert if this was a user-initiated change to room category
+			if (!$select.data('skip-mealplan-alert')) {
+				// Check if this is the original user change (not propagated)
+				var isOriginalChange = (night === parseInt($select.attr('data-night')) &&
+					roomIndex === parseInt($select.attr('data-room-index')));
+				if (isOriginalChange) {
+					showAlert('info', 'Please select a meal plan to fetch rates for this room category.');
+				}
+			}
+		}
+
+		// Clean up the skip-alert flag
+		$select.removeData('skip-mealplan-alert');
+	});
 </script>
-	
+
 <script>
 	$(document).on('click', '#btn_add_bt', function(e) {
 		e.preventDefault();
@@ -2713,219 +2795,287 @@ $(document).on('change', '.room_cat_change', function() {
 	}
 
 	// Add the mp_row_change handler here, similar to room_cat_change
+
+	// Pre-select meal plan if exists
+	var meal_plan_exist = <?php echo $object_det[0]['meal_plan']; ?>;
+
+	$(document).ready(function() {
+		if (meal_plan_exist && meal_plan_exist !== "0" && meal_plan_exist !== "") {
+			console.log('Pre-selecting meal plan:', meal_plan_exist);
+
+			// Select all meal plan dropdowns with class 'mp_row_change'
+			$('.mp_row_change').each(function() {
+				var $mealPlanDropdown = $(this);
+
+				// Set the value
+				$mealPlanDropdown.val(meal_plan_exist);
+
+				// If using Select2, trigger it properly
+				if ($mealPlanDropdown.hasClass('select2-hidden-accessible')) {
+					$mealPlanDropdown.trigger('change.select2');
+				}
+
+				console.log('Meal plan set for dropdown:', $mealPlanDropdown.attr('id'), 'Value:', meal_plan_exist);
+			});
+		}
+	});
+
+	// Add the mp_row_change handler here, similar to room_cat_change
+	// Fixed mp_row_change handler with proper visual update
 	$(document).on('change', '.mp_row_change', function() {
-	var mealplan = $(this).val();
-	var rid = $(this).attr('data-id'); // e.g., count + night + i or count + night + seq
-	var count = $(this).attr('data-count'); // Location card index
-	var type = $(this).attr('data-type'); // 'double' or 'single'
-	var $spinner = $('#csspinner');
-	var $mealplanSelect = $(this);
-	var night = parseInt($(this).attr('data-night'));
-	var roomIndex = parseInt($(this).attr('data-room-index'));
+		var mealplan = $(this).val();
+		var rid = $(this).attr('data-id');
+		var count = $(this).attr('data-count');
+		var type = $(this).attr('data-type');
+		var $spinner = $('#csspinner');
+		var $mealplanSelect = $(this);
+		var night = parseInt($(this).attr('data-night'));
+		var roomIndex = parseInt($(this).attr('data-room-index'));
 
-	console.log('=== Meal Plan Change ===');
-	console.log('rid:', rid, 'count:', count, 'night:', night, 'roomIndex:', roomIndex, 'type:', type, 'value:', mealplan);
+		console.log('=== Meal Plan Change ===');
+		console.log('rid:', rid, 'count:', count, 'night:', night, 'roomIndex:', roomIndex, 'type:', type, 'value:', mealplan);
 
-	// **CHECK: Skip if this change was triggered programmatically to prevent infinite loop**
-	if ($mealplanSelect.data('programmatic-change')) {
-		console.log('Skipping programmatic change for rid:', rid);
-		$mealplanSelect.removeData('programmatic-change');
-		// Don't return - still process the change
-	} else {
-		// **STATIC MODE: Propagate meal plan to ALL rooms across ALL nights OF THE SAME TYPE**
-		if (!getIsDynamic()) {
-			var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-			
-			// Determine if this is double or single room
-			var isDouble = type === 'double';
-			var prefix = isDouble ? 'd_' : 's_';
-			
-			// Get total number of rooms for this specific type
-			var totalRooms = parseInt($(`#${type}${count}${night}`).val()) || 0;
-			
-			console.log('Static mode - Room Type:', type, 'Total Rooms:', totalRooms, 'Nights:', no_of_night);
-			
-			// Loop through ALL nights
-			for (let n = 1; n <= no_of_night; n++) {
-				// Loop through ALL rooms of the SAME TYPE (1 to totalRooms)
-				for (let r = 1; r <= totalRooms; r++) {
-					// Skip the current room that user is changing
-					if (n === night && r === roomIndex) {
-						continue;
+		// **CHECK: Skip if this change was triggered programmatically to prevent infinite loop**
+		if ($mealplanSelect.data('programmatic-change')) {
+			console.log('Skipping programmatic change for rid:', rid);
+			$mealplanSelect.removeData('programmatic-change');
+			// Don't return - still process the change
+		} else {
+			// **STATIC MODE: Propagate meal plan to ALL rooms across ALL nights OF THE SAME TYPE**
+			if (!getIsDynamic()) {
+				var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+				console.log('Static mode propagation - Room Type:', type, 'Total Nights:', no_of_night);
+
+				// Loop through ALL nights
+				for (let n = 1; n <= no_of_night; n++) {
+					// Get total double and single rooms for this night
+					var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
+					var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
+
+					console.log(`Night ${n}: Total double rooms = ${totalDoubleRooms}, Total single rooms = ${totalSingleRooms}`);
+
+					// Calculate room index range based on type
+					var startIndex, endIndex;
+					if (type === 'double') {
+						startIndex = 1;
+						endIndex = totalDoubleRooms;
+					} else { // single
+						startIndex = totalDoubleRooms + 1;
+						endIndex = totalDoubleRooms + totalSingleRooms;
 					}
-					
-					var otherRid = `${count}${n}${r}`;
-					
-					// **CRITICAL FIX: Only select meal plan dropdown that matches the same room type**
-					var $otherMealPlan;
-					
-					if (isDouble) {
-						// Look for double room meal plan - check if d_adult_rate exists for this rid
-						if ($(`#d_adult_rate${otherRid}`).length > 0) {
-							$otherMealPlan = $(`#mealplan${otherRid}`);
+
+					console.log(`Processing ${type} rooms from index ${startIndex} to ${endIndex}`);
+
+					// Loop through rooms of the SAME TYPE for this night
+					for (let r = startIndex; r <= endIndex; r++) {
+						// Skip the current room that user is changing
+						if (n === night && r === roomIndex) {
+							console.log('Skipping current room - Night:', n, 'Room:', r);
+							continue;
 						}
-					} else {
-						// Look for single room meal plan - check if s_adult_rate exists for this rid
-						if ($(`#s_adult_rate${otherRid}`).length > 0) {
-							$otherMealPlan = $(`#mealplan${otherRid}`);
+
+						var otherRid = `${count}${n}${r}`;
+						var prefix = type === 'double' ? 'd_' : 's_';
+
+						// **CRITICAL FIX: Check if the rate field exists to confirm this room exists**
+						var $rateField = $(`#${prefix}adult_rate${otherRid}`);
+
+						if ($rateField.length > 0) {
+							// Try to find meal plan dropdown with prefix first
+							var mealPlanId = `${prefix}mealplan${otherRid}`;
+							var $otherMealPlan = $(`#${mealPlanId}`);
+
+							console.log(`Checking Night ${n}, Room ${r} (${type}):`, {
+								otherRid: otherRid,
+								mealPlanId: mealPlanId,
+								found: $otherMealPlan.length > 0
+							});
+
+							// Fallback: Try without prefix
+							if ($otherMealPlan.length === 0) {
+								$otherMealPlan = $(`#mealplan${otherRid}`);
+								console.log('Trying fallback selector #mealplan' + otherRid + ':', $otherMealPlan.length > 0);
+							}
+
+							// Additional fallback: Try with data-type attribute
+							if ($otherMealPlan.length === 0) {
+								$otherMealPlan = $(`[id="mealplan${otherRid}"][data-type="${type}"]`);
+								console.log('Trying data-type selector:', $otherMealPlan.length > 0);
+							}
+
+							if ($otherMealPlan.length > 0) {
+								console.log('Propagating meal plan value:', mealplan, 'to', otherRid);
+
+								// **FIX: Set value and update visual display**
+								$otherMealPlan.data('programmatic-change', true).val(mealplan);
+
+								// **CRITICAL: Update Select2 display BEFORE triggering change**
+								if ($otherMealPlan.hasClass('select2-hidden-accessible')) {
+									// For Select2, we need to trigger the change on Select2 first to update display
+									$otherMealPlan.trigger('change.select2');
+								}
+
+								// Then trigger the change event to fetch rates
+								$otherMealPlan.trigger('change');
+							} else {
+								console.warn('Meal plan dropdown not found for:', otherRid, 'type:', type);
+							}
+						} else {
+							console.log(`Rate field #${prefix}adult_rate${otherRid} does not exist - room ${r} doesn't exist for night ${n}`);
 						}
-					}
-					
-					console.log('Propagating to Night', n, 'Room', r, '- otherRid:', otherRid, 'exists:', $otherMealPlan ? $otherMealPlan.length > 0 : false);
-					
-					if ($otherMealPlan && $otherMealPlan.length) {
-						// Mark as programmatic and trigger change
-						$otherMealPlan.data('programmatic-change', true).val(mealplan).trigger('change');
 					}
 				}
+
+				console.log('Meal plan propagation complete');
+			} else {
+				console.log('Dynamic mode - No propagation needed');
 			}
 		}
-	}
 
-	// **Process the current room (whether user-triggered or programmatic)**
-	// Show spinner and disable the select
-	$spinner.show();
-	$mealplanSelect.prop('disabled', true);
+		// **Process the current room (whether user-triggered or programmatic)**
+		// Show spinner and disable the select
+		$spinner.show();
+		$mealplanSelect.prop('disabled', true);
 
-	// Reset totals for this specific room if mealplan is empty or 0
-	if (mealplan === "" || mealplan === "0") {
-		$(`#d_total_rate${rid}`).val(0);
-		$(`#s_total_rate${rid}`).val(0);
-		updateRoomTotals(count, night, roomIndex); // Update totals for the specific room
-		updateGrandtotalBoth();
-		get_veh_grand_total();
-		$(`#loc_total${count}`).text(updateGrandtotalBoth(count) + " + " + 0);
-		// loadVehicles(count);
-		$('#v_total').text(get_veh_grand_total());
-		$('#g_total').text((updateGrandtotalBoth() + get_veh_grand_total()));
-		calculateVehicleExtraKmCharges();
-		$spinner.hide();
-		$mealplanSelect.prop('disabled', false);
-		return;
-	}
+		// Reset totals for this specific room if mealplan is empty or 0
+		if (mealplan === "" || mealplan === "0") {
+			$(`#d_total_rate${rid}`).val(0);
+			$(`#s_total_rate${rid}`).val(0);
+			updateRoomTotals(count, night, roomIndex);
+			updateGrandtotalBoth();
+			get_veh_grand_total();
+			$(`#loc_total${count}`).text(updateGrandtotalBoth(count) + " + " + 0);
+			$('#v_total').text(get_veh_grand_total());
+			$('#g_total').text((updateGrandtotalBoth() + get_veh_grand_total()));
+			calculateVehicleExtraKmCharges();
+			$spinner.hide();
+			$mealplanSelect.prop('disabled', false);
+			return;
+		}
 
-	// **VALIDATION: Check if room category dropdown exists**
-	if ($(`#roomcat${rid}`).length === 0) {
-		console.error('Room category dropdown not found for rid:', rid);
-		showAlert('error', 'Room category dropdown not found. Please refresh the page.');
-		$spinner.hide();
-		$mealplanSelect.prop('disabled', false).val(""); // Reset mealplan
-		return;
-	}
+		// **VALIDATION: Check if room category dropdown exists**
+		if ($(`#roomcat${rid}`).length === 0) {
+			console.error('Room category dropdown not found for rid:', rid);
+			showAlert('error', 'Room category dropdown not found. Please refresh the page.');
+			$spinner.hide();
+			$mealplanSelect.prop('disabled', false).val("");
+			return;
+		}
 
-	// Gather data for AJAX call
-	var no_of_night = $(`#no_of_night${count}`).val();
-	var hotel_id = $(`#hotelid${count}`).val();
-	var tax_status = $(`#tax_status${count}`).val();
-	var checkin = $(`#checkin${count}`).val();
-	var checkout = $(`#checkout${count}`).val();
-	var room_cat_id = $(`#roomcat${rid}`).val();
+		// Gather data for AJAX call
+		var no_of_night = $(`#no_of_night${count}`).val();
+		var hotel_id = $(`#hotelid${count}`).val();
+		var tax_status = $(`#tax_status${count}`).val();
+		var checkin = $(`#checkin${count}`).val();
+		var checkout = $(`#checkout${count}`).val();
+		var room_cat_id = $(`#roomcat${rid}`).val();
 
-	// **VALIDATION: Check if room category ID is valid**
-	if (!room_cat_id || room_cat_id === "" || room_cat_id === "0" || room_cat_id === null) {
-		console.error('Room category ID is missing or invalid for rid:', rid, 'Value:', room_cat_id);
-		showAlert('warning', 'Please select a room category first before choosing a meal plan.');
-		$spinner.hide();
-		$mealplanSelect.prop('disabled', false).val(""); // Reset mealplan
-		return;
-	}
+		// **VALIDATION: Check if room category ID is valid**
+		if (!room_cat_id || room_cat_id === "" || room_cat_id === "0" || room_cat_id === null) {
+			console.error('Room category ID is missing or invalid for rid:', rid, 'Value:', room_cat_id);
+			showAlert('warning', 'Please select a room category first before choosing a meal plan.');
+			$spinner.hide();
+			$mealplanSelect.prop('disabled', false).val("");
+			return;
+		}
 
-	// **VALIDATION: Check other required fields**
-	if (!hotel_id || !checkin || !checkout || !no_of_night) {
-		console.error('Missing required fields - hotel_id:', hotel_id, 'checkin:', checkin, 'checkout:', checkout, 'no_of_night:', no_of_night);
-		showAlert('warning', 'Please ensure hotel, check-in, check-out dates are properly selected.');
-		$spinner.hide();
-		$mealplanSelect.prop('disabled', false).val("");
-		return;
-	}
+		// **VALIDATION: Check other required fields**
+		if (!hotel_id || !checkin || !checkout || !no_of_night) {
+			console.error('Missing required fields - hotel_id:', hotel_id, 'checkin:', checkin, 'checkout:', checkout, 'no_of_night:', no_of_night);
+			showAlert('warning', 'Please ensure hotel, check-in, check-out dates are properly selected.');
+			$spinner.hide();
+			$mealplanSelect.prop('disabled', false).val("");
+			return;
+		}
 
-	var double = type === 'double' ? 1 : 0;
-	var single = type === 'single' ? 1 : 0;
-	var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
-	var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
-	var departure_location = <?php echo $object_det[0]['departure_location']; ?>;
-	var tour_location_id = $(`#tour_location_id${count}`).val();
-	var previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
-	var duration = <?php echo $object_det[0]['no_of_night']; ?>;
-	var totalNights = calculateTotalNights();
-	var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-	var vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
+		var double = type === 'double' ? 1 : 0;
+		var single = type === 'single' ? 1 : 0;
+		var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
+		var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
+		var departure_location = <?php echo $object_det[0]['departure_location']; ?>;
+		var tour_location_id = $(`#tour_location_id${count}`).val();
+		var previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
+		var duration = <?php echo $object_det[0]['no_of_night']; ?>;
+		var totalNights = calculateTotalNights();
+		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+		var vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
 
-	$.ajax({
-		url: "<?= site_url('Enquiry/getTourTariffDetails'); ?>",
-		method: "POST",
-		data: {
-			hotel_id: hotel_id,
-			room_cat_id: room_cat_id,
-			mealplan: mealplan,
-			checkin: checkin,
-			checkout: checkout,
-			no_of_night: no_of_night,
-			double: double,
-			single: single,
-			vehicle_models: vehicle_models,
-			id: rid,
-			duration: duration,
-			totalNights: totalNights,
-			tour_location_id: tour_location_id,
-			previous_location_id: previous_location_id,
-			vehicle_from_location: vehicle_from_location,
-			arrival_location: arrival_location,
-			departure_location: departure_location
-		},
-		dataType: 'json',
-		success: function(data) {
-			if (data.different_season == 1) {
-				var html_data = '<p>' + data.season_name1 + '</p>';
-				html_data += '<p>' + data.season_name2 + '</p>';
-				$('#season_name_placeholder').html(html_data);
-				$('#diff_season_modal').modal('show');
-				$(`#no_of_night${count}`).val(1);
-				calculateCheckout(count);
-				$(`#mealplan${rid}`).trigger('change');
-				return; // Don't hide spinner here, let the triggered change handle it
-			}
+		$.ajax({
+			url: "<?= site_url('Enquiry/getTourTariffDetails'); ?>",
+			method: "POST",
+			data: {
+				hotel_id: hotel_id,
+				room_cat_id: room_cat_id,
+				mealplan: mealplan,
+				checkin: checkin,
+				checkout: checkout,
+				no_of_night: no_of_night,
+				double: double,
+				single: single,
+				vehicle_models: vehicle_models,
+				id: rid,
+				duration: duration,
+				totalNights: totalNights,
+				tour_location_id: tour_location_id,
+				previous_location_id: previous_location_id,
+				vehicle_from_location: vehicle_from_location,
+				arrival_location: arrival_location,
+				departure_location: departure_location
+			},
+			dataType: 'json',
+			success: function(data) {
+				if (data.different_season == 1) {
+					var html_data = '<p>' + data.season_name1 + '</p>';
+					html_data += '<p>' + data.season_name2 + '</p>';
+					$('#season_name_placeholder').html(html_data);
+					$('#diff_season_modal').modal('show');
+					$(`#no_of_night${count}`).val(1);
+					calculateCheckout(count);
+					$(`#mealplan${rid}`).trigger('change');
+					return;
+				}
 
-			var no_of_ch = parseInt($(`#no_of_ch${count}`).val()) || 0;
-			var no_of_cw = parseInt($(`#no_of_cw${count}`).val()) || 0;
-			var no_of_extra = parseInt($(`#no_of_extra${count}`).val()) || 0;
-			var ndouble = double;
-			var nsingle = single;
-			var room_r = parseInt(data.d_room_tariff) || parseInt(data.s_room_tariff) || 0;
-			var child_r = parseInt(data.d_child_tariff) || parseInt(data.s_child_tariff) || 0;
-			var child_wb_r = parseInt(data.d_child_wb_tariff) || parseInt(data.s_child_wb_tariff) || 0;
-			var extra_r = parseInt(data.d_extra_tariff) || parseInt(data.s_extra_tariff) || 0;
+				var no_of_ch = parseInt($(`#no_of_ch${count}`).val()) || 0;
+				var no_of_cw = parseInt($(`#no_of_cw${count}`).val()) || 0;
+				var no_of_extra = parseInt($(`#no_of_extra${count}`).val()) || 0;
+				var ndouble = double;
+				var nsingle = single;
+				var room_r = parseInt(data.d_room_tariff) || parseInt(data.s_room_tariff) || 0;
+				var child_r = parseInt(data.d_child_tariff) || parseInt(data.s_child_tariff) || 0;
+				var child_wb_r = parseInt(data.d_child_wb_tariff) || parseInt(data.s_child_wb_tariff) || 0;
+				var extra_r = parseInt(data.d_extra_tariff) || parseInt(data.s_extra_tariff) || 0;
 
-			var room_qty = type === 'double' ? (parseInt($(`#double${count}${night}`).val()) || 0) : (parseInt($(`#single${count}${night}`).val()) || 0);
-			var effective_room_r = room_r * room_qty;
-			var child_with_bed_count = no_of_ch;
-			var child_without_bed_count = no_of_cw;
-			var extra_bed_count = no_of_extra;
+				var room_qty = type === 'double' ? (parseInt($(`#double${count}${night}`).val()) || 0) : (parseInt($(`#single${count}${night}`).val()) || 0);
+				var effective_room_r = room_r * room_qty;
+				var child_with_bed_count = no_of_ch;
+				var child_without_bed_count = no_of_cw;
+				var extra_bed_count = no_of_extra;
 
-			// Set rates for this room (per room rate)
-			if (type === 'double') {
-				$(`#d_adult_rate${rid}`).prop("readonly", true).val(room_r);
-				$(`#d_child_rate${rid}`).prop("readonly", true).val(child_r);
-				$(`#d_child_wb_rate${rid}`).prop("readonly", true).val(child_wb_r);
-				$(`#d_extra_bed_rate${rid}`).prop("readonly", true).val(extra_r);
-			} else {
-				$(`#s_adult_rate${rid}`).prop("readonly", true).val(room_r);
-				$(`#s_child_rate${rid}`).prop("readonly", true).val(child_r);
-				$(`#s_child_wb_rate${rid}`).prop("readonly", true).val(child_wb_r);
-				$(`#s_extra_bed_rate${rid}`).prop("readonly", true).val(extra_r);
-			}
+				// Set rates for this room (per room rate)
+				if (type === 'double') {
+					$(`#d_adult_rate${rid}`).prop("readonly", true).val(room_r);
+					$(`#d_child_rate${rid}`).prop("readonly", true).val(child_r);
+					$(`#d_child_wb_rate${rid}`).prop("readonly", true).val(child_wb_r);
+					$(`#d_extra_bed_rate${rid}`).prop("readonly", true).val(extra_r);
+				} else {
+					$(`#s_adult_rate${rid}`).prop("readonly", true).val(room_r);
+					$(`#s_child_rate${rid}`).prop("readonly", true).val(child_r);
+					$(`#s_child_wb_rate${rid}`).prop("readonly", true).val(child_wb_r);
+					$(`#s_extra_bed_rate${rid}`).prop("readonly", true).val(extra_r);
+				}
 
-			// Generate sterling only for first room
-			if (roomIndex === 1 && tax_status == 1) {
-				// Handle tax-enabled case (sterling fields for total)
-				var tot_d = effective_room_r + (child_with_bed_count * child_r) + (child_without_bed_count * child_wb_r) + (extra_bed_count * extra_r);
-				var gst = tot_d >= 7500 ? 18 : 12;
-				var gstval = (gst / 100) * tot_d;
-				var total_doubles = tot_d + gstval;
+				// Generate sterling only for first room
+				if (roomIndex === 1 && tax_status == 1) {
+					// Handle tax-enabled case (sterling fields for total)
+					var tot_d = effective_room_r + (child_with_bed_count * child_r) + (child_without_bed_count * child_wb_r) + (extra_bed_count * extra_r);
+					var gst = tot_d >= 7500 ? 18 : 12;
+					var gstval = (gst / 100) * tot_d;
+					var total_doubles = tot_d + gstval;
 
-				// Generate sterling fields for the room (total)
-				var tt = rid;
-				var sterling_html = `
+					// Generate sterling fields for the room (total)
+					var tt = rid;
+					var sterling_html = `
 				<div class="row">
 					<div class="col-xl-1 col-sm-12 col-md-1"></div>
 					<div class="col-xl-1 col-sm-12 col-md-1">
@@ -2972,14 +3122,14 @@ $(document).on('change', '.room_cat_change', function() {
 					<div class="col-xl-1 col-sm-12 col-md-1"></div>
 				</div>
 			`;
-				var div_id = type === 'double' ? 'sterling_double' : 'sterling_single';
-				var eighteen_div = type === 'double' ? 'eighteen_div_d' : 'eighteen_div_s';
-				var total_field = type === 'double' ? 'd_total_rate' : 's_total_rate';
-				var hd_prefix = type === 'double' ? 'hd_ster_d' : 'hd_ster_s';
-				var ster_prefix = type === 'double' ? 'ster_d' : 'ster_s';
-				var n_prefix = type === 'double' ? 'n_d' : 'n_s';
-				var g_prefix = type === 'double' ? '' : 's_';
-				var ediv = `
+					var div_id = type === 'double' ? 'sterling_double' : 'sterling_single';
+					var eighteen_div = type === 'double' ? 'eighteen_div_d' : 'eighteen_div_s';
+					var total_field = type === 'double' ? 'd_total_rate' : 's_total_rate';
+					var hd_prefix = type === 'double' ? 'hd_ster_d' : 'hd_ster_s';
+					var ster_prefix = type === 'double' ? 'ster_d' : 'ster_s';
+					var n_prefix = type === 'double' ? 'n_d' : 'n_s';
+					var g_prefix = type === 'double' ? '' : 's_';
+					var ediv = `
 				<input type="hidden" id="${hd_prefix}_id${tt}" value="${rid}" name="hd_ster_addloc_${g_prefix}[${tt}][ster_${g_prefix}id]">
 				<input type="hidden" id="${hd_prefix}_adult_rate${tt}" value="${effective_room_r}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}adult_rate]">
 				<input type="hidden" id="hd_ster_${n_prefix}_child_rate${tt}" value="${child_with_bed_count}" name="hd_ster_addloc_${g_prefix}[${tt}][n_${g_prefix}child_rate]">
@@ -2992,92 +3142,144 @@ $(document).on('change', '.room_cat_change', function() {
 				<input type="hidden" id="hd_ster_${g_prefix}gst_per${tt}" value="${gst}" name="hd_ster_addloc_${g_prefix}[${g_prefix}gst_per]">
 				<input type="hidden" id="hd_ster_${g_prefix}g_tot${tt}" value="${total_doubles}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}g_tot]">
 			`;
-				$(`#${eighteen_div}${count}`).append(ediv);
-				$(`#${div_id}${count}${night}`).html(sterling_html);
-				$(`#${total_field}${rid}`).val(total_doubles);
-			} else if (tax_status != 1) {
-				// Handle non-tax case
-				$(`#sterling_double${count}${night}`).html('');
-				$(`#sterling_single${count}${night}`).html('');
-				$(`#eighteen_div_d${count}`).html('');
-				$(`#eighteen_div_s${count}`).html('');
+					$(`#${eighteen_div}${count}`).append(ediv);
+					$(`#${div_id}${count}${night}`).html(sterling_html);
+					$(`#${total_field}${rid}`).val(total_doubles);
+				} else if (tax_status != 1) {
+					// Handle non-tax case
+					$(`#sterling_double${count}${night}`).html('');
+					$(`#sterling_single${count}${night}`).html('');
+					$(`#eighteen_div_d${count}`).html('');
+					$(`#eighteen_div_s${count}`).html('');
+				}
+
+				// Update room totals
+				updateRoomTotals(count, night, roomIndex);
+
+				// Propagate if first room in static mode
+				if (roomIndex === 1 && !getIsDynamic()) {
+					propagateRoomData(count, night, type);
+				}
+
+				// Update card and overall totals
+				var singleCardTotal = updateGrandtotalBoth(count);
+				$(`#loc_total${count}`).text(singleCardTotal + " + " + 0);
+				var veh_grand_total = get_veh_grand_total();
+				$('#v_total').text(veh_grand_total);
+				var allCardTotal = updateGrandtotalBoth();
+				$('#a_total').text(allCardTotal);
+				$('#g_total').text((allCardTotal + veh_grand_total));
+				calculateVehicleExtraKmCharges();
+			},
+			error: function(xhr, status, error) {
+				console.error('Error fetching tariff details:', error);
+				console.error('XHR Response:', xhr.responseText);
+				showAlert('danger', 'Error fetching tariff details. Please try again.');
+			},
+			complete: function() {
+				$spinner.hide();
+				$mealplanSelect.prop('disabled', false);
+				$(`#roomcat${rid}`).prop('disabled', false);
 			}
-
-			// Update room totals
-			updateRoomTotals(count, night, roomIndex);
-
-			// Propagate if first room in static mode
-			if (roomIndex === 1 && !getIsDynamic()) {
-				propagateRoomData(count, night, type);
-			}
-
-			// Update card and overall totals
-			var singleCardTotal = updateGrandtotalBoth(count);
-			$(`#loc_total${count}`).text(singleCardTotal + " + " + 0);
-			// loadVehicles(count);
-			var veh_grand_total = get_veh_grand_total();
-			$('#v_total').text(veh_grand_total);
-			var allCardTotal = updateGrandtotalBoth();
-			$('#a_total').text(allCardTotal);
-			$('#g_total').text((allCardTotal + veh_grand_total));
-			calculateVehicleExtraKmCharges();
-		},
-		error: function(xhr, status, error) {
-			console.error('Error fetching tariff details:', error);
-			console.error('XHR Response:', xhr.responseText);
-			showAlert('danger', 'Error fetching tariff details. Please try again.');
-		},
-		complete: function() {
-			$spinner.hide();
-			$mealplanSelect.prop('disabled', false);
-			// Ensure room category dropdown is not disabled
-			$(`#roomcat${rid}`).prop('disabled', false);
-		}
+		});
 	});
-});
 	// Event handler for rate inputs to propagate in static mode
 	$(document).on('input', 'input[id^="d_adult_rate"], input[id^="d_child_rate"], input[id^="d_child_wb_rate"], input[id^="d_extra_bed_rate"], input[id^="s_adult_rate"], input[id^="s_child_rate"], input[id^="s_child_wb_rate"], input[id^="s_extra_bed_rate"]', function() {
 		var $input = $(this);
-		validateNumericInput($input[0]); // Validate
+		validateNumericInput($input[0]); // Validate input
 
 		var count = $input.data('count');
 		var night = parseInt($input.data('night'));
 		var roomIndex = parseInt($input.data('room-index'));
+		var fieldId = $input.attr('id');
+		var value = $input.val();
+		var roomType = fieldId.includes('d_') ? 'double' : 'single';
+		var prefix = roomType === 'double' ? 'd_' : 's_';
 
-		if (roomIndex !== 1 || getIsDynamic()) {
-			// Normal update
-			var i = roomIndex;
-			updateRoomTotals(count, night, i);
+		console.log('=== Rate Input Change ===');
+		console.log('Field:', fieldId, 'Count:', count, 'Night:', night, 'Room Index:', roomIndex, 'Room Type:', roomType, 'Value:', value);
+
+		// **CHECK: In dynamic mode or not the first room, update only the current room**
+		if (getIsDynamic() || roomIndex !== 1) {
+			console.log('Dynamic mode or not first room - Updating only current room');
+			updateRoomTotals(count, night, roomIndex);
+			updateGrandtotalBoth();
+			var veh_grand_total = get_veh_grand_total();
+			$(`#loc_total${count}`).text(updateGrandtotalBoth(count) + " + " + veh_grand_total);
+			$('#v_total').text(veh_grand_total);
+			$('#g_total').text((updateGrandtotalBoth() + veh_grand_total));
+			calculateVehicleExtraKmCharges();
 			return;
 		}
 
-		// Propagate for first room in static mode
-		var fieldId = $input.attr('id');
-		var ridStr = count + '' + night + '1';
-		var prefix = fieldId.substring(0, fieldId.length - ridStr.length);
-		var value = $input.val();
-		var roomType = prefix.includes('d_') ? 'double' : 'single';
-		var numRooms = parseInt($(`#${roomType}${count}${night}`).val()) || 0;
+		// **STATIC MODE: Propagate rate change to ALL rooms of the same type across ALL nights**
+		console.log('Static mode - Propagating rate change for first room');
+		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
 
-		for (let i = 2; i <= numRooms; i++) {
-			var otherRidStr = count + '' + night + i;
-			var otherId = prefix + otherRidStr;
-			$(`#${otherId}`).val(value);
-			updateRoomTotals(count, night, i);
+		// Determine which rate field was changed
+		var fieldType = fieldId.replace(prefix, '').split(`${count}${night}${roomIndex}`)[0];
+
+		console.log('Field Type:', fieldType, 'Total Nights:', no_of_night);
+
+		// Loop through ALL nights
+		for (let n = 1; n <= no_of_night; n++) {
+			// Get total double and single rooms for this night
+			var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
+			var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
+
+			console.log(`Night ${n}: Total double rooms = ${totalDoubleRooms}, Total single rooms = ${totalSingleRooms}`);
+
+			// Calculate room index range based on type
+			var startIndex = roomType === 'double' ? 1 : totalDoubleRooms + 1;
+			var endIndex = roomType === 'double' ? totalDoubleRooms : totalDoubleRooms + totalSingleRooms;
+
+			console.log(`Propagating ${roomType} room rates from index ${startIndex} to ${endIndex} for night ${n}`);
+
+			// Loop through rooms of the same type for this night
+			for (let r = startIndex; r <= endIndex; r++) {
+				// Skip the current room that user is changing
+				if (n === night && r === roomIndex) {
+					console.log('Skipping current room - Night:', n, 'Room:', r);
+					continue;
+				}
+
+				var otherRid = `${count}${n}${r}`;
+				var otherFieldId = `${prefix}${fieldType}${otherRid}`;
+
+				// **CHECK: Ensure the target field exists**
+				var $otherField = $(`#${otherFieldId}`);
+				if ($otherField.length > 0) {
+					console.log(`Propagating value ${value} to field ${otherFieldId}`);
+					$otherField.val(value);
+					updateRoomTotals(count, n, r);
+				} else {
+					console.warn(`Field ${otherFieldId} not found - room ${r} may not exist for night ${n}`);
+				}
+			}
 		}
 
-		// Update own
-		updateRoomTotals(count, night, 1);
+		// Update totals for the current room
+		updateRoomTotals(count, night, roomIndex);
+
+		// Update card and overall totals
+		var singleCardTotal = updateGrandtotalBoth(count);
+		var veh_grand_total = get_veh_grand_total();
+		$(`#loc_total${count}`).text(singleCardTotal + " + " + veh_grand_total);
+		$('#v_total').text(veh_grand_total);
+		$('#g_total').text((updateGrandtotalBoth() + veh_grand_total));
+		calculateVehicleExtraKmCharges();
+
+		console.log('Rate propagation complete');
 	});
 
 	// Add this function to generate vehicle summary section
+	// 1. Update generateVehicleSummary function to add refresh button and extra km rate column
 	function generateVehicleSummary(count, no_of_night, vehicle_models) {
 		// Build night labels with vehicle details
 		var nightLabels = '';
 		for (let i = 1; i <= no_of_night; i++) {
 			var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
 			if (vFromTo && vFromTo !== '') {
-				// Remove any leading " - " if present
 				vFromTo = vFromTo.replace(/^\s*-\s*/, '');
 				nightLabels += vFromTo;
 			} else {
@@ -3089,25 +3291,33 @@ $(document).on('change', '.room_cat_change', function() {
 		}
 
 		var summaryHtml = `
-		<div class="vehicle-summary-section mt-4" id="vehicle-summary-${count}">
-			<h5 style="color:#003300; text-align: center;" id="vehicle-summary-header-${count}">Vehicle Summary (${nightLabels})</h5>
-			<div class="card p-3 mb-3">
+					<div class="vehicle-summary-section mt-4" id="vehicle-summary-${count}">
+						<h5 style="color:#003300; text-align: center;" id="vehicle-summary-header-${count}">
+							<a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
+								<i class="fa fa-refresh"></i>
+							</a>
+							Vehicle Summary (${nightLabels})
+						</h5>
+						<div class="card p-3 mb-3">
 				<div class="container-fluid px-2">
 					<div class="row mt-2 single_row">
 						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
 							<div class="teams-rank"><b>Vehicle Model</b></div>
 						</div>
-						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+						<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
 							<div class="teams-rank"><b>Vehicle Count</b></div>
 						</div>
 						<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
 							<div class="teams-rank"><b>Total Days</b></div>
 						</div>
 						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-							<div class="teams-rank"><b>Total Daily Rent</b></div>
+							<div class="teams-rank"><b>Daily Rent</b></div>
 						</div>
 						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
 							<div class="teams-rank"><b>Total Distance</b></div>
+						</div>
+						<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+							<div class="teams-rank"><b>Extra KM Rate</b></div>
 						</div>
 						<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
 							<div class="teams-rank"><b>Total Extra KM</b></div>
@@ -3119,54 +3329,159 @@ $(document).on('change', '.room_cat_change', function() {
 
 		$.each(vehicle_models, function(vindex, vmodel) {
 			summaryHtml += `
-					<div class="row mt-2 single_row align-items-center">
-						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-							<input type="text" value="${vmodel.vehicle_model_name}" class="form-control input-sm" readonly>
-						</div>
-						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-							<input type="text" value="${vmodel.vehicle_count}" class="form-control input-sm" readonly>
-						</div>
-						<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-							<input type="text" id="summary_days_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-						</div>
-						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-							<input type="text" id="summary_rent_${count}_${vindex}" value="0.00" class="form-control input-sm" readonly>
-						</div>
-						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-							<input type="text" id="summary_distance_${count}_${vindex}" value="0.00" class="form-control input-sm" readonly>
-						</div>
-						<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-							<input type="text" id="summary_extra_km_${count}_${vindex}" value="0.00" class="form-control input-sm" readonly>
-						</div>
-						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-							<input type="text" id="summary_total_${count}_${vindex}" value="0.00" class="form-control input-sm" readonly>
-						</div>
-					</div>`;
+				<div class="row mt-2 single_row align-items-center">
+					<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+						<input type="text" value="${vmodel.vehicle_model_name}" class="form-control input-sm" readonly>
+					</div>
+					<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+						<input type="text" value="${vmodel.vehicle_count}" class="form-control input-sm" readonly>
+					</div>
+					<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+						<input type="text" id="summary_days_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+					</div>
+					<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+						<input type="text" id="summary_rent_${count}_${vindex}" value="0" class="form-control input-sm summary-daily-rent" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
+					</div>
+					<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+						<input type="text" id="summary_distance_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+					</div>
+					<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+						<input type="text" id="summary_extra_km_rate_${count}_${vindex}" value="0" class="form-control input-sm summary-extra-km-rate" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
+					</div>
+					<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+						<input type="text" id="summary_extra_km_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+					</div>
+					<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+						<input type="text" id="summary_total_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+					</div>
+				</div>`;
 		});
 
 		summaryHtml += `
-					<div class="row mt-3">
-						<div class="col-12 d-flex justify-content-end">
-							<div class="col-xl-2 col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Overall Vehicle Total</b></div>
-								<input type="text" id="summary_overall_total_${count}" value="0.00" class="form-control input-sm" readonly>
-							</div>
+				<div class="row mt-3">
+					<div class="col-12 d-flex justify-content-end">
+						<div class="col-xl-2 col-sm-12 col-md-2">
+							<div class="teams-rank"><b>Overall Vehicle Total</b></div>
+							<input type="text" id="summary_overall_total_${count}" value="0" class="form-control input-sm" readonly>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>`;
 
 		return summaryHtml;
 	}
+// Event listener for daily rent changes in summary
+$(document).on('change', '.summary-daily-rent', function() {
+	var count = $(this).data('count');
+	var vindex = $(this).data('vindex');
+	updateAllNightsDailyRent(count, vindex);
+});
 
-	// Function to update vehicle summary for a specific card
+// Event listener for extra KM rate changes in summary
+$(document).on('change', '.summary-extra-km-rate', function() {
+	var count = $(this).data('count');
+	var vindex = $(this).data('vindex');
+	updateAllNightsExtraKmRate(count, vindex);
+});
+
+// Optional: Also update on input for real-time feedback
+$(document).on('input', '.summary-daily-rent, .summary-extra-km-rate', function() {
+	var count = $(this).data('count');
+	var vindex = $(this).data('vindex');
+	
+	if ($(this).hasClass('summary-daily-rent')) {
+		updateAllNightsDailyRent(count, vindex);
+	} else {
+		updateAllNightsExtraKmRate(count, vindex);
+	}
+});
+
+// Function to update extra KM rate across all nights
+function updateAllNightsExtraKmRate(count, vindex) {
+	var extraKmRate = parseFloat($(`#summary_extra_km_rate_${count}_${vindex}`).val()) || 0;
+	var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+	var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+	var vehicle_type_id = vehicle_models[vindex].vehicle_type_id;
+
+	// Update extra KM rate for all nights
+	for (let night = 1; night <= no_of_night; night++) {
+		var vid = `${count}${night}${vehicle_type_id}`;
+		$(`#extra_km_rate${vid}`).val(extraKmRate);
+		updateVehicleTotals(count, night, vindex);
+	}
+
+	// Update vehicle summary
+	updateVehicleSummary(count);
+}
+	// 2. Add function to update daily rent across all nights
+	function updateAllNightsDailyRent(count, vindex) {
+		var dailyRent = parseFloat($(`#summary_rent_${count}_${vindex}`).val()) || 0;
+		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+		var vehicle_type_id = vehicle_models[vindex].vehicle_type_id;
+
+		// Update daily rent for all nights
+		for (let night = 1; night <= no_of_night; night++) {
+			var vid = `${count}${night}${vehicle_type_id}`;
+			$(`#day_rent${vid}`).val(dailyRent);
+			updateVehicleTotals(count, night, vindex);
+		}
+
+		// Update vehicle summary
+		updateVehicleSummary(count);
+	}
+
+	// 3. Add refresh vehicle summary handler
+	$(document).on('click', '.refresh-vehicle-summary', function(e) {
+		e.preventDefault();
+		var count = $(this).attr('data-count');
+		var $spinner = $('#csspinner');
+
+		$spinner.show();
+
+		// Trigger click on all load_vehs_click for this location
+		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+		var clicksCompleted = 0;
+
+		for (let night = 1; night <= no_of_night; night++) {
+			var $loadBtn = $(`#loadvehs${count}${night}`);
+			if ($loadBtn.length > 0) {
+				// Simulate click with a small delay
+				setTimeout(function() {
+					$loadBtn.trigger('click');
+					clicksCompleted++;
+
+					// Update summary after last click
+					if (clicksCompleted === no_of_night) {
+						setTimeout(function() {
+							updateVehicleSummary(count);
+							$spinner.hide();
+							showAlert('success', 'Vehicle data refreshed successfully!');
+						}, 500);
+					}
+				}, night * 200); // Stagger the clicks
+			}
+		}
+
+		// If no nights or no load buttons, just hide spinner
+		if (no_of_night === 0) {
+			$spinner.hide();
+			showAlert('warning', 'No nights configured to refresh.');
+		}
+	});
+
+
+	// 4. Update the updateVehicleSummary function to include extra km rate
 	function updateVehicleSummary(count) {
 		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
 		if (is_vehicle_required != 1) return;
 
 		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+		console.log('Updating vehicle summary for card:', count, 'Nights:', no_of_night);
 
 		if (no_of_night < 1) {
 			$(`#vehicle-summary-${count}`).hide();
@@ -3180,28 +3495,33 @@ $(document).on('change', '.room_cat_change', function() {
 
 		// Update header with actual vehicle details
 		var nightLabels = '';
-		for (let i = 1; i <= no_of_night; i++) {
-			var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
-			if (vFromTo && vFromTo !== '') {
-				// Remove any leading " - " if present
-				vFromTo = vFromTo.replace(/^\s*-\s*/, '');
-				nightLabels += vFromTo;
-			} else {
-				nightLabels += `N${i}`;
-			}
-			if (i < no_of_night) {
-				nightLabels += ' + ';
-			}
-		}
-		$(`#vehicle-summary-header-${count}`).html(`Vehicle Summary (${nightLabels})`);
+for (let i = 1; i <= no_of_night; i++) {
+	var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
+	if (vFromTo && vFromTo !== '') {
+		vFromTo = vFromTo.replace(/^\s*-\s*/, '');
+		nightLabels += vFromTo;
+	} else {
+		nightLabels += `N${i}`;
+	}
+	if (i < no_of_night) {
+		nightLabels += ' + ';
+	}
+}
+$(`#vehicle-summary-header-${count}`).html(`
+	<a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
+		<i class="fa fa-refresh"></i>
+	</a>
+	Vehicle Summary (${nightLabels})
+`);
 
 		var overallTotal = 0;
 
 		$.each(vehicle_models, function(vindex, vmodel) {
 			var totalDays = 0;
-			var totalRent = 0;
+			var dailyRent = 0; // Just one daily rent value
 			var totalDistance = 0;
 			var totalExtraKm = 0;
+			var extraKmRate = 0; // Will store the rate from first night
 			var totalAmount = 0;
 
 			// Loop through all nights and sum up values
@@ -3212,19 +3532,57 @@ $(document).on('change', '.room_cat_change', function() {
 				var distance = parseFloat($(`#travel_distance${vid}`).val()) || 0;
 				var extraKm = parseFloat($(`#extra_kilometer${vid}`).val()) || 0;
 				var vehTotal = parseFloat($(`#veh_total${vid}`).val()) || 0;
+				var kmRate = parseFloat($(`#extra_km_rate${vid}`).val()) || 0;
+
+				console.log(`Night ${night}, Vehicle ${vindex}:`, {
+					dayRent,
+					distance,
+					extraKm,
+					vehTotal,
+					kmRate
+				});
 
 				if (dayRent > 0 || distance > 0) {
 					totalDays++;
 				}
-				totalRent += dayRent;
+
+				// For daily rent, just take the first night's value (they should all be same in static mode)
+				if (night === 1 || dailyRent === 0) {
+					dailyRent = dayRent;
+				}
+
+				// Get extra km rate from first night
+				if (night === 1) {
+					extraKmRate = kmRate;
+				}
+
 				totalDistance += distance;
 				totalExtraKm += extraKm;
 				totalAmount += vehTotal;
 			}
 
-			// Update summary fields
+			console.log(`Summary for Vehicle ${vindex}:`, {
+				totalDays,
+				dailyRent,
+				totalDistance,
+				totalExtraKm,
+				extraKmRate,
+				totalAmount
+			});
+
+			// Update summary fields - don't overwrite if user is currently editing
+			var $rentField = $(`#summary_rent_${count}_${vindex}`);
+			var $rateField = $(`#summary_extra_km_rate_${count}_${vindex}`);
+
+			// Only update if not focused (user not editing)
+			if (!$rentField.is(':focus')) {
+				$rentField.val(dailyRent);
+			}
+			if (!$rateField.is(':focus')) {
+				$rateField.val(extraKmRate);
+			}
+
 			$(`#summary_days_${count}_${vindex}`).val(totalDays);
-			$(`#summary_rent_${count}_${vindex}`).val(totalRent);
 			$(`#summary_distance_${count}_${vindex}`).val(totalDistance);
 			$(`#summary_extra_km_${count}_${vindex}`).val(totalExtraKm);
 			$(`#summary_total_${count}_${vindex}`).val(totalAmount);
@@ -3233,26 +3591,64 @@ $(document).on('change', '.room_cat_change', function() {
 		});
 
 		// Update overall total
-		$(`#summary_overall_total_${count}`).val(overallTotal);
+		$(`#summary_overall_total_${count}`).val(overallTotal.toFixed(2));
+
+		console.log('Overall vehicle total:', overallTotal);
+	}
+
+	// 5. Add success alert function if not exists
+	function showAlert(type, message) {
+		var iconClass = type === 'success' ? 'fe-check-circle' :
+			type === 'danger' ? 'fe-alert-triangle' :
+			type === 'warning' ? 'fe-alert-circle' :
+			'fe-info';
+
+		var alertHtml = `
+		<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+			<span class="alert-inner--icon"><i class="fe ${iconClass}"></i></span>
+			<span class="alert-inner--text">${message}</span>
+			<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+		</div>`;
+
+		$('#hotel_alert').html(alertHtml);
+
+		setTimeout(function() {
+			$(".alert").fadeOut("slow", function() {
+				$(this).remove();
+			});
+		}, 3000);
 	}
 
 	// Modified updateVehicleTotals function - add this at the end
+	if (typeof validateNumericInput !== 'function') {
+		function validateNumericInput(input) {
+			input.value = input.value.replace(/\D/g, '');
+		}
+	}
+
+	// 7. IMPORTANT: Add this code to your existing updateVehicleTotals function
+	// This is the MODIFIED version that should REPLACE your existing updateVehicleTotals
 	function updateVehicleTotals(count, night, vindex) {
-		var vid = `${count}${night}${vindex}`;
+		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+		var vehicle_type_id = vehicle_models[vindex].vehicle_type_id;
+		var vid = `${count}${night}${vehicle_type_id}`;
+
 		var day_rent = parseFloat($(`#day_rent${vid}`).val()) || 0;
 		var travel_distance = parseFloat($(`#travel_distance${vid}`).val()) || 0;
 		var max_km_day = parseFloat($(`#max_km_day${vid}`).val()) || 0;
 		var extra_km_rate = parseFloat($(`#extra_km_rate${vid}`).val()) || 0;
 		var extra_kilometer = travel_distance > max_km_day ? travel_distance - max_km_day : 0;
 		var v_count = parseInt($(`#veh_count${vid}`).val()) || 1;
+
 		$(`#extra_kilometer${vid}`).val(extra_kilometer);
-		// var veh_total = day_rent + (extra_kilometer * extra_km_rate);
 		var veh_total = day_rent * v_count;
 		$(`#veh_total${vid}`).val(veh_total);
 
-		// Update grand total for vehicles
+		// Update grand total for vehicles in this night
 		var veh_grand_total = 0;
-		$(`#nightly-details${count} .night-section[data-night="${night}"] .munn${vindex}`).each(function() {
+		$(`#nightly-details${count} .night-section[data-night="${night}"] input[id^="veh_total"]`).each(function() {
 			veh_grand_total += parseFloat($(this).val()) || 0;
 		});
 		$(`#veh_grand_total${count}${night}`).val(veh_grand_total);
@@ -3262,7 +3658,24 @@ $(document).on('change', '.room_cat_change', function() {
 
 		// Update overall vehicle grand total
 		get_veh_grand_total();
-		calculateVehicleExtraKmCharges();
+
+		// Update extra km charges if that function exists
+		if (typeof calculateVehicleExtraKmCharges === 'function') {
+			calculateVehicleExtraKmCharges();
+		}
+	}
+
+	// 8. Helper to get dynamic mode state
+	if (typeof getIsDynamic !== 'function') {
+		function getIsDynamic() {
+			// Check if checkbox exists and return its state
+			var $checkbox = $('#dynamic_nights_checkbox');
+			if ($checkbox.length > 0) {
+				return $checkbox.is(':checked');
+			}
+			// Default to false if checkbox doesn't exist
+			return false;
+		}
 	}
 
 	// Function to update room totals for a specific room and night
@@ -3492,17 +3905,23 @@ $(document).on('change', '.room_cat_change', function() {
 					$(`#nightly-details${count} .vehicle-details-section`).hide();
 					$(`#nightly-details${count} .vehicle-rows`).hide();
 					$(`#nightly-details${count} .vehicle-row`).hide();
+
+					// Hide vehicle grand total in all nights (static mode)
+					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+
+					// Show Vehicle Summary
 					$(`#vehicle-summary-${count}`).show();
 				} else {
 					// Dynamic mode: Show all vehicle details, hide Vehicle Summary
 					$(`#nightly-details${count} .vehicle-details-section`).show();
 					$(`#nightly-details${count} .vehicle-rows`).show();
 					$(`#nightly-details${count} .vehicle-row`).show();
-					$(`#vehicle-summary-${count}`).hide();
-					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`)
-						.closest('.row')
-						.hide();
 
+					// Hide vehicle grand total in all nights (dynamic mode)
+					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+
+					// Hide Vehicle Summary in dynamic mode
+					$(`#vehicle-summary-${count}`).hide();
 				}
 			}
 		});
@@ -3510,8 +3929,8 @@ $(document).on('change', '.room_cat_change', function() {
 		updateGrandtotalBoth();
 		get_veh_grand_total();
 		// $('.load_vehs_click').trigger('click');
-	}
 
+	}
 	// Function to update vehicle totals for a specific vehicle and night
 	function updateVehicleTotals(count, night, vindex) {
 		var vid = `${count}${night}${vindex}`;
@@ -4125,8 +4544,6 @@ $(document).on('change', '.room_cat_change', function() {
 	});
 </script>
 <script>
-
-
 	$(document).on('change', '.room_cat_change', function() {
 		var room_cat_id = $(this).val();
 		var rid = $(this).attr('data-id'); // e.g., count + night + i or count + night + seq
@@ -4492,7 +4909,6 @@ $(document).on('change', '.room_cat_change', function() {
 	});
 </script>
 <script type="text/javascript">
-	
 	$(document).on('click', '.tour_view', function() {
 		var enquiry_header_id = <?php echo $object_det[0]['enquiry_header_id']; ?>;
 		var enquiry_details_id = <?php echo $object_det[0]['enquiry_details_id']; ?>;
@@ -5864,7 +6280,7 @@ $(document).on('change', '.room_cat_change', function() {
 				});
 				var count = 0;
 
-				function processLocation(index) {	
+				function processLocation(index) {
 					if (index > tourDetailsArray.length) {
 						var totalNights = calculateTotalNights();
 						$('#planned_night').text(totalNights + " / ");
@@ -6458,173 +6874,6 @@ $(document).on('change', '.room_cat_change', function() {
 			}
 		});
 	});
-
-	// Function to generate vehicle summary for a specific card
-	function generateVehicleSummary(count, no_of_night, vehicle_models) {
-		// Build night labels with vehicle details
-		var nightLabels = '';
-		for (let i = 1; i <= no_of_night; i++) {
-			var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
-			if (vFromTo && vFromTo !== '') {
-				// Remove any leading " - " if present
-				vFromTo = vFromTo.replace(/^\s*-\s*/, '');
-				nightLabels += vFromTo;
-			} else {
-				nightLabels += `N${i}`;
-			}
-			if (i < no_of_night) {
-				nightLabels += ' + ';
-			}
-		}
-
-		var summaryHtml = `
-    <div class="vehicle-summary-section mt-4" id="vehicle-summary-${count}">
-        <h5 style="color:#003300; text-align: center;" id="vehicle-summary-header-${count}">Vehicle Summary (${nightLabels})</h5>
-        <div class="card p-3 mb-3">
-            <div class="container-fluid px-2">
-                <div class="row mt-2 single_row">
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Vehicle Model</b></div>
-                    </div>
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Vehicle Count</b></div>
-                    </div>
-                    <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Total Days</b></div>
-                    </div>
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Total Daily Rent</b></div>
-                    </div>
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Total Distance</b></div>
-                    </div>
-                    <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Total Extra KM</b></div>
-                    </div>
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Grand Total</b></div>
-                    </div>
-                </div>`;
-
-		$.each(vehicle_models, function(vindex, vmodel) {
-			var vehicleCount = vmodel.vehicle_count || 0; // Fallback if not present
-			summaryHtml += `
-                <div class="row mt-2 single_row align-items-center">
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <input type="text" value="${vmodel.vehicle_model_name}" class="form-control input-sm" readonly>
-                    </div>
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <input type="text" value="${vehicleCount}" class="form-control input-sm" readonly>
-                    </div>
-                    <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="summary_days_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-                    </div>
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="summary_rent_${count}_${vindex}" value="0.00" class="form-control input-sm" readonly>
-                    </div>
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="summary_distance_${count}_${vindex}" value="0.00" class="form-control input-sm" readonly>
-                    </div>
-                    <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="summary_extra_km_${count}_${vindex}" value="0.00" class="form-control input-sm" readonly>
-                    </div>
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="summary_total_${count}_${vindex}" value="0.00" class="form-control input-sm" readonly>
-                    </div>
-                </div>`;
-		});
-
-		summaryHtml += `
-                <div class="row mt-3">
-                    <div class="col-12 d-flex justify-content-end">
-                        <div class="col-xl-2 col-sm-12 col-md-2">
-                            <div class="teams-rank"><b>Overall Vehicle Total</b></div>
-                            <input type="text" id="summary_overall_total_${count}" value="0.00" class="form-control input-sm" readonly>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>`;
-
-		return summaryHtml;
-	}
-
-	// Function to update vehicle summary for a specific card
-	function updateVehicleSummary(count) {
-		var is_vehicle_required = <?php echo isset($object_det[0]['is_vehicle_required']) ? $object_det[0]['is_vehicle_required'] : '0'; ?>;
-		if (is_vehicle_required != 1) return;
-
-		var vehicle_models = <?php echo isset($vehicle_data) ? json_encode($vehicle_data) : '[]'; ?>;
-		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-
-		if (no_of_night < 1) {
-			$(`#vehicle-summary-${count}`).hide();
-			return;
-		}
-
-		var showSummary = !getIsDynamic();
-		if (showSummary) {
-			$(`#vehicle-summary-${count}`).show();
-		}
-
-		// Update header with actual vehicle details
-		var nightLabels = '';
-		for (let i = 1; i <= no_of_night; i++) {
-			var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
-			if (vFromTo && vFromTo !== '') {
-				// Remove any leading " - " if present
-				vFromTo = vFromTo.replace(/^\s*-\s*/, '');
-				nightLabels += vFromTo;
-			} else {
-				nightLabels += `N${i}`;
-			}
-			if (i < no_of_night) {
-				nightLabels += ' + ';
-			}
-		}
-		$(`#vehicle-summary-header-${count}`).html(`Vehicle Summary (${nightLabels})`);
-
-		var overallTotal = 0;
-
-		$.each(vehicle_models, function(vindex, vmodel) {
-			var totalDays = 0;
-			var totalRent = 0;
-			var totalDistance = 0;
-			var totalExtraKm = 0;
-			var totalAmount = 0;
-
-			// Loop through all nights and sum up values
-			for (let night = 1; night <= no_of_night; night++) {
-				var vid = `${count}${night}${vmodel.vehicle_type_id}`;
-
-				var dayRent = parseFloat($(`#day_rent${vid}`).val()) || 0;
-				var distance = parseFloat($(`#travel_distance${vid}`).val()) || 0;
-				var extraKm = parseFloat($(`#extra_kilometer${vid}`).val()) || 0;
-				var vehTotal = parseFloat($(`#veh_total${vid}`).val()) || 0;
-
-				if (dayRent > 0 || distance > 0) {
-					totalDays++;
-				}
-				totalRent += dayRent;
-				totalDistance += distance;
-				totalExtraKm += extraKm;
-				totalAmount += vehTotal;
-			}
-
-			// Update summary fields
-			$(`#summary_days_${count}_${vindex}`).val(totalDays);
-			$(`#summary_rent_${count}_${vindex}`).val(totalRent);
-			$(`#summary_distance_${count}_${vindex}`).val(totalDistance);
-			$(`#summary_extra_km_${count}_${vindex}`).val(totalExtraKm);
-			$(`#summary_total_${count}_${vindex}`).val(totalAmount);
-
-			overallTotal += totalAmount;
-		});
-
-		// Update overall total
-		$(`#summary_overall_total_${count}`).val(overallTotal);
-	}
 </script>
 
 
@@ -6773,7 +7022,6 @@ $(document).on('change', '.room_cat_change', function() {
 <!-- //nj// -->
 <!-- loadveh -->
 <script>
-	
 	function loadVehicles(count) {
 		let no_of_night = $(`#no_of_night${count}`).val();
 		let checkin = $(`#checkin${count}`).val();
