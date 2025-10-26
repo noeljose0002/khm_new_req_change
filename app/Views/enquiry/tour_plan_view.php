@@ -7015,20 +7015,20 @@ $(document).on('change', '.room_cat_change', function() {
 		// Check if vehicles are required
 		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
 		if (is_vehicle_required != 1) {
-			console.log('Vehicles not required; skipping extra KM charges calculation.');
+			// console.log('Vehicles not required; skipping extra KM charges calculation.');
 			return 0;
 		}
 
 		// Get all location counts
 		let locationCount = $('.location-card').length;
-		console.log(`Processing ${locationCount} location cards...`);
+		// console.log(`Processing ${locationCount} location cards...`);
 
 		// Object to store totals per vehicle type (carry over across all locations/nights)
 		let vehicleTotals = {};
 
 		// Get vehicle models from PHP data
 		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-		console.log('Available vehicle models:', vehicle_models);
+		// console.log('Available vehicle models:', vehicle_models);
 
 		// Map vehicle_type_id to vehicle model for reference
 		let vehicleTypeMap = {};
@@ -7038,18 +7038,18 @@ $(document).on('change', '.room_cat_change', function() {
 
 		// Loop through all locations
 		for (let count = 1; count <= locationCount; count++) {
-			console.log(`--- Processing Location ${count} ---`);
+			// console.log(`--- Processing Location ${count} ---`);
 			let no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-			console.log(`  Nights in Location ${count}: ${no_of_night}`);
+			// console.log(`  Nights in Location ${count}: ${no_of_night}`);
 
 			if (no_of_night === 0) {
-				console.log(`  No nights for Location ${count}; skipping.`);
+				// console.log(`  No nights for Location ${count}; skipping.`);
 				continue;
 			}
 
 			// Loop through all nights for this location
 			for (let night = 1; night <= no_of_night; night++) {
-				console.log(`    Night ${night} in Location ${count}:`);
+				// console.log(`    Night ${night} in Location ${count}:`);
 
 				// Process each vehicle type defined in vehicle_models
 				$.each(vehicle_models, function(index, vmodel) {
@@ -7058,7 +7058,7 @@ $(document).on('change', '.room_cat_change', function() {
 
 					// Check if inputs exist for this vehicle type on this night
 					if ($(`#veh_count${vid}`).length === 0) {
-						console.log(`      Skipping Vehicle ${type_id} (${vmodel.vehicle_model_name}, ${vid}): No inputs found.`);
+						// console.log(`      Skipping Vehicle ${type_id} (${vmodel.vehicle_model_name}, ${vid}): No inputs found.`);
 						return true; // Continue to next vehicle type
 					}
 
@@ -7072,7 +7072,7 @@ $(document).on('change', '.room_cat_change', function() {
 					let total_travel_this_night = travel_distance_per_veh * veh_count;
 					let total_max_this_night = max_km_day_per_veh * veh_count;
 
-					console.log(`      Vehicle ${type_id} (${vmodel.vehicle_model_name}, ${vid}): veh_count=${veh_count}, Per-veh Travel=${travel_distance_per_veh}km → Total Travel=${total_travel_this_night}km, Per-veh Max=${max_km_day_per_veh}km → Total Max=${total_max_this_night}km, Extra KM Rate=${extra_km_rate}`);
+					// console.log(`      Vehicle ${type_id} (${vmodel.vehicle_model_name}, ${vid}): veh_count=${veh_count}, Per-veh Travel=${travel_distance_per_veh}km → Total Travel=${total_travel_this_night}km, Per-veh Max=${max_km_day_per_veh}km → Total Max=${total_max_this_night}km, Extra KM Rate=${extra_km_rate}`);
 
 					// Initialize vehicle total if not exists
 					if (!vehicleTotals[type_id]) {
@@ -7096,7 +7096,7 @@ $(document).on('change', '.room_cat_change', function() {
 			}
 		}
 
-		console.log('Vehicle Totals Summary:', vehicleTotals);
+		// console.log('Vehicle Totals Summary:', vehicleTotals);
 
 		// Calculate extra charges for each vehicle type (net carry-over)
 		let total_extra_charges = 0;
@@ -7110,15 +7110,15 @@ $(document).on('change', '.room_cat_change', function() {
 				let extra_charge = difference * data.extra_km_rate;
 				total_extra_charges += extra_charge;
 
-				console.log(`Vehicle Type ${type_id} (${data.vehicle_model_name}): Total Distance=${data.total_distance}km, Total Max=${data.total_max_km}km, Net Extra=${difference}km @ ${data.extra_km_rate}/km = Charge=${extra_charge}`);
+				// console.log(`Vehicle Type ${type_id} (${data.vehicle_model_name}): Total Distance=${data.total_distance}km, Total Max=${data.total_max_km}km, Net Extra=${difference}km @ ${data.extra_km_rate}/km = Charge=${extra_charge}`);
 			} else {
-				console.log(`Vehicle Type ${type_id} (${data.vehicle_model_name}): No extra KM (under by ${-difference}km)`);
+				// console.log(`Vehicle Type ${type_id} (${data.vehicle_model_name}): No extra KM (under by ${-difference}km)`);
 			}
 		});
 
 		// Get current vehicle total (base total without extra charges)
 		let base_v_total = get_veh_grand_total();
-		console.log(`Base Vehicle Total (from get_veh_grand_total): ${base_v_total}`);
+		// console.log(`Base Vehicle Total (from get_veh_grand_total): ${base_v_total}`);
 
 		// Add extra charges to vehicle total
 		let new_v_total = base_v_total + total_extra_charges;
@@ -7130,9 +7130,9 @@ $(document).on('change', '.room_cat_change', function() {
 		let accom_total = parseFloat($('#a_total').text()) || 0;
 		$('#g_total').text(Math.round(accom_total + new_v_total));
 
-		console.log(`Total Extra KM Charges (carry-over across all vehicle types, scaled by per-night veh_count): ${total_extra_charges}`);
-		console.log(`Updated Vehicle Total: ${new_v_total}`);
-		console.log(`Accommodation Total: ${accom_total}, Grand Total: ${accom_total + new_v_total}`);
+		// console.log(`Total Extra KM Charges (carry-over across all vehicle types, scaled by per-night veh_count): ${total_extra_charges}`);
+		// console.log(`Updated Vehicle Total: ${new_v_total}`);
+		// console.log(`Accommodation Total: ${accom_total}, Grand Total: ${accom_total + new_v_total}`);
 
 		return total_extra_charges;
 	}
