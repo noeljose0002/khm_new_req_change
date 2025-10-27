@@ -2472,90 +2472,90 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		// Night header + open card wrapper to contain rows (prevents .row negative margins from overflowing)
 		nightlyHtml += `<div class="night-section" data-night="${night}">
-        <h3 style="color:#0000CD; text-align: center;"><b>Night ${night} (${nightDateStr}) </b><a href="#" class="close-night-btn" style="float: right; font-size: 12px;"><i class="fe fe-x"></i></a></h3>
-        <div class="card p-3 mb-3" id="card_night_${count}_${night}">
-          <div class="container-fluid px-2">`;
+					<h3 style="color:#0000CD; text-align: center;"><b>Night ${night} (${nightDateStr}) </b><a href="#" class="close-night-btn" style="float: right; font-size: 12px;"><i class="fe fe-x"></i></a></h3>
+					<div class="card p-3 mb-3" id="card_night_${count}_${night}">
+					<div class="container-fluid px-2">`;
 
 		// Double Rooms
 		if (no_of_double_room > 0) {
 			nightlyHtml += `<div class="row mt-2 double_row">`;
 			nightlyHtml += `
-			
-                <div class="col-12 d-flex justify-content-left">
-                       <div class="col-xl-1.3 col-sm-12 col-md-2 total-col-room">
-                            <div class="teams-rank"><b>Double Room</b></div>
-                            <input type="text" id="double${count}${night}" name="addloc[${count}][nights][${night}][double]" value="${no_of_double_room}" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}">
-                        </div>
-                </div>
-              
-            </div>`;
+						
+							<div class="col-12 d-flex justify-content-left">
+								<div class="col-xl-1.3 col-sm-12 col-md-2 total-col-room">
+										<div class="teams-rank"><b>Double Room</b></div>
+										<input type="text" id="double${count}${night}" name="addloc[${count}][nights][${night}][double]" value="${no_of_double_room}" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}">
+									</div>
+							</div>
+						
+						</div>`;
 			for (let i = 1; i <= no_of_double_room; i++) {
 				let rid = `${count}${night}${i}`;
 				nightlyHtml += `
-                <div class="row mt-2 align-items-center">
-                    <div style="display:none;" class="col-xl col-sm-12 col-md-2 room-type-col">
-                        <div class="teams-rank"><b>No. of Double Rooms</b></div>
-                        <input type="text" id="double${rid}" name="addloc[${count}][nights][${night}][double][${i}]" value="1" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${i}">
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Room Category</b></div>
-                        <select id="roomcat${rid}" name="addloc[${count}][nights][${night}][roomcat][${i}]" class="form-control select2-show-search input-sm room_cat_change"  data-type="double" count-id="${count}" data-id="${rid}" data-night="${night}" data-room-index="${i}" required>
-                            <option value="">Select</option>
-                        </select>
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Meal Plan</b></div>
-                        <select id="mealplan${rid}" name="addloc[${count}][nights][${night}][mealplan][${i}]" class="form-control select2-show-search input-sm mp_row_change" data-id="${rid}" data-type="double" data-count="${count}" data-night="${night}" data-room-index="${i}" required>
-                            <option value="">Select</option>
-                            <option value="1">EP</option>
-                            <option value="2">CP</option>
-                            <option value="3">MAP</option>
-                            <option value="4">AP</option>
-                        </select>
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Daily Room Rate</b></div>
-                        <input type="text" id="d_adult_rate${rid}" name="addloc[${count}][nights][${night}][d_adult_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" required data-night="${night}" data-room-index="${i}">
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>C.With Bed Rate</b></div>
-                        <input type="text" id="d_child_rate${rid}" name="addloc[${count}][nights][${night}][d_child_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}">
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>C.Without Bed Rate</b></div>
-                        <input type="text" id="d_child_wb_rate${rid}" name="addloc[${count}][nights][${night}][d_child_wb_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}">
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Extra Bed Rate</b></div>
-                        <input type="text" id="d_extra_bed_rate${rid}" name="addloc[${count}][nights][${night}][d_extra_bed_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}">
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Total(Double)</b></div>
-                        <input type="text" id="d_total_rate${rid}" name="addloc[${count}][nights][${night}][d_total_rate][${i}]" class="form-control input-sm d_total_rate" data-count="${count}" maxlength="6" readonly data-night="${night}" data-room-index="${i}">
-                    </div>
-                </div>`;
+							<div class="row mt-2 align-items-center">
+								<div style="display:none;" class="col-xl col-sm-12 col-md-2 room-type-col">
+									<div class="teams-rank"><b>No. of Double Rooms</b></div>
+									<input type="text" id="double${rid}" name="addloc[${count}][nights][${night}][double][${i}]" value="1" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${i}">
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>Room Category</b></div>
+									<select id="roomcat${rid}" name="addloc[${count}][nights][${night}][roomcat][${i}]" class="form-control select2-show-search input-sm room_cat_change"  data-type="double" count-id="${count}" data-id="${rid}" data-night="${night}" data-room-index="${i}" required>
+										<option value="">Select</option>
+									</select>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>Meal Plan</b></div>
+									<select id="mealplan${rid}" name="addloc[${count}][nights][${night}][mealplan][${i}]" class="form-control select2-show-search input-sm mp_row_change" data-id="${rid}" data-type="double" data-count="${count}" data-night="${night}" data-room-index="${i}" required>
+										<option value="">Select</option>
+										<option value="1">EP</option>
+										<option value="2">CP</option>
+										<option value="3">MAP</option>
+										<option value="4">AP</option>
+									</select>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>Daily Room Rate</b></div>
+									<input type="text" id="d_adult_rate${rid}" name="addloc[${count}][nights][${night}][d_adult_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" required data-night="${night}" data-room-index="${i}">
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>C.With Bed Rate</b></div>
+									<input type="text" id="d_child_rate${rid}" name="addloc[${count}][nights][${night}][d_child_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}">
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>C.Without Bed Rate</b></div>
+									<input type="text" id="d_child_wb_rate${rid}" name="addloc[${count}][nights][${night}][d_child_wb_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}">
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>Extra Bed Rate</b></div>
+									<input type="text" id="d_extra_bed_rate${rid}" name="addloc[${count}][nights][${night}][d_extra_bed_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}">
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>Total(Double)</b></div>
+									<input type="text" id="d_total_rate${rid}" name="addloc[${count}][nights][${night}][d_total_rate][${i}]" class="form-control input-sm d_total_rate" data-count="${count}" maxlength="6" readonly data-night="${night}" data-room-index="${i}">
+								</div>
+							</div>`;
 			}
 			nightlyHtml += `
-            <div class="row mt-3">
-                <div class="col-12 d-flex justify-content-end">
-                    <div class="col-xl-2 col-sm-12 col-md-2 total-col">
-                        <div class="teams-rank textlef"><b>Grand Total(Double)</b></div>
-                        <input type="text" id="dd_total_rate${count}${night}" name="addloc[${count}][nights][${night}][dd_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}"><br>
-                    </div>
-                </div>
-            </div>
-            <div class="card" id="sterling_double${count}${night}" data-night="${night}"></div>
-        `;
+						<div class="row mt-3">
+							<div class="col-12 d-flex justify-content-end">
+								<div class="col-xl-2 col-sm-12 col-md-2 total-col">
+									<div class="teams-rank textlef"><b>Grand Total(Double)</b></div>
+									<input type="text" id="dd_total_rate${count}${night}" name="addloc[${count}][nights][${night}][dd_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}"><br>
+								</div>
+							</div>
+						</div>
+						<div class="card" id="sterling_double${count}${night}" data-night="${night}"></div>
+					`;
 		} else {
 			nightlyHtml += `
-            <input type="hidden" id="double${count}${night}" name="addloc[${count}][nights][${night}][double]" value="0" data-night="${night}">
-            <input type="hidden" id="d_adult_rate${count}${night}" name="addloc[${count}][nights][${night}][d_adult_rate]" value="0" data-night="${night}">
-            <input type="hidden" id="d_child_rate${count}${night}" name="addloc[${count}][nights][${night}][d_child_rate]" value="0" data-night="${night}">
-            <input type="hidden" id="d_child_wb_rate${count}${night}" name="addloc[${count}][nights][${night}][d_child_wb_rate]" value="0" data-night="${night}">
-            <input type="hidden" id="d_extra_bed_rate${count}${night}" name="addloc[${count}][nights][${night}][d_extra_bed_rate]" value="0" data-night="${night}">
-            <input type="hidden" id="d_total_rate${count}${night}" name="addloc[${count}][nights][${night}][d_total_rate]" value="0" data-night="${night}">
-            <input type="hidden" id="dd_total_rate${count}${night}" name="addloc[${count}][nights][${night}][dd_total_rate]" value="0" data-night="${night}">
-        `;
+						<input type="hidden" id="double${count}${night}" name="addloc[${count}][nights][${night}][double]" value="0" data-night="${night}">
+						<input type="hidden" id="d_adult_rate${count}${night}" name="addloc[${count}][nights][${night}][d_adult_rate]" value="0" data-night="${night}">
+						<input type="hidden" id="d_child_rate${count}${night}" name="addloc[${count}][nights][${night}][d_child_rate]" value="0" data-night="${night}">
+						<input type="hidden" id="d_child_wb_rate${count}${night}" name="addloc[${count}][nights][${night}][d_child_wb_rate]" value="0" data-night="${night}">
+						<input type="hidden" id="d_extra_bed_rate${count}${night}" name="addloc[${count}][nights][${night}][d_extra_bed_rate]" value="0" data-night="${night}">
+						<input type="hidden" id="d_total_rate${count}${night}" name="addloc[${count}][nights][${night}][d_total_rate]" value="0" data-night="${night}">
+						<input type="hidden" id="dd_total_rate${count}${night}" name="addloc[${count}][nights][${night}][dd_total_rate]" value="0" data-night="${night}">
+					`;
 		}
 
 		// Single Rooms
@@ -2563,179 +2563,179 @@ $is_edit = $edit_id ? $edit_id : 0;
 		if (no_of_single_room > 0) {
 			nightlyHtml += `<div class="row mt-2 single_row">`;
 			nightlyHtml += `
-			
-                <div class="col-12 d-flex justify-content-left">
-                       <div class="col-xl-1.3 col-sm-12 col-md-2 total-col-room">
-                            <div class="teams-rank col-room"><b>Single Room</b></div>
-                             <input type="text" id="single${count}${night}" name="addloc[${count}][nights][${night}][single]" value="${no_of_single_room}" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}" >
-                        </div>
-                </div>
-              
-            </div>`;
+						
+							<div class="col-12 d-flex justify-content-left">
+								<div class="col-xl-1.3 col-sm-12 col-md-2 total-col-room">
+										<div class="teams-rank col-room"><b>Single Room</b></div>
+										<input type="text" id="single${count}${night}" name="addloc[${count}][nights][${night}][single]" value="${no_of_single_room}" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}" >
+									</div>
+							</div>
+						
+						</div>`;
 			for (let i = 1; i <= no_of_single_room; i++) {
 				let seq = double_count + i;
 				let sid = `${count}${night}${seq}`;
 				nightlyHtml += `
-                <div class="row mt-2 align-items-center">
-                    <div style="display:none;" class="col-xl col-sm-12 col-md-2 room-type-col">
-                        <div class="teams-rank"><b>No. of Single Rooms</b></div>
-                        <input type="text" id="single${sid}" name="addloc[${count}][nights][${night}][single][${seq}]" value="1" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${seq}">
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Room Category</b></div>
-                        <select id="roomcat${sid}" name="addloc[${count}][nights][${night}][roomcat][${seq}]" class="form-control select2-show-search input-sm room_cat_change"  data-type="single" count-id="${count}" data-id="${sid}" data-night="${night}" data-room-index="${seq}" required>
-                            <option value="">Select</option>
-                        </select>
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Meal Plan</b></div>
-                        <select id="mealplan${sid}" name="addloc[${count}][nights][${night}][mealplan][${seq}]" class="form-control select2-show-search input-sm mp_row_change" data-id="${sid}" data-type="single" data-count="${count}" data-night="${night}" data-room-index="${seq}" required>
-                            <option value="">Select</option>
-                            <option value="1">EP</option>
-                            <option value="2">CP</option>
-                            <option value="3">MAP</option>
-                            <option value="4">AP</option>
-                        </select>
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Daily Room Rate</b></div>
-                        <input type="text" id="s_adult_rate${sid}" name="addloc[${count}][nights][${night}][s_adult_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${seq});" data-night="${night}" data-room-index="${seq}">
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>C.With Bed Rate</b></div>
-                        <input type="text" id="s_child_rate${sid}" name="addloc[${count}][nights][${night}][s_child_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${seq}">
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>C.Without Bed Rate</b></div>
-                        <input type="text" id="s_child_wb_rate${sid}" name="addloc[${count}][nights][${night}][s_child_wb_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${seq}">
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Extra Bed Rate</b></div>
-                        <input type="text" id="s_extra_bed_rate${sid}" name="addloc[${count}][nights][${night}][s_extra_bed_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${seq}">
-                    </div>
-                    <div class="col-xl col-sm-12 col-md-2 ps-2">
-                        <div class="teams-rank"><b>Total(Single)</b></div>
-                        <input type="text" id="s_total_rate${sid}" name="addloc[${count}][nights][${night}][s_total_rate][${seq}]" class="form-control input-sm s_total_rate" data-count="${count}" maxlength="6" readonly data-night="${night}" data-room-index="${seq}">
-                    </div>
-                </div>`;
+							<div class="row mt-2 align-items-center">
+								<div style="display:none;" class="col-xl col-sm-12 col-md-2 room-type-col">
+									<div class="teams-rank"><b>No. of Single Rooms</b></div>
+									<input type="text" id="single${sid}" name="addloc[${count}][nights][${night}][single][${seq}]" value="1" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${seq}">
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>Room Category</b></div>
+									<select id="roomcat${sid}" name="addloc[${count}][nights][${night}][roomcat][${seq}]" class="form-control select2-show-search input-sm room_cat_change"  data-type="single" count-id="${count}" data-id="${sid}" data-night="${night}" data-room-index="${seq}" required>
+										<option value="">Select</option>
+									</select>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>Meal Plan</b></div>
+									<select id="mealplan${sid}" name="addloc[${count}][nights][${night}][mealplan][${seq}]" class="form-control select2-show-search input-sm mp_row_change" data-id="${sid}" data-type="single" data-count="${count}" data-night="${night}" data-room-index="${seq}" required>
+										<option value="">Select</option>
+										<option value="1">EP</option>
+										<option value="2">CP</option>
+										<option value="3">MAP</option>
+										<option value="4">AP</option>
+									</select>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>Daily Room Rate</b></div>
+									<input type="text" id="s_adult_rate${sid}" name="addloc[${count}][nights][${night}][s_adult_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${seq});" data-night="${night}" data-room-index="${seq}">
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>C.With Bed Rate</b></div>
+									<input type="text" id="s_child_rate${sid}" name="addloc[${count}][nights][${night}][s_child_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${seq}">
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>C.Without Bed Rate</b></div>
+									<input type="text" id="s_child_wb_rate${sid}" name="addloc[${count}][nights][${night}][s_child_wb_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${seq}">
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>Extra Bed Rate</b></div>
+									<input type="text" id="s_extra_bed_rate${sid}" name="addloc[${count}][nights][${night}][s_extra_bed_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${seq}">
+								</div>
+								<div class="col-xl col-sm-12 col-md-2 ps-2">
+									<div class="teams-rank"><b>Total(Single)</b></div>
+									<input type="text" id="s_total_rate${sid}" name="addloc[${count}][nights][${night}][s_total_rate][${seq}]" class="form-control input-sm s_total_rate" data-count="${count}" maxlength="6" readonly data-night="${night}" data-room-index="${seq}">
+								</div>
+							</div>`;
 			}
 			nightlyHtml += `
-           
-            <div class="row mt-3">
-                <div class="col-12 d-flex justify-content-end">
-                    <div class="col-xl-1.3 col-sm-12 col-md-2 total-col">
-                        <div class="teams-rank textlef"><b>Grand Total(Single)</b></div>
-                        <input type="text" id="ss_total_rate${count}${night}" name="addloc[${count}][nights][${night}][ss_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}"> <br>
-                    </div>
-                </div>
-            </div>
-            <div class="card" id="sterling_single${count}${night}" data-night="${night}"></div>
-        `;
+					
+						<div class="row mt-3">
+							<div class="col-12 d-flex justify-content-end">
+								<div class="col-xl-1.3 col-sm-12 col-md-2 total-col">
+									<div class="teams-rank textlef"><b>Grand Total(Single)</b></div>
+									<input type="text" id="ss_total_rate${count}${night}" name="addloc[${count}][nights][${night}][ss_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}"> <br>
+								</div>
+							</div>
+						</div>
+						<div class="card" id="sterling_single${count}${night}" data-night="${night}"></div>
+					`;
 		} else {
 			nightlyHtml += `
-            <input type="hidden" id="single${count}${night}" name="addloc[${count}][nights][${night}][single]" value="0" data-night="${night}">
-            <input type="hidden" id="s_adult_rate${count}${night}" name="addloc[${count}][nights][${night}][s_adult_rate]" value="0" data-night="${night}">
-            <input type="hidden" id="s_child_rate${count}${night}" name="addloc[${count}][nights][${night}][s_child_rate]" value="0" data-night="${night}">
-            <input type="hidden" id="s_child_wb_rate${count}${night}" name="addloc[${count}][nights][${night}][s_child_wb_rate]" value="0" data-night="${night}">
-            <input type="hidden" id="s_extra_bed_rate${count}${night}" name="addloc[${count}][nights][${night}][s_extra_bed_rate]" value="0" data-night="${night}">
-            <input type="hidden" id="s_total_rate${count}${night}" name="addloc[${count}][nights][${night}][s_total_rate]" value="0" data-night="${night}">
-            <input type="hidden" id="ss_total_rate${count}${night}" name="addloc[${count}][nights][${night}][ss_total_rate]" value="0" data-night="${night}">
-        `;
+						<input type="hidden" id="single${count}${night}" name="addloc[${count}][nights][${night}][single]" value="0" data-night="${night}">
+						<input type="hidden" id="s_adult_rate${count}${night}" name="addloc[${count}][nights][${night}][s_adult_rate]" value="0" data-night="${night}">
+						<input type="hidden" id="s_child_rate${count}${night}" name="addloc[${count}][nights][${night}][s_child_rate]" value="0" data-night="${night}">
+						<input type="hidden" id="s_child_wb_rate${count}${night}" name="addloc[${count}][nights][${night}][s_child_wb_rate]" value="0" data-night="${night}">
+						<input type="hidden" id="s_extra_bed_rate${count}${night}" name="addloc[${count}][nights][${night}][s_extra_bed_rate]" value="0" data-night="${night}">
+						<input type="hidden" id="s_total_rate${count}${night}" name="addloc[${count}][nights][${night}][s_total_rate]" value="0" data-night="${night}">
+						<input type="hidden" id="ss_total_rate${count}${night}" name="addloc[${count}][nights][${night}][ss_total_rate]" value="0" data-night="${night}">
+					`;
 		}
 
 		// Vehicle Details
 		if (is_vehicle_required == 1) {
 			nightlyHtml += `
-            <div class="row mt-2 vehicle-details-section">
-                <div class="col-xl-1 col-sm-12 col-md-1 ps-2">
-                    <a id="loadvehs${count}${night}" class="nav-link load_vehs_click" data-id="${count}" data-night="${night}" data-loaded="false"><i class="fa fa-refresh"></i></a>
-                </div>
-                <div class="col-xl-11 col-sm-12 col-md-11 ps-2"><h5 style="color:#003300;">Vehicle Details<span id="v_from_to${count}${night}"></span></h5></div>
-            </div>
-            <input type="hidden" id="veh_header${count}${night}" name="addloc[${count}][nights][${night}][veh_header]" value="" data-night="${night}">
-            <input type="hidden" id="pre_to_cur${count}${night}" name="addloc[${count}][nights][${night}][pre_to_cur]" value="" data-night="${night}">
-            <input type="hidden" id="cur_to_dep${count}${night}" name="addloc[${count}][nights][${night}][cur_to_dep]" value="" data-night="${night}">
-            <input type="hidden" id="dep_to_arr${count}${night}" name="addloc[${count}][nights][${night}][dep_to_arr]" value="" data-night="${night}">
-            <input type="hidden" id="hub_to_arr${count}${night}" name="addloc[${count}][nights][${night}][hub_to_arr]" value="" data-night="${night}">
-            <input type="hidden" id="arr_to_loc${count}${night}" name="addloc[${count}][nights][${night}][arr_to_loc]" value="" data-night="${night}">
-            <div class="row mt-2 single_row vehicle-rows">
-                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                    <div class="teams-rank"><b>Vehicle Model</b></div>
-                </div>
-                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                    <div class="teams-rank"><b>Vehicle Count</b></div>
-                </div>
-                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                    <div class="teams-rank"><b>Daily Rent</b></div>
-                </div>
-                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                    <div class="teams-rank"><b>Max KM/Day</b></div>
-                </div>
-                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                    <div class="teams-rank"><b>Distance</b></div>
-                </div>
-                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                    <div class="teams-rank"><b>Extra KM</b></div>
-                </div>
-                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                    <div class="teams-rank"><b>Extra KM Rate</b></div>
-                </div>
-                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                    <div class="teams-rank"><b>Total</b></div>
-                </div>
-            </div>
-        `;
+						<div class="row mt-2 vehicle-details-section">
+							<div class="col-xl-1 col-sm-12 col-md-1 ps-2">
+								<a id="loadvehs${count}${night}" class="nav-link load_vehs_click" data-id="${count}" data-night="${night}" data-loaded="false"><i class="fa fa-refresh"></i></a>
+							</div>
+							<div class="col-xl-11 col-sm-12 col-md-11 ps-2"><h5 style="color:#003300;">Vehicle Details<span id="v_from_to${count}${night}"></span></h5></div>
+						</div>
+						<input type="hidden" id="veh_header${count}${night}" name="addloc[${count}][nights][${night}][veh_header]" value="" data-night="${night}">
+						<input type="hidden" id="pre_to_cur${count}${night}" name="addloc[${count}][nights][${night}][pre_to_cur]" value="" data-night="${night}">
+						<input type="hidden" id="cur_to_dep${count}${night}" name="addloc[${count}][nights][${night}][cur_to_dep]" value="" data-night="${night}">
+						<input type="hidden" id="dep_to_arr${count}${night}" name="addloc[${count}][nights][${night}][dep_to_arr]" value="" data-night="${night}">
+						<input type="hidden" id="hub_to_arr${count}${night}" name="addloc[${count}][nights][${night}][hub_to_arr]" value="" data-night="${night}">
+						<input type="hidden" id="arr_to_loc${count}${night}" name="addloc[${count}][nights][${night}][arr_to_loc]" value="" data-night="${night}">
+						<div class="row mt-2 single_row vehicle-rows">
+							<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Vehicle Model</b></div>
+							</div>
+							<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Vehicle Count</b></div>
+							</div>
+							<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Daily Rent</b></div>
+							</div>
+							<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Max KM/Day</b></div>
+							</div>
+							<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Distance</b></div>
+							</div>
+							<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Extra KM</b></div>
+							</div>
+							<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Extra KM Rate</b></div>
+							</div>
+							<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Total</b></div>
+							</div>
+						</div>
+					`;
 			$.each(vehicle_models, function(vindex, vmodel) {
 				let vid = `${count}${night}${vmodel.vehicle_type_id}`;
 				nightlyHtml += `
-                <div class="row mt-2 single_row align-items-center vehicle-row">
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="veh_model${vid}" name="addloc[${count}][nights][${night}][veh_model][${vindex}]" value="${vmodel.vehicle_model_name}" class="form-control input-sm veh_model${vindex}" readonly data-night="${night}" data-veh-index="${vindex}">
-                        <input type="hidden" id="veh_type_id${vid}" name="addloc[${count}][nights][${night}][veh_type_id][${vindex}]" value="${vmodel.vehicle_type_id}" class="form-control input-sm veh_type_id${vindex}" data-night="${night}" data-veh-index="${vindex}">
-                    </div>
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="veh_count${vid}" name="addloc[${count}][nights][${night}][veh_count][${vindex}]" value="${vmodel.vehicle_count}" class="form-control input-sm veh_count${vindex}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}" data-veh-index="${vindex}">
-                    </div>
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="day_rent${vid}" name="addloc[${count}][nights][${night}][day_rent][${vindex}]" value="0" class="form-control input-sm cls_daily day_rent${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this); updateVehicleTotals(${count}, ${night}, ${vindex});" data-night="${night}" data-veh-index="${vindex}">
-                    </div>
-                    <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="max_km_day${vid}" name="addloc[${count}][nights][${night}][max_km_day][${vindex}]" value="0" class="form-control input-sm max_km_day${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly data-night="${night}" data-veh-index="${vindex}">
-                    </div>
-                    <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="travel_distance${vid}" name="addloc[${count}][nights][${night}][travel_distance][${vindex}]" value="0" class="form-control input-sm cls_dist travel_distance${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this); updateVehicleTotals(${count}, ${night}, ${vindex});" data-night="${night}" data-veh-index="${vindex}">
-                    </div>
-                    <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="extra_kilometer${vid}" name="addloc[${count}][nights][${night}][extra_kilometer][${vindex}]" value="0" class="form-control input-sm extra_kilometer${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly data-night="${night}" data-veh-index="${vindex}">
-                    </div>
-                    <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="extra_km_rate${vid}" name="addloc[${count}][nights][${night}][extra_km_rate][${vindex}]" value="0" class="form-control input-sm extra_km_rate${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly data-night="${night}" data-veh-index="${vindex}">
-                    </div>
-                    <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                        <input type="text" id="veh_total${vid}" name="addloc[${count}][nights][${night}][veh_total][${vindex}]" value="0" class="form-control input-sm munn${vindex}" maxlength="5" readonly data-night="${night}" data-veh-index="${vindex}">
-                    </div>
-                </div>`;
+							<div class="row mt-2 single_row align-items-center vehicle-row">
+								<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+									<input type="text" id="veh_model${vid}" name="addloc[${count}][nights][${night}][veh_model][${vindex}]" value="${vmodel.vehicle_model_name}" class="form-control input-sm veh_model${vindex}" readonly data-night="${night}" data-veh-index="${vindex}">
+									<input type="hidden" id="veh_type_id${vid}" name="addloc[${count}][nights][${night}][veh_type_id][${vindex}]" value="${vmodel.vehicle_type_id}" class="form-control input-sm veh_type_id${vindex}" data-night="${night}" data-veh-index="${vindex}">
+								</div>
+								<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+									<input type="text" id="veh_count${vid}" name="addloc[${count}][nights][${night}][veh_count][${vindex}]" value="${vmodel.vehicle_count}" class="form-control input-sm veh_count${vindex}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}" data-veh-index="${vindex}">
+								</div>
+								<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+									<input type="text" id="day_rent${vid}" name="addloc[${count}][nights][${night}][day_rent][${vindex}]" value="0" class="form-control input-sm cls_daily day_rent${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this); updateVehicleTotals(${count}, ${night}, ${vindex});" data-night="${night}" data-veh-index="${vindex}">
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+									<input type="text" id="max_km_day${vid}" name="addloc[${count}][nights][${night}][max_km_day][${vindex}]" value="0" class="form-control input-sm max_km_day${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly data-night="${night}" data-veh-index="${vindex}">
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+									<input type="text" id="travel_distance${vid}" name="addloc[${count}][nights][${night}][travel_distance][${vindex}]" value="0" class="form-control input-sm cls_dist travel_distance${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this); updateVehicleTotals(${count}, ${night}, ${vindex});" data-night="${night}" data-veh-index="${vindex}">
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+									<input type="text" id="extra_kilometer${vid}" name="addloc[${count}][nights][${night}][extra_kilometer][${vindex}]" value="0" class="form-control input-sm extra_kilometer${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly data-night="${night}" data-veh-index="${vindex}">
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+									<input type="text" id="extra_km_rate${vid}" name="addloc[${count}][nights][${night}][extra_km_rate][${vindex}]" value="0" class="form-control input-sm extra_km_rate${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly data-night="${night}" data-veh-index="${vindex}">
+								</div>
+								<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+									<input type="text" id="veh_total${vid}" name="addloc[${count}][nights][${night}][veh_total][${vindex}]" value="0" class="form-control input-sm munn${vindex}" maxlength="5" readonly data-night="${night}" data-veh-index="${vindex}">
+								</div>
+							</div>`;
 			});
 			nightlyHtml += `
-            <div class="row mt-3">
-                <div class="col-12 d-flex justify-content-end">
-                    <div class="col-xl-1.3 col-sm-12 col-md-2">
-                        <div class="teams-rank"><b>Grand Total(Vehicle)</b></div>
-                        <input type="text" id="veh_grand_total${count}${night}" name="addloc[${count}][nights][${night}][veh_grand_total]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}">
-                    </div>
-                </div>
-            </div>
-        `;
+						<div class="row mt-3">
+							<div class="col-12 d-flex justify-content-end">
+								<div class="col-xl-1.3 col-sm-12 col-md-2">
+									<div class="teams-rank"><b>Grand Total(Vehicle)</b></div>
+									<input type="text" id="veh_grand_total${count}${night}" name="addloc[${count}][nights][${night}][veh_grand_total]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}">
+								</div>
+							</div>
+						</div>
+					`;
 		} else {
 			nightlyHtml += `
-            <input type="hidden" id="veh_model${count}${night}0" name="addloc[${count}][nights][${night}][veh_model][0]" value="" data-night="${night}">
-            <input type="hidden" id="veh_count${count}${night}0" name="addloc[${count}][nights][${night}][veh_count][0]" value="0" data-night="${night}">
-            <input type="hidden" id="day_rent${count}${night}0" name="addloc[${count}][nights][${night}][day_rent][0]" value="0" data-night="${night}">
-            <input type="hidden" id="max_km_day${count}${night}0" name="addloc[${count}][nights][${night}][max_km_day][0]" value="0" data-night="${night}">
-            <input type="hidden" id="extra_km_rate${count}${night}0" name="addloc[${count}][nights][${night}][extra_km_rate][0]" value="0" data-night="${night}">
-            <input type="hidden" id="veh_total${count}${night}0" name="addloc[${count}][nights][${night}][veh_total][0]" value="0" data-night="${night}">
-            <input type="hidden" id="veh_grand_total${count}${night}" name="addloc[${count}][nights][${night}][veh_grand_total]" value="0" data-night="${night}">
-        `;
+						<input type="hidden" id="veh_model${count}${night}0" name="addloc[${count}][nights][${night}][veh_model][0]" value="" data-night="${night}">
+						<input type="hidden" id="veh_count${count}${night}0" name="addloc[${count}][nights][${night}][veh_count][0]" value="0" data-night="${night}">
+						<input type="hidden" id="day_rent${count}${night}0" name="addloc[${count}][nights][${night}][day_rent][0]" value="0" data-night="${night}">
+						<input type="hidden" id="max_km_day${count}${night}0" name="addloc[${count}][nights][${night}][max_km_day][0]" value="0" data-night="${night}">
+						<input type="hidden" id="extra_km_rate${count}${night}0" name="addloc[${count}][nights][${night}][extra_km_rate][0]" value="0" data-night="${night}">
+						<input type="hidden" id="veh_total${count}${night}0" name="addloc[${count}][nights][${night}][veh_total][0]" value="0" data-night="${night}">
+						<input type="hidden" id="veh_grand_total${count}${night}" name="addloc[${count}][nights][${night}][veh_grand_total]" value="0" data-night="${night}">
+					`;
 		}
 
 		// close container and card, then the night-section wrapper
@@ -3076,52 +3076,52 @@ $is_edit = $edit_id ? $edit_id : 0;
 					// Generate sterling fields for the room (total)
 					var tt = rid;
 					var sterling_html = `
-				<div class="row">
-					<div class="col-xl-1 col-sm-12 col-md-1"></div>
-					<div class="col-xl-1 col-sm-12 col-md-1">
-						<div class="teams-rank"><b>Room Rate</b></div>
-						<input type="text" id="ster_d_adult_rate${tt}" class="form-control input-sm" maxlength="7" value="${effective_room_r}" oninput="validateNumericInput(this);" required>
-						<input type="hidden" id="ster_d_id${tt}" class="form-control input-sm" maxlength="6" value="${rid}">
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-1">
-						<div class="teams-rank"><b>C. with Bed Qty</b></div>
-						<input type="text" id="ster_n_d_child_rate${tt}" class="form-control input-sm cls_child_count" maxlength="7" value="${child_with_bed_count}" oninput="validateNumericInput(this);">
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-1">
-						<div class="teams-rank"><b>C. with Bed Rate</b></div>
-						<input type="text" id="ster_d_child_rate${tt}" value="${child_r}" class="form-control input-sm" maxlength="7" oninput="validateNumericInput(this);">
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-1">
-						<div class="teams-rank"><b>C. w/o Bed Qty</b></div>
-						<input type="text" id="ster_n_d_child_wb_rate${tt}" value="${child_without_bed_count}" class="form-control input-sm cls_child_wb_count" maxlength="7" oninput="validateNumericInput(this);">
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-1">
-						<div class="teams-rank"><b>C. w/o Bed Rate</b></div>
-						<input type="text" id="ster_d_child_wb_rate${tt}" value="${child_wb_r}" class="form-control input-sm" maxlength="7" oninput="validateNumericInput(this);">
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-1">
-						<div class="teams-rank"><b>Extra Bed Qty</b></div>
-						<input type="text" id="ster_n_d_extra_bed_rate${tt}" value="${extra_bed_count}" class="form-control input-sm cls_extra_count" maxlength="7" oninput="validateNumericInput(this);">
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-1">
-						<div class="teams-rank"><b>Extra Bed Rate</b></div>
-						<input type="text" id="ster_d_extra_bed_rate${tt}" value="${extra_r}" class="form-control input-sm" maxlength="7" oninput="validateNumericInput(this);">
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-1">
-						<div class="teams-rank"><b>Total</b></div>
-						<input type="text" id="ster_d_total_rate${tt}" value="${tot_d}" class="form-control input-sm" maxlength="7" readonly>
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-1">
-						<div class="teams-rank"><b>GST%</b></div>
-						<input type="text" id="ster_gst_per${tt}" value="${gst}" class="form-control input-sm" maxlength="7" readonly>
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-1">
-						<div class="teams-rank"><b>Grand Total</b></div>
-						<input type="text" id="ster_g_tot${tt}" value="${total_doubles}" class="form-control input-sm sterling_d_grand" maxlength="7" readonly>
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-1"></div>
-				</div>
-			`;
+							<div class="row">
+								<div class="col-xl-1 col-sm-12 col-md-1"></div>
+								<div class="col-xl-1 col-sm-12 col-md-1">
+									<div class="teams-rank"><b>Room Rate</b></div>
+									<input type="text" id="ster_d_adult_rate${tt}" class="form-control input-sm" maxlength="7" value="${effective_room_r}" oninput="validateNumericInput(this);" required>
+									<input type="hidden" id="ster_d_id${tt}" class="form-control input-sm" maxlength="6" value="${rid}">
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-1">
+									<div class="teams-rank"><b>C. with Bed Qty</b></div>
+									<input type="text" id="ster_n_d_child_rate${tt}" class="form-control input-sm cls_child_count" maxlength="7" value="${child_with_bed_count}" oninput="validateNumericInput(this);">
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-1">
+									<div class="teams-rank"><b>C. with Bed Rate</b></div>
+									<input type="text" id="ster_d_child_rate${tt}" value="${child_r}" class="form-control input-sm" maxlength="7" oninput="validateNumericInput(this);">
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-1">
+									<div class="teams-rank"><b>C. w/o Bed Qty</b></div>
+									<input type="text" id="ster_n_d_child_wb_rate${tt}" value="${child_without_bed_count}" class="form-control input-sm cls_child_wb_count" maxlength="7" oninput="validateNumericInput(this);">
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-1">
+									<div class="teams-rank"><b>C. w/o Bed Rate</b></div>
+									<input type="text" id="ster_d_child_wb_rate${tt}" value="${child_wb_r}" class="form-control input-sm" maxlength="7" oninput="validateNumericInput(this);">
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-1">
+									<div class="teams-rank"><b>Extra Bed Qty</b></div>
+									<input type="text" id="ster_n_d_extra_bed_rate${tt}" value="${extra_bed_count}" class="form-control input-sm cls_extra_count" maxlength="7" oninput="validateNumericInput(this);">
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-1">
+									<div class="teams-rank"><b>Extra Bed Rate</b></div>
+									<input type="text" id="ster_d_extra_bed_rate${tt}" value="${extra_r}" class="form-control input-sm" maxlength="7" oninput="validateNumericInput(this);">
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-1">
+									<div class="teams-rank"><b>Total</b></div>
+									<input type="text" id="ster_d_total_rate${tt}" value="${tot_d}" class="form-control input-sm" maxlength="7" readonly>
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-1">
+									<div class="teams-rank"><b>GST%</b></div>
+									<input type="text" id="ster_gst_per${tt}" value="${gst}" class="form-control input-sm" maxlength="7" readonly>
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-1">
+									<div class="teams-rank"><b>Grand Total</b></div>
+									<input type="text" id="ster_g_tot${tt}" value="${total_doubles}" class="form-control input-sm sterling_d_grand" maxlength="7" readonly>
+								</div>
+								<div class="col-xl-1 col-sm-12 col-md-1"></div>
+							</div>
+						`;
 					var div_id = type === 'double' ? 'sterling_double' : 'sterling_single';
 					var eighteen_div = type === 'double' ? 'eighteen_div_d' : 'eighteen_div_s';
 					var total_field = type === 'double' ? 'd_total_rate' : 's_total_rate';
@@ -3130,18 +3130,18 @@ $is_edit = $edit_id ? $edit_id : 0;
 					var n_prefix = type === 'double' ? 'n_d' : 'n_s';
 					var g_prefix = type === 'double' ? '' : 's_';
 					var ediv = `
-				<input type="hidden" id="${hd_prefix}_id${tt}" value="${rid}" name="hd_ster_addloc_${g_prefix}[${tt}][ster_${g_prefix}id]">
-				<input type="hidden" id="${hd_prefix}_adult_rate${tt}" value="${effective_room_r}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}adult_rate]">
-				<input type="hidden" id="hd_ster_${n_prefix}_child_rate${tt}" value="${child_with_bed_count}" name="hd_ster_addloc_${g_prefix}[${tt}][n_${g_prefix}child_rate]">
-				<input type="hidden" id="${hd_prefix}_child_rate${tt}" value="${child_r}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}child_rate]">
-				<input type="hidden" id="hd_ster_${n_prefix}_child_wb_rate${tt}" value="${child_without_bed_count}" name="hd_ster_addloc_${g_prefix}[${tt}][n_${g_prefix}child_wb_rate]">
-				<input type="hidden" id="${hd_prefix}_child_wb_rate${tt}" value="${child_wb_r}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}child_wb_rate]">
-				<input type="hidden" id="hd_ster_${n_prefix}_extra_bed_rate${tt}" value="${extra_bed_count}" name="hd_ster_addloc_${g_prefix}[${tt}][n_${g_prefix}extra_bed_rate]">
-				<input type="hidden" id="${hd_prefix}_extra_bed_rate${tt}" value="${extra_r}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}extra_bed_rate]">
-				<input type="hidden" id="${hd_prefix}_total_rate${tt}" value="${tot_d}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}total_rate]">
-				<input type="hidden" id="hd_ster_${g_prefix}gst_per${tt}" value="${gst}" name="hd_ster_addloc_${g_prefix}[${g_prefix}gst_per]">
-				<input type="hidden" id="hd_ster_${g_prefix}g_tot${tt}" value="${total_doubles}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}g_tot]">
-			`;
+							<input type="hidden" id="${hd_prefix}_id${tt}" value="${rid}" name="hd_ster_addloc_${g_prefix}[${tt}][ster_${g_prefix}id]">
+							<input type="hidden" id="${hd_prefix}_adult_rate${tt}" value="${effective_room_r}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}adult_rate]">
+							<input type="hidden" id="hd_ster_${n_prefix}_child_rate${tt}" value="${child_with_bed_count}" name="hd_ster_addloc_${g_prefix}[${tt}][n_${g_prefix}child_rate]">
+							<input type="hidden" id="${hd_prefix}_child_rate${tt}" value="${child_r}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}child_rate]">
+							<input type="hidden" id="hd_ster_${n_prefix}_child_wb_rate${tt}" value="${child_without_bed_count}" name="hd_ster_addloc_${g_prefix}[${tt}][n_${g_prefix}child_wb_rate]">
+							<input type="hidden" id="${hd_prefix}_child_wb_rate${tt}" value="${child_wb_r}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}child_wb_rate]">
+							<input type="hidden" id="hd_ster_${n_prefix}_extra_bed_rate${tt}" value="${extra_bed_count}" name="hd_ster_addloc_${g_prefix}[${tt}][n_${g_prefix}extra_bed_rate]">
+							<input type="hidden" id="${hd_prefix}_extra_bed_rate${tt}" value="${extra_r}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}extra_bed_rate]">
+							<input type="hidden" id="${hd_prefix}_total_rate${tt}" value="${tot_d}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}total_rate]">
+							<input type="hidden" id="hd_ster_${g_prefix}gst_per${tt}" value="${gst}" name="hd_ster_addloc_${g_prefix}[${g_prefix}gst_per]">
+							<input type="hidden" id="hd_ster_${g_prefix}g_tot${tt}" value="${total_doubles}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}g_tot]">
+						`;
 					$(`#${eighteen_div}${count}`).append(ediv);
 					$(`#${div_id}${count}${night}`).html(sterling_html);
 					$(`#${total_field}${rid}`).val(total_doubles);
@@ -3275,407 +3275,510 @@ $is_edit = $edit_id ? $edit_id : 0;
 	// Add this function to generate vehicle summary section
 	// 1. Update generateVehicleSummary function to add refresh button and extra km rate column
 	function generateVehicleSummary(count, no_of_night, vehicle_models) {
-		// Build night labels with vehicle details
-		var nightLabels = '';
-		for (let i = 1; i <= no_of_night; i++) {
-			var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
-			if (vFromTo && vFromTo !== '') {
-				vFromTo = vFromTo.replace(/^\s*-\s*/, '');
-				nightLabels += vFromTo;
-			} else {
-				nightLabels += `N${i}`;
-			}
-			if (i < no_of_night) {
-				nightLabels += ' + ';
-			}
-		}
+    // Build night labels with vehicle details
+    var nightLabels = '';
+    for (let i = 1; i <= no_of_night; i++) {
+        var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
+        if (vFromTo && vFromTo !== '') {
+            vFromTo = vFromTo.replace(/^\s*-\s*/, '');
+            nightLabels += vFromTo;
+        } else {
+            nightLabels += `N${i}`;
+        }
+        if (i < no_of_night) {
+            nightLabels += ' + ';
+        }
+    }
 
-		var summaryHtml = `
-					<div class="vehicle-summary-section mt-4" id="vehicle-summary-${count}">
-						<h5 style="color:#003300; text-align: center;" id="vehicle-summary-header-${count}">
-							<a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
-								<i class="fa fa-refresh"></i>
-							</a>
-							Vehicle Summary (${nightLabels})
-						</h5>
-						<div class="card p-3 mb-3">
-				<div class="container-fluid px-2">
-					<div class="row mt-2 single_row">
-						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-							<div class="teams-rank"><b>Vehicle Model</b></div>
-						</div>
-						<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-							<div class="teams-rank"><b>Vehicle Count</b></div>
-						</div>
-						<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-							<div class="teams-rank"><b>Total Days</b></div>
-						</div>
-						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-							<div class="teams-rank"><b>Daily Rent</b></div>
-						</div>
-						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-							<div class="teams-rank"><b>Total Distance</b></div>
-						</div>
-						<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-							<div class="teams-rank"><b>Extra KM Rate</b></div>
-						</div>
-						<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-							<div class="teams-rank"><b>Total Extra KM</b></div>
-						</div>
-						<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-							<div class="teams-rank"><b>Grand Total</b></div>
-						</div>
-					</div>`;
+    var summaryHtml = `
+        <div class="vehicle-summary-section mt-4" id="vehicle-summary-${count}">
+            <h5 style="color:#003300; text-align: center;" id="vehicle-summary-header-${count}">
+                <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
+                    <i class="fa fa-refresh"></i>
+                </a>
+                Vehicle Summary (${nightLabels})
+            </h5>
+            <div class="card p-3 mb-3">
+                <div class="container-fluid px-2">
+                    <div class="row mt-2 single_row">
+                        <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                            <div class="teams-rank"><b>Vehicle Model</b></div>
+                        </div>
+                        <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                            <div class="teams-rank"><b>Vehicle Count</b></div>
+                        </div>
+                        <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                            <div class="teams-rank"><b>Total Days</b></div>
+                        </div>
+                        <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                            <div class="teams-rank"><b>Daily Rent</b></div>
+                        </div>
+                        <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                            <div class="teams-rank"><b>Total Distance</b></div>
+                        </div>
+                        <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                            <div class="teams-rank"><b>Extra KM Rate</b></div>
+                        </div>
+                        <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                            <div class="teams-rank"><b>Total Extra KM</b></div>
+                        </div>
+                        <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                            <div class="teams-rank"><b>Grand Total</b></div>
+                        </div>
+                    </div>`;
 
-		$.each(vehicle_models, function(vindex, vmodel) {
-			summaryHtml += `
-				<div class="row mt-2 single_row align-items-center">
-					<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-						<input type="text" value="${vmodel.vehicle_model_name}" class="form-control input-sm" readonly>
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-						<input type="text" value="${vmodel.vehicle_count}" class="form-control input-sm" readonly>
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-						<input type="text" id="summary_days_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-					</div>
-					<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-						<input type="text" id="summary_rent_${count}_${vindex}" value="0" class="form-control input-sm summary-daily-rent" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
-					</div>
-					<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-						<input type="text" id="summary_distance_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-						<input type="text" id="summary_extra_km_rate_${count}_${vindex}" value="0" class="form-control input-sm summary-extra-km-rate" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
-					</div>
-					<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-						<input type="text" id="summary_extra_km_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-					</div>
-					<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-						<input type="text" id="summary_total_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-					</div>
-				</div>`;
-		});
+    $.each(vehicle_models, function(vindex, vmodel) {
+        summaryHtml += `
+            <div class="row mt-2 single_row align-items-center">
+                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_model_name]" value="${vmodel.vehicle_model_name}" class="form-control input-sm" readonly>
+                    <input type="hidden" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_type_id]" value="${vmodel.vehicle_type_id}">
+                </div>
+                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_count]" value="${vmodel.vehicle_count}" class="form-control input-sm" readonly>
+                </div>
+                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_days]" id="summary_days_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+                </div>
+                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][daily_rent]" id="summary_rent_${count}_${vindex}" value="0" class="form-control input-sm summary-daily-rent" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
+                </div>
+                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_distance]" id="summary_distance_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+                </div>
+                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][extra_km_rate]" id="summary_extra_km_rate_${count}_${vindex}" value="0" class="form-control input-sm summary-extra-km-rate" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
+                </div>
+                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_extra_km]" id="summary_extra_km_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+                </div>
+                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][grand_total]" id="summary_total_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+                </div>
+            </div>`;
+    });
 
-		summaryHtml += `
-				<div class="row mt-3">
-					<div class="col-12 d-flex justify-content-end">
-						<div class="col-xl-2 col-sm-12 col-md-2">
-							<div class="teams-rank"><b>Overall Vehicle Total</b></div>
-							<input type="text" id="summary_overall_total_${count}" value="0" class="form-control input-sm" readonly>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>`;
+    summaryHtml += `
+            <div class="row mt-3">
+                <div class="col-12 d-flex justify-content-end">
+                    <div class="col-xl-2 col-sm-12 col-md-2">
+                        <div class="teams-rank"><b>Overall Vehicle Total</b></div>
+                        <input type="text" name="addloc[${count}][vehicle_summary_total]" id="summary_overall_total_${count}" value="0" class="form-control input-sm" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>`;
 
-		return summaryHtml;
-	}
+    return summaryHtml;
+}
+
 // Event listener for daily rent changes in summary
 $(document).on('change', '.summary-daily-rent', function() {
-	var count = $(this).data('count');
-	var vindex = $(this).data('vindex');
-	updateAllNightsDailyRent(count, vindex);
+    var count = $(this).data('count');
+    var vindex = $(this).data('vindex');
+    updateAllNightsDailyRent(count, vindex);
 });
 
 // Event listener for extra KM rate changes in summary
 $(document).on('change', '.summary-extra-km-rate', function() {
-	var count = $(this).data('count');
-	var vindex = $(this).data('vindex');
-	updateAllNightsExtraKmRate(count, vindex);
+    var count = $(this).data('count');
+    var vindex = $(this).data('vindex');
+    updateAllNightsExtraKmRate(count, vindex);
 });
 
 // Optional: Also update on input for real-time feedback
 $(document).on('input', '.summary-daily-rent, .summary-extra-km-rate', function() {
-	var count = $(this).data('count');
-	var vindex = $(this).data('vindex');
-	
-	if ($(this).hasClass('summary-daily-rent')) {
-		updateAllNightsDailyRent(count, vindex);
-	} else {
-		updateAllNightsExtraKmRate(count, vindex);
-	}
+    var count = $(this).data('count');
+    var vindex = $(this).data('vindex');
+
+    if ($(this).hasClass('summary-daily-rent')) {
+        updateAllNightsDailyRent(count, vindex);
+    } else {
+        updateAllNightsExtraKmRate(count, vindex);
+    }
 });
 
 // Function to update extra KM rate across all nights
 function updateAllNightsExtraKmRate(count, vindex) {
-	var extraKmRate = parseFloat($(`#summary_extra_km_rate_${count}_${vindex}`).val()) || 0;
-	var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-	var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-	var vehicle_type_id = vehicle_models[vindex].vehicle_type_id;
+    var extraKmRate = parseFloat($(`#summary_extra_km_rate_${count}_${vindex}`).val()) || 0;
+    var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+    var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+    var vehicle_type_id = vehicle_models[vindex].vehicle_type_id;
 
-	// Update extra KM rate for all nights
-	for (let night = 1; night <= no_of_night; night++) {
-		var vid = `${count}${night}${vehicle_type_id}`;
-		$(`#extra_km_rate${vid}`).val(extraKmRate);
-		updateVehicleTotals(count, night, vindex);
-	}
+    // Update extra KM rate for all nights
+    for (let night = 1; night <= no_of_night; night++) {
+        var vid = `${count}${night}${vehicle_type_id}`;
+        $(`#extra_km_rate${vid}`).val(extraKmRate);
+        updateVehicleTotals(count, night, vindex);
+    }
 
-	// Update vehicle summary
-	updateVehicleSummary(count);
+    // Update vehicle summary
+    updateVehicleSummary(count);
 }
-	// 2. Add function to update daily rent across all nights
-	function updateAllNightsDailyRent(count, vindex) {
-		var dailyRent = parseFloat($(`#summary_rent_${count}_${vindex}`).val()) || 0;
+
+// Function to update daily rent across all nights
+function updateAllNightsDailyRent(count, vindex) {
+    var dailyRent = parseFloat($(`#summary_rent_${count}_${vindex}`).val()) || 0;
+    var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+    var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+    var vehicle_type_id = vehicle_models[vindex].vehicle_type_id;
+
+    // Update daily rent for all nights
+    for (let night = 1; night <= no_of_night; night++) {
+        var vid = `${count}${night}${vehicle_type_id}`;
+        $(`#day_rent${vid}`).val(dailyRent);
+        updateVehicleTotals(count, night, vindex);
+    }
+
+    // Update vehicle summary
+    updateVehicleSummary(count);
+}
+
+// Refresh vehicle summary handler
+$(document).on('click', '.refresh-vehicle-summary', function(e) {
+    e.preventDefault();
+    var count = $(this).attr('data-count');
+    var $spinner = $('#csspinner');
+
+    $spinner.show();
+
+    // Trigger click on all load_vehs_click for this location
+    var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+    var clicksCompleted = 0;
+
+    for (let night = 1; night <= no_of_night; night++) {
+        var $loadBtn = $(`#loadvehs${count}${night}`);
+        if ($loadBtn.length > 0) {
+            // Simulate click with a small delay
+            setTimeout(function() {
+                $loadBtn.trigger('click');
+                clicksCompleted++;
+
+                // Update summary after last click
+                if (clicksCompleted === no_of_night) {
+                    setTimeout(function() {
+                        updateVehicleSummary(count);
+                        $spinner.hide();
+                        showAlert('success', 'Vehicle data refreshed successfully!');
+                    }, 500);
+                }
+            }, night * 200); // Stagger the clicks
+        }
+    }
+
+    // If no nights or no load buttons, just hide spinner
+    if (no_of_night === 0) {
+        $spinner.hide();
+        showAlert('warning', 'No nights configured to refresh.');
+    }
+});
+
+// Update vehicle summary function - FIXED VERSION
+function updateVehicleSummary(count) {
+    var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+    if (is_vehicle_required != 1) return;
+
+    var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+    var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+    console.log('Updating vehicle summary for card:', count, 'Nights:', no_of_night);
+
+    if (no_of_night < 1) {
+        $(`#vehicle-summary-${count}`).hide();
+        return;
+    }
+
+    var showSummary = !getIsDynamic();
+    if (showSummary) {
+        $(`#vehicle-summary-${count}`).show();
+    }
+
+    // Update header with actual vehicle details
+    var nightLabels = '';
+    for (let i = 1; i <= no_of_night; i++) {
+        var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
+        if (vFromTo && vFromTo !== '') {
+            vFromTo = vFromTo.replace(/^\s*-\s*/, '');
+            nightLabels += vFromTo;
+        } else {
+            nightLabels += `N${i}`;
+        }
+        if (i < no_of_night) {
+            nightLabels += ' + ';
+        }
+    }
+    $(`#vehicle-summary-header-${count}`).html(`
+        <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
+            <i class="fa fa-refresh"></i>
+        </a>
+        Vehicle Summary (${nightLabels})
+    `);
+
+    var overallTotal = 0;
+
+    $.each(vehicle_models, function(vindex, vmodel) {
+        var totalDays = 0;
+        var dailyRent = 0;
+        var totalDistance = 0;
+        var totalExtraKm = 0;
+        var extraKmRate = 0;
+        var totalAmount = 0;
+
+        // Loop through all nights and sum up values
+        for (let night = 1; night <= no_of_night; night++) {
+            var vid = `${count}${night}${vmodel.vehicle_type_id}`;
+
+            var dayRent = parseFloat($(`#day_rent${vid}`).val()) || 0;
+            var distance = parseFloat($(`#travel_distance${vid}`).val()) || 0;
+            var extraKm = parseFloat($(`#extra_kilometer${vid}`).val()) || 0;
+            var vehTotal = parseFloat($(`#veh_total${vid}`).val()) || 0;
+            var kmRate = parseFloat($(`#extra_km_rate${vid}`).val()) || 0;
+
+            console.log(`Night ${night}, Vehicle ${vindex}:`, {
+                dayRent,
+                distance,
+                extraKm,
+                vehTotal,
+                kmRate
+            });
+
+            if (dayRent > 0 || distance > 0) {
+                totalDays++;
+            }
+
+            // For daily rent, just take the first night's value (they should all be same in static mode)
+            if (night === 1 || dailyRent === 0) {
+                dailyRent = dayRent;
+            }
+
+            // Get extra km rate from first night
+            if (night === 1) {
+                extraKmRate = kmRate;
+            }
+
+            totalDistance += distance;
+            totalExtraKm += extraKm;
+            totalAmount += vehTotal;
+        }
+
+        console.log(`Summary for Vehicle ${vindex}:`, {
+            totalDays,
+            dailyRent,
+            totalDistance,
+            totalExtraKm,
+            extraKmRate,
+            totalAmount
+        });
+
+        // Update summary fields - don't overwrite if user is currently editing
+        var $rentField = $(`#summary_rent_${count}_${vindex}`);
+        var $rateField = $(`#summary_extra_km_rate_${count}_${vindex}`);
+
+        // Only update if not focused (user not editing)
+        if (!$rentField.is(':focus')) {
+            $rentField.val(dailyRent);
+        }
+        if (!$rateField.is(':focus')) {
+            $rateField.val(extraKmRate);
+        }
+
+        $(`#summary_days_${count}_${vindex}`).val(totalDays);
+        $(`#summary_distance_${count}_${vindex}`).val(totalDistance);
+        $(`#summary_extra_km_${count}_${vindex}`).val(totalExtraKm);
+        $(`#summary_total_${count}_${vindex}`).val(totalAmount);
+
+        overallTotal += totalAmount;
+    });
+
+    // Update overall total
+    $(`#summary_overall_total_${count}`).val(overallTotal.toFixed(2));
+
+    console.log('Overall vehicle total:', overallTotal);
+}
+
+// Show alert function
+function showAlert(type, message) {
+    var iconClass = type === 'success' ? 'fe-check-circle' :
+        type === 'danger' ? 'fe-alert-triangle' :
+        type === 'warning' ? 'fe-alert-circle' :
+        'fe-info';
+
+    var alertHtml = `
+    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+        <span class="alert-inner--icon"><i class="fe ${iconClass}"></i></span>
+        <span class="alert-inner--text">${message}</span>
+        <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>`;
+
+    $('#hotel_alert').html(alertHtml);
+
+    setTimeout(function() {
+        $(".alert").fadeOut("slow", function() {
+            $(this).remove();
+        });
+    }, 3000);
+}
+
+// Modified updateVehicleTotals function
+if (typeof validateNumericInput !== 'function') {
+    function validateNumericInput(input) {
+        input.value = input.value.replace(/\D/g, '');
+    }
+}
+
+// Update vehicle totals function
+function updateVehicleTotals(count, night, vindex) {
+    var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+    var vehicle_type_id = vehicle_models[vindex].vehicle_type_id;
+    var vid = `${count}${night}${vehicle_type_id}`;
+
+    var day_rent = parseFloat($(`#day_rent${vid}`).val()) || 0;
+    var travel_distance = parseFloat($(`#travel_distance${vid}`).val()) || 0;
+    var max_km_day = parseFloat($(`#max_km_day${vid}`).val()) || 0;
+    var extra_km_rate = parseFloat($(`#extra_km_rate${vid}`).val()) || 0;
+    var extra_kilometer = travel_distance > max_km_day ? travel_distance - max_km_day : 0;
+    var v_count = parseInt($(`#veh_count${vid}`).val()) || 1;
+
+    $(`#extra_kilometer${vid}`).val(extra_kilometer);
+    var veh_total = day_rent * v_count;
+    $(`#veh_total${vid}`).val(veh_total);
+
+    // Update grand total for vehicles in this night
+    var veh_grand_total = 0;
+    $(`#nightly-details${count} .night-section[data-night="${night}"] input[id^="veh_total"]`).each(function() {
+        veh_grand_total += parseFloat($(this).val()) || 0;
+    });
+    $(`#veh_grand_total${count}${night}`).val(veh_grand_total);
+
+    // Update vehicle summary
+    updateVehicleSummary(count);
+
+    // Update overall vehicle grand total
+    get_veh_grand_total();
+
+    // Update extra km charges if that function exists
+    if (typeof calculateVehicleExtraKmCharges === 'function') {
+        calculateVehicleExtraKmCharges();
+    }
+}
+
+// Helper to get dynamic mode state
+if (typeof getIsDynamic !== 'function') {
+    function getIsDynamic() {
+        // Check if checkbox exists and return its state
+        var $checkbox = $('#dynamic_nights_checkbox');
+        if ($checkbox.length > 0) {
+            return $checkbox.is(':checked');
+        }
+        // Default to false if checkbox doesn't exist
+        return false;
+    }
+}
+
+// ADDITIONAL FUNCTION: Ensure vehicle summary data is included in form submission
+function ensureVehicleSummaryInForm() {
+    $('.location-card').each(function() {
+        var count = $(this).attr('data-index');
+        var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+        var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+        
+        if (no_of_night < 1) return;
+        
+        // Force update of vehicle summary data before form submission
+        updateVehicleSummary(count);
+        
+        console.log('Vehicle Summary Data for location ' + count + ':', {
+            overall_total: $(`#summary_overall_total_${count}`).val(),
+            vehicle_count: vehicle_models.length
+        });
+    });
+}
+
+// Call this function before form submission
+$(document).on('click', '#btn_save_tour_plan, #btn_savedraft_tour_plan', function(e) {
+    // Ensure vehicle summary data is updated
+    ensureVehicleSummaryInForm();
+    
+    // Add a small delay to ensure DOM is updated
+    setTimeout(function() {
+        // Debug: Log all vehicle summary form data
+        $('input[name^="addloc"][name*="vehicle_summary"]').each(function() {
+            console.log('Vehicle Summary Field:', $(this).attr('name'), '=', $(this).val());
+        });
+    }, 100);
+});
+
+// Also update when nightly details are updated
+function updateNightlyDetails(count) {
 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-		var vehicle_type_id = vehicle_models[vindex].vehicle_type_id;
-
-		// Update daily rent for all nights
-		for (let night = 1; night <= no_of_night; night++) {
-			var vid = `${count}${night}${vehicle_type_id}`;
-			$(`#day_rent${vid}`).val(dailyRent);
-			updateVehicleTotals(count, night, vindex);
-		}
-
-		// Update vehicle summary
-		updateVehicleSummary(count);
-	}
-
-	// 3. Add refresh vehicle summary handler
-	$(document).on('click', '.refresh-vehicle-summary', function(e) {
-		e.preventDefault();
-		var count = $(this).attr('data-count');
-		var $spinner = $('#csspinner');
-
-		$spinner.show();
-
-		// Trigger click on all load_vehs_click for this location
-		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-		var clicksCompleted = 0;
-
-		for (let night = 1; night <= no_of_night; night++) {
-			var $loadBtn = $(`#loadvehs${count}${night}`);
-			if ($loadBtn.length > 0) {
-				// Simulate click with a small delay
-				setTimeout(function() {
-					$loadBtn.trigger('click');
-					clicksCompleted++;
-
-					// Update summary after last click
-					if (clicksCompleted === no_of_night) {
-						setTimeout(function() {
-							updateVehicleSummary(count);
-							$spinner.hide();
-							showAlert('success', 'Vehicle data refreshed successfully!');
-						}, 500);
-					}
-				}, night * 200); // Stagger the clicks
-			}
-		}
-
-		// If no nights or no load buttons, just hide spinner
-		if (no_of_night === 0) {
-			$spinner.hide();
-			showAlert('warning', 'No nights configured to refresh.');
-		}
-	});
-
-
-	// 4. Update the updateVehicleSummary function to include extra km rate
-	function updateVehicleSummary(count) {
+		var checkinDate = $(`#checkin${count}`).val();
+		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
+		var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
 		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-		if (is_vehicle_required != 1) return;
-
 		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+		var nightlyDetails = $(`#nightly-details${count}`);
+		var currentNights = nightlyDetails.find('.night-section').length;
 
-		console.log('Updating vehicle summary for card:', count, 'Nights:', no_of_night);
+		// Update breadcrumb with number of nights
+		$(`#span_night_id${count}`).text(no_of_night > 0 ? no_of_night : '');
 
 		if (no_of_night < 1) {
-			$(`#vehicle-summary-${count}`).hide();
+			nightlyDetails.empty();
+			$(`#vehicle-summary-${count}`).remove();
+			updateGrandtotalBoth();
+			get_veh_grand_total();
 			return;
 		}
 
-		var showSummary = !getIsDynamic();
-		if (showSummary) {
-			$(`#vehicle-summary-${count}`).show();
+		// Add new nights if increased
+		for (let night = currentNights + 1; night <= no_of_night; night++) {
+			var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, checkinDate);
+			nightlyDetails.append(nightlyHtml);
+			var commonOptions = $(`#roomcat_common${count}`).html();
+			$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
+				$(this).html(commonOptions);
+			});
+			$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
 		}
 
-		// Update header with actual vehicle details
-		var nightLabels = '';
-for (let i = 1; i <= no_of_night; i++) {
-	var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
-	if (vFromTo && vFromTo !== '') {
-		vFromTo = vFromTo.replace(/^\s*-\s*/, '');
-		nightLabels += vFromTo;
-	} else {
-		nightLabels += `N${i}`;
-	}
-	if (i < no_of_night) {
-		nightLabels += ' + ';
-	}
-}
-$(`#vehicle-summary-header-${count}`).html(`
-	<a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
-		<i class="fa fa-refresh"></i>
-	</a>
-	Vehicle Summary (${nightLabels})
-`);
-
-		var overallTotal = 0;
-
-		$.each(vehicle_models, function(vindex, vmodel) {
-			var totalDays = 0;
-			var dailyRent = 0; // Just one daily rent value
-			var totalDistance = 0;
-			var totalExtraKm = 0;
-			var extraKmRate = 0; // Will store the rate from first night
-			var totalAmount = 0;
-
-			// Loop through all nights and sum up values
-			for (let night = 1; night <= no_of_night; night++) {
-				var vid = `${count}${night}${vmodel.vehicle_type_id}`;
-
-				var dayRent = parseFloat($(`#day_rent${vid}`).val()) || 0;
-				var distance = parseFloat($(`#travel_distance${vid}`).val()) || 0;
-				var extraKm = parseFloat($(`#extra_kilometer${vid}`).val()) || 0;
-				var vehTotal = parseFloat($(`#veh_total${vid}`).val()) || 0;
-				var kmRate = parseFloat($(`#extra_km_rate${vid}`).val()) || 0;
-
-				console.log(`Night ${night}, Vehicle ${vindex}:`, {
-					dayRent,
-					distance,
-					extraKm,
-					vehTotal,
-					kmRate
-				});
-
-				if (dayRent > 0 || distance > 0) {
-					totalDays++;
-				}
-
-				// For daily rent, just take the first night's value (they should all be same in static mode)
-				if (night === 1 || dailyRent === 0) {
-					dailyRent = dayRent;
-				}
-
-				// Get extra km rate from first night
-				if (night === 1) {
-					extraKmRate = kmRate;
-				}
-
-				totalDistance += distance;
-				totalExtraKm += extraKm;
-				totalAmount += vehTotal;
+		// Remove extra nights if decreased
+		if (no_of_night < currentNights) {
+			for (let night = currentNights; night > no_of_night; night--) {
+				nightlyDetails.find(`.night-section[data-night="${night}"]`).remove();
 			}
-
-			console.log(`Summary for Vehicle ${vindex}:`, {
-				totalDays,
-				dailyRent,
-				totalDistance,
-				totalExtraKm,
-				extraKmRate,
-				totalAmount
-			});
-
-			// Update summary fields - don't overwrite if user is currently editing
-			var $rentField = $(`#summary_rent_${count}_${vindex}`);
-			var $rateField = $(`#summary_extra_km_rate_${count}_${vindex}`);
-
-			// Only update if not focused (user not editing)
-			if (!$rentField.is(':focus')) {
-				$rentField.val(dailyRent);
-			}
-			if (!$rateField.is(':focus')) {
-				$rateField.val(extraKmRate);
-			}
-
-			$(`#summary_days_${count}_${vindex}`).val(totalDays);
-			$(`#summary_distance_${count}_${vindex}`).val(totalDistance);
-			$(`#summary_extra_km_${count}_${vindex}`).val(totalExtraKm);
-			$(`#summary_total_${count}_${vindex}`).val(totalAmount);
-
-			overallTotal += totalAmount;
-		});
-
-		// Update overall total
-		$(`#summary_overall_total_${count}`).val(overallTotal.toFixed(2));
-
-		console.log('Overall vehicle total:', overallTotal);
-	}
-
-	// 5. Add success alert function if not exists
-	function showAlert(type, message) {
-		var iconClass = type === 'success' ? 'fe-check-circle' :
-			type === 'danger' ? 'fe-alert-triangle' :
-			type === 'warning' ? 'fe-alert-circle' :
-			'fe-info';
-
-		var alertHtml = `
-		<div class="alert alert-${type} alert-dismissible fade show" role="alert">
-			<span class="alert-inner--icon"><i class="fe ${iconClass}"></i></span>
-			<span class="alert-inner--text">${message}</span>
-			<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">×</span>
-			</button>
-		</div>`;
-
-		$('#hotel_alert').html(alertHtml);
-
-		setTimeout(function() {
-			$(".alert").fadeOut("slow", function() {
-				$(this).remove();
-			});
-		}, 3000);
-	}
-
-	// Modified updateVehicleTotals function - add this at the end
-	if (typeof validateNumericInput !== 'function') {
-		function validateNumericInput(input) {
-			input.value = input.value.replace(/\D/g, '');
 		}
-	}
 
-	// 7. IMPORTANT: Add this code to your existing updateVehicleTotals function
-	// This is the MODIFIED version that should REPLACE your existing updateVehicleTotals
-	function updateVehicleTotals(count, night, vindex) {
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-		var vehicle_type_id = vehicle_models[vindex].vehicle_type_id;
-		var vid = `${count}${night}${vehicle_type_id}`;
+		// Add or update vehicle summary section
+		if (is_vehicle_required == 1) {
+			// Remove existing summary to regenerate with updated night labels
+			$(`#vehicle-summary-${count}`).remove();
+			var summaryHtml = generateVehicleSummary(count, no_of_night, vehicle_models);
+			nightlyDetails.append(summaryHtml);
+			updateVehicleSummary(count);
+		}
 
-		var day_rent = parseFloat($(`#day_rent${vid}`).val()) || 0;
-		var travel_distance = parseFloat($(`#travel_distance${vid}`).val()) || 0;
-		var max_km_day = parseFloat($(`#max_km_day${vid}`).val()) || 0;
-		var extra_km_rate = parseFloat($(`#extra_km_rate${vid}`).val()) || 0;
-		var extra_kilometer = travel_distance > max_km_day ? travel_distance - max_km_day : 0;
-		var v_count = parseInt($(`#veh_count${vid}`).val()) || 1;
+		// Set individual meal plans based on common meal plan
+		var commonMeal = $(`#mealplan${count}`).val();
+		if (commonMeal) {
+			$(`#nightly-details${count} .mp_row_change`).val(commonMeal).trigger('change');
+		}
+		var commonRoom = $(`#roomcat_common${count}`).val();
+		if (commonRoom) {
+			$(`#nightly-details${count} .room_cat_change`).val(commonRoom).trigger('change');
+		}
 
-		$(`#extra_kilometer${vid}`).val(extra_kilometer);
-		var veh_total = day_rent * v_count;
-		$(`#veh_total${vid}`).val(veh_total);
-
-		// Update grand total for vehicles in this night
-		var veh_grand_total = 0;
-		$(`#nightly-details${count} .night-section[data-night="${night}"] input[id^="veh_total"]`).each(function() {
-			veh_grand_total += parseFloat($(this).val()) || 0;
-		});
-		$(`#veh_grand_total${count}${night}`).val(veh_grand_total);
-
-		// Update vehicle summary
-		updateVehicleSummary(count);
-
-		// Update overall vehicle grand total
+		// Update totals
+		updateGrandtotalBoth();
 		get_veh_grand_total();
 
-		// Update extra km charges if that function exists
-		if (typeof calculateVehicleExtraKmCharges === 'function') {
-			calculateVehicleExtraKmCharges();
-		}
-	}
-
-	// 8. Helper to get dynamic mode state
-	if (typeof getIsDynamic !== 'function') {
-		function getIsDynamic() {
-			// Check if checkbox exists and return its state
-			var $checkbox = $('#dynamic_nights_checkbox');
-			if ($checkbox.length > 0) {
-				return $checkbox.is(':checked');
-			}
-			// Default to false if checkbox doesn't exist
-			return false;
-		}
+		// Toggle visibility after updating nights
+		toggleNightsVisibility();
+		calculateVehicleExtraKmCharges();
+		// $('.load_vehs_click').trigger('click');
 	}
 
 	// Function to update room totals for a specific room and night
@@ -3791,146 +3894,175 @@ $(`#vehicle-summary-header-${count}`).html(`
 	});
 
 	// Function to toggle visibility of nights based on checkbox
-	function toggleNightsVisibility() {
-		var showAll = getIsDynamic(); // true if checked (dynamic), false otherwise
+function toggleNightsVisibility() {
+    var showAll = getIsDynamic(); // true if checked (dynamic), false otherwise
 
-		$('.location-card').each(function() {
-			var count = $(this).attr('data-index');
+    $('.location-card').each(function() {
+        var $locationCard = $(this);
+        var count = $locationCard.attr('data-index');
 
-			$(`#nightly-details${count} .night-section`).each(function() {
-				var $nightSection = $(this);
-				var night = parseInt($nightSection.attr('data-night'));
+        // CRITICAL: Force location card visible at start
+        $locationCard.show().css('display', 'block');
+        
+        // Also ensure the nightly-details container is visible
+        $(`#nightly-details${count}`).show().css('display', 'block');
 
-				if (night > 1) {
-					if (showAll) {
-						// Show everything for nights > 1 when dynamic
-						$nightSection.show();
-					} else {
-						// Hide entire night section when not dynamic
-						$nightSection.hide();
-					}
-				} else {
-					// Night 1 - always show the section
-					$nightSection.show();
+        var noOfNight = parseInt($(`#no_of_night${count}`).val()) || 0;
 
-					if (!showAll) {
-						// Static mode: Hide night header, count rows, grand room totals, and extra room rows
-						$nightSection.find('> h3').hide();
-						$nightSection.find('.double_row, .single_row').hide(); // Hide room count rows
-						$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').hide(); // Hide grand room totals
+        // If no nights specified, ensure card stays visible
+        if (noOfNight === 0) {
+            $locationCard.show().css('display', 'block');
+            $(`#nightly-details${count}`).show().css('display', 'block');
+            return; // Skip processing if no nights
+        }
 
-						// For double rooms - hide all room input rows except the first
-						var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-							return $(this).find('[id^="roomcat"]').length > 0 &&
-								$(this).find('[id^="d_adult_rate"]').length > 0;
-						});
-						$doubleRoomRows.each(function(index) {
-							if (index > 0) {
-								$(this).hide();
-							}
-						});
+        $(`#nightly-details${count} .night-section`).each(function() {
+            var $nightSection = $(this);
+            var night = parseInt($nightSection.attr('data-night'));
 
-						// For single rooms - hide all room input rows except the first
-						var $singleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-							return $(this).find('[id^="roomcat"]').length > 0 &&
-								$(this).find('[id^="s_adult_rate"]').length > 0;
-						});
-						$singleRoomRows.each(function(index) {
-							if (index > 0) {
-								$(this).hide();
-							}
-						});
+            // CRITICAL: Hide nights beyond the current no_of_night
+            if (night > noOfNight) {
+                $nightSection.hide();
+                return;
+            }
 
-						// Static mode: Show quantity and adjust totals for first visible rows
-						var $firstDoubleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-							return $(this).find('input[id^="d_adult_rate"]').length > 0;
-						}).first();
-						if ($firstDoubleRow.length) {
-							var $roomTypeColDouble = $firstDoubleRow.find('.room-type-col');
-							$roomTypeColDouble.show();
-							var doubleQty = parseInt($(`#double${count}${night}`).val()) || 0;
-							var doubleQtyInput = $roomTypeColDouble.find('input');
-							doubleQtyInput.val(doubleQty);
-							var ddTotal = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
-							$firstDoubleRow.find('input.d_total_rate').val(ddTotal);
-						}
+            if (night > 1) {
+                if (showAll) {
+                    // Show everything for nights > 1 when dynamic
+                    $nightSection.show();
+                } else {
+                    // Hide entire night section when not dynamic
+                    $nightSection.hide();
+                }
+            } else {
+                // Night 1 - ALWAYS show the section
+                $nightSection.show();
 
-						var $firstSingleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-							return $(this).find('input[id^="s_adult_rate"]').length > 0;
-						}).first();
-						if ($firstSingleRow.length) {
-							var $roomTypeColSingle = $firstSingleRow.find('.room-type-col');
-							$roomTypeColSingle.show();
-							var singleQty = parseInt($(`#single${count}${night}`).val()) || 0;
-							var singleQtyInput = $roomTypeColSingle.find('input');
-							singleQtyInput.val(singleQty);
-							var ssTotal = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
-							$firstSingleRow.find('input.s_total_rate').val(ssTotal);
-						}
+                if (!showAll) {
+                    // Static mode: Hide night header, count rows, and grand room totals
+                    $nightSection.find('> h3').hide();
+                    $nightSection.find('.double_row, .single_row').hide(); // Hide room count rows
+                    $nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').hide(); // Hide grand room totals
 
-					} else {
-						// Dynamic mode: Show everything in night 1, revert static modifications
-						$nightSection.find('> h3').show();
-						$nightSection.find('.double_row, .single_row').show(); // Show count rows
-						$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show(); // Show grand room totals
-						$nightSection.find('.row.mt-2.align-items-center').show();
+                    // For double rooms - hide all room input rows except the first
+                    var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+                        return $(this).find('[id^="roomcat"]').length > 0 &&
+                            $(this).find('[id^="d_adult_rate"]').length > 0;
+                    });
+                    $doubleRoomRows.each(function(index) {
+                        if (index > 0) {
+                            $(this).hide();
+                        }
+                    });
 
-						// Revert room type columns to hidden and value=1
-						$nightSection.find('.room-type-col').hide();
-						$nightSection.find('input[id^="double"], input[id^="single"]').not(`#double${count}${night}, #single${count}${night}`).val(1);
+                    // For single rooms - hide all room input rows except the first
+                    var $singleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+                        return $(this).find('[id^="roomcat"]').length > 0 &&
+                            $(this).find('[id^="s_adult_rate"]').length > 0;
+                    });
+                    $singleRoomRows.each(function(index) {
+                        if (index > 0) {
+                            $(this).hide();
+                        }
+                    });
 
-						// Re-update per-room totals (since static may have overridden)
-						var noOfNight = parseInt($(`#no_of_night${count}`).val()) || 0;
-						for (let n = 1; n <= noOfNight; n++) {
-							// Re-call updateRoomTotals for all rooms in this night to reset per-room values
-							var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
-							for (let i = 1; i <= numDouble; i++) {
-								updateRoomTotals(count, n, i);
-							}
-							var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
-							var doubleCount = numDouble;
-							for (let i = 1; i <= numSingle; i++) {
-								updateRoomTotals(count, n, doubleCount + i);
-							}
-						}
-					}
-				}
-			});
+                    // Static mode: Show quantity and adjust totals for first visible rows
+                    var $firstDoubleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+                        return $(this).find('input[id^="d_adult_rate"]').length > 0;
+                    }).first();
+                    if ($firstDoubleRow.length) {
+                        var $roomTypeColDouble = $firstDoubleRow.find('.room-type-col');
+                        $roomTypeColDouble.show();
+                        var doubleQty = parseInt($(`#double${count}${night}`).val()) || 0;
+                        var doubleQtyInput = $roomTypeColDouble.find('input');
+                        doubleQtyInput.val(doubleQty);
+                        var ddTotal = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
+                        $firstDoubleRow.find('input.d_total_rate').val(ddTotal);
+                    }
 
-			// Handle vehicle visibility based on dynamic state
-			var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-			if (is_vehicle_required == 1) {
-				if (!showAll) {
-					// Static mode: Hide all vehicle details except Vehicle Summary
-					$(`#nightly-details${count} .vehicle-details-section`).hide();
-					$(`#nightly-details${count} .vehicle-rows`).hide();
-					$(`#nightly-details${count} .vehicle-row`).hide();
+                    var $firstSingleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+                        return $(this).find('input[id^="s_adult_rate"]').length > 0;
+                    }).first();
+                    if ($firstSingleRow.length) {
+                        var $roomTypeColSingle = $firstSingleRow.find('.room-type-col');
+                        $roomTypeColSingle.show();
+                        var singleQty = parseInt($(`#single${count}${night}`).val()) || 0;
+                        var singleQtyInput = $roomTypeColSingle.find('input');
+                        singleQtyInput.val(singleQty);
+                        var ssTotal = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
+                        $firstSingleRow.find('input.s_total_rate').val(ssTotal);
+                    }
 
-					// Hide vehicle grand total in all nights (static mode)
-					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+                } else {
+                    // Dynamic mode: Show everything in night 1, revert static modifications
+                    $nightSection.find('> h3').show();
+                    $nightSection.find('.double_row, .single_row').show(); // Show count rows
+                    $nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show(); // Show grand room totals
+                    $nightSection.find('.row.mt-2.align-items-center').show();
 
-					// Show Vehicle Summary
-					$(`#vehicle-summary-${count}`).show();
-				} else {
-					// Dynamic mode: Show all vehicle details, hide Vehicle Summary
-					$(`#nightly-details${count} .vehicle-details-section`).show();
-					$(`#nightly-details${count} .vehicle-rows`).show();
-					$(`#nightly-details${count} .vehicle-row`).show();
+                    // Revert room type columns to hidden and value=1
+                    $nightSection.find('.room-type-col').hide();
+                    $nightSection.find('input[id^="double"], input[id^="single"]').not(`#double${count}${night}, #single${count}${night}`).val(1);
 
-					// Hide vehicle grand total in all nights (dynamic mode)
-					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+                    // Re-update per-room totals (since static may have overridden)
+                    for (let n = 1; n <= noOfNight; n++) {
+                        // Re-call updateRoomTotals for all rooms in this night to reset per-room values
+                        var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
+                        for (let i = 1; i <= numDouble; i++) {
+                            updateRoomTotals(count, n, i);
+                        }
+                        var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
+                        var doubleCount = numDouble;
+                        for (let i = 1; i <= numSingle; i++) {
+                            updateRoomTotals(count, n, doubleCount + i);
+                        }
+                    }
+                }
+            }
+        });
 
-					// Hide Vehicle Summary in dynamic mode
-					$(`#vehicle-summary-${count}`).hide();
-				}
-			}
-		});
+        // Handle vehicle visibility based on dynamic state
+        var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+        if (is_vehicle_required == 1) {
+            if (!showAll) {
+                // Static mode: Hide all vehicle details except Vehicle Summary
+                $(`#nightly-details${count} .vehicle-details-section`).hide();
+                $(`#nightly-details${count} .vehicle-rows`).hide();
+                $(`#nightly-details${count} .vehicle-row`).hide();
 
-		updateGrandtotalBoth();
-		get_veh_grand_total();
-		// $('.load_vehs_click').trigger('click');
+                // Hide vehicle grand total in all nights (static mode)
+                $(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
 
-	}
+                // Show Vehicle Summary
+                $(`#vehicle-summary-${count}`).show();
+            } else {
+                // Dynamic mode: Show all vehicle details, hide Vehicle Summary
+                $(`#nightly-details${count} .vehicle-details-section`).show();
+                $(`#nightly-details${count} .vehicle-rows`).show();
+                $(`#nightly-details${count} .vehicle-row`).show();
+
+                // Hide vehicle grand total in all nights (dynamic mode)
+                $(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+
+                // Hide Vehicle Summary in dynamic mode
+                $(`#vehicle-summary-${count}`).hide();
+            }
+        }
+
+        // CRITICAL: Force card and parent containers to be visible at end
+        $locationCard.show().css('display', 'block');
+        $locationCard.parent().show().css('display', 'block'); // Show parent container too
+        $(`#nightly-details${count}`).show().css('display', 'block');
+        
+        // Ensure the card body and ibox are also visible
+        $locationCard.find('.card-body').show().css('display', 'block');
+        $locationCard.find('.ibox').show().css('display', 'block');
+    });
+
+    updateGrandtotalBoth();
+    get_veh_grand_total();
+    // $('.load_vehs_click').trigger('click');
+}
 	// Function to update vehicle totals for a specific vehicle and night
 	function updateVehicleTotals(count, night, vindex) {
 		var vid = `${count}${night}${vindex}`;
@@ -4360,13 +4492,13 @@ $(`#vehicle-summary-header-${count}`).html(`
 			'fe-info';
 
 		var alertHtml = `
-		<div class="alert alert-${type} alert-dismissible fade show" role="alert">
-			<span class="alert-inner--icon"><i class="fe ${iconClass}"></i></span>
-			<span class="alert-inner--text">${message}</span>
-			<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
-				<span aria-hidden="true">×</span>
-			</button>
-		</div>`;
+					<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+						<span class="alert-inner--icon"><i class="fe ${iconClass}"></i></span>
+						<span class="alert-inner--text">${message}</span>
+						<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>`;
 
 		// $('#hotel_alert').html(alertHtml);
 
@@ -4376,6 +4508,37 @@ $(`#vehicle-summary-header-${count}`).html(`
 			});
 		}, 3000);
 	}
+</script>
+<script>
+	// Add this to your existing script
+	$(document).ready(function() {
+		// Remove required attributes from Select2 elements
+		function fixSelect2Validation() {
+			$('.select2-hidden-accessible').each(function() {
+				if ($(this).attr('required')) {
+					$(this).removeAttr('required');
+				}
+			});
+		}
+
+		// Fix on page load
+		fixSelect2Validation();
+
+		// Fix when new elements are added
+		$(document).ajaxComplete(function() {
+			setTimeout(fixSelect2Validation, 100);
+		});
+
+		// Fix when Select2 is initialized
+		$(document).on('select2:open', function(e) {
+			fixSelect2Validation();
+		});
+	});
+
+	// Also update your Select2 initialization to remove required
+	$('.select2-show-search').select2().on('select2:open', function() {
+		$(this).removeAttr('required');
+	});
 </script>
 
 <script>
@@ -6561,7 +6724,7 @@ $(`#vehicle-summary-header-${count}`).html(`
                                 <div class="row mt-2 align-items-center">
                                     <div class="col-xl col-sm-12 col-md-2 ps-2">
                                         <div class="teams-rank"><b>Room Category</b></div>
-                                        <select id="roomcat${rid}" name="addloc[${count}][nights][${currentNightIndex}][roomcat][${i}]" class="form-control select2-show-search input-sm room_cat_change" count-id="${count}" data-id="${rid}" data-night="${currentNightIndex}" data-room-index="${i}" required>
+                                        <select id="roomcat${rid}" name="addloc[${count}][nights][${currentNightIndex}][roomcat][${i}]" class="form-control select2-show-search input-sm room_cat_change" count-id="${count}" data-id="${rid}" data-type="double" data-night="${currentNightIndex}" data-room-index="${i}" required>
                                             <option value="">Select</option>
                                         </select>
                                     </div>
@@ -6651,7 +6814,7 @@ $(`#vehicle-summary-header-${count}`).html(`
                                 <div class="row mt-2 align-items-center">
                                     <div class="col-xl col-sm-12 col-md-2 ps-2">
                                         <div class="teams-rank"><b>Room Category</b></div>
-                                        <select id="roomcat${sid}" name="addloc[${count}][nights][${currentNightIndex}][roomcat][${seq}]" class="form-control select2-show-search input-sm room_cat_change" count-id="${count}" data-id="${sid}" data-night="${currentNightIndex}" data-room-index="${seq}" required>
+                                        <select id="roomcat${sid}" name="addloc[${count}][nights][${currentNightIndex}][roomcat][${seq}]" class="form-control select2-show-search input-sm room_cat_change" count-id="${count}" data-id="${sid}"  data-night="${currentNightIndex}" data-room-index="${seq}" required>
                                             <option value="">Select</option>
                                         </select>
                                     </div>
