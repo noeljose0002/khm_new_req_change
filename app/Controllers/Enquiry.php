@@ -2787,7 +2787,7 @@ class Enquiry extends BaseController
     //         return redirect()->to('Login');
     //     }
     // }
-    public function getTourTariffDetails()
+public function getTourTariffDetails()
 {
     if (!empty(session()->get('user_id'))) {
         $Enquiry_model = new Enquiry_m();
@@ -2813,12 +2813,12 @@ class Enquiry extends BaseController
         $previous_location_id = $this->request->getPost('previous_location_id');
         $vehicle_from_location = $this->request->getPost('vehicle_from_location');
         $vehicle_from_locations = $Enquiry_model->getLocationidfromhub($vehicle_from_location);
-        $arrival_location = $this->request->getPost('arrival_location');
         if (!empty($vehicle_from_locations)) {
             $vehicle_from_loc_id = $vehicle_from_locations[0]['geog_id'];
         } else {
-            $vehicle_from_loc_id = $arrival_location;
+            $vehicle_from_loc_id = $this->request->getPost('arrival_location');
         }
+        $arrival_location = $this->request->getPost('arrival_location');
         $departure_location = $this->request->getPost('departure_location');
         $dist1 = 0;
         $dist2 = 0;
@@ -2899,7 +2899,12 @@ class Enquiry extends BaseController
         $tariff_det = [];
 
         $object_ids = $Enquiry_model->getObjectidByhotel($hotel_id);
-        $object_id = $object_ids[0]['object_id'];
+        if (!empty($object_ids)) {
+            $object_id = $object_ids[0]['object_id'];
+        } else {
+            $object_id = 0; // Default or log error
+            log_message('error', 'No object_id found for hotel_id: ' . $hotel_id);
+        }
         $startDate = new DateTime($checkin);
         $endDate = new DateTime($checkout);
         //$endDate->modify('+1 day');
@@ -2920,7 +2925,13 @@ class Enquiry extends BaseController
         if (!empty($vehicle_models)) {
             foreach ($vehicle_models as $key => $val) {
                 $veh_object_ids = $Enquiry_model->getObjectidByvehicle($val['vehicle_type_id']);
-                $veh_object_id = $veh_object_ids[0]['object_id'];
+                if (!empty($veh_object_ids)) {
+                    $veh_object_id = $veh_object_ids[0]['object_id'];
+                } else {
+                    $veh_object_id = 0; // Default or log error
+                    log_message('error', 'No veh_object_id found for vehicle_type_id: ' . $val['vehicle_type_id']);
+                    continue; // Skip this vehicle
+                }
                 $rate_per_day = 0;
                 $max_km_day = 0;
                 $extra_km_rate = 0;
@@ -2929,20 +2940,31 @@ class Enquiry extends BaseController
                 $veh_tariffs[$key]['vehicle_type_id'] = $val['vehicle_type_id'];
                 $veh_tariffs[$key]['vehicle_model_name'] = $val['vehicle_model_name'];
                 $vehicle_basic_tariffs = $Enquiry_model->getTourtravelbasic(1, $val['vehicle_type_id']);
-                $max_km_day = $vehicle_basic_tariffs[0]['tour_travel_max_km'];
-                $extra_km_rate = $vehicle_basic_tariffs[0]['extra_km_rate'];
+                if (!empty($vehicle_basic_tariffs)) {
+                    $max_km_day = $vehicle_basic_tariffs[0]['tour_travel_max_km'];
+                    $extra_km_rate = $vehicle_basic_tariffs[0]['extra_km_rate'];
+                } else {
+                    log_message('error', 'No basic tariffs found for vehicle_type_id: ' . $val['vehicle_type_id']);
+                }
                 foreach ($period as $date) {
                     $v_tour_date = $date->format('Y-m-d');
                     $vehicle_basic_tariffs = $Enquiry_model->getTourtravelbasic(1, $val['vehicle_type_id']);
                     $v_season_tariff = $Enquiry_model->checkVehicleSeasonExist($v_tour_date, $veh_object_id);
                     if (!empty($v_season_tariff)) {
                         $vehicle_season_tariffs = $Enquiry_model->getTourtravelseason(2, $v_season_tariff[0]['season_id'], $val['vehicle_type_id']);
-                        $rate_per_day = $rate_per_day + $vehicle_season_tariffs[0]['rate_per_day'];
-                        $extra_km_rate = $vehicle_season_tariffs[0]['extra_km_rate'];
-                        $km_rate = $vehicle_season_tariffs[0]['km_rate'];
+                        if (!empty($vehicle_season_tariffs)) {
+                            $rate_per_day = $rate_per_day + $vehicle_season_tariffs[0]['rate_per_day'];
+                            $extra_km_rate = $vehicle_season_tariffs[0]['extra_km_rate'];
+                            $km_rate = $vehicle_season_tariffs[0]['km_rate'];
+                        } else {
+                            log_message('error', 'No season tariffs found for season_id: ' . $v_season_tariff[0]['season_id'] . ', vehicle_type_id: ' . $val['vehicle_type_id']);
+                        }
                     } else {
-                        $vehicle_tariffs = $Enquiry_model->getTourtravelbasic(1, $val['vehicle_type_id']);
-                        $rate_per_day = $rate_per_day + $vehicle_tariffs[0]['tour_travel_daily_rate'];
+                        if (!empty($vehicle_basic_tariffs)) {
+                            $rate_per_day = $rate_per_day + $vehicle_basic_tariffs[0]['tour_travel_daily_rate'];
+                        } else {
+                            log_message('error', 'No basic tariffs found for vehicle_type_id: ' . $val['vehicle_type_id']);
+                        }
                     }
                 }
                 $veh_tariffs[$key]['rate_per_day'] = $rate_per_day / $no_of_night;
