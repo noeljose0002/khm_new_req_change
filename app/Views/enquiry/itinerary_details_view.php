@@ -54,8 +54,7 @@
 		<!-- Color-palette css-->
 		<link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>"/>
 		<link href="<?php echo base_url('assets/plugins/datatable/dataTables.bootstrap4.min.css'); ?>" rel="stylesheet" />
-		<link rel="stylesheet" href="https://pn-ciamis.go.id/asset/DataTables/extensions/Responsive/css/responsive.dataTables.css">
-		<link rel="stylesheet" href="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/css/buttons.dataTables.css">
+		
 		<script src="<?php echo base_url('assets/tiny_mce/tiny_mce.js');?>"></script>
 
 		<style>
@@ -516,14 +515,27 @@
 													
 												</tbody>
 											</table>
-											
-											<button type="button" id="send_multiple_iti" class="btn btn-success btn-sm send_multiple_itinerary" style="float:left;">Send Multiple Itinerary</button>
+											<?php if($add_per == 1){ ?>
+												<button type="button" id="send_multiple_iti" class="btn btn-success btn-sm send_multiple_itinerary" style="float:left;">Send Multiple Itinerary</button>
+											<?php } ?>
 										</div>
 									</div>
 									<!-- table-wrapper -->
 								</div>
 								<!-- section-wrapper -->
 							</div>
+						</div>
+						<div class="d-flex justify-content-center">
+							<button class="btn btn-primary" id="spinner_ac" type="button" style="display: none;">
+								<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+									Sending Availability Check...Please wait...
+							</button>
+						</div>
+						<div class="d-flex justify-content-center">
+							<button class="btn btn-primary" id="spinner_confirm" type="button" style="display: none;">
+								<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+									Sending mail to SOP...Please wait...
+							</button>
 						</div>
 			
 						<!-- row closed -->
@@ -616,9 +628,7 @@
 		<script src="<?php echo base_url('assets/plugins/datatable/dataTables.bootstrap4.min.js'); ?>"></script>
 		<script src="<?php echo base_url('assets/plugins/datatable/datatable.js'); ?>"></script>
 		
-		<script src="https://pn-ciamis.go.id/asset/DataTables/extensions/Responsive/js/dataTables.responsive.js"></script>
-		<script src="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/js/dataTables.buttons.js"></script>
-		<script src="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/js/buttons.colVis.js"></script>
+	
 
 	</body>
 </html>
@@ -665,6 +675,8 @@ $(document).ready(function() {
 
 function cs_confirm_table(){
 	var enquiry_header_id = "<?php echo $enquiry_header_id; ?>";
+	var edit_per = "<?php echo $edit_per; ?>";
+	var add_per = "<?php echo $add_per; ?>";
 	var object_id = "<?php echo $object_id; ?>";
 	if ($.fn.DataTable.isDataTable('#hotel_table')) {
         $('#hotel_table').DataTable().destroy();
@@ -696,6 +708,7 @@ function cs_confirm_table(){
 				orderable: false,
 				searchable: false,
 				render: function (data, type, row, meta) {
+					if(add_per == 1){
 					if(row.cs_confirmed_id > 0){
 						if(row.enquiry_detail_details_id == row.cs_confirmed_id){
 							return '<input type="radio" id="cs_finalize'+data+'" name="cs_finalize" data-id="'+row.enquiry_detail_details_id+'" class="costing_sheet_finalize" disabled checked>' + (meta.row + meta.settings._iDisplayStart + 1);
@@ -706,6 +719,10 @@ function cs_confirm_table(){
 					}
 					else{
 						return '<input type="radio" id="cs_finalize'+data+'" name="cs_finalize" data-id="'+row.enquiry_detail_details_id+'" class="costing_sheet_finalize">' + (meta.row + meta.settings._iDisplayStart + 1);
+					}
+					}
+					else{
+						return meta.row + meta.settings._iDisplayStart + 1;
 					}
 				}
 			},
@@ -751,6 +768,7 @@ function cs_confirm_table(){
 				orderable: false,
                 render: function (data, type, row, meta) {
 					let obj_name = "";
+					if(edit_per == 1){
 					if(row.edit_request == 1){
 						return '<a><i class="fa fa-ban" aria-hidden="true"></i></a>';
 					}
@@ -766,6 +784,10 @@ function cs_confirm_table(){
 								return '<a data-toggle="tooltip" title="Enquiry Edit" href="<?=site_url('Enquiry/add_object_enquiry/10/'); ?>'+object_id+'"><i class="fa fa-xing-square" aria-hidden="true"></i></a>&nbsp;&nbsp;&nbsp;<a data-toggle="tooltip" title="Tour Plan Edit" href="<?=site_url('Enquiry/tour_plan/'); ?>'+object_id+'/'+row.enquiry_ref_id+'"><i class="fa fa-tumblr-square" aria-hidden="true"></i></a>&nbsp;&nbsp;&nbsp;<a data-toggle="tooltip" title="Itinerary Edit" href="<?=site_url('Enquiry/itinerary/'); ?>'+object_id+'/0/'+data+'/'+row.version_count+'/0"><i class="fa fa-hacker-news" aria-hidden="true"></i></a>';
 							}
 						}
+					}
+					}
+					else{
+						return '<a href="javascript:void(0)" class="btn btn-success btn-sm text-white disabled" style="pointer-events: none; opacity: 0.6;"><i class="fa fa-edit"></i></a>';
 					}
                 }
             },
@@ -785,6 +807,7 @@ function cs_confirm_table(){
 			{
 				data: 'enquiry_detail_details_id',
 				render: function (data, type, row, meta) {
+					if(add_per == 1){
 					if(row.availability_check == 1){
 						return '<h6 style="font-weight: bold;color:#0066cc">In Progress</h6>';
 					}
@@ -801,6 +824,10 @@ function cs_confirm_table(){
 						else{
 							return '<input type="radio" id="cs_availability'+data+'" name="cs_availability" data-id="'+data+'" class="availabilitycheck">';
 						}
+					}
+					}
+					else{
+						return '';
 					}
 				}
 			},
@@ -940,6 +967,11 @@ function cs_confirm_table(){
 <script type="text/javascript">
     $(document).on('click', '.availabilitycheck', function (e) {
         e.preventDefault();
+
+		var $this = $(this);
+		$this.prop('disabled', true);
+		$('#spinner_ac').show();
+
 		var enquiry_detail_details_id = $(this).attr('data-id');
         $.ajax({
             type: "POST",
@@ -954,7 +986,11 @@ function cs_confirm_table(){
 					alert("Hotel Details are sent to "+response[0].entity_name+" for availability check");
 					cs_confirm_table();
 				}
-            }
+            },
+			complete: function () {
+				$this.prop('disabled', false);
+				$('#spinner_ac').hide();
+			}
         });
     });
 </script>
@@ -980,6 +1016,11 @@ function cs_confirm_table(){
 <script type="text/javascript">
     $(document).on('click', '.costing_sheet_finalize', function (e) {
         e.preventDefault();
+
+		var $this = $(this);
+		$this.prop('disabled', true);
+		$('#spinner_confirm').show();
+
 		if (!confirm("Are you sure you want to confirm this costing sheet?")) {
 			return;
 		}
@@ -1001,6 +1042,10 @@ function cs_confirm_table(){
 						alert("Costing Sheet Confirmed");
 						cs_confirm_table();
 					}
+				},
+				complete: function () {
+					$this.prop('disabled', false);
+					$('#spinner_confirm').hide();
 				}
 			});
 		

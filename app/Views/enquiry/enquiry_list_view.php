@@ -722,9 +722,13 @@
 											</div>
 										</div>
 									</div>-->
-								<span class="mt-3 mt-md-0 pg-header">
-									<a href="<?= site_url('Enquiry/add_object_enquiry/' . $object_class_id); ?>" class="btn btn-success ml-0 ml-md-4 mt-1 " id="create_nw_enquiry_btn"><i class="typcn typcn-plus mr-1"></i>Create New Enquiry</a>
-								</span>
+								<?php if($parent_id == 0 || $parent_id == 1 || $parent_id == 4){ 
+									if($add_per==1){
+									?>
+									<span class="mt-3 mt-md-0 pg-header">
+										<a href="<?= site_url('Enquiry/add_object_enquiry/' . $object_class_id); ?>" class="btn btn-success ml-0 ml-md-4 mt-1 " id="create_nw_enquiry_btn"><i class="typcn typcn-plus mr-1"></i>Create New Enquiry</a>
+									</span>
+								<?php } } ?>
 							</div>
 						</div>
 					</div>
@@ -987,8 +991,13 @@
 						if (row.edit_request == 1) {
 							return '<a class="enquiry_view" data-id-object=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Enquiry View" href=""><i class="fa fa-eye" style="color:#003366"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/tour_plan/'); ?>' + data + '" data-toggle="tooltip" title="Tour Plan"><i class="fa fa-bus" aria-hidden="true" style="color:#ff0066"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/itinerary/'); ?>' + data + '/0" data-toggle="tooltip" title="Itinerary Details"><i class="fa fa-calendar" aria-hidden="true" style="color:#003300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/followup_form/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Follow Up"><i class="fa fa-phone-square" aria-hidden="true" style="color:#cc3300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/payments/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Payments"><i class="fa fa-inr" aria-hidden="true" style="color:#000099"></i></a>';
 						}
-						else if(row.cs_confirmed_id > 0){
-							return '<a class="enquiry_view" data-id-object=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Enquiry View" href=""><i class="fa fa-eye" style="color:#003366"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/tour_plan/'); ?>' + data + '" data-toggle="tooltip" title="Tour Plan"><i class="fa fa-bus" aria-hidden="true" style="color:#ff0066"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/itinerary/'); ?>' + data + '/0" data-toggle="tooltip" title="Itinerary Details"><i class="fa fa-calendar" aria-hidden="true" style="color:#003300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/followup_form/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Follow Up"><i class="fa fa-phone-square" aria-hidden="true" style="color:#cc3300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/payments/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Payments"><i class="fa fa-inr" aria-hidden="true" style="color:#000099"></i></a>';
+						else if(row.cs_confirmed_id > 0 || row.availability_check >= 1 ){
+							if (parent_id == 2 || parent_id == 7) {
+								return '<a class="ac_check_form" data-hid=' + row.enquiry_header_id + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Availability check" data-original-title="Availability Check" href=""><i class="fa fa-hotel" style="color:#003300"></i></a>&nbsp;&nbsp;<a class="enquiry_view" data-id-object=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Enquiry View" href=""><i class="fa fa-eye" style="color:#003366"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/followup_form/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Follow Up"><i class="fa fa-phone-square" aria-hidden="true" style="color:#cc3300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/payments/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Payments"><i class="fa fa-inr" aria-hidden="true" style="color:#000099"></i></a>';
+							}
+							else{
+								return '<a class="enquiry_view" data-id-object=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Enquiry View" href=""><i class="fa fa-eye" style="color:#003366"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/followup_form/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Follow Up"><i class="fa fa-phone-square" aria-hidden="true" style="color:#cc3300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/payments/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Payments"><i class="fa fa-inr" aria-hidden="true" style="color:#000099"></i></a>';
+							}
 						}
 						else{
 							return '<a class="enquiry_view" data-id-object=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Enquiry View" href=""><i class="fa fa-eye" style="color:#003366"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/tour_plan/'); ?>' + data + '" data-toggle="tooltip" title="Tour Plan"><i class="fa fa-bus" aria-hidden="true" style="color:#ff0066"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/itinerary/'); ?>' + data + '/0" data-toggle="tooltip" title="Itinerary Details"><i class="fa fa-calendar" aria-hidden="true" style="color:#003300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/followup_form/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Follow Up"><i class="fa fa-phone-square" aria-hidden="true" style="color:#cc3300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/payments/'); ?>' + row.enquiry_header_id + '/' + row.cs_confirmed_id + '" data-toggle="tooltip" title="Payments"><i class="fa fa-inr" aria-hidden="true" style="color:#000099"></i></a> &nbsp;&nbsp; <a class="enquiry_edit_form" data-id-object=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" title="Enquiry Edit" href=""><i class="fa fa-edit" style="color:#800000"></i></a>';
@@ -1000,9 +1009,12 @@
 					orderable: false,
 					render: function(data, type, row, meta) {
 						let obj_name = row.object_name.replace(/ /g, "_");
-						if (row.enquiry_edit_request_id > 0 && parent_id < 11) {
-							if (parent_id == 2 || parent_id == 7) {
-								return '<a class="ac_check_form" data-hid=' + data + ' data-id-name=' + obj_name + ' data-toggle="tooltip" data-original-title="Availability Check" href=""><i class="fa fa-list-ol" style="color:#003300"></i></a> &nbsp;&nbsp; <a href="<?= site_url('Enquiry/confirm_costing_sheet/'); ?>' + data + '/' + row.object_id + '" data-toggle="tooltip" title="View CS"><i class="fa fa-file-pdf-o" aria-hidden="true" style="color:#ff0066"></i></a>';
+						if (row.enquiry_edit_request_id > 0) {
+							
+							
+							if (parent_id == 2 || parent_id == 7 || parent_id == 3 || parent_id == 9 || parent_id == 11) {
+								return '<a href="" class="view_cost_sheet_confirm" data-did='+row.enquiry_ref_id+' data-tid='+row.tour_plan_ref_id+' data-eid='+row.extension_ref_id+' data-id='+row.enquiry_detail_details_id+'><i class="fa fa-file-text-o" style="color:rgb(7, 138, 2); padding-right:10px;" type="button" title="Costing Sheet"></i></a>';
+								
 							} else {
 								return '<a href="<?= site_url('Enquiry/confirm_costing_sheet/'); ?>' + data + '/' + row.object_id + '" data-toggle="tooltip" title="View CS"><i class="fa fa-file-pdf-o" aria-hidden="true" style="color:#ff0066"></i></a>';
 							}
@@ -1505,6 +1517,11 @@
 <script type="text/javascript">
 	$(document).on('click', '.ac_check_form', function(e) {
 		e.preventDefault();
+
+		var $this = $(this);
+		$this.prop('disabled', true);
+		$('#spinner_ac_submit').show();
+
 		var guest_names = $(this).attr('data-id-name');
 		var enquiry_header_id = $(this).attr('data-hid');
 		let guest_name = guest_names.replace(/_/g, " ");
@@ -1521,6 +1538,10 @@
 				$('.cls_ac_edit').html(response);
 				$('#ac_check_modal').modal('show');
 
+			},
+			complete: function () {
+				$this.prop('disabled', false);
+				$('#spinner_ac_submit').hide();
 			},
 			error: function(xhr, status, error) {
 				console.error('Error', error);
@@ -2444,4 +2465,44 @@
 		});
 
 	});
+</script>
+<script>
+	$(document).on('click', '.view_cost_sheet_confirm', function (e) {
+        e.preventDefault();
+
+        var id = $(this).data('id');
+        var extension_ref_id = $(this).data('eid');
+        var tourplan_ref_id = $(this).data('tid');
+        var enq_ref_id = $(this).data('did');
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('Enquiry/viewCostingSheet'); ?>",
+            data: {
+                id: id,
+                extension_ref_id: extension_ref_id,
+                tourplan_ref_id: tourplan_ref_id,
+                enq_ref_id: enq_ref_id
+            },
+            dataType: 'html',
+            success: function (response) {
+                $('.ct_tariff').html(response);
+                $('#cs_name_span').text(id);
+				$('#cs_hidden_id').val(id);
+                $('#viewCostitiModal').appendTo('body');
+                $('#viewCostitiModal').modal('show');
+                $('#viewCostitiModal').on('shown.bs.modal', function () {
+                    tinymce.remove('#cost_sheet_template');
+                    tinyMCE.init({
+                        theme: "advanced",
+                        theme_advanced_toolbar_location: "top",
+                        theme_advanced_toolbar_align: "left",
+                        mode: "exact",
+                        elements: "cost_sheet_template"
+                        //readonly: true
+                    });
+                });
+            }
+        });
+    });
+    
 </script>

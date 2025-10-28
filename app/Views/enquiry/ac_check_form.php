@@ -22,12 +22,14 @@ use App\Models\Enquiry_m;
 $Enquiry_model = new Enquiry_m();
 	$pax_count_exist = 0;		
 	$rt_count = 0;
-	if($hot_det[0]['no_of_double_room'] > 0){
-		$rt_count = $rt_count + 1;
-	}
-	if($hot_det[0]['no_of_single_room'] > 0){
-		$rt_count = $rt_count + 1;
-	}
+	if(!empty($hot_det)){
+		if($hot_det[0]['no_of_double_room'] > 0){
+			$rt_count = $rt_count + 1;
+		}
+		if($hot_det[0]['no_of_single_room'] > 0){
+			$rt_count = $rt_count + 1;
+		}
+	
 ?>
 <input type="hidden" id="ac_enquiry_header_id" value="<?php echo $enquiry_header_id; ?>">
     <div class="costing-container">
@@ -178,7 +180,7 @@ $Enquiry_model = new Enquiry_m();
                                             <input type="hidden" id="ac_room_type<?php echo $key_count; ?>" value="<?php echo $roomtype; ?>">
                                             <input type="checkbox" id="ac_available<?php echo $key_count; ?>">
                                         </td>
-                                        <td rowspan="<?php echo $rt_count; ?>"><textarea id="ac_remarks<?php echo $key_count; ?>" class="form-control input-sm"></textarea></td>
+                                        <td rowspan="<?php echo $rt_count; ?>"><textarea id="ac_remarks<?php echo $key_count; ?>" class="form-control"></textarea></td>
 										<?php 
 											if($hot_det[0]['no_of_double_room'] > 0) { ?>
 												<td>Double</td>
@@ -256,3 +258,14 @@ $Enquiry_model = new Enquiry_m();
     if(!empty($hot_det)){ ?>
         <button type="" id="ac_btn_id" class="btn btn-success update_ac_check" style="float:right;">Update Availability Check</button>														
     <?php } ?>
+	<div class="d-flex justify-content-center">
+		<button class="btn btn-primary" id="spinner_ac_submit" type="button" style="display: none;">
+			<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+				Sending mail to Executive...Please wait...
+		</button>
+	</div>
+<?php } else { ?>
+	<div class="d-flex justify-content-center">
+		<p>Availability Check Already Submitted</p>
+	</div>
+<?php } ?>

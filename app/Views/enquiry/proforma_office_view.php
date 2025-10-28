@@ -6,7 +6,10 @@
             $vehicle_list.=$vehicle['vehicle_model_name']." ";
         }
     }
+    if (!empty($proforma_saved_data[0]['proforma_data'])) {
 ?>
+    <textarea name="proforma_office_template" id="proforma_office_template" style="width:100%; height:1000px;"><?php echo $proforma_saved_data[0]['proforma_data']; ?></textarea>
+    <?php } else { ?>
     <textarea name="proforma_office_template" id="proforma_office_template" style="width:100%; height:1000px;"> 
         <div class="container" id="printcontent" style="border: 1px solid black; padding: 10px;">
 
@@ -472,3 +475,21 @@
                         </div>
                     
     </textarea>
+    <?php } ?>
+
+    <table style="float:right;">
+        <?php if ($proforma_saved_data[0]['approved_status']==1){ ?>     
+            <tr>
+                <td style="padding:5px;"><label style="font-weight: bold; font-style: italic; font-size: 16px;">Proforma Approved</label></td>   
+            </tr>
+        <?php } else if ($proforma_saved_data[0]['approved_status']==2){ ?>
+            <tr>
+                <td style="padding:5px;"><label style="font-weight: bold; font-style: italic; font-size: 16px;">Proforma Rejected</label></td>   
+            </tr>
+        <?php } else { ?>
+            <tr>
+                <td style="padding:5px;"><button type="button" id="save_pro_btn" class="btn btn-success btn-sm" style="float:right;margin-right:20px;">Update</button></td>
+                <td style="padding:5px;"><label style="font-weight: bold; font-style: italic; font-size: 16px;">Waiting for approval</label></td>   
+            </tr>
+        <?php } ?>
+    </table>

@@ -1,18 +1,3 @@
-/* Compact Select2 Style - Match input-sm look */
-
-
-/* Dropdown box */
-.select2-container--default .select2-dropdown {
-    border: 1px solid #ced4da !important;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-/* When focused */
-select.input-sm + .select2-container--default.select2-container--focus .select2-selection--single {
-    border-color: #0c502e !important;
-    box-shadow: 0 0 0 0.15rem rgba(12, 80, 46, 0.25);
-}
-
 .select2-container {
 	box-sizing: border-box;
 	display: inline-block;

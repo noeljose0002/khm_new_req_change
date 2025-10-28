@@ -27,6 +27,8 @@ class Enquiry_m extends Model
     protected $khm_eighteen_percentage_single = 'khm_eighteen_percentage_single';
     protected $khm_mst_bifurcation = 'khm_mst_bifurcation';
     protected $khm_mst_bifurcation_details = 'khm_mst_bifurcation_details';
+    protected $khm_entity_mst = 'khm_entity_mst';
+    protected $khm_obj_mst = 'khm_obj_mst';
 
     public function enquiry_list_data($params)
     {
@@ -55,10 +57,41 @@ class Enquiry_m extends Model
             );
         $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
 
+        $stSub = "
+            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+            FROM khm_obj_enquiry_status
+            WHERE current_status_id = 1
+            GROUP BY enquiry_header_id) st1
+        ";
+        $stsSub = "
+            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+            FROM khm_obj_enquiry_status
+            WHERE current_status_id = 13
+            GROUP BY enquiry_header_id) sts1
+        ";
+        $acSub = "
+            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+            FROM khm_obj_enquiry_status
+            WHERE current_status_id = 8 AND assigned_status = 1
+            GROUP BY enquiry_header_id) ac1
+        ";
+        $sttSub = "
+            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+            FROM khm_obj_enquiry_status
+            WHERE current_status_id = 14
+            GROUP BY enquiry_header_id) stt1
+        ";
+        $attSub = "
+            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+            FROM khm_obj_enquiry_status
+            WHERE current_status_id = 17
+            GROUP BY enquiry_header_id) att1
+        ";
+
         $query = $db->table('khm_obj_mst a');
-        $query->select('SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request', false);
+        $query->select('SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request,ex.availability_check', false);
         $query->join('khm_obj_enquiry_header h', 'h.object_id = a.object_id', 'left');
-        $query->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = h.enquiry_header_id AND er.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = h.enquiry_header_id AND er.is_active = 1', 'inner');
         $query->join('khm_entity_mst ag', 'ag.entity_id = h.agent_entity_id', 'left');
         $query->join('khm_entity_mst gs', 'gs.entity_id = h.employee_entity_id', 'left');
         $query->join('khm_obj_enquiry_details t', 't.enquiry_header_id = h.enquiry_header_id', 'left');
@@ -68,23 +101,33 @@ class Enquiry_m extends Model
         $query->join('khm_obj_mst_hotel_category hc', 'hc.hotel_category_id = t.hotel_category', 'left');
         $query->join('khm_obj_enquiry_detail_extensions ex', 'ex.enquiry_header_id = h.enquiry_header_id AND ex.is_active = 1', 'left');
 
-        $query->join('khm_obj_enquiry_status st', 'st.enquiry_header_id = er.enquiry_header_id AND st.edit_request_id = er.enquiry_edit_request_id AND st.current_status_id = 1', 'left');
+        $query->join($stSub, 'st1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status st', 'st.enquiry_status_id = st1.enquiry_status_id', 'left');
+        //$query->join('khm_obj_enquiry_status st', 'st.enquiry_header_id = er.enquiry_header_id AND st.edit_request_id = er.enquiry_edit_request_id AND st.current_status_id = 1', 'left');
         $query->join('khm_entity_mst exe', 'exe.entity_id =st.assigned_to', 'left');
         $query->join('khm_sys_usg_mst_entity_role tl', 'tl.entity_id = st.assigned_to AND tl.role_id = 5', 'left');
 
-        $query->join('khm_obj_enquiry_status sts', 'sts.enquiry_header_id = er.enquiry_header_id AND sts.edit_request_id = er.enquiry_edit_request_id AND sts.current_status_id = 13', 'left');
+        $query->join($stsSub, 'sts1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status sts', 'sts.enquiry_status_id = sts1.enquiry_status_id', 'left');
+        //$query->join('khm_obj_enquiry_status sts', 'sts.enquiry_header_id = er.enquiry_header_id AND sts.edit_request_id = er.enquiry_edit_request_id AND sts.current_status_id = 13', 'left');
         $query->join('khm_entity_mst sop', 'sop.entity_id =sts.assigned_to', 'left');
         $query->join('khm_sys_usg_mst_entity_role stl', 'stl.entity_id = sts.assigned_to AND stl.role_id = 8', 'left');
 
-        $query->join('khm_obj_enquiry_status ac', 'ac.enquiry_header_id = er.enquiry_header_id AND ac.edit_request_id = er.enquiry_edit_request_id AND ac.current_status_id = 8 AND ac.assigned_status = 1', 'left');
+        $query->join($acSub, 'ac1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status ac', 'ac.enquiry_status_id = ac1.enquiry_status_id', 'left');
+        //$query->join('khm_obj_enquiry_status ac', 'ac.enquiry_header_id = er.enquiry_header_id AND ac.edit_request_id = er.enquiry_edit_request_id AND ac.current_status_id = 8 AND ac.assigned_status = 1', 'left');
         $query->join('khm_entity_mst acp', 'acp.entity_id =ac.assigned_to', 'left');
         $query->join('khm_sys_usg_mst_entity_role stlac', 'stlac.entity_id = ac.assigned_to AND stlac.role_id = 8', 'left');
 
-        $query->join('khm_obj_enquiry_status stt', 'stt.enquiry_header_id = er.enquiry_header_id AND stt.edit_request_id = er.enquiry_edit_request_id AND stt.current_status_id = 14', 'left');
+        $query->join($sttSub, 'stt1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status stt', 'stt.enquiry_status_id = stt1.enquiry_status_id', 'left');
+        //$query->join('khm_obj_enquiry_status stt', 'stt.enquiry_header_id = er.enquiry_header_id AND stt.edit_request_id = er.enquiry_edit_request_id AND stt.current_status_id = 14', 'left');
         $query->join('khm_entity_mst top', 'top.entity_id =stt.assigned_to', 'left');
         $query->join('khm_sys_usg_mst_entity_role ttl', 'ttl.entity_id = stt.assigned_to AND ttl.role_id = 10', 'left');
 
-        $query->join('khm_obj_enquiry_status att', 'att.enquiry_header_id = er.enquiry_header_id AND att.edit_request_id = er.enquiry_edit_request_id AND att.current_status_id = 17', 'left');
+        $query->join($attSub, 'att1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status att', 'att.enquiry_status_id = att1.enquiry_status_id', 'left');
+        //$query->join('khm_obj_enquiry_status att', 'att.enquiry_header_id = er.enquiry_header_id AND att.edit_request_id = er.enquiry_edit_request_id AND att.current_status_id = 17', 'left');
         $query->join('khm_entity_mst acc', 'acc.entity_id =att.assigned_to', 'left');
         $query->join('khm_sys_usg_mst_entity_role atl', 'atl.entity_id = att.assigned_to AND atl.role_id = 11', 'left');
 
@@ -94,21 +137,21 @@ class Enquiry_m extends Model
         $query->where('h.is_active', 1);
         $query->where('t.is_active', 1);
         $query->where('h.enq_type_id', $system_id);
-        if ($parent_id == 4) {
+        if ($parent_id == 4 || $parent_id == 1) {
             $query->where('st.assigned_to', $user_id);
         }
-        if ($parent_id == 7) {
+        if ($parent_id == 7 || $parent_id == 2) {
             $query->groupStart()
                 ->where('sts.assigned_to', $user_id)
                 ->orWhere('ac.assigned_to', $user_id)
                 ->groupEnd();
         }
-        if ($parent_id == 9) {
+        if ($parent_id == 9 || $parent_id == 3) {
             $query->where('stt.assigned_to', $user_id);
         }
-        /*if($parent_id == 11){
-            $query->where('att.assigned_to', $user_id);
-        }*/
+        if($parent_id == 11){
+            $query->where('er.cs_confirmed_id >', 0);
+        }
 
         /*if($parent_id == 1){
             $query->where('tl.team_lead_id', $user_id);
@@ -133,6 +176,7 @@ class Enquiry_m extends Model
         }
         $query->orderBy($columnName, $columnSortOrder);
         $query->limit($rowperpage, $start);
+        
         $records = $query->get()->getResultArray();
 
         $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
@@ -250,7 +294,7 @@ class Enquiry_m extends Model
         if (!empty($result)) {
             $output = '<option value="">Select</option>';
             if ($is_quick_quote == 1) {
-                $selected_hotel = $this->select_random_hotel_id($result);
+                $selected_hotel = $this->select_random_hotel_id($tour_location_id);
                 foreach ($result as $row) {
                     if ($row->hotel_id == $selected_hotel) {
                         $output .= '<option value="' . $row->hotel_id . '" selected>' . $row->object_name . '</option>';
@@ -313,8 +357,18 @@ class Enquiry_m extends Model
         }
         return $output;
     }
-    function select_random_hotel_id($result)
+    function select_random_hotel_id($tour_location_id)
     {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel a');
+            $selected_table->select('a.*,g.object_name')
+                ->join('khm_obj_mst g', 'g.object_id = a.object_id', 'left')
+                ->join('khm_obj_hotel_room_category r', 'r.hotel_id = a.hotel_id', 'inner')
+                ->where('g.object_location_id', $tour_location_id)
+                ->where('a.hotel_rr', 1)
+                ->groupBy('a.hotel_id')
+                ->orderBy('g.object_name', 'ASC');
+            $result = $selected_table->get()->getResult();
         $total_hotels = count($result);
         if ($total_hotels == 0) {
             return null;
@@ -1004,6 +1058,15 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
+    public function get_proforma_saved_data($enquiry_edit_request_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_enquiry_edit_request');
+        $result = $selected_table->select('*')
+            ->where('enquiry_edit_request_id', $enquiry_edit_request_id)
+            ->get()->getResultArray();
+        return $result;
+    }
     public function get_all_cs_details($enquiry_header_id)
     {
         $db = \Config\Database::connect();
@@ -1137,7 +1200,7 @@ class Enquiry_m extends Model
         return $this->db->table($this->khm_obj_enquiry_tour_details)->update($data, ['tour_details_id' => $tour_details_id]);
     }
     //nj//
-    public function update_tour_expansion($data, $tour_details_id, $date)
+      public function update_tour_expansion($data, $tour_details_id, $date)
     {
         $db = \Config\Database::connect();
         return $db->table($this->khm_obj_enquiry_tour_expansion)
@@ -1165,6 +1228,12 @@ class Enquiry_m extends Model
     {
         $db = \Config\Database::connect();
         return $this->db->table($this->khm_obj_enquiry_payment)->update($data, ['payment_id' => $payment_id]);
+    }
+
+    public function update_approve_action_proforma($data, $enquiry_edit_request_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_enquiry_edit_request)->update($data, ['enquiry_edit_request_id' => $enquiry_edit_request_id]);
     }
     public function update_payment_history_det($data, $payment_id)
     {
@@ -1211,6 +1280,11 @@ class Enquiry_m extends Model
         $db = \Config\Database::connect();
         return $this->db->table($this->khm_obj_enquiry_detail_extensions)->update($data, ['enquiry_detail_details_id' => $enquiry_detail_details_id]);
     }
+    public function save_final_proforma_sheet($data, $enquiry_edit_request_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_enquiry_edit_request)->update($data, ['enquiry_edit_request_id' => $enquiry_edit_request_id]);
+    }
     public function update_availability_check($data, $enquiry_detail_details_id)
     {
         $db = \Config\Database::connect();
@@ -1231,6 +1305,21 @@ class Enquiry_m extends Model
     {
         $db = \Config\Database::connect();
         return $this->db->table($this->khm_obj_enquiry_status)->update($data, ['enquiry_header_id' => $enquiry_header_id, 'current_status_id' => $current_status_id]);
+    }
+    public function updateEmployeeHeader($data, $object_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_enquiry_header)->update($data, ['object_id' => $object_id]);
+    }
+    public function updateEmployeeHeaderGuest($data, $entity_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_entity_mst)->update($data, ['entity_id' => $entity_id]);
+    }
+    public function updateEmployeeHeaderObject($data, $object_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_mst)->update($data, ['object_id' => $object_id]);
     }
     public function updateAvailabilityCheck($data, $enquiry_header_id)
     {
@@ -1668,6 +1757,7 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
+  
     public function get_all_enquiry_details($enq_header_id)
     {
         $db = \Config\Database::connect();
@@ -1735,6 +1825,24 @@ class Enquiry_m extends Model
         $table = $db->table('khm_obj_enquiry_itinerary_details');
         $result = $table->select('itinerary_details_id')
             ->where('extension_ref_id', $extension_ref_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_eighteen_datas_double($tour_details_id)
+    {
+        $db = \Config\Database::connect();
+        $table = $db->table('khm_eighteen_percentage_double');
+        $result = $table->select('*')
+            ->where('tour_details_id', $tour_details_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_eighteen_datas_single($tour_details_id)
+    {
+        $db = \Config\Database::connect();
+        $table = $db->table('khm_eighteen_percentage_single');
+        $result = $table->select('*')
+            ->where('tour_details_id', $tour_details_id)
             ->get()->getResultArray();
         return $result;
     }
@@ -2166,6 +2274,16 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
+    public function get_enquiry_guest_details($enquiry_header_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_enquiry_header a');
+        $result = $selected_table->select('a.*,m.entity_name as guest_name')
+            ->join('khm_entity_mst m', 'm.entity_id = a.guest_entity_id', 'left')
+            ->where('a.enquiry_header_id', $enquiry_header_id)
+            ->get()->getResultArray();
+        return $result;
+    }
     public function getPaymentHistoryData($payment_id)
     {
         $db = \Config\Database::connect();
@@ -2207,9 +2325,10 @@ class Enquiry_m extends Model
         $db = \Config\Database::connect();
         $response = [];
         $selected_table = $db->table('khm_obj_enquiry_itinerary_details a');
-        $result = $selected_table->select('a.*,mp.meal_plan_name,d.no_of_adult,d.meal_plan,d.no_of_double_room,d.no_of_single_room,d.no_of_extra_bed,d.no_of_child_with_bed,d.no_of_child_without_bed,t.check_in_date,t.check_out_date,t.no_of_days,o.object_name,r.room_category_name,o.object_email,g.object_name as guest_name,hd.ref_no')
+        $result = $selected_table->select('a.*,geo.geog_name,mp.meal_plan_name,d.no_of_adult,d.meal_plan,d.no_of_double_room,d.no_of_single_room,d.no_of_extra_bed,d.no_of_child_with_bed,d.no_of_child_without_bed,t.check_in_date,t.check_out_date,t.no_of_days,o.object_name,r.room_category_name,o.object_email,g.object_name as guest_name,hd.ref_no')
             //->join('khm_obj_enquiry_itinerary_details m', 'm.itinerary_details_id = a.itinerary_details_id', 'left')
             ->join('khm_obj_enquiry_tour_details t', 't.tour_details_id = a.tour_details_id', 'left')
+            ->join('khm_loc_mst_geography geo', 'geo.geog_id = t.tour_location', 'left')
             ->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = a.enquiry_header_id', 'left')
             ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = hd.enquiry_header_id AND er.is_active = 1', 'left')
             ->join('khm_obj_enquiry_detail_extensions e', 'e.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
@@ -2256,10 +2375,11 @@ class Enquiry_m extends Model
         $depSql = $subDepQuery->getCompiledSelect(false);
 
         $selected_table = $db->table('khm_obj_transport_follow_up a');
-        $result = $selected_table->select('a.*,arrt.flight_train_no as ftn_arr,dept.flight_train_no as ftn_dep,arrt.mode_of_arrival as moa_arr,dept.mode_of_departure as moa_dep,arrt.arrival_date as f_arrival_date,,dept.departure_date as f_departure_date,,vm.vehicle_model_name,arr.geog_name as arr_location,dep.geog_name as dep_location,d.date_of_tour_start,d.date_of_tour_completion,g.entity_mobile as guest_mobile,h.ref_no,g.entity_name as guest_name,t.itinerary_details_id,t.tour_date,t.tour_details_id,t.hotel_id,t.room_category_id,t.double_room,t.single_room,t.vehicle_details,t.hotel_details,t.transport_description,t.itinerary_title')
+        $result = $selected_table->select('a.*,tr.entity_email as transporter_mail,arrt.flight_train_no as ftn_arr,dept.flight_train_no as ftn_dep,arrt.mode_of_arrival as moa_arr,dept.mode_of_departure as moa_dep,arrt.arrival_date as f_arrival_date,,dept.departure_date as f_departure_date,,vm.vehicle_model_name,arr.geog_name as arr_location,dep.geog_name as dep_location,d.date_of_tour_start,d.date_of_tour_completion,g.entity_mobile as guest_mobile,h.ref_no,g.entity_name as guest_name,t.itinerary_details_id,t.tour_date,t.tour_details_id,t.hotel_id,t.room_category_id,t.double_room,t.single_room,t.vehicle_details,t.hotel_details,t.transport_description,t.itinerary_title')
             ->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = a.enquiry_header_id AND er.is_active = 1', 'left')
             ->join('khm_obj_enquiry_header h', 'h.enquiry_header_id = a.enquiry_header_id', 'left')
             ->join('khm_entity_mst g', 'g.entity_id = h.guest_entity_id', 'left')
+            ->join('khm_entity_mst tr', 'tr.entity_id = a.transporter_id', 'left')
             ->join('khm_obj_enquiry_detail_extensions ex', 'ex.enquiry_detail_details_id = er.cs_confirmed_id', 'left')
             ->join('khm_obj_enquiry_details d', 'd.enquiry_details_id = ex.enquiry_ref_id', 'left')
             ->join('khm_obj_enquiry_itinerary_details t', 't.extension_ref_id = ex.extension_ref_id', 'left')
@@ -2368,7 +2488,7 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
-  public function loadTourLocation($enquiry_header_id, $enquiry_details_id)
+    public function loadTourLocation($enquiry_header_id, $enquiry_details_id)
 {
     $db = \Config\Database::connect();
     $response = [];
@@ -2785,17 +2905,18 @@ class Enquiry_m extends Model
         $db = \Config\Database::connect();
 
         $query = $db->table('khm_obj_enquiry_payment a');
-        $query->select('SQL_CALC_FOUND_ROWS  
+        $query->select('
             a.*, 
-            SUM(CASE WHEN a.approved_status = 1 THEN a.paid_amount ELSE 0 END) as paidamount, 
+            a.paid_amount as paidamount,
             DATE_FORMAT(a.check_out, "%d-%m-%Y") as checkout,
             DATE_FORMAT(a.check_in, "%d-%m-%Y") as checkin,
+            DATE_FORMAT(a.payment_date, "%d-%m-%Y") as pdate,
             sop.entity_name as sop_name,
             exe.entity_name as executive_name,
             ag.entity_name as agent_name,
             g.entity_name as guest_name,
-            a_by.entity_name as added_by_name,
-            DATE_FORMAT(a.payment_date, "%d-%m-%Y") as pdate', false);
+            a_by.entity_name as added_by_name
+        ', false);
 
         $query->join('khm_entity_mst g', 'g.entity_id = a.guest_id', 'left');
         $query->join('khm_entity_mst ag', 'ag.entity_id = a.agent_id', 'left');
@@ -2803,7 +2924,9 @@ class Enquiry_m extends Model
         $query->join('khm_entity_mst sop', 'sop.entity_id = a.sop_executive_id', 'left');
         $query->join('khm_entity_mst a_by', 'a_by.entity_id = a.payment_added_by', 'left');
 
-        $query->where('a.enquiry_header_id', $enquiry_header_id);
+        if (!empty($enquiry_header_id)) {
+            $query->where('a.enquiry_header_id', $enquiry_header_id);
+        }
         $query->groupBy('a.enquiry_header_id');
 
         if (!empty($searchValue)) {
@@ -2841,6 +2964,93 @@ class Enquiry_m extends Model
         return $response;
     }
 
+    public function latest_payment_list_view($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $enquiry_header_id = $params['enquiry_header_id'];
+        $cs_confirmed_id = $params['cs_confirmed_id'];
+
+        $db = \Config\Database::connect();
+
+        $query = $db->table('khm_obj_enquiry_payment a');
+        $query->select('
+            a.*, 
+            a.paid_amount as paidamount,
+            DATE_FORMAT(a.check_out, "%d-%m-%Y") as checkout,
+            DATE_FORMAT(a.check_in, "%d-%m-%Y") as checkin,
+            DATE_FORMAT(a.payment_date, "%d-%m-%Y") as pdate,
+            sop.entity_name as sop_name,
+            exe.entity_name as executive_name,
+            ag.entity_name as agent_name,
+            g.entity_name as guest_name,
+            a_by.entity_name as added_by_name
+        ', false);
+
+        $query->join('khm_entity_mst g', 'g.entity_id = a.guest_id', 'left');
+        $query->join('khm_entity_mst ag', 'ag.entity_id = a.agent_id', 'left');
+        $query->join('khm_entity_mst exe', 'exe.entity_id = a.executive_id', 'left');
+        $query->join('khm_entity_mst sop', 'sop.entity_id = a.sop_executive_id', 'left');
+        $query->join('khm_entity_mst a_by', 'a_by.entity_id = a.payment_added_by', 'left');
+
+        if (!empty($enquiry_header_id)) {
+            $query->where('a.enquiry_header_id', $enquiry_header_id);
+        }
+        $query->where('a.approved_status', 0);
+
+        $query->groupBy('a.enquiry_header_id');
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('a.guest_id', $searchValue)
+                ->orLike('a.executive_id', $searchValue)
+                ->groupEnd();
+        }
+
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+
+        $records = $query->get()->getResultArray();
+
+        $queryTot = $db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        // Calculate if all rows are approved
+        $approvalCheck = $db->table('khm_obj_enquiry_payment')
+            ->select('COUNT(*) as total, SUM(CASE WHEN approved_status = 1 THEN 1 ELSE 0 END) as approved_count')
+            ->where('enquiry_header_id', $enquiry_header_id)
+            ->get()
+            ->getRowArray();
+
+        $allApproved = ($approvalCheck['total'] == $approvalCheck['approved_count']) ? 1 : 0;
+
+        // ✅ Return only if NOT all approved
+        if ($allApproved == 0) {
+            $response = array(
+                "draw" => intval($draw),
+                "iTotalRecords" => $totalRecords,
+                "iTotalDisplayRecords" => $totalRecords,
+                "aaData" => $records,
+                "all_approved" => $allApproved
+            );
+        } else {
+            // If all approved, return empty data
+            $response = array(
+                "draw" => intval($draw),
+                "iTotalRecords" => 0,
+                "iTotalDisplayRecords" => 0,
+                "aaData" => [],
+                "all_approved" => $allApproved
+            );
+        }
+
+        return $response;
+    }
     public function payment_history_view($params)
     {
         $draw = $params['draw'];
@@ -2854,7 +3064,7 @@ class Enquiry_m extends Model
         $db = \Config\Database::connect();
 
         $query = $db->table('khm_obj_enquiry_payment a');
-        $query->select('SQL_CALC_FOUND_ROWS  a.*,DATE_FORMAT(a.payment_date, "%d-%m-%Y") as pdate', false);
+        $query->select('SQL_CALC_FOUND_ROWS a.*, DATE_FORMAT(a.payment_date, "%d-%m-%Y %h:%i %p") as pdate', false);
 
         $query->where('a.enquiry_header_id', $enquiry_header_id);
         $query->orderBy('a.payment_date', 'DESC');
@@ -3440,8 +3650,9 @@ class Enquiry_m extends Model
         $db = \Config\Database::connect();
 
         $query = $db->table('khm_obj_enquiry_edit_request a');
-        $query->select('SQL_CALC_FOUND_ROWS a.*,ext.tpc,ext.margin_value,ext.total_rate,ext.tour_addon,DATE_FORMAT(a.updated_time, "%d-%m-%Y %h:%i %p") as created_on', false);
+        $query->select('SQL_CALC_FOUND_ROWS a.*,hd.ref_no,ext.tpc,ext.margin_value,ext.total_rate,ext.tour_addon,DATE_FORMAT(a.updated_time, "%d-%m-%Y %h:%i %p") as created_on', false);
         $query->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = a.cs_confirmed_id', 'left');
+        $query->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = a.enquiry_header_id', 'left');
         $query->where('a.enquiry_header_id', $enquiry_header_id);
 
         if (!empty($searchValue)) {
@@ -3591,6 +3802,7 @@ class Enquiry_m extends Model
         $latestAppr = $ApprQuery->getCompiledSelect(false);
 
         $query = $db->table('khm_obj_enquiry_header a');
+        $query->distinct();
         $query->select('SQL_CALC_FOUND_ROWS  a.*,d.enquiry_source,DATE_FORMAT(sop.updated_time, "%d-%m-%Y") as confirmed_date,ROUND(ext.total_rate-ext.tnr,2) as tac,ROUND(((ext.total_rate-ext.tnr)/ext.total_rate)*100,2) as tacper,app.total_appr,rec.total_paid,ext.tpc,sp.entity_name as sop_name,DATE_FORMAT(d.date_of_tour_completion, "%d-%m-%Y") as dep_date,DATE_FORMAT(d.date_of_tour_start, "%d-%m-%Y") as arr_date,ss.status_name,ag.entity_name as agent_name,gu.entity_name as guest_name,ex.entity_name as executive_name,h.cs_confirmed_id', false);
         $query->join('khm_obj_enquiry_edit_request h', 'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1', 'left');
         $query->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = h.cs_confirmed_id', 'left');
@@ -3976,7 +4188,7 @@ class Enquiry_m extends Model
     $query->join('(' . $latestAppr . ') app', 'app.enquiry_header_id = a.enquiry_header_id', 'left');
 
     $query->where('h.cs_confirmed_id >', 0, false)
-          ->where("DATE(sop.updated_time) BETWEEN '$fromDate' AND '$toDate'");
+          ->where("DATE(d.date_of_tour_start) BETWEEN '$fromDate' AND '$toDate'");
 
     if (!empty($selectOptionStatus)) {
         $query->where('est.current_status_id', $selectOptionStatus);
@@ -4043,9 +4255,524 @@ class Enquiry_m extends Model
     //     $db = \Config\Database::connect();
     //     return $this->db->table($this->khm_eighteen_percentage_single)->delete(['tour_details_id' => $tour_details_id]);
     // }
+    
 
-    ////
-    //nj//
+    public function reminder_customer_followup($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $fromDate = $params['fromDate'];
+        $toDate = $params['toDate'];
+        $selectOptionSource = $params['selectOptionSource'];
+        $db = \Config\Database::connect();
+
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id,s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest',
+                's.enquiry_header_id = latest.enquiry_header_id AND s.enquiry_status_id = latest.max_status_id',
+                'inner'
+            );
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+
+        $query = $db->table('khm_obj_executive_follow_up a');
+        $query->select('SQL_CALC_FOUND_ROWS  a.*,hd.confirm_cs_id,ss.status_name,ex.entity_name as executive_name,gu.entity_name as guest_name,hd.ref_no,DATE_FORMAT(a.follow_up_time, "%d-%m-%Y") as followup_date', false);
+        $query->join('khm_obj_enquiry_edit_request h', 'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_status exe', 'exe.enquiry_header_id = a.enquiry_header_id AND exe.edit_request_id = h.enquiry_edit_request_id AND exe.current_status_id = 1', 'left');
+        $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
+        $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
+        $query->join('(' . $latestStatusSql . ') est', 'est.enquiry_header_id = a.enquiry_header_id', 'left');
+        $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id = est.current_status_id', 'left');
+        $query->Where("DATE(a.follow_up_time) BETWEEN '$fromDate' AND '$toDate'");
+        $query->orderBy('a.follow_up_time', 'DESC');
+
+        if (!empty($selectOptionSource)) {
+            $query->where('d.enquiry_source', $selectOptionSource);
+        }
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('a.follow_up_time', $searchValue)
+                ->orLike('a.ref_no', $searchValue)
+                ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+    public function reminder_pre_arrival($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $fromDate = $params['fromDate'];
+        $toDate = $params['toDate'];
+        $selectOptionSource = $params['selectOptionSource'];
+        $db = \Config\Database::connect();
+
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id,s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest',
+                's.enquiry_header_id = latest.enquiry_header_id AND s.enquiry_status_id = latest.max_status_id',
+                'inner'
+            );
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+
+        $query = $db->table('khm_obj_all_call_follow_up a');
+        $query->select('SQL_CALC_FOUND_ROWS  a.*,hd.confirm_cs_id,ss.status_name,ex.entity_name as executive_name,gu.entity_name as guest_name,hd.ref_no,DATE_FORMAT(a.call_time, "%d-%m-%Y") as followup_date', false);
+        $query->join('khm_obj_enquiry_edit_request h', 'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_status exe', 'exe.enquiry_header_id = a.enquiry_header_id AND exe.edit_request_id = h.enquiry_edit_request_id AND exe.current_status_id = 1', 'left');
+        $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
+        $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
+        $query->join('(' . $latestStatusSql . ') est', 'est.enquiry_header_id = a.enquiry_header_id', 'left');
+        $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id = est.current_status_id', 'left');
+        $query->Where("DATE(a.call_time) BETWEEN '$fromDate' AND '$toDate'");
+        $query->where('a.followup_type_id', 9);
+        $query->orderBy('a.call_time', 'DESC');
+
+        if (!empty($selectOptionSource)) {
+            $query->where('d.enquiry_source', $selectOptionSource);
+        }
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('a.follow_up_time', $searchValue)
+                ->orLike('a.ref_no', $searchValue)
+                ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+
+    public function reminder_departure($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $fromDate = $params['fromDate'];
+        $toDate = $params['toDate'];
+        $selectOptionSource = $params['selectOptionSource'];
+        $db = \Config\Database::connect();
+
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id,s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest',
+                's.enquiry_header_id = latest.enquiry_header_id AND s.enquiry_status_id = latest.max_status_id',
+                'inner'
+            );
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+
+        $query = $db->table('khm_obj_departure_follow_up a');
+        $query->select('SQL_CALC_FOUND_ROWS  a.*,hd.confirm_cs_id,ss.status_name,ex.entity_name as executive_name,gu.entity_name as guest_name,hd.ref_no,DATE_FORMAT(a.departure_date, "%d-%m-%Y") as followup_date', false);
+        $query->join('khm_obj_enquiry_edit_request h', 'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_status exe', 'exe.enquiry_header_id = a.enquiry_header_id AND exe.edit_request_id = h.enquiry_edit_request_id AND exe.current_status_id = 1', 'left');
+        $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
+        $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
+        $query->join('(' . $latestStatusSql . ') est', 'est.enquiry_header_id = a.enquiry_header_id', 'left');
+        $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id = est.current_status_id', 'left');
+        $query->Where("DATE(a.departure_date) BETWEEN '$fromDate' AND '$toDate'");
+        $query->orderBy('a.departure_date', 'DESC');
+
+        if (!empty($selectOptionSource)) {
+            $query->where('d.enquiry_source', $selectOptionSource);
+        }
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('a.departure_date', $searchValue)
+                ->orLike('a.ref_no', $searchValue)
+                ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+
+    public function reminder_driver($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $fromDate = $params['fromDate'];
+        $toDate = $params['toDate'];
+        $selectOptionSource = $params['selectOptionSource'];
+        $db = \Config\Database::connect();
+
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id,s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest',
+                's.enquiry_header_id = latest.enquiry_header_id AND s.enquiry_status_id = latest.max_status_id',
+                'inner'
+            );
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+
+        $query = $db->table('khm_obj_all_call_follow_up a');
+        $query->select('SQL_CALC_FOUND_ROWS  a.*,hd.confirm_cs_id,ss.status_name,ex.entity_name as executive_name,gu.entity_name as guest_name,hd.ref_no,DATE_FORMAT(a.call_time, "%d-%m-%Y") as followup_date', false);
+        $query->join('khm_obj_enquiry_edit_request h', 'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_status exe', 'exe.enquiry_header_id = a.enquiry_header_id AND exe.edit_request_id = h.enquiry_edit_request_id AND exe.current_status_id = 1', 'left');
+        $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
+        $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
+        $query->join('(' . $latestStatusSql . ') est', 'est.enquiry_header_id = a.enquiry_header_id', 'left');
+        $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id = est.current_status_id', 'left');
+        $query->Where("DATE(a.call_time) BETWEEN '$fromDate' AND '$toDate'");
+        $query->where('a.followup_type_id', 16);
+        $query->orderBy('a.call_time', 'DESC');
+
+        if (!empty($selectOptionSource)) {
+            $query->where('d.enquiry_source', $selectOptionSource);
+        }
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('a.call_time', $searchValue)
+                ->orLike('a.ref_no', $searchValue)
+                ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+
+    public function reminder_arrival($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $fromDate = $params['fromDate'];
+        $toDate = $params['toDate'];
+        $selectOptionSource = $params['selectOptionSource'];
+        $db = \Config\Database::connect();
+
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id,s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest',
+                's.enquiry_header_id = latest.enquiry_header_id AND s.enquiry_status_id = latest.max_status_id',
+                'inner'
+            );
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+
+        $query = $db->table('khm_obj_arrival_follow_up a');
+        $query->select('SQL_CALC_FOUND_ROWS  a.*,hd.confirm_cs_id,ss.status_name,ex.entity_name as executive_name,gu.entity_name as guest_name,hd.ref_no,DATE_FORMAT(a.arrival_date, "%d-%m-%Y") as followup_date', false);
+        $query->join('khm_obj_enquiry_edit_request h', 'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_status exe', 'exe.enquiry_header_id = a.enquiry_header_id AND exe.edit_request_id = h.enquiry_edit_request_id AND exe.current_status_id = 1', 'left');
+        $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
+        $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
+        $query->join('(' . $latestStatusSql . ') est', 'est.enquiry_header_id = a.enquiry_header_id', 'left');
+        $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id = est.current_status_id', 'left');
+        $query->Where("DATE(a.arrival_date) BETWEEN '$fromDate' AND '$toDate'");
+        $query->orderBy('a.arrival_date', 'DESC');
+
+        if (!empty($selectOptionSource)) {
+            $query->where('d.enquiry_source', $selectOptionSource);
+        }
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('a.arrival_date', $searchValue)
+                ->orLike('a.ref_no', $searchValue)
+                ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+    public function reminder_hotel_reconfirm($params)
+    {
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $fromDate = $params['fromDate'];
+        $toDate = $params['toDate'];
+        $selectOptionSource = $params['selectOptionSource'];
+        $db = \Config\Database::connect();
+
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id,s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest',
+                's.enquiry_header_id = latest.enquiry_header_id AND s.enquiry_status_id = latest.max_status_id',
+                'inner'
+            );
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+
+        $query = $db->table('khm_hotel_confirmation a');
+        $query->select('SQL_CALC_FOUND_ROWS  a.*,hd.confirm_cs_id,ss.status_name,ex.entity_name as executive_name,gu.entity_name as guest_name,hd.ref_no,DATE_FORMAT(a.confirm_date, "%d-%m-%Y") as con_date,DATE_FORMAT(a.cut_off_date, "%d-%m-%Y") as cutoff_date,DATE_FORMAT(a.reconfirm_date, "%d-%m-%Y") as recon_date', false);
+        $query->join('khm_obj_enquiry_itinerary_details it', 'it.itinerary_details_id = a.itinerary_details_id', 'inner');
+        $query->join('khm_obj_enquiry_edit_request h', 'h.enquiry_header_id = it.enquiry_header_id AND h.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = it.enquiry_header_id AND hd.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_status exe', 'exe.enquiry_header_id = it.enquiry_header_id AND exe.edit_request_id = h.enquiry_edit_request_id AND exe.current_status_id = 1', 'left');
+        $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
+        $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
+        $query->join('(' . $latestStatusSql . ') est', 'est.enquiry_header_id = it.enquiry_header_id', 'left');
+        $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id = est.current_status_id', 'left');
+        $query->Where("DATE(a.confirm_date) BETWEEN '$fromDate' AND '$toDate'");
+        $query->orderBy('a.confirm_date', 'DESC');
+
+        if (!empty($selectOptionSource)) {
+            $query->where('d.enquiry_source', $selectOptionSource);
+        }
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('a.confirm_date', $searchValue)
+                ->orLike('hd.ref_no', $searchValue)
+                ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+
+    public function proforma_list_view($params)
+    {
+        $system_id = session('system_id'); 
+        $user_id = session('user_id');
+        $parent_id = session('parent_id');
+        $hierarchy_id = session('hierarchy_id');
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $object_class_id = 10;
+        $db = \Config\Database::connect();
+
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id,s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+              FROM khm_obj_enquiry_status 
+              GROUP BY enquiry_header_id) latest',
+                's.enquiry_header_id = latest.enquiry_header_id AND s.enquiry_status_id = latest.max_status_id',
+                'inner'
+            );
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+
+        $stSub = "
+            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+            FROM khm_obj_enquiry_status
+            WHERE current_status_id = 1
+            GROUP BY enquiry_header_id) st1
+        ";
+        $stsSub = "
+            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+            FROM khm_obj_enquiry_status
+            WHERE current_status_id = 13
+            GROUP BY enquiry_header_id) sts1
+        ";
+        $acSub = "
+            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+            FROM khm_obj_enquiry_status
+            WHERE current_status_id = 8 AND assigned_status = 1
+            GROUP BY enquiry_header_id) ac1
+        ";
+        $sttSub = "
+            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+            FROM khm_obj_enquiry_status
+            WHERE current_status_id = 14
+            GROUP BY enquiry_header_id) stt1
+        ";
+        $attSub = "
+            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+            FROM khm_obj_enquiry_status
+            WHERE current_status_id = 17
+            GROUP BY enquiry_header_id) att1
+        ";
+
+        $query = $db->table('khm_obj_mst a');
+        $query->select('SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request,ex.availability_check', false);
+        $query->join('khm_obj_enquiry_header h', 'h.object_id = a.object_id', 'left');
+        $query->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = h.enquiry_header_id AND er.is_active = 1', 'inner');
+        $query->join('khm_entity_mst ag', 'ag.entity_id = h.agent_entity_id', 'left');
+        $query->join('khm_entity_mst gs', 'gs.entity_id = h.employee_entity_id', 'left');
+        $query->join('khm_obj_enquiry_details t', 't.enquiry_header_id = h.enquiry_header_id', 'left');
+        $query->join('khm_loc_mst_geography m', 'm.geog_id = a.object_location_id', 'left');
+        $query->join('khm_loc_mst_geography arr', 'arr.geog_id = t.arrival_location', 'left');
+        $query->join('khm_loc_mst_geography dep', 'dep.geog_id = t.departure_location', 'left');
+        $query->join('khm_obj_mst_hotel_category hc', 'hc.hotel_category_id = t.hotel_category', 'left');
+        $query->join('khm_obj_enquiry_detail_extensions ex', 'ex.enquiry_header_id = h.enquiry_header_id AND ex.is_active = 1', 'left');
+
+        $query->join($stSub, 'st1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status st', 'st.enquiry_status_id = st1.enquiry_status_id', 'left');
+        //$query->join('khm_obj_enquiry_status st', 'st.enquiry_header_id = er.enquiry_header_id AND st.edit_request_id = er.enquiry_edit_request_id AND st.current_status_id = 1', 'left');
+        $query->join('khm_entity_mst exe', 'exe.entity_id =st.assigned_to', 'left');
+        $query->join('khm_sys_usg_mst_entity_role tl', 'tl.entity_id = st.assigned_to AND tl.role_id = 5', 'left');
+
+        $query->join($stsSub, 'sts1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status sts', 'sts.enquiry_status_id = sts1.enquiry_status_id', 'left');
+        //$query->join('khm_obj_enquiry_status sts', 'sts.enquiry_header_id = er.enquiry_header_id AND sts.edit_request_id = er.enquiry_edit_request_id AND sts.current_status_id = 13', 'left');
+        $query->join('khm_entity_mst sop', 'sop.entity_id =sts.assigned_to', 'left');
+        $query->join('khm_sys_usg_mst_entity_role stl', 'stl.entity_id = sts.assigned_to AND stl.role_id = 8', 'left');
+
+        $query->join($acSub, 'ac1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status ac', 'ac.enquiry_status_id = ac1.enquiry_status_id', 'left');
+        //$query->join('khm_obj_enquiry_status ac', 'ac.enquiry_header_id = er.enquiry_header_id AND ac.edit_request_id = er.enquiry_edit_request_id AND ac.current_status_id = 8 AND ac.assigned_status = 1', 'left');
+        $query->join('khm_entity_mst acp', 'acp.entity_id =ac.assigned_to', 'left');
+        $query->join('khm_sys_usg_mst_entity_role stlac', 'stlac.entity_id = ac.assigned_to AND stlac.role_id = 8', 'left');
+
+        $query->join($sttSub, 'stt1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status stt', 'stt.enquiry_status_id = stt1.enquiry_status_id', 'left');
+        //$query->join('khm_obj_enquiry_status stt', 'stt.enquiry_header_id = er.enquiry_header_id AND stt.edit_request_id = er.enquiry_edit_request_id AND stt.current_status_id = 14', 'left');
+        $query->join('khm_entity_mst top', 'top.entity_id =stt.assigned_to', 'left');
+        $query->join('khm_sys_usg_mst_entity_role ttl', 'ttl.entity_id = stt.assigned_to AND ttl.role_id = 10', 'left');
+
+        $query->join($attSub, 'att1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status att', 'att.enquiry_status_id = att1.enquiry_status_id', 'left');
+        //$query->join('khm_obj_enquiry_status att', 'att.enquiry_header_id = er.enquiry_header_id AND att.edit_request_id = er.enquiry_edit_request_id AND att.current_status_id = 17', 'left');
+        $query->join('khm_entity_mst acc', 'acc.entity_id =att.assigned_to', 'left');
+        $query->join('khm_sys_usg_mst_entity_role atl', 'atl.entity_id = att.assigned_to AND atl.role_id = 11', 'left');
+
+        $query->join('(' . $latestStatusSql . ') est', 'est.enquiry_header_id = h.enquiry_header_id', 'left');
+        $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id = est.current_status_id', 'left');
+        $query->where('a.object_class_id', $object_class_id);
+        $query->where('h.is_active', 1);
+        $query->where('t.is_active', 1);
+        $query->where('h.enq_type_id', $system_id);
+        $query->where('er.cs_confirmed_id>',0);
+      
+     
+        $query->orderBy('h.enquiry_header_id', 'DESC');
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('a.object_name', $searchValue)
+                ->orLike('m.geog_name', $searchValue)
+                ->orLike('h.ref_no', $searchValue)
+                ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+        
+        $records = $query->get()->getResultArray();
+
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
+    }
+
+       //nj//
     public function delete_eighteen_double($tour_details_id)
 {
     // Explicitly set the table for this operation

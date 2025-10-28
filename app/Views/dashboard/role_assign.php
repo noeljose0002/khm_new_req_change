@@ -121,7 +121,9 @@
 					
 					</div><!-- modal-body -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="btn_update_roles">Update</button>
+						<?php if($add_per==1 || $edit_per==1){ ?>
+							<button type="button" class="btn btn-primary" id="btn_update_roles">Update</button>
+						<?php } ?>
 						<!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
 					</div>
 				</div>

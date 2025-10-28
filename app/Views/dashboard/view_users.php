@@ -303,7 +303,9 @@
 									</div>-->
 									<?php if($entity_class_id != "13"){ ?>
 										<span class="mt-3 mt-md-0 pg-header">
-											<a href="<?=site_url('Dashboard/add_entity/'.$entity_class_id);?>" class="btn btn-success ml-0 ml-md-4 mt-1 "><i class="typcn typcn-plus mr-1"></i>Create New</a>
+											<?php if($add_per==1 || $edit_per==1){ ?>
+												<a href="<?=site_url('Dashboard/add_entity/'.$entity_class_id);?>" class="btn btn-success ml-0 ml-md-4 mt-1 "><i class="typcn typcn-plus mr-1"></i>Create New</a>
+											<?php } ?>
 										</span>
 									<?php } ?>
 								</div>
@@ -351,8 +353,10 @@
 														<th>Mobile</th>
 														<th>Email</th>
 														<th>View</th>
+														
 														<th>Edit</th>
 														<th>Delete</th>
+														
 													</tr>
 												<?php } ?>
 												</thead>
@@ -512,7 +516,8 @@
 <script>
 $(document).ready(function () {
 		var entity_class_id = "<?php echo $entity_class_id; ?>";
-
+		var edit_per = "<?php echo $edit_per; ?>";
+		var del_per = "<?php echo $del_per; ?>";
 		var tableConfig = {
 			processing: true,
 			serverSide: true,
@@ -593,13 +598,27 @@ $(document).ready(function () {
 				{
 					data: 'entity_id',
 					render: function (data) {
-						return '<a href="<?= site_url('dashboard/add_entity/'); ?>' + entity_class_id + '/' + data + '" class="btn btn-success btn-sm text-white"><i class="fa fa-edit"></i></a>';
+						if(edit_per==1){
+							
+							return '<a href="<?= site_url('dashboard/add_entity/'); ?>' + entity_class_id + '/' + data + '" class="btn btn-success btn-sm text-white"><i class="fa fa-edit"></i></a>';
+						}
+						
+						else{
+							return '<a href="javascript:void(0)" class="btn btn-success btn-sm text-white disabled" style="pointer-events: none; opacity: 0.6;"><i class="fa fa-edit"></i></a>';
+						}
 					}
 				},
 				{
 					data: 'entity_id',
 					render: function (data) {
-						return '<a class="btn btn-danger btn-sm text-white" data-toggle="tooltip" title="Delete" onclick="deleteEntity(' + data + ')"><i class="fa fa-trash-o"></i></a>';
+						if(del_per==1){
+							
+							return '<a class="btn btn-danger btn-sm text-white" data-toggle="tooltip" title="Delete" onclick="deleteEntity(' + data + ')"><i class="fa fa-trash-o"></i></a>';
+						}
+						else{
+							return '<a href="javascript:void(0)" class="btn btn-success btn-sm text-white disabled" style="pointer-events: none; opacity: 0.6;"><i class="fa fa-trash-o"></i></a>';
+							
+						}
 					}
 				}
 			];

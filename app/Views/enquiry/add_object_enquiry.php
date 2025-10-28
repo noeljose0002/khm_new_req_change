@@ -598,20 +598,20 @@ if(!empty($date_of_tour_completion)){
 																				<span id="gname-alert"></span>
 																			</div>
 																			<div class="col-xl-2" class="form-label" style="color:#039623;">
-																				<label class="form-control-label">Mobile<span style="color: red;">*</span></label>
-																				<input type="text" class="form-control" id="guest_mobile" value="<?php echo $obj_mobile; ?>" name="guest_mobile" maxlength="10" autocomplete="off" required>
+																				<label class="form-control-label">Mobile</label>
+																				<input type="text" class="form-control" id="guest_mobile" value="<?php echo $obj_mobile; ?>" name="guest_mobile" maxlength="20" autocomplete="off">
 																				<span id="gmobile-alert"></span>
 																				<span id="mobile_error" style="color: red; display: none;">Enter a valid 10-digit mobile number</span>
 																			</div>
 																			<div class="col-xl-2" class="form-label" style="color:#039623;">
-																				<label class="form-control-label">Email<span style="color: red;">*</span></label>
-																				<input type="text" class="form-control" name="guest_email" id="guest_email" value="<?php echo $obj_email; ?>" maxlength="50" autocomplete="off" required>
+																				<label class="form-control-label">Email</label>
+																				<input type="text" class="form-control" name="guest_email" id="guest_email" value="<?php echo $obj_email; ?>" maxlength="50" autocomplete="off">
 																				<span id="gemail-alert"></span>
 																				<span id="email_error" style="color: red; display: none;">Invalid email format</span>
 																			</div>
 																			<div class="col-xl-3" class="form-label" style="color:#039623;">
-																				<label class="form-control-label">Address<span style="color: red;">*</span></label>
-																				<textarea class="form-control" name="guest_address" id="guest_address" autocomplete="new-password" required><?php echo $obj_address; ?></textarea>
+																				<label class="form-control-label">Address</label>
+																				<textarea class="form-control" name="guest_address" id="guest_address" autocomplete="new-password"><?php echo $obj_address; ?></textarea>
 																				<span id="gaddress-alert"></span>
 																			</div>
 																			<div class="col-xl-2" style="color:#039623;">
@@ -634,7 +634,9 @@ if(!empty($date_of_tour_completion)){
 
 																		<div class="row">
 																			<div class="col-xl-3">
-
+																				<?php if($edit_id > 0){ ?>
+																					<button type="button" id="update_enquiry_header" class="btn btn-dark btn-sm">Update Enquiry Header</button>
+																				<?php } ?>				
 																			</div>
 																			<div class="col-xl-3">
 
@@ -687,7 +689,9 @@ if(!empty($date_of_tour_completion)){
 																		
 																		<div class="row">
 																			<div class="col-xl-3">
-
+																				<?php if($edit_id > 0){ ?>
+																					<button type="button" id="calculate_bifur" class="btn btn-dark btn-sm">Update Enquiry Header</button>
+																				<?php } ?>
 																			</div>
 																			<div class="col-xl-3">
 
@@ -1723,7 +1727,7 @@ $(document).ready(function () {
         if (!guest_name) {
             showAlert('#gname-alert', 'Guest name is required');
         }
-        if (!guest_mobile) {
+        /*if (!guest_mobile) {
             showAlert('#gmobile-alert', 'Guest mobile is required');
         }
         if (!guest_email) {
@@ -1731,7 +1735,7 @@ $(document).ready(function () {
         }
         if (!guest_address) {
             showAlert('#gaddress-alert', 'Guest address is required');
-        }
+        }*/
 
         return isValid;
     }
@@ -1926,38 +1930,6 @@ $(document).ready(function(){
             $(this).val("");  // Clear input
             $(this).css("border", "");  // Reset border color
             $("#email_error").hide();  // Hide error message
-        }
-    });
-});
-</script>
-
-<script>
-$(document).ready(function(){
-    $("#guest_mobile").on("keyup", function() {
-        var mobile = $(this).val();
-        
-        // Remove non-numeric characters
-        mobile = mobile.replace(/\D/g, '');
-        $(this).val(mobile); // Set cleaned value back
-
-        // Check if exactly 10 digits
-        if (mobile.length === 10) {
-            $("#mobile_error").hide();
-            $(this).css("border", "2px solid green");
-        } else {
-            $("#mobile_error").show();
-            $(this).css("border", "2px solid red");
-        }
-    });
-
-    // Clear field if invalid when clicking outside
-    $("#guest_mobile").on("blur", function() {
-        var mobile = $(this).val();
-
-        if (mobile.length !== 10) {
-            $(this).val("");  // Clear input
-            $(this).css("border", "");  // Reset border color
-            $("#mobile_error").hide();  // Hide error message
         }
     });
 });
@@ -2318,4 +2290,54 @@ $(document).ready(function () {
         toggleSourceReference();
     });
 });
+</script>
+<script type="text/javascript">
+	$(document).on('click', '#update_enquiry_header', function(e) {
+		e.preventDefault();
+		var object_id = "<?php echo $edit_id; ?>";
+		var new_agent_id = $('#agent_id').val();
+			var guest_name = $('#guest_name').val();
+			var guest_mobile = $('#guest_mobile').val();
+			var guest_email = $('#guest_email').val();
+			var guest_address = $('#guest_address').val();
+		if(object_id > 0){
+			$.ajax({
+				type: "POST",
+				url: '<?= site_url('Enquiry/getEnquiryHeaderDetails'); ?>',
+				data: {
+					object_id: object_id
+				},
+				dataType: 'json',
+				success: function(hresponse) {
+					$.ajax({
+						type: "POST",
+						url: '<?= site_url('Enquiry/updateEmployeeHeader'); ?>',
+						data: {
+							object_id: object_id,
+							new_agent_entity_id: new_agent_id,
+							old_agent_entity_id: hresponse[0].agent_entity_id,
+							guest_entity_id: hresponse[0].guest_entity_id,
+							guest_name:guest_name,
+							guest_mobile:guest_mobile,
+							guest_email:guest_email,
+							guest_address:guest_address
+						},
+						dataType: 'json',
+						success: function(response) {
+							if(response == 1){
+								alert("Employee Header Updated");
+							}
+							else{
+								alert("Please try again");
+							}
+
+						}
+					});
+				}
+			});
+		}
+		else{
+			alert("No data exist");
+		}
+	});
 </script>

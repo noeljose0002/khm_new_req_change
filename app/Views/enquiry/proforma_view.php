@@ -13,7 +13,7 @@
 		<link rel="icon" href="<?php echo base_url('assets/images/brand/favicon.png'); ?>" type="image/x-icon"/>
 
 		<!-- Title -->
-		<title>Payment View</title>
+		<title>Proforma View</title>
 
 		<!-- Bootstrap css -->
 		<link href="<?php echo base_url('assets/plugins/bootstrap-4.1.3/css/bootstrap.min.css'); ?>" rel="stylesheet" />
@@ -54,8 +54,7 @@
 		<!-- Color-palette css-->
 		<link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>"/>
 		<link href="<?php echo base_url('assets/plugins/datatable/dataTables.bootstrap4.min.css'); ?>" rel="stylesheet" />
-		<link rel="stylesheet" href="https://pn-ciamis.go.id/asset/DataTables/extensions/Responsive/css/responsive.dataTables.css">
-		<link rel="stylesheet" href="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/css/buttons.dataTables.css">
+		
 		<script src="<?php echo base_url('assets/tiny_mce/tiny_mce.js');?>"></script>
 		<style>
 				
@@ -76,6 +75,20 @@
 
 		.fixed-width-column1 {
 			width: 150px; /* Fixed width for specific columns, adjust as needed */
+		}
+
+		.custom-modal-width {
+			max-width: 90%;
+			/* Adjust as needed */
+			width: 90%;
+			height: 80%;
+		}
+
+		.custom-modal-widths {
+				max-width: 90%;
+			/* Adjust as needed */
+			width: 90%;
+			height: 80%;
 		}
 
 		.auto-width {
@@ -120,6 +133,66 @@
 		<div id="loading">
 			<img src="<?php echo base_url('assets/images/other/loader.svg'); ?>" class="loader-img" alt="Loader">
 		</div>
+
+		<div class="modal fade displaycontent" id="proofficemodal" data-keyboard="false" data-backdrop="false">
+												<div class="modal-dialog custom-modal-width" role="document">
+													<div class='modal-content'>
+													<div class="modal-header custom-modal-header" style="background-color:#666699;color:#fff;">
+														<h5 class="modal-title" id="exampleModalLabel"><b>Proforma Office Copy</b></h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+
+													</div>
+													<input type="hidden" id="pro_hidden_id" value="">
+													<div class="modal-body">
+														<div class="row">
+															<div class="col-lg-12">
+																<table class="table" id="table_pro_office" style="width: 100%;">
+																	<thead style="background-color: #c6ecd9;"> 
+																		<tr>
+																			<th scope="col">Confirmation No</th>
+																			<th scope="col">Created On</th>
+																			<th scope="col">Amount</th>
+																			<th scope="col">TAC%</th>
+																			<th scope="col">TAC Amount</th>
+																			<th scope="col">View</th>
+																			<th scope="col">Action</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+
+																	</tbody>
+																</table>
+															</div>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+													</div>
+													</div>
+												</div>
+											</div>
+
+		<div class="modal fade displaycontent" id="ProformaOfficeModal" data-keyboard="false" data-backdrop="false">
+												<div class="modal-dialog custom-modal-widths" role="document">
+													<div class='modal-content'>
+													<div class="modal-header custom-modal-header">
+														<h5 class="modal-title" id="exampleModalLabel"><b>Proforma Office Copy</b></h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
+																		<span aria-hidden="true">&times;</span>
+																	</button>
+
+													</div>
+													<div class="modal-body proforma_office_modal">
+
+													</div>
+													<div class="modal-footer">
+														<!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+													</div>
+													</div>
+												</div>
+											</div>
 
 		<div class="modal fade" id="addpaymentmodal" tabindex="-1" role="dialog"  aria-hidden="true">
 				<div class="modal-dialog" role="document">
@@ -167,7 +240,7 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<label class="form-control-label" style="font-weight: bold;">Payment Details</label>
-											<textarea class="form-control" id="payment_details"></textarea>
+											<textarea class="form-control input-sm" id="payment_details"></textarea>
 										</div>
 									</div>
 									<div class="row" style="padding-top:10px;">
@@ -448,13 +521,7 @@
 								
 							</div>
 							<div class="d-flex header-right ml-auto">
-									<div>
-										<?php if($parent_id < 11){ 
-											if($add_per==1){ 
-											?>
-											<button type="button" id="add_new_payment" class="btn btn-success">Add New Payment</button>
-										<?php } } ?>
-									</div>
+								
 								
 							</div>
 							
@@ -473,21 +540,15 @@
 														<th scope="col">Ref No</th>
 														<th scope="col">Guest Name</th>
 														
-														
-														<th scope="col">Check In</th>
-														<th scope="col">Check Out</th>
-														<th scope="col">Total Amount</th>
-														<th scope="col">Paid Amount</th>
-														
-														
-														<th scope="col">Balance</th>
-														<th scope="col">Status</th>
-														<th scope="col">Added By</th>
-														<th scope="col">Invoice No</th>
 														<th scope="col">Agent Name</th>
 														<th scope="col">Executive</th>
 														<th scope="col">SOP Executive</th>
-														<th scope="col">Actions</th>
+
+														<th scope="col">Enquiry Date</th>
+														<th scope="col">Start Date</th>
+														<th scope="col">status</th>
+
+														<th scope="col">Proforma</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -594,9 +655,7 @@
 		<script src="<?php echo base_url('assets/plugins/datatable/dataTables.bootstrap4.min.js'); ?>"></script>
 		<script src="<?php echo base_url('assets/plugins/datatable/datatable.js'); ?>"></script>
 		
-		<script src="https://pn-ciamis.go.id/asset/DataTables/extensions/Responsive/js/dataTables.responsive.js"></script>
-		<script src="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/js/dataTables.buttons.js"></script>
-		<script src="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/js/buttons.colVis.js"></script>
+		
 
 	</body>
 </html>
@@ -661,7 +720,7 @@ function cs_confirm_table() {
         dom: 'Bfrtip',
         buttons: ['colvis'],
         ajax: {
-            url: '<?= site_url('Enquiry/payment_list_view'); ?>',
+            url: '<?= site_url('Enquiry/proforma_list_view'); ?>',
             type: 'POST',
             data: {
                 enquiry_header_id: enquiry_header_id,
@@ -678,38 +737,21 @@ function cs_confirm_table() {
         columns: [
             { data: 'ref_no' },
             { data: 'guest_name' },
-            { data: 'checkin' },
-            { data: 'checkout' },
-            { data: 'total_amount' },
-            { data: 'paidamount' },
-            {
-                data: null,
-                render: function(data, type, row, meta) {
-                    const total = parseFloat(row.total_amount) || 0;
-                    const paid = parseFloat(row.paidamount) || 0;
-                    return (total - paid).toFixed(2);
-                },
-                title: 'Balance'
-            },
-            {
-				data: 'approved_status',
-				render: function(data, type, row, meta) {
-					if (data == 1)
-						return '<label class="text-success">Approved</label>';
-					else
-						return '<label class="text-danger">Pending</label>';
-				}
-			},
-			{ data: 'added_by_name' },
-            { data: 'ref_no' },
+           
+           
             { data: 'agent_name' },
-            { data: 'executive_name' },
+            { data: 'executive' },
             { data: 'sop_name' },
+
+			{ data: 'enq_date' },
+			{ data: 'start_date' },
+			{ data: 'status_name' },
+
             {
                 data: 'enquiry_header_id',
                 render: function(data, type, row, meta) {
                     if (data) {
-                        return '<button type="button" data-id="'+data+'" class="btn btn-success btn-sm payment_history">History</button>';
+                        return '<button type="button" data-id="'+data+'" data-cid="'+row.cs_confirmed_id+'" class="btn btn-success btn-sm btn_pro_office">View</button>';
                     }
                     return '';
                 }
@@ -727,64 +769,7 @@ $(document).on('click', '#add_new_payment', function(e) {
 });
 </script>
 
-<script type="text/javascript">
-    $(document).on('click', '#btn_save_payment', function(e) {
-        e.preventDefault();
-		var enquiry_header_id = <?php echo $enquiry_header_id; ?>;
-		var cs_confirmed_id = <?php echo $cs_confirmed_id; ?>;
-		var payment_date = $('#payment_date').val();
-		var payment_amount = $('#payment_amount').val();
-		var payment_type = $('#payment_type').val();
-		var payment_bank = $('#payment_bank').val();
-		var payment_details = $('#payment_details').val();
-		if(payment_date == '' || payment_date == null || payment_date == 'undefined'){
-            alert("Please select payment date");
-		}
-		else if(payment_amount == '' || payment_amount == null || payment_amount == 'undefined'){
-            alert("Please Enter Amount");
-		}
-		else if(payment_type == '' || payment_type == null || payment_type == 'undefined'){
-            alert("Please select payment type");
-		}
-		else if(payment_bank == '' || payment_bank == null || payment_bank == 'undefined'){
-            alert("Please select Bank");
-		}
-		else{
-			$.ajax({
-				url: '<?=site_url('Enquiry/savePaymentDetails');?>',
-				method: 'POST',
-				data: { 
-					enquiry_header_id: enquiry_header_id,
-					cs_confirmed_id:cs_confirmed_id,
-					payment_date:payment_date,
-					payment_amount:payment_amount,
-					payment_type:payment_type,
-					payment_bank:payment_bank,
-					payment_details:payment_details
-				},
-				dataType: 'json',
-				success: function (response) {
-					if(response == 1){
-						alert("Payment Saved");
-						$('#payment_date').val('');
-						$('#payment_amount').val('');
-						$('#payment_type').val('');
-						$('#payment_bank').val('');
-						$('#payment_details').val('');
-						cs_confirm_table();
-					}
-					else{
-						alert("Please try again");
-					}
-				},
-				error: function (xhr, status, error) {
-					console.error('Error', error);
-				}
-			});
-		}
-		
-    });
-</script>
+
 
 <script type="text/javascript">
     $(document).on('click', '.payment_history', function(e) {
@@ -860,7 +845,6 @@ $(document).on('click', '#add_new_payment', function(e) {
 
 	function payment_history_datatable(enquiry_header_id){
 		var parent_id = "<?php echo $parent_id; ?>";
-		var edit_per = "<?php echo $edit_per; ?>";
 		if ($.fn.DataTable.isDataTable('#table_payment_history')) {
             $('#table_payment_history').DataTable().destroy();
         }
@@ -944,7 +928,6 @@ $(document).on('click', '#add_new_payment', function(e) {
 			{
 				data: 'payment_id',
 				render: function (data, type, row, meta) {
-					if(edit_per == 1){
 					if(parent_id == 11){
 						if(row.approved_status == 1){
 							return `
@@ -974,10 +957,6 @@ $(document).on('click', '#add_new_payment', function(e) {
 					}
 					else{
 						return `<a href="#" class="nav-link edit_pay_history" data-id="${data}"><i class="fa fa-edit fa-sm"></i></a>`;
-					}
-					}
-					else{
-						return '<a href="javascript:void(0)" class="btn btn-success btn-sm text-white disabled" style="pointer-events: none; opacity: 0.6;"><i class="fa fa-edit"></i></a>';
 					}
 				}
 			},
@@ -1040,10 +1019,10 @@ $(document).on('click', '#add_new_payment', function(e) {
     });
 </script>
 <script type="text/javascript">
-    $(document).on('change', '.approve_action', function (e) {
+    $(document).on('change', '.approve_action_new', function (e) {
         e.preventDefault();
-
-        var payment_id = $(this).attr('data-id');
+		var enquiry_edit_request_id = $(this).attr('data-id');
+        var cs_confirmed_id = $(this).attr('data-cid');
         var enquiry_header_id = $(this).attr('data-eid');
         var selectedValue = $(this).val();
 
@@ -1052,28 +1031,220 @@ $(document).on('click', '#add_new_payment', function(e) {
             return;
         }
 
-        var remarks = prompt("Please enter remarks:");
+        /*var remarks = prompt("Please enter remarks:");
         if (remarks === null || remarks.trim() === "") {
             alert("Remarks are required.");
             return;
-        }
+        }*/
 
         $.ajax({
             type: "POST",
-            url: '<?=site_url('Enquiry/approveActionSubmit');?>',
+            url: '<?=site_url('Enquiry/approveActionSubmitProforma');?>',
             data: {
-                payment_id: payment_id,
-                selectedValue: selectedValue,
-                remarks: remarks
+                enquiry_header_id: enquiry_header_id,
+                cs_confirmed_id: cs_confirmed_id,
+				enquiry_edit_request_id: enquiry_edit_request_id,
+                selectedValue: selectedValue
             },
             dataType: 'json',
             success: function (response) {
                 if (response == 1) {
                     alert("Updated");
-                    payment_history_datatable(enquiry_header_id);
+                    pro_office_datatable(enquiry_header_id,cs_confirmed_id)
                 } else {
                     alert("Please try again");
                 }
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).on('click', '.btn_pro_office', function(e) {
+        e.preventDefault();
+		var enquiry_header_id = $(this).attr('data-id');
+		var confirm_cs_id = $(this).attr('data-cid');
+		pro_office_datatable(enquiry_header_id,confirm_cs_id);
+    });
+	function pro_office_datatable(enquiry_header_id,confirm_cs_id){
+		if ($.fn.DataTable.isDataTable('#table_pro_office')) {
+            $('#table_pro_office').DataTable().destroy();
+        }
+        var table = $('#table_pro_office').DataTable({
+            'processing': true,
+            'serverSide': true,
+            'serverMethod': 'post',
+            'ajax': {
+                'url': '<?=site_url('Enquiry/proformaofficeform');?>',
+                'data': {
+                    'enquiry_header_id': enquiry_header_id,
+					'confirm_cs_id': confirm_cs_id
+                }
+            },
+            'columns': [
+            
+            {
+                data: 'ref_no',
+                render: function (data, type, row, meta) {
+                    // Append A, B, C... from second row onwards
+                    const index = meta.row;
+                    if (index === 0) {
+                        return data; // first row as-is
+                    } else {
+                        const letter = String.fromCharCode(65 + (index - 1)); // A=65
+                        return data + "-" + letter;
+                    }
+                }
+            },
+			{
+                data: 'created_on'
+            },
+
+			{
+                data: 'tpc'
+            },
+			{
+				data: 'enquiry_header_id',
+				render: function (data, type, row, meta) {
+					var profit = parseInt(row.margin_value)+parseInt(row.tour_addon);
+                	var margin_per = (profit/parseInt(row.total_rate))*100;   
+					return margin_per.toFixed(2);
+				}
+			},
+			{
+				data: 'enquiry_header_id',
+				render: function (data, type, row, meta) {
+					var profit = parseInt(row.margin_value)+parseInt(row.tour_addon);
+                	var margin_per = (profit/parseInt(row.total_rate))*100;   
+					return profit;
+				}
+			},
+			
+			{
+				data: 'enquiry_header_id',
+				render: function (data, type, row, meta) {
+					
+					return `
+					<a href="#" class="nav-link view_proforma_office"
+						data-cid="${row.cs_confirmed_id}" 
+						data-rid="${row.enquiry_edit_request_id}"
+						data-st="${row.approved_status}"
+						data-id="${data}">
+						
+						<i class="fa fa-eye fa-sm"></i>
+					</a>
+					`;
+				}
+			},
+			{
+				data: 'enquiry_header_id',
+				render: function (data, type, row, meta) { 
+
+					if(row.approved_status == 1){
+						var approved_sel = "selected";
+					}
+					else{
+						var approved_sel = "";
+					}
+
+					if(row.approved_status == 2){
+						var rejected_sel = "selected";
+					}
+					else{
+						var rejected_sel = "";
+					}
+
+					if(row.approved_status == 3){
+						var declined_sel = "selected";
+					}
+					else{
+						var declined_sel = "";
+					}
+					return `
+								<select class="form-control input-sm approve_action_new" data-eid="${data}" data-id="${row.enquiry_edit_request_id}" data-cid="${row.cs_confirmed_id}">
+									<option value="">Select</option>
+									<option value="1" ${approved_sel}>Approved</option>
+									<option value="2" ${rejected_sel}>Rejected</option>
+									<option value="3" ${declined_sel}>Declined</option>
+								</select>	
+					`;
+				}
+			}
+            ],
+			paging: true, // Ensure paging is enabled
+    		pageLength: 10, // Number of rows per page
+    		lengthMenu: [5, 10, 25, 50], // Options for rows per page
+    		order: [[0, 'asc']] // Default sorting
+        });
+        $('#proofficemodal').modal('show');
+
+		$('#proofficemodal').on('hidden.bs.modal', function () {
+			location.reload(); // refresh the current page
+		});
+	}
+</script>
+
+<script type="text/javascript">
+    $(document).on('click', '.view_proforma_office', function(e) {
+        e.preventDefault();
+        var enquiry_header_id  = $(this).attr('data-id');
+		var confirm_cs_id  = $(this).attr('data-cid'); 
+		var enquiry_edit_request_id = $(this).attr('data-rid');
+		var approved_status = $(this).attr('data-st');
+		var isReadonly = (approved_status == 1);
+        $.ajax({
+            type: "POST",
+			url: '<?=site_url('Enquiry/getProformaOfficeData');?>',
+            data: {
+                enquiry_header_id: enquiry_header_id,
+				confirm_cs_id:confirm_cs_id,
+				enquiry_edit_request_id:enquiry_edit_request_id
+            },
+            dataType: 'html',
+            success: function(response) {
+				$('#pro_hidden_id').val(enquiry_edit_request_id);
+                $('.proforma_office_modal').html(response);
+                $('#ProformaOfficeModal').modal('show');
+                $('#ProformaOfficeModal').on('shown.bs.modal', function () {
+                        tinymce.remove('#proforma_office_template');
+						
+                        tinyMCE.init({
+                            theme : "advanced",
+                            theme_advanced_toolbar_location : "top",
+                            theme_advanced_toolbar_align : "left",
+                            mode : "exact",
+                            elements : "proforma_office_template",
+							readonly: isReadonly
+                        });
+                });
+            }
+        });
+    });
+</script>
+<script>
+    $(document).on('click', '#save_pro_btn', function (e) {
+        e.preventDefault();
+        //var iti_content = $('#iti_sheet_template').val();
+		var pro_content = tinymce.get('proforma_office_template').getContent();
+		var enquiry_edit_request_id = $('#pro_hidden_id').val();
+		
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('Enquiry/save_final_proforma_sheet'); ?>",
+            data: {
+                enquiry_edit_request_id: enquiry_edit_request_id,
+				pro_content:pro_content
+            },
+            dataType: 'json',
+            success: function (response) {
+				if(response){
+					alert("Proforma Updated");
+					//cs_confirm_table();
+					//location.reload();
+				}
+				else{
+					alert("Please try again");
+				}
             }
         });
     });

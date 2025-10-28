@@ -3,7 +3,34 @@ use App\Models\Enquiry_m;
 $Enquiry_model = new Enquiry_m();
     $g_mobiles = json_decode($cdata[0]['guest_mobile'], true);
     //$g_mobile = is_array($g_mobiles) && count($g_mobiles) > 0 ? $g_mobiles[0] : '';
+if(!empty($cdata[0]['transporter_mail'])){
+	$emails = json_decode($cdata[0]['transporter_mail'], true);
+	$email = is_array($emails) && count($emails) > 0 ? $emails[0] : '';
+}
+else{
+	$email = '';
+}
 ?>
+        <div class="row" style="padding-bottom:10px;">    
+            <div class="col">
+                <div>
+                    <label class="form-label small-label mandatory" for="mobile">To</label>
+                    <input type="text" name="transport_mail_to" id="transport_mail_to" value="<?php echo $email; ?>" class="form-control form-control-sm">
+                  
+                </div>
+            </div>
+            <div class="col">
+                <div style="padding-top:20px;">
+                    <button type="" id="btn_transport_send_mail" class="btn btn-success">Send Mail</button>
+                </div>
+            </div>
+        </div>   
+        <div class="d-flex justify-content-center">
+			<button class="btn btn-primary" id="spinner_draft_transport" type="button" style="display: none;">
+				<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+				    Sending Mail...Please wait...
+			</button>
+		</div>
 <div class="container">
     <textarea name="transport_itinerary_template" id="transport_itinerary_template" style="width:100%; height:1000px;">
     <table style="width:100%;border-collapse: collapse;">

@@ -93,12 +93,18 @@ $facility_tafiff = 0;
                 </div>
             </div>
             <div class="col">
-                <div>
-                    <label class="form-label small-label" for="mobile">Cc</label>
-                    <input type="text" name="hotcon_mail_cc" id="iti_mail_cc" value="" class="form-control form-control-sm">
+                <div style="padding-top:20px;">
+                    <button type="" id="btn_con_send_mail" class="btn btn-success">Send Mail</button>
                 </div>
             </div>
         </div>    
+
+        <div class="d-flex justify-content-center">
+			<button class="btn btn-primary" id="spinner_draft_hotcon" type="button" style="display: none;">
+				<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+				    Sending Mail...Please wait...
+			</button>
+		</div>
 
         <textarea name="hot_con_mail" id="hot_con_mail" style="width:100%; height:1000px;">
         <div class="container">
@@ -111,7 +117,7 @@ $facility_tafiff = 0;
             </tr>
             <tr>
                 <td style="border: 1px solid black;"><b>Hotel</b></td>
-                <td style="border: 1px solid black;" colspan="2"><?php echo $hotels[0]['object_name']; ?></td>
+                <td style="border: 1px solid black;" colspan="2"><?php echo $hotels[0]['object_name'].", ".$hotels[0]['geog_name']; ?></td>
             </tr>
             <tr>
                 <td style="border: 1px solid black;"><b>Checkin</b></td>

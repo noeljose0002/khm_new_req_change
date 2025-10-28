@@ -72,8 +72,7 @@
 		<!-- Color-palette css-->
 		<link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>"/>
 		<link href="<?php echo base_url('assets/plugins/datatable/dataTables.bootstrap4.min.css'); ?>" rel="stylesheet" />
-		<link rel="stylesheet" href="https://pn-ciamis.go.id/asset/DataTables/extensions/Responsive/css/responsive.dataTables.css">
-		<link rel="stylesheet" href="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/css/buttons.dataTables.css">
+		
 		<script src="<?php echo base_url('assets/tiny_mce/tiny_mce.js');?>"></script>
 		<style>
 				
@@ -118,7 +117,7 @@
 		#btn_departure_det,#btn_departure_call,#btn_driver_followup,#btn_followup_arrcall,#btn_followup_depcall,
 		#btn_itinerary,#btn_pro_guest,#btn_vouchers,#btn_followup_drivercall,#btn_transport,
 		#btn_complaints,#btn_share,#btn_placard,#btn_transport_confirm,
-		#btn_trans_itinerary,#btn_pro_office,#btn_final_itinerary,#btn_update_con,#btn_update_con_final
+		#btn_trans_itinerary,#btn_pro_office,#btn_final_itinerary,#btn_update_con,#btn_update_con_final,#btn_con_send_mail,#btn_transport_send_mail
 		{
 			background: #339966;
 			color: white;
@@ -140,7 +139,7 @@
 		#btn_departure_det:hover,#btn_departure_call:hover,#btn_driver_followup:hover,#btn_transport_confirm:hover,
 		#btn_itinerary:hover,#btn_pro_guest:hover,#btn_vouchers:hover,#btn_followup_arrcall:hover,#btn_followup_depcall:hover,
 		#btn_complaints:hover,#btn_share:hover,#btn_placard:hover,#btn_followup_drivercall:hover,#btn_transport:hover,
-		#btn_trans_itinerary:hover,#btn_pro_office:hover,#btn_final_itinerary:hover,#btn_update_con:hover,#btn_update_con_final:hover
+		#btn_trans_itinerary:hover,#btn_pro_office:hover,#btn_final_itinerary:hover,#btn_update_con:hover,#btn_update_con_final:hover,#btn_con_send_mail:hover,#btn_transport_send_mail:hover
 		{
 			background: #006600;
 			transform: scale(1.05);
@@ -1090,6 +1089,7 @@
 																	</button>
 
 													</div>
+													<input type="hidden" id="pro_hidden_id" value="">
 													<div class="modal-body proforma_office_modal">
 
 													</div>
@@ -1566,9 +1566,7 @@
 		<script src="<?php echo base_url('assets/plugins/datatable/dataTables.bootstrap4.min.js'); ?>"></script>
 		<script src="<?php echo base_url('assets/plugins/datatable/datatable.js'); ?>"></script>
 		
-		<script src="https://pn-ciamis.go.id/asset/DataTables/extensions/Responsive/js/dataTables.responsive.js"></script>
-		<script src="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/js/dataTables.buttons.js"></script>
-		<script src="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/js/buttons.colVis.js"></script>
+		
 
 	</body>
 </html>
@@ -1797,8 +1795,10 @@
 			{
 				data: 'itinerary_details_id',
 				render: function (data, type, row, meta) {
-					let h_name = row.object_name.replace(/ /g, "_");
-					let r_name = row.room_category_name.replace(/ /g, "_");
+					//let h_name = row.object_name.replace(/ /g, "_");
+					//let r_name = row.room_category_name.replace(/ /g, "_");
+					let h_name = row.object_name ? row.object_name.replace(/ /g, "_") : "";
+        			let r_name = row.room_category_name ? row.room_category_name.replace(/ /g, "_") : "";
 					let tdate = row.tdate;
 					let td_data = row.tour_details_id;
 					return `
@@ -2175,6 +2175,7 @@
 					<a href="#" class="nav-link view_proforma_office"
 						data-cid="${row.cs_confirmed_id}" 
 						data-rid="${row.enquiry_edit_request_id}"
+						data-st="${row.approved_status}"
 						data-id="${data}">
 						<i class="fa fa-eye fa-sm"></i>
 					</a>
@@ -2188,6 +2189,10 @@
     		order: [[0, 'asc']] // Default sorting
         });
         $('#proofficemodal').modal('show');
+
+		$('#proofficemodal').on('hidden.bs.modal', function () {
+			location.reload(); // refresh the current page
+		});
 	}
 </script>
 
@@ -2260,6 +2265,8 @@
         var enquiry_header_id  = $(this).attr('data-id');
 		var confirm_cs_id  = $(this).attr('data-cid'); 
 		var enquiry_edit_request_id = $(this).attr('data-rid');
+		var approved_status = $(this).attr('data-st');
+		var isReadonly = (approved_status == 1);
         $.ajax({
             type: "POST",
 			url: '<?=site_url('Enquiry/getProformaOfficeData');?>',
@@ -2270,6 +2277,7 @@
             },
             dataType: 'html',
             success: function(response) {
+				$('#pro_hidden_id').val(enquiry_edit_request_id);
                 $('.proforma_office_modal').html(response);
                 $('#ProformaOfficeModal').modal('show');
                 $('#ProformaOfficeModal').on('shown.bs.modal', function () {
@@ -2279,7 +2287,8 @@
                             theme_advanced_toolbar_location : "top",
                             theme_advanced_toolbar_align : "left",
                             mode : "exact",
-                            elements : "proforma_office_template"
+                            elements : "proforma_office_template",
+							readonly: isReadonly
                         });
                 });
             }
@@ -3580,5 +3589,103 @@
 		else{
 			alert("You must save all vehicles before confirming transport.");
 		}
+    });
+</script>
+<script>
+    $(document).on('click', '#btn_con_send_mail', function (e) {
+        e.preventDefault();
+
+		$('#btn_con_send_mail').prop('disabled', true);
+		$('#spinner_draft_hotcon').show();
+
+		var cs_content = tinymce.get('hot_con_mail').getContent();
+		var enquiry_header_id = <?php echo $enquiry_header_id; ?>;
+		var to_mail = $('#hotcon_mail_to').val();
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('Enquiry/send_hotel_confirmation_mail'); ?>",
+            data: {
+                enquiry_header_id: enquiry_header_id,
+				to_mail: to_mail,
+				cs_content:cs_content
+            },
+            dataType: 'json',
+            success: function (response) {
+				if(response == 1){
+					alert("Mail Sent");
+				}
+				else{
+					alert("Please try again");
+				}
+            },
+			complete: function () {
+				$('#btn_con_send_mail').prop('disabled', false);
+				$('#spinner_draft_hotcon').hide();
+			}
+        });
+    });
+</script>
+
+<script>
+    $(document).on('click', '#btn_transport_send_mail', function (e) {
+        e.preventDefault();
+
+		$('#btn_transport_send_mail').prop('disabled', true);
+		$('#spinner_draft_transport').show();
+
+
+		var cs_content = tinymce.get('transport_itinerary_template').getContent();
+		var enquiry_header_id = <?php echo $enquiry_header_id; ?>;
+		var to_mail = $('#transport_mail_to').val();
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('Enquiry/send_transport_confirmation_mail'); ?>",
+            data: {
+                enquiry_header_id: enquiry_header_id,
+				to_mail: to_mail,
+				cs_content:cs_content
+            },
+            dataType: 'json',
+            success: function (response) {
+				if(response == 1){
+					alert("Mail Sent");
+				}
+				else{
+					alert("Please try again");
+				}
+            },
+			complete: function () {
+				$('#btn_transport_send_mail').prop('disabled', false);
+				$('#spinner_draft_transport').hide();
+			}
+        });
+    });
+</script>
+<script>
+    $(document).on('click', '#save_pro_btn', function (e) {
+        e.preventDefault();
+        //var iti_content = $('#iti_sheet_template').val();
+		var pro_content = tinymce.get('proforma_office_template').getContent();
+		var enquiry_edit_request_id = $('#pro_hidden_id').val();
+		
+        $.ajax({
+            type: "POST",
+            url: "<?= site_url('Enquiry/save_final_proforma_sheet'); ?>",
+            data: {
+                enquiry_edit_request_id: enquiry_edit_request_id,
+				pro_content:pro_content
+            },
+            dataType: 'json',
+            success: function (response) {
+				if(response){
+					alert("Proforma Updated");
+					//cs_confirm_table();
+					//location.reload();
+				}
+				else{
+					alert("Please try again");
+				}
+            }
+        });
     });
 </script>

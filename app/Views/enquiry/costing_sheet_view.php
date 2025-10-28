@@ -157,19 +157,63 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 										<td style="border:1px solid black;">Double</td>
 										<td style="border:1px solid black;"><?php echo $val['double_room']; ?></td>
 										
-										<td style="border:1px solid black;"><?php echo $room_t_d; ?></td>
+										
+												<td>
+													<?php 
+													    if($val['tax_status'] == 1){
+															echo $val['adult_eighteen_double'];
+														}
+														else{
+															echo $room_t_d;
+														}
+													 ?>
+												</td>
 										<?php if($object_det[0]['no_of_child_with_bed'] > 0){ ?>
 											<td style="border:1px solid black;"><?php echo $val['child_with_bed']; ?></td>
-											<td style="border:1px solid black;"><?php echo $child_t_d; ?></td>
+											
+													<td>
+														<?php 
+															if($val['tax_status'] == 1){
+																echo $val['child_eighteen_double'];
+															}
+															else{
+																echo $child_t_d;
+															}
+														?>
+													</td>
 										<?php } ?>
 										<?php if($object_det[0]['no_of_child_without_bed'] > 0){ ?>	
 											<td style="border:1px solid black;"><?php echo $val['child_without_bed']; ?></td>
-											<td style="border:1px solid black;"><?php echo $child_wb_t_d; ?></td>
+										
+													<td>
+														<?php 
+															if($val['tax_status'] == 1){
+																echo $val['child_wb_eighteen_double'];
+															}
+															else{
+																echo $child_wb_t_d;
+															}
+														?>
+													</td>
 										<?php } ?>
 										<?php if($object_det[0]['no_of_extra_bed'] > 0){ ?>	
 											<td style="border:1px solid black;"><?php echo $val['extra_bed']; ?></td>
-											<td style="border:1px solid black;"><?php echo $extra_t_d; ?></td>
-										<?php } ?>	
+											
+													<td>
+														<?php 
+															if($val['tax_status'] == 1){
+																echo $val['extra_eighteen_double'];
+															}
+															else{
+																echo $extra_t_d;
+															}
+														?>
+													</td>
+										<?php } 
+										if($val['tax_status'] == 1){
+											$dtotal = $val['tac_eighteen_double'];
+										}
+										?>	
 										<td style="border:1px solid black;text-align:right;"><?php echo $dtotal; ?></td>
 										</tr>
 								<?php } ?>
@@ -182,7 +226,17 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 										<td style="border:1px solid black;">Single</td>
 										<td style="border:1px solid black;"><?php echo $val['single_room']; ?></td>
 									
-										<td style="border:1px solid black;"><?php echo $room_t_s; ?></td>
+									
+													<td>
+														<?php 
+															if($val['tax_status'] == 1){
+																echo $val['adult_eighteen_single'];
+															}
+															else{
+																echo $room_t_s;
+															}
+														?>
+													</td>
 										<?php if($object_det[0]['no_of_child_with_bed'] > 0){ ?>	
 											<td style="border:1px solid black;">0</td>
 											<td style="border:1px solid black;"><?php echo $child_t_s; ?></td>
@@ -194,7 +248,11 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 										<?php if($object_det[0]['no_of_extra_bed'] > 0){ ?>	
 											<td style="border:1px solid black;">0</td>
 											<td style="border:1px solid black;"><?php echo $extra_t_s; ?></td>
-										<?php } ?>	
+										<?php } 
+										if($val['tax_status'] == 1){
+											$stotal = $val['tac_eighteen_single'];
+										}
+										?>	
 										<td style="border:1px solid black;text-align:right;"><?php echo $stotal; ?></td>
 										</tr>
 								<?php } 

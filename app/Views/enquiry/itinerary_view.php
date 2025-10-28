@@ -1156,7 +1156,12 @@ $cs_trans_total = 0;
 																								
 																							}
 																						}
+
 																					}
+																					if($ttval['tax_status'] == 1){
+																						$tac = $ttval['tac_eighteen'];
+																					}
+										
 												
 																					?>
 																					<div class="tab-pane fade <?php echo ($cnt1 == 0) ? 'show active' : ''; ?>" id="tabi-<?php echo $iti_id; ?>">
@@ -1175,6 +1180,15 @@ $cs_trans_total = 0;
 																										<input type="hidden" id="tour_location_name<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][tour_location_name]" value="<?php echo $ttval['geog_name']; ?>">
 																										<input type="hidden" id="meal_plan_id<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][meal_plan_id]" value="<?php echo $ttval['meal_plan_id']; ?>">
 																										<input type="hidden" id="tax_status<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][tax_status]" value="<?php echo $ttval['tax_status']; ?>">
+																										<input type="hidden" id="tac_eighteen_double<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][tac_eighteen_double]" value="<?php echo $ttval['tac_eighteen_double']; ?>">
+																										<input type="hidden" id="tac_eighteen_single<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][tac_eighteen_single]" value="<?php echo $ttval['tac_eighteen_single']; ?>">
+																										<input type="hidden" id="tac_eighteen_total<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][tac_eighteen_total]" value="<?php echo $ttval['tac_eighteen']; ?>">
+
+																										<input type="hidden" id="adult_eighteen_double<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][adult_eighteen_double]" value="<?php echo $ttval['adult_eighteen_double']; ?>">
+																										<input type="hidden" id="child_eighteen_double<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][child_eighteen_double]" value="<?php echo $ttval['child_eighteen_double']; ?>">
+																										<input type="hidden" id="child_wb_eighteen_double<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][child_wb_eighteen_double]" value="<?php echo $ttval['child_wb_eighteen_double']; ?>">
+																										<input type="hidden" id="extra_eighteen_double<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][extra_eighteen_double]" value="<?php echo $ttval['extra_eighteen_double']; ?>">
+																										<input type="hidden" id="tac_eighadult_eighteen_singleteen_total<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][adult_eighteen_single]" value="<?php echo $ttval['adult_eighteen_single']; ?>">
 																									</div>
 																									<div class="card-body">
 																										<div class="ibox teams mb-30 bg-boxshadow">
@@ -1751,7 +1765,7 @@ $cs_trans_total = 0;
 																														<div class="col-xl-1 col-sm-12 col-md-2">
 																															
 																															<input type="text" id="travel_distance<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][travel_distance][<?php echo $vid; ?>]" value="<?php echo $travel_distance_temp; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_temp; ?>" maxlength="5">
-																															<input type="hidden" id="travel_distance_copy<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][travel_distance_copy][<?php echo $vid; ?>]" value="<?php echo $travel_distance_copy; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_copy; ?>" maxlength="5">
+																															<input type="hidden" id="c_travel_distance_copy<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][c_travel_distance_copy][<?php echo $vid; ?>]" value="<?php echo $travel_distance_copy; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_copy; ?>" maxlength="5">
 																														
 																														</div>
 																														<div class="col-xl-2 col-sm-12 col-md-2">
@@ -2140,21 +2154,65 @@ $cs_trans_total = 0;
 												<td>Double</td>
 												<td><?php echo $val['double_room']; ?></td>
 												
-												<td><?php echo $room_t_d; ?></td>
+												<td>
+													<?php 
+													    if($val['tax_status'] == 1){
+															echo $val['adult_eighteen_double'];
+														}
+														else{
+															echo $room_t_d;
+														}
+													 ?>
+												</td>
 											
 												<?php if($object_det[0]['no_of_child_with_bed'] > 0){ ?>
 													<td><?php echo $val['child_with_bed']; ?></td>
-													<td><?php echo $child_t_d; ?></td>
+												
+													<td>
+														<?php 
+															if($val['tax_status'] == 1){
+																echo $val['child_eighteen_double'];
+															}
+															else{
+																echo $child_t_d;
+															}
+														?>
+													</td>
 												<?php } ?>
 												<?php if($object_det[0]['no_of_child_without_bed'] > 0){ ?>
 													<td><?php echo $val['child_without_bed']; ?></td>
-													<td><?php echo $child_wb_t_d; ?></td>
+												
+													<td>
+														<?php 
+															if($val['tax_status'] == 1){
+																echo $val['child_wb_eighteen_double'];
+															}
+															else{
+																echo $child_wb_t_d;
+															}
+														?>
+													</td>
 												<?php } ?>
 												<?php if($object_det[0]['no_of_extra_bed'] > 0){ ?>
 													<td><?php echo $val['extra_bed']; ?></td>
-													<td><?php echo $extra_t_d; ?></td>
-												<?php } ?>
-												<td><?php echo $dtotal; ?></td>
+												
+													<td>
+														<?php 
+															if($val['tax_status'] == 1){
+																echo $val['extra_eighteen_double'];
+															}
+															else{
+																echo $extra_t_d;
+															}
+														?>
+													</td>
+												<?php } 
+												if($val['tax_status'] == 1){
+													$dtotal = $val['tac_eighteen_double'];
+												}
+												?>
+													<td><?php echo $dtotal; ?></td>
+											
 												</tr>
 										<?php 
 												$cs_acc_total = $cs_acc_total + $dtotal;
@@ -2169,8 +2227,17 @@ $cs_trans_total = 0;
 												<td>Single</td>
 												<td><?php echo $val['single_room']; ?></td>
 											
-												<td><?php echo $room_t_s; ?></td>
 											
+													<td>
+														<?php 
+															if($val['tax_status'] == 1){
+																echo $val['adult_eighteen_single'];
+															}
+															else{
+																echo $room_t_s;
+															}
+														?>
+													</td>
 												<?php if($object_det[0]['no_of_child_with_bed'] > 0){ ?>
 													<td>0</td>
 													<td><?php echo $child_t_s; ?></td>
@@ -2182,8 +2249,13 @@ $cs_trans_total = 0;
 												<?php if($object_det[0]['no_of_extra_bed'] > 0){ ?>
 													<td>0</td>
 													<td><?php echo $extra_t_s; ?></td>
-												<?php } ?>
-												<td><?php echo $stotal; ?></td>
+												<?php } 
+												if($val['tax_status'] == 1){
+													$stotal = $val['tac_eighteen_single'];
+												}
+												?>
+													<td><?php echo $stotal; ?></td>
+											
 												</tr>
 										<?php 
 											
@@ -3918,7 +3990,7 @@ function updateSequenceNumbers() {
 				cardElement.find(`.extra_km_rate${vindex}`).attr("id", `extra_km_rate${vid}`).attr("name", `addloc[${newIndex}][extra_km_rate][${vindex}]`);
 				cardElement.find(`.veh_total${vindex}`).attr("id", `veh_total${vid}`).attr("name", `addloc[${newIndex}][veh_total][${vindex}]`);
 				cardElement.find(`.travel_distance${vindex}`).attr("id", `travel_distance${vid}`).attr("name", `addloc[${newIndex}][travel_distance][${vindex}]`).attr("data-id", vid).attr("data-cid", newIndex);
-				cardElement.find(`.travel_distance_copy${vindex}`).attr("id", `travel_distance_copy${vid}`).attr("name", `addloc[${newIndex}][travel_distance_copy][${vindex}]`).attr("data-id", vid).attr("data-cid", newIndex);
+				cardElement.find(`.c_travel_distance_copy${vindex}`).attr("id", `c_travel_distance_copy${vid}`).attr("name", `addloc[${newIndex}][c_travel_distance_copy][${vindex}]`).attr("data-id", vid).attr("data-cid", newIndex);
 				cardElement.find(`.extra_kilometer${vindex}`).attr("id", `extra_kilometer${vid}`).attr("name", `addloc[${newIndex}][extra_kilometer][${vindex}]`);
 			});
 		}
@@ -6308,7 +6380,7 @@ $(document).on('change', '.hotel_fac_change', function () {
 </script>
 
 <script>
-$(document).on('change', '.ss_change', function() {
+$(document).on('change', '.ss_change', function(e) {
     var sight_seeing_id = $(this).val();
 	var id = $(this).attr('data-id');
 	if(sight_seeing_id == null || sight_seeing_id == '' || sight_seeing_id=='undefined'){
@@ -6337,12 +6409,25 @@ $(document).on('change', '.ss_change', function() {
 
 			$(`input[id^='travel_distance${id}']`).each(function () {
 				var vid = $(this).attr('v_id'); 
-				var travel_distance_copy = $('#travel_distance_copy'+vid).val();
+				var travel_distance_copy = $('#c_travel_distance_copy'+vid).val();
                 var $travelInput = $(this);
                 var travelId = $travelInput.attr('id'); 
                 //var baseDistance = parseFloat($travelInput.data('base') || 0);
-				var baseDistance = parseFloat(travel_distance_copy);
-                var newDistance = baseDistance + parseFloat(ss_distance);
+				//var baseDistance = parseFloat(travel_distance_copy);
+				if (e.originalEvent) {
+					var baseDistance = parseFloat(travel_distance_copy);
+					var newDistance = baseDistance + parseFloat(ss_distance);
+				} else {
+					var baseDistance = parseFloat($travelInput.data('base') || 0);
+					if(baseDistance > 0){
+						var newDistance = baseDistance;
+					}
+					else{
+						var newDistance = parseFloat(ss_distance);
+					}
+					//var newDistance = baseDistance + parseFloat(ss_distance);
+				}
+                
                 $travelInput.val(newDistance);
 
                 // Extract the unique vid from travel_distance input ID
@@ -6367,31 +6452,46 @@ $(document).on('change', '.ss_change', function() {
 });
 </script>
 <script>
-	$(document).on('input', 'input[id^="ss_distance"]', function () {
+	$(document).on('input', 'input[id^="ss_distance"]', function (e) {
     var $ssInput = $(this);
     var id = $ssInput.attr('id').replace('ss_distance', '');
     var ss_distance = $ssInput.val() || 0;
-
+     
     // Loop through related travel_distance inputs
     $(`input[id^='travel_distance${id}']`).each(function () {
 		var itinerary_details_draft = <?= json_encode($itinerary_details_draft); ?>;
         var $travelInput = $(this);
 		var vid = $(this).attr('v_id'); 
-		var travel_distance_copy = $('#travel_distance_copy'+vid).val(); 
+		var travel_distance_copy = $('#c_travel_distance_copy'+vid).val(); 
         var travelId = $travelInput.attr('id');
         var vid = travelId.replace('travel_distance', '');
 
         // Get base travel distance
         //var baseDistance = parseFloat($travelInput.data('base') || 0);
-		var baseDistance = parseFloat(travel_distance_copy);
+		//var baseDistance = parseFloat(travel_distance_copy);
         // New travel distance
-        var travelDistance = baseDistance + parseFloat(ss_distance); 
+        //var travelDistance = baseDistance + parseFloat(ss_distance); 
 		/*if ($.isArray(itinerary_details_draft) && itinerary_details_draft.length > 0) {
 			
 		}
 		else{
 			$travelInput.val(baseDistance);
 		}*/
+				if (e.originalEvent) {
+					// Manual change (user action)
+					var baseDistance = parseFloat(travel_distance_copy);
+					var travelDistance = baseDistance + parseFloat(ss_distance);
+				} else {
+					// Triggered programmatically
+					var baseDistance = parseFloat($travelInput.data('base') || 0);
+					if(baseDistance > 0){
+						var travelDistance = baseDistance;
+					}
+					else{
+						var travelDistance = parseFloat(ss_distance);
+					}
+					
+				}
 		$travelInput.val(travelDistance);
         //$travelInput.val(travelDistance);
 
@@ -6467,7 +6567,7 @@ function updateTotalAccommodationCost() {
     // Sum all visible and hidden fac_rate inputs
 
 
-	$('input[id^="travel_distance"]').each(function () {
+	$('input[id^="travel_distance"]').each(function () { 
         travel_distanceCost += parseInt($(this).val()) || 0;
     });
 

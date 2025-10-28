@@ -592,6 +592,34 @@ class Dashboard extends BaseController
             $data['sub_menu'] = $sub_menu;
             $data['entity_class_id'] = $entity_class_id;
             $data['users_list'] = $Dashboard_model->get_users_list($entity_class_id);
+
+            $all_permissions = [];
+            $add_per = 0;
+            $edit_per = 0;
+            $view_per = 0;
+            $del_per = 0;
+            $all_permissions = $Dashboard_model->get_all_permissions(4,$active_role);
+            if(!empty($all_permissions)){
+                foreach($all_permissions as $key => $val){
+                    if($val['pro_permission_id'] == 1){
+                        $add_per = 1;
+                    }
+                    if($val['pro_permission_id'] == 2){
+                        $edit_per = 1;
+                    }
+                    if($val['pro_permission_id'] == 3){
+                        $view_per = 1;
+                    }
+                    if($val['pro_permission_id'] == 5){
+                        $del_per = 1;
+                    }
+                }
+            }
+            $data['add_per'] = $add_per;
+            $data['edit_per'] = $edit_per;
+            $data['view_per'] = $view_per;
+            $data['del_per'] = $del_per;
+            
             return view('dashboard/view_users', $data);
         } else {
             return redirect()->to('Login');
@@ -825,6 +853,34 @@ class Dashboard extends BaseController
             $sub_menu = $Dashboard_model->get_sub_menus();
             $data['parent_menu'] = $parent_menu;
             $data['sub_menu'] = $sub_menu;
+
+            $all_permissions = [];
+            $add_per = 0;
+            $edit_per = 0;
+            $view_per = 0;
+            $del_per = 0;
+            $all_permissions = $Dashboard_model->get_all_permissions(4,$active_role);
+            if(!empty($all_permissions)){
+                foreach($all_permissions as $key => $val){
+                    if($val['pro_permission_id'] == 1){
+                        $add_per = 1;
+                    }
+                    if($val['pro_permission_id'] == 2){
+                        $edit_per = 1;
+                    }
+                    if($val['pro_permission_id'] == 3){
+                        $view_per = 1;
+                    }
+                    if($val['pro_permission_id'] == 5){
+                        $del_per = 1;
+                    }
+                }
+            }
+            $data['add_per'] = $add_per;
+            $data['edit_per'] = $edit_per;
+            $data['view_per'] = $view_per;
+            $data['del_per'] = $del_per;
+
             return view('dashboard/role_assign', $data);
         } else {
             return redirect()->to('Login');
@@ -1217,6 +1273,18 @@ class Dashboard extends BaseController
             }
             if ($edit_id) {
                 $object_datas = $Dashboard_model->load_object_datas($edit_id);
+                if($object_class_id == 1){
+                    $object_hotel_datas = $Dashboard_model->load_object_hotel_datas($edit_id);
+                    if(!empty($object_hotel_datas)){
+                        $hotel_rr = $object_hotel_datas[0]['hotel_rr'];
+                    }
+                    else{
+                        $hotel_rr = 0;
+                    }
+                }
+                else{
+                    $hotel_rr = 0;
+                }
                 $ent_name = $object_datas[0]['object_name'];
                 $ent_loc = $object_datas[0]['object_location_id'];
                 $ent_mobile = json_decode($object_datas[0]['object_ph_no'], true);
@@ -1232,6 +1300,7 @@ class Dashboard extends BaseController
                 $ent_address = [];
                 $attribute_datas = [];
                 $bool_attribute_datas = [];
+                $hotel_rr = 0;
             }
             $all_locations = $Dashboard_model->get_all_locations();
             $all_locations2 = $Dashboard_model->get_state_locations();
@@ -1271,6 +1340,7 @@ class Dashboard extends BaseController
             $data['bool_attribute_datas'] = $bool_attribute_datas;
             $data['hotel_categories'] = $hotel_categories;
             $data['hotel_agencies'] = $hotel_agencies;
+            $data['hotel_rr'] = $hotel_rr;
             return view('dashboard/add_object', $data);
         } else {
             return redirect()->to('Login');
@@ -2647,6 +2717,20 @@ class Dashboard extends BaseController
                 $insert_id = $Dashboard_model->insert_new_trans($trans_datas);
             }
 
+            $prs_parent_ids = $Dashboard_model->getProcessParentId($trans_id);
+            $prs_parent_id = $prs_parent_ids[0]['prs_parent_id'];
+            $parent_trans_exist = $Dashboard_model->check_trans_exist($role_id, $prs_parent_id);
+            if ($parent_trans_exist) {
+            } else {
+                $p_trans_datas = [
+                    'access_permission_id' => 1,
+                    'role_id' => $role_id,
+                    'entity_trans_id' => $prs_parent_id,
+                    'enterprise_id' => 1
+                ];
+                $p_insert_id = $Dashboard_model->insert_new_trans($p_trans_datas);
+            }
+
             $selectedPers = $this->request->getPost('selectedPers');
             $per_exist = $Dashboard_model->check_per_exist($role_id, $trans_id);
             if ($per_exist) {
@@ -2750,6 +2834,34 @@ class Dashboard extends BaseController
             $data['role_id'] = $role_id;
             $data['role_det'] = $role_det;
             $data['role_name'] = $role_det[0]['role_name'];
+
+            $all_permissions = [];
+            $add_per = 0;
+            $edit_per = 0;
+            $view_per = 0;
+            $del_per = 0;
+            $all_permissions = $Dashboard_model->get_all_permissions(5,$active_role);
+            if(!empty($all_permissions)){
+                foreach($all_permissions as $key => $val){
+                    if($val['pro_permission_id'] == 1){
+                        $add_per = 1;
+                    }
+                    if($val['pro_permission_id'] == 2){
+                        $edit_per = 1;
+                    }
+                    if($val['pro_permission_id'] == 3){
+                        $view_per = 1;
+                    }
+                    if($val['pro_permission_id'] == 5){
+                        $del_per = 1;
+                    }
+                }
+            }
+            $data['add_per'] = $add_per;
+            $data['edit_per'] = $edit_per;
+            $data['view_per'] = $view_per;
+            $data['del_per'] = $del_per;
+
             return view('dashboard/role_trans', $data);
         } else {
             return redirect()->to('Login');

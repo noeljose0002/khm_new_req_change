@@ -33,6 +33,7 @@ class Dashboard_m extends Model
     protected $khm_sys_usg_mst_entity_role = 'khm_sys_usg_mst_entity_role';
     protected $table_entity_attr = 'khm_entity_attribute';
     protected $table_object_attr = 'khm_obj_attribute';
+    protected $khm_obj_hotel = 'khm_obj_hotel';
     protected $khm_sys_usg_mst_role_transaction = 'khm_sys_usg_mst_role_transaction';
     protected $khm_sys_usg_role_transaction_permission = 'khm_sys_usg_role_transaction_permission';
 
@@ -71,9 +72,11 @@ class Dashboard_m extends Model
     public function get_parent_menus()
     {
         $db = \Config\Database::connect();
-        $selected_table = $db->table('khm_sys_mst_transaction_process');
-        $result = $selected_table->select('*')
-            ->where('prs_type_id', 1)
+        $role_id = session('active_role');
+        $selected_table = $db->table('khm_sys_mst_transaction_process a');
+        $result = $selected_table->select('a.*')
+            ->join('khm_sys_usg_mst_role_transaction m', 'm.entity_trans_id = a.entity_trans_id AND m.role_id = '.$role_id, 'inner')
+            ->where('a.prs_type_id', 1)
             ->get()->getResultArray();
         return $result;
     }
@@ -103,6 +106,16 @@ class Dashboard_m extends Model
         $selected_table = $db->table('khm_obj_mst_class');
         $result = $selected_table->select('*')
             ->where('object_class_id', $object_class_id)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function get_all_permissions($entity_trans_id,$role_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_usg_role_transaction_permission');
+        $result = $selected_table->select('*')
+            ->where('entity_trans_id', $entity_trans_id)
+            ->where('role_id', $role_id)
             ->get()->getResultArray();
         return $result;
     }
@@ -763,6 +776,15 @@ class Dashboard_m extends Model
             ->get()->getResultArray();
         return $result;
     }
+    public function load_object_hotel_datas($object_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_obj_hotel');
+        $result = $selected_table->select('*')
+            ->where('object_id', $object_id)
+            ->get()->getResultArray();
+        return $result;
+    }
     public function load_object_veh_datas($object_id)
     {
         $db = \Config\Database::connect();
@@ -1197,6 +1219,15 @@ class Dashboard_m extends Model
         $result = $selected_table->select('*')
             ->where('entity_id=', $entity_id)
             ->where('entity_class_attr_id=', 6)
+            ->get()->getResultArray();
+        return $result;
+    }
+    public function getProcessParentId($trans_id)
+    {
+        $db = \Config\Database::connect();
+        $selected_table = $db->table('khm_sys_mst_transaction_process');
+        $result = $selected_table->select('*')
+            ->where('entity_trans_id=', $trans_id)
             ->get()->getResultArray();
         return $result;
     }
@@ -2354,6 +2385,11 @@ class Dashboard_m extends Model
     {
         $db = \Config\Database::connect();
         return $this->db->table($this->khm_obj_hotel_room_meal)->update($data, ['room_id' => $room_id, 'meal_plan_id' => $meal_plan_id]);
+    }
+    public function update_hotel_master($data,$object_id)
+    {
+        $db = \Config\Database::connect();
+        return $this->db->table($this->khm_obj_hotel)->update($data, ['object_id' => $object_id]);
     }
     public function update_new_vehicle_seasons($data, $special_tariff_id)
     {
