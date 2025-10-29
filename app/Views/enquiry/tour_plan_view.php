@@ -2603,19 +2603,19 @@ $is_edit = $edit_id ? $edit_id : 0;
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>C.With Bed Rate</b></div>
-									<input type="text" id="s_child_rate${sid}" name="addloc[${count}][nights][${night}][s_child_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${seq}">
+									<input type="text" id="s_child_rate${sid}" name="addloc[${count}][nights][${night}][s_child_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);"  data-night="${night}" data-room-index="${seq}">
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>C.Without Bed Rate</b></div>
-									<input type="text" id="s_child_wb_rate${sid}" name="addloc[${count}][nights][${night}][s_child_wb_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${seq}">
+									<input type="text" id="s_child_wb_rate${sid}" name="addloc[${count}][nights][${night}][s_child_wb_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);"  data-night="${night}" data-room-index="${seq}">
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>Extra Bed Rate</b></div>
-									<input type="text" id="s_extra_bed_rate${sid}" name="addloc[${count}][nights][${night}][s_extra_bed_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${seq}">
+									<input type="text" id="s_extra_bed_rate${sid}" name="addloc[${count}][nights][${night}][s_extra_bed_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);"  data-night="${night}" data-room-index="${seq}">
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>Total(Single)</b></div>
-									<input type="text" id="s_total_rate${sid}" name="addloc[${count}][nights][${night}][s_total_rate][${seq}]" class="form-control input-sm s_total_rate" data-count="${count}" maxlength="6" readonly data-night="${night}" data-room-index="${seq}">
+									<input type="text" id="s_total_rate${sid}" name="addloc[${count}][nights][${night}][s_total_rate][${seq}]" class="form-control input-sm s_total_rate" data-count="${count}" maxlength="6"  data-night="${night}" data-room-index="${seq}">
 								</div>
 							</div>`;
 			}
@@ -2823,293 +2823,297 @@ $is_edit = $edit_id ? $edit_id : 0;
 	// Add the mp_row_change handler here, similar to room_cat_change
 	// Fixed mp_row_change handler with proper visual update
 	// ===== PERFORMANCE OPTIMIZATION UTILITIES =====
-// Batch DOM updates to prevent layout thrashing
-let updateBatchQueue = [];
-let batchTimer = null;
+	// Batch DOM updates to prevent layout thrashing
+	let updateBatchQueue = [];
+	let batchTimer = null;
 
-function batchDOMUpdate(updateFunction) {
-	updateBatchQueue.push(updateFunction);
-	
-	if (!batchTimer) {
-		batchTimer = requestAnimationFrame(function() {
-			const queue = updateBatchQueue.slice();
-			updateBatchQueue = [];
-			batchTimer = null;
-			
-			// Execute all queued updates in one paint cycle
-			queue.forEach(function(fn) { fn(); });
-		});
-	}
-}
+	function batchDOMUpdate(updateFunction) {
+		updateBatchQueue.push(updateFunction);
 
-// Defer non-critical updates to idle time
-function deferToIdle(callback, timeout) {
-	if (window.requestIdleCallback) {
-		requestIdleCallback(callback, { timeout: timeout || 50 });
-	} else {
-		setTimeout(callback, 16); // Fallback for older browsers
-	}
-}
+		if (!batchTimer) {
+			batchTimer = requestAnimationFrame(function() {
+				const queue = updateBatchQueue.slice();
+				updateBatchQueue = [];
+				batchTimer = null;
 
-// ===== OPTIMIZED MEAL PLAN CHANGE HANDLER =====
-$(document).on('change', '.mp_row_change', function() {
-	if (isDraftLoading) {
-		console.log('Skipping meal plan change during draft load');
-		return;
-	}
-
-	var mealplan = $(this).val();
-	var rid = $(this).attr('data-id');
-	var count = $(this).attr('data-count');
-	var type = $(this).attr('data-type');
-	var $spinner = $('#csspinner');
-	var $mealplanSelect = $(this);
-	var night = parseInt($(this).attr('data-night'));
-	var roomIndex = parseInt($(this).attr('data-room-index'));
-
-	console.log('=== Meal Plan Change ===');
-	console.log('rid:', rid, 'count:', count, 'night:', night, 'roomIndex:', roomIndex, 'type:', type, 'value:', mealplan);
-
-	// Skip if programmatic change
-	if ($mealplanSelect.data('programmatic-change')) {
-		console.log('Skipping programmatic change for rid:', rid);
-		$mealplanSelect.removeData('programmatic-change');
-	} else {
-		// STATIC MODE: Optimized propagation
-		if (!getIsDynamic()) {
-			var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-			console.log('Static mode propagation - Room Type:', type, 'Total Nights:', no_of_night);
-
-			// **OPTIMIZATION 1: Collect all target elements first (READ phase)**
-			var propagationTargets = [];
-
-			for (let n = 1; n <= no_of_night; n++) {
-				var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
-				var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
-
-				console.log(`Night ${n}: Total double rooms = ${totalDoubleRooms}, Total single rooms = ${totalSingleRooms}`);
-
-				var startIndex, endIndex;
-				if (type === 'double') {
-					startIndex = 1;
-					endIndex = totalDoubleRooms;
-				} else {
-					startIndex = totalDoubleRooms + 1;
-					endIndex = totalDoubleRooms + totalSingleRooms;
-				}
-
-				console.log(`Processing ${type} rooms from index ${startIndex} to ${endIndex}`);
-
-				for (let r = startIndex; r <= endIndex; r++) {
-					if (n === night && r === roomIndex) {
-						console.log('Skipping current room - Night:', n, 'Room:', r);
-						continue;
-					}
-
-					var otherRid = `${count}${n}${r}`;
-					var prefix = type === 'double' ? 'd_' : 's_';
-					var $rateField = $(`#${prefix}adult_rate${otherRid}`);
-
-					if ($rateField.length > 0) {
-						var mealPlanId = `${prefix}mealplan${otherRid}`;
-						var $otherMealPlan = $(`#${mealPlanId}`);
-
-						console.log(`Checking Night ${n}, Room ${r} (${type}):`, {
-							otherRid: otherRid,
-							mealPlanId: mealPlanId,
-							found: $otherMealPlan.length > 0
-						});
-
-						if ($otherMealPlan.length === 0) {
-							$otherMealPlan = $(`#mealplan${otherRid}`);
-							console.log('Trying fallback selector #mealplan' + otherRid + ':', $otherMealPlan.length > 0);
-						}
-
-						if ($otherMealPlan.length === 0) {
-							$otherMealPlan = $(`[id="mealplan${otherRid}"][data-type="${type}"]`);
-							console.log('Trying data-type selector:', $otherMealPlan.length > 0);
-						}
-
-						// **OPTIMIZATION 2: Only propagate if value is different**
-						if ($otherMealPlan.length > 0 && $otherMealPlan.val() !== mealplan) {
-							propagationTargets.push({
-								element: $otherMealPlan,
-								value: mealplan,
-								rid: otherRid
-							});
-						}
-					} else {
-						console.log(`Rate field #${prefix}adult_rate${otherRid} does not exist - room ${r} doesn't exist for night ${n}`);
-					}
-				}
-			}
-
-			// **OPTIMIZATION 3: Batch all propagation updates (WRITE phase)**
-			if (propagationTargets.length > 0) {
-				console.log(`Batching ${propagationTargets.length} propagation updates`);
-				
-				batchDOMUpdate(function() {
-					propagationTargets.forEach(function(target) {
-						console.log('Propagating meal plan value:', target.value, 'to', target.rid);
-						
-						target.element.data('programmatic-change', true).val(target.value);
-						
-						if (target.element.hasClass('select2-hidden-accessible')) {
-							target.element.trigger('change.select2');
-						}
-						
-						target.element.trigger('change');
-					});
+				// Execute all queued updates in one paint cycle
+				queue.forEach(function(fn) {
+					fn();
 				});
-			}
-
-			console.log('Meal plan propagation complete');
-		} else {
-			console.log('Dynamic mode - No propagation needed');
+			});
 		}
 	}
 
-	// Process the current room
-	$spinner.show();
-	$mealplanSelect.prop('disabled', true);
-
-	// Reset totals if mealplan is empty
-	if (mealplan === "" || mealplan === "0") {
-		$(`#d_total_rate${rid}`).val(0);
-		$(`#s_total_rate${rid}`).val(0);
-		updateRoomTotals(count, night, roomIndex);
-		updateGrandtotalBoth();
-		get_veh_grand_total();
-		$(`#loc_total${count}`).text(updateGrandtotalBoth(count) + " + " + 0);
-		$('#v_total').text(get_veh_grand_total());
-		$('#g_total').text((updateGrandtotalBoth() + get_veh_grand_total()));
-		calculateVehicleExtraKmCharges();
-		$spinner.hide();
-		$mealplanSelect.prop('disabled', false);
-		return;
+	// Defer non-critical updates to idle time
+	function deferToIdle(callback, timeout) {
+		if (window.requestIdleCallback) {
+			requestIdleCallback(callback, {
+				timeout: timeout || 50
+			});
+		} else {
+			setTimeout(callback, 16); // Fallback for older browsers
+		}
 	}
 
-	// Validation
-	if ($(`#roomcat${rid}`).length === 0) {
-		console.error('Room category dropdown not found for rid:', rid);
-		showAlert('error', 'Room category dropdown not found. Please refresh the page.');
-		$spinner.hide();
-		$mealplanSelect.prop('disabled', false).val("");
-		return;
-	}
+	// ===== OPTIMIZED MEAL PLAN CHANGE HANDLER =====
+	$(document).on('change', '.mp_row_change', function() {
+		if (isDraftLoading) {
+			console.log('Skipping meal plan change during draft load');
+			return;
+		}
 
-	// **OPTIMIZATION 4: Gather all data in one READ pass**
-	var no_of_night = $(`#no_of_night${count}`).val();
-	var hotel_id = $(`#hotelid${count}`).val();
-	var tax_status = $(`#tax_status${count}`).val();
-	var checkin = $(`#checkin${count}`).val();
-	var checkout = $(`#checkout${count}`).val();
-	var room_cat_id = $(`#roomcat${rid}`).val();
+		var mealplan = $(this).val();
+		var rid = $(this).attr('data-id');
+		var count = $(this).attr('data-count');
+		var type = $(this).attr('data-type');
+		var $spinner = $('#csspinner');
+		var $mealplanSelect = $(this);
+		var night = parseInt($(this).attr('data-night'));
+		var roomIndex = parseInt($(this).attr('data-room-index'));
 
-	if (!room_cat_id || room_cat_id === "" || room_cat_id === "0" || room_cat_id === null) {
-		console.error('Room category ID is missing or invalid for rid:', rid, 'Value:', room_cat_id);
-		showAlert('warning', 'Please select a room category first before choosing a meal plan.');
-		$spinner.hide();
-		$mealplanSelect.prop('disabled', false).val("");
-		return;
-	}
+		console.log('=== Meal Plan Change ===');
+		console.log('rid:', rid, 'count:', count, 'night:', night, 'roomIndex:', roomIndex, 'type:', type, 'value:', mealplan);
 
-	if (!hotel_id || !checkin || !checkout || !no_of_night) {
-		console.error('Missing required fields - hotel_id:', hotel_id, 'checkin:', checkin, 'checkout:', checkout, 'no_of_night:', no_of_night);
-		showAlert('warning', 'Please ensure hotel, check-in, check-out dates are properly selected.');
-		$spinner.hide();
-		$mealplanSelect.prop('disabled', false).val("");
-		return;
-	}
+		// Skip if programmatic change
+		if ($mealplanSelect.data('programmatic-change')) {
+			console.log('Skipping programmatic change for rid:', rid);
+			$mealplanSelect.removeData('programmatic-change');
+		} else {
+			// STATIC MODE: Optimized propagation
+			if (!getIsDynamic()) {
+				var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+				console.log('Static mode propagation - Room Type:', type, 'Total Nights:', no_of_night);
 
-	var double = type === 'double' ? 1 : 0;
-	var single = type === 'single' ? 1 : 0;
-	var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
-	var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
-	var departure_location = <?php echo $object_det[0]['departure_location']; ?>;
-	var tour_location_id = $(`#tour_location_id${count}`).val();
-	var previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
-	var duration = <?php echo $object_det[0]['no_of_night']; ?>;
-	var totalNights = calculateTotalNights();
-	var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-	var vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
+				// **OPTIMIZATION 1: Collect all target elements first (READ phase)**
+				var propagationTargets = [];
 
-	// **OPTIMIZATION 5: AJAX with batched DOM updates in success**
-	$.ajax({
-		url: "<?= site_url('Enquiry/getTourTariffDetails'); ?>",
-		method: "POST",
-		data: {
-			hotel_id: hotel_id,
-			room_cat_id: room_cat_id,
-			mealplan: mealplan,
-			checkin: checkin,
-			checkout: checkout,
-			no_of_night: no_of_night,
-			double: double,
-			single: single,
-			vehicle_models: vehicle_models,
-			id: rid,
-			duration: duration,
-			totalNights: totalNights,
-			tour_location_id: tour_location_id,
-			previous_location_id: previous_location_id,
-			vehicle_from_location: vehicle_from_location,
-			arrival_location: arrival_location,
-			departure_location: departure_location
-		},
-		dataType: 'json',
-		success: function(data) {
-			if (data.different_season == 1) {
-				var html_data = '<p>' + data.season_name1 + '</p>';
-				html_data += '<p>' + data.season_name2 + '</p>';
-				$('#season_name_placeholder').html(html_data);
-				$('#diff_season_modal').modal('show');
-				$(`#no_of_night${count}`).val(1);
-				calculateCheckout(count);
-				$(`#mealplan${rid}`).trigger('change');
-				return;
-			}
+				for (let n = 1; n <= no_of_night; n++) {
+					var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
+					var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
 
-			// **OPTIMIZATION 6: Read all values first**
-			var no_of_ch = parseInt($(`#no_of_ch${count}`).val()) || 0;
-			var no_of_cw = parseInt($(`#no_of_cw${count}`).val()) || 0;
-			var no_of_extra = parseInt($(`#no_of_extra${count}`).val()) || 0;
-			var room_qty = type === 'double' ? (parseInt($(`#double${count}${night}`).val()) || 0) : (parseInt($(`#single${count}${night}`).val()) || 0);
+					console.log(`Night ${n}: Total double rooms = ${totalDoubleRooms}, Total single rooms = ${totalSingleRooms}`);
 
-			// Calculate values
-			var room_r = parseInt(data.d_room_tariff) || parseInt(data.s_room_tariff) || 0;
-			var child_r = parseInt(data.d_child_tariff) || parseInt(data.s_child_tariff) || 0;
-			var child_wb_r = parseInt(data.d_child_wb_tariff) || parseInt(data.s_child_wb_tariff) || 0;
-			var extra_r = parseInt(data.d_extra_tariff) || parseInt(data.s_extra_tariff) || 0;
-			var effective_room_r = room_r * room_qty;
-			var child_with_bed_count = no_of_ch;
-			var child_without_bed_count = no_of_cw;
-			var extra_bed_count = no_of_extra;
+					var startIndex, endIndex;
+					if (type === 'double') {
+						startIndex = 1;
+						endIndex = totalDoubleRooms;
+					} else {
+						startIndex = totalDoubleRooms + 1;
+						endIndex = totalDoubleRooms + totalSingleRooms;
+					}
 
-			// **OPTIMIZATION 7: Batch all DOM writes together**
-			batchDOMUpdate(function() {
-				// Set rates for this room
-				if (type === 'double') {
-					$(`#d_adult_rate${rid}`).prop("readonly", true).val(room_r);
-					$(`#d_child_rate${rid}`).prop("readonly", true).val(child_r);
-					$(`#d_child_wb_rate${rid}`).prop("readonly", true).val(child_wb_r);
-					$(`#d_extra_bed_rate${rid}`).prop("readonly", true).val(extra_r);
-				} else {
-					$(`#s_adult_rate${rid}`).prop("readonly", true).val(room_r);
-					$(`#s_child_rate${rid}`).prop("readonly", true).val(child_r);
-					$(`#s_child_wb_rate${rid}`).prop("readonly", true).val(child_wb_r);
-					$(`#s_extra_bed_rate${rid}`).prop("readonly", true).val(extra_r);
+					console.log(`Processing ${type} rooms from index ${startIndex} to ${endIndex}`);
+
+					for (let r = startIndex; r <= endIndex; r++) {
+						if (n === night && r === roomIndex) {
+							console.log('Skipping current room - Night:', n, 'Room:', r);
+							continue;
+						}
+
+						var otherRid = `${count}${n}${r}`;
+						var prefix = type === 'double' ? 'd_' : 's_';
+						var $rateField = $(`#${prefix}adult_rate${otherRid}`);
+
+						if ($rateField.length > 0) {
+							var mealPlanId = `${prefix}mealplan${otherRid}`;
+							var $otherMealPlan = $(`#${mealPlanId}`);
+
+							console.log(`Checking Night ${n}, Room ${r} (${type}):`, {
+								otherRid: otherRid,
+								mealPlanId: mealPlanId,
+								found: $otherMealPlan.length > 0
+							});
+
+							if ($otherMealPlan.length === 0) {
+								$otherMealPlan = $(`#mealplan${otherRid}`);
+								console.log('Trying fallback selector #mealplan' + otherRid + ':', $otherMealPlan.length > 0);
+							}
+
+							if ($otherMealPlan.length === 0) {
+								$otherMealPlan = $(`[id="mealplan${otherRid}"][data-type="${type}"]`);
+								console.log('Trying data-type selector:', $otherMealPlan.length > 0);
+							}
+
+							// **OPTIMIZATION 2: Only propagate if value is different**
+							if ($otherMealPlan.length > 0 && $otherMealPlan.val() !== mealplan) {
+								propagationTargets.push({
+									element: $otherMealPlan,
+									value: mealplan,
+									rid: otherRid
+								});
+							}
+						} else {
+							console.log(`Rate field #${prefix}adult_rate${otherRid} does not exist - room ${r} doesn't exist for night ${n}`);
+						}
+					}
 				}
 
-				// Generate sterling only for first room
-				if (roomIndex === 1 && tax_status == 1) {
-					var tot_d = effective_room_r + (child_with_bed_count * child_r) + (child_without_bed_count * child_wb_r) + (extra_bed_count * extra_r);
-					var gst = tot_d >= 7500 ? 18 : 12;
-					var gstval = (gst / 100) * tot_d;
-					var total_doubles = tot_d + gstval;
+				// **OPTIMIZATION 3: Batch all propagation updates (WRITE phase)**
+				if (propagationTargets.length > 0) {
+					console.log(`Batching ${propagationTargets.length} propagation updates`);
 
-					var tt = rid;
-					var sterling_html = `
+					batchDOMUpdate(function() {
+						propagationTargets.forEach(function(target) {
+							console.log('Propagating meal plan value:', target.value, 'to', target.rid);
+
+							target.element.data('programmatic-change', true).val(target.value);
+
+							if (target.element.hasClass('select2-hidden-accessible')) {
+								target.element.trigger('change.select2');
+							}
+
+							target.element.trigger('change');
+						});
+					});
+				}
+
+				console.log('Meal plan propagation complete');
+			} else {
+				console.log('Dynamic mode - No propagation needed');
+			}
+		}
+
+		// Process the current room
+		$spinner.show();
+		$mealplanSelect.prop('disabled', true);
+
+		// Reset totals if mealplan is empty
+		if (mealplan === "" || mealplan === "0") {
+			$(`#d_total_rate${rid}`).val(0);
+			$(`#s_total_rate${rid}`).val(0);
+			updateRoomTotals(count, night, roomIndex);
+			updateGrandtotalBoth();
+			get_veh_grand_total();
+			$(`#loc_total${count}`).text(updateGrandtotalBoth(count) + " + " + 0);
+			$('#v_total').text(get_veh_grand_total());
+			$('#g_total').text((updateGrandtotalBoth() + get_veh_grand_total()));
+			calculateVehicleExtraKmCharges();
+			$spinner.hide();
+			$mealplanSelect.prop('disabled', false);
+			return;
+		}
+
+		// Validation
+		if ($(`#roomcat${rid}`).length === 0) {
+			console.error('Room category dropdown not found for rid:', rid);
+			showAlert('error', 'Room category dropdown not found. Please refresh the page.');
+			$spinner.hide();
+			$mealplanSelect.prop('disabled', false).val("");
+			return;
+		}
+
+		// **OPTIMIZATION 4: Gather all data in one READ pass**
+		var no_of_night = $(`#no_of_night${count}`).val();
+		var hotel_id = $(`#hotelid${count}`).val();
+		var tax_status = $(`#tax_status${count}`).val();
+		var checkin = $(`#checkin${count}`).val();
+		var checkout = $(`#checkout${count}`).val();
+		var room_cat_id = $(`#roomcat${rid}`).val();
+
+		if (!room_cat_id || room_cat_id === "" || room_cat_id === "0" || room_cat_id === null) {
+			console.error('Room category ID is missing or invalid for rid:', rid, 'Value:', room_cat_id);
+			showAlert('warning', 'Please select a room category first before choosing a meal plan.');
+			$spinner.hide();
+			$mealplanSelect.prop('disabled', false).val("");
+			return;
+		}
+
+		if (!hotel_id || !checkin || !checkout || !no_of_night) {
+			console.error('Missing required fields - hotel_id:', hotel_id, 'checkin:', checkin, 'checkout:', checkout, 'no_of_night:', no_of_night);
+			showAlert('warning', 'Please ensure hotel, check-in, check-out dates are properly selected.');
+			$spinner.hide();
+			$mealplanSelect.prop('disabled', false).val("");
+			return;
+		}
+
+		var double = type === 'double' ? 1 : 0;
+		var single = type === 'single' ? 1 : 0;
+		var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
+		var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
+		var departure_location = <?php echo $object_det[0]['departure_location']; ?>;
+		var tour_location_id = $(`#tour_location_id${count}`).val();
+		var previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
+		var duration = <?php echo $object_det[0]['no_of_night']; ?>;
+		var totalNights = calculateTotalNights();
+		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+		var vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
+
+		// **OPTIMIZATION 5: AJAX with batched DOM updates in success**
+		$.ajax({
+			url: "<?= site_url('Enquiry/getTourTariffDetails'); ?>",
+			method: "POST",
+			data: {
+				hotel_id: hotel_id,
+				room_cat_id: room_cat_id,
+				mealplan: mealplan,
+				checkin: checkin,
+				checkout: checkout,
+				no_of_night: no_of_night,
+				double: double,
+				single: single,
+				vehicle_models: vehicle_models,
+				id: rid,
+				duration: duration,
+				totalNights: totalNights,
+				tour_location_id: tour_location_id,
+				previous_location_id: previous_location_id,
+				vehicle_from_location: vehicle_from_location,
+				arrival_location: arrival_location,
+				departure_location: departure_location
+			},
+			dataType: 'json',
+			success: function(data) {
+				if (data.different_season == 1) {
+					var html_data = '<p>' + data.season_name1 + '</p>';
+					html_data += '<p>' + data.season_name2 + '</p>';
+					$('#season_name_placeholder').html(html_data);
+					$('#diff_season_modal').modal('show');
+					$(`#no_of_night${count}`).val(1);
+					calculateCheckout(count);
+					$(`#mealplan${rid}`).trigger('change');
+					return;
+				}
+
+				// **OPTIMIZATION 6: Read all values first**
+				var no_of_ch = parseInt($(`#no_of_ch${count}`).val()) || 0;
+				var no_of_cw = parseInt($(`#no_of_cw${count}`).val()) || 0;
+				var no_of_extra = parseInt($(`#no_of_extra${count}`).val()) || 0;
+				var room_qty = type === 'double' ? (parseInt($(`#double${count}${night}`).val()) || 0) : (parseInt($(`#single${count}${night}`).val()) || 0);
+
+				// Calculate values
+				var room_r = parseInt(data.d_room_tariff) || parseInt(data.s_room_tariff) || 0;
+				var child_r = parseInt(data.d_child_tariff) || parseInt(data.s_child_tariff) || 0;
+				var child_wb_r = parseInt(data.d_child_wb_tariff) || parseInt(data.s_child_wb_tariff) || 0;
+				var extra_r = parseInt(data.d_extra_tariff) || parseInt(data.s_extra_tariff) || 0;
+				var effective_room_r = room_r * room_qty;
+				var child_with_bed_count = no_of_ch;
+				var child_without_bed_count = no_of_cw;
+				var extra_bed_count = no_of_extra;
+
+				// **OPTIMIZATION 7: Batch all DOM writes together**
+				batchDOMUpdate(function() {
+					// Set rates for this room
+					if (type === 'double') {
+						$(`#d_adult_rate${rid}`).prop("readonly", false).val(room_r);
+						$(`#d_child_rate${rid}`).prop("readonly", false).val(child_r);
+						$(`#d_child_wb_rate${rid}`).prop("readonly", false).val(child_wb_r);
+						$(`#d_extra_bed_rate${rid}`).prop("readonly", false).val(extra_r);
+					} else {
+						$(`#s_adult_rate${rid}`).prop("readonly", false).val(room_r);
+						$(`#s_child_rate${rid}`).prop("readonly", false).val(child_r);
+						$(`#s_child_wb_rate${rid}`).prop("readonly", false).val(child_wb_r);
+						$(`#s_extra_bed_rate${rid}`).prop("readonly", false).val(extra_r);
+					}
+
+					// Generate sterling only for first room
+					if (roomIndex === 1 && tax_status == 1) {
+						var tot_d = effective_room_r + (child_with_bed_count * child_r) + (child_without_bed_count * child_wb_r) + (extra_bed_count * extra_r);
+						var gst = tot_d >= 7500 ? 18 : 12;
+						var gstval = (gst / 100) * tot_d;
+						var total_doubles = tot_d + gstval;
+
+						var tt = rid;
+						var sterling_html = `
 						<div class="row">
 							<div class="col-xl-1 col-sm-12 col-md-1"></div>
 							<div class="col-xl-1 col-sm-12 col-md-1">
@@ -3157,15 +3161,15 @@ $(document).on('change', '.mp_row_change', function() {
 						</div>
 					`;
 
-					var div_id = type === 'double' ? 'sterling_double' : 'sterling_single';
-					var eighteen_div = type === 'double' ? 'eighteen_div_d' : 'eighteen_div_s';
-					var total_field = type === 'double' ? 'd_total_rate' : 's_total_rate';
-					var hd_prefix = type === 'double' ? 'hd_ster_d' : 'hd_ster_s';
-					var ster_prefix = type === 'double' ? 'ster_d' : 'ster_s';
-					var n_prefix = type === 'double' ? 'n_d' : 'n_s';
-					var g_prefix = type === 'double' ? '' : 's_';
-					
-					var ediv = `
+						var div_id = type === 'double' ? 'sterling_double' : 'sterling_single';
+						var eighteen_div = type === 'double' ? 'eighteen_div_d' : 'eighteen_div_s';
+						var total_field = type === 'double' ? 'd_total_rate' : 's_total_rate';
+						var hd_prefix = type === 'double' ? 'hd_ster_d' : 'hd_ster_s';
+						var ster_prefix = type === 'double' ? 'ster_d' : 'ster_s';
+						var n_prefix = type === 'double' ? 'n_d' : 'n_s';
+						var g_prefix = type === 'double' ? '' : 's_';
+
+						var ediv = `
 						<input type="hidden" id="${hd_prefix}_id${tt}" value="${rid}" name="hd_ster_addloc_${g_prefix}[${tt}][ster_${g_prefix}id]">
 						<input type="hidden" id="${hd_prefix}_adult_rate${tt}" value="${effective_room_r}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}adult_rate]">
 						<input type="hidden" id="hd_ster_${n_prefix}_child_rate${tt}" value="${child_with_bed_count}" name="hd_ster_addloc_${g_prefix}[${tt}][n_${g_prefix}child_rate]">
@@ -3179,47 +3183,47 @@ $(document).on('change', '.mp_row_change', function() {
 						<input type="hidden" id="hd_ster_${g_prefix}g_tot${tt}" value="${total_doubles}" name="hd_ster_addloc_${g_prefix}[${tt}][${g_prefix}g_tot]">
 					`;
 
-					$(`#${eighteen_div}${count}`).append(ediv);
-					$(`#${div_id}${count}${night}`).html(sterling_html);
-					$(`#${total_field}${rid}`).val(total_doubles);
-				} else if (tax_status != 1) {
-					$(`#sterling_double${count}${night}`).html('');
-					$(`#sterling_single${count}${night}`).html('');
-					$(`#eighteen_div_d${count}`).html('');
-					$(`#eighteen_div_s${count}`).html('');
-				}
-			});
+						$(`#${eighteen_div}${count}`).append(ediv);
+						$(`#${div_id}${count}${night}`).html(sterling_html);
+						$(`#${total_field}${rid}`).val(total_doubles);
+					} else if (tax_status != 1) {
+						$(`#sterling_double${count}${night}`).html('');
+						$(`#sterling_single${count}${night}`).html('');
+						$(`#eighteen_div_d${count}`).html('');
+						$(`#eighteen_div_s${count}`).html('');
+					}
+				});
 
-			// **OPTIMIZATION 8: Defer heavy calculations to idle time**
-			deferToIdle(function() {
-				updateRoomTotals(count, night, roomIndex);
+				// **OPTIMIZATION 8: Defer heavy calculations to idle time**
+				deferToIdle(function() {
+					updateRoomTotals(count, night, roomIndex);
 
-				if (roomIndex === 1 && !getIsDynamic()) {
-					propagateRoomData(count, night, type);
-				}
+					if (roomIndex === 1 && !getIsDynamic()) {
+						propagateRoomData(count, night, type);
+					}
 
-				var singleCardTotal = updateGrandtotalBoth(count);
-				$(`#loc_total${count}`).text(singleCardTotal + " + " + 0);
-				var veh_grand_total = get_veh_grand_total();
-				$('#v_total').text(veh_grand_total);
-				var allCardTotal = updateGrandtotalBoth();
-				$('#a_total').text(allCardTotal);
-				$('#g_total').text((allCardTotal + veh_grand_total));
-				calculateVehicleExtraKmCharges();
-			});
-		},
-		error: function(xhr, status, error) {
-			console.error('Error fetching tariff details:', error);
-			console.error('XHR Response:', xhr.responseText);
-			showAlert('danger', 'Error fetching tariff details. Please try again.');
-		},
-		complete: function() {
-			$spinner.hide();
-			$mealplanSelect.prop('disabled', false);
-			$(`#roomcat${rid}`).prop('disabled', false);
-		}
+					var singleCardTotal = updateGrandtotalBoth(count);
+					$(`#loc_total${count}`).text(singleCardTotal + " + " + 0);
+					var veh_grand_total = get_veh_grand_total();
+					$('#v_total').text(veh_grand_total);
+					var allCardTotal = updateGrandtotalBoth();
+					$('#a_total').text(allCardTotal);
+					$('#g_total').text((allCardTotal + veh_grand_total));
+					calculateVehicleExtraKmCharges();
+				});
+			},
+			error: function(xhr, status, error) {
+				console.error('Error fetching tariff details:', error);
+				console.error('XHR Response:', xhr.responseText);
+				showAlert('danger', 'Error fetching tariff details. Please try again.');
+			},
+			complete: function() {
+				$spinner.hide();
+				$mealplanSelect.prop('disabled', false);
+				$(`#roomcat${rid}`).prop('disabled', false);
+			}
+		});
 	});
-});
 	// Event handler for rate inputs to propagate in static mode
 	$(document).on('input', 'input[id^="d_adult_rate"], input[id^="d_child_rate"], input[id^="d_child_wb_rate"], input[id^="d_extra_bed_rate"], input[id^="s_adult_rate"], input[id^="s_child_rate"], input[id^="s_child_wb_rate"], input[id^="s_extra_bed_rate"]', function() {
 		var $input = $(this);
@@ -3311,29 +3315,234 @@ $(document).on('change', '.mp_row_change', function() {
 
 	// Add this function to generate vehicle summary section
 	// 1. Update generateVehicleSummary function to add refresh button and extra km rate column
-	function generateVehicleSummary(count, no_of_night, vehicle_models) {
-		// Build night labels with vehicle details
-		var nightLabels = '';
-		for (let i = 1; i <= no_of_night; i++) {
-			var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
-			if (vFromTo && vFromTo !== '') {
-				vFromTo = vFromTo.replace(/^\s*-\s*/, '');
-				nightLabels += vFromTo;
-			} else {
-				nightLabels += `N${i}`;
-			}
-			if (i < no_of_night) {
-				nightLabels += ' + ';
-			}
-		}
+	// function generateVehicleSummary(count, no_of_night, vehicle_models) {
+	// 	// Build night labels with vehicle details
+	// 	var nightLabels = '';
+	// 	for (let i = 1; i <= no_of_night; i++) {
+	// 		var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
+	// 		if (vFromTo && vFromTo !== '') {
+	// 			vFromTo = vFromTo.replace(/^\s*-\s*/, '');
+	// 			nightLabels += vFromTo;
+	// 		} else {
+	// 			nightLabels += `N${i}`;
+	// 		}
+	// 		if (i < no_of_night) {
+	// 			nightLabels += ' + ';
+	// 		}
+	// 	}
 
-		var summaryHtml = `
+	// 	var summaryHtml = `
+	//     <div class="vehicle-summary-section mt-4" id="vehicle-summary-${count}">
+	//         <h5 style="color:#003300; text-align: center;" id="vehicle-summary-header-${count}">
+	//             <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
+	//                 <i class="fa fa-refresh"></i>
+	//             </a>
+	//             Vehicle Summary (${nightLabels})
+	//         </h5>
+	//         <div class="card p-3 mb-3">
+	//             <div class="container-fluid px-2">
+	//                 <div class="row mt-2 single_row">
+	//                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+	//                         <div class="teams-rank"><b>Vehicle Model</b></div>
+	//                     </div>
+	//                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+	//                         <div class="teams-rank"><b>Vehicle Count</b></div>
+	//                     </div>
+	//                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+	//                         <div class="teams-rank"><b>Total Days</b></div>
+	//                     </div>
+	//                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+	//                         <div class="teams-rank"><b>Daily Rent</b></div>
+	//                     </div>
+	//                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+	//                         <div class="teams-rank"><b>Total Distance</b></div>
+	//                     </div>
+	//                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+	//                         <div class="teams-rank"><b>Extra KM Rate</b></div>
+	//                     </div>
+	//                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+	//                         <div class="teams-rank"><b>Total Extra KM</b></div>
+	//                     </div>
+	//                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+	//                         <div class="teams-rank"><b>Grand Total</b></div>
+	//                     </div>
+	//                 </div>`;
+
+	// 	$.each(vehicle_models, function(vindex, vmodel) {
+	// 		summaryHtml += `
+	//         <div class="row mt-2 single_row align-items-center">
+	//             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_model_name]" value="${vmodel.vehicle_model_name}" class="form-control input-sm" readonly>
+	//                 <input type="hidden" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_type_id]" value="${vmodel.vehicle_type_id}">
+	//             </div>
+	//             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_count]" value="${vmodel.vehicle_count}" class="form-control input-sm" readonly>
+	//             </div>
+	//             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_days]" id="summary_days_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+	//             </div>
+	//             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][daily_rent]" id="summary_rent_${count}_${vindex}" value="0" class="form-control input-sm summary-daily-rent" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
+	//             </div>
+	//             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_distance]" id="summary_distance_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+	//             </div>
+	//             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][extra_km_rate]" id="summary_extra_km_rate_${count}_${vindex}" value="0" class="form-control input-sm summary-extra-km-rate" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
+	//             </div>
+	//             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_extra_km]" id="summary_extra_km_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+	//             </div>
+	//             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][grand_total]" id="summary_total_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+	//             </div>
+	//         </div>`;
+	// 	});
+
+	// 	summaryHtml += `
+	//         <div class="row mt-3">
+	//             <div class="col-12 d-flex justify-content-end">
+	//                 <div class="col-xl-2 col-sm-12 col-md-2">
+	//                     <div class="teams-rank"><b>Overall Vehicle Total</b></div>
+	//                     <input type="text" name="addloc[${count}][vehicle_summary_total]" id="summary_overall_total_${count}" value="0" class="form-control input-sm" readonly>
+	//                 </div>
+	//             </div>
+	//         </div>
+	//     </div>
+	// 	</div>
+	// 	</div>`;
+
+	// 	return summaryHtml;
+	// }
+
+	// function generateVehicleSummary(count, no_of_night, vehicle_models) {
+	// 	// **ADD: Remove any existing summary first (defensive check)**
+	// 	$(`#vehicle-summary-${count}`).remove();
+
+	// 	// Build night labels with vehicle details
+	// 	var nightLabels = '';
+	// 	for (let i = 1; i <= no_of_night; i++) {
+	// 		var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
+	// 		if (vFromTo && vFromTo !== '') {
+	// 			vFromTo = vFromTo.replace(/^\s*-\s*/, '');
+	// 			nightLabels += vFromTo;
+	// 		} else {
+	// 			nightLabels += `N${i}`;
+	// 		}
+	// 		if (i < no_of_night) {
+	// 			nightLabels += ' + ';
+	// 		}
+	// 	}
+
+	// 	var summaryHtml = `
+    //     <div class="vehicle-summary-section mt-4" id="vehicle-summary-${count}">
+    //         <h5 style="color:#003300; text-align: center;" id="vehicle-summary-header-${count}">
+    //             <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
+    //                 <i class="fa fa-refresh"></i>
+    //             </a>
+    //             Vehicle Summary (${nightLabels})
+    //         </h5>
+    //         <div class="card p-3 mb-3">
+    //             <div class="container-fluid px-2">
+    //                 <div class="row mt-2 single_row">
+    //                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+    //                         <div class="teams-rank"><b>Vehicle Model</b></div>
+    //                     </div>
+    //                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+    //                         <div class="teams-rank"><b>Vehicle Count</b></div>
+    //                     </div>
+    //                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+    //                         <div class="teams-rank"><b>Total Days</b></div>
+    //                     </div>
+    //                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+    //                         <div class="teams-rank"><b>Daily Rent</b></div>
+    //                     </div>
+    //                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+    //                         <div class="teams-rank"><b>Total Distance</b></div>
+    //                     </div>
+    //                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+    //                         <div class="teams-rank"><b>Extra KM Rate</b></div>
+    //                     </div>
+    //                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+    //                         <div class="teams-rank"><b>Total Extra KM</b></div>
+    //                     </div>
+    //                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+    //                         <div class="teams-rank"><b>Grand Total</b></div>
+    //                     </div>
+    //                 </div>`;
+
+	// 	$.each(vehicle_models, function(vindex, vmodel) {
+	// 		summaryHtml += `
+    //         <div class="row mt-2 single_row align-items-center">
+    //             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+    //                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_model_name]" value="${vmodel.vehicle_model_name}" class="form-control input-sm" readonly>
+    //                 <input type="hidden" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_type_id]" value="${vmodel.vehicle_type_id}">
+    //             </div>
+    //             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+    //                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_count]" value="${vmodel.vehicle_count}" class="form-control input-sm" readonly>
+    //             </div>
+    //             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+    //                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_days]" id="summary_days_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+    //             </div>
+    //             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+    //                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][daily_rent]" id="summary_rent_${count}_${vindex}" value="0" class="form-control input-sm summary-daily-rent" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
+    //             </div>
+    //             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+    //                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_distance]" id="summary_distance_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+    //             </div>
+    //             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+    //                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][extra_km_rate]" id="summary_extra_km_rate_${count}_${vindex}" value="0" class="form-control input-sm summary-extra-km-rate" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
+    //             </div>
+    //             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+    //                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_extra_km]" id="summary_extra_km_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+    //             </div>
+    //             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+    //                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][grand_total]" id="summary_total_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+    //             </div>
+    //         </div>`;
+	// 	});
+
+	// 	summaryHtml += `
+    //                 <div class="row mt-3">
+    //                     <div class="col-12 d-flex justify-content-end">
+    //                         <div class="col-xl-2 col-sm-12 col-md-2">
+    //                             <div class="teams-rank"><b>Overall Vehicle Total</b></div>
+    //                             <input type="text" name="addloc[${count}][vehicle_summary_total]" id="summary_overall_total_${count}" value="0" class="form-control input-sm" readonly>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     </div>`;
+
+	// 	return summaryHtml;
+	// }
+    function generateVehicleSummary(count, no_of_night, vehicle_models) {
+    // **ADD: Remove any existing summary first (defensive check)**
+    $(`#vehicle-summary-${count}`).remove();
+    
+    // Build night labels with vehicle details
+    var nightLabels = '';
+    for (let i = 1; i <= no_of_night; i++) {
+        var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
+        if (vFromTo && vFromTo !== '') {
+            vFromTo = vFromTo.replace(/^\s*-\s*/, '');
+            nightLabels += vFromTo;
+        } else {
+            nightLabels += `N${i}`;
+        }
+        if (i < no_of_night) {
+            nightLabels += ' + ';
+        }
+    }
+
+    var summaryHtml = `
         <div class="vehicle-summary-section mt-4" id="vehicle-summary-${count}">
-            <h5 style="color:#003300; text-align: center;" id="vehicle-summary-header-${count}">
-                <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
+            <h5 style="color:#003300; text-align: center; display: flex; align-items: center; justify-content: center;" id="vehicle-summary-header-${count}">
+                <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px; position: absolute; left: 0;" title="Refresh Vehicle Data">
                     <i class="fa fa-refresh"></i>
                 </a>
-                Vehicle Summary (${nightLabels})
+                <span style="flex: 1;">Vehicle Summary (${nightLabels})</span>
             </h5>
             <div class="card p-3 mb-3">
                 <div class="container-fluid px-2">
@@ -3364,8 +3573,8 @@ $(document).on('change', '.mp_row_change', function() {
                         </div>
                     </div>`;
 
-		$.each(vehicle_models, function(vindex, vmodel) {
-			summaryHtml += `
+    $.each(vehicle_models, function(vindex, vmodel) {
+        summaryHtml += `
             <div class="row mt-2 single_row align-items-center">
                 <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
                     <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_model_name]" value="${vmodel.vehicle_model_name}" class="form-control input-sm" readonly>
@@ -3393,24 +3602,23 @@ $(document).on('change', '.mp_row_change', function() {
                     <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][grand_total]" id="summary_total_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
                 </div>
             </div>`;
-		});
+    });
 
-		summaryHtml += `
-            <div class="row mt-3">
-                <div class="col-12 d-flex justify-content-end">
-                    <div class="col-xl-2 col-sm-12 col-md-2">
-                        <div class="teams-rank"><b>Overall Vehicle Total</b></div>
-                        <input type="text" name="addloc[${count}][vehicle_summary_total]" id="summary_overall_total_${count}" value="0" class="form-control input-sm" readonly>
+    summaryHtml += `
+                    <div class="row mt-3">
+                        <div class="col-12 d-flex justify-content-end">
+                            <div class="col-xl-2 col-sm-12 col-md-2">
+                                <div class="teams-rank"><b>Overall Vehicle Total</b></div>
+                                <input type="text" name="addloc[${count}][vehicle_summary_total]" id="summary_overall_total_${count}" value="0" class="form-control input-sm" readonly>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    </div>`;
+        </div>`;
 
-		return summaryHtml;
-	}
-
+    return summaryHtml;
+}
 	// Event listener for daily rent changes in summary
 	$(document).on('change', '.summary-daily-rent', function() {
 		var count = $(this).data('count');
@@ -3750,73 +3958,73 @@ $(document).on('change', '.mp_row_change', function() {
 	});
 
 	// Also update when nightly details are updated
-	function updateNightlyDetails(count) {
-		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-		var checkinDate = $(`#checkin${count}`).val();
-		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
-		var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-		var nightlyDetails = $(`#nightly-details${count}`);
-		var currentNights = nightlyDetails.find('.night-section').length;
+	// function updateNightlyDetails(count) {
+	// 	var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+	// 	var checkinDate = $(`#checkin${count}`).val();
+	// 	var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
+	// 	var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
+	// 	var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+	// 	var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+	// 	var nightlyDetails = $(`#nightly-details${count}`);
+	// 	var currentNights = nightlyDetails.find('.night-section').length;
 
-		// Update breadcrumb with number of nights
-		$(`#span_night_id${count}`).text(no_of_night > 0 ? no_of_night : '');
+	// 	// Update breadcrumb with number of nights
+	// 	$(`#span_night_id${count}`).text(no_of_night > 0 ? no_of_night : '');
 
-		if (no_of_night < 1) {
-			nightlyDetails.empty();
-			$(`#vehicle-summary-${count}`).remove();
-			updateGrandtotalBoth();
-			get_veh_grand_total();
-			return;
-		}
+	// 	if (no_of_night < 1) {
+	// 		nightlyDetails.empty();
+	// 		$(`#vehicle-summary-${count}`).remove();
+	// 		updateGrandtotalBoth();
+	// 		get_veh_grand_total();
+	// 		return;
+	// 	}
 
-		// Add new nights if increased
-		for (let night = currentNights + 1; night <= no_of_night; night++) {
-			var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, checkinDate);
-			nightlyDetails.append(nightlyHtml);
-			var commonOptions = $(`#roomcat_common${count}`).html();
-			$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
-				$(this).html(commonOptions);
-			});
-			$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
-		}
+	// 	// Add new nights if increased
+	// 	for (let night = currentNights + 1; night <= no_of_night; night++) {
+	// 		var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, checkinDate);
+	// 		nightlyDetails.append(nightlyHtml);
+	// 		var commonOptions = $(`#roomcat_common${count}`).html();
+	// 		$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
+	// 			$(this).html(commonOptions);
+	// 		});
+	// 		$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
+	// 	}
 
-		// Remove extra nights if decreased
-		if (no_of_night < currentNights) {
-			for (let night = currentNights; night > no_of_night; night--) {
-				nightlyDetails.find(`.night-section[data-night="${night}"]`).remove();
-			}
-		}
+	// 	// Remove extra nights if decreased
+	// 	if (no_of_night < currentNights) {
+	// 		for (let night = currentNights; night > no_of_night; night--) {
+	// 			nightlyDetails.find(`.night-section[data-night="${night}"]`).remove();
+	// 		}
+	// 	}
 
-		// Add or update vehicle summary section
-		if (is_vehicle_required == 1) {
-			// Remove existing summary to regenerate with updated night labels
-			$(`#vehicle-summary-${count}`).remove();
-			var summaryHtml = generateVehicleSummary(count, no_of_night, vehicle_models);
-			nightlyDetails.append(summaryHtml);
-			updateVehicleSummary(count);
-		}
+	// 	// Add or update vehicle summary section
+	// 	if (is_vehicle_required == 1) {
+	// 		// Remove existing summary to regenerate with updated night labels
+	// 		$(`#vehicle-summary-${count}`).remove();
+	// 		var summaryHtml = generateVehicleSummary(count, no_of_night, vehicle_models);
+	// 		nightlyDetails.append(summaryHtml);
+	// 		updateVehicleSummary(count);
+	// 	}
 
-		// Set individual meal plans based on common meal plan
-		var commonMeal = $(`#mealplan${count}`).val();
-		if (commonMeal) {
-			$(`#nightly-details${count} .mp_row_change`).val(commonMeal).trigger('change');
-		}
-		var commonRoom = $(`#roomcat_common${count}`).val();
-		if (commonRoom) {
-			$(`#nightly-details${count} .room_cat_change`).val(commonRoom).trigger('change');
-		}
+	// 	// Set individual meal plans based on common meal plan
+	// 	var commonMeal = $(`#mealplan${count}`).val();
+	// 	if (commonMeal) {
+	// 		$(`#nightly-details${count} .mp_row_change`).val(commonMeal).trigger('change');
+	// 	}
+	// 	var commonRoom = $(`#roomcat_common${count}`).val();
+	// 	if (commonRoom) {
+	// 		$(`#nightly-details${count} .room_cat_change`).val(commonRoom).trigger('change');
+	// 	}
 
-		// Update totals
-		updateGrandtotalBoth();
-		get_veh_grand_total();
+	// 	// Update totals
+	// 	updateGrandtotalBoth();
+	// 	get_veh_grand_total();
 
-		// Toggle visibility after updating nights
-		toggleNightsVisibility();
-		calculateVehicleExtraKmCharges();
-		// $('.load_vehs_click').trigger('click');
-	}
+	// 	// Toggle visibility after updating nights
+	// 	toggleNightsVisibility();
+	// 	calculateVehicleExtraKmCharges();
+	// 	// $('.load_vehs_click').trigger('click');
+	// }
 
 	// Function to update room totals for a specific room and night
 	function updateRoomTotals(count, night, roomIndex) {
@@ -3852,6 +4060,74 @@ $(document).on('change', '.mp_row_change', function() {
 	}
 
 	// Modified updateNightlyDetails - add summary generation
+	// function updateNightlyDetails(count) {
+	// 	var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+	// 	var checkinDate = $(`#checkin${count}`).val();
+	// 	var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
+	// 	var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
+	// 	var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+	// 	var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+	// 	var nightlyDetails = $(`#nightly-details${count}`);
+	// 	var currentNights = nightlyDetails.find('.night-section').length;
+
+	// 	// Update breadcrumb with number of nights
+	// 	$(`#span_night_id${count}`).text(no_of_night > 0 ? no_of_night : '');
+
+	// 	if (no_of_night < 1) {
+	// 		nightlyDetails.empty();
+	// 		$(`#vehicle-summary-${count}`).remove();
+	// 		updateGrandtotalBoth();
+	// 		get_veh_grand_total();
+	// 		return;
+	// 	}
+
+	// 	// Add new nights if increased
+	// 	for (let night = currentNights + 1; night <= no_of_night; night++) {
+	// 		var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, checkinDate);
+	// 		nightlyDetails.append(nightlyHtml);
+	// 		var commonOptions = $(`#roomcat_common${count}`).html();
+	// 		$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
+	// 			$(this).html(commonOptions);
+	// 		});
+	// 		$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
+	// 	}
+
+	// 	// Remove extra nights if decreased
+	// 	if (no_of_night < currentNights) {
+	// 		for (let night = currentNights; night > no_of_night; night--) {
+	// 			nightlyDetails.find(`.night-section[data-night="${night}"]`).remove();
+	// 		}
+	// 	}
+
+	// 	// Add or update vehicle summary section
+	// 	if (is_vehicle_required == 1) {
+	// 		// Remove existing summary to regenerate with updated night labels
+	// 		$(`#vehicle-summary-${count}`).remove();
+	// 		var summaryHtml = generateVehicleSummary(count, no_of_night, vehicle_models);
+	// 		nightlyDetails.append(summaryHtml);
+	// 		updateVehicleSummary(count);
+	// 	}
+
+	// 	// Set individual meal plans based on common meal plan
+	// 	var commonMeal = $(`#mealplan${count}`).val();
+	// 	if (commonMeal) {
+	// 		$(`#nightly-details${count} .mp_row_change`).val(commonMeal).trigger('change');
+	// 	}
+	// 	var commonRoom = $(`#roomcat_common${count}`).val();
+	// 	if (commonRoom) {
+	// 		$(`#nightly-details${count} .room_cat_change`).val(commonRoom).trigger('change');
+	// 	}
+
+	// 	// Update totals
+	// 	updateGrandtotalBoth();
+	// 	get_veh_grand_total();
+
+	// 	// Toggle visibility after updating nights
+	// 	toggleNightsVisibility();
+	// 	calculateVehicleExtraKmCharges();
+	// 	// $('.load_vehs_click').trigger('click');
+	// }
+
 	function updateNightlyDetails(count) {
 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
 		var checkinDate = $(`#checkin${count}`).val();
@@ -3891,10 +4167,14 @@ $(document).on('change', '.mp_row_change', function() {
 			}
 		}
 
-		// Add or update vehicle summary section
+		// **FIX: Remove existing vehicle summary BEFORE regenerating**
 		if (is_vehicle_required == 1) {
 			// Remove existing summary to regenerate with updated night labels
 			$(`#vehicle-summary-${count}`).remove();
+
+			// **ADD: Also remove any orphaned vehicle summaries**
+			nightlyDetails.find('.vehicle-summary-section').remove();
+
 			var summaryHtml = generateVehicleSummary(count, no_of_night, vehicle_models);
 			nightlyDetails.append(summaryHtml);
 			updateVehicleSummary(count);
@@ -3917,8 +4197,8 @@ $(document).on('change', '.mp_row_change', function() {
 		// Toggle visibility after updating nights
 		toggleNightsVisibility();
 		calculateVehicleExtraKmCharges();
-		// $('.load_vehs_click').trigger('click');
 	}
+
 
 	// Also update the vehicle load callback to refresh summary
 	$(document).on('click', '.load_vehs_click', function() {
@@ -4155,135 +4435,455 @@ $(document).on('change', '.mp_row_change', function() {
 	}
 
 	// Remove location card and update sequence numbers
+	// $(document).on("click", ".card-options-remove", function(e) {
+	// 	e.preventDefault();
+	// 	var card = $(this).closest(".location-card");
+	// 	var removedIndex = card.index();
+	// 	var bcid = card.attr("data-index");
+	// 	card.remove();
+	// 	$('.dyn_list li').each(function() {
+	// 		if ($(this).text().trim().startsWith(bcid + ".")) {
+	// 			$(this).remove();
+	// 		}
+	// 	});
+	// 	updateSequenceNumbers();
+	// 	var remainingCards = $('.tour_plan_div .location-card');
+	// 	if (remainingCards.length === 0) {
+	// 		$("#btn_save_tour_plan").hide();
+	// 		$("#btn_savedraft_tour_plan").hide();
+	// 	} else {
+	// 		if (removedIndex === 0) {
+	// 			var newFirstIndex = 1;
+	// 			$(`#checkin${newFirstIndex}`).val(start_date);
+	// 		}
+	// 		remainingCards.each(function(index) {
+	// 			if (index >= removedIndex) {
+	// 				calculateCheckout(index + 1);
+	// 			}
+	// 		});
+	// 	}
+	// 	var totalNights = calculateTotalNights();
+	// 	$('#planned_night').text(totalNights + " / ");
+	// 	var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;
+	// 	if (totalNights == no_of_night) {
+	// 		$("#btn_save_tour_plan").show();
+	// 		$('#btn_add_bt').prop('disabled', true);
+	// 	} else {
+	// 		$("#btn_save_tour_plan").hide();
+	// 		$('#btn_add_bt').prop('disabled', false);
+	// 	}
+	// 	updateGrandtotalBoth();
+	// 	get_veh_grand_total();
+	// 	toggleNightsVisibility(); // Re-toggle after removal
+	// 	calculateVehicleExtraKmCharges();
+	// });
+
+	// --- Improved card remove handler ---
+
+	// Prefer a server-side injected start date if available, otherwise take the #checkin1 value if present.
+	// Replace the PHP part with your server var if different.
+	var tourStartDate = (function() {
+		// Try server-provided start date (PHP). Fallbacks below prevent "undefined".
+		var phpStart = '<?php echo isset($object_det[0]["check_in_date"]) ? $object_det[0]["check_in_date"] : ""; ?>';
+		if (phpStart && phpStart !== '') return phpStart;
+
+		// If the DOM has #checkin1 at load, use it
+		if ($('#checkin1').length) return $('#checkin1').val();
+
+		// final fallback: empty string (no-op)
+		return '';
+	})();
+
+	// $(document).on("click", ".card-options-remove", function(e) {
+	// 	e.preventDefault();
+
+	// 	var card = $(this).closest(".location-card");
+
+	// 	// Use data-index (sequence) if present and numeric, otherwise fallback to its position among .location-card
+	// 	var removedSeqAttr = parseInt(card.attr("data-index"), 10);
+	// 	var removedSeq = Number.isFinite(removedSeqAttr) ? removedSeqAttr : card.index();
+
+	// 	// Remove card from DOM
+	// 	card.remove();
+
+	// 	// Remove matching entry in dyn_list by sequence prefix (bcid)
+	// 	$('.dyn_list li').each(function() {
+	// 		var txt = $(this).text().trim();
+	// 		// match "N." prefix where N is the sequence
+	// 		if (txt.startsWith(removedSeq + ".")) {
+	// 			$(this).remove();
+	// 		}
+	// 	});
+
+	// 	// Re-number remaining cards and their data-index attributes / IDs
+	// 	updateSequenceNumbers(); // make sure this function reassigns data-index and ids consistently
+
+	// 	// Get remaining cards after renumber
+	// 	var remainingCards = $('.tour_plan_div .location-card');
+
+	// 	// Hide save buttons when nothing remains
+	// 	if (remainingCards.length === 0) {
+	// 		$("#btn_save_tour_plan, #btn_savedraft_tour_plan").hide();
+	// 	} else {
+	// 		// If first card was removed, ensure the new first card's check-in is start_date (if that is intended)
+	// 		// Make sure start_date is defined globally or set above this script
+	// 		if (removedSeq === 1) {
+	// 			var newFirstSeq = 1;
+	// 			if (typeof start_date !== 'undefined') {
+	// 				$(`#checkin${newFirstSeq}`).val(start_date);
+	// 			} else {
+	// 				console.warn('start_date is not defined; cannot reset first checkin.');
+	// 			}
+	// 		}
+
+	// 		// Recalculate checkout for every remaining card (safer than conditionally using removed index)
+	// 		remainingCards.each(function(i) {
+	// 			var seq = i + 1; // sequence is 1-based after updateSequenceNumbers()
+	// 			calculateCheckout(seq);
+	// 		});
+	// 	}
+
+	// 	// Recompute totals and UI
+	// 	var totalNights = calculateTotalNights();
+	// 	$('#planned_night').text(totalNights + " / ");
+
+	// 	// Use PHP injected expected nights (ensure PHP prints a numeric JS literal)
+	// 	var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
+	// 	if (totalNights === no_of_night) {
+	// 		$("#btn_save_tour_plan").show();
+	// 		$('#btn_add_bt').prop('disabled', true);
+	// 	} else {
+	// 		$("#btn_save_tour_plan").hide();
+	// 		$('#btn_add_bt').prop('disabled', false);
+	// 	}
+
+	// 	// Update grand totals and vehicle totals AFTER calculateTotalNights
+	// 	updateGrandtotalBoth();
+	// 	get_veh_grand_total();
+	// 	toggleNightsVisibility();
+	// 	calculateVehicleExtraKmCharges();
+	// });
+
 	$(document).on("click", ".card-options-remove", function(e) {
 		e.preventDefault();
+
 		var card = $(this).closest(".location-card");
-		var removedIndex = card.index();
-		var bcid = card.attr("data-index");
+
+		// capture sequence (data-index) or fallback to DOM index
+		var removedSeqAttr = parseInt(card.attr("data-index"), 10);
+		var removedSeq = Number.isFinite(removedSeqAttr) ? removedSeqAttr : card.index();
+
+		// Capture the current first card's checkin BEFORE removing anything
+		var currentFirstCheckin = '';
+		var firstCard = $('.tour_plan_div .location-card').first();
+		if (firstCard.length) {
+			// look for an input whose id starts with "checkin" inside the first card
+			var firstCheckinInput = firstCard.find('input[id^="checkin"]');
+			if (firstCheckinInput.length) currentFirstCheckin = firstCheckinInput.val();
+		}
+
+		// Remove the card from DOM
 		card.remove();
+
+		// Remove matching list entries (dyn_list)
 		$('.dyn_list li').each(function() {
-			if ($(this).text().trim().startsWith(bcid + ".")) {
+			var txt = $(this).text().trim();
+			if (txt.startsWith(removedSeq + ".")) {
 				$(this).remove();
 			}
 		});
+
+		// Re-number remaining cards (assumes updateSequenceNumbers reassigns data-index and element ids)
 		updateSequenceNumbers();
+
 		var remainingCards = $('.tour_plan_div .location-card');
+
 		if (remainingCards.length === 0) {
-			$("#btn_save_tour_plan").hide();
-			$("#btn_savedraft_tour_plan").hide();
+			$("#btn_save_tour_plan, #btn_savedraft_tour_plan").hide();
 		} else {
-			if (removedIndex === 0) {
-				var newFirstIndex = 1;
-				$(`#checkin${newFirstIndex}`).val(start_date);
-			}
-			remainingCards.each(function(index) {
-				if (index >= removedIndex) {
-					calculateCheckout(index + 1);
+			// If the first card was removed, set the new first checkin to tourStartDate (prefer) or fallback to previous first checkin
+			if (removedSeq === 1) {
+				var newFirstSeq = 1;
+				var valueToSet = (typeof tourStartDate !== 'undefined' && tourStartDate) ? tourStartDate : currentFirstCheckin;
+				if (valueToSet && $(`#checkin${newFirstSeq}`).length) {
+					$(`#checkin${newFirstSeq}`).val(valueToSet);
 				}
+			}
+
+			// **FIX: Recalculate checkouts for each remaining card using their new sequence**
+			// Use a flag to prevent multiple vehicle summary regenerations
+			var isRecalculating = true;
+
+			remainingCards.each(function(i) {
+				var seq = i + 1; // after updateSequenceNumbers() we assume sequence is 1-based and contiguous
+
+				// **IMPORTANT: Clear vehicle summaries before recalculation**
+				if (i === 0) {
+					// Only on first iteration, clean all vehicle summaries
+					remainingCards.each(function(j) {
+						var cardSeq = j + 1;
+						$(`#vehicle-summary-${cardSeq}`).remove();
+						$(`#nightly-details${cardSeq}`).find('.vehicle-summary-section').remove();
+					});
+				}
+
+				calculateCheckout(seq);
 			});
+
+			isRecalculating = false;
 		}
+
+		// Update total nights and related UI
 		var totalNights = calculateTotalNights();
 		$('#planned_night').text(totalNights + " / ");
-		var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;
-		if (totalNights == no_of_night) {
+
+		var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
+		if (totalNights === no_of_night) {
 			$("#btn_save_tour_plan").show();
 			$('#btn_add_bt').prop('disabled', true);
 		} else {
 			$("#btn_save_tour_plan").hide();
 			$('#btn_add_bt').prop('disabled', false);
 		}
+
 		updateGrandtotalBoth();
 		get_veh_grand_total();
-		toggleNightsVisibility(); // Re-toggle after removal
+		toggleNightsVisibility();
 		calculateVehicleExtraKmCharges();
 	});
 
+
+	// --- Fixed calculateTotalNights (no unreachable code) ---
+	function calculateTotalNights() {
+		var totalNights = 0;
+		$('.no_of_night').each(function() {
+			var nights = parseInt($(this).val(), 10) || 0;
+			totalNights += nights;
+		});
+		return totalNights;
+	}
+
+
 	// Handle close night button
-	$(document).on('click', '.close-night-btn', function(e) {
+	$(document).on("click", ".card-options-remove", function(e) {
 		e.preventDefault();
-		var night_section = $(this).closest('.night-section');
-		var nightToRemove = parseInt(night_section.attr('data-night'));
+
 		var card = $(this).closest(".location-card");
-		var count = card.attr('data-index');
-		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
-		var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-		var checkinDate = $(`#checkin${count}`).val();
 
-		// Collect data
-		var nightData = collectAllNightData(count);
+		// capture sequence (data-index) or fallback to DOM index
+		var removedSeqAttr = parseInt(card.attr("data-index"), 10);
+		var removedSeq = Number.isFinite(removedSeqAttr) ? removedSeqAttr : card.index();
 
-		// Clear sterling hiddens
-		$(`#eighteen_div_d${count}`).empty();
-		$(`#eighteen_div_s${count}`).empty();
-
-		// Remove the specific night section
-		night_section.remove();
-
-		// Get remaining nights
-		var remainingNights = [];
-		for (var n in nightData) {
-			if (parseInt(n) !== nightToRemove) {
-				remainingNights.push(parseInt(n));
-			}
+		// Capture the current first card's checkin BEFORE removing anything
+		var currentFirstCheckin = '';
+		var firstCard = $('.tour_plan_div .location-card').first();
+		if (firstCard.length) {
+			// look for an input whose id starts with "checkin" inside the first card
+			var firstCheckinInput = firstCard.find('input[id^="checkin"]');
+			if (firstCheckinInput.length) currentFirstCheckin = firstCheckinInput.val();
 		}
-		remainingNights.sort(function(a, b) {
-			return a - b;
+
+		// Remove the card from DOM
+		card.remove();
+
+		// Remove matching list entries (dyn_list)
+		$('.dyn_list li').each(function() {
+			var txt = $(this).text().trim();
+			if (txt.startsWith(removedSeq + ".")) {
+				$(this).remove();
+			}
 		});
 
-		// Empty nightly details
-		$(`#nightly-details${count}`).empty();
+		// Re-number remaining cards (assumes updateSequenceNumbers reassigns data-index and element ids)
+		updateSequenceNumbers();
 
-		// Regenerate and populate
-		var newNight = 1;
-		remainingNights.forEach(function(oldNight) {
-			var oldData = nightData[oldNight];
-			var nightlyHtml = generateNightHtml(count, newNight, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, checkinDate);
-			$(`#nightly-details${count}`).append(nightlyHtml);
-			var commonOptions = $(`#roomcat_common${count}`).html();
-			$(`#nightly-details${count} .night-section[data-night="${newNight}"] .room_cat_change`).html(commonOptions);
+		var remainingCards = $('.tour_plan_div .location-card');
 
-
-			// Populate data
-			for (var subPath in oldData) {
-				var newName = `addloc[${count}][nights][${newNight}]${subPath}`;
-				var $target = $(`[name="${newName}"]`);
-				if ($target.length) {
-					$target.val(oldData[subPath]);
-					if ($target.hasClass('select2-show-search')) {
-						$target.trigger('change');
-					}
+		if (remainingCards.length === 0) {
+			$("#btn_save_tour_plan, #btn_savedraft_tour_plan").hide();
+		} else {
+			// If the first card was removed, set the new first checkin to tourStartDate (prefer) or fallback to previous first checkin
+			if (removedSeq === 1) {
+				var newFirstSeq = 1;
+				var valueToSet = (typeof tourStartDate !== 'undefined' && tourStartDate) ? tourStartDate : currentFirstCheckin;
+				if (valueToSet && $(`#checkin${newFirstSeq}`).length) {
+					$(`#checkin${newFirstSeq}`).val(valueToSet);
 				}
 			}
 
-			// Trigger changes to regenerate tariffs and sterling
-			$(`#nightly-details${count} .night-section[data-night="${newNight}"] .room_cat_change`).trigger('change');
-			$(`#nightly-details${count} .night-section[data-night="${newNight}"] .mp_row_change`).trigger('change');
+			// Recalculate checkouts for each remaining card using their new sequence (safer than conditional update)
+			remainingCards.each(function(i) {
+				var seq = i + 1; // after updateSequenceNumbers() we assume sequence is 1-based and contiguous
+				calculateCheckout(seq);
+			});
+		}
 
-			// Init select2
-			$(`#nightly-details${count} .night-section[data-night="${newNight}"] .select2-show-search`).select2();
+		// Update total nights and related UI
+		var totalNights = calculateTotalNights();
+		$('#planned_night').text(totalNights + " / ");
 
-			newNight++;
-		});
+		var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
+		if (totalNights === no_of_night) {
+			$("#btn_save_tour_plan").show();
+			$('#btn_add_bt').prop('disabled', true);
+		} else {
+			$("#btn_save_tour_plan").hide();
+			$('#btn_add_bt').prop('disabled', false);
+		}
 
-		// Update no_of_night
-		$(`#no_of_night${count}`).val(remainingNights.length);
-
-		// Update checkout and totals
-		calculateCheckout(count);
 		updateGrandtotalBoth();
 		get_veh_grand_total();
-		toggleNightsVisibility(); // Re-toggle after close
+		toggleNightsVisibility();
 		calculateVehicleExtraKmCharges();
 	});
 
+
 	// Function to update sequence numbers and adjust input IDs/names
+	// function updateSequenceNumbers() {
+	// 	if ($('.tour_plan_div .location-card').length === 0) {
+	// 		location.reload();
+	// 	}
+	// 	var prefixes = ['checkin', 'no_of_night', 'checkout', 'hotelcat', 'hotelid', 'roomcat_common', 'mealplan', 'no_of_adult', 'no_of_ch', 'no_of_cw', 'no_of_extra', 'no_of_pax', 'tax_status', 'own_arrange', 'tour_location_id', 'location_sequence', 'eighteen_div_d', 'eighteen_div_s', 'nightly-details', 'roomcat', 'mealplan', 'double', 'd_adult_rate', 'd_child_rate', 'd_child_wb_rate', 'd_extra_bed_rate', 'd_total_rate', 'single', 's_adult_rate', 's_child_rate', 's_child_wb_rate', 's_extra_bed_rate', 's_total_rate', 'dd_total_rate', 'ss_total_rate', 'loadvehs', 'v_from_to', 'veh_header', 'pre_to_cur', 'cur_to_dep', 'dep_to_arr', 'hub_to_arr', 'arr_to_loc', 'veh_model', 'veh_type_id', 'veh_count', 'day_rent', 'max_km_day', 'travel_distance', 'extra_kilometer', 'extra_km_rate', 'veh_total', 'veh_grand_total', 'ster_d_adult_rate', 'ster_n_d_child_rate', 'ster_d_child_rate', 'ster_n_d_child_wb_rate', 'ster_d_child_wb_rate', 'ster_n_d_extra_bed_rate', 'ster_d_extra_bed_rate', 'ster_d_total_rate', 'ster_gst_per', 'ster_g_tot', 'ster_s_adult_rate', 'ster_n_s_child_rate', 'ster_s_child_rate', 'ster_n_s_child_wb_rate', 'ster_s_child_wb_rate', 'ster_n_s_extra_bed_rate', 'ster_s_extra_bed_rate', 'ster_s_total_rate', 'ster_gst_per', 'ster_g_tot', 'hd_ster_d_id', 'hd_ster_d_adult_rate', 'hd_ster_n_d_child_rate', 'hd_ster_d_child_rate', 'hd_ster_n_d_child_wb_rate', 'hd_ster_d_child_wb_rate', 'hd_ster_n_d_extra_bed_rate', 'hd_ster_d_extra_bed_rate', 'hd_ster_d_total_rate', 'hd_ster_d_gst_per', 'hd_ster_d_g_tot', 'hd_ster_s_id', 'hd_ster_s_adult_rate', 'hd_ster_n_s_child_rate', 'hd_ster_s_child_rate', 'hd_ster_n_s_child_wb_rate', 'hd_ster_s_child_wb_rate', 'hd_ster_n_s_extra_bed_rate', 'hd_ster_s_extra_bed_rate', 'hd_ster_s_total_rate', 'hd_ster_s_gst_per', 'hd_ster_s_g_tot', 'sterling_double', 'sterling_single'];
+
+	// 	$('.tour_plan_div .location-card').each(function(index) {
+	// 		let newIndex = index + 1;
+	// 		let oldIndex = $(this).attr("data-index");
+	// 		let oldStr = oldIndex.toString();
+	// 		let newStr = newIndex.toString();
+	// 		let oldLen = oldStr.length;
+
+	// 		$(this).attr("data-index", newIndex);
+	// 		$(this).find('.card-seq').text(newIndex);
+
+	// 		// Update IDs and Names of input fields
+	// 		$(this).find('[id^="own_arrange"]').attr("id", `own_arrange${newIndex}`).attr("name", `addloc[${newIndex}][own_arrange]`);
+	// 		$(this).find('[id^="tour_location_id"]').attr("id", `tour_location_id${newIndex}`).attr("name", `addloc[${newIndex}][tour_location_id]`);
+	// 		$(this).find('[id^="location_sequence"]').attr("id", `location_sequence${newIndex}`).attr("name", `addloc[${newIndex}][location_sequence]`).val(newIndex);
+	// 		$(this).find('[id^="checkin"]').attr("id", `checkin${newIndex}`).attr("name", `addloc[${newIndex}][checkin]`);
+	// 		$(this).find('[id^="no_of_night"]').attr("id", `no_of_night${newIndex}`).attr("name", `addloc[${newIndex}][no_of_night]`).attr("oninput", `validateNumericInput(this); calculateCheckout(${newIndex}); updateNightlyDetails(${newIndex});`);
+	// 		$(this).find('[id^="checkout"]').attr("id", `checkout${newIndex}`).attr("name", `addloc[${newIndex}][checkout]`);
+	// 		$(this).find('[id^="hotelcat"]').attr("id", `hotelcat${newIndex}`).attr("name", `addloc[${newIndex}][hotelcat]`).attr("data-id", newIndex);
+	// 		$(this).find('[id^="hotelid"]').attr("id", `hotelid${newIndex}`).attr("name", `addloc[${newIndex}][hotelid]`).attr("data-id", newIndex);
+	// 		$(this).find('[id^="roomcat_common"]').attr("id", `roomcat_common${newIndex}`).attr("name", `addloc[${newIndex}][roomcat_common]`).attr("data-id", newIndex);
+	// 		$(this).find('[id^="mealplan"]').attr("id", `mealplan${newIndex}`).attr("name", `addloc[${newIndex}][mealplan]`).attr("data-id", newIndex);
+	// 		$(this).find('[id^="no_of_adult"]').attr("id", `no_of_adult${newIndex}`).attr("name", `addloc[${newIndex}][no_of_adult]`);
+	// 		$(this).find('[id^="no_of_ch"]').attr("id", `no_of_ch${newIndex}`).attr("name", `addloc[${newIndex}][no_of_ch]`);
+	// 		$(this).find('[id^="no_of_cw"]').attr("id", `no_of_cw${newIndex}`).attr("name", `addloc[${newIndex}][no_of_cw]`);
+	// 		$(this).find('[id^="no_of_extra"]').attr("id", `no_of_extra${newIndex}`).attr("name", `addloc[${newIndex}][no_of_extra]`);
+	// 		$(this).find('[id^="no_of_pax"]').attr("id", `no_of_pax${newIndex}`).attr("name", `addloc[${newIndex}][no_of_pax]`);
+	// 		$(this).find('[id^="tax_status"]').attr("id", `tax_status${newIndex}`).attr("name", `addloc[${newIndex}][tax_status]`);
+	// 		$(this).find('[id^="eighteen_div_d"]').attr("id", `eighteen_div_d${newIndex}`);
+	// 		$(this).find('[id^="eighteen_div_s"]').attr("id", `eighteen_div_s${newIndex}`);
+	// 		$(this).find('[id^="nightly-details"]').attr("id", `nightly-details${newIndex}`);
+
+	// 		// Update names
+	// 		$(this).find('[name]').each(function() {
+	// 			var oldName = $(this).attr('name');
+	// 			if (oldName) {
+	// 				var newName = oldName.replace('[' + oldStr + ']', '[' + newStr + ']');
+	// 				$(this).attr('name', newName);
+	// 			}
+	// 		});
+
+	// 		// Update ids
+	// 		$(this).find('[id]').each(function() {
+	// 			var elem = $(this);
+	// 			var oldId = elem.attr('id');
+	// 			if (oldId) {
+	// 				for (var p = 0; p < prefixes.length; p++) {
+	// 					var prefix = prefixes[p];
+	// 					if (oldId.startsWith(prefix)) {
+	// 						var rest = oldId.substring(prefix.length);
+	// 						var newId = prefix + newStr + rest.substring(oldLen);
+	// 						elem.attr('id', newId);
+	// 						break;
+	// 					}
+	// 				}
+	// 			}
+	// 		});
+
+	// 		// Update data-id
+	// 		$(this).find('[data-id]').each(function() {
+	// 			var oldDataId = $(this).attr('data-id');
+	// 			if (oldDataId) {
+	// 				var newDataId = newStr + oldDataId.substring(oldLen);
+	// 				$(this).attr('data-id', newDataId);
+	// 			}
+	// 		});
+
+	// 		// Update data-cid
+	// 		$(this).find('[data-cid]').each(function() {
+	// 			$(this).attr('data-cid', newIndex);
+	// 		});
+
+	// 		// Update count-id
+	// 		$(this).find('[count-id]').each(function() {
+	// 			$(this).attr('count-id', newIndex);
+	// 		});
+
+	// 		// Update oninput
+	// 		$(this).find('[oninput]').each(function() {
+	// 			var oldOninput = $(this).attr('oninput');
+	// 			if (oldOninput) {
+	// 				var newOninput = oldOninput.replace(oldStr, newStr);
+	// 				$(this).attr('oninput', newOninput);
+	// 			}
+	// 		});
+	// 	});
+
+	// 	$('.dyn_list .bc-card').each(function(index1) {
+	// 		let bcIndex = index1 + 1;
+	// 		$(this).attr("data-index", bcIndex);
+	// 		$(this).find('.bc-card-seq').text(bcIndex);
+	// 		$(this).find('[id^="span_night_id"]').attr("id", `span_night_id${bcIndex}`);
+	// 		$(this).find('[id^="loc_total"]').attr("id", `loc_total${bcIndex}`);
+	// 	});
+
+	// 	$('.tour_plan_div .select2-show-search').select2('destroy');
+	// 	$('.tour_plan_div .select2-show-search').select2();
+
+	// 	var accom_grand_total = updateGrandtotalBoth();
+	// 	$('#a_total').text(accom_grand_total);
+	// 	var veh_grand_total = get_veh_grand_total();
+	// 	$('#v_total').text(veh_grand_total);
+	// 	$('#g_total').text((accom_grand_total + veh_grand_total));
+	// 	toggleNightsVisibility(); // Re-toggle after update
+	// 	calculateVehicleExtraKmCharges();
+	// }
+
 	function updateSequenceNumbers() {
 		if ($('.tour_plan_div .location-card').length === 0) {
 			location.reload();
 		}
-		var prefixes = ['checkin', 'no_of_night', 'checkout', 'hotelcat', 'hotelid', 'roomcat_common', 'mealplan', 'no_of_adult', 'no_of_ch', 'no_of_cw', 'no_of_extra', 'no_of_pax', 'tax_status', 'own_arrange', 'tour_location_id', 'location_sequence', 'eighteen_div_d', 'eighteen_div_s', 'nightly-details', 'roomcat', 'mealplan', 'double', 'd_adult_rate', 'd_child_rate', 'd_child_wb_rate', 'd_extra_bed_rate', 'd_total_rate', 'single', 's_adult_rate', 's_child_rate', 's_child_wb_rate', 's_extra_bed_rate', 's_total_rate', 'dd_total_rate', 'ss_total_rate', 'loadvehs', 'v_from_to', 'veh_header', 'pre_to_cur', 'cur_to_dep', 'dep_to_arr', 'hub_to_arr', 'arr_to_loc', 'veh_model', 'veh_type_id', 'veh_count', 'day_rent', 'max_km_day', 'travel_distance', 'extra_kilometer', 'extra_km_rate', 'veh_total', 'veh_grand_total', 'ster_d_adult_rate', 'ster_n_d_child_rate', 'ster_d_child_rate', 'ster_n_d_child_wb_rate', 'ster_d_child_wb_rate', 'ster_n_d_extra_bed_rate', 'ster_d_extra_bed_rate', 'ster_d_total_rate', 'ster_gst_per', 'ster_g_tot', 'ster_s_adult_rate', 'ster_n_s_child_rate', 'ster_s_child_rate', 'ster_n_s_child_wb_rate', 'ster_s_child_wb_rate', 'ster_n_s_extra_bed_rate', 'ster_s_extra_bed_rate', 'ster_s_total_rate', 'ster_gst_per', 'ster_g_tot', 'hd_ster_d_id', 'hd_ster_d_adult_rate', 'hd_ster_n_d_child_rate', 'hd_ster_d_child_rate', 'hd_ster_n_d_child_wb_rate', 'hd_ster_d_child_wb_rate', 'hd_ster_n_d_extra_bed_rate', 'hd_ster_d_extra_bed_rate', 'hd_ster_d_total_rate', 'hd_ster_d_gst_per', 'hd_ster_d_g_tot', 'hd_ster_s_id', 'hd_ster_s_adult_rate', 'hd_ster_n_s_child_rate', 'hd_ster_s_child_rate', 'hd_ster_n_s_child_wb_rate', 'hd_ster_s_child_wb_rate', 'hd_ster_n_s_extra_bed_rate', 'hd_ster_s_extra_bed_rate', 'hd_ster_s_total_rate', 'hd_ster_s_gst_per', 'hd_ster_s_g_tot', 'sterling_double', 'sterling_single'];
+
+		var prefixes = ['checkin', 'no_of_night', 'checkout', 'hotelcat', 'hotelid', 'roomcat_common',
+			'mealplan', 'no_of_adult', 'no_of_ch', 'no_of_cw', 'no_of_extra', 'no_of_pax',
+			'tax_status', 'own_arrange', 'tour_location_id', 'location_sequence',
+			'eighteen_div_d', 'eighteen_div_s', 'nightly-details',
+			'roomcat', 'double', 'single',
+			'd_adult_rate', 'd_child_rate', 'd_child_wb_rate', 'd_extra_bed_rate', 'd_total_rate',
+			's_adult_rate', 's_child_rate', 's_child_wb_rate', 's_extra_bed_rate', 's_total_rate',
+			'dd_total_rate', 'ss_total_rate',
+			'loadvehs', 'v_from_to', 'veh_header', 'pre_to_cur', 'cur_to_dep', 'dep_to_arr',
+			'hub_to_arr', 'arr_to_loc',
+			'veh_model', 'veh_type_id', 'veh_count', 'day_rent', 'max_km_day',
+			'travel_distance', 'extra_kilometer', 'extra_km_rate', 'veh_total', 'veh_grand_total',
+			'ster_d_adult_rate', 'ster_n_d_child_rate', 'ster_d_child_rate',
+			'ster_n_d_child_wb_rate', 'ster_d_child_wb_rate', 'ster_n_d_extra_bed_rate',
+			'ster_d_extra_bed_rate', 'ster_d_total_rate', 'ster_gst_per', 'ster_g_tot',
+			'ster_s_adult_rate', 'ster_n_s_child_rate', 'ster_s_child_rate',
+			'ster_n_s_child_wb_rate', 'ster_s_child_wb_rate', 'ster_n_s_extra_bed_rate',
+			'ster_s_extra_bed_rate', 'ster_s_total_rate',
+			'hd_ster_d_id', 'hd_ster_d_adult_rate', 'hd_ster_n_d_child_rate',
+			'hd_ster_d_child_rate', 'hd_ster_n_d_child_wb_rate', 'hd_ster_d_child_wb_rate',
+			'hd_ster_n_d_extra_bed_rate', 'hd_ster_d_extra_bed_rate', 'hd_ster_d_total_rate',
+			'hd_ster_d_gst_per', 'hd_ster_d_g_tot',
+			'hd_ster_s_id', 'hd_ster_s_adult_rate', 'hd_ster_n_s_child_rate',
+			'hd_ster_s_child_rate', 'hd_ster_n_s_child_wb_rate', 'hd_ster_s_child_wb_rate',
+			'hd_ster_n_s_extra_bed_rate', 'hd_ster_s_extra_bed_rate', 'hd_ster_s_total_rate',
+			'hd_ster_s_gst_per', 'hd_ster_s_g_tot',
+			'sterling_double', 'sterling_single', 'span_night_id', 'loc_total'
+		];
 
 		$('.tour_plan_div .location-card').each(function(index) {
 			let newIndex = index + 1;
@@ -4295,82 +4895,137 @@ $(document).on('change', '.mp_row_change', function() {
 			$(this).attr("data-index", newIndex);
 			$(this).find('.card-seq').text(newIndex);
 
-			// Update IDs and Names of input fields
+			// Update common card-level fields first
 			$(this).find('[id^="own_arrange"]').attr("id", `own_arrange${newIndex}`).attr("name", `addloc[${newIndex}][own_arrange]`);
 			$(this).find('[id^="tour_location_id"]').attr("id", `tour_location_id${newIndex}`).attr("name", `addloc[${newIndex}][tour_location_id]`);
 			$(this).find('[id^="location_sequence"]').attr("id", `location_sequence${newIndex}`).attr("name", `addloc[${newIndex}][location_sequence]`).val(newIndex);
-			$(this).find('[id^="checkin"]').attr("id", `checkin${newIndex}`).attr("name", `addloc[${newIndex}][checkin]`);
-			$(this).find('[id^="no_of_night"]').attr("id", `no_of_night${newIndex}`).attr("name", `addloc[${newIndex}][no_of_night]`).attr("oninput", `validateNumericInput(this); calculateCheckout(${newIndex}); updateNightlyDetails(${newIndex});`);
+			$(this).find('[id^="checkin"]').not('[id*="ster"]').attr("id", `checkin${newIndex}`).attr("name", `addloc[${newIndex}][checkin]`);
+			$(this).find('[id^="no_of_night"]').attr("id", `no_of_night${newIndex}`).attr("name", `addloc[${newIndex}][no_of_night]`).attr("count-id", newIndex).attr("oninput", `validateNumericInput(this); calculateCheckout(${newIndex}); updateNightlyDetails(${newIndex});`);
 			$(this).find('[id^="checkout"]').attr("id", `checkout${newIndex}`).attr("name", `addloc[${newIndex}][checkout]`);
 			$(this).find('[id^="hotelcat"]').attr("id", `hotelcat${newIndex}`).attr("name", `addloc[${newIndex}][hotelcat]`).attr("data-id", newIndex);
 			$(this).find('[id^="hotelid"]').attr("id", `hotelid${newIndex}`).attr("name", `addloc[${newIndex}][hotelid]`).attr("data-id", newIndex);
 			$(this).find('[id^="roomcat_common"]').attr("id", `roomcat_common${newIndex}`).attr("name", `addloc[${newIndex}][roomcat_common]`).attr("data-id", newIndex);
-			$(this).find('[id^="mealplan"]').attr("id", `mealplan${newIndex}`).attr("name", `addloc[${newIndex}][mealplan]`).attr("data-id", newIndex);
+			$(this).find('[id^="mealplan"]').first().attr("id", `mealplan${newIndex}`).attr("name", `addloc[${newIndex}][mealplan]`).attr("data-id", newIndex);
 			$(this).find('[id^="no_of_adult"]').attr("id", `no_of_adult${newIndex}`).attr("name", `addloc[${newIndex}][no_of_adult]`);
-			$(this).find('[id^="no_of_ch"]').attr("id", `no_of_ch${newIndex}`).attr("name", `addloc[${newIndex}][no_of_ch]`);
-			$(this).find('[id^="no_of_cw"]').attr("id", `no_of_cw${newIndex}`).attr("name", `addloc[${newIndex}][no_of_cw]`);
-			$(this).find('[id^="no_of_extra"]').attr("id", `no_of_extra${newIndex}`).attr("name", `addloc[${newIndex}][no_of_extra]`);
+			$(this).find('[id^="no_of_ch"]').first().attr("id", `no_of_ch${newIndex}`).attr("name", `addloc[${newIndex}][no_of_ch]`);
+			$(this).find('[id^="no_of_cw"]').first().attr("id", `no_of_cw${newIndex}`).attr("name", `addloc[${newIndex}][no_of_cw]`);
+			$(this).find('[id^="no_of_extra"]').first().attr("id", `no_of_extra${newIndex}`).attr("name", `addloc[${newIndex}][no_of_extra]`);
 			$(this).find('[id^="no_of_pax"]').attr("id", `no_of_pax${newIndex}`).attr("name", `addloc[${newIndex}][no_of_pax]`);
 			$(this).find('[id^="tax_status"]').attr("id", `tax_status${newIndex}`).attr("name", `addloc[${newIndex}][tax_status]`);
 			$(this).find('[id^="eighteen_div_d"]').attr("id", `eighteen_div_d${newIndex}`);
 			$(this).find('[id^="eighteen_div_s"]').attr("id", `eighteen_div_s${newIndex}`);
 			$(this).find('[id^="nightly-details"]').attr("id", `nightly-details${newIndex}`);
 
-			// Update names
-			$(this).find('[name]').each(function() {
-				var oldName = $(this).attr('name');
-				if (oldName) {
-					var newName = oldName.replace('[' + oldStr + ']', '[' + newStr + ']');
-					$(this).attr('name', newName);
-				}
-			});
+			// **CRITICAL FIX: Update nightly details with proper regex pattern matching**
+			var nightlyDetailsContainer = $(this).find(`#nightly-details${newIndex}`);
 
-			// Update ids
-			$(this).find('[id]').each(function() {
-				var elem = $(this);
-				var oldId = elem.attr('id');
-				if (oldId) {
-					for (var p = 0; p < prefixes.length; p++) {
-						var prefix = prefixes[p];
-						if (oldId.startsWith(prefix)) {
-							var rest = oldId.substring(prefix.length);
-							var newId = prefix + newStr + rest.substring(oldLen);
-							elem.attr('id', newId);
-							break;
+			// Update all elements within nightly details that have IDs starting with old count
+			nightlyDetailsContainer.find('[id]').each(function() {
+				var $elem = $(this);
+				var oldId = $elem.attr('id');
+
+				// Match pattern: prefix + oldCount + night + roomIndex (e.g., "roomcat" + "2" + "1" + "5" = "roomcat215")
+				// We need to replace the count part (first digit after prefix)
+				var matched = false;
+
+				for (var p = 0; p < prefixes.length; p++) {
+					var prefix = prefixes[p];
+
+					// Check if ID starts with this prefix followed by oldStr
+					if (oldId.startsWith(prefix + oldStr)) {
+						var restOfId = oldId.substring((prefix + oldStr).length);
+						var newId = prefix + newStr + restOfId;
+						$elem.attr('id', newId);
+						matched = true;
+						break;
+					}
+				}
+
+				// If not matched by prefix list, try general pattern for room-related fields
+				if (!matched && /^\D+\d+/.test(oldId)) {
+					// Extract prefix (non-digits) and numeric part
+					var prefixMatch = oldId.match(/^(\D+)(\d+.*)$/);
+					if (prefixMatch) {
+						var idPrefix = prefixMatch[1];
+						var numericPart = prefixMatch[2];
+
+						// Check if numeric part starts with oldStr
+						if (numericPart.startsWith(oldStr)) {
+							var newId = idPrefix + newStr + numericPart.substring(oldStr.length);
+							$elem.attr('id', newId);
 						}
 					}
 				}
 			});
 
-			// Update data-id
-			$(this).find('[data-id]').each(function() {
+			// **CRITICAL FIX: Update name attributes in nightly details**
+			nightlyDetailsContainer.find('[name]').each(function() {
+				var $elem = $(this);
+				var oldName = $elem.attr('name');
+
+				if (oldName && oldName.includes(`addloc[${oldStr}]`)) {
+					var newName = oldName.replace(`addloc[${oldStr}]`, `addloc[${newStr}]`);
+					$elem.attr('name', newName);
+				}
+			});
+
+			// **CRITICAL FIX: Update data-count, data-id, count-id attributes in nightly details**
+			nightlyDetailsContainer.find('[data-count]').each(function() {
+				$(this).attr('data-count', newIndex);
+			});
+
+			nightlyDetailsContainer.find('[data-id]').each(function() {
 				var oldDataId = $(this).attr('data-id');
-				if (oldDataId) {
-					var newDataId = newStr + oldDataId.substring(oldLen);
+				if (oldDataId && oldDataId.startsWith(oldStr)) {
+					var newDataId = newStr + oldDataId.substring(oldStr.length);
 					$(this).attr('data-id', newDataId);
 				}
 			});
 
-			// Update data-cid
-			$(this).find('[data-cid]').each(function() {
-				$(this).attr('data-cid', newIndex);
-			});
-
-			// Update count-id
-			$(this).find('[count-id]').each(function() {
+			nightlyDetailsContainer.find('[count-id]').each(function() {
 				$(this).attr('count-id', newIndex);
 			});
 
-			// Update oninput
-			$(this).find('[oninput]').each(function() {
+			// **CRITICAL FIX: Update data-cid attributes**
+			nightlyDetailsContainer.find('[data-cid]').each(function() {
+				$(this).attr('data-cid', newIndex);
+			});
+
+			// **CRITICAL FIX: Update oninput attributes**
+			nightlyDetailsContainer.find('[oninput]').each(function() {
 				var oldOninput = $(this).attr('oninput');
 				if (oldOninput) {
-					var newOninput = oldOninput.replace(oldStr, newStr);
+					// Replace function calls with old count to new count
+					var newOninput = oldOninput.replace(new RegExp(`\\b${oldStr}\\b`, 'g'), newStr);
 					$(this).attr('oninput', newOninput);
 				}
 			});
+
+			// Update vehicle summary IDs if they exist
+			var vehicleSummary = $(this).find(`[id^="vehicle-summary-"]`);
+			if (vehicleSummary.length) {
+				vehicleSummary.attr('id', `vehicle-summary-${newIndex}`);
+				vehicleSummary.find('[id^="vehicle-summary-header-"]').attr('id', `vehicle-summary-header-${newIndex}`);
+				vehicleSummary.find('[id^="summary_"]').each(function() {
+					var oldSummaryId = $(this).attr('id');
+					if (oldSummaryId) {
+						var newSummaryId = oldSummaryId.replace(new RegExp(`_${oldStr}_`), `_${newStr}_`);
+						$(this).attr('id', newSummaryId);
+					}
+				});
+
+				// Update vehicle summary name attributes
+				vehicleSummary.find('[name^="addloc"]').each(function() {
+					var oldSummaryName = $(this).attr('name');
+					if (oldSummaryName) {
+						var newSummaryName = oldSummaryName.replace(`addloc[${oldStr}]`, `addloc[${newStr}]`);
+						$(this).attr('name', newSummaryName);
+					}
+				});
+			}
 		});
 
+		// Update breadcrumb list
 		$('.dyn_list .bc-card').each(function(index1) {
 			let bcIndex = index1 + 1;
 			$(this).attr("data-index", bcIndex);
@@ -4379,19 +5034,85 @@ $(document).on('change', '.mp_row_change', function() {
 			$(this).find('[id^="loc_total"]').attr("id", `loc_total${bcIndex}`);
 		});
 
+		// Reinitialize Select2
 		$('.tour_plan_div .select2-show-search').select2('destroy');
 		$('.tour_plan_div .select2-show-search').select2();
 
+		// Update totals
 		var accom_grand_total = updateGrandtotalBoth();
 		$('#a_total').text(accom_grand_total);
 		var veh_grand_total = get_veh_grand_total();
 		$('#v_total').text(veh_grand_total);
 		$('#g_total').text((accom_grand_total + veh_grand_total));
-		toggleNightsVisibility(); // Re-toggle after update
+
+		toggleNightsVisibility();
 		calculateVehicleExtraKmCharges();
 	}
 
 	// Function to calculate checkout date
+	// function calculateCheckout(count) {
+	// 	var totalDuration = <?php echo $object_det[0]['no_of_night']; ?>;
+	// 	var sum = 0;
+	// 	$(".no_of_night").each(function() {
+	// 		let nights = parseInt($(this).val()) || 0;
+	// 		sum += nights;
+	// 	});
+	// 	if (sum > totalDuration) {
+	// 		alert("Total nights exceed the allowed duration!");
+	// 		$(`#no_of_night${count}`).val('');
+	// 		updateNightlyDetails(count);
+	// 		updateGrandtotalBoth();
+	// 		get_veh_grand_total();
+	// 		var totalNights = calculateTotalNights();
+	// 		$('#planned_night').text(totalNights + " / ");
+	// 		if (totalNights == totalDuration) {
+	// 			$("#btn_save_tour_plan").show();
+	// 			$('#btn_add_bt').prop('disabled', true);
+	// 		} else {
+	// 			$("#btn_save_tour_plan").hide();
+	// 			$('#btn_add_bt').prop('disabled', false);
+	// 		}
+	// 		return;
+	// 	}
+	// 	var checkin = document.getElementById(`checkin${count}`)?.value;
+	// 	var nights = document.getElementById(`no_of_night${count}`)?.value;
+	// 	var checkoutField = document.getElementById(`checkout${count}`);
+
+	// 	if (checkin && nights) {
+	// 		var checkinDate = new Date(checkin);
+	// 		checkinDate.setDate(checkinDate.getDate() + parseInt(nights, 10));
+	// 		var checkoutDate = checkinDate.toISOString().split('T')[0];
+	// 		checkoutField.value = checkoutDate;
+
+	// 		// Update checkin for subsequent locations
+	// 		$('.tour_plan_div .location-card').each(function(index) {
+	// 			if (index >= count) {
+	// 				var nextIndex = index + 1;
+	// 				var nextCheckinField = document.getElementById(`checkin${nextIndex}`);
+	// 				var prevCheckout = document.getElementById(`checkout${nextIndex - 1}`)?.value;
+	// 				if (nextCheckinField && prevCheckout) {
+	// 					nextCheckinField.value = prevCheckout;
+	// 				}
+	// 				updateNightlyDetails(nextIndex);
+	// 			}
+	// 		});
+	// 	}
+	// 	updateNightlyDetails(count);
+	// 	updateGrandtotalBoth();
+	// 	get_veh_grand_total();
+	// 	calculateVehicleExtraKmCharges();
+
+	// 	var totalNights = calculateTotalNights();
+	// 	$('#planned_night').text(totalNights + " / ");
+	// 	if (totalNights == totalDuration) {
+	// 		$("#btn_save_tour_plan").show();
+	// 		$('#btn_add_bt').prop('disabled', true);
+	// 	} else {
+	// 		$("#btn_save_tour_plan").hide();
+	// 		$('#btn_add_bt').prop('disabled', false);
+	// 	}
+	// }
+
 	function calculateCheckout(count) {
 		var totalDuration = <?php echo $object_det[0]['no_of_night']; ?>;
 		var sum = 0;
@@ -4399,6 +5120,7 @@ $(document).on('change', '.mp_row_change', function() {
 			let nights = parseInt($(this).val()) || 0;
 			sum += nights;
 		});
+
 		if (sum > totalDuration) {
 			alert("Total nights exceed the allowed duration!");
 			$(`#no_of_night${count}`).val('');
@@ -4416,6 +5138,7 @@ $(document).on('change', '.mp_row_change', function() {
 			}
 			return;
 		}
+
 		var checkin = document.getElementById(`checkin${count}`)?.value;
 		var nights = document.getElementById(`no_of_night${count}`)?.value;
 		var checkoutField = document.getElementById(`checkout${count}`);
@@ -4439,6 +5162,7 @@ $(document).on('change', '.mp_row_change', function() {
 				}
 			});
 		}
+
 		updateNightlyDetails(count);
 		updateGrandtotalBoth();
 		get_veh_grand_total();
@@ -4539,13 +5263,13 @@ $(document).on('change', '.mp_row_change', function() {
 			'fe-info';
 
 		var alertHtml = `
-					<div class="alert alert-${type} alert-dismissible fade show" role="alert">
-						<span class="alert-inner--icon"><i class="fe ${iconClass}"></i></span>
-						<span class="alert-inner--text">${message}</span>
-						<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>`;
+								<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+									<span class="alert-inner--icon"><i class="fe ${iconClass}"></i></span>
+									<span class="alert-inner--text">${message}</span>
+									<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+								</div>`;
 
 		// $('#hotel_alert').html(alertHtml);
 
@@ -4755,837 +5479,874 @@ $(document).on('change', '.mp_row_change', function() {
 	});
 </script>
 <script>
-$(document).on('change', '.room_cat_change', function() {
-	if (isDraftLoading) {
-		console.log('Skipping meal plan change during draft load');
-		return;
-	}
+	// Debounce helper to prevent rapid successive calls
+	let changeTimeout = null;
 
-	const $this = $(this);
-	const room_cat_id = $this.val();
-	const rid = $this.attr('data-id');
-	const count = $this.attr('count-id');
-	const $spinner = $('#csspinner');
+	$(document).on('change', '.room_cat_change', function() {
+		if (isDraftLoading) {
+			console.log('Skipping meal plan change during draft load');
+			return;
+		}
 
-	// Cache frequently accessed DOM elements
-	const $d_total_rate = $(`#d_total_rate${rid}`);
-	const $s_total_rate = $(`#s_total_rate${rid}`);
-	const $own_arrange = $(`#own_arrange${count}`);
-	const $loc_total = $(`#loc_total${count}`);
-	const $v_total = $('#v_total');
-	const $a_total = $('#a_total');
-	const $g_total = $('#g_total');
+		// Clear any pending timeout
+		if (changeTimeout) {
+			clearTimeout(changeTimeout);
+		}
 
-	// Batch DOM updates for rate fields
-	const rateFields = {
-		d_adult: $(`#d_adult_rate${rid}`),
-		d_child: $(`#d_child_rate${rid}`),
-		d_child_wb: $(`#d_child_wb_rate${rid}`),
-		d_extra_bed: $(`#d_extra_bed_rate${rid}`),
-		s_adult: $(`#s_adult_rate${rid}`),
-		s_child: $(`#s_child_rate${rid}`),
-		s_child_wb: $(`#s_child_wb_rate${rid}`),
-		s_extra_bed: $(`#s_extra_bed_rate${rid}`)
-	};
+		const $this = $(this);
+		const room_cat_id = $this.val();
+		const rid = $this.attr('data-id');
+		const count = $this.attr('count-id');
+		const $spinner = $('#csspinner');
 
-	// Reset totals if room_cat_id is empty or 0
-	if (room_cat_id === "" || room_cat_id === "0") {
-		// Batch all DOM updates together
-		requestAnimationFrame(() => {
-			$d_total_rate.val(0);
-			$s_total_rate.val(0);
-			$own_arrange.val(1);
+		// Immediate visual feedback
+		$spinner.show();
+		$this.prop('disabled', true);
 
-			// Batch update all rate fields
-			Object.values(rateFields).forEach($field => {
-				$field.val(0).prop('readonly', true);
-			});
+		// Cache frequently accessed DOM elements
+		const cachedElements = {
+			d_total_rate: $(`#d_total_rate${rid}`),
+			s_total_rate: $(`#s_total_rate${rid}`),
+			own_arrange: $(`#own_arrange${count}`),
+			loc_total: $(`#loc_total${count}`),
+			v_total: $('#v_total'),
+			a_total: $('#a_total'),
+			g_total: $('#g_total'),
+			rateFields: {
+				d_adult: $(`#d_adult_rate${rid}`),
+				d_child: $(`#d_child_rate${rid}`),
+				d_child_wb: $(`#d_child_wb_rate${rid}`),
+				d_extra_bed: $(`#d_extra_bed_rate${rid}`),
+				s_adult: $(`#s_adult_rate${rid}`),
+				s_child: $(`#s_child_rate${rid}`),
+				s_child_wb: $(`#s_child_wb_rate${rid}`),
+				s_extra_bed: $(`#s_extra_bed_rate${rid}`)
+			}
+		};
 
-			const nightIndex = rid[rid.length - 2];
-			$(`#sterling_double${count}${nightIndex}`).html('');
-			$(`#sterling_single${count}${nightIndex}`).html('');
-			$(`#eighteen_div_d${count}`).html('');
-			$(`#eighteen_div_s${count}`).html('');
+		// Reset totals if room_cat_id is empty or 0
+		if (room_cat_id === "" || room_cat_id === "0") {
+			// Defer non-critical updates
+			changeTimeout = setTimeout(() => {
+				const nightIndex = rid[rid.length - 2];
 
-			updateRoomTotals(count, rid[rid.length - 2], rid[rid.length - 1]);
-			updateGrandtotalBoth();
-			const veh_total = get_veh_grand_total();
-			$loc_total.text(updateGrandtotalBoth(count) + " + " + 0);
-			$v_total.text(veh_total);
-			$g_total.text((updateGrandtotalBoth() + veh_total));
-		});
-		$spinner.hide();
-		$this.prop('disabled', false);
-		return;
-	}
+				// Batch all updates in a single animation frame
+				requestAnimationFrame(() => {
+					cachedElements.d_total_rate.val(0);
+					cachedElements.s_total_rate.val(0);
+					cachedElements.own_arrange.val(1);
 
-	// Set own_arrange and enable fields in batch
-	requestAnimationFrame(() => {
-		$own_arrange.val(0);
-		Object.values(rateFields).forEach($field => {
-			$field.prop('readonly', false);
-		});
-	});
+					// Use plain loop for better performance
+					const fields = Object.values(cachedElements.rateFields);
+					for (let i = 0; i < fields.length; i++) {
+						fields[i].val(0).prop('readonly', true);
+					}
 
-	// Gather data for AJAX call (cached values)
-	const no_of_night = $(`#no_of_night${count}`).val();
-	const hotel_id = $(`#hotelid${count}`).val();
-	const tax_status = $(`#tax_status${count}`).val();
-	const mealplan = $(`#mealplan${count}`).val();
-	const checkin = $(`#checkin${count}`).val();
-	const checkout = $(`#checkout${count}`).val();
-	const double = $(`#double${rid}`).val() || 0;
-	const single = $(`#single${rid}`).val() || 0;
-	const vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
-	const arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
-	const departure_location = <?php echo $object_det[0]['departure_location']; ?>;
-	const tour_location_id = $(`#tour_location_id${count}`).val();
-	const previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
-	const duration = <?php echo $object_det[0]['no_of_night']; ?>;
-	const totalNights = calculateTotalNights();
-	const is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-	const vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
+					$(`#sterling_double${count}${nightIndex}`).empty();
+					$(`#sterling_single${count}${nightIndex}`).empty();
+					$(`#eighteen_div_d${count}`).empty();
+					$(`#eighteen_div_s${count}`).empty();
+				});
 
-	// Validate number of nights
-	if (!no_of_night || no_of_night === 'undefined') {
-		alert("Please enter number of nights");
-		$this[0].selectedIndex = 0;
-		$spinner.hide();
-		$this.prop('disabled', false);
-		return;
-	} else if (parseInt(no_of_night) === 0) {
-		alert("Number of nights must be greater than zero");
-		$(`#no_of_night${count}`).val('');
-		$this[0].selectedIndex = 0;
-		$spinner.hide();
-		$this.prop('disabled', false);
-		return;
-	}
+				// Defer calculation-heavy operations
+				requestIdleCallback(() => {
+					updateRoomTotals(count, rid[rid.length - 2], rid[rid.length - 1]);
+					updateGrandtotalBoth();
+					const veh_total = get_veh_grand_total();
 
-	// Extract night and room index
-	const night = rid[rid.length - 2];
-	const roomIndex = rid[rid.length - 1];
+					requestAnimationFrame(() => {
+						cachedElements.loc_total.text(updateGrandtotalBoth(count) + " + " + 0);
+						cachedElements.v_total.text(veh_total);
+						cachedElements.g_total.text((updateGrandtotalBoth() + veh_total));
+					});
+				}, {
+					timeout: 50
+				});
 
-	$.ajax({
-		url: "<?= site_url('Enquiry/getTourTariffDetails'); ?>",
-		method: "POST",
-		data: {
-			hotel_id, room_cat_id, mealplan, checkin, checkout, no_of_night,
-			double, single, vehicle_models, id: rid, duration, totalNights,
-			tour_location_id, previous_location_id, vehicle_from_location,
-			arrival_location, departure_location
-		},
-		dataType: 'json',
-		success: function(data) {
-			if (data.different_season == 1) {
-				const html_data = '<p>' + data.season_name1 + '</p><p>' + data.season_name2 + '</p>';
-				$('#season_name_placeholder').html(html_data);
-				$('#diff_season_modal').modal('show');
-				$(`#no_of_night${count}`).val(1);
-				calculateCheckout(count);
-				$(`#roomcat${rid}`).trigger('change');
 				$spinner.hide();
-				$(`#roomcat${rid}`).prop('disabled', false);
-				return;
+				$this.prop('disabled', false);
+			}, 0);
+			return;
+		}
+
+		// Set own_arrange and enable fields
+		requestAnimationFrame(() => {
+			cachedElements.own_arrange.val(0);
+			const fields = Object.values(cachedElements.rateFields);
+			for (let i = 0; i < fields.length; i++) {
+				fields[i].prop('readonly', false);
+			}
+		});
+
+		// Gather data for AJAX call (use const for better optimization)
+		const ajaxData = {
+			hotel_id: $(`#hotelid${count}`).val(),
+			room_cat_id: room_cat_id,
+			mealplan: $(`#mealplan${count}`).val(),
+			checkin: $(`#checkin${count}`).val(),
+			checkout: $(`#checkout${count}`).val(),
+			no_of_night: $(`#no_of_night${count}`).val(),
+			double: $(`#double${rid}`).val() || 0,
+			single: $(`#single${rid}`).val() || 0,
+			vehicle_from_location: <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>,
+			arrival_location: <?php echo $object_det[0]['arrival_location']; ?>,
+			departure_location: <?php echo $object_det[0]['departure_location']; ?>,
+			tour_location_id: $(`#tour_location_id${count}`).val(),
+			previous_location_id: count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null,
+			duration: <?php echo $object_det[0]['no_of_night']; ?>,
+			totalNights: calculateTotalNights(),
+			id: rid,
+			vehicle_models: <?php echo $object_det[0]['is_vehicle_required']; ?> == 1 ? <?php echo json_encode($vehicle_data); ?> : null,
+			tax_status: $(`#tax_status${count}`).val()
+		};
+
+		// Validate number of nights
+		if (!ajaxData.no_of_night || ajaxData.no_of_night === 'undefined') {
+			alert("Please enter number of nights");
+			$this[0].selectedIndex = 0;
+			$spinner.hide();
+			$this.prop('disabled', false);
+			return;
+		} else if (parseInt(ajaxData.no_of_night) === 0) {
+			alert("Number of nights must be greater than zero");
+			$(`#no_of_night${count}`).val('');
+			$this[0].selectedIndex = 0;
+			$spinner.hide();
+			$this.prop('disabled', false);
+			return;
+		}
+
+		// Extract night and room index once
+		const night = rid[rid.length - 2];
+		const roomIndex = rid[rid.length - 1];
+
+		// Optimized HTML generation using array join (faster than string concatenation)
+		const createSterlingHTML = (type, rates, counts, ridVal, tot, gst, total) => {
+			const fields = [
+				['Room Rate', `ster_${type}_adult_rate`, rates.room, false, type === 'd'],
+				['Child', `ster_n_${type}_child_rate`, counts.child, type === 's', type === 'd', 'cls_child_count'],
+				['Child Rate', `ster_${type}_child_rate`, rates.child, type === 's', type === 'd'],
+				['No.Of C.WB', `ster_n_${type}_child_wb_rate`, counts.child_wb, type === 's', type === 'd', 'cls_child_wb_count'],
+				['C.WBed Rate', `ster_${type}_child_wb_rate`, rates.child_wb, type === 's', type === 'd'],
+				['No.Of Extra', `ster_n_${type}_extra_bed_rate`, counts.extra, type === 's', type === 'd', 'cls_extra_count'],
+				['Extra Rate', `ster_${type}_extra_bed_rate`, rates.extra, type === 's', type === 'd'],
+				['Room wise total', `ster_${type}_total_rate`, tot, true, false],
+				['GST%', `ster_${type}_gst_per`, gst, true, false],
+				['Room wise total', `ster_${type}_g_tot`, total, true, false, `sterling_${type}_grand`]
+			];
+
+			const htmlParts = ['<div class="row"><div class="col-xl-1 col-sm-12 col-md-1"></div>'];
+
+			for (let i = 0; i < fields.length; i++) {
+				const [label, id, value, readonly, hasInput, extraClass] = fields[i];
+				const readonlyAttr = readonly ? ' readonly' : '';
+				const classAttr = extraClass ? extraClass + ' ' : '';
+				const oninput = !readonly && hasInput ? ' oninput="validateNumericInput(this);"' : '';
+
+				htmlParts.push(
+					'<div class="col-xl-1 col-sm-12 col-md-1">',
+					'<div class="teams-rank"><b>', label, '</b></div>',
+					'<input type="text" id="', id, ridVal, '" class="', classAttr, 'form-control input-sm" maxlength="7" value="', value, '"', readonlyAttr, oninput, '>',
+					'</div>'
+				);
 			}
 
-			const no_of_ch = parseInt($(`#no_of_ch${count}`).val()) || 0;
-			const no_of_cw = parseInt($(`#no_of_cw${count}`).val()) || 0;
-			const no_of_extra = parseInt($(`#no_of_extra${count}`).val()) || 0;
-			const ndouble = parseInt(double) || 0;
-			const nsingle = parseInt(single) || 0;
-			const room_r = parseInt(data.d_room_tariff) || 0;
-			const child_r = parseInt(data.d_child_tariff) || 0;
-			const child_wb_r = parseInt(data.d_child_wb_tariff) || 0;
-			const extra_r = parseInt(data.d_extra_tariff) || 0;
+			htmlParts.push(
+				'<input type="hidden" id="ster_', type, '_id', ridVal, '" value="', ridVal, '">',
+				'<div class="col-xl-1 col-sm-12 col-md-1"></div></div>'
+			);
 
-			// Use DocumentFragment for better performance
-			const createSterlingHTML = (type, rates, counts, rid, tot, gst, total) => {
-				const fields = [
-					{ label: 'Room Rate', id: `ster_${type}_adult_rate`, value: rates.room, readonly: false },
-					{ label: 'Child', id: `ster_n_${type}_child_rate`, value: counts.child, readonly: type === 's', class: type === 'd' ? 'cls_child_count' : '' },
-					{ label: 'Child Rate', id: `ster_${type}_child_rate`, value: rates.child, readonly: type === 's' },
-					{ label: 'No.Of C.WB', id: `ster_n_${type}_child_wb_rate`, value: counts.child_wb, readonly: type === 's', class: type === 'd' ? 'cls_child_wb_count' : '' },
-					{ label: 'C.WBed Rate', id: `ster_${type}_child_wb_rate`, value: rates.child_wb, readonly: type === 's' },
-					{ label: 'No.Of Extra', id: `ster_n_${type}_extra_bed_rate`, value: counts.extra, readonly: type === 's', class: type === 'd' ? 'cls_extra_count' : '' },
-					{ label: 'Extra Rate', id: `ster_${type}_extra_bed_rate`, value: rates.extra, readonly: type === 's' },
-					{ label: 'Room wise total', id: `ster_${type}_total_rate`, value: tot, readonly: true },
-					{ label: 'GST%', id: `ster_${type}_gst_per`, value: gst, readonly: true },
-					{ label: 'Room wise total', id: `ster_${type}_g_tot`, value: total, readonly: true, class: `sterling_${type}_grand` }
-				];
+			return htmlParts.join('');
+		};
 
-				let html = '<div class="row"><div class="col-xl-1 col-sm-12 col-md-1"></div>';
-				fields.forEach(field => {
-					const readonlyAttr = field.readonly ? 'readonly' : '';
-					const classAttr = field.class ? `${field.class} ` : '';
-					const oninput = !field.readonly && field.id.includes('rate') ? 'oninput="validateNumericInput(this);"' : '';
-					html += `<div class="col-xl-1 col-sm-12 col-md-1">
-						<div class="teams-rank"><b>${field.label}</b></div>
-						<input type="text" id="${field.id}${rid}" class="${classAttr}form-control input-sm" maxlength="7" value="${field.value}" ${readonlyAttr} ${oninput}>
+		const createHiddenFields = (type, rates, counts, ridVal, tot, gst, total) => {
+			const prefix = `hd_ster_addloc_${type}`;
+			return [
+				`<input type="hidden" id="hd_ster_${type}_id${ridVal}" value="${ridVal}" name="${prefix}[${ridVal}][ster_${type}_id]">`,
+				`<input type="hidden" id="hd_ster_${type}_adult_rate${ridVal}" value="${rates.room}" name="${prefix}[${ridVal}][${type}_adult_rate]">`,
+				`<input type="hidden" id="hd_ster_n_${type}_child_rate${ridVal}" value="${counts.child}" name="${prefix}[${ridVal}][n_${type}_child_rate]">`,
+				`<input type="hidden" id="hd_ster_${type}_child_rate${ridVal}" value="${rates.child}" name="${prefix}[${ridVal}][${type}_child_rate]">`,
+				`<input type="hidden" id="hd_ster_n_${type}_child_wb_rate${ridVal}" value="${counts.child_wb}" name="${prefix}[${ridVal}][n_${type}_child_wb_rate]">`,
+				`<input type="hidden" id="hd_ster_${type}_child_wb_rate${ridVal}" value="${rates.child_wb}" name="${prefix}[${ridVal}][${type}_child_wb_rate]">`,
+				`<input type="hidden" id="hd_ster_n_${type}_extra_bed_rate${ridVal}" value="${counts.extra}" name="${prefix}[${ridVal}][n_${type}_extra_bed_rate]">`,
+				`<input type="hidden" id="hd_ster_${type}_extra_bed_rate${ridVal}" value="${rates.extra}" name="${prefix}[${ridVal}][${type}_extra_bed_rate]">`,
+				`<input type="hidden" id="hd_ster_${type}_total_rate${ridVal}" value="${tot}" name="${prefix}[${ridVal}][${type}_total_rate]">`,
+				`<input type="hidden" id="hd_ster_${type}_gst_per${ridVal}" value="${gst}" name="${prefix}[${ridVal}][${type}_gst_per]">`,
+				`<input type="hidden" id="hd_ster_${type}_g_tot${ridVal}" value="${total}" name="${prefix}[${ridVal}][${type}_g_tot]">`
+			].join('');
+		};
+
+		// Make AJAX call
+		changeTimeout = setTimeout(() => {
+			$.ajax({
+				url: "<?= site_url('Enquiry/getTourTariffDetails'); ?>",
+				method: "POST",
+				data: ajaxData,
+				dataType: 'json',
+				success: function(data) {
+					if (data.different_season == 1) {
+						const html_data = '<p>' + data.season_name1 + '</p><p>' + data.season_name2 + '</p>';
+						$('#season_name_placeholder').html(html_data);
+						$('#diff_season_modal').modal('show');
+						$(`#no_of_night${count}`).val(1);
+						calculateCheckout(count);
+						$(`#roomcat${rid}`).trigger('change');
+						$spinner.hide();
+						$(`#roomcat${rid}`).prop('disabled', false);
+						return;
+					}
+
+					// Parse values once
+					const values = {
+						no_of_ch: parseInt($(`#no_of_ch${count}`).val()) || 0,
+						no_of_cw: parseInt($(`#no_of_cw${count}`).val()) || 0,
+						no_of_extra: parseInt($(`#no_of_extra${count}`).val()) || 0,
+						nsingle: parseInt(ajaxData.single) || 0,
+						room_r: parseInt(data.d_room_tariff) || 0,
+						child_r: parseInt(data.d_child_tariff) || 0,
+						child_wb_r: parseInt(data.d_child_wb_tariff) || 0,
+						extra_r: parseInt(data.d_extra_tariff) || 0
+					};
+
+					// Split DOM updates into chunks for better INP
+					const processUpdates = () => {
+						if (ajaxData.tax_status == 1) {
+							// Calculate double room values
+							const counts = {
+								child: values.no_of_ch > 0 ? 1 : 0,
+								child_wb: values.no_of_cw > 0 ? 1 : 0,
+								extra: values.no_of_extra > 0 ? 1 : 0
+							};
+
+							const tot_d = values.room_r + (counts.child * values.child_r) +
+								(counts.child_wb * values.child_wb_r) + (counts.extra * values.extra_r);
+							const gst = tot_d >= 7500 ? 18 : 12;
+							const total_doubles = tot_d + ((gst / 100) * tot_d);
+
+							// First frame: Update rate fields
+							requestAnimationFrame(() => {
+								cachedElements.rateFields.d_adult.prop("readonly", true).val(values.room_r);
+								cachedElements.rateFields.d_child.prop("readonly", true).val(values.child_r);
+								cachedElements.rateFields.d_child_wb.prop("readonly", true).val(values.child_wb_r);
+								cachedElements.rateFields.d_extra_bed.prop("readonly", true).val(values.extra_r);
+								cachedElements.d_total_rate.val(total_doubles);
+							});
+
+							// Second frame: Generate and insert HTML
+							requestAnimationFrame(() => {
+								const sterling_double = createSterlingHTML('d', {
+										room: values.room_r,
+										child: values.child_r,
+										child_wb: values.child_wb_r,
+										extra: values.extra_r
+									},
+									counts, rid, tot_d, gst, total_doubles
+								);
+								const ediv = createHiddenFields('d', {
+										room: values.room_r,
+										child: values.child_r,
+										child_wb: values.child_wb_r,
+										extra: values.extra_r
+									},
+									counts, rid, tot_d, gst, total_doubles
+								);
+
+								$(`#eighteen_div_d${count}`).html(ediv);
+								$(`#sterling_double${count}${night}`).html(sterling_double);
+							});
+
+							// Handle single rooms
+							if (values.nsingle > 0) {
+								const tot_s = parseInt(data.s_room_tariff) || 0;
+								const s_gst = tot_s >= 7500 ? 18 : 12;
+								const total_singles = tot_s + ((s_gst / 100) * tot_s);
+
+								requestAnimationFrame(() => {
+									cachedElements.rateFields.s_adult.prop("readonly", true).val(tot_s);
+									cachedElements.rateFields.s_child.prop("readonly", true).val(data.s_child_tariff);
+									cachedElements.rateFields.s_child_wb.prop("readonly", true).val(data.s_child_wb_tariff);
+									cachedElements.rateFields.s_extra_bed.prop("readonly", true).val(data.s_extra_tariff);
+									cachedElements.s_total_rate.val(total_singles);
+
+									const sterling_single = createSterlingHTML('s', {
+											room: tot_s,
+											child: 0,
+											child_wb: 0,
+											extra: 0
+										}, {
+											child: 0,
+											child_wb: 0,
+											extra: 0
+										},
+										rid, tot_s, s_gst, total_singles
+									);
+									const sdiv = createHiddenFields('s', {
+											room: tot_s,
+											child: 0,
+											child_wb: 0,
+											extra: 0
+										}, {
+											child: 0,
+											child_wb: 0,
+											extra: 0
+										},
+										rid, tot_s, s_gst, total_singles
+									);
+
+									$(`#eighteen_div_s${count}`).html(sdiv);
+									$(`#sterling_single${count}${night}`).html(sterling_single);
+								});
+							}
+
+							// Defer calculations to idle time
+							requestIdleCallback(() => {
+								updateRoomTotals(count, night, roomIndex);
+								calculateVehicleExtraKmCharges();
+							}, {
+								timeout: 100
+							});
+						} else {
+							// Non-tax case
+							requestAnimationFrame(() => {
+								$(`#sterling_double${count}${night}`).empty();
+								$(`#sterling_single${count}${night}`).empty();
+								$(`#eighteen_div_d${count}`).empty();
+								$(`#eighteen_div_s${count}`).empty();
+
+								cachedElements.rateFields.d_adult.prop("readonly", false).val(values.room_r);
+								cachedElements.rateFields.d_child.prop("readonly", false).val(values.child_r);
+								cachedElements.rateFields.d_child_wb.prop("readonly", false).val(values.child_wb_r);
+								cachedElements.rateFields.d_extra_bed.prop("readonly", false).val(values.extra_r);
+
+								if (values.nsingle > 0) {
+									cachedElements.rateFields.s_adult.prop("readonly", false).val(data.s_room_tariff);
+									cachedElements.rateFields.s_child.prop("readonly", false).val(data.s_child_tariff);
+									cachedElements.rateFields.s_child_wb.prop("readonly", false).val(data.s_child_wb_tariff);
+									cachedElements.rateFields.s_extra_bed.prop("readonly", false).val(data.s_extra_tariff);
+								}
+							});
+
+							requestIdleCallback(() => {
+								updateRoomTotals(count, night, roomIndex);
+							}, {
+								timeout: 100
+							});
+						}
+
+						// Final frame: Update totals
+						requestIdleCallback(() => {
+							const singleCardTotal = updateGrandtotalBoth(count);
+							const allCardTotal = updateGrandtotalBoth();
+							const veh_grand_total = get_veh_grand_total();
+
+							requestAnimationFrame(() => {
+								cachedElements.loc_total.text(singleCardTotal + " + " + 0);
+								cachedElements.v_total.text(veh_grand_total);
+								cachedElements.a_total.text(allCardTotal);
+								cachedElements.g_total.text((allCardTotal + veh_grand_total));
+							});
+
+							calculateVehicleExtraKmCharges();
+						}, {
+							timeout: 150
+						});
+					};
+
+					processUpdates();
+				},
+				error: function(xhr, status, error) {
+					console.error('Error fetching tariff details:', error);
+					const errorAlert = `
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						<span class="alert-inner--icon"><i class="fe fe-alert-triangle"></i></span>
+						<span class="alert-inner--text">Error fetching tariff details. Please try again.</span>
+						<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
 					</div>`;
-				});
-				html += `<input type="hidden" id="ster_${type}_id${rid}" value="${rid}"><div class="col-xl-1 col-sm-12 col-md-1"></div></div>`;
-				return html;
-			};
-
-			const createHiddenFields = (type, rates, counts, rid, tot, gst, total) => {
-				const prefix = `hd_ster_addloc_${type}`;
-				return `
-					<input type="hidden" id="hd_ster_${type}_id${rid}" value="${rid}" name="${prefix}[${rid}][ster_${type}_id]">
-					<input type="hidden" id="hd_ster_${type}_adult_rate${rid}" value="${rates.room}" name="${prefix}[${rid}][${type}_adult_rate]">
-					<input type="hidden" id="hd_ster_n_${type}_child_rate${rid}" value="${counts.child}" name="${prefix}[${rid}][n_${type}_child_rate]">
-					<input type="hidden" id="hd_ster_${type}_child_rate${rid}" value="${rates.child}" name="${prefix}[${rid}][${type}_child_rate]">
-					<input type="hidden" id="hd_ster_n_${type}_child_wb_rate${rid}" value="${counts.child_wb}" name="${prefix}[${rid}][n_${type}_child_wb_rate]">
-					<input type="hidden" id="hd_ster_${type}_child_wb_rate${rid}" value="${rates.child_wb}" name="${prefix}[${rid}][${type}_child_wb_rate]">
-					<input type="hidden" id="hd_ster_n_${type}_extra_bed_rate${rid}" value="${counts.extra}" name="${prefix}[${rid}][n_${type}_extra_bed_rate]">
-					<input type="hidden" id="hd_ster_${type}_extra_bed_rate${rid}" value="${rates.extra}" name="${prefix}[${rid}][${type}_extra_bed_rate]">
-					<input type="hidden" id="hd_ster_${type}_total_rate${rid}" value="${tot}" name="${prefix}[${rid}][${type}_total_rate]">
-					<input type="hidden" id="hd_ster_${type}_gst_per${rid}" value="${gst}" name="${prefix}[${rid}][${type}_gst_per]">
-					<input type="hidden" id="hd_ster_${type}_g_tot${rid}" value="${total}" name="${prefix}[${rid}][${type}_g_tot]">
-				`;
-			};
-
-			// Use requestAnimationFrame for all DOM updates
-			requestAnimationFrame(() => {
-				if (tax_status == 1) {
-					// Calculate double room values
-					const child_with_bed_count = no_of_ch > 0 ? 1 : 0;
-					const child_without_bed_count = no_of_cw > 0 ? 1 : 0;
-					const extra_bed_count = no_of_extra > 0 ? 1 : 0;
-					const tot_d = room_r + (child_with_bed_count * child_r) + (child_without_bed_count * child_wb_r) + (extra_bed_count * extra_r);
-					const gst = tot_d >= 7500 ? 18 : 12;
-					const gstval = (gst / 100) * tot_d;
-					const total_doubles = tot_d + gstval;
-
-					// Batch update double rate fields
-					rateFields.d_adult.prop("readonly", true).val(room_r);
-					rateFields.d_child.prop("readonly", true).val(child_r);
-					rateFields.d_child_wb.prop("readonly", true).val(child_wb_r);
-					rateFields.d_extra_bed.prop("readonly", true).val(extra_r);
-
-					// Generate HTML
-					const sterling_double = createSterlingHTML('d', 
-						{ room: room_r, child: child_r, child_wb: child_wb_r, extra: extra_r },
-						{ child: child_with_bed_count, child_wb: child_without_bed_count, extra: extra_bed_count },
-						rid, tot_d, gst, total_doubles
-					);
-					const ediv = createHiddenFields('d',
-						{ room: room_r, child: child_r, child_wb: child_wb_r, extra: extra_r },
-						{ child: child_with_bed_count, child_wb: child_without_bed_count, extra: extra_bed_count },
-						rid, tot_d, gst, total_doubles
-					);
-
-					$d_total_rate.val(total_doubles);
-					$(`#eighteen_div_d${count}`).html(ediv);
-					$(`#sterling_double${count}${night}`).html(sterling_double);
-
-					// Handle single rooms
-					if (nsingle > 0) {
-						const tot_s = parseInt(data.s_room_tariff) || 0;
-						const s_gst = tot_s >= 7500 ? 18 : 12;
-						const s_gstval = (s_gst / 100) * tot_s;
-						const total_singles = tot_s + s_gstval;
-
-						rateFields.s_adult.prop("readonly", true).val(tot_s);
-						rateFields.s_child.prop("readonly", true).val(data.s_child_tariff);
-						rateFields.s_child_wb.prop("readonly", true).val(data.s_child_wb_tariff);
-						rateFields.s_extra_bed.prop("readonly", true).val(data.s_extra_tariff);
-
-						const sterling_single = createSterlingHTML('s',
-							{ room: tot_s, child: 0, child_wb: 0, extra: 0 },
-							{ child: 0, child_wb: 0, extra: 0 },
-							rid, tot_s, s_gst, total_singles
-						);
-						const sdiv = createHiddenFields('s',
-							{ room: tot_s, child: 0, child_wb: 0, extra: 0 },
-							{ child: 0, child_wb: 0, extra: 0 },
-							rid, tot_s, s_gst, total_singles
-						);
-
-						$s_total_rate.val(total_singles);
-						$(`#eighteen_div_s${count}`).html(sdiv);
-						$(`#sterling_single${count}${night}`).html(sterling_single);
-					}
-
-					updateRoomTotals(count, night, roomIndex);
-					calculateVehicleExtraKmCharges();
-				} else {
-					// Clear sterling fields
-					$(`#sterling_double${count}${night}`).html('');
-					$(`#sterling_single${count}${night}`).html('');
-					$(`#eighteen_div_d${count}`).html('');
-					$(`#eighteen_div_s${count}`).html('');
-
-					// Batch update rate fields
-					rateFields.d_adult.prop("readonly", false).val(room_r);
-					rateFields.d_child.prop("readonly", false).val(child_r);
-					rateFields.d_child_wb.prop("readonly", false).val(child_wb_r);
-					rateFields.d_extra_bed.prop("readonly", false).val(extra_r);
-
-					if (nsingle > 0) {
-						rateFields.s_adult.prop("readonly", false).val(data.s_room_tariff);
-						rateFields.s_child.prop("readonly", false).val(data.s_child_tariff);
-						rateFields.s_child_wb.prop("readonly", false).val(data.s_child_wb_tariff);
-						rateFields.s_extra_bed.prop("readonly", false).val(data.s_extra_tariff);
-					}
-
-					updateRoomTotals(count, night, roomIndex);
+					$('#hotel_alert').html(errorAlert);
+					setTimeout(() => $(".alert").fadeOut("slow", function() {
+						$(this).remove();
+					}), 2000);
+				},
+				complete: function() {
+					$spinner.hide();
+					$this.prop('disabled', false);
 				}
-
-				// Update all totals in one batch
-				const singleCardTotal = updateGrandtotalBoth(count);
-				const allCardTotal = updateGrandtotalBoth();
-				const veh_grand_total = get_veh_grand_total();
-				
-				$loc_total.text(singleCardTotal + " + " + 0);
-				$v_total.text(veh_grand_total);
-				$a_total.text(allCardTotal);
-				$g_total.text((allCardTotal + veh_grand_total));
-				calculateVehicleExtraKmCharges();
 			});
-		},
-		error: function(xhr, status, error) {
-			console.error('Error fetching tariff details:', error);
-			const errorAlert = `
-				<div class="alert alert-danger alert-dismissible fade show" role="alert">
-					<span class="alert-inner--icon"><i class="fe fe-alert-triangle"></i></span>
-					<span class="alert-inner--text">Error fetching tariff details. Please try again.</span>
-					<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>`;
-			$('#hotel_alert').html(errorAlert);
-			setTimeout(() => $(".alert").fadeOut("slow", function() { $(this).remove(); }), 2000);
-		},
-		complete: function() {
-			$spinner.hide();
-			$(`#roomcat${rid}`).prop('disabled', false);
-		}
+		}, 0);
 	});
-});
+
+	// Fallback for browsers without requestIdleCallback
+	if (!window.requestIdleCallback) {
+		window.requestIdleCallback = function(cb, options) {
+			const start = Date.now();
+			return setTimeout(() => {
+				cb({
+					didTimeout: false,
+					timeRemaining: () => Math.max(0, 50 - (Date.now() - start))
+				});
+			}, 1);
+		};
+	}
 </script>
 <script type="text/javascript">
+	var isDraftLoading = false; // Global flag to skip handlers during view load
+
 	$(document).on('click', '.tour_view', function() {
-		var enquiry_header_id = <?php echo $object_det[0]['enquiry_header_id']; ?>;
-		var enquiry_details_id = <?php echo $object_det[0]['enquiry_details_id']; ?>;
-		var hotel_categories = <?php echo json_encode($hotel_categories); ?>;
-		var hotel_category_exist = <?php echo $object_det[0]['hotel_category']; ?>;
-		var meal_plan_exist = <?php echo $object_det[0]['meal_plan']; ?>;
-		var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;
-		var total_no_of_pax = <?php echo $object_det[0]['total_no_of_pax']; ?>;
-		var enquiry_header_id = <?php echo $object_det[0]['enquiry_header_id']; ?>;
-		var enquiry_details_id = <?php echo $object_det[0]['enquiry_details_id']; ?>;
-		var no_of_adult = <?php echo $object_det[0]['no_of_adult']; ?>;
-		var no_of_child_with_bed = <?php echo $object_det[0]['no_of_child_with_bed']; ?>;
-		var no_of_child_without_bed = <?php echo $object_det[0]['no_of_child_without_bed']; ?>;
-		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
-		var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
-		var no_of_extra_bed = <?php echo $object_det[0]['no_of_extra_bed']; ?>;
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-		var is_quick_quote = <?php echo $object_det[0]['is_quick_quote'] ? $object_det[0]['is_quick_quote'] : 0; ?>;
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+		var $this = $(this);
+		if ($this.prop('disabled')) return;
+		$this.prop('disabled', true);
+		$('#spinner_draft').show();
 
-		var child_t_d = 0;
-		var child_t_s = 0;
+		// Safe PHP variable initialization
+		var enquiry_header_id = <?php echo isset($object_det[0]['enquiry_header_id']) ? $object_det[0]['enquiry_header_id'] : 'null'; ?>;
+		var enquiry_details_id = <?php echo isset($object_det[0]['enquiry_details_id']) ? $object_det[0]['enquiry_details_id'] : 'null'; ?>;
+		var hotel_categories = <?php echo isset($hotel_categories) ? json_encode($hotel_categories) : '[]'; ?>;
+		var no_of_night = <?php echo isset($object_det[0]['no_of_night']) ? $object_det[0]['no_of_night'] : '0'; ?>;
+		var total_no_of_pax = <?php echo isset($object_det[0]['total_no_of_pax']) ? $object_det[0]['total_no_of_pax'] : '0'; ?>;
+		var no_of_adult = <?php echo isset($object_det[0]['no_of_adult']) ? $object_det[0]['no_of_adult'] : '0'; ?>;
+		var no_of_child_with_bed = <?php echo isset($object_det[0]['no_of_child_with_bed']) ? $object_det[0]['no_of_child_with_bed'] : '0'; ?>;
+		var no_of_child_without_bed = <?php echo isset($object_det[0]['no_of_child_without_bed']) ? $object_det[0]['no_of_child_without_bed'] : '0'; ?>;
+		var no_of_double_room = <?php echo isset($object_det[0]['no_of_double_room']) ? $object_det[0]['no_of_double_room'] : '0'; ?>;
+		var no_of_single_room = <?php echo isset($object_det[0]['no_of_single_room']) ? $object_det[0]['no_of_single_room'] : '0'; ?>;
+		var no_of_extra_bed = <?php echo isset($object_det[0]['no_of_extra_bed']) ? $object_det[0]['no_of_extra_bed'] : '0'; ?>;
+		var is_vehicle_required = <?php echo isset($object_det[0]['is_vehicle_required']) ? $object_det[0]['is_vehicle_required'] : '0'; ?>;
+		var vehicle_models = <?php echo isset($vehicle_data) ? json_encode($vehicle_data) : '[]'; ?>;
 
-		var child_wb_t_d = 0;
-		var child_wb_t_s = 0;
-
-		var extra_t_d = 0;
-		var extra_t_s = 0;
-
-		var room_t_d = 0;
-		var room_t_s = 0;
-
-		var start_date = <?= json_encode($start_date); ?>;
-		var totalDays = 0;
-
-		var vid_t;
-		var v_day_rent;
-		var v_max_km_day;
-		var v_extra_km_rate;
-		var v_veh_total;
-		var v_veh_header;
-
+		// Validate critical inputs
+		if (!enquiry_header_id || !enquiry_details_id) {
+			console.error('Missing enquiry_header_id or enquiry_details_id');
+			$('#spinner_draft').hide();
+			$this.prop('disabled', false);
+			alert('Error: Invalid enquiry data.');
+			return;
+		}
 
 		$.ajax({
-			url: '<?= site_url('Enquiry/loadTourLocation'); ?>',
+			url: '<?php echo site_url('Enquiry/loadTourLocation'); ?>',
 			type: 'POST',
 			data: {
-				enquiry_header_id: enquiry_header_id,
-				enquiry_details_id: enquiry_details_id
+				enquiry_header_id,
+				enquiry_details_id
 			},
 			dataType: 'json',
 			success: function(response) {
-				// Clear existing location cards if necessary
+				console.log('=== TOUR VIEW LOAD RESPONSE ===');
+				console.log('Full Response:', response);
+				if (!response || response.length === 0) {
+					showAlert('warning', 'No tour data found.');
+					$('#spinner_draft').hide();
+					return;
+				}
 
-				var newCard = ``;
+				// Clear existing content
+				$('.tab_con').empty();
+
+				// Group data by tour_details_id
+				var groupedData = {};
 				$.each(response, function(index, item) {
-					// Create a new location card element
-					var vehicleDetails = JSON.parse(item.vehicle_details);
-					var count = index + 1;
+					var tourDetailsId = item.tour_details_id;
+					console.log(`Processing item ${index}, tour_details_id: ${tourDetailsId}`);
+					console.log('Item room_category_id:', item.room_category_id);
+					console.log('Item room_category_name:', item.room_category_name);
 
-					var isFirst = count === 1;
-					var prevCheckout = $('.tour_plan_div .location-card:last input[name^="addloc["][name$="[checkout]"]').val();
-					var checkinDate = isFirst ? start_date : prevCheckout || '';
-					ep_sel = '';
-					cp_sel = '';
-					map_sel = '';
-					ap_sel = '';
-					if (item.meal_plan_id == 1) {
-						ep_sel = "selected";
-					}
-					if (item.meal_plan_id == 2) {
-						cp_sel = "selected";
-					}
-					if (item.meal_plan_id == 3) {
-						map_sel = "selected";
-					}
-					if (item.meal_plan_id == 4) {
-						ap_sel = "selected";
-					}
-					$.each(item.cost, function(index1, item3) {
-						if ((item3.cost_component_id == "6" || item3.cost_component_id == "7") && item3.room_type_id == "2") {
-							room_t_d = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "12" || item3.cost_component_id == "13") && item3.room_type_id == "2") {
-							child_t_d = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "15" || item3.cost_component_id == "16") && item3.room_type_id == "2") {
-							child_wb_t_d = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "9" || item3.cost_component_id == "10") && item3.room_type_id == "2") {
-							extra_t_d = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "6" || item3.cost_component_id == "7") && item3.room_type_id == "1") {
-							room_t_s = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "12" || item3.cost_component_id == "13") && item3.room_type_id == "1") {
-							child_t_s = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "15" || item3.cost_component_id == "16") && item3.room_type_id == "1") {
-							child_wb_t_s = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "9" || item3.cost_component_id == "10") && item3.room_type_id == "1") {
-							extra_t_s = item3.quick_quote_tariff;
-						}
-					});
-					var room_total = parseInt(no_of_double_room) * parseInt(room_t_d);
-					var child_total = parseInt(no_of_child_with_bed) * parseInt(child_t_d);
-					var child_wb_total = parseInt(no_of_child_without_bed) * parseInt(child_wb_t_d);
-					var extra_total = parseInt(no_of_extra_bed) * parseInt(extra_t_d);
-
-					if (item.tax_status == 1) {
-						var tot_d = parseInt(room_t_d) + child_total + child_wb_total + extra_total;
-						var tot_s = parseInt(room_t_s);
-						if (tot_d >= 7500) {
-							var gst = 18;
-							var gstval = (gst / 100) * tot_d;
-							var total_doubles = (tot_d + gstval) * parseInt(no_of_double_room);
-							var d_totals = total_doubles * parseInt(item.no_of_days);
-						} else {
-							var d_totals = (room_total + child_total + child_wb_total + extra_total) * parseInt(item.no_of_days);
-						}
-
-						if (tot_s >= 7500) {
-							var gst = 18;
-							var gstval = (gst / 100) * tot_s;
-							var total_singles = (tot_s + gstval) * parseInt(no_of_single_room);
-							var s_totals = total_singles * parseInt(item.no_of_days);
-						} else {
-							var s_totals = (parseInt(no_of_single_room) * parseInt(room_t_s)) * parseInt(item.no_of_days);
-						}
-
-					} else {
-						var d_totals = (room_total + child_total + child_wb_total + extra_total) * parseInt(item.no_of_days);
-						var s_totals = (parseInt(no_of_single_room) * parseInt(room_t_s)) * parseInt(item.no_of_days);
+					if (!groupedData[tourDetailsId]) {
+						groupedData[tourDetailsId] = {
+							main: {
+								tour_details_id: item.tour_details_id,
+								geog_name: item.geog_name || 'Unknown Location',
+								geog_id: item.tour_location || '',
+								check_in_date: item.check_in_date || '',
+								check_out_date: item.check_out_date || '',
+								no_of_days: item.no_of_days || 0,
+								hotel_id: item.hotel_id || '',
+								hot_cat_id: item.hot_cat_id || '',
+								room_category_id: item.room_category_id || '',
+								tax_status: item.tax_status || 0,
+								is_own_arrangement: item.is_own_arrangement || 0,
+								tour_location: item.tour_location || '',
+								meal_plan_id: item.meal_plan_id || ''
+							},
+							expansions: [] // Collect all expansions here
+						};
+						console.log(`Created main data for tour ${tourDetailsId}:`, groupedData[tourDetailsId].main);
 					}
 
-					newCard += `
-					
-						<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
-							<div class="card">
-								<div class="card-header cardy">
-									<div id="eighteen_div_d${count}"></div>
-									<div id="eighteen_div_s${count}"></div>
-									<input type="hidden" id="tax_status${count}" name="addloc[${count}][tax_status]" value="${item.tax_status}">
-									<input type="hidden" id="own_arrange${count}" name="addloc[${count}][own_arrange]" value="${item.is_own_arrangement}">
-									<input type="hidden" id="tour_location_id${count}" name="addloc[${count}][tour_location_id]" value="${item.tour_location}">
-									<input type="hidden" id="location_sequence${count}" name="addloc[${count}][location_sequence]" value="${count}">
-									<div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${item.geog_name}</span></div>
-								</div>
-								<div class="card-body">
-									<div class="ibox teams mb-30 bg-boxshadow">
-										<div class="ibox-content teams">
-											<div class="row mt-2">
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Checkin</b></div>
-													<span class="text-muted">
-														<input type="date" value="${item.check_in_date}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Nights</b></div>
-													<span class="text-muted">
-														<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" value="${item.no_of_days}" class="form-control input-sm no_of_night" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count});" readonly>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Checkout</b></div>
-													<span class="text-muted">
-														<input type="date" id="checkout${count}" value="${item.check_out_date}" name="addloc[${count}][checkout]" class="form-control input-sm" required readonly>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Hotel Category</b></div>
-														<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search  hotel_cat_change_draft" data-id="${count}" data-hid="${item.hotel_id}" readonly>
-														<option value="">Select</option>
-														</select>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Hotel</b></div>
-													<span class="text-muted">
-														<select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm hotel_change_draft" data-rid="${item.room_category_id}" data-id="${count}" readonly>
-														<option value="">Select</option>
-														</select>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Room Category</b></div>
-														<select id="roomcat${count}" name="addloc[${count}][roomcat]" class="form-control select2-show-search input-sm room_cat_change" data-id="${count}" readonly>
-														<option value="">Select</option>
-														</select>
-												</div>
-											</div>
-
-										
-											<div class="row mt-2">
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Meal Plan</b></div>
-													<span class="text-muted">
-														<select id="mealplan${count}" name="addloc[${count}][mealplan]" class="form-control select2-show-search input-sm mp_change" data-id="${count}" readonly>
-														<option value="">Select</option>
-														<option value="1" ${ep_sel}>EP</option>
-														<option value="2" ${cp_sel}>CP</option>
-														<option value="3" ${map_sel}>MAP</option>
-														<option value="4" ${ap_sel}>AP</option>
-														</select>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>No Of Adult</b></div>
-													<input type="text" id="no_of_adult${count}" name="addloc[${count}][no_of_adult]" value="${no_of_adult}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.With Bed Qty</b></div>
-													<input type="text" id="no_of_ch${count}" name="addloc[${count}][no_of_ch]" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.Without Bed Qty</b></div>
-													<input type="text" id="no_of_cw${count}" name="addloc[${count}][no_of_cw]" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Extra Bed Qty</b></div>
-													<input type="text" id="no_of_extra${count}" name="addloc[${count}][no_of_extra]" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Total Pax</b></div>
-													<input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly>
-												</div>
-												
-											</div>`;
-					if (no_of_double_room > 0) {
-
-						newCard += `<div class="row mt-2 double_row">
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Double Room</b></div>
-														<input type="text" id="double${count}" name="addloc[${count}][double]" value="${no_of_double_room}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-													</div>
-										
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Daily Room Rate</b></div>
-														<input type="text" id="d_adult_rate${count}" name="addloc[${count}][d_adult_rate]" value="${room_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>C.With Bed Rate</b></div>
-														<input type="text" id="d_child_rate${count}" name="addloc[${count}][d_child_rate]" value="${child_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>C.Without Bed Rate</b></div>
-														<input type="text" id="d_child_wb_rate${count}" name="addloc[${count}][d_child_wb_rate]" value="${child_wb_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Extra Bed Rate</b></div>
-														<input type="text" id="d_extra_bed_rate${count}" name="addloc[${count}][d_extra_bed_rate]" value="${extra_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-														<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Total</b></div>
-														<input type="text" id="d_total_rate${count}" name="addloc[${count}][d_total_rate]" value="${d_totals}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-												</div>
-												<div class="card" id="sterling_double${count}"> </div>
-												`;
-						if (item.tax_status == 1) {
-
-							for (var si = 1; si <= no_of_double_room; si++) {
-								newCard += `
-															<div class="row">
-															<div class="col-xl-1 col-sm-12 col-md-1">
-															</div>
-																		
-															<div class="col-xl-1 col-sm-12 col-md-1">
-															<div class="teams-rank"><b>Room Rate</b></div>
-															<input type="text" id="" class="form-control input-sm" maxlength="7" value="" oninput=" required>
-															<input type="hidden" id="" class="form-control input-sm" maxlength="6" value="">
-															</div>
-
-															<div class="col-xl-1 col-sm-12 col-md-1">
-															<div class="teams-rank"><b>Child</b></div>
-															<input type="text" id="" class="form-control input-sm" maxlength="7" value="">
-															</div>
-
-															<div class="col-xl-1 col-sm-12 col-md-1">
-															<div class="teams-rank"><b>Child Rate</b></div>
-															<input type="text" id="" value="" class="form-control input-sm" maxlength="7">
-															</div>
-
-															<div class="col-xl-1 col-sm-12 col-md-1">
-															<div class="teams-rank"><b>No.Of C.WB</b></div>
-															<input type="text" id="" value="" class="form-control input-sm cls_child_wb_count" maxlength="7" oninput="">
-															</div>
-
-															<div class="col-xl-1 col-sm-12 col-md-1">
-															<div class="teams-rank"><b>C.WBed Rate</b></div>
-															<input type="text" id="" value="" class="form-control input-sm" maxlength="7" oninput="">
-															</div>
-
-															<div class="col-xl-1 col-sm-12 col-md-1">
-															<div class="teams-rank"><b>No.Of Extra</b></div>
-															<input type="text" id="" value="" class="form-control input-sm" maxlength="7" oninput="">
-															</div>
-
-															<div class="col-xl-1 col-sm-12 col-md-1">
-															<div class="teams-rank"><b>Extra Rate</b></div>
-															<input type="text" id="" value="" class="form-control input-sm" maxlength="7" oninput="">
-															</div>
-
-															<div class="col-xl-1 col-sm-12 col-md-1">
-															<div class="teams-rank"><b>Room wise total</b></div>
-															<input type="text" id="" value="" class="form-control input-sm" maxlength="7" oninput="" readonly>
-															</div>
-
-															<div class="col-xl-1 col-sm-12 col-md-1">
-															<div class="teams-rank"><b>GST%</b></div>
-															<input type="text" id="" value="" class="form-control input-sm" maxlength="7" oninput="" readonly>
-															</div>
-
-															<div class="col-xl-1 col-sm-12 col-md-1">
-															<div class="teams-rank"><b>Room wise total</b></div>
-															<input type="text" id="" value="" class="form-control input-sm" maxlength="7" oninput="" readonly>
-															</div>
-															<div class="col-xl-1 col-sm-12 col-md-1">
-															</div>
-															</div>
-
-														
-														
-													`;
-							}
-						}
-					} else {
-						newCard += `<input type="hidden" id="double${count}" name="addloc[${count}][double]" value="0">
-															<input type="hidden" id="d_adult_rate${count}" name="addloc[${count}][d_adult_rate]" value="0">
-															<input type="hidden" id="d_child_rate${count}" name="addloc[${count}][d_child_rate]" value="0">
-															<input type="hidden" id="d_child_wb_rate${count}" name="addloc[${count}][d_child_wb_rate]" value="0">
-															<input type="hidden" id="d_extra_bed_rate${count}" name="addloc[${count}][d_extra_bed_rate]" value="0">
-															<input type="hidden" id="d_total_rate${count}" name="addloc[${count}][d_total_rate]" value="0">`;
-					}
-					if (no_of_single_room > 0) {
-						newCard += `<div class="row mt-2 single_row">
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Single Room</b></div>
-													<input type="text" id="single${count}" name="addloc[${count}][single]" value="${no_of_single_room}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-									
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Daily Room Rate</b></div>
-													<input type="text" id="s_adult_rate${count}" name="addloc[${count}][s_adult_rate]" value="${room_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.With Bed Rate</b></div>
-													<input type="text" id="s_child_rate${count}" name="addloc[${count}][s_child_rate]" value="${child_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.Without Bed Rate</b></div>
-													<input type="text" id="s_child_wb_rate${count}" name="addloc[${count}][s_child_wb_rate]" value="${child_wb_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Extra Bed Rate</b></div>
-													<input type="text" id="s_extra_bed_rate${count}" name="addloc[${count}][s_extra_bed_rate]" value="${extra_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Total</b></div>
-													<input type="text" id="s_total_rate${count}" name="addloc[${count}][s_total_rate]" value="${s_totals}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												
-											</div>
-											<div class="card" id="sterling_single${count}"> </div>
-											`;
-					} else {
-						newCard += `<input type="hidden" id="single${count}" name="addloc[${count}][single]" value="0">
-															<input type="hidden" id="s_adult_rate${count}" name="addloc[${count}][s_adult_rate]" value="0">
-															<input type="hidden" id="s_child_rate${count}" name="addloc[${count}][s_child_rate]" value="0">
-															<input type="hidden" id="s_child_wb_rate${count}" name="addloc[${count}][s_child_wb_rate]" value="0">
-															<input type="hidden" id="s_extra_bed_rate${count}" name="addloc[${count}][s_extra_bed_rate]" value="0">
-															<input type="hidden" id="s_total_rate${count}" name="addloc[${count}][s_total_rate]" value="0">`;
-					}
-					if (is_vehicle_required == 1) {
-
-						$.each(vehicle_models, function(vindex, vmodel) {
-							$.each(vehicleDetails, function(v_index, v_item) {
-								if (vmodel.vehicle_type_id == v_item.veh_type_id) {
-									vid_t = count + vmodel.vehicle_type_id;
-									v_day_rent = v_item.day_rent;
-									v_max_km_day = v_item.max_km_day;
-									v_travel_distance = v_item.travel_distance;
-									v_extra_kilometer = v_item.extra_kilometer;
-									v_extra_km_rate = v_item.extra_km_rate;
-									v_veh_total = v_item.veh_total;
-									v_veh_header = v_item.veh_header;
-
-									v_pre_to_cur = v_item.pre_to_cur;
-									v_cur_to_dep = v_item.cur_to_dep;
-									v_dep_to_arr = v_item.dep_to_arr;
-
-									v_hub_to_arr = v_item.hub_to_arr;
-									v_arr_to_loc = v_item.arr_to_loc;
-								}
+					// Handle nested expansions
+					if (item.expansion && Array.isArray(item.expansion)) {
+						console.log(`Processing ${item.expansion.length} expansions for tour ${tourDetailsId}`);
+						$.each(item.expansion, function(eIndex, exp) {
+							console.log(`Expansion ${eIndex}:`, exp);
+							console.log(`Expansion room_category_id: ${exp.room_category_id}`);
+							groupedData[tourDetailsId].expansions.push({
+								tour_expansion_id: exp.tour_expansion_id,
+								tour_expansion_date: exp.tour_expansion_date,
+								expansion_room_category_id: exp.room_category_id || item.room_category_id || '',
+								meal_plan_id: exp.meal_plan_id || item.meal_plan_id || '',
+								room_rate_double: exp.room_rate_double || 0,
+								child_with_bed_double: exp.child_with_bed_double || 0,
+								child_without_bed_double: exp.child_without_bed_double || 0,
+								extra_bed_double: exp.extra_bed_double || 0,
+								double_total_rate: exp.double_total_rate || 0,
+								room_rate_single: exp.room_rate_single || 0,
+								child_with_bed_single: exp.child_with_bed_single || 0,
+								child_without_bed_single: exp.child_without_bed_single || 0,
+								extra_bed_single: exp.extra_bed_single || 0,
+								single_total_rate: exp.single_total_rate || 0,
+								vehicle_details_json: exp.vehicle_details_json || ''
 							});
-							if (vindex == 0) {
-								newCard += `
-												<center><div class="col-md-12 col-lg-12 col-xl-12"style="padding-top:10px;"><h5 style="color:#003300;">Vehicle Details<span id="v_from_to${count}">${v_veh_header}</span></h5></div></center>
-												<input type="hidden" id="veh_header${count}" name="addloc[${count}][veh_header]" value="${v_veh_header}">
-
-												<input type="hidden" id="pre_to_cur${count}" name="addloc[${count}][pre_to_cur]" value="${v_pre_to_cur}">
-												<input type="hidden" id="cur_to_dep${count}" name="addloc[${count}][cur_to_dep]" value="${v_cur_to_dep}">
-												<input type="hidden" id="dep_to_arr${count}" name="addloc[${count}][dep_to_arr]" value="${v_dep_to_arr}">
-
-												<input type="hidden" id="hub_to_arr${count}" name="addloc[${count}][hub_to_arr]" value="${v_hub_to_arr}">
-												<input type="hidden" id="arr_to_loc${count}" name="addloc[${count}][arr_to_loc]" value="${v_arr_to_loc}">
-
-												<div class="row mt-2 single_row">
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Vehicle Model</b></div>
-												    </div>		
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Vehicle Count</b></div>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Daily Rent</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Max KM/Day</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Distance</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Extra KM</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Extra KM Rate</b></div>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Total</b></div>
-													</div>
-												</div>
-														`;
-							}
-							vid = count + vmodel.vehicle_type_id;
-							newCard += `<div class="row mt-2 single_row">
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="veh_model${vid}" name="addloc[${count}][veh_model][${vindex}]" value="${vmodel.vehicle_model_name}" class="form-control input-sm veh_model${vindex}" readonly>
-														<input type="hidden" id="veh_type_id${vid}" name="addloc[${count}][veh_type_id][${vindex}]" value="${vmodel.vehicle_type_id}" class="form-control input-sm veh_type_id${vindex}">
-													</div>
-										
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="veh_count${vid}" name="addloc[${count}][veh_count][${vindex}]" value="${vmodel.vehicle_count}" class="form-control input-sm veh_count${vindex}" maxlength="2" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-													
-														<input type="text" id="day_rent${vid}" name="addloc[${count}][day_rent][${vindex}]" value="${v_day_rent}" class="form-control input-sm cls_daily day_rent${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-													
-														<input type="text" id="max_km_day${vid}" name="addloc[${count}][max_km_day][${vindex}]" value="${v_max_km_day}" class="form-control input-sm max_km_day${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-													
-														<input type="text" id="travel_distance${vid}" name="addloc[${count}][travel_distance][${vindex}]" value="${v_travel_distance}" class="form-control input-sm cls_dist travel_distance${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-													
-														<input type="text" id="extra_kilometer${vid}" name="addloc[${count}][extra_kilometer][${vindex}]" value="${v_extra_kilometer}" class="form-control input-sm extra_kilometer${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														
-														<input type="text" id="extra_km_rate${vid}" name="addloc[${count}][extra_km_rate][${vindex}]" value="${v_extra_km_rate}" class="form-control input-sm extra_km_rate${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="veh_total${vid}" name="addloc[${count}][veh_total][${vindex}]" value="${v_veh_total}" class="form-control input-sm veh_total${vindex}" maxlength="5" oninput="validateNumericInput(this);"readonly>
-													</div>
-													
-												</div>`;
+							console.log(`Added expansion with room_category_id: ${exp.room_category_id || item.room_category_id}`);
 						});
-					} else {
-						newCard += `<input type="hidden" id="veh_model${count}0" name="addloc[${count}][veh_model][0]" value="">
-															<input type="hidden" id="veh_count${count}0" name="addloc[${count}][veh_count][0]" value="0">
-															<input type="hidden" id="day_rent${count}0" name="addloc[${count}][day_rent][0]" value="0">
-															<input type="hidden" id="max_km_day${count}0" name="addloc[${count}][max_km_day][0]" value="0">
-															<input type="hidden" id="extra_km_rate${count}0" name="addloc[${count}][extra_km_rate][0]" value="0">
-															<input type="hidden" id="veh_total${count}0" name="addloc[${count}][veh_total][0]" value="0">`;
 					}
-					newCard += `
-											
+				});
+
+				console.log('=== GROUPED DATA ===');
+				console.log(groupedData);
+
+				// Convert to array
+				var tourDetailsArray = Object.keys(groupedData).map(function(key) {
+					return groupedData[key];
+				});
+
+				// Set loading flag ON
+				isDraftLoading = true;
+
+				var viewHtml = '';
+
+				// Loop through each location and create cards
+				$.each(tourDetailsArray, function(index, locationData) {
+					var count = index + 1;
+					var main = locationData.main;
+					var expansions = locationData.expansions; // Raw expansions for grouping in function
+					console.log(`\n=== CREATING VIEW CARD ${count} ===`);
+					console.log('Main data:', main);
+					console.log('Common room_category_id:', main.room_category_id);
+					console.log('Number of expansions:', expansions.length);
+
+					var ep_sel = main.meal_plan_id == 1 ? "selected" : "";
+					var cp_sel = main.meal_plan_id == 2 ? "selected" : "";
+					var map_sel = main.meal_plan_id == 3 ? "selected" : "";
+					var ap_sel = main.meal_plan_id == 4 ? "selected" : "";
+
+					// Build card HTML for view (readonly)
+					viewHtml += `
+					<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
+					<div class="card">
+						<div class="card-header cardy">
+							<div id="eighteen_div_d${count}"></div>
+							<div id="eighteen_div_s${count}"></div>
+							<input type="hidden" id="tax_status${count}" value="${main.tax_status}">
+							<input type="hidden" id="own_arrange${count}" value="${main.is_own_arrangement}">
+							<input type="hidden" id="tour_location_id${count}" value="${main.geog_id}">
+							<input type="hidden" id="location_sequence${count}" value="${count}">
+							<div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${main.geog_name}</span></div>
+							<div class="card-options">
+								<!-- No remove option in view mode -->
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="ibox teams mb-30 bg-boxshadow">
+								<div class="ibox-content teams">
+									<div class="row mt-2">
+										<div class="col-xl col-sm-12 col-md-2">
+											<div class="teams-rank"><b>Checkin</b></div>
+											<span class="text-muted">
+												<input type="date" value="${main.check_in_date}" id="checkin${count}" class="form-control input-sm" required readonly>
+											</span>
+										</div>
+										<div class="col-xl col-sm-12 col-md-2">
+											<div class="teams-rank"><b>Nights</b></div>
+											<span class="text-muted">
+												<input type="text" id="no_of_night${count}" value="${main.no_of_days}" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" readonly>
+											</span>
+										</div>
+										<div class="col-xl col-sm-12 col-md-2">
+											<div class="teams-rank"><b>Checkout</b></div>
+											<span class="text-muted">
+												<input type="date" id="checkout${count}" value="${main.check_out_date}" class="form-control input-sm" required readonly>
+											</span>
+										</div>
+										<div class="col-xl col-sm-12 col-md-2">
+											<div class="teams-rank"><b>Hotel Category</b></div>
+											<select id="hotelcat${count}" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" disabled>
+												<option value="">Select</option>
+											</select>
+										</div>
+										<div class="col-xl col-sm-12 col-md-2">
+											<div class="teams-rank"><b>Hotel</b></div>
+											<span class="text-muted">
+												<select id="hotelid${count}" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" disabled>
+													<option value="">Select</option>
+												</select>
+											</span>
+										</div>
+										<div class="col-xl col-sm-12 col-md-2">
+											<div class="teams-rank"><b>Room Category</b></div>
+											<select id="roomcat_common${count}" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}" disabled>
+												<option value="">Select</option>
+											</select>
 										</div>
 									</div>
+									<div class="row mt-2">
+										<div class="col-xl col-sm-12 col-md-2">
+											<div class="teams-rank"><b>Meal Plan</b></div>
+											<span class="text-muted">
+												<select id="mealplan${count}" class="form-control select2-show-search input-sm mp_change" data-id="${count}" disabled>
+													<option value="">Select</option>
+													<option value="1" ${ep_sel}>EP</option>
+													<option value="2" ${cp_sel}>CP</option>
+													<option value="3" ${map_sel}>MAP</option>
+													<option value="4" ${ap_sel}>AP</option>
+												</select>
+											</span>
+										</div>
+										<div class="col-xl col-sm-12 col-md-2">
+											<div class="teams-rank"><b>No Of Adult</b></div>
+											<input type="text" id="no_of_adult${count}" value="${no_of_adult}" class="form-control input-sm" maxlength="2" readonly>
+										</div>
+										<div class="col-xl col-sm-12 col-md-2">
+											<div class="teams-rank"><b>C.With Bed Qty</b></div>
+											<input type="text" id="no_of_ch${count}" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" readonly>
+										</div>
+										<div class="col-xl col-sm-12 col-md-2">
+											<div class="teams-rank"><b>C.Without Bed Qty</b></div>
+											<input type="text" id="no_of_cw${count}" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" readonly>
+										</div>
+										<div class="col-xl col-sm-12 col-md-2">
+											<div class="teams-rank"><b>Extra Bed Qty</b></div>
+											<input type="text" id="no_of_extra${count}" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" readonly>
+										</div>
+										<div class="col-xl col-sm-12 col-md-2">
+											<div class="teams-rank"><b>Total Pax</b></div>
+											<input type="text" id="no_of_pax${count}" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" readonly>
+										</div>
+									</div>
+									<div class="nightly-details" id="nightly-details${count}"></div>
 								</div>
 							</div>
 						</div>
-						
-					`;
+					</div>
+				</div>
+				`;
+				});
+
+				// Append all HTML at once
+				$('.tab_con').html(viewHtml);
+
+				// Now populate dropdowns and nightly details dynamically
+				$.each(tourDetailsArray, function(index, locationData) {
+					var count = index + 1;
+					var main = locationData.main;
+					var expansions = locationData.expansions;
+
+					// Populate hotel categories
+					var hotelCat = $('#hotelcat' + count);
+					hotelCat.empty();
+					hotelCat.append('<option value="">Select</option>');
+					if (hotel_categories.length > 0) {
+						$.each(hotel_categories, function(index, hotelcat) {
+							var selected = hotelcat.hotel_category_id == main.hot_cat_id ? ' selected' : '';
+							hotelCat.append('<option value="' + hotelcat.hotel_category_id + '"' + selected + '>' + hotelcat.hotel_category_name + '</option>');
+						});
+					}
+					console.log(`Hotel category ${main.hot_cat_id} selected for location ${count}`);
+
+					// Initialize Select2 (disabled)
+					$(`.location-card[data-index="${count}"] .select2-show-search`).select2();
+
+					// Trigger hotel category change to load hotels (simulate for view)
+					console.log(`Triggering hotel category change for location ${count} in view mode`);
+					hotelCat.trigger('change');
+
+					// Wait for hotels to load, then set selected hotel and room categories
 					setTimeout(function() {
-						var hotelCat = $('#hotelcat' + count);
-						console.log("Dropdown found?", hotelCat.length);
+						console.log(`\n=== SETTING HOTEL ${main.hotel_id} for location ${count} in view ===`);
+						$(`#hotelid${count}`).val(main.hotel_id).trigger('change');
 
-						if (hotelCat.length > 0) {
-							hotelCat.empty();
-							hotelCat.append('<option value="">Select</option>');
+						// Wait for room categories to load
+						setTimeout(function() {
+							console.log(`\n=== SETTING ROOM CATEGORY for location ${count} in view ===`);
+							console.log(`Room category ID to set: ${main.room_category_id}`);
 
-							$.each(hotel_categories, function(hIndex, hotelcat) {
-								var selected = (hotelcat.hotel_category_id == item.hot_cat_id) ? "selected" : "";
-								hotelCat.append('<option value="' + hotelcat.hotel_category_id + '" ' + selected + '>' + hotelcat.hotel_category_name + '</option>');
+							// Check if room categories are loaded
+							var roomCatOptions = $(`#roomcat_common${count} option`);
+							console.log(`Number of room category options loaded: ${roomCatOptions.length}`);
+							roomCatOptions.each(function() {
+								console.log(`Option: value="${$(this).val()}", text="${$(this).text()}"`);
 							});
 
-							hotelCat.trigger('change');
-						} else {
-							console.log("Dropdown not found. Ensure it exists before updating.");
-						}
-					}, 500);
-				});
-				//$(".tour_plan_div").append(newCard);
+							// Set the room category value
+							$(`#roomcat_common${count}`).val(main.room_category_id);
+							console.log(`Set roomcat_common${count} to: ${main.room_category_id}`);
+							console.log(`Current value of roomcat_common${count}: ${$(`#roomcat_common${count}`).val()}`);
 
-				$('.tab_con').html(newCard);
-				$('#modal_tour').modal('show');
+							// Trigger change event (for consistency, though disabled)
+							$(`#roomcat_common${count}`).trigger('change');
+
+							// Generate nightly details with expansion data for view
+							generateNightlyDetailsForView(count, main, expansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models);
+						}, 1000); // Increased timeout to ensure room categories are loaded
+					}, 1000); // Increased timeout to ensure hotels are loaded
+				});
+
+				// Update UI (no totals update needed for view, but for consistency)
+				setTimeout(function() {
+					// Set loading flag OFF
+					isDraftLoading = false;
+
+					$('#spinner_draft').hide();
+					showAlert('success', 'Tour details loaded successfully!');
+					$('#modal_tour').modal('show');
+				}, 3000);
 			},
 			error: function(xhr, status, error) {
-				console.error(error);
+				console.error('Error loading tour:', error);
+				showAlert('danger', 'Error loading tour data. Please try again.');
+				$('#spinner_draft').hide();
+				$this.prop('disabled', false);
 			}
 		});
 	});
+
+	// Helper function to generate nightly details from draft data for view (UPDATED - readonly)
+	// Helper function to generate nightly details from draft data for view (UPDATED - readonly, fixed select2)
+	function generateNightlyDetailsForView(count, main, allExpansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
+		console.log(`\n=== GENERATING NIGHTLY DETAILS (VIEW MODE) for location ${count} ===`);
+		console.log('Main room_category_id:', main.room_category_id);
+		console.log('Number of expansions:', allExpansions.length);
+
+		var nightlyDetails = $(`#nightly-details${count}`);
+		nightlyDetails.empty();
+		var no_of_days = parseInt(main.no_of_days) || 0;
+		var checkInDate = new Date(main.check_in_date);
+
+		// Get option templates from the common selects (must exist)
+		var commonRoomOptions = $(`#roomcat_common${count}`).html() || '<option value="">Select</option>';
+		var commonMealOptions = $(`#mealplan${count}`).html() || '<option value="">Select</option>';
+
+		// Group expansions by date
+		var expansionsByDate = {};
+		allExpansions.forEach(function(exp) {
+			var expDate = new Date(exp.tour_expansion_date).toDateString();
+			if (!expansionsByDate[expDate]) expansionsByDate[expDate] = [];
+			expansionsByDate[expDate].push(exp);
+		});
+		console.log('Expansions grouped by date:', expansionsByDate);
+
+		for (let night = 1; night <= no_of_days; night++) {
+			var nightDate = new Date(checkInDate);
+			nightDate.setDate(checkInDate.getDate() + (night - 1));
+			var nightDateStr = nightDate.toDateString();
+			var nightExpansions = expansionsByDate[nightDateStr] || [];
+
+			// Reuse same UI structure from draft version
+			var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, main.check_in_date);
+			nightlyDetails.append(nightlyHtml);
+
+			// Populate each room select's options and mealplan select's options BEFORE initializing Select2
+			$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
+				$(this).html(commonRoomOptions);
+			});
+			$(`#nightly-details${count} .night-section[data-night="${night}"] .mp_change`).each(function() {
+				$(this).html(commonMealOptions);
+			});
+
+			// Disable native selects so they are readonly
+			$(`#nightly-details${count} .night-section[data-night="${night}"] select`).prop('disabled', true);
+
+			// Initialize select2 for visual only. Use dropdownParent when inside modal to avoid z-index issues.
+			$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).each(function() {
+				// If Select2 already initialized, destroy and re-init to avoid duplicates
+				if ($(this).hasClass('select2-hidden-accessible')) {
+					$(this).select2('destroy');
+				}
+				$(this).select2({
+					dropdownParent: $('#modal_tour').length ? $('#modal_tour') : $(document.body),
+					minimumResultsForSearch: Infinity,
+					width: '100%' // ensure it fits container
+				});
+			});
+
+			// Populate expansion data into the fields and set the selects' values (then trigger change for Select2 to update UI)
+			if (nightExpansions.length > 0) {
+				var numDoubles = parseInt(no_of_double_room) || 0;
+				var numSingles = parseInt(no_of_single_room) || 0;
+				var doubleExpansions = nightExpansions.slice(0, numDoubles);
+				var singleExpansions = nightExpansions.slice(numDoubles, numDoubles + numSingles);
+				var vehicleExpansion = nightExpansions[0];
+
+				// Double rooms
+				for (let i = 1; i <= numDoubles; i++) {
+					var rid = `${count}${night}${i}`;
+					var exp = doubleExpansions[i - 1];
+					if (exp) {
+						var roomCatId = exp.expansion_room_category_id || main.room_category_id || '';
+						var mealPlanId = exp.meal_plan_id || main.meal_plan_id || '';
+						$(`#roomcat${rid}`).val(roomCatId).trigger('change.select2');
+						$(`#mealplan${rid}`).val(mealPlanId).trigger('change.select2');
+
+						$(`#d_adult_rate${rid}`).val(exp.room_rate_double || 0);
+						$(`#d_child_rate${rid}`).val(exp.child_with_bed_double || 0);
+						$(`#d_child_wb_rate${rid}`).val(exp.child_without_bed_double || 0);
+						$(`#d_extra_bed_rate${rid}`).val(exp.extra_bed_double || 0);
+						$(`#d_total_rate${rid}`).val(exp.double_total_rate || 0);
+					}
+				}
+
+				// Single rooms
+				for (let i = 1; i <= numSingles; i++) {
+					var seq = numDoubles + i;
+					var sid = `${count}${night}${seq}`;
+					var exp = singleExpansions[i - 1];
+					if (exp) {
+						var roomCatId = exp.expansion_room_category_id || main.room_category_id || '';
+						var mealPlanId = exp.meal_plan_id || main.meal_plan_id || '';
+						$(`#roomcat${sid}`).val(roomCatId).trigger('change.select2');
+						$(`#mealplan${sid}`).val(mealPlanId).trigger('change.select2');
+
+						$(`#s_adult_rate${sid}`).val(exp.room_rate_single || 0);
+						$(`#s_child_rate${sid}`).val(exp.child_with_bed_single || 0);
+						$(`#s_child_wb_rate${sid}`).val(exp.child_without_bed_single || 0);
+						$(`#s_extra_bed_rate${sid}`).val(exp.extra_bed_single || 0);
+						$(`#s_total_rate${sid}`).val(exp.single_total_rate || 0);
+					}
+				}
+
+				// Vehicle data (readonly)
+				if (vehicleExpansion && vehicleExpansion.vehicle_details_json) {
+					try {
+						var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
+						$.each(vehicleDetails, function(vindex, vdata) {
+							var vid = `${count}${night}${vdata.veh_type_id}`;
+							$(`#day_rent${vid}`).val(vdata.day_rent || 0);
+							$(`#travel_distance${vid}`).val(vdata.travel_distance || 0);
+							$(`#max_km_day${vid}`).val(vdata.max_km_day || 0);
+							$(`#extra_km_rate${vid}`).val(vdata.extra_km_rate || 0);
+							$(`#veh_total${vid}`).val(vdata.veh_total || 0);
+							var travel = parseFloat(vdata.travel_distance || 0);
+							var maxkm = parseFloat(vdata.max_km_day || 0);
+							$(`#extra_kilometer${vid}`).val(Math.max(0, travel - maxkm));
+						});
+					} catch (e) {
+						console.error('Error parsing vehicle details:', e);
+					}
+				}
+			}
+		}
+
+		// Keep select2 visually active (not grayed out)
+		$(`#nightly-details${count} .select2-selection`).css({
+			'background-color': '#fff',
+			'color': '#000',
+			'cursor': 'default'
+		});
+
+		// Disable all native form inputs as final safety net
+		$(`#nightly-details${count} input, #nightly-details${count} select, #nightly-details${count} textarea`).prop('disabled', true);
+
+		console.log(`=== COMPLETED NIGHTLY DETAILS (VIEW MODE) for location ${count} ===\n`);
+	}
 </script>
 
 <script type="text/javascript">
@@ -6651,157 +7412,483 @@ $(document).on('change', '.room_cat_change', function() {
 	});
 
 	// Helper function to generate nightly details from draft data (UPDATED)
-	function generateNightlyDetailsFromDraft(count, main, allExpansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
-		console.log(`\n=== GENERATING NIGHTLY DETAILS for location ${count} ===`);
-		console.log('Main room_category_id:', main.room_category_id);
-		console.log('Number of expansions:', allExpansions.length);
+	// function generateNightlyDetailsFromDraft(count, main, allExpansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
+	// 	console.log(`\n=== GENERATING NIGHTLY DETAILS for location ${count} ===`);
+	// 	console.log('Main room_category_id:', main.room_category_id);
+	// 	console.log('Number of expansions:', allExpansions.length);
 
-		var nightlyDetails = $(`#nightly-details${count}`);
-		nightlyDetails.empty();
-		var no_of_days = parseInt(main.no_of_days) || 0;
-		var checkInDate = new Date(main.check_in_date); // For calculating night dates
+	// 	var nightlyDetails = $(`#nightly-details${count}`);
+	// 	nightlyDetails.empty();
+	// 	var no_of_days = parseInt(main.no_of_days) || 0;
+	// 	var checkInDate = new Date(main.check_in_date); // For calculating night dates
 
-		// Group expansions by date (robust handling for per-room/night data)
-		var expansionsByDate = {};
-		allExpansions.forEach(function(exp) {
-			var expDate = new Date(exp.tour_expansion_date).toDateString(); // Normalize to date string
-			if (!expansionsByDate[expDate]) {
-				expansionsByDate[expDate] = [];
-			}
-			expansionsByDate[expDate].push(exp);
-		});
-		console.log('Expansions grouped by date:', expansionsByDate);
+	// 	// Group expansions by date (robust handling for per-room/night data)
+	// 	var expansionsByDate = {};
+	// 	allExpansions.forEach(function(exp) {
+	// 		var expDate = new Date(exp.tour_expansion_date).toDateString(); // Normalize to date string
+	// 		if (!expansionsByDate[expDate]) {
+	// 			expansionsByDate[expDate] = [];
+	// 		}
+	// 		expansionsByDate[expDate].push(exp);
+	// 	});
+	// 	console.log('Expansions grouped by date:', expansionsByDate);
 
-		// Validate expansion count (assuming 1 per room per night)
-		var expectedExpansions = no_of_days * (parseInt(no_of_double_room) + parseInt(no_of_single_room));
-		if (allExpansions.length !== expectedExpansions) {
-			console.warn(`Expansion count mismatch for location ${count}: Got ${allExpansions.length}, expected ${expectedExpansions}. Using available data.`);
-		}
+	// 	// Validate expansion count (assuming 1 per room per night)
+	// 	var expectedExpansions = no_of_days * (parseInt(no_of_double_room) + parseInt(no_of_single_room));
+	// 	if (allExpansions.length !== expectedExpansions) {
+	// 		console.warn(`Expansion count mismatch for location ${count}: Got ${allExpansions.length}, expected ${expectedExpansions}. Using available data.`);
+	// 	}
 
-		// Generate night sections
-		for (let night = 1; night <= no_of_days; night++) {
-			// Calculate night date for grouping
-			var nightDate = new Date(checkInDate);
-			nightDate.setDate(checkInDate.getDate() + (night - 1));
-			var nightDateStr = nightDate.toDateString();
-			var nightExpansions = expansionsByDate[nightDateStr] || []; // All expansions for this night
-			console.log(`\n--- Night ${night} (Date: ${nightDateStr}) ---`);
-			console.log('Night expansions count:', nightExpansions.length);
+	// 	// Generate night sections
+	// 	for (let night = 1; night <= no_of_days; night++) {
+	// 		// Calculate night date for grouping
+	// 		var nightDate = new Date(checkInDate);
+	// 		nightDate.setDate(checkInDate.getDate() + (night - 1));
+	// 		var nightDateStr = nightDate.toDateString();
+	// 		var nightExpansions = expansionsByDate[nightDateStr] || []; // All expansions for this night
+	// 		console.log(`\n--- Night ${night} (Date: ${nightDateStr}) ---`);
+	// 		console.log('Night expansions count:', nightExpansions.length);
 
-			var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, main.check_in_date);
-			nightlyDetails.append(nightlyHtml);
+	// 		var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, main.check_in_date);
+	// 		nightlyDetails.append(nightlyHtml);
 
-			// Populate room categories from common dropdown
-			var commonOptions = $(`#roomcat_common${count}`).html();
-			console.log(`Common room category options for night ${night}:`, commonOptions);
-			$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
-				$(this).html(commonOptions);
-				console.log(`Populated room category dropdown: ${$(this).attr('id')}`);
-			});
+	// 		// Populate room categories from common dropdown
+	// 		var commonOptions = $(`#roomcat_common${count}`).html();
+	// 		console.log(`Common room category options for night ${night}:`, commonOptions);
+	// 		$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
+	// 			$(this).html(commonOptions);
+	// 			console.log(`Populated room category dropdown: ${$(this).attr('id')}`);
+	// 		});
 
-			// Initialize Select2
-			$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
+	// 		// Initialize Select2
+	// 		$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
 
-			// If expansion data exists, populate it per room (no change trigger due to isDraftLoading flag)
-			if (nightExpansions.length > 0) {
-				console.log(`Populating expansion data for night ${night}`);
-				var numDoubles = parseInt(no_of_double_room);
-				var numSingles = parseInt(no_of_single_room);
-				var doubleExpansions = nightExpansions.slice(0, numDoubles);
-				var singleExpansions = nightExpansions.slice(numDoubles, numDoubles + numSingles);
-				var vehicleExpansion = nightExpansions[0]; // Use first for vehicle (assumed uniform per night)
+	// 		// If expansion data exists, populate it per room (no change trigger due to isDraftLoading flag)
+	// 		if (nightExpansions.length > 0) {
+	// 			console.log(`Populating expansion data for night ${night}`);
+	// 			var numDoubles = parseInt(no_of_double_room);
+	// 			var numSingles = parseInt(no_of_single_room);
+	// 			var doubleExpansions = nightExpansions.slice(0, numDoubles);
+	// 			var singleExpansions = nightExpansions.slice(numDoubles, numDoubles + numSingles);
+	// 			var vehicleExpansion = nightExpansions[0]; // Use first for vehicle (assumed uniform per night)
 
-				// Set room category, meal plan, rates for double rooms
-				for (let i = 1; i <= numDoubles; i++) {
-					var rid = `${count}${night}${i}`;
-					var exp = doubleExpansions[i - 1] || null;
-					console.log(`Setting double room ${i} (ID: ${rid})`);
-					if (exp) {
-						console.log(`Using expansion for double room ${i}:`, exp);
-						var roomCatId = exp.expansion_room_category_id;
-						if (!roomCatId || roomCatId === '0' || roomCatId === 0) {
-							roomCatId = main.room_category_id;
-							console.log(`Fallback to main room category for double room ${i}: ${roomCatId}`);
-						}
-						console.log(`Room category to set: ${roomCatId}`);
-						$(`#roomcat${rid}`).val(roomCatId).trigger('change');
-						console.log(`roomcat${rid} set to: ${$(`#roomcat${rid}`).val()}`);
-						var mealPlanId = exp.meal_plan_id;
-						if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
-							mealPlanId = main.meal_plan_id;
-							console.log(`Fallback to main meal plan for double room ${i}: ${mealPlanId}`);
-						}
-						$(`#mealplan${rid}`).val(mealPlanId).trigger('change');
-						$(`#d_adult_rate${rid}`).val(exp.room_rate_double);
-						$(`#d_child_rate${rid}`).val(exp.child_with_bed_double);
-						$(`#d_child_wb_rate${rid}`).val(exp.child_without_bed_double);
-						$(`#d_extra_bed_rate${rid}`).val(exp.extra_bed_double);
-					}
-					updateRoomTotals(count, night, i);
-				}
+	// 			// Set room category, meal plan, rates for double rooms
+	// 			for (let i = 1; i <= numDoubles; i++) {
+	// 				var rid = `${count}${night}${i}`;
+	// 				var exp = doubleExpansions[i - 1] || null;
+	// 				console.log(`Setting double room ${i} (ID: ${rid})`);
+	// 				if (exp) {
+	// 					console.log(`Using expansion for double room ${i}:`, exp);
+	// 					var roomCatId = exp.expansion_room_category_id;
+	// 					if (!roomCatId || roomCatId === '0' || roomCatId === 0) {
+	// 						roomCatId = main.room_category_id;
+	// 						console.log(`Fallback to main room category for double room ${i}: ${roomCatId}`);
+	// 					}
+	// 					console.log(`Room category to set: ${roomCatId}`);
+	// 					$(`#roomcat${rid}`).val(roomCatId).trigger('change');
+	// 					console.log(`roomcat${rid} set to: ${$(`#roomcat${rid}`).val()}`);
+	// 					var mealPlanId = exp.meal_plan_id;
+	// 					if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
+	// 						mealPlanId = main.meal_plan_id;
+	// 						console.log(`Fallback to main meal plan for double room ${i}: ${mealPlanId}`);
+	// 					}
+	// 					$(`#mealplan${rid}`).val(mealPlanId).trigger('change');
+	// 					$(`#d_adult_rate${rid}`).val(exp.room_rate_double);
+	// 					$(`#d_child_rate${rid}`).val(exp.child_with_bed_double);
+	// 					$(`#d_child_wb_rate${rid}`).val(exp.child_without_bed_double);
+	// 					$(`#d_extra_bed_rate${rid}`).val(exp.extra_bed_double);
+	// 				}
+	// 				updateRoomTotals(count, night, i);
+	// 			}
 
-				// Set room category, meal plan, rates for single rooms
-				for (let i = 1; i <= numSingles; i++) {
-					var seq = numDoubles + i;
-					var sid = `${count}${night}${seq}`;
-					var exp = singleExpansions[i - 1] || null;
-					console.log(`Setting single room ${i} (ID: ${sid})`);
-					if (exp) {
-						console.log(`Using expansion for single room ${i}:`, exp);
-						var roomCatId = exp.expansion_room_category_id;
-						if (!roomCatId || roomCatId === '0' || roomCatId === 0) {
-							roomCatId = main.room_category_id;
-							console.log(`Fallback to main room category for single room ${i}: ${roomCatId}`);
-						}
-						console.log(`Room category to set: ${roomCatId}`);
-						$(`#roomcat${sid}`).val(roomCatId).trigger('change');
-						console.log(`roomcat${sid} set to: ${$(`#roomcat${sid}`).val()}`);
-						var mealPlanId = exp.meal_plan_id;
-						if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
-							mealPlanId = main.meal_plan_id;
-							console.log(`Fallback to main meal plan for single room ${i}: ${mealPlanId}`);
-						}
-						$(`#mealplan${sid}`).val(mealPlanId).trigger('change');
-						$(`#s_adult_rate${sid}`).val(exp.room_rate_single);
-						$(`#s_child_rate${sid}`).val(exp.child_with_bed_single);
-						$(`#s_child_wb_rate${sid}`).val(exp.child_without_bed_single);
-						$(`#s_extra_bed_rate${sid}`).val(exp.extra_bed_single);
-					}
-					updateRoomTotals(count, night, seq);
-				}
+	// 			// Set room category, meal plan, rates for single rooms
+	// 			for (let i = 1; i <= numSingles; i++) {
+	// 				var seq = numDoubles + i;
+	// 				var sid = `${count}${night}${seq}`;
+	// 				var exp = singleExpansions[i - 1] || null;
+	// 				console.log(`Setting single room ${i} (ID: ${sid})`);
+	// 				if (exp) {
+	// 					console.log(`Using expansion for single room ${i}:`, exp);
+	// 					var roomCatId = exp.expansion_room_category_id;
+	// 					if (!roomCatId || roomCatId === '0' || roomCatId === 0) {
+	// 						roomCatId = main.room_category_id;
+	// 						console.log(`Fallback to main room category for single room ${i}: ${roomCatId}`);
+	// 					}
+	// 					console.log(`Room category to set: ${roomCatId}`);
+	// 					$(`#roomcat${sid}`).val(roomCatId).trigger('change');
+	// 					console.log(`roomcat${sid} set to: ${$(`#roomcat${sid}`).val()}`);
+	// 					var mealPlanId = exp.meal_plan_id;
+	// 					if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
+	// 						mealPlanId = main.meal_plan_id;
+	// 						console.log(`Fallback to main meal plan for single room ${i}: ${mealPlanId}`);
+	// 					}
+	// 					$(`#mealplan${sid}`).val(mealPlanId).trigger('change');
+	// 					$(`#s_adult_rate${sid}`).val(exp.room_rate_single);
+	// 					$(`#s_child_rate${sid}`).val(exp.child_with_bed_single);
+	// 					$(`#s_child_wb_rate${sid}`).val(exp.child_without_bed_single);
+	// 					$(`#s_extra_bed_rate${sid}`).val(exp.extra_bed_single);
+	// 				}
+	// 				updateRoomTotals(count, night, seq);
+	// 			}
 
-				// Populate vehicle data if exists (once per night)
-				if (vehicleExpansion && vehicleExpansion.vehicle_details_json) {
-					try {
-						var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
-						console.log(`Vehicle details for night ${night}:`, vehicleDetails);
-						$.each(vehicleDetails, function(vindex, vdata) {
-							var vid = `${count}${night}${vdata.veh_type_id}`;
-							$(`#day_rent${vid}`).val(vdata.day_rent || 0);
-							$(`#travel_distance${vid}`).val(vdata.travel_distance || 0);
-							$(`#max_km_day${vid}`).val(vdata.max_km_day || 0);
-							$(`#extra_km_rate${vid}`).val(vdata.extra_km_rate || 0);
-							updateVehicleTotals(count, night, vindex);
-						});
-					} catch (e) {
-						console.error('Error parsing vehicle details:', e);
-					}
-				}
-			}
-		}
+	// 			// Populate vehicle data if exists (once per night)
+	// 			if (vehicleExpansion && vehicleExpansion.vehicle_details_json) {
+	// 				try {
+	// 					var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
+	// 					console.log(`Vehicle details for night ${night}:`, vehicleDetails);
+	// 					$.each(vehicleDetails, function(vindex, vdata) {
+	// 						var vid = `${count}${night}${vdata.veh_type_id}`;
+	// 						$(`#day_rent${vid}`).val(vdata.day_rent || 0);
+	// 						$(`#travel_distance${vid}`).val(vdata.travel_distance || 0);
+	// 						$(`#max_km_day${vid}`).val(vdata.max_km_day || 0);
+	// 						$(`#extra_km_rate${vid}`).val(vdata.extra_km_rate || 0);
+	// 						updateVehicleTotals(count, night, vindex);
+	// 					});
+	// 				} catch (e) {
+	// 					console.error('Error parsing vehicle details:', e);
+	// 				}
+	// 			}
+	// 		}
+	// 	}
 
-		// Add vehicle summary if required
-		if (is_vehicle_required == 1) {
-			var summaryHtml = generateVehicleSummary(count, no_of_days, vehicle_models);
-			nightlyDetails.append(summaryHtml);
-			updateVehicleSummary(count);
-		}
+	// 	// Add vehicle summary if required
+	// 	if (is_vehicle_required == 1) {
+	// 		var summaryHtml = generateVehicleSummary(count, no_of_days, vehicle_models);
+	// 		nightlyDetails.append(summaryHtml);
+	// 		updateVehicleSummary(count);
+	// 	}
 
-		// Update totals
-		updateGrandtotalBoth();
-		get_veh_grand_total();
-		console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
-	}
+	// 	// Update totals
+	// 	updateGrandtotalBoth();
+	// 	get_veh_grand_total();
+	// 	console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
+	// }
+
+	// Helper function to generate nightly details from draft data (WITH VEHICLE HEADERS)
+	// 
+	// Helper function to generate nightly details from draft data (COMPLETE WITH ALL FIXES)
+function generateNightlyDetailsFromDraft(count, main, allExpansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
+    console.log(`\n=== GENERATING NIGHTLY DETAILS for location ${count} ===`);
+    console.log('Main room_category_id:', main.room_category_id);
+    console.log('Number of expansions:', allExpansions.length);
+
+    var nightlyDetails = $(`#nightly-details${count}`);
+    nightlyDetails.empty();
+    var no_of_days = parseInt(main.no_of_days) || 0;
+    var checkInDate = new Date(main.check_in_date);
+
+    // Group expansions by date
+    var expansionsByDate = {};
+    allExpansions.forEach(function(exp) {
+        var expDate = new Date(exp.tour_expansion_date).toDateString();
+        if (!expansionsByDate[expDate]) {
+            expansionsByDate[expDate] = [];
+        }
+        expansionsByDate[expDate].push(exp);
+    });
+    console.log('Expansions grouped by date:', expansionsByDate);
+
+    // Validate expansion count
+    var expectedExpansions = no_of_days * (parseInt(no_of_double_room) + parseInt(no_of_single_room));
+    if (allExpansions.length !== expectedExpansions) {
+        console.warn(`Expansion count mismatch for location ${count}: Got ${allExpansions.length}, expected ${expectedExpansions}. Using available data.`);
+    }
+
+    // Generate night sections
+    for (let night = 1; night <= no_of_days; night++) {
+        var nightDate = new Date(checkInDate);
+        nightDate.setDate(checkInDate.getDate() + (night - 1));
+        var nightDateStr = nightDate.toDateString();
+        var nightExpansions = expansionsByDate[nightDateStr] || [];
+        console.log(`\n--- Night ${night} (Date: ${nightDateStr}) ---`);
+        console.log('Night expansions count:', nightExpansions.length);
+
+        var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, main.check_in_date);
+        nightlyDetails.append(nightlyHtml);
+
+        // Populate room categories from common dropdown
+        var commonOptions = $(`#roomcat_common${count}`).html();
+        console.log(`Common room category options for night ${night}:`, commonOptions);
+        $(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
+            $(this).html(commonOptions);
+            console.log(`Populated room category dropdown: ${$(this).attr('id')}`);
+        });
+
+        // Initialize Select2
+        $(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
+
+        // Populate expansion data per room
+        if (nightExpansions.length > 0) {
+            console.log(`Populating expansion data for night ${night}`);
+            var numDoubles = parseInt(no_of_double_room);
+            var numSingles = parseInt(no_of_single_room);
+            var doubleExpansions = nightExpansions.slice(0, numDoubles);
+            var singleExpansions = nightExpansions.slice(numDoubles, numDoubles + numSingles);
+            var vehicleExpansion = nightExpansions[0];
+
+            // Set room data for double rooms
+            for (let i = 1; i <= numDoubles; i++) {
+                var rid = `${count}${night}${i}`;
+                var exp = doubleExpansions[i - 1] || null;
+                console.log(`Setting double room ${i} (ID: ${rid})`);
+                if (exp) {
+                    console.log(`Using expansion for double room ${i}:`, exp);
+                    var roomCatId = exp.expansion_room_category_id;
+                    if (!roomCatId || roomCatId === '0' || roomCatId === 0) {
+                        roomCatId = main.room_category_id;
+                        console.log(`Fallback to main room category for double room ${i}: ${roomCatId}`);
+                    }
+                    console.log(`Room category to set: ${roomCatId}`);
+                    $(`#roomcat${rid}`).val(roomCatId).trigger('change');
+                    console.log(`roomcat${rid} set to: ${$(`#roomcat${rid}`).val()}`);
+                    
+                    var mealPlanId = exp.meal_plan_id;
+                    if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
+                        mealPlanId = main.meal_plan_id;
+                        console.log(`Fallback to main meal plan for double room ${i}: ${mealPlanId}`);
+                    }
+                    $(`#mealplan${rid}`).val(mealPlanId).trigger('change');
+                    $(`#d_adult_rate${rid}`).val(exp.room_rate_double);
+                    $(`#d_child_rate${rid}`).val(exp.child_with_bed_double);
+                    $(`#d_child_wb_rate${rid}`).val(exp.child_without_bed_double);
+                    $(`#d_extra_bed_rate${rid}`).val(exp.extra_bed_double);
+                }
+                updateRoomTotals(count, night, i);
+            }
+
+            // Set room data for single rooms
+            for (let i = 1; i <= numSingles; i++) {
+                var seq = numDoubles + i;
+                var sid = `${count}${night}${seq}`;
+                var exp = singleExpansions[i - 1] || null;
+                console.log(`Setting single room ${i} (ID: ${sid})`);
+                if (exp) {
+                    console.log(`Using expansion for single room ${i}:`, exp);
+                    var roomCatId = exp.expansion_room_category_id;
+                    if (!roomCatId || roomCatId === '0' || roomCatId === 0) {
+                        roomCatId = main.room_category_id;
+                        console.log(`Fallback to main room category for single room ${i}: ${roomCatId}`);
+                    }
+                    console.log(`Room category to set: ${roomCatId}`);
+                    $(`#roomcat${sid}`).val(roomCatId).trigger('change');
+                    console.log(`roomcat${sid} set to: ${$(`#roomcat${sid}`).val()}`);
+                    
+                    var mealPlanId = exp.meal_plan_id;
+                    if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
+                        mealPlanId = main.meal_plan_id;
+                        console.log(`Fallback to main meal plan for single room ${i}: ${mealPlanId}`);
+                    }
+                    $(`#mealplan${sid}`).val(mealPlanId).trigger('change');
+                    $(`#s_adult_rate${sid}`).val(exp.room_rate_single);
+                    $(`#s_child_rate${sid}`).val(exp.child_with_bed_single);
+                    $(`#s_child_wb_rate${sid}`).val(exp.child_without_bed_single);
+                    $(`#s_extra_bed_rate${sid}`).val(exp.extra_bed_single);
+                }
+                updateRoomTotals(count, night, seq);
+            }
+
+            // Populate vehicle data for this night (INCLUDING VEHICLE HEADER)
+            if (vehicleExpansion && vehicleExpansion.vehicle_details_json) {
+                try {
+                    var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
+                    console.log(`Vehicle details for night ${night}:`, vehicleDetails);
+                    
+                    // **Set vehicle header for this night**
+                    if (vehicleDetails.length > 0 && vehicleDetails[0].veh_header) {
+                        var vehHeader = vehicleDetails[0].veh_header;
+                        console.log(`Setting vehicle header for night ${night}: ${vehHeader}`);
+                        $(`#v_from_to${count}${night}`).text(vehHeader);
+                    }
+                    
+                    $.each(vehicleDetails, function(vindex, vdata) {
+                        var vid = `${count}${night}${vdata.veh_type_id}`;
+                        $(`#day_rent${vid}`).val(vdata.day_rent || 0);
+                        $(`#travel_distance${vid}`).val(vdata.travel_distance || 0);
+                        $(`#max_km_day${vid}`).val(vdata.max_km_day || 0);
+                        $(`#extra_km_rate${vid}`).val(vdata.extra_km_rate || 0);
+                        $(`#extra_kilometer${vid}`).val(vdata.extra_kilometer || 0);
+                        $(`#veh_total${vid}`).val(vdata.veh_total || 0);
+                        updateVehicleTotals(count, night, vindex);
+                    });
+                } catch (e) {
+                    console.error('Error parsing vehicle details:', e);
+                }
+            }
+        }
+    }
+
+    // **Add and populate vehicle summary with combined headers**
+    if (is_vehicle_required == 1) {
+        console.log(`\n=== GENERATING VEHICLE SUMMARY for location ${count} ===`);
+        
+        // Generate vehicle summary HTML
+        var summaryHtml = generateVehicleSummary(count, no_of_days, vehicle_models);
+        nightlyDetails.append(summaryHtml);
+
+        // **Populate vehicle summary from draft data**
+        var isDynamic = getIsDynamic();
+        console.log('Is Dynamic Mode:', isDynamic);
+
+        if (!isDynamic) {
+            // **STATIC MODE: Use aggregated vehicle_details from main (parent level)**
+            console.log('Static Mode - Using main.vehicle_details');
+            
+            if (main.vehicle_details) {
+                try {
+                    var mainVehicleDetails = typeof main.vehicle_details === 'string' 
+                        ? JSON.parse(main.vehicle_details) 
+                        : main.vehicle_details;
+                    
+                    console.log('Main vehicle details:', mainVehicleDetails);
+                    
+                    $.each(mainVehicleDetails, function(vindex, vdata) {
+                        console.log(`Populating summary for vehicle ${vindex}:`, vdata);
+                        
+                        // Match by vehicle_type_id
+                        var matchedVehicleIndex = -1;
+                        $.each(vehicle_models, function(modelIndex, model) {
+                            if (model.vehicle_type_id == vdata.veh_type_id) {
+                                matchedVehicleIndex = modelIndex;
+                                return false; // break
+                            }
+                        });
+                        
+                        if (matchedVehicleIndex !== -1) {
+                            // Calculate total days (should equal no_of_days in static mode)
+                            var totalDays = no_of_days;
+                            
+                            // Daily rent (total rent / days)
+                            var totalRent = parseFloat(vdata.veh_total) || 0;
+                            var dailyRent = totalDays > 0 ? (totalRent / totalDays) : 0;
+                            
+                            // Total distance
+                            var totalDistance = parseFloat(vdata.travel_distance) || 0;
+                            
+                            // Extra KM
+                            var maxKmDay = parseFloat(vdata.max_km_day) || 0;
+                            var extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
+                            var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
+                            
+                            console.log(`Setting summary values - Daily Rent: ${dailyRent}, Distance: ${totalDistance}, Extra KM: ${totalExtraKm}`);
+                            
+                            // Populate summary fields
+                            $(`#summary_days_${count}_${matchedVehicleIndex}`).val(totalDays);
+                            $(`#summary_rent_${count}_${matchedVehicleIndex}`).val(dailyRent.toFixed(0));
+                            $(`#summary_distance_${count}_${matchedVehicleIndex}`).val(totalDistance);
+                            $(`#summary_extra_km_rate_${count}_${matchedVehicleIndex}`).val(extraKmRate);
+                            $(`#summary_extra_km_${count}_${matchedVehicleIndex}`).val(totalExtraKm);
+                            $(`#summary_total_${count}_${matchedVehicleIndex}`).val(totalRent);
+                        }
+                    });
+                } catch (e) {
+                    console.error('Error parsing main vehicle details:', e);
+                }
+            }
+        } else {
+            // **DYNAMIC MODE: Aggregate from expansion vehicle_details_json**
+            console.log('Dynamic Mode - Aggregating from expansions');
+            
+            // Initialize aggregation object for each vehicle type
+            var vehicleAggregates = {};
+            $.each(vehicle_models, function(vindex, vmodel) {
+                vehicleAggregates[vmodel.vehicle_type_id] = {
+                    modelIndex: vindex,
+                    totalDays: 0,
+                    totalRent: 0,
+                    totalDistance: 0,
+                    totalExtraKm: 0,
+                    extraKmRate: 0 // Take from first occurrence
+                };
+            });
+            
+            // Aggregate from all expansions
+            $.each(allExpansions, function(expIndex, exp) {
+                if (exp.vehicle_details_json) {
+                    try {
+                        var expVehicleDetails = JSON.parse(exp.vehicle_details_json);
+                        $.each(expVehicleDetails, function(vindex, vdata) {
+                            var vehTypeId = vdata.veh_type_id;
+                            if (vehicleAggregates[vehTypeId]) {
+                                vehicleAggregates[vehTypeId].totalDays++;
+                                vehicleAggregates[vehTypeId].totalRent += parseFloat(vdata.veh_total) || 0;
+                                vehicleAggregates[vehTypeId].totalDistance += parseFloat(vdata.travel_distance) || 0;
+                                vehicleAggregates[vehTypeId].totalExtraKm += parseFloat(vdata.extra_kilometer) || 0;
+                                
+                                // Take extra km rate from first occurrence
+                                if (vehicleAggregates[vehTypeId].extraKmRate === 0) {
+                                    vehicleAggregates[vehTypeId].extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
+                                }
+                            }
+                        });
+                    } catch (e) {
+                        console.error('Error parsing expansion vehicle details:', e);
+                    }
+                }
+            });
+            
+            console.log('Aggregated vehicle data:', vehicleAggregates);
+            
+            // Populate summary from aggregates
+            $.each(vehicleAggregates, function(vehTypeId, agg) {
+                if (agg.totalDays > 0) {
+                    var dailyRent = agg.totalRent / agg.totalDays;
+                    
+                    console.log(`Setting summary for vehicle type ${vehTypeId}:`, agg);
+                    
+                    $(`#summary_days_${count}_${agg.modelIndex}`).val(agg.totalDays);
+                    $(`#summary_rent_${count}_${agg.modelIndex}`).val(dailyRent.toFixed(0));
+                    $(`#summary_distance_${count}_${agg.modelIndex}`).val(agg.totalDistance);
+                    $(`#summary_extra_km_rate_${count}_${agg.modelIndex}`).val(agg.extraKmRate);
+                    $(`#summary_extra_km_${count}_${agg.modelIndex}`).val(agg.totalExtraKm);
+                    $(`#summary_total_${count}_${agg.modelIndex}`).val(agg.totalRent);
+                }
+            });
+        }
+        
+        // **Build and set combined vehicle header for summary - CENTERED**
+        var combinedHeaders = [];
+        for (let night = 1; night <= no_of_days; night++) {
+            var nightHeader = $(`#v_from_to${count}${night}`).text().trim();
+            if (nightHeader && nightHeader !== '') {
+                // Remove leading dash/hyphen if present
+                nightHeader = nightHeader.replace(/^\s*-\s*/, '');
+                combinedHeaders.push('(' + nightHeader + ')');
+            }
+        }
+        
+        var summaryHeaderText = '';
+        if (combinedHeaders.length > 0) {
+            summaryHeaderText = ' ' + combinedHeaders.join(' + ');
+        }
+        
+        console.log('Combined vehicle header for summary:', summaryHeaderText);
+        
+        // Update the summary header with combined route info - CENTERED
+        var $summaryHeader = $(`#vehicle-summary-header-${count}`);
+        $summaryHeader.html(`
+            <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; position: absolute; left: 10px;" title="Refresh Vehicle Data">
+                <i class="fa fa-refresh"></i>
+            </a>
+            <span style="display: block; width: 100%; padding: 0 40px;">Vehicle Summary${summaryHeaderText}</span>
+        `);
+        
+        // Ensure parent is positioned and centered
+        $summaryHeader.css({
+            'position': 'relative',
+            'text-align': 'center',
+            'display': 'block'
+        });
+        
+        // Update the overall total after populating
+        updateVehicleSummary(count);
+        console.log(`=== VEHICLE SUMMARY POPULATED for location ${count} ===`);
+    }
+
+    // Update totals
+    updateGrandtotalBoth();
+    get_veh_grand_total();
+    console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
+}
 </script>
 
 
