@@ -1,0 +1,72 @@
+ERROR - 2025-10-30 10:41:25 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-10-30 10:41:25 --> 220 smtp.gmail.com ESMTP 41be03b00d2f7-b7127afff91sm15373903a12.13 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-b7127afff91sm15373903a12.13 - gsmtp
+
+ERROR - 2025-10-30 10:48:04 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-10-30 10:48:04 --> 220 smtp.gmail.com ESMTP 98e67ed59e1d1-34050b57a0csm1034273a91.10 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-34050b57a0csm1034273a91.10 - gsmtp
+
+ERROR - 2025-10-30 10:51:31 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-10-30 10:51:31 --> 220 smtp.gmail.com ESMTP 41be03b00d2f7-b712f0c1859sm15169032a12.35 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-b712f0c1859sm15169032a12.35 - gsmtp
+
+CRITICAL - 2025-10-30 06:51:46 --> ParseError: syntax error, unexpected token "?"
+[Method: GET, Route: Enquiry/tour_plan/2777]
+in APPPATH\Views\enquiry\tour_plan_view.php on line 1041.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/tour_plan_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(2655): view('enquiry/tour_plan_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->tour_plan('2777')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-30 12:57:53 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-10-30 12:57:53 --> 220 smtp.gmail.com ESMTP d2e1a72fcca58-7a414049a44sm17401195b3a.35 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d2e1a72fcca58-7a414049a44sm17401195b3a.35 - gsmtp
+

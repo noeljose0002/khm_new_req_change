@@ -946,142 +946,140 @@ $is_edit = $edit_id ? $edit_id : 0;
 									</div>
 								</div>
 							</div>
-
-							<form id="myTourplanForm" method="POST" action="<?= site_url('Enquiry/saveTourPlan'); ?>">
-								<input type="hidden" name="enquiry_header_id" value="<?php echo $object_det[0]['enquiry_header_id']; ?>">
-								<input type="hidden" name="enquiry_details_id" value="<?php echo $object_det[0]['enquiry_details_id']; ?>">
-								<input type="hidden" name="is_quick_quote" value="<?php echo $object_det[0]['is_quick_quote']; ?>">
-								<input type="hidden" name="object_id" value="<?php echo $object_id; ?>">
-								<input type="hidden" name="edit_id" value="<?php echo $is_edit; ?>">
-								<input type="hidden" name="no_of_double_room" value="<?php echo $object_det[0]['no_of_double_room']; ?>">
-								<input type="hidden" name="no_of_single_room" value="<?php echo $object_det[0]['no_of_single_room']; ?>">
-								<div class="bg-white widget-user mb-0">
-									<div class="card-body">
-										<div class="border-0">
-											<div class="tab-content">
-												<div class="tab-pane active" id="tab-5">
-													<div class="profile-log-switch">
-														<!-- Row-->
-														<div class="row">
-															<div class="col-xl-12 ">
-																<?php if (!empty($pre_tour_plan) && empty($cur_tour_plan)) { ?>
-																	<h6 style="font-style: italic;color:#cc3399;">*You can either import current tour plan using the 'Import Tour Plan' button or create a new tour plan.</h6>
-																<?php } ?>
-															</div>
-														</div>
-														<div class="row">
-															<div class="col-xl-12 ">
-																<div class="">
-
-
-																	<div class="card mb-0 box-shadow-0">
-																		<?php if (!empty($tour_plan_det) && $is_edit == 0) { ?>
-																			<div class="d-flex table-responsive p-3">
-																				<div class="btn-group mr-2">
-																					<a href="#" id="tour_view_id" class="tour_view">Tour Plan View</a>
-																				</div>
-
-																				<?php if ($object_det[0]['is_quick_quote'] == 1) { ?>
-																					<div class="btn-group mr-2">
-
-																						<a href="#" id="qq_edit_id" class="qq_view">Quick Quote View</a>
-
-																					</div>
-																				<?php } ?>
-																				<div class="btn-group mr-2">
-
-																					<a href="<?= site_url('Enquiry/itinerary/' . $object_id . '/0'); ?>" id="go_to_iti">Go to Itinerary</a>
-																				</div>
-																			</div>
-																		<?php } ?>
-																		<?php if (!empty($tour_plan_draft_det)) { ?>
-																			<div class="d-flex table-responsive p-3">
-																				<div class="btn-group mr-2">
-																					<i class="btn btn-primary draft_view">Get tour plan from draft</i>
-																				</div>
-																			</div>
-																		<?php } ?>
-
-																		<?php if (!empty($tour_plan_det) && $is_edit > 0) { ?>
-																			<div class="d-flex table-responsive p-3">
-																				<div class="btn-group mr-2">
-																					<i class="btn btn-primary draft_view" id="edit_cur_tour_plan_btn">Edit Current Tour Plan</i>
-																				</div>
-																			</div>
-																		<?php } ?>
-
-																		<?php if (empty($tour_plan_det) || $is_edit > 0) { ?>
-																			<div class="card-header">
-																				<div class="col-xl-8">
-
-																					<select class="form-control select2-show-search" name="tour_location" id="tour_location" data-placeholder="Search and add tour locations from here" style="width:80%;">
-																						<option value="">Select</option>
-																						<?php
-																						if (!empty($all_locations)) {
-																							foreach ($all_locations as $keys => $vals) {
-																								echo '<option value="' . $vals['geog_id'] . '">' . $vals['geog_name'] . '</option>';
-																							}
-																						} else {
-																						?>
-																							<option value="">Location not found</option>
-																						<?php } ?>
-
-																					</select>
-																				</div>
-																				<div class="d-flex align-items-center gap-3">
-																					<div class="form-check">
-
-																						<input class="form-check-input" type="checkbox" id="dynamicNeeded" />
-																						<label class="btn btn-success btn-block dyna " for="dynamicNeeded">Dynamic needed</label>
-																					</div>
-
-
-																				</div>
-																				<div class="col-xl-2">
-																					<button type="button" class="btn btn-success btn-block pt-2 pb-2" id="btn_add_bt">Add Location<i class="fa fa-plus ml-2"></i></button>
-																				</div>
-																				<?php if (!empty($pre_tour_plan) && empty($cur_tour_plan)) { ?>
-																					<div class="col-xl-2">
-																						<button type="button" class="btn btn-success btn-block pt-2 pb-2" id="copy_tour_plan">Import Tour Plan<i class="fa fa-save ml-2"></i></button>
-																					</div>
-																				<?php } ?>
-																			</div>
+									<form id="myTourplanForm" method="POST" action="<?= site_url('Enquiry/saveTourPlan'); ?>">
+										<input type="hidden" name="enquiry_header_id" value="<?php echo $object_det[0]['enquiry_header_id']; ?>">
+										<input type="hidden3" name="enquiry_details_id" value="<?php echo $object_det[0]['enquiry_details_id']; ?>">
+										<input type="hidden" name="is_quick_quote" value="<?php echo $object_det[0]['is_quick_quote']; ?>">
+										<input type="hidden" name="object_id" value="<?php echo $object_id; ?>">
+										<input type="hidden" name="edit_id" value="<?php echo $is_edit; ?>">
+										<input type="hidden" name="no_of_double_room" value="<?php echo $object_det[0]['no_of_double_room']; ?>">
+										<input type="hidden" name="no_of_single_room" value="<?php echo $object_det[0]['no_of_single_room']; ?>">
+										<div class="bg-white widget-user mb-0">
+											<div class="card-body">
+												<div class="border-0">
+													<div class="tab-content">
+														<div class="tab-pane active" id="tab-5">
+															<div class="profile-log-switch">
+																<!-- Row-->
+																<div class="row">
+																	<div class="col-xl-12 ">
+																		<?php if (!empty($pre_tour_plan) && empty($cur_tour_plan)) { ?>
+																			<h6 style="font-style: italic;color:#cc3399;">*You can either import current tour plan using the 'Import Tour Plan' button or create a new tour plan.</h6>
 																		<?php } ?>
 																	</div>
-
-
-
-																	<span id="hotel_alert"></span>
-																	<div class="d-flex justify-content-center">
-																		<button class="btn btn-primary" id="csspinner" type="button" style="display: none;">
-																			<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-																			Tour plan loading...
-																		</button>
-																	</div>
-																	<div class="row tour_plan_div" style="padding-top:15px;">
-																	</div>
-
-
 																</div>
+																<div class="row">
+																	<div class="col-xl-12 ">
+																		<div class="">
+
+
+																			<div class="card mb-0 box-shadow-0">
+																				<?php if (!empty($tour_plan_det) && $is_edit == 0) { ?>
+																					<div class="d-flex table-responsive p-3">
+																						<div class="btn-group mr-2">
+																							<a href="#" id="tour_view_id" class="tour_view">Tour Plan View</a>
+																						</div>
+
+																						<?php if ($object_det[0]['is_quick_quote'] == 1) { ?>
+																							<div class="btn-group mr-2">
+
+																								<a href="#" id="qq_edit_id" class="qq_view">Quick Quote View</a>
+
+																							</div>
+																						<?php } ?>
+																						<div class="btn-group mr-2">
+
+																							<a href="<?= site_url('Enquiry/itinerary/' . $object_id . '/0'); ?>" id="go_to_iti">Go to Itinerary</a>
+																						</div>
+																					</div>
+																				<?php } ?>
+																				<?php if (!empty($tour_plan_draft_det)) { ?>
+																					<div class="d-flex table-responsive p-3">
+																						<div class="btn-group mr-2">
+																							<i class="btn btn-primary draft_view">Get tour plan from draft</i>
+																						</div>
+																					</div>
+																				<?php } ?>
+
+																				<?php if (!empty($tour_plan_det) && $is_edit > 0) { ?>
+																					<div class="d-flex table-responsive p-3">
+																						<div class="btn-group mr-2">
+																							<i class="btn btn-primary draft_view" id="edit_cur_tour_plan_btn">Edit Current Tour Plan</i>
+																						</div>
+																					</div>
+																				<?php } ?>
+
+																				<?php if (empty($tour_plan_det) || $is_edit > 0) { ?>
+																					<div class="card-header">
+																						<div class="d-flex align-items-center w-100">
+																							<div style="width: 60%;">
+																								<select class="form-control select2-show-search" name="tour_location" id="tour_location" data-placeholder="Search and add tour locations from here" style="width:80%;">
+																									<option value="">Select</option>
+																									<?php
+																									if (!empty($all_locations)) {
+																										foreach ($all_locations as $keys => $vals) {
+																											echo '<option value="' . $vals['geog_id'] . '">' . $vals['geog_name'] . '</option>';
+																										}
+																									} else {
+																									?>
+																										<option value="">Location not found</option>
+																									<?php } ?>
+
+																								</select>
+																							</div>
+																							
+																							<div class="form-check ml-2">
+																								<input class="form-check-input" type="checkbox" id="dynamicNeeded" />
+																								<label class="btn btn-success dyna" for="dynamicNeeded">Dynamic needed</label>
+																							</div>
+																							
+																							<div class="ml-2">
+																								<button type="button" class="btn btn-success pt-2 pb-2" id="btn_add_bt">Add Location<i class="fa fa-plus ml-2"></i></button>
+																							</div>
+																							
+																							<?php if (!empty($pre_tour_plan) && empty($cur_tour_plan)) { ?>
+																							<div class="ml-2">
+																								<button type="button" class="btn btn-success pt-2 pb-2" id="copy_tour_plan">Import Tour Plan<i class="fa fa-save ml-2"></i></button>
+																							</div>
+																							<?php } ?>
+																						</div>
+																					</div>
+																				<?php } ?>
+																			</div>
+
+
+
+																			<span id="hotel_alert"></span>
+																			<div class="d-flex justify-content-center">
+																				<button class="btn btn-primary" id="csspinner" type="button" style="display: none;">
+																					<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+																					Tour plan loading...
+																				</button>
+																			</div>
+																			<div class="row tour_plan_div" style="padding-top:15px;">
+																			</div>
+
+
+																		</div>
+																	</div>
+																</div>
+
+
+																<!--</div>-->
+																<button type="submit" id="btn_savedraft_tour_plan" class="btn btn-success" style="float:left;display:none;">Save As Draft</button>
+																<button type="submit" id="btn_save_tour_plan" class="btn btn-success" style="float:right;display:none;">Final Save</button>
+																<input type="hidden" name="submit_type" id="submit_type" value="">
+																<!-- End Row -->
 															</div>
 														</div>
 
 
-														<!--</div>-->
-														<button type="submit" id="btn_savedraft_tour_plan" class="btn btn-success" style="float:left;display:none;">Save As Draft</button>
-														<button type="submit" id="btn_save_tour_plan" class="btn btn-success" style="float:right;display:none;">Final Save</button>
-														<input type="hidden" name="submit_type" id="submit_type" value="">
-														<!-- End Row -->
+
 													</div>
 												</div>
-
-
-
 											</div>
 										</div>
-									</div>
-								</div>
-							</form>
+									</form>
 						</div>
 					</div>
 					<!-- row closed -->
@@ -8424,7 +8422,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		});
 	});
 </script>
-<script>
+<!-- <script>
 	$(document).on('click', '#copy_tour_plan', async function() {
 
 		var $btn = $(this);
@@ -8590,6 +8588,539 @@ $is_edit = $edit_id ? $edit_id : 0;
 			$('#spinner_draft').hide();
 		}
 	});
+</script> -->
+<script>
+	// Updated copy_tour_plan click handler with nightly details generation
+$(document).on('click', '#copy_tour_plan', async function() {
+	var $btn = $(this);
+	if ($btn.prop('disabled')) return;
+	$btn.prop('disabled', true);
+	$('#spinner_draft').show();
+
+	var pre_tour_plan = <?php echo json_encode($pre_tour_plan); ?>;
+	var date_of_tour_start = '<?php echo $object_det[0]['start_date'] ?? ''; ?>';
+	var pre_start_date = '<?php echo $pre_start_date ?? ''; ?>';
+	var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;
+	var pre_no_night = <?php echo $pre_no_night; ?>;
+	var hotel_categories = <?php echo isset($hotel_categories) ? json_encode($hotel_categories) : '[]'; ?>;
+	var no_of_double_room = <?php echo isset($object_det[0]['no_of_double_room']) ? $object_det[0]['no_of_double_room'] : '0'; ?>;
+	var no_of_single_room = <?php echo isset($object_det[0]['no_of_single_room']) ? $object_det[0]['no_of_single_room'] : '0'; ?>;
+	var is_vehicle_required = <?php echo isset($object_det[0]['is_vehicle_required']) ? $object_det[0]['is_vehicle_required'] : '0'; ?>;
+	var vehicle_models = <?php echo isset($vehicle_data) ? json_encode($vehicle_data) : '[]'; ?>;
+	var total_no_of_pax = <?php echo isset($object_det[0]['total_no_of_pax']) ? $object_det[0]['total_no_of_pax'] : '0'; ?>;
+	var no_of_adult = <?php echo isset($object_det[0]['no_of_adult']) ? $object_det[0]['no_of_adult'] : '0'; ?>;
+	var no_of_child_with_bed = <?php echo isset($object_det[0]['no_of_child_with_bed']) ? $object_det[0]['no_of_child_with_bed'] : '0'; ?>;
+	var no_of_child_without_bed = <?php echo isset($object_det[0]['no_of_child_without_bed']) ? $object_det[0]['no_of_child_without_bed'] : '0'; ?>;
+	var no_of_extra_bed = <?php echo isset($object_det[0]['no_of_extra_bed']) ? $object_det[0]['no_of_extra_bed'] : '0'; ?>;
+
+	if (date_of_tour_start.includes('-')) {
+		if (date_of_tour_start.split('-')[0].length === 2) {
+			date_of_tour_start = convertToYMD(date_of_tour_start);
+		}
+	}
+
+	var startDate = new Date(date_of_tour_start);
+	var preStartDate = new Date(pre_start_date);
+
+	if (startDate.getTime() !== preStartDate.getTime()) {
+		alert("Tour Start Date Changed. You must create a new tour plan!");
+		resetButton();
+		return;
+	} else if (no_of_night !== pre_no_night) {
+		alert("No Of Night Changed. You must create a new tour plan!");
+		resetButton();
+		return;
+	} else if (!Array.isArray(pre_tour_plan) || pre_tour_plan.length === 0) {
+		alert("Previous tour plan not completed!");
+		resetButton();
+		return;
+	}
+
+	// Clear existing tour plan
+	$('.tour_plan_div').empty();
+	$('.dyn_list').empty();
+
+	// Set loading flag ON
+	isDraftLoading = true;
+
+	await copyTourPlanWithNightlyDetails(pre_tour_plan, 0);
+	
+	// Update totals after all locations are added
+	setTimeout(function() {
+		var totalNights = calculateTotalNights();
+		$('#planned_night').text(totalNights + " / ");
+		if (totalNights == no_of_night) {
+			$("#btn_save_tour_plan").show();
+			$("#btn_savedraft_tour_plan").show();
+			$('#btn_add_bt').prop('disabled', true);
+		} else {
+			$("#btn_save_tour_plan").hide();
+			$("#btn_savedraft_tour_plan").show();
+			$('#btn_add_bt').prop('disabled', false);
+		}
+		updateGrandtotalBoth();
+		get_veh_grand_total();
+		toggleNightsVisibility();
+		calculateVehicleExtraKmCharges();
+
+		// Set loading flag OFF
+		isDraftLoading = false;
+
+		resetButton();
+		showAlert('success', 'Tour plan copied successfully!');
+	}, 3000);
+
+	function convertToYMD(dateStr) {
+		var parts = dateStr.split('-');
+		return parts[2] + '-' + parts[1] + '-' + parts[0];
+	}
+
+	async function copyTourPlanWithNightlyDetails(planData, index) {
+		if (index >= planData.length) return;
+
+		var count = index + 1;
+		var locationData = planData[index];
+		console.log(`\n=== COPYING LOCATION ${count} ===`);
+		console.log('Location data:', locationData);
+
+		var ep_sel = locationData.meal_plan_id == 1 ? "selected" : "";
+		var cp_sel = locationData.meal_plan_id == 2 ? "selected" : "";
+		var map_sel = locationData.meal_plan_id == 3 ? "selected" : "";
+		var ap_sel = locationData.meal_plan_id == 4 ? "selected" : "";
+
+		// Build card HTML
+		var newCard = `
+		<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
+			<div class="card">
+				<div class="card-header cardy">
+					<div id="eighteen_div_d${count}"></div>
+					<div id="eighteen_div_s${count}"></div>
+					<input type="hidden" id="tax_status${count}" name="addloc[${count}][tax_status]" value="${locationData.tax_status || 0}">
+					<input type="hidden" id="own_arrange${count}" name="addloc[${count}][own_arrange]" value="${locationData.is_own_arrangement || 0}">
+					<input type="hidden" id="tour_location_id${count}" name="addloc[${count}][tour_location_id]" value="${locationData.tour_location}">
+					<input type="hidden" id="location_sequence${count}" name="addloc[${count}][location_sequence]" value="${count}">
+					<div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${locationData.geog_name || 'Unknown Location'}</span></div>
+					<div class="card-options">
+						<a href="#" class="card-options-remove"><i class="fe fe-x"></i></a>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="ibox teams mb-30 bg-boxshadow">
+						<div class="ibox-content teams">
+							<div class="row mt-2">
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>Checkin</b></div>
+									<span class="text-muted">
+										<input type="date" value="${locationData.check_in_date || ''}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
+									</span>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>Nights</b></div>
+									<span class="text-muted">
+										<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" value="${locationData.no_of_days || 0}" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count}); updateNightlyDetails(${count});" required>
+									</span>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>Checkout</b></div>
+									<span class="text-muted">
+										<input type="date" id="checkout${count}" name="addloc[${count}][checkout]" value="${locationData.check_out_date || ''}" class="form-control input-sm" required readonly>
+									</span>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>Hotel Category</b></div>
+									<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" required>
+										<option value="">Select</option>
+									</select>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>Hotel</b></div>
+									<span class="text-muted">
+										<select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" required>
+											<option value="">Select</option>
+										</select>
+									</span>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>Room Category</b></div>
+									<select id="roomcat_common${count}" name="addloc[${count}][roomcat_common]" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}">
+										<option value="">Select</option>
+									</select>
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>Meal Plan</b></div>
+									<span class="text-muted">
+										<select id="mealplan${count}" name="addloc[${count}][mealplan]" class="form-control select2-show-search input-sm mp_change" data-id="${count}" required>
+											<option value="">Select</option>
+											<option value="1" ${ep_sel}>EP</option>
+											<option value="2" ${cp_sel}>CP</option>
+											<option value="3" ${map_sel}>MAP</option>
+											<option value="4" ${ap_sel}>AP</option>
+										</select>
+									</span>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>No Of Adult</b></div>
+									<input type="text" id="no_of_adult${count}" name="addloc[${count}][no_of_adult]" value="${no_of_adult}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>C.With Bed Qty</b></div>
+									<input type="text" id="no_of_ch${count}" name="addloc[${count}][no_of_ch]" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>C.Without Bed Qty</b></div>
+									<input type="text" id="no_of_cw${count}" name="addloc[${count}][no_of_cw]" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>Extra Bed Qty</b></div>
+									<input type="text" id="no_of_extra${count}" name="addloc[${count}][no_of_extra]" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>Total Pax</b></div>
+									<input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly>
+								</div>
+							</div>
+							<div class="nightly-details" id="nightly-details${count}"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		`;
+		$(".tour_plan_div").append(newCard);
+
+		// Build breadcrumb
+		var breadcrumb = `
+		<li class="bc-card" data-index="${count}">
+			<a>
+				<span class="bc-card-seq" style="color:#fff">${count}</span>.<span style="color:#fff">${locationData.geog_name || 'Unknown'}(<span id="span_night_id${count}" style="color:#fff">${locationData.no_of_days || 0}</span>)<span id="loc_total${count}" style="color:#fff"></span></span>
+			</a>
+		</li>
+		`;
+		$('.dyn_list').append(breadcrumb);
+
+		// Populate hotel categories
+		var hotelCat = $('#hotelcat' + count);
+		hotelCat.empty();
+		hotelCat.append('<option value="">Select</option>');
+		if (hotel_categories.length > 0) {
+			$.each(hotel_categories, function(index, hotelcat) {
+				var selected = hotelcat.hotel_category_id == locationData.hot_cat_id ? ' selected' : '';
+				hotelCat.append('<option value="' + hotelcat.hotel_category_id + '"' + selected + '>' + hotelcat.hotel_category_name + '</option>');
+			});
+		}
+
+		// Initialize Select2
+		$(`.location-card[data-index="${count}"] .select2-show-search`).select2();
+
+		// Trigger hotel category change
+		hotelCat.trigger('change');
+
+		// Wait for hotels to load, then set selected hotel and room categories
+		await delay(1000);
+		
+		$(`#hotelid${count}`).val(locationData.hotel_id).trigger('change');
+
+		// Wait for room categories to load
+		await delay(1000);
+
+		// Set the room category value
+		$(`#roomcat_common${count}`).val(locationData.room_category_id);
+		$(`#roomcat_common${count}`).trigger('change');
+
+		// Generate nightly details with expansion data from cost array
+		await delay(500);
+		generateNightlyDetailsFromCopy(count, locationData, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models);
+
+		// Process next location
+		await copyTourPlanWithNightlyDetails(planData, index + 1);
+	}
+
+	function delay(ms) {
+		return new Promise(resolve => setTimeout(resolve, ms));
+	}
+
+	function resetButton() {
+		$btn.prop('disabled', false);
+		$('#spinner_draft').hide();
+	}
+});
+
+// Helper function to generate nightly details from copy tour plan data
+function generateNightlyDetailsFromCopy(count, locationData, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
+	console.log(`\n=== GENERATING NIGHTLY DETAILS FOR COPY - Location ${count} ===`);
+	console.log('Location data:', locationData);
+
+	var nightlyDetails = $(`#nightly-details${count}`);
+	nightlyDetails.empty();
+	var no_of_days = parseInt(locationData.no_of_days) || 0;
+	var checkInDate = new Date(locationData.check_in_date);
+
+	// Parse cost data to extract rate information per night/room
+	var costData = locationData.cost || [];
+	console.log('Cost data:', costData);
+
+	// Parse vehicle details
+	var vehicleDetails = [];
+	try {
+		vehicleDetails = typeof locationData.vehicle_details === 'string' ? 
+			JSON.parse(locationData.vehicle_details) : 
+			(locationData.vehicle_details || []);
+	} catch (e) {
+		console.error('Error parsing vehicle details:', e);
+	}
+	console.log('Vehicle details:', vehicleDetails);
+
+	// Generate night sections
+	for (let night = 1; night <= no_of_days; night++) {
+		console.log(`\n--- Night ${night} ---`);
+
+		var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, locationData.check_in_date);
+		nightlyDetails.append(nightlyHtml);
+
+		// Populate room categories from common dropdown
+		var commonOptions = $(`#roomcat_common${count}`).html();
+		$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
+			$(this).html(commonOptions);
+		});
+
+		// Initialize Select2
+		$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
+
+		// Populate rates from cost data
+		var numDoubles = parseInt(no_of_double_room);
+		var numSingles = parseInt(no_of_single_room);
+
+		// Set room data for double rooms
+		for (let i = 1; i <= numDoubles; i++) {
+			var rid = `${count}${night}${i}`;
+			console.log(`Setting double room ${i} (ID: ${rid})`);
+
+			// Set room category and meal plan
+			$(`#roomcat${rid}`).val(locationData.room_category_id).trigger('change');
+			$(`#mealplan${rid}`).val(locationData.meal_plan_id).trigger('change');
+
+			// Find and set rates from cost data for double rooms (room_type_id = 2)
+			$.each(costData, function(cindex, cval) {
+				if (cval['room_type_id'] == 2) {
+					if (cval['cost_component_id'] == 6 || cval['cost_component_id'] == 7) {
+						$(`#d_adult_rate${rid}`).val(cval['quick_quote_tariff']);
+					}
+					if (cval['cost_component_id'] == 12 || cval['cost_component_id'] == 13) {
+						$(`#d_child_rate${rid}`).val(cval['quick_quote_tariff']);
+					}
+					if (cval['cost_component_id'] == 15 || cval['cost_component_id'] == 16) {
+						$(`#d_child_wb_rate${rid}`).val(cval['quick_quote_tariff']);
+					}
+					if (cval['cost_component_id'] == 9 || cval['cost_component_id'] == 10) {
+						$(`#d_extra_bed_rate${rid}`).val(cval['quick_quote_tariff']);
+					}
+				}
+			});
+
+			updateRoomTotals(count, night, i);
+		}
+
+		// Set room data for single rooms
+		for (let i = 1; i <= numSingles; i++) {
+			var seq = numDoubles + i;
+			var sid = `${count}${night}${seq}`;
+			console.log(`Setting single room ${i} (ID: ${sid})`);
+
+			// Set room category and meal plan
+			$(`#roomcat${sid}`).val(locationData.room_category_id).trigger('change');
+			$(`#mealplan${sid}`).val(locationData.meal_plan_id).trigger('change');
+
+			// Find and set rates from cost data for single rooms (room_type_id = 1)
+			$.each(costData, function(cindex, cval) {
+				if (cval['room_type_id'] == 1) {
+					if (cval['cost_component_id'] == 6 || cval['cost_component_id'] == 7) {
+						$(`#s_adult_rate${sid}`).val(cval['quick_quote_tariff']);
+					}
+					if (cval['cost_component_id'] == 12 || cval['cost_component_id'] == 13) {
+						$(`#s_child_rate${sid}`).val(cval['quick_quote_tariff']);
+					}
+					if (cval['cost_component_id'] == 15 || cval['cost_component_id'] == 16) {
+						$(`#s_child_wb_rate${sid}`).val(cval['quick_quote_tariff']);
+					}
+					if (cval['cost_component_id'] == 9 || cval['cost_component_id'] == 10) {
+						$(`#s_extra_bed_rate${sid}`).val(cval['quick_quote_tariff']);
+					}
+				}
+			});
+
+			updateRoomTotals(count, night, seq);
+		}
+
+		// Populate vehicle data for this night (INCLUDING VEHICLE HEADER)
+		if (vehicleDetails.length > 0) {
+			console.log(`Populating vehicle details for night ${night}`);
+
+			// **Set vehicle header for this night**
+			if (vehicleDetails[0].veh_header) {
+				var vehHeader = vehicleDetails[0].veh_header;
+				console.log(`Setting vehicle header for night ${night}: ${vehHeader}`);
+				$(`#v_from_to${count}${night}`).text(vehHeader);
+			}
+
+			$.each(vehicle_models, function(vindex, vmodel) {
+				$.each(vehicleDetails, function(v_index, v_item) {
+					if (vmodel.vehicle_type_id == v_item.veh_type_id) {
+						var vid = `${count}${night}${vmodel.vehicle_type_id}`;
+						
+						$(`#day_rent${vid}`).val(v_item.day_rent || 0);
+						$(`#max_km_day${vid}`).val(v_item.max_km_day || 0);
+						$(`#travel_distance${vid}`).val(v_item.travel_distance || 0);
+						$(`#extra_kilometer${vid}`).val(v_item.extra_kilometer || 0);
+						$(`#extra_km_rate${vid}`).val(v_item.extra_km_rate || 0);
+						$(`#veh_total${vid}`).val(v_item.veh_total || 0);
+						
+						updateVehicleTotals(count, night, vindex);
+					}
+				});
+			});
+		}
+	}
+
+	// **Add and populate vehicle summary**
+	if (is_vehicle_required == 1) {
+		console.log(`\n=== GENERATING VEHICLE SUMMARY for location ${count} ===`);
+
+		var summaryHtml = generateVehicleSummary(count, no_of_days, vehicle_models);
+		nightlyDetails.append(summaryHtml);
+
+		// **Populate vehicle summary from locationData.vehicle_details**
+		var isDynamic = getIsDynamic();
+		console.log('Is Dynamic Mode:', isDynamic);
+
+		if (!isDynamic) {
+			// **STATIC MODE: Use aggregated vehicle_details**
+			console.log('Static Mode - Using locationData.vehicle_details');
+
+			if (vehicleDetails.length > 0) {
+				$.each(vehicleDetails, function(vindex, vdata) {
+					console.log(`Populating summary for vehicle ${vindex}:`, vdata);
+
+					// Match by vehicle_type_id
+					var matchedVehicleIndex = -1;
+					$.each(vehicle_models, function(modelIndex, model) {
+						if (model.vehicle_type_id == vdata.veh_type_id) {
+							matchedVehicleIndex = modelIndex;
+							return false;
+						}
+					});
+
+					if (matchedVehicleIndex !== -1) {
+						var totalDays = no_of_days;
+						var totalRent = parseFloat(vdata.veh_total) || 0;
+						var dailyRent = totalDays > 0 ? (totalRent / totalDays) : 0;
+						var totalDistance = parseFloat(vdata.travel_distance) || 0;
+						var maxKmDay = parseFloat(vdata.max_km_day) || 0;
+						var extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
+						var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
+
+						console.log(`Setting summary values - Daily Rent: ${dailyRent}, Distance: ${totalDistance}, Extra KM: ${totalExtraKm}`);
+
+						$(`#summary_days_${count}_${matchedVehicleIndex}`).val(totalDays);
+						$(`#summary_rent_${count}_${matchedVehicleIndex}`).val(dailyRent.toFixed(0));
+						$(`#summary_distance_${count}_${matchedVehicleIndex}`).val(totalDistance);
+						$(`#summary_extra_km_rate_${count}_${matchedVehicleIndex}`).val(extraKmRate);
+						$(`#summary_extra_km_${count}_${matchedVehicleIndex}`).val(totalExtraKm);
+						$(`#summary_total_${count}_${matchedVehicleIndex}`).val(totalRent);
+					}
+				});
+			}
+		} else {
+			// **DYNAMIC MODE: Aggregate from nightly vehicle data**
+			console.log('Dynamic Mode - Aggregating from nightly data');
+
+			var vehicleAggregates = {};
+			$.each(vehicle_models, function(vindex, vmodel) {
+				vehicleAggregates[vmodel.vehicle_type_id] = {
+					modelIndex: vindex,
+					totalDays: 0,
+					totalRent: 0,
+					totalDistance: 0,
+					totalExtraKm: 0,
+					extraKmRate: 0
+				};
+			});
+
+			// Aggregate from vehicleDetails (assumes same structure per night)
+			for (let night = 1; night <= no_of_days; night++) {
+				$.each(vehicleDetails, function(vindex, vdata) {
+					var vehTypeId = vdata.veh_type_id;
+					if (vehicleAggregates[vehTypeId]) {
+						vehicleAggregates[vehTypeId].totalDays++;
+						vehicleAggregates[vehTypeId].totalRent += parseFloat(vdata.veh_total) || 0;
+						vehicleAggregates[vehTypeId].totalDistance += parseFloat(vdata.travel_distance) || 0;
+						vehicleAggregates[vehTypeId].totalExtraKm += parseFloat(vdata.extra_kilometer) || 0;
+
+						if (vehicleAggregates[vehTypeId].extraKmRate === 0) {
+							vehicleAggregates[vehTypeId].extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
+						}
+					}
+				});
+			}
+
+			console.log('Aggregated vehicle data:', vehicleAggregates);
+
+			$.each(vehicleAggregates, function(vehTypeId, agg) {
+				if (agg.totalDays > 0) {
+					var dailyRent = agg.totalRent / agg.totalDays;
+
+					console.log(`Setting summary for vehicle type ${vehTypeId}:`, agg);
+
+					$(`#summary_days_${count}_${agg.modelIndex}`).val(agg.totalDays);
+					$(`#summary_rent_${count}_${agg.modelIndex}`).val(dailyRent.toFixed(0));
+					$(`#summary_distance_${count}_${agg.modelIndex}`).val(agg.totalDistance);
+					$(`#summary_extra_km_rate_${count}_${agg.modelIndex}`).val(agg.extraKmRate);
+					$(`#summary_extra_km_${count}_${agg.modelIndex}`).val(agg.totalExtraKm);
+					$(`#summary_total_${count}_${agg.modelIndex}`).val(agg.totalRent);
+				}
+			});
+		}
+
+		// **Build and set combined vehicle header for summary - CENTERED**
+		var combinedHeaders = [];
+		for (let night = 1; night <= no_of_days; night++) {
+			var nightHeader = $(`#v_from_to${count}${night}`).text().trim();
+			if (nightHeader && nightHeader !== '') {
+				nightHeader = nightHeader.replace(/^\s*-\s*/, '');
+				combinedHeaders.push('(' + nightHeader + ')');
+			}
+		}
+
+		var summaryHeaderText = '';
+		if (combinedHeaders.length > 0) {
+			summaryHeaderText = ' ' + combinedHeaders.join(' + ');
+		}
+
+		console.log('Combined vehicle header for summary:', summaryHeaderText);
+
+		var $summaryHeader = $(`#vehicle-summary-header-${count}`);
+		$summaryHeader.html(`
+			<a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; position: centre; left: 10px;" title="Refresh Vehicle Data">
+				<i class="fa fa-refresh"></i>
+			</a>
+			<span style="display: block; width: 100%; padding: 0 40px;">Vehicle Summary${summaryHeaderText}</span>
+		`);
+
+		$summaryHeader.css({
+			'position': 'relative',
+			'text-align': 'center',
+			'display': 'block'
+		});
+
+		updateVehicleSummary(count);
+		console.log(`=== VEHICLE SUMMARY POPULATED for location ${count} ===`);
+	}
+
+	updateGrandtotalBoth();
+	get_veh_grand_total();
+	console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
+}
 </script>
 
 <script>
