@@ -70,6 +70,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>" />
 	<script src="<?php echo base_url('assets/tiny_mce/tiny_mce.js'); ?>"></script>
 	<style>
+		
 		select.input-sm+.select2-container {
 			width: 100% !important;
 			/* Force full width of parent container for responsiveness on zoom/resize */
@@ -948,7 +949,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 							</div>
 									<form id="myTourplanForm" method="POST" action="<?= site_url('Enquiry/saveTourPlan'); ?>">
 										<input type="hidden" name="enquiry_header_id" value="<?php echo $object_det[0]['enquiry_header_id']; ?>">
-										<input type="hidden3" name="enquiry_details_id" value="<?php echo $object_det[0]['enquiry_details_id']; ?>">
+										<input type="hidden" name="enquiry_details_id" value="<?php echo $object_det[0]['enquiry_details_id']; ?>">
 										<input type="hidden" name="is_quick_quote" value="<?php echo $object_det[0]['is_quick_quote']; ?>">
 										<input type="hidden" name="object_id" value="<?php echo $object_id; ?>">
 										<input type="hidden" name="edit_id" value="<?php echo $is_edit; ?>">
@@ -971,7 +972,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 																<div class="row">
 																	<div class="col-xl-12 ">
 																		<div class="">
-
 
 																			<div class="card mb-0 box-shadow-0">
 																				<?php if (!empty($tour_plan_det) && $is_edit == 0) { ?>
@@ -1027,6 +1027,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 																								</select>
 																							</div>
+
+																							
 																							
 																							<div class="form-check ml-2">
 																								<input class="form-check-input" type="checkbox" id="dynamicNeeded" />
@@ -4739,6 +4741,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 		calculateVehicleExtraKmCharges();
 	});
 
+	
+
 
 	// Function to update sequence numbers and adjust input IDs/names
 	// function updateSequenceNumbers() {
@@ -7892,6 +7896,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
 	}
 </script>
+
 
 
 

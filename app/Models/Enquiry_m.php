@@ -2053,10 +2053,12 @@ class Enquiry_m extends Model
     public function get_previous_tour_plan_lastupdated($extension_ref_id)
     {
         $db = \Config\Database::connect();
-        $table = $db->table('khm_obj_enquiry_tour_details');
+        $table = $db->table('khm_obj_enquiry_tour_details a');
         $response = [];
 
-        $result = $table->select('*')
+        $result = $table
+        ->select('*,g.geog_name')
+            ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left')
             ->where('extension_ref_id', $extension_ref_id)
             ->get()
             ->getResultArray();
