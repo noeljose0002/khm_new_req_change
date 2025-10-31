@@ -2824,8 +2824,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 	});
 
-	// Add the mp_row_change handler here, similar to room_cat_change
-	// Fixed mp_row_change handler with proper visual update
+	
 	// ===== PERFORMANCE OPTIMIZATION UTILITIES =====
 	// Batch DOM updates to prevent layout thrashing
 	let updateBatchQueue = [];
@@ -3317,210 +3316,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		console.log('Rate propagation complete');
 	});
 
-	// Add this function to generate vehicle summary section
-	// 1. Update generateVehicleSummary function to add refresh button and extra km rate column
-	// function generateVehicleSummary(count, no_of_night, vehicle_models) {
-	// 	// Build night labels with vehicle details
-	// 	var nightLabels = '';
-	// 	for (let i = 1; i <= no_of_night; i++) {
-	// 		var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
-	// 		if (vFromTo && vFromTo !== '') {
-	// 			vFromTo = vFromTo.replace(/^\s*-\s*/, '');
-	// 			nightLabels += vFromTo;
-	// 		} else {
-	// 			nightLabels += `N${i}`;
-	// 		}
-	// 		if (i < no_of_night) {
-	// 			nightLabels += ' + ';
-	// 		}
-	// 	}
-
-	// 	var summaryHtml = `
-	//     <div class="vehicle-summary-section mt-4" id="vehicle-summary-${count}">
-	//         <h5 style="color:#003300; text-align: center;" id="vehicle-summary-header-${count}">
-	//             <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
-	//                 <i class="fa fa-refresh"></i>
-	//             </a>
-	//             Vehicle Summary (${nightLabels})
-	//         </h5>
-	//         <div class="card p-3 mb-3">
-	//             <div class="container-fluid px-2">
-	//                 <div class="row mt-2 single_row">
-	//                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Vehicle Model</b></div>
-	//                     </div>
-	//                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Vehicle Count</b></div>
-	//                     </div>
-	//                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Total Days</b></div>
-	//                     </div>
-	//                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Daily Rent</b></div>
-	//                     </div>
-	//                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Total Distance</b></div>
-	//                     </div>
-	//                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Extra KM Rate</b></div>
-	//                     </div>
-	//                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Total Extra KM</b></div>
-	//                     </div>
-	//                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Grand Total</b></div>
-	//                     </div>
-	//                 </div>`;
-
-	// 	$.each(vehicle_models, function(vindex, vmodel) {
-	// 		summaryHtml += `
-	//         <div class="row mt-2 single_row align-items-center">
-	//             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_model_name]" value="${vmodel.vehicle_model_name}" class="form-control input-sm" readonly>
-	//                 <input type="hidden" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_type_id]" value="${vmodel.vehicle_type_id}">
-	//             </div>
-	//             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_count]" value="${vmodel.vehicle_count}" class="form-control input-sm" readonly>
-	//             </div>
-	//             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_days]" id="summary_days_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-	//             </div>
-	//             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][daily_rent]" id="summary_rent_${count}_${vindex}" value="0" class="form-control input-sm summary-daily-rent" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
-	//             </div>
-	//             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_distance]" id="summary_distance_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-	//             </div>
-	//             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][extra_km_rate]" id="summary_extra_km_rate_${count}_${vindex}" value="0" class="form-control input-sm summary-extra-km-rate" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
-	//             </div>
-	//             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_extra_km]" id="summary_extra_km_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-	//             </div>
-	//             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][grand_total]" id="summary_total_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-	//             </div>
-	//         </div>`;
-	// 	});
-
-	// 	summaryHtml += `
-	//         <div class="row mt-3">
-	//             <div class="col-12 d-flex justify-content-end">
-	//                 <div class="col-xl-2 col-sm-12 col-md-2">
-	//                     <div class="teams-rank"><b>Overall Vehicle Total</b></div>
-	//                     <input type="text" name="addloc[${count}][vehicle_summary_total]" id="summary_overall_total_${count}" value="0" class="form-control input-sm" readonly>
-	//                 </div>
-	//             </div>
-	//         </div>
-	//     </div>
-	// 	</div>
-	// 	</div>`;
-
-	// 	return summaryHtml;
-	// }
-
-	// function generateVehicleSummary(count, no_of_night, vehicle_models) {
-	// 	// **ADD: Remove any existing summary first (defensive check)**
-	// 	$(`#vehicle-summary-${count}`).remove();
-
-	// 	// Build night labels with vehicle details
-	// 	var nightLabels = '';
-	// 	for (let i = 1; i <= no_of_night; i++) {
-	// 		var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
-	// 		if (vFromTo && vFromTo !== '') {
-	// 			vFromTo = vFromTo.replace(/^\s*-\s*/, '');
-	// 			nightLabels += vFromTo;
-	// 		} else {
-	// 			nightLabels += `N${i}`;
-	// 		}
-	// 		if (i < no_of_night) {
-	// 			nightLabels += ' + ';
-	// 		}
-	// 	}
-
-	// 	var summaryHtml = `
-	//     <div class="vehicle-summary-section mt-4" id="vehicle-summary-${count}">
-	//         <h5 style="color:#003300; text-align: center;" id="vehicle-summary-header-${count}">
-	//             <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
-	//                 <i class="fa fa-refresh"></i>
-	//             </a>
-	//             Vehicle Summary (${nightLabels})
-	//         </h5>
-	//         <div class="card p-3 mb-3">
-	//             <div class="container-fluid px-2">
-	//                 <div class="row mt-2 single_row">
-	//                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Vehicle Model</b></div>
-	//                     </div>
-	//                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Vehicle Count</b></div>
-	//                     </div>
-	//                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Total Days</b></div>
-	//                     </div>
-	//                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Daily Rent</b></div>
-	//                     </div>
-	//                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Total Distance</b></div>
-	//                     </div>
-	//                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Extra KM Rate</b></div>
-	//                     </div>
-	//                     <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Total Extra KM</b></div>
-	//                     </div>
-	//                     <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                         <div class="teams-rank"><b>Grand Total</b></div>
-	//                     </div>
-	//                 </div>`;
-
-	// 	$.each(vehicle_models, function(vindex, vmodel) {
-	// 		summaryHtml += `
-	//         <div class="row mt-2 single_row align-items-center">
-	//             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_model_name]" value="${vmodel.vehicle_model_name}" class="form-control input-sm" readonly>
-	//                 <input type="hidden" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_type_id]" value="${vmodel.vehicle_type_id}">
-	//             </div>
-	//             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_count]" value="${vmodel.vehicle_count}" class="form-control input-sm" readonly>
-	//             </div>
-	//             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_days]" id="summary_days_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-	//             </div>
-	//             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][daily_rent]" id="summary_rent_${count}_${vindex}" value="0" class="form-control input-sm summary-daily-rent" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
-	//             </div>
-	//             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_distance]" id="summary_distance_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-	//             </div>
-	//             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][extra_km_rate]" id="summary_extra_km_rate_${count}_${vindex}" value="0" class="form-control input-sm summary-extra-km-rate" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
-	//             </div>
-	//             <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_extra_km]" id="summary_extra_km_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-	//             </div>
-	//             <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-	//                 <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][grand_total]" id="summary_total_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-	//             </div>
-	//         </div>`;
-	// 	});
-
-	// 	summaryHtml += `
-	//                 <div class="row mt-3">
-	//                     <div class="col-12 d-flex justify-content-end">
-	//                         <div class="col-xl-2 col-sm-12 col-md-2">
-	//                             <div class="teams-rank"><b>Overall Vehicle Total</b></div>
-	//                             <input type="text" name="addloc[${count}][vehicle_summary_total]" id="summary_overall_total_${count}" value="0" class="form-control input-sm" readonly>
-	//                         </div>
-	//                     </div>
-	//                 </div>
-	//             </div>
-	//         </div>
-	//     </div>`;
-
-	// 	return summaryHtml;
-	// }
+	
 	function generateVehicleSummary(count, no_of_night, vehicle_models) {
 		// **ADD: Remove any existing summary first (defensive check)**
 		$(`#vehicle-summary-${count}`).remove();
@@ -3541,88 +3337,88 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 
 		var summaryHtml = `
-	<div class="vehicle-summary-section mt-4" id="vehicle-summary-${count}">
-	<h5 style="color:#003300; text-align: center; display: flex; align-items: center; justify-content: center;" id="vehicle-summary-header-${count}">
-                <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px; position: absolute; left: 0;" title="Refresh Vehicle Data">
-                    <i class="fa fa-refresh"></i>
-                </a>
-                <span style="flex: 1;">Vehicle Summary (${nightLabels})</span>
-            </h5>
-            <div class="card p-3 mb-3">
-                <div class="container-fluid px-2">
-                    <div class="row mt-2 single_row">
-                        <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                            <div class="teams-rank"><b>Vehicle Model</b></div>
-                        </div>
-                        <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                            <div class="teams-rank"><b>Vehicle Count</b></div>
-                        </div>
-                        <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                            <div class="teams-rank"><b>Total Days</b></div>
-                        </div>
-                        <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                            <div class="teams-rank"><b>Daily Rent</b></div>
-                        </div>
-                        <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                            <div class="teams-rank"><b>Total Distance</b></div>
-                        </div>
-                        <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                            <div class="teams-rank"><b>Extra KM Rate</b></div>
-                        </div>
-                        <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                            <div class="teams-rank"><b>Total Extra KM</b></div>
-                        </div>
-                        <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                            <div class="teams-rank"><b>Grand Total</b></div>
-                        </div>
-                    </div>`;
+		<div class="vehicle-summary-section mt-4" id="vehicle-summary-${count}">
+		<h5 style="color:#003300; text-align: center; display: flex; align-items: center; justify-content: center;" id="vehicle-summary-header-${count}">
+					<a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px; position: absolute; left: 0;" title="Refresh Vehicle Data">
+						<i class="fa fa-refresh"></i>
+					</a>
+					<span style="flex: 1;">Vehicle Summary (${nightLabels})</span>
+				</h5>
+				<div class="card p-3 mb-3">
+					<div class="container-fluid px-2">
+						<div class="row mt-2 single_row">
+							<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Vehicle Model</b></div>
+							</div>
+							<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Vehicle Count</b></div>
+							</div>
+							<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Total Days</b></div>
+							</div>
+							<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Daily Rent</b></div>
+							</div>
+							<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Total Distance</b></div>
+							</div>
+							<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Extra KM Rate</b></div>
+							</div>
+							<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Total Extra KM</b></div>
+							</div>
+							<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+								<div class="teams-rank"><b>Grand Total</b></div>
+							</div>
+						</div>`;
 
-		$.each(vehicle_models, function(vindex, vmodel) {
+			$.each(vehicle_models, function(vindex, vmodel) {
+				summaryHtml += `
+				<div class="row mt-2 single_row align-items-center">
+					<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+						<input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_model_name]" value="${vmodel.vehicle_model_name}" class="form-control input-sm" readonly>
+						<input type="hidden" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_type_id]" value="${vmodel.vehicle_type_id}">
+					</div>
+					<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+						<input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_count]" value="${vmodel.vehicle_count}" class="form-control input-sm" readonly>
+					</div>
+					<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+						<input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_days]" id="summary_days_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+					</div>
+					<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+						<input type="text" name="addloc[${count}][vehicle_summary][${vindex}][daily_rent]" id="summary_rent_${count}_${vindex}" value="0" class="form-control input-sm summary-daily-rent" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
+					</div>
+					<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+						<input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_distance]" id="summary_distance_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+					</div>
+					<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+						<input type="text" name="addloc[${count}][vehicle_summary][${vindex}][extra_km_rate]" id="summary_extra_km_rate_${count}_${vindex}" value="0" class="form-control input-sm summary-extra-km-rate" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
+					</div>
+					<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
+						<input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_extra_km]" id="summary_extra_km_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+					</div>
+					<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
+						<input type="text" name="addloc[${count}][vehicle_summary][${vindex}][grand_total]" id="summary_total_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
+					</div>
+				</div>`;
+			});
+
 			summaryHtml += `
-            <div class="row mt-2 single_row align-items-center">
-                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_model_name]" value="${vmodel.vehicle_model_name}" class="form-control input-sm" readonly>
-                    <input type="hidden" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_type_id]" value="${vmodel.vehicle_type_id}">
-                </div>
-                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][vehicle_count]" value="${vmodel.vehicle_count}" class="form-control input-sm" readonly>
-                </div>
-                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_days]" id="summary_days_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-                </div>
-                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][daily_rent]" id="summary_rent_${count}_${vindex}" value="0" class="form-control input-sm summary-daily-rent" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
-                </div>
-                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_distance]" id="summary_distance_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-                </div>
-                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][extra_km_rate]" id="summary_extra_km_rate_${count}_${vindex}" value="0" class="form-control input-sm summary-extra-km-rate" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
-                </div>
-                <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_extra_km]" id="summary_extra_km_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-                </div>
-                <div class="col-xl-2 col-sm-12 col-md-2 ps-2">
-                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][grand_total]" id="summary_total_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
-                </div>
-            </div>`;
-		});
+						<div class="row mt-3">
+							<div class="col-12 d-flex justify-content-end">
+								<div class="col-xl-2 col-sm-12 col-md-2">
+									<div class="teams-rank"><b>Overall Vehicle Total</b></div>
+									<input type="text" name="addloc[${count}][vehicle_summary_total]" id="summary_overall_total_${count}" value="0" class="form-control input-sm" readonly>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>`;
 
-		summaryHtml += `
-                    <div class="row mt-3">
-                        <div class="col-12 d-flex justify-content-end">
-                            <div class="col-xl-2 col-sm-12 col-md-2">
-                                <div class="teams-rank"><b>Overall Vehicle Total</b></div>
-                                <input type="text" name="addloc[${count}][vehicle_summary_total]" id="summary_overall_total_${count}" value="0" class="form-control input-sm" readonly>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>`;
-
-		return summaryHtml;
-	}
+			return summaryHtml;
+		}
 	// Event listener for daily rent changes in summary
 	$(document).on('change', '.summary-daily-rent', function() {
 		var count = $(this).data('count');
@@ -3855,13 +3651,13 @@ $is_edit = $edit_id ? $edit_id : 0;
 			'fe-info';
 
 		var alertHtml = `
-    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-        <span class="alert-inner--icon"><i class="fe ${iconClass}"></i></span>
-        <span class="alert-inner--text">${message}</span>
-        <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>`;
+		<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+			<span class="alert-inner--icon"><i class="fe ${iconClass}"></i></span>
+			<span class="alert-inner--text">${message}</span>
+			<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			</button>
+		</div>`;
 
 		$('#hotel_alert').html(alertHtml);
 
@@ -3961,75 +3757,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}, 100);
 	});
 
-	// Also update when nightly details are updated
-	// function updateNightlyDetails(count) {
-	// 	var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-	// 	var checkinDate = $(`#checkin${count}`).val();
-	// 	var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
-	// 	var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
-	// 	var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-	// 	var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-	// 	var nightlyDetails = $(`#nightly-details${count}`);
-	// 	var currentNights = nightlyDetails.find('.night-section').length;
-
-	// 	// Update breadcrumb with number of nights
-	// 	$(`#span_night_id${count}`).text(no_of_night > 0 ? no_of_night : '');
-
-	// 	if (no_of_night < 1) {
-	// 		nightlyDetails.empty();
-	// 		$(`#vehicle-summary-${count}`).remove();
-	// 		updateGrandtotalBoth();
-	// 		get_veh_grand_total();
-	// 		return;
-	// 	}
-
-	// 	// Add new nights if increased
-	// 	for (let night = currentNights + 1; night <= no_of_night; night++) {
-	// 		var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, checkinDate);
-	// 		nightlyDetails.append(nightlyHtml);
-	// 		var commonOptions = $(`#roomcat_common${count}`).html();
-	// 		$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
-	// 			$(this).html(commonOptions);
-	// 		});
-	// 		$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
-	// 	}
-
-	// 	// Remove extra nights if decreased
-	// 	if (no_of_night < currentNights) {
-	// 		for (let night = currentNights; night > no_of_night; night--) {
-	// 			nightlyDetails.find(`.night-section[data-night="${night}"]`).remove();
-	// 		}
-	// 	}
-
-	// 	// Add or update vehicle summary section
-	// 	if (is_vehicle_required == 1) {
-	// 		// Remove existing summary to regenerate with updated night labels
-	// 		$(`#vehicle-summary-${count}`).remove();
-	// 		var summaryHtml = generateVehicleSummary(count, no_of_night, vehicle_models);
-	// 		nightlyDetails.append(summaryHtml);
-	// 		updateVehicleSummary(count);
-	// 	}
-
-	// 	// Set individual meal plans based on common meal plan
-	// 	var commonMeal = $(`#mealplan${count}`).val();
-	// 	if (commonMeal) {
-	// 		$(`#nightly-details${count} .mp_row_change`).val(commonMeal).trigger('change');
-	// 	}
-	// 	var commonRoom = $(`#roomcat_common${count}`).val();
-	// 	if (commonRoom) {
-	// 		$(`#nightly-details${count} .room_cat_change`).val(commonRoom).trigger('change');
-	// 	}
-
-	// 	// Update totals
-	// 	updateGrandtotalBoth();
-	// 	get_veh_grand_total();
-
-	// 	// Toggle visibility after updating nights
-	// 	toggleNightsVisibility();
-	// 	calculateVehicleExtraKmCharges();
-	// 	// $('.load_vehs_click').trigger('click');
-	// }
-
+	
 	// Function to update room totals for a specific room and night
 	function updateRoomTotals(count, night, roomIndex) {
 		var rid = `${count}${night}${roomIndex}`;
@@ -6736,13 +6464,13 @@ $is_edit = $edit_id ? $edit_id : 0;
 		var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
 		$('#g_total').text(g_total);
 	}
-	$(document).on('input', '[id^="double"], [id^="d_adult_rate"], [id^="d_child_rate"], [id^="d_child_wb_rate"], [id^="d_extra_bed_rate"]', function() {
-		var rid = this.id.match(/\d+/)[0];
-		var count = $(this).data('count');
-		double_total_update(rid, count);
+	// $(document).on('input', '[id^="double"], [id^="d_adult_rate"], [id^="d_child_rate"], [id^="d_child_wb_rate"], [id^="d_extra_bed_rate"]', function() {
+	// 	var rid = this.id.match(/\d+/)[0];
+	// 	var count = $(this).data('count');
+	// 	double_total_update(rid, count);
 
 
-	});
+	// });
 </script>
 <script>
 	function night_total_update_double(id) {
@@ -6836,13 +6564,13 @@ $is_edit = $edit_id ? $edit_id : 0;
 		var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
 		$('#g_total').text(g_total);
 	}
-	$(document).on('input', '[id^="single"], [id^="s_adult_rate"], [id^="s_child_rate"], [id^="s_child_wb_rate"], [id^="s_extra_bed_rate"]', function() {
-		var sid = this.id.match(/\d+/)[0];
-		var count = $(this).data('count');
-		// alert(count);
-		// alert(sid);
-		single_total_update(sid, count);
-	});
+	// $(document).on('input', '[id^="single"], [id^="s_adult_rate"], [id^="s_child_rate"], [id^="s_child_wb_rate"], [id^="s_extra_bed_rate"]', function() {
+	// 	var sid = this.id.match(/\d+/)[0];
+	// 	var count = $(this).data('count');
+	// 	// alert(count);
+	// 	// alert(sid);
+	// 	single_total_update(sid, count);
+	// });
 </script>
 <script>
 	function night_single_total_update(id) {
@@ -9474,26 +9202,26 @@ $(document).on('change', 'input[name*="[no_of_adult]"], input[name*="[no_of_ch]"
 });
 
 // Vehicle data change handler
-$(document).on('input', 'input[id^="day_rent"], input[id^="travel_distance"], input[id^="extra_km_rate"]', function() {
-	if (isDraftLoading) return;
+// $(document).on('input', 'input[id^="day_rent"], input[id^="travel_distance"], input[id^="extra_km_rate"]', function() {
+// 	if (isDraftLoading) return;
 	
-	var inputId = $(this).attr('id');
-	var matches = inputId.match(/\d+/g);
-	if (matches && matches.length >= 2) {
-		var locationId = matches[0];
-		var night = matches[1];
+// 	var inputId = $(this).attr('id');
+// 	var matches = inputId.match(/\d+/g);
+// 	if (matches && matches.length >= 2) {
+// 		var locationId = matches[0];
+// 		var night = matches[1];
 		
-		console.log(`Vehicle data changed for location ${locationId}, night ${night}`);
+// 		console.log(`Vehicle data changed for location ${locationId}, night ${night}`);
 		
-		setTimeout(function() {
-			updateVehicleSummary(locationId);
-			get_veh_grand_total();
+// 		setTimeout(function() {
+// 			updateVehicleSummary(locationId);
+// 			get_veh_grand_total();
 			
-			var locationTotal = calculateLocationTotal(locationId);
-			$(`#loc_total${locationId}`).text(' - ₹' + locationTotal.toFixed(2));
-		}, 500);
-	}
-});
+// 			var locationTotal = calculateLocationTotal(locationId);
+// 			$(`#loc_total${locationId}`).text(' - ₹' + locationTotal.toFixed(2));
+// 		}, 500);
+// 	}
+// });
 
 // Refresh vehicle summary button
 $(document).on('click', '.refresh-vehicle-summary', function(e) {

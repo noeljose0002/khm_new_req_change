@@ -1,0 +1,734 @@
+ERROR - 2025-10-31 12:38:51 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-10-31 12:38:51 --> 220 smtp.gmail.com ESMTP 98e67ed59e1d1-34050ba1472sm4819285a91.17 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-34050ba1472sm4819285a91.17 - gsmtp
+
+CRITICAL - 2025-10-31 07:10:19 --> ErrorException: Undefined variable $d_room_tariff_t
+[Method: GET, Route: Enquiry/itinerary/2779/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 934.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(934): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $d_room_tariff_t', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 934)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(4788): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2779', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ CRITICAL - 2025-10-31 09:56:48 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'bootstrap-colorpicker', 'bootstrap-colorpicker.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:48 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/dataTables.bootstrap4.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:48 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'sidemenu-responsive-tabs', 'css', 'sidemenu-responsive-tabs.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:48 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/select2/select2.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'select2', 'select2.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:48 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/time-picker/jquery.timepicker.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'time-picker', 'jquery.timepicker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:48 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/date-picker/date-picker.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'date-picker', 'date-picker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:48 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/multipleselect/multiple-select.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'multipleselect', 'multiple-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:48 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/fileuploads/css/dropify.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'fileuploads', 'css', 'dropify.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:48 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/jquery-nice-select/css/nice-select.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'jquery-nice-select', 'css', 'nice-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:48 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/jquery.dataTables.min.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'jquery.dataTables.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:48 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/dataTables.bootstrap4.min.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:48 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/datatable.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'datatable.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:53 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/select2/select2.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'select2', 'select2.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:53 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'bootstrap-colorpicker', 'bootstrap-colorpicker.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:53 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/date-picker/date-picker.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'date-picker', 'date-picker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:53 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/time-picker/jquery.timepicker.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'time-picker', 'jquery.timepicker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:53 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'sidemenu-responsive-tabs', 'css', 'sidemenu-responsive-tabs.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:53 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/dataTables.bootstrap4.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:53 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/multipleselect/multiple-select.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'multipleselect', 'multiple-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:53 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/fileuploads/css/dropify.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'fileuploads', 'css', 'dropify.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:56:53 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/jquery-nice-select/css/nice-select.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'jquery-nice-select', 'css', 'nice-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-31 15:28:43 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-10-31 15:28:43 --> 220 smtp.gmail.com ESMTP d9443c01a7336-295268cb73dsm17814045ad.44 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-295268cb73dsm17814045ad.44 - gsmtp
+
+CRITICAL - 2025-10-31 09:59:35 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'bootstrap-colorpicker', 'bootstrap-colorpicker.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:35 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/dataTables.bootstrap4.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:35 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'sidemenu-responsive-tabs', 'css', 'sidemenu-responsive-tabs.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:35 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/date-picker/date-picker.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'date-picker', 'date-picker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:35 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/time-picker/jquery.timepicker.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'time-picker', 'jquery.timepicker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:35 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/select2/select2.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'select2', 'select2.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:35 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/multipleselect/multiple-select.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'multipleselect', 'multiple-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:35 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/fileuploads/css/dropify.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'fileuploads', 'css', 'dropify.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:35 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/jquery-nice-select/css/nice-select.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'jquery-nice-select', 'css', 'nice-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:35 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/jquery.dataTables.min.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'jquery.dataTables.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:35 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/dataTables.bootstrap4.min.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:35 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/datatable.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'datatable.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:51 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'bootstrap-colorpicker', 'bootstrap-colorpicker.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:51 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/date-picker/date-picker.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'date-picker', 'date-picker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:51 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'sidemenu-responsive-tabs', 'css', 'sidemenu-responsive-tabs.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:51 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/time-picker/jquery.timepicker.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'time-picker', 'jquery.timepicker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:51 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/dataTables.bootstrap4.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:51 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/select2/select2.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'select2', 'select2.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:51 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/multipleselect/multiple-select.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'multipleselect', 'multiple-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:51 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/fileuploads/css/dropify.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'fileuploads', 'css', 'dropify.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:51 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/jquery-nice-select/css/nice-select.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'jquery-nice-select', 'css', 'nice-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:51 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/jquery.dataTables.min.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'jquery.dataTables.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:51 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/dataTables.bootstrap4.min.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 09:59:51 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/datatable.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'datatable.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:00:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'bootstrap-colorpicker', 'bootstrap-colorpicker.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:00:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/dataTables.bootstrap4.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:00:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'sidemenu-responsive-tabs', 'css', 'sidemenu-responsive-tabs.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:00:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/date-picker/date-picker.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'date-picker', 'date-picker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:00:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/time-picker/jquery.timepicker.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'time-picker', 'jquery.timepicker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:00:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/select2/select2.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'select2', 'select2.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:00:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/multipleselect/multiple-select.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'multipleselect', 'multiple-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:00:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/jquery-nice-select/css/nice-select.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'jquery-nice-select', 'css', 'nice-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:00:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/fileuploads/css/dropify.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'fileuploads', 'css', 'dropify.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:00:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/jquery.dataTables.min.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'jquery.dataTables.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:00:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/dataTables.bootstrap4.min.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:00:00 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/datatable.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'datatable.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:23:38 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'bootstrap-colorpicker', 'bootstrap-colorpicker.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:23:38 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/sidemenu-responsive-tabs/css/sidemenu-responsive-tabs.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'sidemenu-responsive-tabs', 'css', 'sidemenu-responsive-tabs.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:23:38 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/time-picker/jquery.timepicker.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'time-picker', 'jquery.timepicker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:23:38 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/dataTables.bootstrap4.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:23:38 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/date-picker/date-picker.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'date-picker', 'date-picker.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:23:38 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/select2/select2.min.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'select2', 'select2.min.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:23:38 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/multipleselect/multiple-select.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'multipleselect', 'multiple-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:23:38 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/fileuploads/css/dropify.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'fileuploads', 'css', 'dropify.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:23:38 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/jquery-nice-select/css/nice-select.css]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'jquery-nice-select', 'css', 'nice-select.css')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:23:38 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/jquery.dataTables.min.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'jquery.dataTables.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:23:38 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/dataTables.bootstrap4.min.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'dataTables.bootstrap4.min.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-31 10:23:38 --> ErrorException: Undefined array key 0
+[Method: GET, Route: Dashboard/add_object/assets/plugins/datatable/datatable.js]
+in APPPATH\Controllers\Dashboard.php on line 1288.
+ 1 APPPATH\Controllers\Dashboard.php(1288): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Dashboard.php', 1288)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->add_object('assets', 'plugins', 'datatable', 'datatable.js')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
