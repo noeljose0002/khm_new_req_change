@@ -70,7 +70,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/skins.css'); ?>" />
 	<script src="<?php echo base_url('assets/tiny_mce/tiny_mce.js'); ?>"></script>
 	<style>
-		
 		select.input-sm+.select2-container {
 			width: 100% !important;
 			/* Force full width of parent container for responsiveness on zoom/resize */
@@ -947,141 +946,141 @@ $is_edit = $edit_id ? $edit_id : 0;
 									</div>
 								</div>
 							</div>
-									<form id="myTourplanForm" method="POST" action="<?= site_url('Enquiry/saveTourPlan'); ?>">
-										<input type="hidden" name="enquiry_header_id" value="<?php echo $object_det[0]['enquiry_header_id']; ?>">
-										<input type="hidden" name="enquiry_details_id" value="<?php echo $object_det[0]['enquiry_details_id']; ?>">
-										<input type="hidden" name="is_quick_quote" value="<?php echo $object_det[0]['is_quick_quote']; ?>">
-										<input type="hidden" name="object_id" value="<?php echo $object_id; ?>">
-										<input type="hidden" name="edit_id" value="<?php echo $is_edit; ?>">
-										<input type="hidden" name="no_of_double_room" value="<?php echo $object_det[0]['no_of_double_room']; ?>">
-										<input type="hidden" name="no_of_single_room" value="<?php echo $object_det[0]['no_of_single_room']; ?>">
-										<div class="bg-white widget-user mb-0">
-											<div class="card-body">
-												<div class="border-0">
-													<div class="tab-content">
-														<div class="tab-pane active" id="tab-5">
-															<div class="profile-log-switch">
-																<!-- Row-->
-																<div class="row">
-																	<div class="col-xl-12 ">
-																		<?php if (!empty($pre_tour_plan) && empty($cur_tour_plan)) { ?>
-																			<h6 style="font-style: italic;color:#cc3399;">*You can either import current tour plan using the 'Import Tour Plan' button or create a new tour plan.</h6>
+							<form id="myTourplanForm" method="POST" action="<?= site_url('Enquiry/saveTourPlan'); ?>">
+								<input type="hidden" name="enquiry_header_id" value="<?php echo $object_det[0]['enquiry_header_id']; ?>">
+								<input type="hidden" name="enquiry_details_id" value="<?php echo $object_det[0]['enquiry_details_id']; ?>">
+								<input type="hidden" name="is_quick_quote" value="<?php echo $object_det[0]['is_quick_quote']; ?>">
+								<input type="hidden" name="object_id" value="<?php echo $object_id; ?>">
+								<input type="hidden" name="edit_id" value="<?php echo $is_edit; ?>">
+								<input type="hidden" name="no_of_double_room" value="<?php echo $object_det[0]['no_of_double_room']; ?>">
+								<input type="hidden" name="no_of_single_room" value="<?php echo $object_det[0]['no_of_single_room']; ?>">
+								<div class="bg-white widget-user mb-0">
+									<div class="card-body">
+										<div class="border-0">
+											<div class="tab-content">
+												<div class="tab-pane active" id="tab-5">
+													<div class="profile-log-switch">
+														<!-- Row-->
+														<div class="row">
+															<div class="col-xl-12 ">
+																<?php if (!empty($pre_tour_plan) && empty($cur_tour_plan)) { ?>
+																	<h6 style="font-style: italic;color:#cc3399;">*You can either import current tour plan using the 'Import Tour Plan' button or create a new tour plan.</h6>
+																<?php } ?>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-xl-12 ">
+																<div class="">
+
+																	<div class="card mb-0 box-shadow-0">
+																		<?php if (!empty($tour_plan_det) && $is_edit == 0) { ?>
+																			<div class="d-flex table-responsive p-3">
+																				<div class="btn-group mr-2">
+																					<a href="#" id="tour_view_id" class="tour_view">Tour Plan View</a>
+																				</div>
+
+																				<?php if ($object_det[0]['is_quick_quote'] == 1) { ?>
+																					<div class="btn-group mr-2">
+
+																						<a href="#" id="qq_edit_id" class="qq_view">Quick Quote View</a>
+
+																					</div>
+																				<?php } ?>
+																				<div class="btn-group mr-2">
+
+																					<a href="<?= site_url('Enquiry/itinerary/' . $object_id . '/0'); ?>" id="go_to_iti">Go to Itinerary</a>
+																				</div>
+																			</div>
+																		<?php } ?>
+																		<?php if (!empty($tour_plan_draft_det)) { ?>
+																			<div class="d-flex table-responsive p-3">
+																				<div class="btn-group mr-2">
+																					<i class="btn btn-primary draft_view">Get tour plan from draft</i>
+																				</div>
+																			</div>
+																		<?php } ?>
+
+																		<?php if (!empty($tour_plan_det) && $is_edit > 0) { ?>
+																			<div class="d-flex table-responsive p-3">
+																				<div class="btn-group mr-2">
+																					<i class="btn btn-primary draft_view" id="edit_cur_tour_plan_btn">Edit Current Tour Plan</i>
+																				</div>
+																			</div>
+																		<?php } ?>
+
+																		<?php if (empty($tour_plan_det) || $is_edit > 0) { ?>
+																			<div class="card-header">
+																				<div class="d-flex align-items-center w-100">
+																					<div style="width: 60%;">
+																						<select class="form-control select2-show-search" name="tour_location" id="tour_location" data-placeholder="Search and add tour locations from here" style="width:80%;">
+																							<option value="">Select</option>
+																							<?php
+																							if (!empty($all_locations)) {
+																								foreach ($all_locations as $keys => $vals) {
+																									echo '<option value="' . $vals['geog_id'] . '">' . $vals['geog_name'] . '</option>';
+																								}
+																							} else {
+																							?>
+																								<option value="">Location not found</option>
+																							<?php } ?>
+
+																						</select>
+																					</div>
+
+
+
+																					<div class="form-check ml-2">
+																						<input class="form-check-input" type="checkbox" id="dynamicNeeded" />
+																						<label class="btn btn-success dyna" for="dynamicNeeded">Dynamic needed</label>
+																					</div>
+
+																					<div class="ml-2">
+																						<button type="button" class="btn btn-success pt-2 pb-2" id="btn_add_bt">Add Location<i class="fa fa-plus ml-2"></i></button>
+																					</div>
+
+																					<?php if (!empty($pre_tour_plan) && empty($cur_tour_plan)) { ?>
+																						<div class="ml-2">
+																							<button type="button" class="btn btn-success pt-2 pb-2" id="copy_tour_plan">Import Tour Plan<i class="fa fa-save ml-2"></i></button>
+																						</div>
+																					<?php } ?>
+																				</div>
+																			</div>
 																		<?php } ?>
 																	</div>
-																</div>
-																<div class="row">
-																	<div class="col-xl-12 ">
-																		<div class="">
-
-																			<div class="card mb-0 box-shadow-0">
-																				<?php if (!empty($tour_plan_det) && $is_edit == 0) { ?>
-																					<div class="d-flex table-responsive p-3">
-																						<div class="btn-group mr-2">
-																							<a href="#" id="tour_view_id" class="tour_view">Tour Plan View</a>
-																						</div>
-
-																						<?php if ($object_det[0]['is_quick_quote'] == 1) { ?>
-																							<div class="btn-group mr-2">
-
-																								<a href="#" id="qq_edit_id" class="qq_view">Quick Quote View</a>
-
-																							</div>
-																						<?php } ?>
-																						<div class="btn-group mr-2">
-
-																							<a href="<?= site_url('Enquiry/itinerary/' . $object_id . '/0'); ?>" id="go_to_iti">Go to Itinerary</a>
-																						</div>
-																					</div>
-																				<?php } ?>
-																				<?php if (!empty($tour_plan_draft_det)) { ?>
-																					<div class="d-flex table-responsive p-3">
-																						<div class="btn-group mr-2">
-																							<i class="btn btn-primary draft_view">Get tour plan from draft</i>
-																						</div>
-																					</div>
-																				<?php } ?>
-
-																				<?php if (!empty($tour_plan_det) && $is_edit > 0) { ?>
-																					<div class="d-flex table-responsive p-3">
-																						<div class="btn-group mr-2">
-																							<i class="btn btn-primary draft_view" id="edit_cur_tour_plan_btn">Edit Current Tour Plan</i>
-																						</div>
-																					</div>
-																				<?php } ?>
-
-																				<?php if (empty($tour_plan_det) || $is_edit > 0) { ?>
-																					<div class="card-header">
-																						<div class="d-flex align-items-center w-100">
-																							<div style="width: 60%;">
-																								<select class="form-control select2-show-search" name="tour_location" id="tour_location" data-placeholder="Search and add tour locations from here" style="width:80%;">
-																									<option value="">Select</option>
-																									<?php
-																									if (!empty($all_locations)) {
-																										foreach ($all_locations as $keys => $vals) {
-																											echo '<option value="' . $vals['geog_id'] . '">' . $vals['geog_name'] . '</option>';
-																										}
-																									} else {
-																									?>
-																										<option value="">Location not found</option>
-																									<?php } ?>
-
-																								</select>
-																							</div>
-
-																							
-																							
-																							<div class="form-check ml-2">
-																								<input class="form-check-input" type="checkbox" id="dynamicNeeded" />
-																								<label class="btn btn-success dyna" for="dynamicNeeded">Dynamic needed</label>
-																							</div>
-																							
-																							<div class="ml-2">
-																								<button type="button" class="btn btn-success pt-2 pb-2" id="btn_add_bt">Add Location<i class="fa fa-plus ml-2"></i></button>
-																							</div>
-																							
-																							<?php if (!empty($pre_tour_plan) && empty($cur_tour_plan)) { ?>
-																							<div class="ml-2">
-																								<button type="button" class="btn btn-success pt-2 pb-2" id="copy_tour_plan">Import Tour Plan<i class="fa fa-save ml-2"></i></button>
-																							</div>
-																							<?php } ?>
-																						</div>
-																					</div>
-																				<?php } ?>
-																			</div>
 
 
 
-																			<span id="hotel_alert"></span>
-																			<div class="d-flex justify-content-center">
-																				<button class="btn btn-primary" id="csspinner" type="button" style="display: none;">
-																					<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-																					Tour plan loading...
-																				</button>
-																			</div>
-																			<div class="row tour_plan_div" style="padding-top:15px;">
-																			</div>
-
-
-																		</div>
+																	<span id="hotel_alert"></span>
+																	<div class="d-flex justify-content-center">
+																		<button class="btn btn-primary" id="csspinner" type="button" style="display: none;">
+																			<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+																			Tour plan loading...
+																		</button>
 																	</div>
+																	<div class="row tour_plan_div" style="padding-top:15px;">
+																	</div>
+
+
 																</div>
-
-
-																<!--</div>-->
-																<button type="submit" id="btn_savedraft_tour_plan" class="btn btn-success" style="float:left;display:none;">Save As Draft</button>
-																<button type="submit" id="btn_save_tour_plan" class="btn btn-success" style="float:right;display:none;">Final Save</button>
-																<input type="hidden" name="submit_type" id="submit_type" value="">
-																<!-- End Row -->
 															</div>
 														</div>
 
 
-
+														<!--</div>-->
+														<button type="submit" id="btn_savedraft_tour_plan" class="btn btn-success" style="float:left;display:none;">Save As Draft</button>
+														<button type="submit" id="btn_save_tour_plan" class="btn btn-success" style="float:right;display:none;">Final Save</button>
+														<input type="hidden" name="submit_type" id="submit_type" value="">
+														<!-- End Row -->
 													</div>
 												</div>
+
+
+
 											</div>
 										</div>
-									</form>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 					<!-- row closed -->
@@ -2515,23 +2514,23 @@ $is_edit = $edit_id ? $edit_id : 0;
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>Daily Room Rate</b></div>
-									<input type="text" id="d_adult_rate${rid}" name="addloc[${count}][nights][${night}][d_adult_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" required data-night="${night}" data-room-index="${i}">
+									<input type="text" id="d_adult_rate${rid}" name="addloc[${count}][nights][${night}][d_adult_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" required data-night="${night}" data-room-index="${i}" value="0" >
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>C.With Bed Rate</b></div>
-									<input type="text" id="d_child_rate${rid}" name="addloc[${count}][nights][${night}][d_child_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}">
+									<input type="text" id="d_child_rate${rid}" name="addloc[${count}][nights][${night}][d_child_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}" value="0" >
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>C.Without Bed Rate</b></div>
-									<input type="text" id="d_child_wb_rate${rid}" name="addloc[${count}][nights][${night}][d_child_wb_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}">
+									<input type="text" id="d_child_wb_rate${rid}" name="addloc[${count}][nights][${night}][d_child_wb_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}" value="0" >
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>Extra Bed Rate</b></div>
-									<input type="text" id="d_extra_bed_rate${rid}" name="addloc[${count}][nights][${night}][d_extra_bed_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}">
+									<input type="text" id="d_extra_bed_rate${rid}" name="addloc[${count}][nights][${night}][d_extra_bed_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}" value="0" >
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>Total(Double)</b></div>
-									<input type="text" id="d_total_rate${rid}" name="addloc[${count}][nights][${night}][d_total_rate][${i}]" class="form-control input-sm d_total_rate" data-count="${count}" maxlength="6" readonly data-night="${night}" data-room-index="${i}">
+									<input type="text" id="d_total_rate${rid}" name="addloc[${count}][nights][${night}][d_total_rate][${i}]" class="form-control input-sm d_total_rate" data-count="${count}" maxlength="6" readonly data-night="${night}" data-room-index="${i}" value="0" >
 								</div>
 							</div>`;
 			}
@@ -2599,23 +2598,23 @@ $is_edit = $edit_id ? $edit_id : 0;
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>Daily Room Rate</b></div>
-									<input type="text" id="s_adult_rate${sid}" name="addloc[${count}][nights][${night}][s_adult_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${seq});" data-night="${night}" data-room-index="${seq}">
+									<input type="text" id="s_adult_rate${sid}" name="addloc[${count}][nights][${night}][s_adult_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); updateRoomTotals(${count}, ${night}, ${seq});" data-night="${night}" data-room-index="${seq}" value="0" >
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>C.With Bed Rate</b></div>
-									<input type="text" id="s_child_rate${sid}" name="addloc[${count}][nights][${night}][s_child_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);"  data-night="${night}" data-room-index="${seq}">
+									<input type="text" id="s_child_rate${sid}" name="addloc[${count}][nights][${night}][s_child_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);"  data-night="${night}" data-room-index="${seq}" value="0" readonly >
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>C.Without Bed Rate</b></div>
-									<input type="text" id="s_child_wb_rate${sid}" name="addloc[${count}][nights][${night}][s_child_wb_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);"  data-night="${night}" data-room-index="${seq}">
+									<input type="text" id="s_child_wb_rate${sid}" name="addloc[${count}][nights][${night}][s_child_wb_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);"  data-night="${night}" data-room-index="${seq}" value="0"  readonly >
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>Extra Bed Rate</b></div>
-									<input type="text" id="s_extra_bed_rate${sid}" name="addloc[${count}][nights][${night}][s_extra_bed_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);"  data-night="${night}" data-room-index="${seq}">
+									<input type="text" id="s_extra_bed_rate${sid}" name="addloc[${count}][nights][${night}][s_extra_bed_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);"  data-night="${night}" data-room-index="${seq}" value="0"  readonly >
 								</div>
 								<div class="col-xl col-sm-12 col-md-2 ps-2">
 									<div class="teams-rank"><b>Total(Single)</b></div>
-									<input type="text" id="s_total_rate${sid}" name="addloc[${count}][nights][${night}][s_total_rate][${seq}]" class="form-control input-sm s_total_rate" data-count="${count}" maxlength="6"  data-night="${night}" data-room-index="${seq}">
+									<input type="text" id="s_total_rate${sid}" name="addloc[${count}][nights][${night}][s_total_rate][${seq}]" class="form-control input-sm s_total_rate" data-count="${count}" maxlength="6"  data-night="${night}" data-room-index="${seq}" value="0"  readonly >
 								</div>
 							</div>`;
 			}
@@ -2625,7 +2624,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 							<div class="col-12 d-flex justify-content-end">
 								<div class="col-xl-1.3 col-sm-12 col-md-2 total-col">
 									<div class="teams-rank textlef"><b>Grand Total(Single)</b></div>
-									<input type="text" id="ss_total_rate${count}${night}" name="addloc[${count}][nights][${night}][ss_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}"> <br>
+									<input type="text" id="ss_total_rate${count}${night}" name="addloc[${count}][nights][${night}][ss_total_rate]" value="0" class="form-control input-sm" maxlength="6"  readonly data-night="${night}"> <br>
 								</div>
 							</div>
 						</div>
@@ -2643,9 +2642,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 					`;
 		}
 
-									// Vehicle Details
-									if (is_vehicle_required == 1) {
-										nightlyHtml += `
+		// Vehicle Details
+		if (is_vehicle_required == 1) {
+			nightlyHtml += `
 												<div class="row mt-2 vehicle-details-section">
 								<div class="col-12 text-center ps-2">
 									<a id="loadvehs${count}${night}" class="nav-link load_vehs_click d-inline-block me-2" data-id="${count}" data-night="${night}" data-loaded="false">
@@ -2713,7 +2712,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 									<input type="text" id="extra_kilometer${vid}" name="addloc[${count}][nights][${night}][extra_kilometer][${vindex}]" value="0" class="form-control input-sm extra_kilometer${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly data-night="${night}" data-veh-index="${vindex}">
 								</div>
 								<div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-									<input type="text" id="extra_km_rate${vid}" name="addloc[${count}][nights][${night}][extra_km_rate][${vindex}]" value="0" class="form-control input-sm extra_km_rate${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly data-night="${night}" data-veh-index="${vindex}">
+									<input type="text" id="extra_km_rate${vid}" name="addloc[${count}][nights][${night}][extra_km_rate][${vindex}]" value="0" class="form-control readonly input-sm extra_km_rate${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly data-night="${night}" data-veh-index="${vindex}">
 								</div>
 								<div class="col-xl-2 col-sm-12 col-md-2 ps-2">
 									<input type="text" id="veh_total${vid}" name="addloc[${count}][nights][${night}][veh_total][${vindex}]" value="0" class="form-control input-sm munn${vindex}" maxlength="5" readonly data-night="${night}" data-veh-index="${vindex}">
@@ -3111,7 +3110,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 					// Generate sterling only for first room
 					if (roomIndex === 1 && tax_status == 1) {
-						var tot_d = effective_room_r + (child_with_bed_count * child_r) + (child_without_bed_count * child_wb_r) + (extra_bed_count * extra_r);
+						// var tot_d = effective_room_r + (child_with_bed_count * child_r) + (child_without_bed_count * child_wb_r) + (extra_bed_count * extra_r);
 						var gst = tot_d >= 7500 ? 18 : 12;
 						var gstval = (gst / 100) * tot_d;
 						var total_doubles = tot_d + gstval;
@@ -3229,9 +3228,10 @@ $is_edit = $edit_id ? $edit_id : 0;
 		});
 	});
 	// Event handler for rate inputs to propagate in static mode
+	// ===== FIXED RATE INPUT HANDLER WITH PROPER STATIC MODE CALCULATION =====
 	$(document).on('input', 'input[id^="d_adult_rate"], input[id^="d_child_rate"], input[id^="d_child_wb_rate"], input[id^="d_extra_bed_rate"], input[id^="s_adult_rate"], input[id^="s_child_rate"], input[id^="s_child_wb_rate"], input[id^="s_extra_bed_rate"]', function() {
 		var $input = $(this);
-		validateNumericInput($input[0]); // Validate input
+		validateNumericInput($input[0]);
 
 		var count = $input.data('count');
 		var night = parseInt($input.data('night'));
@@ -3244,7 +3244,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		console.log('=== Rate Input Change ===');
 		console.log('Field:', fieldId, 'Count:', count, 'Night:', night, 'Room Index:', roomIndex, 'Room Type:', roomType, 'Value:', value);
 
-		// **CHECK: In dynamic mode or not the first room, update only the current room**
+		// Dynamic mode or not the first room
 		if (getIsDynamic() || roomIndex !== 1) {
 			console.log('Dynamic mode or not first room - Updating only current room');
 			updateRoomTotals(count, night, roomIndex);
@@ -3257,56 +3257,53 @@ $is_edit = $edit_id ? $edit_id : 0;
 			return;
 		}
 
-		// **STATIC MODE: Propagate rate change to ALL rooms of the same type across ALL nights**
+		// STATIC MODE: Propagate rate change
 		console.log('Static mode - Propagating rate change for first room');
 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-
-		// Determine which rate field was changed
 		var fieldType = fieldId.replace(prefix, '').split(`${count}${night}${roomIndex}`)[0];
 
 		console.log('Field Type:', fieldType, 'Total Nights:', no_of_night);
 
 		// Loop through ALL nights
 		for (let n = 1; n <= no_of_night; n++) {
-			// Get total double and single rooms for this night
 			var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
 			var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
 
 			console.log(`Night ${n}: Total double rooms = ${totalDoubleRooms}, Total single rooms = ${totalSingleRooms}`);
 
-			// Calculate room index range based on type
 			var startIndex = roomType === 'double' ? 1 : totalDoubleRooms + 1;
 			var endIndex = roomType === 'double' ? totalDoubleRooms : totalDoubleRooms + totalSingleRooms;
 
 			console.log(`Propagating ${roomType} room rates from index ${startIndex} to ${endIndex} for night ${n}`);
 
-			// Loop through rooms of the same type for this night
+			// Propagate to all rooms of same type
 			for (let r = startIndex; r <= endIndex; r++) {
-				// Skip the current room that user is changing
-				if (n === night && r === roomIndex) {
-					console.log('Skipping current room - Night:', n, 'Room:', r);
-					continue;
-				}
-
 				var otherRid = `${count}${n}${r}`;
 				var otherFieldId = `${prefix}${fieldType}${otherRid}`;
-
-				// **CHECK: Ensure the target field exists**
 				var $otherField = $(`#${otherFieldId}`);
+
 				if ($otherField.length > 0) {
 					console.log(`Propagating value ${value} to field ${otherFieldId}`);
 					$otherField.val(value);
-					updateRoomTotals(count, n, r);
-				} else {
-					console.warn(`Field ${otherFieldId} not found - room ${r} may not exist for night ${n}`);
 				}
 			}
+
+			// Recalculate totals with corrected formula
+			calculateDoubleGrandTotalStatic(count, n);
+			calculateSingleGrandTotalStatic(count, n);
 		}
 
-		// Update totals for the current room
-		updateRoomTotals(count, night, roomIndex);
+		// Update the visible first row total
+		var firstRid = `${count}${night}${roomIndex}`;
+		if (roomType === 'double') {
+			var grandTotal = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
+			$(`#d_total_rate${firstRid}`).val(grandTotal);
+		} else {
+			var grandTotal = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
+			$(`#s_total_rate${firstRid}`).val(grandTotal);
+		}
 
-		// Update card and overall totals
+		// Update totals
 		var singleCardTotal = updateGrandtotalBoth(count);
 		var veh_grand_total = get_veh_grand_total();
 		$(`#loc_total${count}`).text(singleCardTotal + " + " + veh_grand_total);
@@ -3316,6 +3313,96 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		console.log('Rate propagation complete');
 	});
+
+	function calculateDoubleGrandTotalStatic(count, night) {
+		var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+
+		if (double_qty === 0) {
+			$(`#dd_total_rate${count}${night}`).val(0);
+			return;
+		}
+
+		// Get rates from FIRST room (they're all the same in static mode)
+		var firstRid = `${count}${night}1`;
+		var d_adult_rate = parseFloat($(`#d_adult_rate${firstRid}`).val()) || 0;
+		var d_child_rate = parseFloat($(`#d_child_rate${firstRid}`).val()) || 0;
+		var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${firstRid}`).val()) || 0;
+		var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${firstRid}`).val()) || 0;
+
+		// **CORRECTED FORMULA: Only adult rate multiplied by room qty, others use TOTAL quantities**
+		var dd_total = (d_adult_rate * double_qty) +
+			(no_of_ch * d_child_rate) +
+			(no_of_cw * d_child_wb_rate) +
+			(no_of_extra * d_extra_bed_rate);
+
+		console.log(`Double Grand Total Calc for Night ${night}:`, {
+			double_qty,
+			d_adult_rate,
+			adult_subtotal: d_adult_rate * double_qty,
+			no_of_ch,
+			d_child_rate,
+			child_subtotal: no_of_ch * d_child_rate,
+			no_of_cw,
+			d_child_wb_rate,
+			child_wb_subtotal: no_of_cw * d_child_wb_rate,
+			no_of_extra,
+			d_extra_bed_rate,
+			extra_subtotal: no_of_extra * d_extra_bed_rate,
+			dd_total
+		});
+
+		$(`#dd_total_rate${count}${night}`).val(dd_total);
+	}
+
+	// **NEW FUNCTION: Calculate single room grand total in static mode with proper multiplication**
+	function calculateSingleGrandTotalStatic(count, night) {
+		var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+		var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
+		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+
+		if (single_qty === 0) {
+			$(`#ss_total_rate${count}${night}`).val(0);
+			return;
+		}
+
+		// Get rates from FIRST single room (they're all the same in static mode)
+		var firstSingleRoomIndex = double_qty + 1;
+		var firstRid = `${count}${night}${firstSingleRoomIndex}`;
+		var s_adult_rate = parseFloat($(`#s_adult_rate${firstRid}`).val()) || 0;
+		var s_child_rate = parseFloat($(`#s_child_rate${firstRid}`).val()) || 0;
+		var s_child_wb_rate = parseFloat($(`#s_child_wb_rate${firstRid}`).val()) || 0;
+		var s_extra_bed_rate = parseFloat($(`#s_extra_bed_rate${firstRid}`).val()) || 0;
+
+		// **CORRECTED FORMULA: Only adult rate multiplied by room qty, others use TOTAL quantities**
+		var ss_total = (s_adult_rate * single_qty) +
+			(no_of_ch * s_child_rate) +
+			(no_of_cw * s_child_wb_rate) +
+			(no_of_extra * s_extra_bed_rate);
+
+		console.log(`Single Grand Total Calc for Night ${night}:`, {
+			single_qty,
+			s_adult_rate,
+			adult_subtotal: s_adult_rate * single_qty,
+			no_of_ch,
+			s_child_rate,
+			child_subtotal: no_of_ch * s_child_rate,
+			no_of_cw,
+			s_child_wb_rate,
+			child_wb_subtotal: no_of_cw * s_child_wb_rate,
+			no_of_extra,
+			s_extra_bed_rate,
+			extra_subtotal: no_of_extra * s_extra_bed_rate,
+			ss_total
+		});
+
+		$(`#ss_total_rate${count}${night}`).val(ss_total);
+	}
+
 
 
 	function generateVehicleSummary(count, no_of_night, vehicle_models) {
@@ -3394,7 +3481,7 @@ $is_edit = $edit_id ? $edit_id : 0;
                     <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_distance]" id="summary_distance_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
                 </div>
                 <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
-                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][extra_km_rate]" id="summary_extra_km_rate_${count}_${vindex}" value="0" class="form-control input-sm summary-extra-km-rate" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
+                    <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][extra_km_rate]" id="summary_extra_km_rate_${count}_${vindex}" readonly value="0" class="form-control input-sm summary-extra-km-rate" data-count="${count}" data-vindex="${vindex}" data-vehicle-type="${vmodel.vehicle_type_id}" maxlength="6">
                 </div>
                 <div class="col-xl-1 col-sm-12 col-md-2 ps-2">
                     <input type="text" name="addloc[${count}][vehicle_summary][${vindex}][total_extra_km]" id="summary_extra_km_${count}_${vindex}" value="0" class="form-control input-sm" readonly>
@@ -3529,8 +3616,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
 
-		console.log('Updating vehicle summary for card:', count, 'Nights:', no_of_night);
-
 		if (no_of_night < 1) {
 			$(`#vehicle-summary-${count}`).hide();
 			return;
@@ -3541,7 +3626,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			$(`#vehicle-summary-${count}`).show();
 		}
 
-		// Update header with actual vehicle details
+		// Update header with vehicle details
 		var nightLabels = '';
 		for (let i = 1; i <= no_of_night; i++) {
 			var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
@@ -3572,7 +3657,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			var extraKmRate = 0;
 			var totalAmount = 0;
 
-			// Loop through all nights and sum up values
+			// Sum up values from ALL nights
 			for (let night = 1; night <= no_of_night; night++) {
 				var vid = `${count}${night}${vmodel.vehicle_type_id}`;
 
@@ -3582,24 +3667,14 @@ $is_edit = $edit_id ? $edit_id : 0;
 				var vehTotal = parseFloat($(`#veh_total${vid}`).val()) || 0;
 				var kmRate = parseFloat($(`#extra_km_rate${vid}`).val()) || 0;
 
-				console.log(`Night ${night}, Vehicle ${vindex}:`, {
-					dayRent,
-					distance,
-					extraKm,
-					vehTotal,
-					kmRate
-				});
-
 				if (dayRent > 0 || distance > 0) {
 					totalDays++;
 				}
 
-				// For daily rent, just take the first night's value (they should all be same in static mode)
+				// Take first night's values for rates
 				if (night === 1 || dailyRent === 0) {
 					dailyRent = dayRent;
 				}
-
-				// Get extra km rate from first night
 				if (night === 1) {
 					extraKmRate = kmRate;
 				}
@@ -3609,20 +3684,10 @@ $is_edit = $edit_id ? $edit_id : 0;
 				totalAmount += vehTotal;
 			}
 
-			console.log(`Summary for Vehicle ${vindex}:`, {
-				totalDays,
-				dailyRent,
-				totalDistance,
-				totalExtraKm,
-				extraKmRate,
-				totalAmount
-			});
-
-			// Update summary fields - don't overwrite if user is currently editing
+			// Update summary fields (only if not currently being edited)
 			var $rentField = $(`#summary_rent_${count}_${vindex}`);
 			var $rateField = $(`#summary_extra_km_rate_${count}_${vindex}`);
 
-			// Only update if not focused (user not editing)
 			if (!$rentField.is(':focus')) {
 				$rentField.val(dailyRent);
 			}
@@ -3633,16 +3698,15 @@ $is_edit = $edit_id ? $edit_id : 0;
 			$(`#summary_days_${count}_${vindex}`).val(totalDays);
 			$(`#summary_distance_${count}_${vindex}`).val(totalDistance);
 			$(`#summary_extra_km_${count}_${vindex}`).val(totalExtraKm);
-			$(`#summary_total_${count}_${vindex}`).val(totalAmount);
+			$(`#summary_total_${count}_${vindex}`).val(Math.round(totalAmount));
 
 			overallTotal += totalAmount;
 		});
 
 		// Update overall total
-		$(`#summary_overall_total_${count}`).val(overallTotal.toFixed(2));
-
-		console.log('Overall vehicle total:', overallTotal);
+		$(`#summary_overall_total_${count}`).val(Math.round(overallTotal));
 	}
+
 
 	// Show alert function
 	function showAlert(type, message) {
@@ -3760,1091 +3824,1057 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 
 
-			// Updated updateRoomTotals function with fix for static mode totals
-function updateRoomTotals(count, night, roomIndex) {
-    var rid = `${count}${night}${roomIndex}`;
-    var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
-    var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
-    var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
-    var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
-    var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
-    var isDynamic = getIsDynamic();
+	// Updated updateRoomTotals function with fix for static mode totals
+	function updateRoomTotals(count, night, roomIndex) {
+		var rid = `${count}${night}${roomIndex}`;
+		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+		var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+		var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
+		var isDynamic = getIsDynamic();
 
-    if ($(`#d_adult_rate${rid}`).length > 0) {
-        // Double room
-        var d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
-        var d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
-        var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
-        var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
-        
-        if (isDynamic) {
-            // Calculate distribution for this room
-            var childCount = calculateDistribution(no_of_ch, double_qty, roomIndex);
-            var childWbCount = calculateDistribution(no_of_cw, double_qty, roomIndex);
-            var extraCount = calculateDistribution(no_of_extra, double_qty, roomIndex);
-            
-            var perRoomTotal = d_adult_rate + 
-                            (childCount * d_child_rate) + 
-                            (childWbCount * d_child_wb_rate) + 
-                            (extraCount * d_extra_bed_rate);
-            $(`#d_total_rate${rid}`).val(perRoomTotal);
-            
-            // Set rate fields to 0 if quantity is 0
-            if (no_of_ch === 0) $(`#d_child_rate${rid}`).val(0);
-            if (no_of_cw === 0) $(`#d_child_wb_rate${rid}`).val(0);
-            if (no_of_extra === 0) $(`#d_extra_bed_rate${rid}`).val(0);
-        } else {
-            // Static mode: Calculate grand total first, then set visible total to grand total
-            calculateDoubleGrandTotal(count, night);
-            var grandTotal = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
-            $(`#d_total_rate${rid}`).val(grandTotal);
-            
-            // Clear rate fields if quantity is 0 (but keep adult rate as it's per room)
-            if (no_of_ch === 0) $(`#d_child_rate${rid}`).val(0);
-            if (no_of_cw === 0) $(`#d_child_wb_rate${rid}`).val(0);
-            if (no_of_extra === 0) $(`#d_extra_bed_rate${rid}`).val(0);
-        }
-        
-        // Calculate grand total with proper distribution (always, for consistency)
-        calculateDoubleGrandTotal(count, night);
-        
-    } else if ($(`#s_adult_rate${rid}`).length > 0) {
-        // Single room
-        var s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
-        var s_child_rate = parseFloat($(`#s_child_rate${rid}`).val()) || 0;
-        var s_child_wb_rate = parseFloat($(`#s_child_wb_rate${rid}`).val()) || 0;
-        var s_extra_bed_rate = parseFloat($(`#s_extra_bed_rate${rid}`).val()) || 0;
-        
-        if (isDynamic) {
-            // Adjust roomIndex for single rooms (they start after double rooms)
-            var singleRoomIndex = roomIndex - double_qty;
-            
-            // Calculate distribution for this room
-            var childCount = calculateDistribution(no_of_ch, single_qty, singleRoomIndex);
-            var childWbCount = calculateDistribution(no_of_cw, single_qty, singleRoomIndex);
-            var extraCount = calculateDistribution(no_of_extra, single_qty, singleRoomIndex);
-            
-            var perRoomTotal = s_adult_rate + 
-                            (childCount * s_child_rate) + 
-                            (childWbCount * s_child_wb_rate) + 
-                            (extraCount * s_extra_bed_rate);
-            $(`#s_total_rate${rid}`).val(perRoomTotal);
-            
-            // Clear rate fields if quantity is 0
-            if (no_of_ch === 0) $(`#s_child_rate${rid}`).val(0);
-            if (no_of_cw === 0) $(`#s_child_wb_rate${rid}`).val(0);
-            if (no_of_extra === 0) $(`#s_extra_bed_rate${rid}`).val(0);
-        } else {
-            // Static mode: Calculate grand total first, then set visible total to grand total
-            calculateSingleGrandTotal(count, night);
-            var grandTotal = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
-            $(`#s_total_rate${rid}`).val(grandTotal);
-            
-            // Clear rate fields if quantity is 0
-            if (no_of_ch === 0) $(`#s_child_rate${rid}`).val(0);
-            if (no_of_cw === 0) $(`#s_child_wb_rate${rid}`).val(0);
-            if (no_of_extra === 0) $(`#s_extra_bed_rate${rid}`).val(0);
-        }
-        
-        // Calculate grand total with proper distribution (always, for consistency)
-        calculateSingleGrandTotal(count, night);
-    }
+		if ($(`#d_adult_rate${rid}`).length > 0) {
+			// Double room
+			var d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
+			var d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
+			var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
+			var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
 
-    // Update overall location total
-    updateGrandtotalBoth();
-}
+			if (isDynamic) {
+				var childCount = calculateDistribution(no_of_ch, double_qty, roomIndex);
+				var childWbCount = calculateDistribution(no_of_cw, double_qty, roomIndex);
+				var extraCount = calculateDistribution(no_of_extra, double_qty, roomIndex);
 
-			// Helper function to calculate how many items this room gets using round-robin
-			// Example: 5 children, 3 rooms -> Room 1 gets 2 (1st, 4th), Room 2 gets 2 (2nd, 5th), Room 3 gets 1 (3rd)
-			function calculateDistribution(totalItems, totalRooms, roomIndex) {
-				if (totalItems === 0 || totalRooms === 0) return 0;
-				
-				var count = 0;
-				// Round-robin: distribute one item at a time to each room in sequence
-				for (let i = 1; i <= totalItems; i++) {
-					// Check if this item goes to the current room
-					// Item i goes to room ((i-1) % totalRooms) + 1
-					var targetRoom = ((i - 1) % totalRooms) + 1;
-					if (targetRoom === roomIndex) {
-						count++;
-					}
-				}
-				
-				return count;
+				var perRoomTotal = d_adult_rate +
+					(childCount * d_child_rate) +
+					(childWbCount * d_child_wb_rate) +
+					(extraCount * d_extra_bed_rate);
+				$(`#d_total_rate${rid}`).val(perRoomTotal);
+
+				calculateDoubleGrandTotal(count, night);
+			} else {
+				// Static mode: Use corrected calculation
+				calculateDoubleGrandTotalStatic(count, night);
+				var grandTotal = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
+				$(`#d_total_rate${rid}`).val(grandTotal);
 			}
 
-			// Helper function to calculate double room grand total with proper distribution
-			function calculateDoubleGrandTotal(count, night) {
-				var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
-				var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
-				var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
-				var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
-				
-				var dd_total = 0;
-				
-				// Calculate total for each double room with proper distribution
-				for (let i = 1; i <= double_qty; i++) {
-					var rid = `${count}${night}${i}`;
-					var d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
-					var d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
-					var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
-					var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
-					
-					// Calculate how many of each type this room gets
-					var childCount = calculateDistribution(no_of_ch, double_qty, i);
-					var childWbCount = calculateDistribution(no_of_cw, double_qty, i);
-					var extraCount = calculateDistribution(no_of_extra, double_qty, i);
-					
-					dd_total += d_adult_rate + 
-							(childCount * d_child_rate) + 
-							(childWbCount * d_child_wb_rate) + 
-							(extraCount * d_extra_bed_rate);
-				}
-				
-				$(`#dd_total_rate${count}${night}`).val(dd_total);
+			if (no_of_ch === 0) $(`#d_child_rate${rid}`).val(0);
+			if (no_of_cw === 0) $(`#d_child_wb_rate${rid}`).val(0);
+			if (no_of_extra === 0) $(`#d_extra_bed_rate${rid}`).val(0);
+
+		} else if ($(`#s_adult_rate${rid}`).length > 0) {
+			// Single room
+			var s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
+			var s_child_rate = parseFloat($(`#s_child_rate${rid}`).val()) || 0;
+			var s_child_wb_rate = parseFloat($(`#s_child_wb_rate${rid}`).val()) || 0;
+			var s_extra_bed_rate = parseFloat($(`#s_extra_bed_rate${rid}`).val()) || 0;
+
+			if (isDynamic) {
+				var singleRoomIndex = roomIndex - double_qty;
+				var childCount = calculateDistribution(no_of_ch, single_qty, singleRoomIndex);
+				var childWbCount = calculateDistribution(no_of_cw, single_qty, singleRoomIndex);
+				var extraCount = calculateDistribution(no_of_extra, single_qty, singleRoomIndex);
+
+				var perRoomTotal = s_adult_rate +
+					(childCount * s_child_rate) +
+					(childWbCount * s_child_wb_rate) +
+					(extraCount * s_extra_bed_rate);
+				$(`#s_total_rate${rid}`).val(perRoomTotal);
+
+				calculateSingleGrandTotal(count, night);
+			} else {
+				// Static mode: Use corrected calculation
+				calculateSingleGrandTotalStatic(count, night);
+				var grandTotal = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
+				$(`#s_total_rate${rid}`).val(grandTotal);
 			}
 
-			// Helper function to calculate single room grand total with proper distribution
-			function calculateSingleGrandTotal(count, night) {
-				var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
-				var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
-				var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
-				var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
-				var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
-				
-				var ss_total = 0;
-				
-				// Calculate total for each single room with proper distribution
-				for (let i = 1; i <= single_qty; i++) {
-					var roomIndex = double_qty + i;
-					var rid = `${count}${night}${roomIndex}`;
-					var s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
-					var s_child_rate = parseFloat($(`#s_child_rate${rid}`).val()) || 0;
-					var s_child_wb_rate = parseFloat($(`#s_child_wb_rate${rid}`).val()) || 0;
-					var s_extra_bed_rate = parseFloat($(`#s_extra_bed_rate${rid}`).val()) || 0;
-					
-					// Calculate how many of each type this room gets
-					var childCount = calculateDistribution(no_of_ch, single_qty, i);
-					var childWbCount = calculateDistribution(no_of_cw, single_qty, i);
-					var extraCount = calculateDistribution(no_of_extra, single_qty, i);
-					
-					ss_total += s_adult_rate + 
-							(childCount * s_child_rate) + 
-							(childWbCount * s_child_wb_rate) + 
-							(extraCount * s_extra_bed_rate);
-				}
-				
-				$(`#ss_total_rate${count}${night}`).val(ss_total);
+			if (no_of_ch === 0) $(`#s_child_rate${rid}`).val(0);
+			if (no_of_cw === 0) $(`#s_child_wb_rate${rid}`).val(0);
+			if (no_of_extra === 0) $(`#s_extra_bed_rate${rid}`).val(0);
+		}
+
+		updateGrandtotalBoth();
+	}
+
+	// Helper functions (keep existing dynamic mode functions)
+	function calculateDistribution(totalItems, totalRooms, roomIndex) {
+		if (totalItems === 0 || totalRooms === 0) return 0;
+		var count = 0;
+		for (let i = 1; i <= totalItems; i++) {
+			var targetRoom = ((i - 1) % totalRooms) + 1;
+			if (targetRoom === roomIndex) count++;
+		}
+		return count;
+	}
+
+	function calculateDoubleGrandTotal(count, night) {
+		var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+		var dd_total = 0;
+
+		for (let i = 1; i <= double_qty; i++) {
+			var rid = `${count}${night}${i}`;
+			var d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
+			var d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
+			var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
+			var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
+
+			var childCount = calculateDistribution(no_of_ch, double_qty, i);
+			var childWbCount = calculateDistribution(no_of_cw, double_qty, i);
+			var extraCount = calculateDistribution(no_of_extra, double_qty, i);
+
+			dd_total += d_adult_rate + (childCount * d_child_rate) +
+				(childWbCount * d_child_wb_rate) + (extraCount * d_extra_bed_rate);
+		}
+		$(`#dd_total_rate${count}${night}`).val(dd_total);
+	}
+
+	function calculateSingleGrandTotal(count, night) {
+		var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+		var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
+		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+		var ss_total = 0;
+
+		for (let i = 1; i <= single_qty; i++) {
+			var roomIndex = double_qty + i;
+			var rid = `${count}${night}${roomIndex}`;
+			var s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
+			var s_child_rate = parseFloat($(`#s_child_rate${rid}`).val()) || 0;
+			var s_child_wb_rate = parseFloat($(`#s_child_wb_rate${rid}`).val()) || 0;
+			var s_extra_bed_rate = parseFloat($(`#s_extra_bed_rate${rid}`).val()) || 0;
+
+			var childCount = calculateDistribution(no_of_ch, single_qty, i);
+			var childWbCount = calculateDistribution(no_of_cw, single_qty, i);
+			var extraCount = calculateDistribution(no_of_extra, single_qty, i);
+
+			ss_total += s_adult_rate + (childCount * s_child_rate) +
+				(childWbCount * s_child_wb_rate) + (extraCount * s_extra_bed_rate);
+		}
+		$(`#ss_total_rate${count}${night}`).val(ss_total);
+	}
+
+	// Update the toggleNightsVisibility function to show correct totals in static mode
+	function updateStaticModeDisplay(count, night) {
+		var $nightSection = $(`.night-section[data-night="${night}"]`);
+		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+
+		// For double rooms - show quantity and calculate totals correctly
+		var $firstDoubleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+			return $(this).find('input[id^="d_adult_rate"]').length > 0;
+		}).first();
+
+		if ($firstDoubleRow.length) {
+			var $roomTypeColDouble = $firstDoubleRow.find('.room-type-col');
+			$roomTypeColDouble.show();
+			var doubleQty = parseInt($(`#double${count}${night}`).val()) || 0;
+			var doubleQtyInput = $roomTypeColDouble.find('input');
+			doubleQtyInput.val(doubleQty);
+
+			// Calculate the per-room display total in static mode
+			var rid = $firstDoubleRow.find('input[id^="d_adult_rate"]').attr('id').replace('d_adult_rate', '');
+			var d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
+			var d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
+			var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
+			var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
+
+			var perRoomTotal = d_adult_rate +
+				(no_of_ch > 0 ? d_child_rate : 0) +
+				(no_of_cw > 0 ? d_child_wb_rate : 0) +
+				(no_of_extra > 0 ? d_extra_bed_rate : 0);
+
+			$firstDoubleRow.find('input.d_total_rate').val(perRoomTotal);
+
+			// Clear fields with 0 quantity
+			if (no_of_ch === 0) $firstDoubleRow.find(`#d_child_rate${rid}`).val('');
+			if (no_of_cw === 0) $firstDoubleRow.find(`#d_child_wb_rate${rid}`).val('');
+			if (no_of_extra === 0) $firstDoubleRow.find(`#d_extra_bed_rate${rid}`).val('');
+		}
+
+		// For single rooms - show quantity and calculate totals correctly
+		var $firstSingleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+			return $(this).find('input[id^="s_adult_rate"]').length > 0;
+		}).first();
+
+		if ($firstSingleRow.length) {
+			var $roomTypeColSingle = $firstSingleRow.find('.room-type-col');
+			$roomTypeColSingle.show();
+			var singleQty = parseInt($(`#single${count}${night}`).val()) || 0;
+			var singleQtyInput = $roomTypeColSingle.find('input');
+			singleQtyInput.val(singleQty);
+
+			// Calculate the per-room display total in static mode
+			var rid = $firstSingleRow.find('input[id^="s_adult_rate"]').attr('id').replace('s_adult_rate', '');
+			var s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
+			var s_child_rate = parseFloat($(`#s_child_rate${rid}`).val()) || 0;
+			var s_child_wb_rate = parseFloat($(`#s_child_wb_rate${rid}`).val()) || 0;
+			var s_extra_bed_rate = parseFloat($(`#s_extra_bed_rate${rid}`).val()) || 0;
+
+			var perRoomTotal = s_adult_rate +
+				(no_of_ch > 0 ? s_child_rate : 0) +
+				(no_of_cw > 0 ? s_child_wb_rate : 0) +
+				(no_of_extra > 0 ? s_extra_bed_rate : 0);
+
+			$firstSingleRow.find('input.s_total_rate').val(perRoomTotal);
+
+			// Clear fields with 0 quantity
+			if (no_of_ch === 0) $firstSingleRow.find(`#s_child_rate${rid}`).val('');
+			if (no_of_cw === 0) $firstSingleRow.find(`#s_child_wb_rate${rid}`).val('');
+			if (no_of_extra === 0) $firstSingleRow.find(`#s_extra_bed_rate${rid}`).val('');
+		}
+	}
+
+	// Update the grand total calculation for the entire location
+	function updateGrandtotalBoth(specificCount = null) {
+		var accom_grand_total = 0;
+		$('.tour_plan_div .location-card').each(function() {
+			var count = $(this).attr('data-index');
+			if (specificCount && count != specificCount) return;
+
+			var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+			var cardTotal = 0;
+
+			for (let night = 1; night <= no_of_night; night++) {
+				// Get the grand totals for this night (already calculated correctly in updateRoomTotals)
+				var dd_total = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
+				var ss_total = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
+				cardTotal += dd_total + ss_total;
 			}
 
-			// Update the toggleNightsVisibility function to show correct totals in static mode
-			function updateStaticModeDisplay(count, night) {
-				var $nightSection = $(`.night-section[data-night="${night}"]`);
-				var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
-				var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
-				var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
-				
-				// For double rooms - show quantity and calculate totals correctly
-				var $firstDoubleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-					return $(this).find('input[id^="d_adult_rate"]').length > 0;
-				}).first();
-				
-				if ($firstDoubleRow.length) {
-					var $roomTypeColDouble = $firstDoubleRow.find('.room-type-col');
-					$roomTypeColDouble.show();
-					var doubleQty = parseInt($(`#double${count}${night}`).val()) || 0;
-					var doubleQtyInput = $roomTypeColDouble.find('input');
-					doubleQtyInput.val(doubleQty);
-					
-					// Calculate the per-room display total in static mode
-					var rid = $firstDoubleRow.find('input[id^="d_adult_rate"]').attr('id').replace('d_adult_rate', '');
-					var d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
-					var d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
-					var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
-					var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
-					
-					var perRoomTotal = d_adult_rate + 
-									(no_of_ch > 0 ? d_child_rate : 0) + 
-									(no_of_cw > 0 ? d_child_wb_rate : 0) + 
-									(no_of_extra > 0 ? d_extra_bed_rate : 0);
-					
-					$firstDoubleRow.find('input.d_total_rate').val(perRoomTotal);
-					
-					// Clear fields with 0 quantity
-					if (no_of_ch === 0) $firstDoubleRow.find(`#d_child_rate${rid}`).val('');
-					if (no_of_cw === 0) $firstDoubleRow.find(`#d_child_wb_rate${rid}`).val('');
-					if (no_of_extra === 0) $firstDoubleRow.find(`#d_extra_bed_rate${rid}`).val('');
+			if (specificCount) {
+				// Return just this card's total
+				return cardTotal;
+			}
+
+			accom_grand_total += cardTotal;
+
+			// Update the location breadcrumb total
+			$(`#loc_total${count}`).text(cardTotal.toFixed(2));
+		});
+
+		if (!specificCount) {
+			$('#a_total').text(accom_grand_total.toFixed(2));
+		}
+
+		return accom_grand_total;
+	}
+
+
+	function updateNightlyDetails(count) {
+		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+		var checkinDate = $(`#checkin${count}`).val();
+		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
+		var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
+		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+		var nightlyDetails = $(`#nightly-details${count}`);
+		var currentNights = nightlyDetails.find('.night-section').length;
+
+		// Update breadcrumb with number of nights
+		$(`#span_night_id${count}`).text(no_of_night > 0 ? no_of_night : '');
+
+		if (no_of_night < 1) {
+			nightlyDetails.empty();
+			$(`#vehicle-summary-${count}`).remove();
+			updateGrandtotalBoth();
+			get_veh_grand_total();
+			return;
+		}
+
+		// Add new nights if increased
+		for (let night = currentNights + 1; night <= no_of_night; night++) {
+			var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, checkinDate);
+			nightlyDetails.append(nightlyHtml);
+			var commonOptions = $(`#roomcat_common${count}`).html();
+			$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
+				$(this).html(commonOptions);
+			});
+			$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
+		}
+
+		// Remove extra nights if decreased
+		if (no_of_night < currentNights) {
+			for (let night = currentNights; night > no_of_night; night--) {
+				nightlyDetails.find(`.night-section[data-night="${night}"]`).remove();
+			}
+		}
+
+		// **FIX: Remove existing vehicle summary BEFORE regenerating**
+		if (is_vehicle_required == 1) {
+			// Remove existing summary to regenerate with updated night labels
+			$(`#vehicle-summary-${count}`).remove();
+
+			// **ADD: Also remove any orphaned vehicle summaries**
+			nightlyDetails.find('.vehicle-summary-section').remove();
+
+			var summaryHtml = generateVehicleSummary(count, no_of_night, vehicle_models);
+			nightlyDetails.append(summaryHtml);
+			updateVehicleSummary(count);
+		}
+
+		// Set individual meal plans based on common meal plan
+		var commonMeal = $(`#mealplan${count}`).val();
+		if (commonMeal) {
+			$(`#nightly-details${count} .mp_row_change`).val(commonMeal).trigger('change');
+		}
+		var commonRoom = $(`#roomcat_common${count}`).val();
+		if (commonRoom) {
+			$(`#nightly-details${count} .room_cat_change`).val(commonRoom).trigger('change');
+		}
+
+		// Update totals
+		updateGrandtotalBoth();
+		get_veh_grand_total();
+
+		// Toggle visibility after updating nights
+		toggleNightsVisibility();
+		calculateVehicleExtraKmCharges();
+	}
+
+
+	// Also update the vehicle load callback to refresh summary
+	$(document).on('click', '.load_vehs_click', function() {
+		var count = $(this).attr('data-id');
+		var night = $(this).attr('data-night');
+		// updateVehicleSummary(count);
+		setTimeout(function() {
+			updateVehicleSummary(count);
+		}, 500);
+	});
+
+	// Function to toggle visibility of nights based on checkbox
+	function toggleNightsVisibility() {
+		var showAll = getIsDynamic(); // true if checked (dynamic), false otherwise
+
+		$('.location-card').each(function() {
+			var $locationCard = $(this);
+			var count = $locationCard.attr('data-index');
+
+			// CRITICAL: Force location card visible at start
+			$locationCard.show().css('display', 'block');
+
+			// Also ensure the nightly-details container is visible
+			$(`#nightly-details${count}`).show().css('display', 'block');
+
+			var noOfNight = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+			// If no nights specified, ensure card stays visible
+			if (noOfNight === 0) {
+				$locationCard.show().css('display', 'block');
+				$(`#nightly-details${count}`).show().css('display', 'block');
+				return; // Skip processing if no nights
+			}
+
+			$(`#nightly-details${count} .night-section`).each(function() {
+				var $nightSection = $(this);
+				var night = parseInt($nightSection.attr('data-night'));
+
+				// CRITICAL: Hide nights beyond the current no_of_night
+				if (night > noOfNight) {
+					$nightSection.hide();
+					return;
 				}
-				
-				// For single rooms - show quantity and calculate totals correctly
-				var $firstSingleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-					return $(this).find('input[id^="s_adult_rate"]').length > 0;
-				}).first();
-				
-				if ($firstSingleRow.length) {
-					var $roomTypeColSingle = $firstSingleRow.find('.room-type-col');
-					$roomTypeColSingle.show();
-					var singleQty = parseInt($(`#single${count}${night}`).val()) || 0;
-					var singleQtyInput = $roomTypeColSingle.find('input');
-					singleQtyInput.val(singleQty);
-					
-					// Calculate the per-room display total in static mode
-					var rid = $firstSingleRow.find('input[id^="s_adult_rate"]').attr('id').replace('s_adult_rate', '');
-					var s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
-					var s_child_rate = parseFloat($(`#s_child_rate${rid}`).val()) || 0;
-					var s_child_wb_rate = parseFloat($(`#s_child_wb_rate${rid}`).val()) || 0;
-					var s_extra_bed_rate = parseFloat($(`#s_extra_bed_rate${rid}`).val()) || 0;
-					
-					var perRoomTotal = s_adult_rate + 
-									(no_of_ch > 0 ? s_child_rate : 0) + 
-									(no_of_cw > 0 ? s_child_wb_rate : 0) + 
-									(no_of_extra > 0 ? s_extra_bed_rate : 0);
-					
-					$firstSingleRow.find('input.s_total_rate').val(perRoomTotal);
-					
-					// Clear fields with 0 quantity
-					if (no_of_ch === 0) $firstSingleRow.find(`#s_child_rate${rid}`).val('');
-					if (no_of_cw === 0) $firstSingleRow.find(`#s_child_wb_rate${rid}`).val('');
-					if (no_of_extra === 0) $firstSingleRow.find(`#s_extra_bed_rate${rid}`).val('');
+
+				if (night > 1) {
+					if (showAll) {
+						// Show everything for nights > 1 when dynamic
+						$nightSection.show();
+					} else {
+						// Hide entire night section when not dynamic
+						$nightSection.hide();
+					}
+				} else {
+					// Night 1 - ALWAYS show the section
+					$nightSection.show();
+
+					if (!showAll) {
+						// Static mode: Hide night header, count rows, and grand room totals
+						$nightSection.find('> h3').hide();
+						$nightSection.find('.double_row, .single_row').hide(); // Hide room count rows
+						$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').hide(); // Hide grand room totals
+
+						// For double rooms - hide all room input rows except the first
+						var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+							return $(this).find('[id^="roomcat"]').length > 0 &&
+								$(this).find('[id^="d_adult_rate"]').length > 0;
+						});
+						$doubleRoomRows.each(function(index) {
+							if (index > 0) {
+								$(this).hide();
+							}
+						});
+
+						// For single rooms - hide all room input rows except the first
+						var $singleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+							return $(this).find('[id^="roomcat"]').length > 0 &&
+								$(this).find('[id^="s_adult_rate"]').length > 0;
+						});
+						$singleRoomRows.each(function(index) {
+							if (index > 0) {
+								$(this).hide();
+							}
+						});
+
+						// Static mode: Show quantity and adjust totals for first visible rows
+						var $firstDoubleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+							return $(this).find('input[id^="d_adult_rate"]').length > 0;
+						}).first();
+						if ($firstDoubleRow.length) {
+							var $roomTypeColDouble = $firstDoubleRow.find('.room-type-col');
+							$roomTypeColDouble.show();
+							var doubleQty = parseInt($(`#double${count}${night}`).val()) || 0;
+							var doubleQtyInput = $roomTypeColDouble.find('input');
+							doubleQtyInput.val(doubleQty);
+							var ddTotal = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
+							$firstDoubleRow.find('input.d_total_rate').val(ddTotal);
+						}
+
+						var $firstSingleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+							return $(this).find('input[id^="s_adult_rate"]').length > 0;
+						}).first();
+						if ($firstSingleRow.length) {
+							var $roomTypeColSingle = $firstSingleRow.find('.room-type-col');
+							$roomTypeColSingle.show();
+							var singleQty = parseInt($(`#single${count}${night}`).val()) || 0;
+							var singleQtyInput = $roomTypeColSingle.find('input');
+							singleQtyInput.val(singleQty);
+							var ssTotal = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
+							$firstSingleRow.find('input.s_total_rate').val(ssTotal);
+						}
+
+					} else {
+						// Dynamic mode: Show everything in night 1, revert static modifications
+						$nightSection.find('> h3').show();
+						$nightSection.find('.double_row, .single_row').show(); // Show count rows
+						$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show(); // Show grand room totals
+						$nightSection.find('.row.mt-2.align-items-center').show();
+
+						// Revert room type columns to hidden and value=1
+						$nightSection.find('.room-type-col').hide();
+						$nightSection.find('input[id^="double"], input[id^="single"]').not(`#double${count}${night}, #single${count}${night}`).val(1);
+
+						// Re-update per-room totals (since static may have overridden)
+						for (let n = 1; n <= noOfNight; n++) {
+							// Re-call updateRoomTotals for all rooms in this night to reset per-room values
+							var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
+							for (let i = 1; i <= numDouble; i++) {
+								updateRoomTotals(count, n, i);
+							}
+							var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
+							var doubleCount = numDouble;
+							for (let i = 1; i <= numSingle; i++) {
+								updateRoomTotals(count, n, doubleCount + i);
+							}
+						}
+					}
+				}
+			});
+
+			// Handle vehicle visibility based on dynamic state
+			var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+			if (is_vehicle_required == 1) {
+				if (!showAll) {
+					// Static mode: Hide all vehicle details except Vehicle Summary
+					$(`#nightly-details${count} .vehicle-details-section`).hide();
+					$(`#nightly-details${count} .vehicle-rows`).hide();
+					$(`#nightly-details${count} .vehicle-row`).hide();
+
+					// Hide vehicle grand total in all nights (static mode)
+					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+
+					// Show Vehicle Summary
+					$(`#vehicle-summary-${count}`).show();
+				} else {
+					// Dynamic mode: Show all vehicle details, hide Vehicle Summary
+					$(`#nightly-details${count} .vehicle-details-section`).show();
+					$(`#nightly-details${count} .vehicle-rows`).show();
+					$(`#nightly-details${count} .vehicle-row`).show();
+
+					// Hide vehicle grand total in all nights (dynamic mode)
+					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+
+					// Hide Vehicle Summary in dynamic mode
+					$(`#vehicle-summary-${count}`).hide();
 				}
 			}
 
-			// Update the grand total calculation for the entire location
-				function updateGrandtotalBoth(specificCount = null) {
-					var accom_grand_total = 0;
-					$('.tour_plan_div .location-card').each(function() {
-						var count = $(this).attr('data-index');
-						if (specificCount && count != specificCount) return;
-						
-						var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-						var cardTotal = 0;
-						
-						for (let night = 1; night <= no_of_night; night++) {
-							// Get the grand totals for this night (already calculated correctly in updateRoomTotals)
-							var dd_total = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
-							var ss_total = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
-							cardTotal += dd_total + ss_total;
-						}
-						
-						if (specificCount) {
-							// Return just this card's total
-							return cardTotal;
-						}
-						
-						accom_grand_total += cardTotal;
-						
-						// Update the location breadcrumb total
-						$(`#loc_total${count}`).text(cardTotal.toFixed(2));
+			// CRITICAL: Force card and parent containers to be visible at end
+			$locationCard.show().css('display', 'block');
+			$locationCard.parent().show().css('display', 'block'); // Show parent container too
+			$(`#nightly-details${count}`).show().css('display', 'block');
+
+			// Ensure the card body and ibox are also visible
+			$locationCard.find('.card-body').show().css('display', 'block');
+			$locationCard.find('.ibox').show().css('display', 'block');
+		});
+
+		updateGrandtotalBoth();
+		get_veh_grand_total();
+		// $('.load_vehs_click').trigger('click');
+	}
+	// Function to update vehicle totals for a specific vehicle and night
+
+	// Function to calculate total nights
+	function calculateTotalNights() {
+		var totalNights = 0;
+		$('.no_of_night').each(function() {
+			var nights = parseInt($(this).val()) || 0;
+			totalNights += nights;
+		});
+		return totalNights;
+		calculateVehicleExtraKmCharges();
+	}
+
+	// Function to calculate location count
+	function calculateLocationCount() {
+		var totalCount = $('.tour_plan_div .location-card').length;
+		return totalCount;
+		calculateVehicleExtraKmCharges();
+	}
+
+	// Function to calculate total nights up to a specific ID
+	function calculateTotalNights_new(id) {
+		var totalNights = 0;
+		for (let i = 1; i <= parseInt(id); i++) {
+			var nights = parseInt($(`#no_of_night${i}`).val()) || 0;
+			totalNights += nights;
+		}
+		return totalNights;
+		calculateVehicleExtraKmCharges();
+	}
+
+
+	var tourStartDate = (function() {
+		// Try server-provided start date (PHP). Fallbacks below prevent "undefined".
+		var phpStart = '<?php echo isset($object_det[0]["check_in_date"]) ? $object_det[0]["check_in_date"] : ""; ?>';
+		if (phpStart && phpStart !== '') return phpStart;
+
+		// If the DOM has #checkin1 at load, use it
+		if ($('#checkin1').length) return $('#checkin1').val();
+
+		// final fallback: empty string (no-op)
+		return '';
+	})();
+
+
+
+	$(document).on("click", ".card-options-remove", function(e) {
+		e.preventDefault();
+
+		var card = $(this).closest(".location-card");
+
+		// capture sequence (data-index) or fallback to DOM index
+		var removedSeqAttr = parseInt(card.attr("data-index"), 10);
+		var removedSeq = Number.isFinite(removedSeqAttr) ? removedSeqAttr : card.index();
+
+		// Capture the current first card's checkin BEFORE removing anything
+		var currentFirstCheckin = '';
+		var firstCard = $('.tour_plan_div .location-card').first();
+		if (firstCard.length) {
+			// look for an input whose id starts with "checkin" inside the first card
+			var firstCheckinInput = firstCard.find('input[id^="checkin"]');
+			if (firstCheckinInput.length) currentFirstCheckin = firstCheckinInput.val();
+		}
+
+		// Remove the card from DOM
+		card.remove();
+
+		// Remove matching list entries (dyn_list)
+		$('.dyn_list li').each(function() {
+			var txt = $(this).text().trim();
+			if (txt.startsWith(removedSeq + ".")) {
+				$(this).remove();
+			}
+		});
+
+		// Re-number remaining cards (assumes updateSequenceNumbers reassigns data-index and element ids)
+		updateSequenceNumbers();
+
+		var remainingCards = $('.tour_plan_div .location-card');
+
+		if (remainingCards.length === 0) {
+			$("#btn_save_tour_plan, #btn_savedraft_tour_plan").hide();
+		} else {
+			// If the first card was removed, set the new first checkin to tourStartDate (prefer) or fallback to previous first checkin
+			if (removedSeq === 1) {
+				var newFirstSeq = 1;
+				var valueToSet = (typeof tourStartDate !== 'undefined' && tourStartDate) ? tourStartDate : currentFirstCheckin;
+				if (valueToSet && $(`#checkin${newFirstSeq}`).length) {
+					$(`#checkin${newFirstSeq}`).val(valueToSet);
+				}
+			}
+
+			// **FIX: Recalculate checkouts for each remaining card using their new sequence**
+			// Use a flag to prevent multiple vehicle summary regenerations
+			var isRecalculating = true;
+
+			remainingCards.each(function(i) {
+				var seq = i + 1; // after updateSequenceNumbers() we assume sequence is 1-based and contiguous
+
+				// **IMPORTANT: Clear vehicle summaries before recalculation**
+				if (i === 0) {
+					// Only on first iteration, clean all vehicle summaries
+					remainingCards.each(function(j) {
+						var cardSeq = j + 1;
+						$(`#vehicle-summary-${cardSeq}`).remove();
+						$(`#nightly-details${cardSeq}`).find('.vehicle-summary-section').remove();
 					});
-					
-					if (!specificCount) {
-						$('#a_total').text(accom_grand_total.toFixed(2));
-					}
-					
-					return accom_grand_total;
 				}
 
-				
-				function updateNightlyDetails(count) {
-					var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-					var checkinDate = $(`#checkin${count}`).val();
-					var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
-					var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
-					var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-					var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-					var nightlyDetails = $(`#nightly-details${count}`);
-					var currentNights = nightlyDetails.find('.night-section').length;
+				calculateCheckout(seq);
+			});
 
-					// Update breadcrumb with number of nights
-					$(`#span_night_id${count}`).text(no_of_night > 0 ? no_of_night : '');
+			isRecalculating = false;
+		}
 
-					if (no_of_night < 1) {
-						nightlyDetails.empty();
-						$(`#vehicle-summary-${count}`).remove();
-						updateGrandtotalBoth();
-						get_veh_grand_total();
-						return;
+		// Update total nights and related UI
+		var totalNights = calculateTotalNights();
+		$('#planned_night').text(totalNights + " / ");
+
+		var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
+		if (totalNights === no_of_night) {
+			$("#btn_save_tour_plan").show();
+			$('#btn_add_bt').prop('disabled', true);
+		} else {
+			$("#btn_save_tour_plan").hide();
+			$('#btn_add_bt').prop('disabled', false);
+		}
+
+		updateGrandtotalBoth();
+		get_veh_grand_total();
+		toggleNightsVisibility();
+		calculateVehicleExtraKmCharges();
+	});
+
+
+
+
+	// Handle close night button
+	$(document).on("click", ".card-options-remove", function(e) {
+		e.preventDefault();
+
+		var card = $(this).closest(".location-card");
+
+		// capture sequence (data-index) or fallback to DOM index
+		var removedSeqAttr = parseInt(card.attr("data-index"), 10);
+		var removedSeq = Number.isFinite(removedSeqAttr) ? removedSeqAttr : card.index();
+
+		// Capture the current first card's checkin BEFORE removing anything
+		var currentFirstCheckin = '';
+		var firstCard = $('.tour_plan_div .location-card').first();
+		if (firstCard.length) {
+			// look for an input whose id starts with "checkin" inside the first card
+			var firstCheckinInput = firstCard.find('input[id^="checkin"]');
+			if (firstCheckinInput.length) currentFirstCheckin = firstCheckinInput.val();
+		}
+
+		// Remove the card from DOM
+		card.remove();
+
+		// Remove matching list entries (dyn_list)
+		$('.dyn_list li').each(function() {
+			var txt = $(this).text().trim();
+			if (txt.startsWith(removedSeq + ".")) {
+				$(this).remove();
+			}
+		});
+
+		// Re-number remaining cards (assumes updateSequenceNumbers reassigns data-index and element ids)
+		updateSequenceNumbers();
+
+		var remainingCards = $('.tour_plan_div .location-card');
+
+		if (remainingCards.length === 0) {
+			$("#btn_save_tour_plan, #btn_savedraft_tour_plan").hide();
+		} else {
+			// If the first card was removed, set the new first checkin to tourStartDate (prefer) or fallback to previous first checkin
+			if (removedSeq === 1) {
+				var newFirstSeq = 1;
+				var valueToSet = (typeof tourStartDate !== 'undefined' && tourStartDate) ? tourStartDate : currentFirstCheckin;
+				if (valueToSet && $(`#checkin${newFirstSeq}`).length) {
+					$(`#checkin${newFirstSeq}`).val(valueToSet);
+				}
+			}
+
+			// Recalculate checkouts for each remaining card using their new sequence (safer than conditional update)
+			remainingCards.each(function(i) {
+				var seq = i + 1; // after updateSequenceNumbers() we assume sequence is 1-based and contiguous
+				calculateCheckout(seq);
+			});
+		}
+
+		// Update total nights and related UI
+		var totalNights = calculateTotalNights();
+		$('#planned_night').text(totalNights + " / ");
+
+		var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
+		if (totalNights === no_of_night) {
+			$("#btn_save_tour_plan").show();
+			$('#btn_add_bt').prop('disabled', true);
+		} else {
+			$("#btn_save_tour_plan").hide();
+			$('#btn_add_bt').prop('disabled', false);
+		}
+
+		updateGrandtotalBoth();
+		get_veh_grand_total();
+		toggleNightsVisibility();
+		calculateVehicleExtraKmCharges();
+	});
+
+
+
+
+
+
+	function updateSequenceNumbers() {
+		if ($('.tour_plan_div .location-card').length === 0) {
+			location.reload();
+		}
+
+		var prefixes = ['checkin', 'no_of_night', 'checkout', 'hotelcat', 'hotelid', 'roomcat_common',
+			'mealplan', 'no_of_adult', 'no_of_ch', 'no_of_cw', 'no_of_extra', 'no_of_pax',
+			'tax_status', 'own_arrange', 'tour_location_id', 'location_sequence',
+			'eighteen_div_d', 'eighteen_div_s', 'nightly-details',
+			'roomcat', 'double', 'single',
+			'd_adult_rate', 'd_child_rate', 'd_child_wb_rate', 'd_extra_bed_rate', 'd_total_rate',
+			's_adult_rate', 's_child_rate', 's_child_wb_rate', 's_extra_bed_rate', 's_total_rate',
+			'dd_total_rate', 'ss_total_rate',
+			'loadvehs', 'v_from_to', 'veh_header', 'pre_to_cur', 'cur_to_dep', 'dep_to_arr',
+			'hub_to_arr', 'arr_to_loc',
+			'veh_model', 'veh_type_id', 'veh_count', 'day_rent', 'max_km_day',
+			'travel_distance', 'extra_kilometer', 'extra_km_rate', 'veh_total', 'veh_grand_total',
+			'ster_d_adult_rate', 'ster_n_d_child_rate', 'ster_d_child_rate',
+			'ster_n_d_child_wb_rate', 'ster_d_child_wb_rate', 'ster_n_d_extra_bed_rate',
+			'ster_d_extra_bed_rate', 'ster_d_total_rate', 'ster_gst_per', 'ster_g_tot',
+			'ster_s_adult_rate', 'ster_n_s_child_rate', 'ster_s_child_rate',
+			'ster_n_s_child_wb_rate', 'ster_s_child_wb_rate', 'ster_n_s_extra_bed_rate',
+			'ster_s_extra_bed_rate', 'ster_s_total_rate',
+			'hd_ster_d_id', 'hd_ster_d_adult_rate', 'hd_ster_n_d_child_rate',
+			'hd_ster_d_child_rate', 'hd_ster_n_d_child_wb_rate', 'hd_ster_d_child_wb_rate',
+			'hd_ster_n_d_extra_bed_rate', 'hd_ster_d_extra_bed_rate', 'hd_ster_d_total_rate',
+			'hd_ster_d_gst_per', 'hd_ster_d_g_tot',
+			'hd_ster_s_id', 'hd_ster_s_adult_rate', 'hd_ster_n_s_child_rate',
+			'hd_ster_s_child_rate', 'hd_ster_n_s_child_wb_rate', 'hd_ster_s_child_wb_rate',
+			'hd_ster_n_s_extra_bed_rate', 'hd_ster_s_extra_bed_rate', 'hd_ster_s_total_rate',
+			'hd_ster_s_gst_per', 'hd_ster_s_g_tot',
+			'sterling_double', 'sterling_single', 'span_night_id', 'loc_total'
+		];
+
+		$('.tour_plan_div .location-card').each(function(index) {
+			let newIndex = index + 1;
+			let oldIndex = $(this).attr("data-index");
+			let oldStr = oldIndex.toString();
+			let newStr = newIndex.toString();
+			let oldLen = oldStr.length;
+
+			$(this).attr("data-index", newIndex);
+			$(this).find('.card-seq').text(newIndex);
+
+			// Update common card-level fields first
+			$(this).find('[id^="own_arrange"]').attr("id", `own_arrange${newIndex}`).attr("name", `addloc[${newIndex}][own_arrange]`);
+			$(this).find('[id^="tour_location_id"]').attr("id", `tour_location_id${newIndex}`).attr("name", `addloc[${newIndex}][tour_location_id]`);
+			$(this).find('[id^="location_sequence"]').attr("id", `location_sequence${newIndex}`).attr("name", `addloc[${newIndex}][location_sequence]`).val(newIndex);
+			$(this).find('[id^="checkin"]').not('[id*="ster"]').attr("id", `checkin${newIndex}`).attr("name", `addloc[${newIndex}][checkin]`);
+			$(this).find('[id^="no_of_night"]').attr("id", `no_of_night${newIndex}`).attr("name", `addloc[${newIndex}][no_of_night]`).attr("count-id", newIndex).attr("oninput", `validateNumericInput(this); calculateCheckout(${newIndex}); updateNightlyDetails(${newIndex});`);
+			$(this).find('[id^="checkout"]').attr("id", `checkout${newIndex}`).attr("name", `addloc[${newIndex}][checkout]`);
+			$(this).find('[id^="hotelcat"]').attr("id", `hotelcat${newIndex}`).attr("name", `addloc[${newIndex}][hotelcat]`).attr("data-id", newIndex);
+			$(this).find('[id^="hotelid"]').attr("id", `hotelid${newIndex}`).attr("name", `addloc[${newIndex}][hotelid]`).attr("data-id", newIndex);
+			$(this).find('[id^="roomcat_common"]').attr("id", `roomcat_common${newIndex}`).attr("name", `addloc[${newIndex}][roomcat_common]`).attr("data-id", newIndex);
+			$(this).find('[id^="mealplan"]').first().attr("id", `mealplan${newIndex}`).attr("name", `addloc[${newIndex}][mealplan]`).attr("data-id", newIndex);
+			$(this).find('[id^="no_of_adult"]').attr("id", `no_of_adult${newIndex}`).attr("name", `addloc[${newIndex}][no_of_adult]`);
+			$(this).find('[id^="no_of_ch"]').first().attr("id", `no_of_ch${newIndex}`).attr("name", `addloc[${newIndex}][no_of_ch]`);
+			$(this).find('[id^="no_of_cw"]').first().attr("id", `no_of_cw${newIndex}`).attr("name", `addloc[${newIndex}][no_of_cw]`);
+			$(this).find('[id^="no_of_extra"]').first().attr("id", `no_of_extra${newIndex}`).attr("name", `addloc[${newIndex}][no_of_extra]`);
+			$(this).find('[id^="no_of_pax"]').attr("id", `no_of_pax${newIndex}`).attr("name", `addloc[${newIndex}][no_of_pax]`);
+			$(this).find('[id^="tax_status"]').attr("id", `tax_status${newIndex}`).attr("name", `addloc[${newIndex}][tax_status]`);
+			$(this).find('[id^="eighteen_div_d"]').attr("id", `eighteen_div_d${newIndex}`);
+			$(this).find('[id^="eighteen_div_s"]').attr("id", `eighteen_div_s${newIndex}`);
+			$(this).find('[id^="nightly-details"]').attr("id", `nightly-details${newIndex}`);
+
+			// **CRITICAL FIX: Update nightly details with proper regex pattern matching**
+			var nightlyDetailsContainer = $(this).find(`#nightly-details${newIndex}`);
+
+			// Update all elements within nightly details that have IDs starting with old count
+			nightlyDetailsContainer.find('[id]').each(function() {
+				var $elem = $(this);
+				var oldId = $elem.attr('id');
+
+				// Match pattern: prefix + oldCount + night + roomIndex (e.g., "roomcat" + "2" + "1" + "5" = "roomcat215")
+				// We need to replace the count part (first digit after prefix)
+				var matched = false;
+
+				for (var p = 0; p < prefixes.length; p++) {
+					var prefix = prefixes[p];
+
+					// Check if ID starts with this prefix followed by oldStr
+					if (oldId.startsWith(prefix + oldStr)) {
+						var restOfId = oldId.substring((prefix + oldStr).length);
+						var newId = prefix + newStr + restOfId;
+						$elem.attr('id', newId);
+						matched = true;
+						break;
 					}
+				}
 
-					// Add new nights if increased
-					for (let night = currentNights + 1; night <= no_of_night; night++) {
-						var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, checkinDate);
-						nightlyDetails.append(nightlyHtml);
-						var commonOptions = $(`#roomcat_common${count}`).html();
-						$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
-							$(this).html(commonOptions);
-						});
-						$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
-					}
+				// If not matched by prefix list, try general pattern for room-related fields
+				if (!matched && /^\D+\d+/.test(oldId)) {
+					// Extract prefix (non-digits) and numeric part
+					var prefixMatch = oldId.match(/^(\D+)(\d+.*)$/);
+					if (prefixMatch) {
+						var idPrefix = prefixMatch[1];
+						var numericPart = prefixMatch[2];
 
-					// Remove extra nights if decreased
-					if (no_of_night < currentNights) {
-						for (let night = currentNights; night > no_of_night; night--) {
-							nightlyDetails.find(`.night-section[data-night="${night}"]`).remove();
+						// Check if numeric part starts with oldStr
+						if (numericPart.startsWith(oldStr)) {
+							var newId = idPrefix + newStr + numericPart.substring(oldStr.length);
+							$elem.attr('id', newId);
 						}
 					}
-
-					// **FIX: Remove existing vehicle summary BEFORE regenerating**
-					if (is_vehicle_required == 1) {
-						// Remove existing summary to regenerate with updated night labels
-						$(`#vehicle-summary-${count}`).remove();
-
-						// **ADD: Also remove any orphaned vehicle summaries**
-						nightlyDetails.find('.vehicle-summary-section').remove();
-
-						var summaryHtml = generateVehicleSummary(count, no_of_night, vehicle_models);
-						nightlyDetails.append(summaryHtml);
-						updateVehicleSummary(count);
-					}
-
-					// Set individual meal plans based on common meal plan
-					var commonMeal = $(`#mealplan${count}`).val();
-					if (commonMeal) {
-						$(`#nightly-details${count} .mp_row_change`).val(commonMeal).trigger('change');
-					}
-					var commonRoom = $(`#roomcat_common${count}`).val();
-					if (commonRoom) {
-						$(`#nightly-details${count} .room_cat_change`).val(commonRoom).trigger('change');
-					}
-
-					// Update totals
-					updateGrandtotalBoth();
-					get_veh_grand_total();
-
-					// Toggle visibility after updating nights
-					toggleNightsVisibility();
-					calculateVehicleExtraKmCharges();
 				}
+			});
 
+			// **CRITICAL FIX: Update name attributes in nightly details**
+			nightlyDetailsContainer.find('[name]').each(function() {
+				var $elem = $(this);
+				var oldName = $elem.attr('name');
 
-				// Also update the vehicle load callback to refresh summary
-				$(document).on('click', '.load_vehs_click', function() {
-					var count = $(this).attr('data-id');
-					var night = $(this).attr('data-night');
-					// updateVehicleSummary(count);
-					setTimeout(function() {
-						updateVehicleSummary(count);
-					}, 500);
+				if (oldName && oldName.includes(`addloc[${oldStr}]`)) {
+					var newName = oldName.replace(`addloc[${oldStr}]`, `addloc[${newStr}]`);
+					$elem.attr('name', newName);
+				}
+			});
+
+			// **CRITICAL FIX: Update data-count, data-id, count-id attributes in nightly details**
+			nightlyDetailsContainer.find('[data-count]').each(function() {
+				$(this).attr('data-count', newIndex);
+			});
+
+			nightlyDetailsContainer.find('[data-id]').each(function() {
+				var oldDataId = $(this).attr('data-id');
+				if (oldDataId && oldDataId.startsWith(oldStr)) {
+					var newDataId = newStr + oldDataId.substring(oldStr.length);
+					$(this).attr('data-id', newDataId);
+				}
+			});
+
+			nightlyDetailsContainer.find('[count-id]').each(function() {
+				$(this).attr('count-id', newIndex);
+			});
+
+			// **CRITICAL FIX: Update data-cid attributes**
+			nightlyDetailsContainer.find('[data-cid]').each(function() {
+				$(this).attr('data-cid', newIndex);
+			});
+
+			// **CRITICAL FIX: Update oninput attributes**
+			nightlyDetailsContainer.find('[oninput]').each(function() {
+				var oldOninput = $(this).attr('oninput');
+				if (oldOninput) {
+					// Replace function calls with old count to new count
+					var newOninput = oldOninput.replace(new RegExp(`\\b${oldStr}\\b`, 'g'), newStr);
+					$(this).attr('oninput', newOninput);
+				}
+			});
+
+			// Update vehicle summary IDs if they exist
+			var vehicleSummary = $(this).find(`[id^="vehicle-summary-"]`);
+			if (vehicleSummary.length) {
+				vehicleSummary.attr('id', `vehicle-summary-${newIndex}`);
+				vehicleSummary.find('[id^="vehicle-summary-header-"]').attr('id', `vehicle-summary-header-${newIndex}`);
+				vehicleSummary.find('[id^="summary_"]').each(function() {
+					var oldSummaryId = $(this).attr('id');
+					if (oldSummaryId) {
+						var newSummaryId = oldSummaryId.replace(new RegExp(`_${oldStr}_`), `_${newStr}_`);
+						$(this).attr('id', newSummaryId);
+					}
 				});
 
-				// Function to toggle visibility of nights based on checkbox
-				function toggleNightsVisibility() {
-					var showAll = getIsDynamic(); // true if checked (dynamic), false otherwise
-
-					$('.location-card').each(function() {
-						var $locationCard = $(this);
-						var count = $locationCard.attr('data-index');
-
-						// CRITICAL: Force location card visible at start
-						$locationCard.show().css('display', 'block');
-
-						// Also ensure the nightly-details container is visible
-						$(`#nightly-details${count}`).show().css('display', 'block');
-
-						var noOfNight = parseInt($(`#no_of_night${count}`).val()) || 0;
-
-						// If no nights specified, ensure card stays visible
-						if (noOfNight === 0) {
-							$locationCard.show().css('display', 'block');
-							$(`#nightly-details${count}`).show().css('display', 'block');
-							return; // Skip processing if no nights
-						}
-
-						$(`#nightly-details${count} .night-section`).each(function() {
-							var $nightSection = $(this);
-							var night = parseInt($nightSection.attr('data-night'));
-
-							// CRITICAL: Hide nights beyond the current no_of_night
-							if (night > noOfNight) {
-								$nightSection.hide();
-								return;
-							}
-
-							if (night > 1) {
-								if (showAll) {
-									// Show everything for nights > 1 when dynamic
-									$nightSection.show();
-								} else {
-									// Hide entire night section when not dynamic
-									$nightSection.hide();
-								}
-							} else {
-								// Night 1 - ALWAYS show the section
-								$nightSection.show();
-
-								if (!showAll) {
-									// Static mode: Hide night header, count rows, and grand room totals
-									$nightSection.find('> h3').hide();
-									$nightSection.find('.double_row, .single_row').hide(); // Hide room count rows
-									$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').hide(); // Hide grand room totals
-
-									// For double rooms - hide all room input rows except the first
-									var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-										return $(this).find('[id^="roomcat"]').length > 0 &&
-											$(this).find('[id^="d_adult_rate"]').length > 0;
-									});
-									$doubleRoomRows.each(function(index) {
-										if (index > 0) {
-											$(this).hide();
-										}
-									});
-
-									// For single rooms - hide all room input rows except the first
-									var $singleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-										return $(this).find('[id^="roomcat"]').length > 0 &&
-											$(this).find('[id^="s_adult_rate"]').length > 0;
-									});
-									$singleRoomRows.each(function(index) {
-										if (index > 0) {
-											$(this).hide();
-										}
-									});
-
-									// Static mode: Show quantity and adjust totals for first visible rows
-									var $firstDoubleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-										return $(this).find('input[id^="d_adult_rate"]').length > 0;
-									}).first();
-									if ($firstDoubleRow.length) {
-										var $roomTypeColDouble = $firstDoubleRow.find('.room-type-col');
-										$roomTypeColDouble.show();
-										var doubleQty = parseInt($(`#double${count}${night}`).val()) || 0;
-										var doubleQtyInput = $roomTypeColDouble.find('input');
-										doubleQtyInput.val(doubleQty);
-										var ddTotal = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
-										$firstDoubleRow.find('input.d_total_rate').val(ddTotal);
-									}
-
-									var $firstSingleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-										return $(this).find('input[id^="s_adult_rate"]').length > 0;
-									}).first();
-									if ($firstSingleRow.length) {
-										var $roomTypeColSingle = $firstSingleRow.find('.room-type-col');
-										$roomTypeColSingle.show();
-										var singleQty = parseInt($(`#single${count}${night}`).val()) || 0;
-										var singleQtyInput = $roomTypeColSingle.find('input');
-										singleQtyInput.val(singleQty);
-										var ssTotal = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
-										$firstSingleRow.find('input.s_total_rate').val(ssTotal);
-									}
-
-								} else {
-									// Dynamic mode: Show everything in night 1, revert static modifications
-									$nightSection.find('> h3').show();
-									$nightSection.find('.double_row, .single_row').show(); // Show count rows
-									$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show(); // Show grand room totals
-									$nightSection.find('.row.mt-2.align-items-center').show();
-
-									// Revert room type columns to hidden and value=1
-									$nightSection.find('.room-type-col').hide();
-									$nightSection.find('input[id^="double"], input[id^="single"]').not(`#double${count}${night}, #single${count}${night}`).val(1);
-
-									// Re-update per-room totals (since static may have overridden)
-									for (let n = 1; n <= noOfNight; n++) {
-										// Re-call updateRoomTotals for all rooms in this night to reset per-room values
-										var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
-										for (let i = 1; i <= numDouble; i++) {
-											updateRoomTotals(count, n, i);
-										}
-										var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
-										var doubleCount = numDouble;
-										for (let i = 1; i <= numSingle; i++) {
-											updateRoomTotals(count, n, doubleCount + i);
-										}
-									}
-								}
-							}
-						});
-
-						// Handle vehicle visibility based on dynamic state
-						var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-						if (is_vehicle_required == 1) {
-							if (!showAll) {
-								// Static mode: Hide all vehicle details except Vehicle Summary
-								$(`#nightly-details${count} .vehicle-details-section`).hide();
-								$(`#nightly-details${count} .vehicle-rows`).hide();
-								$(`#nightly-details${count} .vehicle-row`).hide();
-
-								// Hide vehicle grand total in all nights (static mode)
-								$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
-
-								// Show Vehicle Summary
-								$(`#vehicle-summary-${count}`).show();
-							} else {
-								// Dynamic mode: Show all vehicle details, hide Vehicle Summary
-								$(`#nightly-details${count} .vehicle-details-section`).show();
-								$(`#nightly-details${count} .vehicle-rows`).show();
-								$(`#nightly-details${count} .vehicle-row`).show();
-
-								// Hide vehicle grand total in all nights (dynamic mode)
-								$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
-
-								// Hide Vehicle Summary in dynamic mode
-								$(`#vehicle-summary-${count}`).hide();
-							}
-						}
-
-						// CRITICAL: Force card and parent containers to be visible at end
-						$locationCard.show().css('display', 'block');
-						$locationCard.parent().show().css('display', 'block'); // Show parent container too
-						$(`#nightly-details${count}`).show().css('display', 'block');
-
-						// Ensure the card body and ibox are also visible
-						$locationCard.find('.card-body').show().css('display', 'block');
-						$locationCard.find('.ibox').show().css('display', 'block');
-					});
-
-					updateGrandtotalBoth();
-					get_veh_grand_total();
-					// $('.load_vehs_click').trigger('click');
-				}
-				// Function to update vehicle totals for a specific vehicle and night
-
-				// Function to calculate total nights
-				function calculateTotalNights() {
-					var totalNights = 0;
-					$('.no_of_night').each(function() {
-						var nights = parseInt($(this).val()) || 0;
-						totalNights += nights;
-					});
-					return totalNights;
-					calculateVehicleExtraKmCharges();
-				}
-
-				// Function to calculate location count
-				function calculateLocationCount() {
-					var totalCount = $('.tour_plan_div .location-card').length;
-					return totalCount;
-					calculateVehicleExtraKmCharges();
-				}
-
-				// Function to calculate total nights up to a specific ID
-				function calculateTotalNights_new(id) {
-					var totalNights = 0;
-					for (let i = 1; i <= parseInt(id); i++) {
-						var nights = parseInt($(`#no_of_night${i}`).val()) || 0;
-						totalNights += nights;
+				// Update vehicle summary name attributes
+				vehicleSummary.find('[name^="addloc"]').each(function() {
+					var oldSummaryName = $(this).attr('name');
+					if (oldSummaryName) {
+						var newSummaryName = oldSummaryName.replace(`addloc[${oldStr}]`, `addloc[${newStr}]`);
+						$(this).attr('name', newSummaryName);
 					}
-					return totalNights;
-					calculateVehicleExtraKmCharges();
-				}
-
-				
-				var tourStartDate = (function() {
-					// Try server-provided start date (PHP). Fallbacks below prevent "undefined".
-					var phpStart = '<?php echo isset($object_det[0]["check_in_date"]) ? $object_det[0]["check_in_date"] : ""; ?>';
-					if (phpStart && phpStart !== '') return phpStart;
-
-					// If the DOM has #checkin1 at load, use it
-					if ($('#checkin1').length) return $('#checkin1').val();
-
-					// final fallback: empty string (no-op)
-					return '';
-				})();
-
-
-
-				$(document).on("click", ".card-options-remove", function(e) {
-					e.preventDefault();
-
-					var card = $(this).closest(".location-card");
-
-					// capture sequence (data-index) or fallback to DOM index
-					var removedSeqAttr = parseInt(card.attr("data-index"), 10);
-					var removedSeq = Number.isFinite(removedSeqAttr) ? removedSeqAttr : card.index();
-
-					// Capture the current first card's checkin BEFORE removing anything
-					var currentFirstCheckin = '';
-					var firstCard = $('.tour_plan_div .location-card').first();
-					if (firstCard.length) {
-						// look for an input whose id starts with "checkin" inside the first card
-						var firstCheckinInput = firstCard.find('input[id^="checkin"]');
-						if (firstCheckinInput.length) currentFirstCheckin = firstCheckinInput.val();
-					}
-
-					// Remove the card from DOM
-					card.remove();
-
-					// Remove matching list entries (dyn_list)
-					$('.dyn_list li').each(function() {
-						var txt = $(this).text().trim();
-						if (txt.startsWith(removedSeq + ".")) {
-							$(this).remove();
-						}
-					});
-
-					// Re-number remaining cards (assumes updateSequenceNumbers reassigns data-index and element ids)
-					updateSequenceNumbers();
-
-					var remainingCards = $('.tour_plan_div .location-card');
-
-					if (remainingCards.length === 0) {
-						$("#btn_save_tour_plan, #btn_savedraft_tour_plan").hide();
-					} else {
-						// If the first card was removed, set the new first checkin to tourStartDate (prefer) or fallback to previous first checkin
-						if (removedSeq === 1) {
-							var newFirstSeq = 1;
-							var valueToSet = (typeof tourStartDate !== 'undefined' && tourStartDate) ? tourStartDate : currentFirstCheckin;
-							if (valueToSet && $(`#checkin${newFirstSeq}`).length) {
-								$(`#checkin${newFirstSeq}`).val(valueToSet);
-							}
-						}
-
-						// **FIX: Recalculate checkouts for each remaining card using their new sequence**
-						// Use a flag to prevent multiple vehicle summary regenerations
-						var isRecalculating = true;
-
-						remainingCards.each(function(i) {
-							var seq = i + 1; // after updateSequenceNumbers() we assume sequence is 1-based and contiguous
-
-							// **IMPORTANT: Clear vehicle summaries before recalculation**
-							if (i === 0) {
-								// Only on first iteration, clean all vehicle summaries
-								remainingCards.each(function(j) {
-									var cardSeq = j + 1;
-									$(`#vehicle-summary-${cardSeq}`).remove();
-									$(`#nightly-details${cardSeq}`).find('.vehicle-summary-section').remove();
-								});
-							}
-
-							calculateCheckout(seq);
-						});
-
-						isRecalculating = false;
-					}
-
-					// Update total nights and related UI
-					var totalNights = calculateTotalNights();
-					$('#planned_night').text(totalNights + " / ");
-
-					var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
-					if (totalNights === no_of_night) {
-						$("#btn_save_tour_plan").show();
-						$('#btn_add_bt').prop('disabled', true);
-					} else {
-						$("#btn_save_tour_plan").hide();
-						$('#btn_add_bt').prop('disabled', false);
-					}
-
-					updateGrandtotalBoth();
-					get_veh_grand_total();
-					toggleNightsVisibility();
-					calculateVehicleExtraKmCharges();
 				});
+			}
+		});
+
+		// Update breadcrumb list
+		$('.dyn_list .bc-card').each(function(index1) {
+			let bcIndex = index1 + 1;
+			$(this).attr("data-index", bcIndex);
+			$(this).find('.bc-card-seq').text(bcIndex);
+			$(this).find('[id^="span_night_id"]').attr("id", `span_night_id${bcIndex}`);
+			$(this).find('[id^="loc_total"]').attr("id", `loc_total${bcIndex}`);
+		});
+
+		// Reinitialize Select2
+		$('.tour_plan_div .select2-show-search').select2('destroy');
+		$('.tour_plan_div .select2-show-search').select2();
+
+		// Update totals
+		var accom_grand_total = updateGrandtotalBoth();
+		$('#a_total').text(accom_grand_total);
+		var veh_grand_total = get_veh_grand_total();
+		$('#v_total').text(veh_grand_total);
+		$('#g_total').text((accom_grand_total + veh_grand_total));
+
+		toggleNightsVisibility();
+		calculateVehicleExtraKmCharges();
+	}
 
 
-				
 
-				// Handle close night button
-				$(document).on("click", ".card-options-remove", function(e) {
-					e.preventDefault();
+	function calculateCheckout(count) {
+		var totalDuration = <?php echo $object_det[0]['no_of_night']; ?>;
+		var sum = 0;
+		$(".no_of_night").each(function() {
+			let nights = parseInt($(this).val()) || 0;
+			sum += nights;
+		});
 
-					var card = $(this).closest(".location-card");
+		if (sum > totalDuration) {
+			alert("Total nights exceed the allowed duration!");
+			$(`#no_of_night${count}`).val('');
+			updateNightlyDetails(count);
+			updateGrandtotalBoth();
+			get_veh_grand_total();
+			var totalNights = calculateTotalNights();
+			$('#planned_night').text(totalNights + " / ");
+			if (totalNights == totalDuration) {
+				$("#btn_save_tour_plan").show();
+				$('#btn_add_bt').prop('disabled', true);
+			} else {
+				$("#btn_save_tour_plan").hide();
+				$('#btn_add_bt').prop('disabled', false);
+			}
+			return;
+		}
 
-					// capture sequence (data-index) or fallback to DOM index
-					var removedSeqAttr = parseInt(card.attr("data-index"), 10);
-					var removedSeq = Number.isFinite(removedSeqAttr) ? removedSeqAttr : card.index();
+		var checkin = document.getElementById(`checkin${count}`)?.value;
+		var nights = document.getElementById(`no_of_night${count}`)?.value;
+		var checkoutField = document.getElementById(`checkout${count}`);
 
-					// Capture the current first card's checkin BEFORE removing anything
-					var currentFirstCheckin = '';
-					var firstCard = $('.tour_plan_div .location-card').first();
-					if (firstCard.length) {
-						// look for an input whose id starts with "checkin" inside the first card
-						var firstCheckinInput = firstCard.find('input[id^="checkin"]');
-						if (firstCheckinInput.length) currentFirstCheckin = firstCheckinInput.val();
+		if (checkin && nights) {
+			var checkinDate = new Date(checkin);
+			checkinDate.setDate(checkinDate.getDate() + parseInt(nights, 10));
+			var checkoutDate = checkinDate.toISOString().split('T')[0];
+			checkoutField.value = checkoutDate;
+
+			// Update checkin for subsequent locations
+			$('.tour_plan_div .location-card').each(function(index) {
+				if (index >= count) {
+					var nextIndex = index + 1;
+					var nextCheckinField = document.getElementById(`checkin${nextIndex}`);
+					var prevCheckout = document.getElementById(`checkout${nextIndex - 1}`)?.value;
+					if (nextCheckinField && prevCheckout) {
+						nextCheckinField.value = prevCheckout;
 					}
-
-					// Remove the card from DOM
-					card.remove();
-
-					// Remove matching list entries (dyn_list)
-					$('.dyn_list li').each(function() {
-						var txt = $(this).text().trim();
-						if (txt.startsWith(removedSeq + ".")) {
-							$(this).remove();
-						}
-					});
-
-					// Re-number remaining cards (assumes updateSequenceNumbers reassigns data-index and element ids)
-					updateSequenceNumbers();
-
-					var remainingCards = $('.tour_plan_div .location-card');
-
-					if (remainingCards.length === 0) {
-						$("#btn_save_tour_plan, #btn_savedraft_tour_plan").hide();
-					} else {
-						// If the first card was removed, set the new first checkin to tourStartDate (prefer) or fallback to previous first checkin
-						if (removedSeq === 1) {
-							var newFirstSeq = 1;
-							var valueToSet = (typeof tourStartDate !== 'undefined' && tourStartDate) ? tourStartDate : currentFirstCheckin;
-							if (valueToSet && $(`#checkin${newFirstSeq}`).length) {
-								$(`#checkin${newFirstSeq}`).val(valueToSet);
-							}
-						}
-
-						// Recalculate checkouts for each remaining card using their new sequence (safer than conditional update)
-						remainingCards.each(function(i) {
-							var seq = i + 1; // after updateSequenceNumbers() we assume sequence is 1-based and contiguous
-							calculateCheckout(seq);
-						});
-					}
-
-					// Update total nights and related UI
-					var totalNights = calculateTotalNights();
-					$('#planned_night').text(totalNights + " / ");
-
-					var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
-					if (totalNights === no_of_night) {
-						$("#btn_save_tour_plan").show();
-						$('#btn_add_bt').prop('disabled', true);
-					} else {
-						$("#btn_save_tour_plan").hide();
-						$('#btn_add_bt').prop('disabled', false);
-					}
-
-					updateGrandtotalBoth();
-					get_veh_grand_total();
-					toggleNightsVisibility();
-					calculateVehicleExtraKmCharges();
-				});
-
-				
-
-
-				
-
-				function updateSequenceNumbers() {
-					if ($('.tour_plan_div .location-card').length === 0) {
-						location.reload();
-					}
-
-					var prefixes = ['checkin', 'no_of_night', 'checkout', 'hotelcat', 'hotelid', 'roomcat_common',
-						'mealplan', 'no_of_adult', 'no_of_ch', 'no_of_cw', 'no_of_extra', 'no_of_pax',
-						'tax_status', 'own_arrange', 'tour_location_id', 'location_sequence',
-						'eighteen_div_d', 'eighteen_div_s', 'nightly-details',
-						'roomcat', 'double', 'single',
-						'd_adult_rate', 'd_child_rate', 'd_child_wb_rate', 'd_extra_bed_rate', 'd_total_rate',
-						's_adult_rate', 's_child_rate', 's_child_wb_rate', 's_extra_bed_rate', 's_total_rate',
-						'dd_total_rate', 'ss_total_rate',
-						'loadvehs', 'v_from_to', 'veh_header', 'pre_to_cur', 'cur_to_dep', 'dep_to_arr',
-						'hub_to_arr', 'arr_to_loc',
-						'veh_model', 'veh_type_id', 'veh_count', 'day_rent', 'max_km_day',
-						'travel_distance', 'extra_kilometer', 'extra_km_rate', 'veh_total', 'veh_grand_total',
-						'ster_d_adult_rate', 'ster_n_d_child_rate', 'ster_d_child_rate',
-						'ster_n_d_child_wb_rate', 'ster_d_child_wb_rate', 'ster_n_d_extra_bed_rate',
-						'ster_d_extra_bed_rate', 'ster_d_total_rate', 'ster_gst_per', 'ster_g_tot',
-						'ster_s_adult_rate', 'ster_n_s_child_rate', 'ster_s_child_rate',
-						'ster_n_s_child_wb_rate', 'ster_s_child_wb_rate', 'ster_n_s_extra_bed_rate',
-						'ster_s_extra_bed_rate', 'ster_s_total_rate',
-						'hd_ster_d_id', 'hd_ster_d_adult_rate', 'hd_ster_n_d_child_rate',
-						'hd_ster_d_child_rate', 'hd_ster_n_d_child_wb_rate', 'hd_ster_d_child_wb_rate',
-						'hd_ster_n_d_extra_bed_rate', 'hd_ster_d_extra_bed_rate', 'hd_ster_d_total_rate',
-						'hd_ster_d_gst_per', 'hd_ster_d_g_tot',
-						'hd_ster_s_id', 'hd_ster_s_adult_rate', 'hd_ster_n_s_child_rate',
-						'hd_ster_s_child_rate', 'hd_ster_n_s_child_wb_rate', 'hd_ster_s_child_wb_rate',
-						'hd_ster_n_s_extra_bed_rate', 'hd_ster_s_extra_bed_rate', 'hd_ster_s_total_rate',
-						'hd_ster_s_gst_per', 'hd_ster_s_g_tot',
-						'sterling_double', 'sterling_single', 'span_night_id', 'loc_total'
-					];
-
-					$('.tour_plan_div .location-card').each(function(index) {
-						let newIndex = index + 1;
-						let oldIndex = $(this).attr("data-index");
-						let oldStr = oldIndex.toString();
-						let newStr = newIndex.toString();
-						let oldLen = oldStr.length;
-
-						$(this).attr("data-index", newIndex);
-						$(this).find('.card-seq').text(newIndex);
-
-						// Update common card-level fields first
-						$(this).find('[id^="own_arrange"]').attr("id", `own_arrange${newIndex}`).attr("name", `addloc[${newIndex}][own_arrange]`);
-						$(this).find('[id^="tour_location_id"]').attr("id", `tour_location_id${newIndex}`).attr("name", `addloc[${newIndex}][tour_location_id]`);
-						$(this).find('[id^="location_sequence"]').attr("id", `location_sequence${newIndex}`).attr("name", `addloc[${newIndex}][location_sequence]`).val(newIndex);
-						$(this).find('[id^="checkin"]').not('[id*="ster"]').attr("id", `checkin${newIndex}`).attr("name", `addloc[${newIndex}][checkin]`);
-						$(this).find('[id^="no_of_night"]').attr("id", `no_of_night${newIndex}`).attr("name", `addloc[${newIndex}][no_of_night]`).attr("count-id", newIndex).attr("oninput", `validateNumericInput(this); calculateCheckout(${newIndex}); updateNightlyDetails(${newIndex});`);
-						$(this).find('[id^="checkout"]').attr("id", `checkout${newIndex}`).attr("name", `addloc[${newIndex}][checkout]`);
-						$(this).find('[id^="hotelcat"]').attr("id", `hotelcat${newIndex}`).attr("name", `addloc[${newIndex}][hotelcat]`).attr("data-id", newIndex);
-						$(this).find('[id^="hotelid"]').attr("id", `hotelid${newIndex}`).attr("name", `addloc[${newIndex}][hotelid]`).attr("data-id", newIndex);
-						$(this).find('[id^="roomcat_common"]').attr("id", `roomcat_common${newIndex}`).attr("name", `addloc[${newIndex}][roomcat_common]`).attr("data-id", newIndex);
-						$(this).find('[id^="mealplan"]').first().attr("id", `mealplan${newIndex}`).attr("name", `addloc[${newIndex}][mealplan]`).attr("data-id", newIndex);
-						$(this).find('[id^="no_of_adult"]').attr("id", `no_of_adult${newIndex}`).attr("name", `addloc[${newIndex}][no_of_adult]`);
-						$(this).find('[id^="no_of_ch"]').first().attr("id", `no_of_ch${newIndex}`).attr("name", `addloc[${newIndex}][no_of_ch]`);
-						$(this).find('[id^="no_of_cw"]').first().attr("id", `no_of_cw${newIndex}`).attr("name", `addloc[${newIndex}][no_of_cw]`);
-						$(this).find('[id^="no_of_extra"]').first().attr("id", `no_of_extra${newIndex}`).attr("name", `addloc[${newIndex}][no_of_extra]`);
-						$(this).find('[id^="no_of_pax"]').attr("id", `no_of_pax${newIndex}`).attr("name", `addloc[${newIndex}][no_of_pax]`);
-						$(this).find('[id^="tax_status"]').attr("id", `tax_status${newIndex}`).attr("name", `addloc[${newIndex}][tax_status]`);
-						$(this).find('[id^="eighteen_div_d"]').attr("id", `eighteen_div_d${newIndex}`);
-						$(this).find('[id^="eighteen_div_s"]').attr("id", `eighteen_div_s${newIndex}`);
-						$(this).find('[id^="nightly-details"]').attr("id", `nightly-details${newIndex}`);
-
-						// **CRITICAL FIX: Update nightly details with proper regex pattern matching**
-						var nightlyDetailsContainer = $(this).find(`#nightly-details${newIndex}`);
-
-						// Update all elements within nightly details that have IDs starting with old count
-						nightlyDetailsContainer.find('[id]').each(function() {
-							var $elem = $(this);
-							var oldId = $elem.attr('id');
-
-							// Match pattern: prefix + oldCount + night + roomIndex (e.g., "roomcat" + "2" + "1" + "5" = "roomcat215")
-							// We need to replace the count part (first digit after prefix)
-							var matched = false;
-
-							for (var p = 0; p < prefixes.length; p++) {
-								var prefix = prefixes[p];
-
-								// Check if ID starts with this prefix followed by oldStr
-								if (oldId.startsWith(prefix + oldStr)) {
-									var restOfId = oldId.substring((prefix + oldStr).length);
-									var newId = prefix + newStr + restOfId;
-									$elem.attr('id', newId);
-									matched = true;
-									break;
-								}
-							}
-
-							// If not matched by prefix list, try general pattern for room-related fields
-							if (!matched && /^\D+\d+/.test(oldId)) {
-								// Extract prefix (non-digits) and numeric part
-								var prefixMatch = oldId.match(/^(\D+)(\d+.*)$/);
-								if (prefixMatch) {
-									var idPrefix = prefixMatch[1];
-									var numericPart = prefixMatch[2];
-
-									// Check if numeric part starts with oldStr
-									if (numericPart.startsWith(oldStr)) {
-										var newId = idPrefix + newStr + numericPart.substring(oldStr.length);
-										$elem.attr('id', newId);
-									}
-								}
-							}
-						});
-
-						// **CRITICAL FIX: Update name attributes in nightly details**
-						nightlyDetailsContainer.find('[name]').each(function() {
-							var $elem = $(this);
-							var oldName = $elem.attr('name');
-
-							if (oldName && oldName.includes(`addloc[${oldStr}]`)) {
-								var newName = oldName.replace(`addloc[${oldStr}]`, `addloc[${newStr}]`);
-								$elem.attr('name', newName);
-							}
-						});
-
-						// **CRITICAL FIX: Update data-count, data-id, count-id attributes in nightly details**
-						nightlyDetailsContainer.find('[data-count]').each(function() {
-							$(this).attr('data-count', newIndex);
-						});
-
-						nightlyDetailsContainer.find('[data-id]').each(function() {
-							var oldDataId = $(this).attr('data-id');
-							if (oldDataId && oldDataId.startsWith(oldStr)) {
-								var newDataId = newStr + oldDataId.substring(oldStr.length);
-								$(this).attr('data-id', newDataId);
-							}
-						});
-
-						nightlyDetailsContainer.find('[count-id]').each(function() {
-							$(this).attr('count-id', newIndex);
-						});
-
-						// **CRITICAL FIX: Update data-cid attributes**
-						nightlyDetailsContainer.find('[data-cid]').each(function() {
-							$(this).attr('data-cid', newIndex);
-						});
-
-						// **CRITICAL FIX: Update oninput attributes**
-						nightlyDetailsContainer.find('[oninput]').each(function() {
-							var oldOninput = $(this).attr('oninput');
-							if (oldOninput) {
-								// Replace function calls with old count to new count
-								var newOninput = oldOninput.replace(new RegExp(`\\b${oldStr}\\b`, 'g'), newStr);
-								$(this).attr('oninput', newOninput);
-							}
-						});
-
-						// Update vehicle summary IDs if they exist
-						var vehicleSummary = $(this).find(`[id^="vehicle-summary-"]`);
-						if (vehicleSummary.length) {
-							vehicleSummary.attr('id', `vehicle-summary-${newIndex}`);
-							vehicleSummary.find('[id^="vehicle-summary-header-"]').attr('id', `vehicle-summary-header-${newIndex}`);
-							vehicleSummary.find('[id^="summary_"]').each(function() {
-								var oldSummaryId = $(this).attr('id');
-								if (oldSummaryId) {
-									var newSummaryId = oldSummaryId.replace(new RegExp(`_${oldStr}_`), `_${newStr}_`);
-									$(this).attr('id', newSummaryId);
-								}
-							});
-
-							// Update vehicle summary name attributes
-							vehicleSummary.find('[name^="addloc"]').each(function() {
-								var oldSummaryName = $(this).attr('name');
-								if (oldSummaryName) {
-									var newSummaryName = oldSummaryName.replace(`addloc[${oldStr}]`, `addloc[${newStr}]`);
-									$(this).attr('name', newSummaryName);
-								}
-							});
-						}
-					});
-
-					// Update breadcrumb list
-					$('.dyn_list .bc-card').each(function(index1) {
-						let bcIndex = index1 + 1;
-						$(this).attr("data-index", bcIndex);
-						$(this).find('.bc-card-seq').text(bcIndex);
-						$(this).find('[id^="span_night_id"]').attr("id", `span_night_id${bcIndex}`);
-						$(this).find('[id^="loc_total"]').attr("id", `loc_total${bcIndex}`);
-					});
-
-					// Reinitialize Select2
-					$('.tour_plan_div .select2-show-search').select2('destroy');
-					$('.tour_plan_div .select2-show-search').select2();
-
-					// Update totals
-					var accom_grand_total = updateGrandtotalBoth();
-					$('#a_total').text(accom_grand_total);
-					var veh_grand_total = get_veh_grand_total();
-					$('#v_total').text(veh_grand_total);
-					$('#g_total').text((accom_grand_total + veh_grand_total));
-
-					toggleNightsVisibility();
-					calculateVehicleExtraKmCharges();
+					updateNightlyDetails(nextIndex);
 				}
+			});
+		}
 
-				
+		updateNightlyDetails(count);
+		updateGrandtotalBoth();
+		get_veh_grand_total();
+		calculateVehicleExtraKmCharges();
 
-				function calculateCheckout(count) {
-					var totalDuration = <?php echo $object_det[0]['no_of_night']; ?>;
-					var sum = 0;
-					$(".no_of_night").each(function() {
-						let nights = parseInt($(this).val()) || 0;
-						sum += nights;
-					});
+		var totalNights = calculateTotalNights();
+		$('#planned_night').text(totalNights + " / ");
+		if (totalNights == totalDuration) {
+			$("#btn_save_tour_plan").show();
+			$('#btn_add_bt').prop('disabled', true);
+		} else {
+			$("#btn_save_tour_plan").hide();
+			$('#btn_add_bt').prop('disabled', false);
+		}
+	}
 
-					if (sum > totalDuration) {
-						alert("Total nights exceed the allowed duration!");
-						$(`#no_of_night${count}`).val('');
-						updateNightlyDetails(count);
-						updateGrandtotalBoth();
-						get_veh_grand_total();
-						var totalNights = calculateTotalNights();
-						$('#planned_night').text(totalNights + " / ");
-						if (totalNights == totalDuration) {
-							$("#btn_save_tour_plan").show();
-							$('#btn_add_bt').prop('disabled', true);
-						} else {
-							$("#btn_save_tour_plan").hide();
-							$('#btn_add_bt').prop('disabled', false);
-						}
-						return;
-					}
+	// Function to update accommodation grand totals
 
-					var checkin = document.getElementById(`checkin${count}`)?.value;
-					var nights = document.getElementById(`no_of_night${count}`)?.value;
-					var checkoutField = document.getElementById(`checkout${count}`);
 
-					if (checkin && nights) {
-						var checkinDate = new Date(checkin);
-						checkinDate.setDate(checkinDate.getDate() + parseInt(nights, 10));
-						var checkoutDate = checkinDate.toISOString().split('T')[0];
-						checkoutField.value = checkoutDate;
+	// Function to update vehicle grand totals
+	function get_veh_grand_total() {
+		var veh_grand_total = 0;
 
-						// Update checkin for subsequent locations
-						$('.tour_plan_div .location-card').each(function(index) {
-							if (index >= count) {
-								var nextIndex = index + 1;
-								var nextCheckinField = document.getElementById(`checkin${nextIndex}`);
-								var prevCheckout = document.getElementById(`checkout${nextIndex - 1}`)?.value;
-								if (nextCheckinField && prevCheckout) {
-									nextCheckinField.value = prevCheckout;
-								}
-								updateNightlyDetails(nextIndex);
-							}
-						});
-					}
+		$('.tour_plan_div .location-card').each(function() {
+			var count = $(this).attr('data-index');
+			var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
 
-					updateNightlyDetails(count);
-					updateGrandtotalBoth();
-					get_veh_grand_total();
-					calculateVehicleExtraKmCharges();
-
-					var totalNights = calculateTotalNights();
-					$('#planned_night').text(totalNights + " / ");
-					if (totalNights == totalDuration) {
-						$("#btn_save_tour_plan").show();
-						$('#btn_add_bt').prop('disabled', true);
-					} else {
-						$("#btn_save_tour_plan").hide();
-						$('#btn_add_bt').prop('disabled', false);
-					}
+			for (let night = 1; night <= no_of_night; night++) {
+				var $elem = $(`#veh_grand_total${count}${night}`);
+				if ($elem.length > 0) {
+					var veh_total = parseFloat($elem.val()) || 0;
+					veh_grand_total += veh_total;
 				}
+			}
+		});
 
-				// Function to update accommodation grand totals
-				
+		// Update display
+		$('#v_total').text(Math.round(veh_grand_total));
 
-				// Function to update vehicle grand totals
-				function get_veh_grand_total() {
-					var veh_grand_total = 0;
-					$('.tour_plan_div .location-card').each(function() {
-						var count = $(this).attr('data-index');
-						var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-						for (let night = 1; night <= no_of_night; night++) {
-							var veh_total = parseFloat($(`#veh_grand_total${count}${night}`).val()) || 0;
-							veh_grand_total += veh_total;
-						}
-					});
-					$('#v_total').text(veh_grand_total);
+		// Update grand total
+		var accom_total = parseFloat($('#a_total').text()) || 0;
+		$('#g_total').text(Math.round(accom_total + veh_grand_total));
 
-					var accom_grand_total = parseFloat($('#a_total').text()) || 0;
-					$('#g_total').text((accom_grand_total + veh_grand_total));
+		return veh_grand_total;
+	}
 
-					return veh_grand_total;
+	// Function to allow only numeric input
+	function validateNumericInput(input) {
+		input.value = input.value.replace(/\D/g, '');
+	}
 
-				}
+	$(document).on('change', '.room_cat_common_change', function() {
+		if (isDraftLoading) {
+			console.log('Skipping meal plan change during draft load');
+			return; // Early return: No propagation during load
+		}
 
-				// Function to allow only numeric input
-				function validateNumericInput(input) {
-					input.value = input.value.replace(/\D/g, '');
-				}
+		var value = $(this).val();
+		var count = $(this).attr('data-id');
+		var commonOptions = $(this).html();
+		// alert(commonOptions); // Get the current options from the common dropdown
 
-				$(document).on('change', '.room_cat_common_change', function() {
-					if (isDraftLoading) {
-						console.log('Skipping meal plan change during draft load');
-						return; // Early return: No propagation during load
-					}
+		$(`#nightly-details${count} .room_cat_change`).each(function() {
+			$(this).select2('destroy'); // Destroy existing Select2 to allow HTML update
+			$(this).html(commonOptions); // Update options to match common
+			$(this).select2(); // Reinitialize Select2
+			$(this).val(value); // Set the selected value
+			$(this).trigger('change'); // Trigger change to update any dependent logic (e.g., tariffs)
+		});
+		$('.mp_change').trigger('change');
+	});
 
-					var value = $(this).val();
-					var count = $(this).attr('data-id');
-					var commonOptions = $(this).html();
-					// alert(commonOptions); // Get the current options from the common dropdown
+	$(document).on('change', '.mp_change', function() {
+		if (isDraftLoading) {
+			console.log('Skipping meal plan change during draft load');
+			return; // Early return: No propagation during load
+		}
 
-					$(`#nightly-details${count} .room_cat_change`).each(function() {
-						$(this).select2('destroy'); // Destroy existing Select2 to allow HTML update
-						$(this).html(commonOptions); // Update options to match common
-						$(this).select2(); // Reinitialize Select2
-						$(this).val(value); // Set the selected value
-						$(this).trigger('change'); // Trigger change to update any dependent logic (e.g., tariffs)
-					});
-					$('.mp_change').trigger('change');
-				});
+		var value = $(this).val();
+		var count = $(this).attr('data-id');
+		$(`#nightly-details${count} .mp_row_change`).val(value).trigger('change');
+	});
 
-				$(document).on('change', '.mp_change', function() {
-					if (isDraftLoading) {
-						console.log('Skipping meal plan change during draft load');
-						return; // Early return: No propagation during load
-					}
+	// **HELPER FUNCTION: Display alerts consistently**
+	function showAlert(type, message) {
+		var iconClass = type === 'danger' ? 'fe-alert-triangle' :
+			type === 'warning' ? 'fe-alert-circle' :
+			'fe-info';
 
-					var value = $(this).val();
-					var count = $(this).attr('data-id');
-					$(`#nightly-details${count} .mp_row_change`).val(value).trigger('change');
-				});
-
-				// **HELPER FUNCTION: Display alerts consistently**
-				function showAlert(type, message) {
-					var iconClass = type === 'danger' ? 'fe-alert-triangle' :
-						type === 'warning' ? 'fe-alert-circle' :
-						'fe-info';
-
-					var alertHtml = `
+		var alertHtml = `
 											<div class="alert alert-${type} alert-dismissible fade show" role="alert">
 												<span class="alert-inner--icon"><i class="fe ${iconClass}"></i></span>
 												<span class="alert-inner--text">${message}</span>
@@ -4853,14 +4883,14 @@ function updateRoomTotals(count, night, roomIndex) {
 												</button>
 											</div>`;
 
-					// $('#hotel_alert').html(alertHtml);
+		// $('#hotel_alert').html(alertHtml);
 
-					setTimeout(function() {
-						$(".alert").fadeOut("slow", function() {
-							$(this).remove();
-						});
-					}, 3000);
-				}
+		setTimeout(function() {
+			$(".alert").fadeOut("slow", function() {
+				$(this).remove();
+			});
+		}, 3000);
+	}
 </script>
 <script>
 	// Add this to your existing script
@@ -6204,274 +6234,8 @@ function updateRoomTotals(count, night, roomIndex) {
 		});
 	});
 </script>
-<script>
-	// Function to update accommodation grand totals (with NaN safeguards)
 
 
-
-
-	function updateGrandTotalDouble() {
-		$('.tour_plan_div .location-card').each(function() {
-			let id2 = $(this).attr('data-index');
-			let grand_total_double = 0;
-
-			$(this).find('.d_total_rate').each(function() {
-				var val = parseFloat($(this).val()) || 0;
-				grand_total_double += val;
-			});
-
-			$('#dd_total_rate' + id2).val(grand_total_double);
-		});
-	}
-
-	function updateGrandTotalSingle() {
-		$('.tour_plan_div .location-card').each(function() {
-			let id2 = $(this).attr('data-index');
-			let grand_total_single = 0;
-
-			$(this).find('.s_total_rate').each(function() {
-				var val = parseFloat($(this).val()) || 0;
-				grand_total_single += val;
-			});
-
-			$('#ss_total_rate' + id2).val(grand_total_single);
-		});
-	}
-
-
-
-	function double_total_update(rid, count) {
-		// var id = $(this).attr('data-id');
-		var no_of_night = parseInt($('#no_of_night' + count).val()) || 0;
-		var no_of_ch = parseInt($('#no_of_ch' + count).val()) || 0;
-		var no_of_cw = parseInt($('#no_of_cw' + count).val()) || 0;
-		var no_of_extra = parseInt($('#no_of_extra' + count).val()) || 0;
-
-		$('.tour_plan_div .location-card').each(function() {});
-		// var double = parseInt($('#double' + id).val()) || 0;
-		var room = parseInt($('#d_adult_rate' + rid).val()) || 0;
-		var child = parseInt($('#d_child_rate' + rid).val()) || 0;
-		var child_wb = parseInt($('#d_child_wb_rate' + rid).val()) || 0;
-		var extra = parseInt($('#d_extra_bed_rate' + rid).val()) || 0;
-		var tax_status = parseInt($('#tax_status' + count).val()) || 0;
-		if (tax_status == 1) {
-			var tot_d = room + (no_of_ch * child) + (no_of_cw * child_wb) + (no_of_extra * extra);
-			if (tot_d >= 7500) {
-				var gst = 18;
-				var gstval = (gst / 100) * tot_d;
-				var total_doubles = (tot_d + gstval) * double;
-				var total = total_doubles * no_of_night;
-			} else {
-				var total = ((double * room) + (no_of_ch * child) + (no_of_cw * child_wb) + (no_of_extra * extra)) * no_of_night;
-			}
-		} else {
-			// var total = ((double * room) + (no_of_ch * child) + (no_of_cw * child_wb) + (no_of_extra * extra)) * no_of_night;
-			var total = ((room) + (no_of_ch * child) + (no_of_cw * child_wb) + (no_of_extra * extra)) * no_of_night;
-		}
-		// alert(total);
-		$('#d_total_rate' + rid).val(total);
-
-		updateGrandTotalDouble();
-		updateGrandtotalBoth();
-		var svalue = parseInt($('#s_total_rate' + id).val());
-		//$('#loc_total'+id).text(total+svalue);
-		var veh_grand_totalloc = get_veh_grand_total_byloc(id);
-		var actotals = total + svalue;
-		$('#loc_total' + id).text(actotals + " + " + veh_grand_totalloc);
-		// var accom_grand_total = updateGrandtotalBoth();
-		// $('#a_total').text(accom_grand_total);
-
-		var veh_grand_total = get_veh_grand_total();
-		var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
-		$('#g_total').text(g_total);
-	}
-	$(document).on('input', '[id^="double"], [id^="d_adult_rate"], [id^="d_child_rate"], [id^="d_child_wb_rate"], [id^="d_extra_bed_rate"]', function() {
-		var rid = this.id.match(/\d+/)[0];
-		var count = $(this).data('count');
-		double_total_update(rid, count);
-
-
-	});
-</script>
-<script>
-	function night_total_update_double(id) {
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-		var no_of_night = parseInt($('#no_of_night' + id).val()) || 0;
-		var no_of_ch = parseInt($('#no_of_ch' + id).val()) || 0;
-		var no_of_cw = parseInt($('#no_of_cw' + id).val()) || 0;
-		var no_of_extra = parseInt($('#no_of_extra' + id).val()) || 0;
-
-		var double = parseInt($('#double' + id).val()) || 0;
-		var room = parseInt($('#d_adult_rate' + id).val()) || 0;
-		var child = parseInt($('#d_child_rate' + id).val()) || 0;
-		var child_wb = parseInt($('#d_child_wb_rate' + id).val()) || 0;
-		var extra = parseInt($('#d_extra_bed_rate' + id).val()) || 0;
-
-		var total = ((double * room) + (no_of_ch * child) + (no_of_cw * child_wb) + (no_of_extra * extra)) * no_of_night;
-		$('#d_total_rate' + id).val(total);
-		$('#span_night_id' + id).text(no_of_night);
-
-		var svalue = parseInt($('#s_total_rate' + id).val());
-		//$('#loc_total'+id).text(total+svalue);
-		var veh_grand_totalloc = get_veh_grand_total_byloc(id);
-		var actotals = total + svalue;
-		$('#loc_total' + id).text(actotals + " + " + veh_grand_totalloc);
-		var accom_grand_total = updateGrandtotalBoth();
-		$('#a_total').text(accom_grand_total);
-
-		var veh_grand_total = get_veh_grand_total();
-		var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
-		$('#g_total').text(g_total);
-		var vid;
-		var veh_count;
-		var day_rent;
-		var extra_kilometer;
-		var extra_km_rate;
-		var vtotal;
-		$.each(vehicle_models, function(veh_index, veh_model) {
-			vid = id + veh_model.vehicle_type_id;
-			veh_count = parseInt($('#veh_count' + vid).val());
-			day_rent = parseInt($('#day_rent' + vid).val());
-			extra_kilometer = parseInt($('#extra_kilometer' + vid).val());
-			extra_km_rate = parseInt($('#extra_km_rate' + vid).val());
-			// vtotal = (veh_count * day_rent * no_of_night) + (extra_kilometer * extra_km_rate);
-			vtotal = (veh_count * day_rent * no_of_night);
-			$('#veh_total' + vid).val(vtotal);
-		});
-
-
-
-	}
-	/*$(document).on('input', '[id^="no_of_night"]', function() {
-		var id = this.id.match(/\d+/)[0];
-		night_total_update_double(id);
-	});*/
-</script>
-<script>
-	function single_total_update(sid, count) {
-		var no_of_night = parseInt($('#no_of_night' + count).val()) || 0;
-		var single = parseInt($('#single' + count).val()) || 0;
-		var room = parseInt($('#s_adult_rate' + sid).val()) || 0;
-		var child = parseInt($('#s_child_rate' + sid).val()) || 0;
-		var child_wb = parseInt($('#s_child_wb_rate' + sid).val()) || 0;
-		var extra = parseInt($('#s_extra_bed_rate' + sid).val()) || 0;
-		var tax_status = parseInt($('#tax_status' + count).val()) || 0;
-
-		if (tax_status == 1) {
-			var tot_s = room;
-			if (tot_s >= 7500) {
-				var gst = 18;
-				var gstval = (gst / 100) * tot_s;
-				var total_singles = (tot_s + gstval) * single;
-				var total = total_singles * no_of_night;
-			} else {
-				var total = (single * room) * no_of_night;
-			}
-		} else {
-			var total = (room) * no_of_night;
-		}
-		$('#s_total_rate' + sid).val(total);
-		updateGrandTotalSingle();
-		updateGrandtotalBoth();
-		var dvalue = parseInt($('#d_total_rate' + id).val());
-		//$('#loc_total'+id).text(total+dvalue);
-		var veh_grand_totalloc = get_veh_grand_total_byloc(id);
-		var actotals = total + dvalue;
-		$('#loc_total' + id).text(actotals + " + " + veh_grand_totalloc);
-		// var accom_grand_total = updateGrandtotalBoth();
-		// $('#a_total').text(accom_grand_total);
-
-		var veh_grand_total = get_veh_grand_total();
-		var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
-		$('#g_total').text(g_total);
-	}
-	$(document).on('input', '[id^="single"], [id^="s_adult_rate"], [id^="s_child_rate"], [id^="s_child_wb_rate"], [id^="s_extra_bed_rate"]', function() {
-		var sid = this.id.match(/\d+/)[0];
-		var count = $(this).data('count');
-		// alert(count);
-		// alert(sid);
-		single_total_update(sid, count);
-	});
-</script>
-<script>
-	function night_single_total_update(id) {
-		var no_of_night = parseInt($('#no_of_night' + id).val()) || 0;
-		var single = parseInt($('#single' + id).val()) || 0;
-		var room = parseInt($('#s_adult_rate' + id).val()) || 0;
-		var child = parseInt($('#s_child_rate' + id).val()) || 0;
-		var child_wb = parseInt($('#s_child_wb_rate' + id).val()) || 0;
-		var extra = parseInt($('#s_extra_bed_rate' + id).val()) || 0;
-		var total = (single * room) * no_of_night;
-		$('#s_total_rate' + id).val(total);
-
-		var dvalue = parseInt($('#d_total_rate' + id).val());
-		//$('#loc_total'+id).text(total+dvalue);
-		var veh_grand_totalloc = get_veh_grand_total_byloc(id);
-		var actotals = total + dvalue;
-		$('#loc_total' + id).text(actotals + " + " + veh_grand_totalloc);
-		var accom_grand_total = updateGrandtotalBoth();
-		$('#a_total').text(accom_grand_total);
-
-		var veh_grand_total = get_veh_grand_total();
-		var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
-		$('#g_total').text(g_total);
-	}
-	$(document).on('input', '[id^="no_of_night"]', function() {
-		var id = this.id.match(/\d+/)[0];
-		var cnt = parseInt(id);
-		var no_of_nights = <?php echo $object_det[0]['no_of_night']; ?>;
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-		var totalNights = calculateTotalNights();
-		var loc_count = calculateLocationCount();
-		$('#planned_night').text(totalNights + " / ");
-		if (totalNights == no_of_nights) {
-			$("#btn_save_tour_plan").show();
-			$('#btn_add_bt').prop('disabled', true);
-		} else {
-			$("#btn_save_tour_plan").hide();
-			$('#btn_add_bt').prop('disabled', false);
-		}
-		//night_single_total_update(id);
-
-		var room_cat = $('#roomcat' + id).val();
-		var location_sequence = $('#location_sequence' + id).val();
-		if (room_cat == null || room_cat == '' || room_cat == 'undefined') {
-			night_total_update_double(id);
-			night_single_total_update(id);
-		} else {
-			$('#roomcat' + id).trigger('change');
-			if (is_vehicle_required == 1) {
-				setTimeout(function() {
-					var $vehBtn = $('#loadvehs' + id);
-					if ($vehBtn.length) {
-						$vehBtn.trigger('click');
-					}
-				}, 100); // Adjust delay if needed
-			}
-		}
-		if (parseInt(loc_count) > parseInt(id)) {
-			let cnt = parseInt(id) + 1;
-			while (cnt <= parseInt(loc_count)) {
-				(function(cntVal) {
-					setTimeout(function() {
-						// Safely trigger only if element exists
-						if ($('#no_of_night' + cntVal).length) {
-							$('#no_of_night' + cntVal).trigger('input');
-						}
-						if ($('#roomcat' + cntVal).length) {
-							$('#roomcat' + cntVal).trigger('change');
-						}
-						if (is_vehicle_required == 1 && $('#loadvehs' + cntVal).length) {
-							$('#loadvehs' + cntVal).trigger('click');
-						}
-					}, cntVal * 300); // Delay increases with each count (adjust if needed)
-				})(cnt);
-				cnt++;
-			}
-		}
-
-	});
-</script>
 
 <script type="text/javascript">
 	$(document).on('keyup', '.cls_daily', function(e) {
@@ -6966,162 +6730,7 @@ function updateRoomTotals(count, night, roomIndex) {
 		});
 	});
 
-	// Helper function to generate nightly details from draft data (UPDATED)
-	// function generateNightlyDetailsFromDraft(count, main, allExpansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
-	// 	console.log(`\n=== GENERATING NIGHTLY DETAILS for location ${count} ===`);
-	// 	console.log('Main room_category_id:', main.room_category_id);
-	// 	console.log('Number of expansions:', allExpansions.length);
 
-	// 	var nightlyDetails = $(`#nightly-details${count}`);
-	// 	nightlyDetails.empty();
-	// 	var no_of_days = parseInt(main.no_of_days) || 0;
-	// 	var checkInDate = new Date(main.check_in_date); // For calculating night dates
-
-	// 	// Group expansions by date (robust handling for per-room/night data)
-	// 	var expansionsByDate = {};
-	// 	allExpansions.forEach(function(exp) {
-	// 		var expDate = new Date(exp.tour_expansion_date).toDateString(); // Normalize to date string
-	// 		if (!expansionsByDate[expDate]) {
-	// 			expansionsByDate[expDate] = [];
-	// 		}
-	// 		expansionsByDate[expDate].push(exp);
-	// 	});
-	// 	console.log('Expansions grouped by date:', expansionsByDate);
-
-	// 	// Validate expansion count (assuming 1 per room per night)
-	// 	var expectedExpansions = no_of_days * (parseInt(no_of_double_room) + parseInt(no_of_single_room));
-	// 	if (allExpansions.length !== expectedExpansions) {
-	// 		console.warn(`Expansion count mismatch for location ${count}: Got ${allExpansions.length}, expected ${expectedExpansions}. Using available data.`);
-	// 	}
-
-	// 	// Generate night sections
-	// 	for (let night = 1; night <= no_of_days; night++) {
-	// 		// Calculate night date for grouping
-	// 		var nightDate = new Date(checkInDate);
-	// 		nightDate.setDate(checkInDate.getDate() + (night - 1));
-	// 		var nightDateStr = nightDate.toDateString();
-	// 		var nightExpansions = expansionsByDate[nightDateStr] || []; // All expansions for this night
-	// 		console.log(`\n--- Night ${night} (Date: ${nightDateStr}) ---`);
-	// 		console.log('Night expansions count:', nightExpansions.length);
-
-	// 		var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, main.check_in_date);
-	// 		nightlyDetails.append(nightlyHtml);
-
-	// 		// Populate room categories from common dropdown
-	// 		var commonOptions = $(`#roomcat_common${count}`).html();
-	// 		console.log(`Common room category options for night ${night}:`, commonOptions);
-	// 		$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
-	// 			$(this).html(commonOptions);
-	// 			console.log(`Populated room category dropdown: ${$(this).attr('id')}`);
-	// 		});
-
-	// 		// Initialize Select2
-	// 		$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
-
-	// 		// If expansion data exists, populate it per room (no change trigger due to isDraftLoading flag)
-	// 		if (nightExpansions.length > 0) {
-	// 			console.log(`Populating expansion data for night ${night}`);
-	// 			var numDoubles = parseInt(no_of_double_room);
-	// 			var numSingles = parseInt(no_of_single_room);
-	// 			var doubleExpansions = nightExpansions.slice(0, numDoubles);
-	// 			var singleExpansions = nightExpansions.slice(numDoubles, numDoubles + numSingles);
-	// 			var vehicleExpansion = nightExpansions[0]; // Use first for vehicle (assumed uniform per night)
-
-	// 			// Set room category, meal plan, rates for double rooms
-	// 			for (let i = 1; i <= numDoubles; i++) {
-	// 				var rid = `${count}${night}${i}`;
-	// 				var exp = doubleExpansions[i - 1] || null;
-	// 				console.log(`Setting double room ${i} (ID: ${rid})`);
-	// 				if (exp) {
-	// 					console.log(`Using expansion for double room ${i}:`, exp);
-	// 					var roomCatId = exp.expansion_room_category_id;
-	// 					if (!roomCatId || roomCatId === '0' || roomCatId === 0) {
-	// 						roomCatId = main.room_category_id;
-	// 						console.log(`Fallback to main room category for double room ${i}: ${roomCatId}`);
-	// 					}
-	// 					console.log(`Room category to set: ${roomCatId}`);
-	// 					$(`#roomcat${rid}`).val(roomCatId).trigger('change');
-	// 					console.log(`roomcat${rid} set to: ${$(`#roomcat${rid}`).val()}`);
-	// 					var mealPlanId = exp.meal_plan_id;
-	// 					if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
-	// 						mealPlanId = main.meal_plan_id;
-	// 						console.log(`Fallback to main meal plan for double room ${i}: ${mealPlanId}`);
-	// 					}
-	// 					$(`#mealplan${rid}`).val(mealPlanId).trigger('change');
-	// 					$(`#d_adult_rate${rid}`).val(exp.room_rate_double);
-	// 					$(`#d_child_rate${rid}`).val(exp.child_with_bed_double);
-	// 					$(`#d_child_wb_rate${rid}`).val(exp.child_without_bed_double);
-	// 					$(`#d_extra_bed_rate${rid}`).val(exp.extra_bed_double);
-	// 				}
-	// 				updateRoomTotals(count, night, i);
-	// 			}
-
-	// 			// Set room category, meal plan, rates for single rooms
-	// 			for (let i = 1; i <= numSingles; i++) {
-	// 				var seq = numDoubles + i;
-	// 				var sid = `${count}${night}${seq}`;
-	// 				var exp = singleExpansions[i - 1] || null;
-	// 				console.log(`Setting single room ${i} (ID: ${sid})`);
-	// 				if (exp) {
-	// 					console.log(`Using expansion for single room ${i}:`, exp);
-	// 					var roomCatId = exp.expansion_room_category_id;
-	// 					if (!roomCatId || roomCatId === '0' || roomCatId === 0) {
-	// 						roomCatId = main.room_category_id;
-	// 						console.log(`Fallback to main room category for single room ${i}: ${roomCatId}`);
-	// 					}
-	// 					console.log(`Room category to set: ${roomCatId}`);
-	// 					$(`#roomcat${sid}`).val(roomCatId).trigger('change');
-	// 					console.log(`roomcat${sid} set to: ${$(`#roomcat${sid}`).val()}`);
-	// 					var mealPlanId = exp.meal_plan_id;
-	// 					if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
-	// 						mealPlanId = main.meal_plan_id;
-	// 						console.log(`Fallback to main meal plan for single room ${i}: ${mealPlanId}`);
-	// 					}
-	// 					$(`#mealplan${sid}`).val(mealPlanId).trigger('change');
-	// 					$(`#s_adult_rate${sid}`).val(exp.room_rate_single);
-	// 					$(`#s_child_rate${sid}`).val(exp.child_with_bed_single);
-	// 					$(`#s_child_wb_rate${sid}`).val(exp.child_without_bed_single);
-	// 					$(`#s_extra_bed_rate${sid}`).val(exp.extra_bed_single);
-	// 				}
-	// 				updateRoomTotals(count, night, seq);
-	// 			}
-
-	// 			// Populate vehicle data if exists (once per night)
-	// 			if (vehicleExpansion && vehicleExpansion.vehicle_details_json) {
-	// 				try {
-	// 					var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
-	// 					console.log(`Vehicle details for night ${night}:`, vehicleDetails);
-	// 					$.each(vehicleDetails, function(vindex, vdata) {
-	// 						var vid = `${count}${night}${vdata.veh_type_id}`;
-	// 						$(`#day_rent${vid}`).val(vdata.day_rent || 0);
-	// 						$(`#travel_distance${vid}`).val(vdata.travel_distance || 0);
-	// 						$(`#max_km_day${vid}`).val(vdata.max_km_day || 0);
-	// 						$(`#extra_km_rate${vid}`).val(vdata.extra_km_rate || 0);
-	// 						updateVehicleTotals(count, night, vindex);
-	// 					});
-	// 				} catch (e) {
-	// 					console.error('Error parsing vehicle details:', e);
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-
-	// 	// Add vehicle summary if required
-	// 	if (is_vehicle_required == 1) {
-	// 		var summaryHtml = generateVehicleSummary(count, no_of_days, vehicle_models);
-	// 		nightlyDetails.append(summaryHtml);
-	// 		updateVehicleSummary(count);
-	// 	}
-
-	// 	// Update totals
-	// 	updateGrandtotalBoth();
-	// 	get_veh_grand_total();
-	// 	console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
-	// }
-
-	// Helper function to generate nightly details from draft data (WITH VEHICLE HEADERS)
-	// 
-	// Helper function to generate nightly details from draft data (COMPLETE WITH ALL FIXES)
 	function generateNightlyDetailsFromDraft(count, main, allExpansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
 		console.log(`\n=== GENERATING NIGHTLY DETAILS for location ${count} ===`);
 		console.log('Main room_category_id:', main.room_category_id);
@@ -7506,47 +7115,36 @@ function updateRoomTotals(count, night, roomIndex) {
 		}
 	});
 </script>
-<script>
-	// function updateGrandtotalBoth() {
-	// 	var grand_tot = 0;
-	// 	$('.tour_plan_div .location-card').each(function(index) {
-	// 		let id = index + 1;
 
-	// 		var double_value = parseInt($('#d_total_rate' + id).val());
-	// 		var single_value = parseInt($('#s_total_rate' + id).val());
-	// 		grand_tot = grand_tot + double_value + single_value;
-
-	// 	});
-	// 	return grand_tot;
-	// }
-</script>
 <script>
 	function get_veh_grand_total() {
 		var veh_grand_total = 0;
+
 		$('.tour_plan_div .location-card').each(function() {
 			var count = $(this).attr('data-index');
 			var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+
 			for (let night = 1; night <= no_of_night; night++) {
 				var $elem = $(`#veh_grand_total${count}${night}`);
 				if ($elem.length > 0) {
-					var veh_total = parseFloat($elem.val() || '0') || 0; // Double safeguard
+					var veh_total = parseFloat($elem.val()) || 0;
 					veh_grand_total += veh_total;
 				}
-				// If element missing, skip (treat as 0)
 			}
 		});
-		veh_grand_total = isNaN(veh_grand_total) ? 0 : veh_grand_total; // Final NaN guard
-		$('#v_total').text(veh_grand_total);
 
-		var a_total_val = parseFloat($('#a_total').text() || '0') || 0; // Safe parse of a_total
-		var g_total = a_total_val + veh_grand_total;
-		g_total = isNaN(g_total) ? 0 : g_total; // Final NaN guard
-		$('#g_total').text(g_total);
+		// Update display
+		$('#v_total').text(Math.round(veh_grand_total));
 
+		// Update grand total
+		var accom_total = parseFloat($('#a_total').text()) || 0;
+		$('#g_total').text(Math.round(accom_total + veh_grand_total));
+
+		console.log('Base Vehicle Total (without extra KM):', veh_grand_total);
 
 		return veh_grand_total;
-		calculateVehicleExtraKmCharges();
 	}
+
 
 	$(document).on('input', '.travel_distance0', function() {
 		calculateVehicleExtraKmCharges();
@@ -7593,6 +7191,60 @@ function updateRoomTotals(count, night, roomIndex) {
 <!-- //nj// -->
 <!-- loadveh -->
 <script>
+	function updateAllTotals() {
+		console.log('=== Updating All Totals ===');
+
+		// 1. Update accommodation grand total
+		var accom_grand_total = 0;
+		$('.tour_plan_div .location-card').each(function() {
+			var count = $(this).attr('data-index');
+			var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+			var cardTotal = 0;
+
+			for (let night = 1; night <= no_of_night; night++) {
+				var dd_total = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
+				var ss_total = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
+				cardTotal += dd_total + ss_total;
+			}
+
+			accom_grand_total += cardTotal;
+		});
+
+		$('#a_total').text(Math.round(accom_grand_total));
+		console.log('Accommodation Total:', accom_grand_total);
+
+		// 2. Update vehicle grand total
+		var veh_grand_total = 0;
+		$('.tour_plan_div .location-card').each(function() {
+			var count = $(this).attr('data-index');
+			var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+			for (let night = 1; night <= no_of_night; night++) {
+				var $elem = $(`#veh_grand_total${count}${night}`);
+				if ($elem.length > 0) {
+					var veh_total = parseFloat($elem.val()) || 0;
+					veh_grand_total += veh_total;
+				}
+			}
+		});
+
+		$('#v_total').text(Math.round(veh_grand_total));
+		console.log('Vehicle Total:', veh_grand_total);
+
+		// 3. Update grand total
+		var grand_total = accom_grand_total + veh_grand_total;
+		$('#g_total').text(Math.round(grand_total));
+		console.log('Grand Total:', grand_total);
+
+		// 4. Update each location's breadcrumb
+		$('.tour_plan_div .location-card').each(function() {
+			var count = $(this).attr('data-index');
+			updateLocationTotal(count);
+		});
+
+		console.log('=== All Totals Updated ===');
+	}
+
 	function loadVehicles(count) {
 		let no_of_night = $(`#no_of_night${count}`).val();
 		let checkin = $(`#checkin${count}`).val();
@@ -7608,10 +7260,8 @@ function updateRoomTotals(count, night, roomIndex) {
 		let vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
 		let $spinner = $('#csspinner');
 
-		// Validate number of nights
 		if (!no_of_night || no_of_night === 'undefined') {
 			alert("Please enter number of nights");
-			$(`#nightly-details${count} .room_cat_change`)[0].selectedIndex = 0;
 			return;
 		} else if (parseInt(no_of_night) === 0) {
 			alert("Number of nights must be greater than zero");
@@ -7619,7 +7269,6 @@ function updateRoomTotals(count, night, roomIndex) {
 			return;
 		}
 
-		// Show spinner
 		$spinner.show();
 
 		$.ajax({
@@ -7641,19 +7290,10 @@ function updateRoomTotals(count, night, roomIndex) {
 			},
 			dataType: 'json',
 			success: function(data) {
-				// Calculate accommodation totals for the location card
-				let accom_temp = 0;
-				for (let night = 1; night <= parseInt(no_of_night); night++) {
-					let total_double = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
-					let total_single = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
-					accom_temp += total_double + total_single;
-				}
-
 				let parsedNoOfNight = parseInt(no_of_night);
 
-				// Update vehicle distance fields and display
+				// Update vehicle distance fields
 				for (let night = 1; night <= parsedNoOfNight; night++) {
-					// Clear all distance fields
 					$(`#cur_to_dep${count}${night}`).val("");
 					$(`#dep_to_arr${count}${night}`).val("");
 					$(`#hub_to_arr${count}${night}`).val("");
@@ -7663,166 +7303,66 @@ function updateRoomTotals(count, night, roomIndex) {
 					let v_parts = [];
 					let is_first_night = night === 1;
 					let is_last_night = night === parsedNoOfNight;
+					let total_distance_int = 0;
 
-					// Inbound (Hub to Arrival to Location)
+					// Inbound
 					let has_inbound = (data.distance_type == 1 || data.distance_type == 2);
 					if (has_inbound && is_first_night) {
 						$(`#hub_to_arr${count}${night}`).val(data.dist1);
 						$(`#arr_to_loc${count}${night}`).val(data.dist2);
-						v_parts.push(`Hub Location to Arrival - ${data.dist1} KM, Arrival to Location - ${data.dist2} KM`);
+						v_parts.push(`Hub to Arrival - ${data.dist1} KM, Arrival to Location - ${data.dist2} KM`);
+						total_distance_int += parseInt(data.dist1 || 0) + parseInt(data.dist2 || 0);
 					}
 
-					// Inter (Previous to Current)
-					let inter_text = "";
-					let inter_dist_val = "";
-					if ((data.distance_type == 3 && is_first_night) || (data.distance_type != 1 && data.distance_type != 2 && data.distance_type != 3 && is_first_night)) {
-						if (data.distance_type == 3) {
-							inter_dist_val = data.dist3;
-							inter_text = `Previous Location to Current Location - ${data.dist3} KM`;
-						} else {
-							inter_dist_val = data.total_distance;
-							inter_text = `Previous Location to Current Location - ${data.total_distance} KM`;
-						}
-						$(`#pre_to_cur${count}${night}`).val(inter_dist_val);
-						v_parts.push(inter_text);
+					// Inter
+					if ((data.distance_type == 3 && is_first_night) ||
+						(data.distance_type != 1 && data.distance_type != 2 && data.distance_type != 3 && is_first_night)) {
+						let inter_dist = (data.distance_type == 3) ? data.dist3 : data.total_distance;
+						$(`#pre_to_cur${count}${night}`).val(inter_dist);
+						v_parts.push(`Previous to Current - ${inter_dist} KM`);
+						total_distance_int += parseInt(inter_dist || 0);
 					}
 
-					// Outbound (Location to Departure to Hub)
+					// Outbound
 					let has_outbound = (data.distance_type == 1 || data.distance_type == 3);
 					if (has_outbound && is_last_night) {
 						let outbound_dist1 = (data.distance_type == 1) ? data.dist3 : data.dist1;
 						let outbound_dist2 = (data.distance_type == 1) ? data.dist4 : data.dist2;
 						$(`#cur_to_dep${count}${night}`).val(outbound_dist1);
 						$(`#dep_to_arr${count}${night}`).val(outbound_dist2);
-						v_parts.push(`Location to Departure - ${outbound_dist1} KM, Departure to Hub Location - ${outbound_dist2} KM`);
+						v_parts.push(`Location to Departure - ${outbound_dist1} KM, Departure to Hub - ${outbound_dist2} KM`);
+						total_distance_int += parseInt(outbound_dist1 || 0) + parseInt(outbound_dist2 || 0);
 					}
 
-					// Build v_from_to_data
-					let v_from_to_data;
-					if (v_parts.length === 0) {
-						v_from_to_data = ` - (Stay at location - 0 KM)`;
-					} else {
-						let prefix = " - ";
-						if (data.distance_type == 3 && is_first_night && is_last_night) {
-							prefix = "";
-						}
-						v_from_to_data = prefix + `(${v_parts.join(', ')})`;
-					}
+					// Update display
+					let v_from_to_data = v_parts.length === 0 ?
+						` - (Stay at location - 0 KM)` :
+						` - (${v_parts.join(', ')})`;
 
 					$(`#v_from_to${count}${night}`).html(v_from_to_data);
 					$(`#veh_header${count}${night}`).val(v_from_to_data);
-				}
 
-				// Store vehicle types for this count
-				let vehicle_types = [];
-				if (data.vehicles && data.vehicles.length > 0) {
-					vehicle_types = data.vehicles.map(function(item) {
-						return item.vehicle_type_id;
-					});
-					$(`#nightly-details${count}`).data('vehicle-types', vehicle_types);
-				}
-
-				// Vehicle calculations without carry-over
-				let veh_grand_tot = 0;
-				if (data.vehicles && data.vehicles.length > 0) {
-					for (let night = 1; night <= parsedNoOfNight; night++) {
-						let total_distance_int = 0;
-						let is_first_night = night === 1;
-						let is_last_night = night === parsedNoOfNight;
-
-						// Inbound distance
-						let has_inbound = (data.distance_type == 1 || data.distance_type == 2);
-						if (has_inbound && is_first_night) {
-							total_distance_int += parseInt(data.dist1 || 0) + parseInt(data.dist2 || 0);
-						}
-
-						// Inter distance
-						let inter_dist = 0;
-						if ((data.distance_type == 3 && is_first_night) || (data.distance_type != 1 && data.distance_type != 2 && data.distance_type != 3 && is_first_night)) {
-							if (data.distance_type == 3) {
-								inter_dist = parseInt(data.dist3 || 0);
-							} else {
-								inter_dist = parseInt(data.total_distance || 0);
-							}
-							total_distance_int += inter_dist;
-						}
-
-						// Outbound distance
-						let has_outbound = (data.distance_type == 1 || data.distance_type == 3);
-						if (has_outbound && is_last_night) {
-							let outbound_d1 = (data.distance_type == 1) ? parseInt(data.dist3 || 0) : parseInt(data.dist1 || 0);
-							let outbound_d2 = (data.distance_type == 1) ? parseInt(data.dist4 || 0) : parseInt(data.dist2 || 0);
-							total_distance_int += outbound_d1 + outbound_d2;
-						}
-
-						let night_total = 0;
+					// Set vehicle data for this night
+					if (data.vehicles && data.vehicles.length > 0) {
 						$.each(data.vehicles, function(index, item) {
 							let type_id = item.vehicle_type_id;
-							let max_km_day = parseInt(item.max_km_day, 10);
-							let extra_klm = Math.max(0, total_distance_int - max_km_day);
 							let vid = `${count}${night}${type_id}`;
 
-							let extra_cost = extra_klm * parseInt(item.extra_km_rate);
-							let rate_per_day_temp = parseInt(item.rate_per_day);
-							let veh_total = parseInt(item.vehicle_count) * rate_per_day_temp;
-
-							let day_rent_id = `#day_rent${vid}`;
-							let veh_count_id = `#veh_count${vid}`;
-							let max_km_id = `#max_km_day${vid}`;
-							let extra_km_rate_id = `#extra_km_rate${vid}`;
-							let veh_total_id = `#veh_total${vid}`;
-							let travel_dist_id = `#travel_distance${vid}`;
-							let extra_km_id = `#extra_kilometer${vid}`;
-
-							// Create hidden inputs if they don't exist
-							if ($(day_rent_id).length === 0) $(`#nightly-details${count}`).append(`<input type="hidden" id="day_rent${vid}" data-count="${count}" data-vehicle-type="${type_id}" value="${item.rate_per_day}">`);
-							else $(day_rent_id).val(item.rate_per_day).attr('data-count', count).attr('data-vehicle-type', type_id);
-
-							if ($(veh_count_id).length === 0) $(`#nightly-details${count}`).append(`<input type="hidden" id="veh_count${vid}" value="${item.vehicle_count}">`);
-							$(veh_count_id).val(item.vehicle_count);
-
-							if ($(max_km_id).length === 0) $(`#nightly-details${count}`).append(`<input type="hidden" id="max_km_day${vid}" value="${item.max_km_day}">`);
-							$(max_km_id).val(item.max_km_day);
-
-							$(extra_km_rate_id).val(item.extra_km_rate);
-							$(veh_total_id).val(veh_total);
-							$(travel_dist_id).val(total_distance_int);
-							$(extra_km_id).val(extra_klm);
-
-							night_total += veh_total;
+							$(`#day_rent${vid}`).val(item.rate_per_day);
+							$(`#veh_count${vid}`).val(item.vehicle_count);
+							$(`#max_km_day${vid}`).val(item.max_km_day);
+							$(`#extra_km_rate${vid}`).val(item.extra_km_rate);
+							$(`#travel_distance${vid}`).val(total_distance_int);
 						});
-						$(`#veh_grand_total${count}${night}`).val(night_total);
-						veh_grand_tot += night_total;
 					}
 				}
 
-				// Update location card total
-				$(`#loc_total${count}`).text(`${accom_temp} + ${veh_grand_tot}`);
-
-				// Update overall totals
-				let accom_grand_total = updateGrandtotalBoth();
-				$('#a_total').text(accom_grand_total);
-				let veh_grand_total = get_veh_grand_total();
-				$('#v_total').text(veh_grand_total);
-				$('#g_total').text((accom_grand_total + veh_grand_total));
+				// Recalculate ALL totals
 				calculateVehicleExtraKmCharges();
+				updateVehicleSummary(count);
 			},
 			error: function(xhr, status, error) {
 				console.error('Error fetching vehicle tariff details:', error);
-				var errorAlert = `
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <span class="alert-inner--icon"><i class="fe fe-alert-triangle"></i></span>
-            <span class="alert-inner--text">Error fetching vehicle tariff details. Please try again.</span>
-            <button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>`;
-				$('#hotel_alert').html(errorAlert);
-				setTimeout(function() {
-					$(".alert").fadeOut("slow", function() {
-						$(this).remove();
-					});
-				}, 2000);
 			},
 			complete: function() {
 				$spinner.hide();
@@ -7830,130 +7370,198 @@ function updateRoomTotals(count, night, roomIndex) {
 		});
 	}
 
+	// STEP 10: Event handlers
+	$(document).on('click', '.load_vehs_click', function() {
+		let count = $(this).attr('data-id');
+		$(this).attr('data-loaded', 'true');
+		loadVehicles(count);
+	});
+
+	// Recalculate when distance changes
+	$(document).on('input', 'input[id^="travel_distance"].cls_dist', function() {
+    // Extract location count
+    var count = $(this).data('cid');
+    
+    calculateVehicleExtraKmCharges(); // Calculates totals
+    updateVehicleSummary(count);      // ✅ Updates summary too!
+});
+
+	// Recalculate when day rent changes
+	$(document).on('input', 'input[id^="day_rent"]', function() {
+		var count = $(this).data('cid');
+		calculateVehicleExtraKmCharges();
+		updateVehicleSummary(count); 
+	});
+
+	// Recalculate when extra KM rate changes
+	$(document).on('input', 'input[id^="extra_km_rate"]', function() {
+		 var count = $(this).data('cid');
+		calculateVehicleExtraKmCharges();
+		updateVehicleSummary(count); 
+	});
+
+	console.log('✅ Vehicle calculation system fixed and loaded');
+
 	function calculateVehicleExtraKmCharges() {
-		// Check if vehicles are required
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-		if (is_vehicle_required != 1) {
-			// console.log('Vehicles not required; skipping extra KM charges calculation.');
-			return 0;
+    var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+    if (is_vehicle_required != 1) {
+        return 0;
+    }
+
+    console.log('=== Calculating Vehicle Extra KM Charges ===');
+
+    let locationCount = $('.location-card').length;
+    var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+    
+    let total_extra_charges = 0;
+
+    // Loop through all locations
+    for (let count = 1; count <= locationCount; count++) {
+        let no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+        
+        if (no_of_night === 0) continue;
+
+        console.log(`Processing Location ${count} (${no_of_night} nights)`);
+
+        // Loop through all nights for this location
+        for (let night = 1; night <= no_of_night; night++) {
+            
+            // Process each vehicle type
+            $.each(vehicle_models, function(index, vmodel) {
+                let type_id = vmodel.vehicle_type_id;
+                let vid = `${count}${night}${type_id}`;
+
+                // Check if inputs exist
+                var $dayRent = $(`#day_rent${vid}`);
+                if ($dayRent.length === 0) {
+                    return true; // Skip this vehicle
+                }
+
+                // Get values for this vehicle on this night
+                let veh_count = parseInt($(`#veh_count${vid}`).val()) || 1;
+                let travel_distance = parseFloat($(`#travel_distance${vid}`).val()) || 0;
+                let max_km_day = parseFloat($(`#max_km_day${vid}`).val()) || 0;
+                let extra_km_rate = parseFloat($(`#extra_km_rate${vid}`).val()) || 0;
+                let day_rent = parseFloat($dayRent.val()) || 0;
+
+                // Calculate extra KM for this night
+                let extra_km_per_vehicle = Math.max(0, travel_distance - max_km_day);
+                
+                // Update the extra kilometer field
+                $(`#extra_kilometer${vid}`).val(extra_km_per_vehicle);
+
+                // Calculate total for this vehicle on this night
+                let base_cost = day_rent * veh_count;
+                let extra_cost = extra_km_per_vehicle * extra_km_rate * veh_count;
+                let veh_total = base_cost + extra_cost;
+
+                // Update vehicle total field
+                $(`#veh_total${vid}`).val(Math.round(veh_total));
+
+                console.log(`  Night ${night}, Vehicle ${type_id}: Base=${base_cost}, Extra=${extra_cost}, Total=${veh_total}`);
+
+                total_extra_charges += extra_cost;
+            });
+
+            // Update night grand total (sum of all vehicles for this night)
+            let night_total = 0;
+            $.each(vehicle_models, function(index, vmodel) {
+                let type_id = vmodel.vehicle_type_id;
+                let vid = `${count}${night}${type_id}`;
+                let veh_total = parseFloat($(`#veh_total${vid}`).val()) || 0;
+                night_total += veh_total;
+            });
+            
+            $(`#veh_grand_total${count}${night}`).val(Math.round(night_total));
+            console.log(`  Night ${night} Total: ${night_total}`);
+        }
+    }
+
+    console.log('Total Extra KM Charges:', total_extra_charges);
+
+    // **CRITICAL: Update all display totals**
+    updateAllTotals();
+
+    return total_extra_charges;
+}
+
+
+	function updateAllTotals() {
+    console.log('=== Updating All Totals ===');
+    
+    // 1. Update accommodation grand total
+    var accom_grand_total = 0;
+    $('.tour_plan_div .location-card').each(function() {
+        var count = $(this).attr('data-index');
+        var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+        var cardTotal = 0;
+        
+        for (let night = 1; night <= no_of_night; night++) {
+            var dd_total = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
+            var ss_total = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
+            cardTotal += dd_total + ss_total;
+        }
+        
+        accom_grand_total += cardTotal;
+    });
+    
+    $('#a_total').text(Math.round(accom_grand_total));
+    console.log('Accommodation Total:', accom_grand_total);
+    
+    // 2. Update vehicle grand total
+    var veh_grand_total = 0;
+    $('.tour_plan_div .location-card').each(function() {
+        var count = $(this).attr('data-index');
+        var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+        
+        for (let night = 1; night <= no_of_night; night++) {
+            var $elem = $(`#veh_grand_total${count}${night}`);
+            if ($elem.length > 0) {
+                var veh_total = parseFloat($elem.val()) || 0;
+                veh_grand_total += veh_total;
+            }
+        }
+    });
+    
+    $('#v_total').text(Math.round(veh_grand_total));
+    console.log('Vehicle Total:', veh_grand_total);
+    
+    // 3. Update grand total
+    var grand_total = accom_grand_total + veh_grand_total;
+    $('#g_total').text(Math.round(grand_total));
+    console.log('Grand Total:', grand_total);
+    
+    // 4. Update each location's breadcrumb
+    $('.tour_plan_div .location-card').each(function() {
+        var count = $(this).attr('data-index');
+        updateLocationTotal(count);
+    });
+    
+    console.log('=== All Totals Updated ===');
+}
+
+	function updateLocationTotal(count) {
+		let no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+		// Calculate accommodation total for this location
+		let accom_total = 0;
+		for (let night = 1; night <= no_of_night; night++) {
+			let dd_total = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
+			let ss_total = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
+			accom_total += dd_total + ss_total;
 		}
 
-		// Get all location counts
-		let locationCount = $('.location-card').length;
-		// console.log(`Processing ${locationCount} location cards...`);
-
-		// Object to store totals per vehicle type (carry over across all locations/nights)
-		let vehicleTotals = {};
-
-		// Get vehicle models from PHP data
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-		// console.log('Available vehicle models:', vehicle_models);
-
-		// Map vehicle_type_id to vehicle model for reference
-		let vehicleTypeMap = {};
-		$.each(vehicle_models, function(index, vmodel) {
-			vehicleTypeMap[vmodel.vehicle_type_id] = vmodel.vehicle_model_name;
-		});
-
-		// Loop through all locations
-		for (let count = 1; count <= locationCount; count++) {
-			// console.log(`--- Processing Location ${count} ---`);
-			let no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-			// console.log(`  Nights in Location ${count}: ${no_of_night}`);
-
-			if (no_of_night === 0) {
-				// console.log(`  No nights for Location ${count}; skipping.`);
-				continue;
-			}
-
-			// Loop through all nights for this location
-			for (let night = 1; night <= no_of_night; night++) {
-				// console.log(`    Night ${night} in Location ${count}:`);
-
-				// Process each vehicle type defined in vehicle_models
-				$.each(vehicle_models, function(index, vmodel) {
-					let type_id = vmodel.vehicle_type_id;
-					let vid = `${count}${night}${type_id}`;
-
-					// Check if inputs exist for this vehicle type on this night
-					if ($(`#veh_count${vid}`).length === 0) {
-						// console.log(`      Skipping Vehicle ${type_id} (${vmodel.vehicle_model_name}, ${vid}): No inputs found.`);
-						return true; // Continue to next vehicle type
-					}
-
-					// Get values for this vehicle on this night
-					let veh_count = parseInt($(`#veh_count${vid}`).val()) || 1;
-					let travel_distance_per_veh = parseFloat($(`#travel_distance${vid}`).val()) || 0;
-					let max_km_day_per_veh = parseFloat($(`#max_km_day${vid}`).val()) || 0;
-					let extra_km_rate = parseFloat($(`#extra_km_rate${vid}`).val()) || 0;
-
-					// Scale by veh_count for this night
-					let total_travel_this_night = travel_distance_per_veh * veh_count;
-					let total_max_this_night = max_km_day_per_veh * veh_count;
-
-					// console.log(`      Vehicle ${type_id} (${vmodel.vehicle_model_name}, ${vid}): veh_count=${veh_count}, Per-veh Travel=${travel_distance_per_veh}km → Total Travel=${total_travel_this_night}km, Per-veh Max=${max_km_day_per_veh}km → Total Max=${total_max_this_night}km, Extra KM Rate=${extra_km_rate}`);
-
-					// Initialize vehicle total if not exists
-					if (!vehicleTotals[type_id]) {
-						vehicleTotals[type_id] = {
-							vehicle_model_name: vmodel.vehicle_model_name,
-							total_distance: 0,
-							total_max_km: 0,
-							extra_km_rate: extra_km_rate
-						};
-					}
-
-					// Ensure extra_km_rate consistency (use first non-zero rate encountered)
-					if (vehicleTotals[type_id].extra_km_rate === 0 && extra_km_rate > 0) {
-						vehicleTotals[type_id].extra_km_rate = extra_km_rate;
-					}
-
-					// Accumulate totals across all locations/nights for this vehicle type
-					vehicleTotals[type_id].total_distance += total_travel_this_night;
-					vehicleTotals[type_id].total_max_km += total_max_this_night;
-				});
-			}
+		// Calculate vehicle total for this location
+		let veh_total = 0;
+		for (let night = 1; night <= no_of_night; night++) {
+			let night_veh_total = parseFloat($(`#veh_grand_total${count}${night}`).val()) || 0;
+			veh_total += night_veh_total;
 		}
 
-		// console.log('Vehicle Totals Summary:', vehicleTotals);
+		// Update location breadcrumb display
+		$(`#loc_total${count}`).text(`${Math.round(accom_total)} + ${Math.round(veh_total)}`);
 
-		// Calculate extra charges for each vehicle type (net carry-over)
-		let total_extra_charges = 0;
-
-		$.each(vehicleTotals, function(type_id, data) {
-			// Calculate net difference across entire trip: total distance - total max km
-			let difference = data.total_distance - data.total_max_km;
-
-			// If positive, calculate extra charges using the type's rate
-			if (difference > 0) {
-				let extra_charge = difference * data.extra_km_rate;
-				total_extra_charges += extra_charge;
-
-				// console.log(`Vehicle Type ${type_id} (${data.vehicle_model_name}): Total Distance=${data.total_distance}km, Total Max=${data.total_max_km}km, Net Extra=${difference}km @ ${data.extra_km_rate}/km = Charge=${extra_charge}`);
-			} else {
-				// console.log(`Vehicle Type ${type_id} (${data.vehicle_model_name}): No extra KM (under by ${-difference}km)`);
-			}
-		});
-
-		// Get current vehicle total (base total without extra charges)
-		let base_v_total = get_veh_grand_total();
-		// console.log(`Base Vehicle Total (from get_veh_grand_total): ${base_v_total}`);
-
-		// Add extra charges to vehicle total
-		let new_v_total = base_v_total + total_extra_charges;
-
-		// Update the display
-		$('#v_total').text(Math.round(new_v_total));
-
-		// Update grand total
-		let accom_total = parseFloat($('#a_total').text()) || 0;
-		$('#g_total').text(Math.round(accom_total + new_v_total));
-
-		// console.log(`Total Extra KM Charges (carry-over across all vehicle types, scaled by per-night veh_count): ${total_extra_charges}`);
-		// console.log(`Updated Vehicle Total: ${new_v_total}`);
-		// console.log(`Accommodation Total: ${accom_total}, Grand Total: ${accom_total + new_v_total}`);
-
-		return total_extra_charges;
+		console.log(`Location ${count}: Accom=${accom_total}, Vehicle=${veh_total}`);
 	}
 	$(document).on('click', '.load_vehs_click', function() {
 		let count = $(this).attr('data-id');
@@ -7962,6 +7570,89 @@ function updateRoomTotals(count, night, roomIndex) {
 		loadVehicles(count);
 		calculateVehicleExtraKmCharges();
 
+	});
+
+
+	function propagateSummaryToNights(count, vindex) {
+		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+		var vehicle_type_id = vehicle_models[vindex].vehicle_type_id;
+		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+		// Get values from summary fields
+		var dailyRent = parseFloat($(`#summary_rent_${count}_${vindex}`).val()) || 0;
+		var extraKmRate = parseFloat($(`#summary_extra_km_rate_${count}_${vindex}`).val()) || 0;
+
+		console.log(`Propagating summary to nights for location ${count}, vehicle ${vindex}:`, {
+			dailyRent,
+			extraKmRate,
+			no_of_night
+		});
+
+		// Update ALL nights with new values
+		for (let night = 1; night <= no_of_night; night++) {
+			var vid = `${count}${night}${vehicle_type_id}`;
+
+			// Update the night fields
+			$(`#day_rent${vid}`).val(dailyRent);
+			$(`#extra_km_rate${vid}`).val(extraKmRate);
+		}
+
+		// Recalculate totals
+		calculateVehicleExtraKmCharges();
+		updateVehicleSummary(count);
+	}
+
+
+	$(document).on('input change', '.summary-daily-rent', function() {
+		var count = $(this).data('count');
+		var vindex = $(this).data('vindex');
+
+		console.log('Summary daily rent changed:', count, vindex);
+
+		// Propagate to all nights
+		propagateSummaryToNights(count, vindex);
+	});
+
+	$(document).on('input change', '.summary-extra-km-rate', function() {
+		var count = $(this).data('count');
+		var vindex = $(this).data('vindex');
+
+		console.log('Summary extra KM rate changed:', count, vindex);
+
+		// Propagate to all nights
+		propagateSummaryToNights(count, vindex);
+	});
+
+	// STEP 6: **CRITICAL** - Handle distance changes in night fields (dynamic mode)
+	$(document).on('input change', 'input[id^="travel_distance"]', function() {
+		var $input = $(this);
+		var count = $input.data('cid') || $input.data('count');
+
+		console.log('Travel distance changed for location:', count);
+
+		// Recalculate vehicle totals
+		calculateVehicleExtraKmCharges();
+
+		// Update summary if in static mode
+		if (!getIsDynamic() && count) {
+			updateVehicleSummary(count);
+		}
+	});
+
+	// STEP 7: **CRITICAL** - Handle day rent changes in night fields (dynamic mode)
+	$(document).on('input change', 'input[id^="day_rent"]', function() {
+		var $input = $(this);
+		var count = $input.data('cid') || $input.data('count');
+
+		console.log('Day rent changed for location:', count);
+
+		// Recalculate vehicle totals
+		calculateVehicleExtraKmCharges();
+
+		// Update summary if in static mode
+		if (!getIsDynamic() && count) {
+			updateVehicleSummary(count);
+		}
 	});
 </script>
 <script>
@@ -8145,105 +7836,106 @@ function updateRoomTotals(count, night, roomIndex) {
 </script> -->
 <script>
 	// Updated copy_tour_plan click handler with nightly details generation
-$(document).on('click', '#copy_tour_plan', async function() {
-	var $btn = $(this);
-	if ($btn.prop('disabled')) return;
-	$btn.prop('disabled', true);
-	$('#spinner_draft').show();
+	$(document).on('click', '#copy_tour_plan', async function() {
+		var $btn = $(this);
+		if ($btn.prop('disabled')) return;
+		$btn.prop('disabled', true);
+		$('#spinner_draft').show();
 
-	var pre_tour_plan = <?php echo json_encode($pre_tour_plan); ?>;
-	var date_of_tour_start = '<?php echo $object_det[0]['start_date'] ?? ''; ?>';
-	var pre_start_date = '<?php echo $pre_start_date ?? ''; ?>';
-	var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;z
-	var pre_no_night = <?php echo $pre_no_night; ?>;
-	var hotel_categories = <?php echo isset($hotel_categories) ? json_encode($hotel_categories) : '[]'; ?>;
-	var no_of_double_room = <?php echo isset($object_det[0]['no_of_double_room']) ? $object_det[0]['no_of_double_room'] : '0'; ?>;
-	var no_of_single_room = <?php echo isset($object_det[0]['no_of_single_room']) ? $object_det[0]['no_of_single_room'] : '0'; ?>;
-	var is_vehicle_required = <?php echo isset($object_det[0]['is_vehicle_required']) ? $object_det[0]['is_vehicle_required'] : '0'; ?>;
-	var vehicle_models = <?php echo isset($vehicle_data) ? json_encode($vehicle_data) : '[]'; ?>;
-	var total_no_of_pax = <?php echo isset($object_det[0]['total_no_of_pax']) ? $object_det[0]['total_no_of_pax'] : '0'; ?>;
-	var no_of_adult = <?php echo isset($object_det[0]['no_of_adult']) ? $object_det[0]['no_of_adult'] : '0'; ?>;
-	var no_of_child_with_bed = <?php echo isset($object_det[0]['no_of_child_with_bed']) ? $object_det[0]['no_of_child_with_bed'] : '0'; ?>;
-	var no_of_child_without_bed = <?php echo isset($object_det[0]['no_of_child_without_bed']) ? $object_det[0]['no_of_child_without_bed'] : '0'; ?>;
-	var no_of_extra_bed = <?php echo isset($object_det[0]['no_of_extra_bed']) ? $object_det[0]['no_of_extra_bed'] : '0'; ?>;
+		var pre_tour_plan = <?php echo json_encode($pre_tour_plan); ?>;
+		var date_of_tour_start = '<?php echo $object_det[0]['start_date'] ?? ''; ?>';
+		var pre_start_date = '<?php echo $pre_start_date ?? ''; ?>';
+		var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;
+		z
+		var pre_no_night = <?php echo $pre_no_night; ?>;
+		var hotel_categories = <?php echo isset($hotel_categories) ? json_encode($hotel_categories) : '[]'; ?>;
+		var no_of_double_room = <?php echo isset($object_det[0]['no_of_double_room']) ? $object_det[0]['no_of_double_room'] : '0'; ?>;
+		var no_of_single_room = <?php echo isset($object_det[0]['no_of_single_room']) ? $object_det[0]['no_of_single_room'] : '0'; ?>;
+		var is_vehicle_required = <?php echo isset($object_det[0]['is_vehicle_required']) ? $object_det[0]['is_vehicle_required'] : '0'; ?>;
+		var vehicle_models = <?php echo isset($vehicle_data) ? json_encode($vehicle_data) : '[]'; ?>;
+		var total_no_of_pax = <?php echo isset($object_det[0]['total_no_of_pax']) ? $object_det[0]['total_no_of_pax'] : '0'; ?>;
+		var no_of_adult = <?php echo isset($object_det[0]['no_of_adult']) ? $object_det[0]['no_of_adult'] : '0'; ?>;
+		var no_of_child_with_bed = <?php echo isset($object_det[0]['no_of_child_with_bed']) ? $object_det[0]['no_of_child_with_bed'] : '0'; ?>;
+		var no_of_child_without_bed = <?php echo isset($object_det[0]['no_of_child_without_bed']) ? $object_det[0]['no_of_child_without_bed'] : '0'; ?>;
+		var no_of_extra_bed = <?php echo isset($object_det[0]['no_of_extra_bed']) ? $object_det[0]['no_of_extra_bed'] : '0'; ?>;
 
-	if (date_of_tour_start.includes('-')) {
-		if (date_of_tour_start.split('-')[0].length === 2) {
-			date_of_tour_start = convertToYMD(date_of_tour_start);
+		if (date_of_tour_start.includes('-')) {
+			if (date_of_tour_start.split('-')[0].length === 2) {
+				date_of_tour_start = convertToYMD(date_of_tour_start);
+			}
 		}
-	}
 
-	var startDate = new Date(date_of_tour_start);
-	var preStartDate = new Date(pre_start_date);
+		var startDate = new Date(date_of_tour_start);
+		var preStartDate = new Date(pre_start_date);
 
-	if (startDate.getTime() !== preStartDate.getTime()) {
-		alert("Tour Start Date Changed. You must create a new tour plan!");
-		resetButton();
-		return;
-	} else if (no_of_night !== pre_no_night) {
-		alert("No Of Night Changed. You must create a new tour plan!");
-		resetButton();
-		return;
-	} else if (!Array.isArray(pre_tour_plan) || pre_tour_plan.length === 0) {
-		alert("Previous tour plan not completed!");
-		resetButton();
-		return;
-	}
-
-	// Clear existing tour plan
-	$('.tour_plan_div').empty();
-	$('.dyn_list').empty();
-
-	// Set loading flag ON
-	isDraftLoading = true;
-
-	await copyTourPlanWithNightlyDetails(pre_tour_plan, 0);
-	
-	// Update totals after all locations are added
-	setTimeout(function() {
-		var totalNights = calculateTotalNights();
-		$('#planned_night').text(totalNights + " / ");
-		if (totalNights == no_of_night) {
-			$("#btn_save_tour_plan").show();
-			$("#btn_savedraft_tour_plan").show();
-			$('#btn_add_bt').prop('disabled', true);
-		} else {
-			$("#btn_save_tour_plan").hide();
-			$("#btn_savedraft_tour_plan").show();
-			$('#btn_add_bt').prop('disabled', false);
+		if (startDate.getTime() !== preStartDate.getTime()) {
+			alert("Tour Start Date Changed. You must create a new tour plan!");
+			resetButton();
+			return;
+		} else if (no_of_night !== pre_no_night) {
+			alert("No Of Night Changed. You must create a new tour plan!");
+			resetButton();
+			return;
+		} else if (!Array.isArray(pre_tour_plan) || pre_tour_plan.length === 0) {
+			alert("Previous tour plan not completed!");
+			resetButton();
+			return;
 		}
-		updateGrandtotalBoth();
-		get_veh_grand_total();
-		toggleNightsVisibility();
-		calculateVehicleExtraKmCharges();
 
-		// Set loading flag OFF
-		isDraftLoading = false;
+		// Clear existing tour plan
+		$('.tour_plan_div').empty();
+		$('.dyn_list').empty();
 
-		resetButton();
-		showAlert('success', 'Tour plan copied successfully!');
-	}, 3000);
+		// Set loading flag ON
+		isDraftLoading = true;
 
-	function convertToYMD(dateStr) {
-		var parts = dateStr.split('-');
-		return parts[2] + '-' + parts[1] + '-' + parts[0];
-	}
+		await copyTourPlanWithNightlyDetails(pre_tour_plan, 0);
 
-	async function copyTourPlanWithNightlyDetails(planData, index) {
-		if (index >= planData.length) return;
+		// Update totals after all locations are added
+		setTimeout(function() {
+			var totalNights = calculateTotalNights();
+			$('#planned_night').text(totalNights + " / ");
+			if (totalNights == no_of_night) {
+				$("#btn_save_tour_plan").show();
+				$("#btn_savedraft_tour_plan").show();
+				$('#btn_add_bt').prop('disabled', true);
+			} else {
+				$("#btn_save_tour_plan").hide();
+				$("#btn_savedraft_tour_plan").show();
+				$('#btn_add_bt').prop('disabled', false);
+			}
+			updateGrandtotalBoth();
+			get_veh_grand_total();
+			toggleNightsVisibility();
+			calculateVehicleExtraKmCharges();
 
-		var count = index + 1;
-		var locationData = planData[index];
-		console.log(`\n=== COPYING LOCATION ${count} ===`);
-		console.log('Location data:', locationData);
+			// Set loading flag OFF
+			isDraftLoading = false;
 
-		var ep_sel = locationData.meal_plan_id == 1 ? "selected" : "";
-		var cp_sel = locationData.meal_plan_id == 2 ? "selected" : "";
-		var map_sel = locationData.meal_plan_id == 3 ? "selected" : "";
-		var ap_sel = locationData.meal_plan_id == 4 ? "selected" : "";
+			resetButton();
+			showAlert('success', 'Tour plan copied successfully!');
+		}, 3000);
 
-		// Build card HTML
-		var newCard = `
+		function convertToYMD(dateStr) {
+			var parts = dateStr.split('-');
+			return parts[2] + '-' + parts[1] + '-' + parts[0];
+		}
+
+		async function copyTourPlanWithNightlyDetails(planData, index) {
+			if (index >= planData.length) return;
+
+			var count = index + 1;
+			var locationData = planData[index];
+			console.log(`\n=== COPYING LOCATION ${count} ===`);
+			console.log('Location data:', locationData);
+
+			var ep_sel = locationData.meal_plan_id == 1 ? "selected" : "";
+			var cp_sel = locationData.meal_plan_id == 2 ? "selected" : "";
+			var map_sel = locationData.meal_plan_id == 3 ? "selected" : "";
+			var ap_sel = locationData.meal_plan_id == 4 ? "selected" : "";
+
+			// Build card HTML
+			var newCard = `
 		<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
 			<div class="card">
 				<div class="card-header cardy">
@@ -8342,339 +8034,339 @@ $(document).on('click', '#copy_tour_plan', async function() {
 			</div>
 		</div>
 		`;
-		$(".tour_plan_div").append(newCard);
+			$(".tour_plan_div").append(newCard);
 
-		// Build breadcrumb
-		var breadcrumb = `
+			// Build breadcrumb
+			var breadcrumb = `
 		<li class="bc-card" data-index="${count}">
 			<a>
 				<span class="bc-card-seq" style="color:#fff">${count}</span>.<span style="color:#fff">${locationData.geog_name || 'Unknown'}(<span id="span_night_id${count}" style="color:#fff">${locationData.no_of_days || 0}</span>)<span id="loc_total${count}" style="color:#fff"></span></span>
 			</a>
 		</li>
 		`;
-		$('.dyn_list').append(breadcrumb);
+			$('.dyn_list').append(breadcrumb);
 
-		// Populate hotel categories
-		var hotelCat = $('#hotelcat' + count);
-		hotelCat.empty();
-		hotelCat.append('<option value="">Select</option>');
-		if (hotel_categories.length > 0) {
-			$.each(hotel_categories, function(index, hotelcat) {
-				var selected = hotelcat.hotel_category_id == locationData.hot_cat_id ? ' selected' : '';
-				hotelCat.append('<option value="' + hotelcat.hotel_category_id + '"' + selected + '>' + hotelcat.hotel_category_name + '</option>');
-			});
-		}
-
-		// Initialize Select2
-		$(`.location-card[data-index="${count}"] .select2-show-search`).select2();
-
-		// Trigger hotel category change
-		hotelCat.trigger('change');
-
-		// Wait for hotels to load, then set selected hotel and room categories
-		await delay(1000);
-		
-		$(`#hotelid${count}`).val(locationData.hotel_id).trigger('change');
-
-		// Wait for room categories to load
-		await delay(1000);
-
-		// Set the room category value
-		$(`#roomcat_common${count}`).val(locationData.room_category_id);
-		$(`#roomcat_common${count}`).trigger('change');
-
-		// Generate nightly details with expansion data from cost array
-		await delay(500);
-		generateNightlyDetailsFromCopy(count, locationData, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models);
-
-		// Process next location
-		await copyTourPlanWithNightlyDetails(planData, index + 1);
-	}
-
-	function delay(ms) {
-		return new Promise(resolve => setTimeout(resolve, ms));
-	}
-
-	function resetButton() {
-		$btn.prop('disabled', false);
-		$('#spinner_draft').hide();
-	}
-});
-
-// Helper function to generate nightly details from copy tour plan data
-function generateNightlyDetailsFromCopy(count, locationData, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
-	console.log(`\n=== GENERATING NIGHTLY DETAILS FOR COPY - Location ${count} ===`);
-	console.log('Location data:', locationData);
-
-	var nightlyDetails = $(`#nightly-details${count}`);
-	nightlyDetails.empty();
-	var no_of_days = parseInt(locationData.no_of_days) || 0;
-	var checkInDate = new Date(locationData.check_in_date);
-
-	// Parse cost data to extract rate information per night/room
-	var costData = locationData.cost || [];
-	console.log('Cost data:', costData);
-
-	// Parse vehicle details
-	var vehicleDetails = [];
-	try {
-		vehicleDetails = typeof locationData.vehicle_details === 'string' ? 
-			JSON.parse(locationData.vehicle_details) : 
-			(locationData.vehicle_details || []);
-	} catch (e) {
-		console.error('Error parsing vehicle details:', e);
-	}
-	console.log('Vehicle details:', vehicleDetails);
-
-	// Generate night sections
-	for (let night = 1; night <= no_of_days; night++) {
-		console.log(`\n--- Night ${night} ---`);
-
-		var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, locationData.check_in_date);
-		nightlyDetails.append(nightlyHtml);
-
-		// Populate room categories from common dropdown
-		var commonOptions = $(`#roomcat_common${count}`).html();
-		$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
-			$(this).html(commonOptions);
-		});
-
-		// Initialize Select2
-		$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
-
-		// Populate rates from cost data
-		var numDoubles = parseInt(no_of_double_room);
-		var numSingles = parseInt(no_of_single_room);
-
-		// Set room data for double rooms
-		for (let i = 1; i <= numDoubles; i++) {
-			var rid = `${count}${night}${i}`;
-			console.log(`Setting double room ${i} (ID: ${rid})`);
-
-			// Set room category and meal plan
-			$(`#roomcat${rid}`).val(locationData.room_category_id).trigger('change');
-			$(`#mealplan${rid}`).val(locationData.meal_plan_id).trigger('change');
-
-			// Find and set rates from cost data for double rooms (room_type_id = 2)
-			$.each(costData, function(cindex, cval) {
-				if (cval['room_type_id'] == 2) {
-					if (cval['cost_component_id'] == 6 || cval['cost_component_id'] == 7) {
-						$(`#d_adult_rate${rid}`).val(cval['quick_quote_tariff']);
-					}
-					if (cval['cost_component_id'] == 12 || cval['cost_component_id'] == 13) {
-						$(`#d_child_rate${rid}`).val(cval['quick_quote_tariff']);
-					}
-					if (cval['cost_component_id'] == 15 || cval['cost_component_id'] == 16) {
-						$(`#d_child_wb_rate${rid}`).val(cval['quick_quote_tariff']);
-					}
-					if (cval['cost_component_id'] == 9 || cval['cost_component_id'] == 10) {
-						$(`#d_extra_bed_rate${rid}`).val(cval['quick_quote_tariff']);
-					}
-				}
-			});
-
-			updateRoomTotals(count, night, i);
-		}
-
-		// Set room data for single rooms
-		for (let i = 1; i <= numSingles; i++) {
-			var seq = numDoubles + i;
-			var sid = `${count}${night}${seq}`;
-			console.log(`Setting single room ${i} (ID: ${sid})`);
-
-			// Set room category and meal plan
-			$(`#roomcat${sid}`).val(locationData.room_category_id).trigger('change');
-			$(`#mealplan${sid}`).val(locationData.meal_plan_id).trigger('change');
-
-			// Find and set rates from cost data for single rooms (room_type_id = 1)
-			$.each(costData, function(cindex, cval) {
-				if (cval['room_type_id'] == 1) {
-					if (cval['cost_component_id'] == 6 || cval['cost_component_id'] == 7) {
-						$(`#s_adult_rate${sid}`).val(cval['quick_quote_tariff']);
-					}
-					if (cval['cost_component_id'] == 12 || cval['cost_component_id'] == 13) {
-						$(`#s_child_rate${sid}`).val(cval['quick_quote_tariff']);
-					}
-					if (cval['cost_component_id'] == 15 || cval['cost_component_id'] == 16) {
-						$(`#s_child_wb_rate${sid}`).val(cval['quick_quote_tariff']);
-					}
-					if (cval['cost_component_id'] == 9 || cval['cost_component_id'] == 10) {
-						$(`#s_extra_bed_rate${sid}`).val(cval['quick_quote_tariff']);
-					}
-				}
-			});
-
-			updateRoomTotals(count, night, seq);
-		}
-
-		// Populate vehicle data for this night (INCLUDING VEHICLE HEADER)
-		if (vehicleDetails.length > 0) {
-			console.log(`Populating vehicle details for night ${night}`);
-
-			// **Set vehicle header for this night**
-			if (vehicleDetails[0].veh_header) {
-				var vehHeader = vehicleDetails[0].veh_header;
-				console.log(`Setting vehicle header for night ${night}: ${vehHeader}`);
-				$(`#v_from_to${count}${night}`).text(vehHeader);
+			// Populate hotel categories
+			var hotelCat = $('#hotelcat' + count);
+			hotelCat.empty();
+			hotelCat.append('<option value="">Select</option>');
+			if (hotel_categories.length > 0) {
+				$.each(hotel_categories, function(index, hotelcat) {
+					var selected = hotelcat.hotel_category_id == locationData.hot_cat_id ? ' selected' : '';
+					hotelCat.append('<option value="' + hotelcat.hotel_category_id + '"' + selected + '>' + hotelcat.hotel_category_name + '</option>');
+				});
 			}
 
-			$.each(vehicle_models, function(vindex, vmodel) {
-				$.each(vehicleDetails, function(v_index, v_item) {
-					if (vmodel.vehicle_type_id == v_item.veh_type_id) {
-						var vid = `${count}${night}${vmodel.vehicle_type_id}`;
-						
-						$(`#day_rent${vid}`).val(v_item.day_rent || 0);
-						$(`#max_km_day${vid}`).val(v_item.max_km_day || 0);
-						$(`#travel_distance${vid}`).val(v_item.travel_distance || 0);
-						$(`#extra_kilometer${vid}`).val(v_item.extra_kilometer || 0);
-						$(`#extra_km_rate${vid}`).val(v_item.extra_km_rate || 0);
-						$(`#veh_total${vid}`).val(v_item.veh_total || 0);
-						
-						updateVehicleTotals(count, night, vindex);
+			// Initialize Select2
+			$(`.location-card[data-index="${count}"] .select2-show-search`).select2();
+
+			// Trigger hotel category change
+			hotelCat.trigger('change');
+
+			// Wait for hotels to load, then set selected hotel and room categories
+			await delay(1000);
+
+			$(`#hotelid${count}`).val(locationData.hotel_id).trigger('change');
+
+			// Wait for room categories to load
+			await delay(1000);
+
+			// Set the room category value
+			$(`#roomcat_common${count}`).val(locationData.room_category_id);
+			$(`#roomcat_common${count}`).trigger('change');
+
+			// Generate nightly details with expansion data from cost array
+			await delay(500);
+			generateNightlyDetailsFromCopy(count, locationData, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models);
+
+			// Process next location
+			await copyTourPlanWithNightlyDetails(planData, index + 1);
+		}
+
+		function delay(ms) {
+			return new Promise(resolve => setTimeout(resolve, ms));
+		}
+
+		function resetButton() {
+			$btn.prop('disabled', false);
+			$('#spinner_draft').hide();
+		}
+	});
+
+	// Helper function to generate nightly details from copy tour plan data
+	function generateNightlyDetailsFromCopy(count, locationData, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
+		console.log(`\n=== GENERATING NIGHTLY DETAILS FOR COPY - Location ${count} ===`);
+		console.log('Location data:', locationData);
+
+		var nightlyDetails = $(`#nightly-details${count}`);
+		nightlyDetails.empty();
+		var no_of_days = parseInt(locationData.no_of_days) || 0;
+		var checkInDate = new Date(locationData.check_in_date);
+
+		// Parse cost data to extract rate information per night/room
+		var costData = locationData.cost || [];
+		console.log('Cost data:', costData);
+
+		// Parse vehicle details
+		var vehicleDetails = [];
+		try {
+			vehicleDetails = typeof locationData.vehicle_details === 'string' ?
+				JSON.parse(locationData.vehicle_details) :
+				(locationData.vehicle_details || []);
+		} catch (e) {
+			console.error('Error parsing vehicle details:', e);
+		}
+		console.log('Vehicle details:', vehicleDetails);
+
+		// Generate night sections
+		for (let night = 1; night <= no_of_days; night++) {
+			console.log(`\n--- Night ${night} ---`);
+
+			var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, locationData.check_in_date);
+			nightlyDetails.append(nightlyHtml);
+
+			// Populate room categories from common dropdown
+			var commonOptions = $(`#roomcat_common${count}`).html();
+			$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
+				$(this).html(commonOptions);
+			});
+
+			// Initialize Select2
+			$(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`).select2();
+
+			// Populate rates from cost data
+			var numDoubles = parseInt(no_of_double_room);
+			var numSingles = parseInt(no_of_single_room);
+
+			// Set room data for double rooms
+			for (let i = 1; i <= numDoubles; i++) {
+				var rid = `${count}${night}${i}`;
+				console.log(`Setting double room ${i} (ID: ${rid})`);
+
+				// Set room category and meal plan
+				$(`#roomcat${rid}`).val(locationData.room_category_id).trigger('change');
+				$(`#mealplan${rid}`).val(locationData.meal_plan_id).trigger('change');
+
+				// Find and set rates from cost data for double rooms (room_type_id = 2)
+				$.each(costData, function(cindex, cval) {
+					if (cval['room_type_id'] == 2) {
+						if (cval['cost_component_id'] == 6 || cval['cost_component_id'] == 7) {
+							$(`#d_adult_rate${rid}`).val(cval['quick_quote_tariff']);
+						}
+						if (cval['cost_component_id'] == 12 || cval['cost_component_id'] == 13) {
+							$(`#d_child_rate${rid}`).val(cval['quick_quote_tariff']);
+						}
+						if (cval['cost_component_id'] == 15 || cval['cost_component_id'] == 16) {
+							$(`#d_child_wb_rate${rid}`).val(cval['quick_quote_tariff']);
+						}
+						if (cval['cost_component_id'] == 9 || cval['cost_component_id'] == 10) {
+							$(`#d_extra_bed_rate${rid}`).val(cval['quick_quote_tariff']);
+						}
 					}
 				});
-			});
-		}
-	}
 
-	// **Add and populate vehicle summary**
-	if (is_vehicle_required == 1) {
-		console.log(`\n=== GENERATING VEHICLE SUMMARY for location ${count} ===`);
+				updateRoomTotals(count, night, i);
+			}
 
-		var summaryHtml = generateVehicleSummary(count, no_of_days, vehicle_models);
-		nightlyDetails.append(summaryHtml);
+			// Set room data for single rooms
+			for (let i = 1; i <= numSingles; i++) {
+				var seq = numDoubles + i;
+				var sid = `${count}${night}${seq}`;
+				console.log(`Setting single room ${i} (ID: ${sid})`);
 
-		// **Populate vehicle summary from locationData.vehicle_details**
-		var isDynamic = getIsDynamic();
-		console.log('Is Dynamic Mode:', isDynamic);
+				// Set room category and meal plan
+				$(`#roomcat${sid}`).val(locationData.room_category_id).trigger('change');
+				$(`#mealplan${sid}`).val(locationData.meal_plan_id).trigger('change');
 
-		if (!isDynamic) {
-			// **STATIC MODE: Use aggregated vehicle_details**
-			console.log('Static Mode - Using locationData.vehicle_details');
+				// Find and set rates from cost data for single rooms (room_type_id = 1)
+				$.each(costData, function(cindex, cval) {
+					if (cval['room_type_id'] == 1) {
+						if (cval['cost_component_id'] == 6 || cval['cost_component_id'] == 7) {
+							$(`#s_adult_rate${sid}`).val(cval['quick_quote_tariff']);
+						}
+						if (cval['cost_component_id'] == 12 || cval['cost_component_id'] == 13) {
+							$(`#s_child_rate${sid}`).val(cval['quick_quote_tariff']);
+						}
+						if (cval['cost_component_id'] == 15 || cval['cost_component_id'] == 16) {
+							$(`#s_child_wb_rate${sid}`).val(cval['quick_quote_tariff']);
+						}
+						if (cval['cost_component_id'] == 9 || cval['cost_component_id'] == 10) {
+							$(`#s_extra_bed_rate${sid}`).val(cval['quick_quote_tariff']);
+						}
+					}
+				});
 
+				updateRoomTotals(count, night, seq);
+			}
+
+			// Populate vehicle data for this night (INCLUDING VEHICLE HEADER)
 			if (vehicleDetails.length > 0) {
-				$.each(vehicleDetails, function(vindex, vdata) {
-					console.log(`Populating summary for vehicle ${vindex}:`, vdata);
+				console.log(`Populating vehicle details for night ${night}`);
 
-					// Match by vehicle_type_id
-					var matchedVehicleIndex = -1;
-					$.each(vehicle_models, function(modelIndex, model) {
-						if (model.vehicle_type_id == vdata.veh_type_id) {
-							matchedVehicleIndex = modelIndex;
-							return false;
+				// **Set vehicle header for this night**
+				if (vehicleDetails[0].veh_header) {
+					var vehHeader = vehicleDetails[0].veh_header;
+					console.log(`Setting vehicle header for night ${night}: ${vehHeader}`);
+					$(`#v_from_to${count}${night}`).text(vehHeader);
+				}
+
+				$.each(vehicle_models, function(vindex, vmodel) {
+					$.each(vehicleDetails, function(v_index, v_item) {
+						if (vmodel.vehicle_type_id == v_item.veh_type_id) {
+							var vid = `${count}${night}${vmodel.vehicle_type_id}`;
+
+							$(`#day_rent${vid}`).val(v_item.day_rent || 0);
+							$(`#max_km_day${vid}`).val(v_item.max_km_day || 0);
+							$(`#travel_distance${vid}`).val(v_item.travel_distance || 0);
+							$(`#extra_kilometer${vid}`).val(v_item.extra_kilometer || 0);
+							$(`#extra_km_rate${vid}`).val(v_item.extra_km_rate || 0);
+							$(`#veh_total${vid}`).val(v_item.veh_total || 0);
+
+							updateVehicleTotals(count, night, vindex);
 						}
 					});
-
-					if (matchedVehicleIndex !== -1) {
-						var totalDays = no_of_days;
-						var totalRent = parseFloat(vdata.veh_total) || 0;
-						var dailyRent = totalDays > 0 ? (totalRent / totalDays) : 0;
-						var totalDistance = parseFloat(vdata.travel_distance) || 0;
-						var maxKmDay = parseFloat(vdata.max_km_day) || 0;
-						var extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
-						var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
-
-						console.log(`Setting summary values - Daily Rent: ${dailyRent}, Distance: ${totalDistance}, Extra KM: ${totalExtraKm}`);
-
-						$(`#summary_days_${count}_${matchedVehicleIndex}`).val(totalDays);
-						$(`#summary_rent_${count}_${matchedVehicleIndex}`).val(dailyRent.toFixed(0));
-						$(`#summary_distance_${count}_${matchedVehicleIndex}`).val(totalDistance);
-						$(`#summary_extra_km_rate_${count}_${matchedVehicleIndex}`).val(extraKmRate);
-						$(`#summary_extra_km_${count}_${matchedVehicleIndex}`).val(totalExtraKm);
-						$(`#summary_total_${count}_${matchedVehicleIndex}`).val(totalRent);
-					}
 				});
 			}
-		} else {
-			// **DYNAMIC MODE: Aggregate from nightly vehicle data**
-			console.log('Dynamic Mode - Aggregating from nightly data');
+		}
 
-			var vehicleAggregates = {};
-			$.each(vehicle_models, function(vindex, vmodel) {
-				vehicleAggregates[vmodel.vehicle_type_id] = {
-					modelIndex: vindex,
-					totalDays: 0,
-					totalRent: 0,
-					totalDistance: 0,
-					totalExtraKm: 0,
-					extraKmRate: 0
-				};
-			});
+		// **Add and populate vehicle summary**
+		if (is_vehicle_required == 1) {
+			console.log(`\n=== GENERATING VEHICLE SUMMARY for location ${count} ===`);
 
-			// Aggregate from vehicleDetails (assumes same structure per night)
-			for (let night = 1; night <= no_of_days; night++) {
-				$.each(vehicleDetails, function(vindex, vdata) {
-					var vehTypeId = vdata.veh_type_id;
-					if (vehicleAggregates[vehTypeId]) {
-						vehicleAggregates[vehTypeId].totalDays++;
-						vehicleAggregates[vehTypeId].totalRent += parseFloat(vdata.veh_total) || 0;
-						vehicleAggregates[vehTypeId].totalDistance += parseFloat(vdata.travel_distance) || 0;
-						vehicleAggregates[vehTypeId].totalExtraKm += parseFloat(vdata.extra_kilometer) || 0;
+			var summaryHtml = generateVehicleSummary(count, no_of_days, vehicle_models);
+			nightlyDetails.append(summaryHtml);
 
-						if (vehicleAggregates[vehTypeId].extraKmRate === 0) {
-							vehicleAggregates[vehTypeId].extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
+			// **Populate vehicle summary from locationData.vehicle_details**
+			var isDynamic = getIsDynamic();
+			console.log('Is Dynamic Mode:', isDynamic);
+
+			if (!isDynamic) {
+				// **STATIC MODE: Use aggregated vehicle_details**
+				console.log('Static Mode - Using locationData.vehicle_details');
+
+				if (vehicleDetails.length > 0) {
+					$.each(vehicleDetails, function(vindex, vdata) {
+						console.log(`Populating summary for vehicle ${vindex}:`, vdata);
+
+						// Match by vehicle_type_id
+						var matchedVehicleIndex = -1;
+						$.each(vehicle_models, function(modelIndex, model) {
+							if (model.vehicle_type_id == vdata.veh_type_id) {
+								matchedVehicleIndex = modelIndex;
+								return false;
+							}
+						});
+
+						if (matchedVehicleIndex !== -1) {
+							var totalDays = no_of_days;
+							var totalRent = parseFloat(vdata.veh_total) || 0;
+							var dailyRent = totalDays > 0 ? (totalRent / totalDays) : 0;
+							var totalDistance = parseFloat(vdata.travel_distance) || 0;
+							var maxKmDay = parseFloat(vdata.max_km_day) || 0;
+							var extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
+							var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
+
+							console.log(`Setting summary values - Daily Rent: ${dailyRent}, Distance: ${totalDistance}, Extra KM: ${totalExtraKm}`);
+
+							$(`#summary_days_${count}_${matchedVehicleIndex}`).val(totalDays);
+							$(`#summary_rent_${count}_${matchedVehicleIndex}`).val(dailyRent.toFixed(0));
+							$(`#summary_distance_${count}_${matchedVehicleIndex}`).val(totalDistance);
+							$(`#summary_extra_km_rate_${count}_${matchedVehicleIndex}`).val(extraKmRate);
+							$(`#summary_extra_km_${count}_${matchedVehicleIndex}`).val(totalExtraKm);
+							$(`#summary_total_${count}_${matchedVehicleIndex}`).val(totalRent);
 						}
+					});
+				}
+			} else {
+				// **DYNAMIC MODE: Aggregate from nightly vehicle data**
+				console.log('Dynamic Mode - Aggregating from nightly data');
+
+				var vehicleAggregates = {};
+				$.each(vehicle_models, function(vindex, vmodel) {
+					vehicleAggregates[vmodel.vehicle_type_id] = {
+						modelIndex: vindex,
+						totalDays: 0,
+						totalRent: 0,
+						totalDistance: 0,
+						totalExtraKm: 0,
+						extraKmRate: 0
+					};
+				});
+
+				// Aggregate from vehicleDetails (assumes same structure per night)
+				for (let night = 1; night <= no_of_days; night++) {
+					$.each(vehicleDetails, function(vindex, vdata) {
+						var vehTypeId = vdata.veh_type_id;
+						if (vehicleAggregates[vehTypeId]) {
+							vehicleAggregates[vehTypeId].totalDays++;
+							vehicleAggregates[vehTypeId].totalRent += parseFloat(vdata.veh_total) || 0;
+							vehicleAggregates[vehTypeId].totalDistance += parseFloat(vdata.travel_distance) || 0;
+							vehicleAggregates[vehTypeId].totalExtraKm += parseFloat(vdata.extra_kilometer) || 0;
+
+							if (vehicleAggregates[vehTypeId].extraKmRate === 0) {
+								vehicleAggregates[vehTypeId].extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
+							}
+						}
+					});
+				}
+
+				console.log('Aggregated vehicle data:', vehicleAggregates);
+
+				$.each(vehicleAggregates, function(vehTypeId, agg) {
+					if (agg.totalDays > 0) {
+						var dailyRent = agg.totalRent / agg.totalDays;
+
+						console.log(`Setting summary for vehicle type ${vehTypeId}:`, agg);
+
+						$(`#summary_days_${count}_${agg.modelIndex}`).val(agg.totalDays);
+						$(`#summary_rent_${count}_${agg.modelIndex}`).val(dailyRent.toFixed(0));
+						$(`#summary_distance_${count}_${agg.modelIndex}`).val(agg.totalDistance);
+						$(`#summary_extra_km_rate_${count}_${agg.modelIndex}`).val(agg.extraKmRate);
+						$(`#summary_extra_km_${count}_${agg.modelIndex}`).val(agg.totalExtraKm);
+						$(`#summary_total_${count}_${agg.modelIndex}`).val(agg.totalRent);
 					}
 				});
 			}
 
-			console.log('Aggregated vehicle data:', vehicleAggregates);
-
-			$.each(vehicleAggregates, function(vehTypeId, agg) {
-				if (agg.totalDays > 0) {
-					var dailyRent = agg.totalRent / agg.totalDays;
-
-					console.log(`Setting summary for vehicle type ${vehTypeId}:`, agg);
-
-					$(`#summary_days_${count}_${agg.modelIndex}`).val(agg.totalDays);
-					$(`#summary_rent_${count}_${agg.modelIndex}`).val(dailyRent.toFixed(0));
-					$(`#summary_distance_${count}_${agg.modelIndex}`).val(agg.totalDistance);
-					$(`#summary_extra_km_rate_${count}_${agg.modelIndex}`).val(agg.extraKmRate);
-					$(`#summary_extra_km_${count}_${agg.modelIndex}`).val(agg.totalExtraKm);
-					$(`#summary_total_${count}_${agg.modelIndex}`).val(agg.totalRent);
+			// **Build and set combined vehicle header for summary - CENTERED**
+			var combinedHeaders = [];
+			for (let night = 1; night <= no_of_days; night++) {
+				var nightHeader = $(`#v_from_to${count}${night}`).text().trim();
+				if (nightHeader && nightHeader !== '') {
+					nightHeader = nightHeader.replace(/^\s*-\s*/, '');
+					combinedHeaders.push('(' + nightHeader + ')');
 				}
-			});
-		}
-
-		// **Build and set combined vehicle header for summary - CENTERED**
-		var combinedHeaders = [];
-		for (let night = 1; night <= no_of_days; night++) {
-			var nightHeader = $(`#v_from_to${count}${night}`).text().trim();
-			if (nightHeader && nightHeader !== '') {
-				nightHeader = nightHeader.replace(/^\s*-\s*/, '');
-				combinedHeaders.push('(' + nightHeader + ')');
 			}
-		}
 
-		var summaryHeaderText = '';
-		if (combinedHeaders.length > 0) {
-			summaryHeaderText = ' ' + combinedHeaders.join(' + ');
-		}
+			var summaryHeaderText = '';
+			if (combinedHeaders.length > 0) {
+				summaryHeaderText = ' ' + combinedHeaders.join(' + ');
+			}
 
-		console.log('Combined vehicle header for summary:', summaryHeaderText);
+			console.log('Combined vehicle header for summary:', summaryHeaderText);
 
-		var $summaryHeader = $(`#vehicle-summary-header-${count}`);
-		$summaryHeader.html(`
+			var $summaryHeader = $(`#vehicle-summary-header-${count}`);
+			$summaryHeader.html(`
 			<a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; position: centre; left: 10px;" title="Refresh Vehicle Data">
 				<i class="fa fa-refresh"></i>
 			</a>
 			<span style="display: block; width: 100%; padding: 0 40px;">Vehicle Summary${summaryHeaderText}</span>
 		`);
 
-		$summaryHeader.css({
-			'position': 'relative',
-			'text-align': 'center',
-			'display': 'block'
-		});
+			$summaryHeader.css({
+				'position': 'relative',
+				'text-align': 'center',
+				'display': 'block'
+			});
 
-		updateVehicleSummary(count);
-		console.log(`=== VEHICLE SUMMARY POPULATED for location ${count} ===`);
+			updateVehicleSummary(count);
+			console.log(`=== VEHICLE SUMMARY POPULATED for location ${count} ===`);
+		}
+
+		updateGrandtotalBoth();
+		get_veh_grand_total();
+		console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
 	}
-
-	updateGrandtotalBoth();
-	get_veh_grand_total();
-	console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
-}
 </script>
 
 <script>
