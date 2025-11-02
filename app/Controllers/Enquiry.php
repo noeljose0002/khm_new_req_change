@@ -3335,6 +3335,745 @@ class Enquiry extends BaseController
     }
 
  //////////nj///////////////
+// public function saveTourPlan()
+// {
+//     if (!empty(session()->get('user_id'))) {
+//         $Dashboard_model = new Dashboard_m();
+//         $Enquiry_model = new Enquiry_m();
+
+//         date_default_timezone_set('Asia/Kolkata');
+//         $updated_time = date('Y-m-d H:i:s');
+//         $sdate = date('Y-m-d');
+//         $system_id = session('system_id');
+//         $user_id = session('user_id');
+//         $edit_id = $this->request->getPost('edit_id');
+//         $enquiry_header_id = $this->request->getPost('enquiry_header_id');
+//         if ($edit_id > 0) {
+//             $up_data = array(
+//                 'is_active' => 0,
+//                 'is_draft' => 0
+//             );
+//             $up_itidata = array(
+//                 'is_active' => 0,
+//                 'is_draft' => 0
+//             );
+//             $up_extdata = array(
+//                 'is_edit' => 0
+//             );
+
+//             $tp_update = $Enquiry_model->update_tourplan_isactive($up_data, $enquiry_header_id);
+//             $iti_update = $Enquiry_model->update_itinerary_isactive($up_itidata, $enquiry_header_id);
+//             $ext_update = $Enquiry_model->update_extension_isedit($up_extdata, $enquiry_header_id);
+//         }
+
+//         $object_id = $this->request->getPost('object_id');
+//         $sURL = site_url('Enquiry/tour_plan/' . $object_id);
+
+//         $submit_type = $this->request->getPost('submit_type');
+//         $enquiry_details_id = $this->request->getPost('enquiry_details_id');
+//         $no_of_double_room = (int)($this->request->getPost('no_of_double_room') ?? 0);
+//         $no_of_single_room = (int)($this->request->getPost('no_of_single_room') ?? 0);
+//         $is_quick_quote = (int)($this->request->getPost('is_quick_quote') ?? 0);
+
+//         $addloc = $this->request->getPost('addloc');
+//         $all_hd_ster_addloc_d = $this->request->getPost('hd_ster_addloc_'); // Captures hd_ster_addloc_[tt] for double
+//         $all_hd_ster_addloc_s = $this->request->getPost('hd_ster_addloc_s'); // Captures hd_ster_addloc_s[tt] for single
+
+//         if (!empty($addloc)) {
+//             $is_draft = ($submit_type == "draft") ? 1 : 0;
+//             $edited_count = count($addloc);
+//             $original_count = $Enquiry_model->get_tour_locations_count($enquiry_header_id, $enquiry_details_id);
+//             if ($original_count > $edited_count) {
+//                 $deleted_count = $original_count - $edited_count;
+//                 $deleted_id = $Enquiry_model->delete_tour_locations($enquiry_header_id, $enquiry_details_id, $deleted_count);
+//             }
+//             foreach ($addloc as $seq => $item) {
+//                 // Process nested nights to compute totals and details
+//                 $double_total = 0;
+//                 $single_total = 0;
+//                 $vehicle_types = []; // For summary computation
+//                 $first_d_adult_rate = 0;
+//                 $first_s_adult_rate = 0;
+//                 $first_d_child_rate = 0;
+//                 $first_s_child_rate = 0;
+//                 $first_d_child_wb_rate = 0;
+//                 $first_s_child_wb_rate = 0;
+//                 $first_d_extra_bed_rate = 0;
+//                 $first_s_extra_bed_rate = 0;
+//                 $has_first_double = false;
+//                 $has_first_single = false;
+
+//                 if (isset($item['nights']) && is_array($item['nights'])) {
+//                     foreach ($item['nights'] as $night => $night_data) {
+//                         // Double totals
+//                         if (isset($night_data['dd_total_rate'])) {
+//                             $double_total += (float)$night_data['dd_total_rate'];
+//                         }
+//                         // Single totals
+//                         if (isset($night_data['ss_total_rate'])) {
+//                             $single_total += (float)$night_data['ss_total_rate'];
+//                         }
+
+//                         // Vehicle summary aggregation
+//                         if (isset($night_data['veh_model']) && !empty(array_filter($night_data['veh_model'] ?? []))) {
+//                             $veh_models = $night_data['veh_model'];
+//                             $veh_type_ids = $night_data['veh_type_id'] ?? [];
+//                             $veh_counts = $night_data['veh_count'] ?? [];
+//                             $day_rents = $night_data['day_rent'] ?? [];
+//                             $travel_distances = $night_data['travel_distance'] ?? [];
+//                             $extra_kms = $night_data['extra_kilometer'] ?? [];
+//                             $extra_rates = $night_data['extra_km_rate'] ?? [];
+//                             $veh_totals = $night_data['veh_total'] ?? [];
+//                             $max_kms_day = $night_data['max_km_day'] ?? []; // Assuming indexed or shared
+
+//                             for ($j = 0; $j < count($veh_models); $j++) {
+//                                 $type_id = (int)($veh_type_ids[$j] ?? 0);
+//                                 if ($type_id == 0) continue;
+
+//                                 if (!isset($vehicle_types[$type_id])) {
+//                                     $vehicle_types[$type_id] = [
+//                                         'vehicle_model' => trim((string)($veh_models[$j] ?? '')),
+//                                         'veh_type_id' => $type_id,
+//                                         'vehicle_count' => (int)($veh_counts[$j] ?? 0),
+//                                         'day_rent' => 0.0,
+//                                         'travel_distance' => 0.0,
+//                                         'extra_km_rate' => (float)($extra_rates[$j] ?? 0),
+//                                         'extra_kilometer' => 0.0,
+//                                         'veh_total' => 0.0,
+//                                         'max_km_day' => (float)($max_kms_day[$j] ?? $night_data['max_km_day'] ?? 0),
+//                                         'veh_header' => '',
+//                                         'pre_to_cur' => '',
+//                                         'cur_to_dep' => '',
+//                                         'dep_to_arr' => '',
+//                                         'hub_to_arr' => '',
+//                                         'arr_to_loc' => ''
+//                                     ];
+//                                 }
+//                                 $vt = &$vehicle_types[$type_id];
+
+//                                 if ($vt['day_rent'] == 0.0 && (float)($day_rents[$j] ?? 0) > 0) {
+//                                     $vt['day_rent'] = (float)$day_rents[$j];
+//                                 }
+
+//                                 $vt['travel_distance'] += (float)($travel_distances[$j] ?? 0);
+//                                 $vt['extra_kilometer'] += (float)($extra_kms[$j] ?? 0);
+//                                 $vt['veh_total'] += (float)($veh_totals[$j] ?? 0);
+
+//                                 // Append night-specific header fields (concatenate across nights)
+//                                 $new_veh_header = trim($night_data['veh_header'][$j] ?? $night_data['veh_header'] ?? '');
+//                                 if ($new_veh_header && $vt['veh_header']) {
+//                                     $vt['veh_header'] .= ' + ' . $new_veh_header;
+//                                 } elseif ($new_veh_header) {
+//                                     $vt['veh_header'] = $new_veh_header;
+//                                 }
+
+//                                 $header_fields = ['pre_to_cur', 'cur_to_dep', 'dep_to_arr', 'hub_to_arr', 'arr_to_loc'];
+//                                 foreach ($header_fields as $field) {
+//                                     $new_val = trim($night_data[$field][$j] ?? $night_data[$field] ?? '');
+//                                     if ($new_val && $vt[$field]) {
+//                                         $vt[$field] .= ' + ' . $new_val;
+//                                     } elseif ($new_val) {
+//                                         $vt[$field] = $new_val;
+//                                     }
+//                                 }
+//                             }
+//                         }
+
+//                         // Extract first rates for QQ (from first double/single room of first night)
+//                         if ($night == 1) {
+//                             // First double room (index 1)
+//                             if (isset($night_data['d_adult_rate'][1]) && !$has_first_double) {
+//                                 $first_d_adult_rate = (float)$night_data['d_adult_rate'][1];
+//                                 $first_d_child_rate = (float)($night_data['d_child_rate'][1] ?? 0);
+//                                 $first_d_child_wb_rate = (float)($night_data['d_child_wb_rate'][1] ?? 0);
+//                                 $first_d_extra_bed_rate = (float)($night_data['d_extra_bed_rate'][1] ?? 0);
+//                                 $has_first_double = true;
+//                             }
+//                             // First single room (index = no_of_double_room + 1)
+//                             $first_single_index = $no_of_double_room + 1;
+//                             if ($no_of_single_room > 0 && isset($night_data['s_adult_rate'][$first_single_index]) && !$has_first_single) {
+//                                 $first_s_adult_rate = (float)$night_data['s_adult_rate'][$first_single_index];
+//                                 $first_s_child_rate = (float)($night_data['s_child_rate'][$first_single_index] ?? 0);
+//                                 $first_s_child_wb_rate = (float)($night_data['s_child_wb_rate'][$first_single_index] ?? 0);
+//                                 $first_s_extra_bed_rate = (float)($night_data['s_extra_bed_rate'][$first_single_index] ?? 0);
+//                                 $has_first_single = true;
+//                             }
+//                         }
+//                     }
+//                 }
+
+//                 // Compute vehicle summary JSON
+//                 $no_of_nights = (int)($item['no_of_night'] ?? 0);
+//                 $vehicle_summaries = array_values($vehicle_types);
+
+//                 // Cast all values to strings to match the desired format
+//                 foreach ($vehicle_summaries as &$vs) {
+//                     foreach ($vs as $k => $v) {
+//                         $vs[$k] = (string)$v;
+//                     }
+//                 }
+
+//                 $json_output = json_encode($vehicle_summaries, JSON_PRETTY_PRINT);
+
+//                 // Room type as array of object
+//                 $rt_data = [
+//                     "double" => (string)$no_of_double_room,
+//                     "single" => (string)$no_of_single_room
+//                 ];
+//                 $rt_json = json_encode([$rt_data], JSON_PRETTY_PRINT);
+
+//                 $tour_exist = $Enquiry_model->check_tour_location_exist($enquiry_header_id, $enquiry_details_id, $item['location_sequence']);
+//                 if ($tour_exist > 0) {
+//                     $tour_details_ids = $Enquiry_model->get_tour_details_id($enquiry_header_id, $enquiry_details_id, $item['location_sequence']);
+//                     $tour_details_id = $tour_details_ids[0]['tour_details_id'];
+//                     // Delete old expansion and eighteen for update (keeping delete for simplicity, but expansions will be upserted below)
+//                     $Enquiry_model->delete_tour_expansion($tour_details_id);
+
+//                     // Add null/empty check to prevent passing invalid ID
+//                     if (!empty($tour_details_id)) {
+//                         $Enquiry_model->delete_eighteen_double($tour_details_id);
+//                         if ($no_of_single_room > 0) {
+//                             $Enquiry_model->delete_eighteen_single($tour_details_id);
+//                         }
+//                     }
+//                     // First, update the tour_details record
+//                     $tour_data_update = array(
+//                         'tour_location' => $item['tour_location_id'],
+//                         'no_of_days' => $item['no_of_night'],
+//                         'check_in_date' => $item['checkin'],
+//                         'check_out_date' => $item['checkout'],
+//                         'hot_cat_id' => $item['hotelcat'],
+//                         'meal_plan_id' => $item['mealplan'],
+//                         'hotel_id' => $item['hotelid'],
+//                         'room_category_id' => $item['roomcat_common'] ?? $item['roomcat'] ?? 0,
+//                         'accom_double_total' => $double_total,
+//                         'accom_single_total' => $single_total,
+//                         'is_own_arrangement' => $item['own_arrange'],
+//                         'tax_status' => $item['tax_status'],
+//                         'room_type' => $rt_json,
+//                         'vehicle_details' => $json_output,
+//                         'location_sequence' => $item['location_sequence'],
+//                         'is_active' => 1,
+//                         'is_draft' => $is_draft,
+//                         'updated_time' => $updated_time
+//                     );
+//                     $tour_updated = $Enquiry_model->update_tour_details($tour_data_update, $tour_details_id);
+
+//                     // Handle tax: filter and insert only for this location (rid starts with seq)
+//                     if ($item['tax_status'] == 1) {
+//                         $seq_str = strval($seq);
+//                         if (!empty($all_hd_ster_addloc_d) && is_array($all_hd_ster_addloc_d)) {
+//                             foreach ($all_hd_ster_addloc_d as $tt => $item_d) {
+//                                 if (strpos($tt, $seq_str) === 0) { // tt starts with seq
+//                                     $ster_ddata = array(
+//                                         'tour_details_id' => $tour_details_id,
+//                                         'sequence_id' => $item_d['ster_id'] ?? $tt,
+//                                         'room_rate' => $item_d['d_adult_rate'] ?? 0,
+//                                         'no_of_child' => $item_d['n_child_rate'] ?? 0,
+//                                         'child_rate' => $item_d['d_child_rate'] ?? 0,
+//                                         'no_of_child_wb' => $item_d['n_child_wb_rate'] ?? 0,
+//                                         'child_wb_rate' => $item_d['d_child_wb_rate'] ?? 0,
+//                                         'no_of_extra' => $item_d['n_extra_bed_rate'] ?? 0,
+//                                         'extra_rate' => $item_d['d_extra_bed_rate'] ?? 0,
+//                                         'total' => $item_d['d_total_rate'] ?? 0,
+//                                         'gst' => $item_d['gst_per'] ?? 0,
+//                                         'grand_total' => $item_d['g_tot'] ?? 0
+//                                     );
+//                                     $Enquiry_model->insert_eighteen_details_double($ster_ddata);
+//                                 }
+//                             }
+//                         }
+//                         if ($no_of_single_room > 0 && !empty($all_hd_ster_addloc_s) && is_array($all_hd_ster_addloc_s)) {
+//                             foreach ($all_hd_ster_addloc_s as $tt => $item_s) {
+//                                 if (strpos($tt, $seq_str) === 0) {
+//                                     $ster_sdata = array(
+//                                         'tour_details_id' => $tour_details_id,
+//                                         'sequence_id' => $item_s['ster_s_id'] ?? $tt,
+//                                         'room_rate' => $item_s['s_adult_rate'] ?? 0,
+//                                         'no_of_child' => $item_s['n_s_child_rate'] ?? 0,
+//                                         'child_rate' => $item_s['s_child_rate'] ?? 0,
+//                                         'no_of_child_wb' => $item_s['n_s_child_wb_rate'] ?? 0,
+//                                         'child_wb_rate' => $item_s['s_child_wb_rate'] ?? 0,
+//                                         'no_of_extra' => $item_s['n_s_extra_bed_rate'] ?? 0,
+//                                         'extra_rate' => $item_s['s_extra_bed_rate'] ?? 0,
+//                                         'total' => $item_s['s_total_rate'] ?? 0,
+//                                         'gst' => $item_s['s_gst_per'] ?? 0,
+//                                         'grand_total' => $item_s['s_g_tot'] ?? 0
+//                                     );
+//                                     $Enquiry_model->insert_eighteen_details_single($ster_sdata);
+//                                 }
+//                             }
+//                         }
+//                     }
+
+//                     // Upsert expansion per night per room (update if exists, insert if not) - MODIFIED TO SAVE PER ROOM
+//                     if (isset($item['nights']) && is_array($item['nights'])) {
+//                         $checkin_date = new DateTime($item['checkin']);
+//                         foreach ($item['nights'] as $night => $night_data) {
+//                             $expansion_date = clone $checkin_date;
+//                             $expansion_date->add(new DateInterval('P' . ($night - 1) . 'D'));
+//                             $exp_date_str = $expansion_date->format('Y-m-d');
+
+//                             // Vehicle JSON for this night (shared across rooms) - ENSURE NIGHT-SPECIFIC VEHICLE DATA IS USED FOR ALL ROOMS OF THIS NIGHT
+//                             $night_veh_json = [];
+//                             if (isset($night_data['veh_model']) && !empty(array_filter($night_data['veh_model'] ?? []))) {
+//                                 foreach ($night_data['veh_model'] as $vindex => $model_name) {
+//                                     if (isset($night_data['veh_type_id'][$vindex])) {
+//                                         $night_veh_json[] = [
+//                                             "vehicle_model" => $model_name,
+//                                             "veh_type_id" => $night_data['veh_type_id'][$vindex],
+//                                             "vehicle_count" => $night_data['veh_count'][$vindex] ?? 0,
+//                                             "day_rent" => $night_data['day_rent'][$vindex] ?? 0,
+//                                             "max_km_day" => $night_data['max_km_day'][$vindex] ?? 0,
+//                                             "travel_distance" => $night_data['travel_distance'][$vindex] ?? 0,
+//                                             "extra_kilometer" => $night_data['extra_kilometer'][$vindex] ?? 0,
+//                                             "extra_km_rate" => $night_data['extra_km_rate'][$vindex] ?? 0,
+//                                             "veh_total" => $night_data['veh_total'][$vindex] ?? 0,
+//                                             'veh_header' => $night_data['veh_header'] ?? '',
+//                                             'pre_to_cur' => $night_data['pre_to_cur'] ?? '',
+//                                             'cur_to_dep' => $night_data['cur_to_dep'] ?? '',
+//                                             'dep_to_arr' => $night_data['dep_to_arr'] ?? '',
+//                                             'hub_to_arr' => $night_data['hub_to_arr'] ?? '',
+//                                             'arr_to_loc' => $night_data['arr_to_loc'] ?? ''
+//                                         ];
+//                                     }
+//                                 }
+//                             }
+//                             $veh_json_str = json_encode($night_veh_json, JSON_PRETTY_PRINT);
+
+//                             // Loop over double rooms - USE NIGHT-SPECIFIC VEHICLE FOR ALL DOUBLE ROOMS OF THIS NIGHT
+//                             for ($d_room = 1; $d_room <= $no_of_double_room; $d_room++) {
+//                                 $exp_room_cat_id = isset($night_data['roomcat'][$d_room]) ? (int)$night_data['roomcat'][$d_room] : 0;
+//                                 $exp_meal_plan_id = isset($night_data['mealplan'][$d_room]) ? (int)$night_data['mealplan'][$d_room] : 0;
+//                                 $exp_d_room_rate = isset($night_data['d_adult_rate'][$d_room]) ? (float)$night_data['d_adult_rate'][$d_room] : 0;
+//                                 $exp_d_child_rate = isset($night_data['d_child_rate'][$d_room]) ? (float)$night_data['d_child_rate'][$d_room] : 0;
+//                                 $exp_d_child_wb_rate = isset($night_data['d_child_wb_rate'][$d_room]) ? (float)$night_data['d_child_wb_rate'][$d_room] : 0;
+//                                 $exp_d_extra_rate = isset($night_data['d_extra_bed_rate'][$d_room]) ? (float)$night_data['d_extra_bed_rate'][$d_room] : 0;
+//                                 $exp_double_total = isset($night_data['d_total_rate'][$d_room]) ? (float)$night_data['d_total_rate'][$d_room] : 0;
+
+//                                 // Single fields set to 0 for double room expansions
+//                                 $exp_s_room_rate = 0;
+//                                 $exp_s_child_rate = 0;
+//                                 $exp_s_child_wb_rate = 0;
+//                                 $exp_s_extra_rate = 0;
+//                                 $exp_single_total = 0;
+
+//                                 $expansion_data = [
+//                                     'tour_details_id' => $tour_details_id,
+//                                     'tour_expansion_date' => $exp_date_str,
+//                                     'room_category_id' => $exp_room_cat_id,
+//                                     'meal_plan_id' => $exp_meal_plan_id,
+//                                     'room_rate_double' => $exp_d_room_rate,
+//                                     'child_with_bed_double' => $exp_d_child_rate,
+//                                     'child_without_bed_double' => $exp_d_child_wb_rate,
+//                                     'extra_bed_double' => $exp_d_extra_rate,
+//                                     'double_total_rate' => $exp_double_total,
+//                                     'room_rate_single' => $exp_s_room_rate,
+//                                     'child_with_bed_single' => $exp_s_child_rate,
+//                                     'child_without_bed_single' => $exp_s_child_wb_rate,
+//                                     'extra_bed_single' => $exp_s_extra_rate,
+//                                     'single_total_rate' => $exp_single_total,
+//                                     'vehicle_details_json' => $veh_json_str
+//                                 ];
+
+//                                 // Upsert logic for expansion (you may need to adjust exists check to include room index if added to schema; for now, delete all and insert)
+//                                 $Enquiry_model->insert_tour_expansion($expansion_data); // Always insert since we deleted all
+//                             }
+
+//                             // Loop over single rooms - USE NIGHT-SPECIFIC VEHICLE FOR ALL SINGLE ROOMS OF THIS NIGHT
+//                             for ($s_room = 1; $s_room <= $no_of_single_room; $s_room++) {
+//                                 $s_index = $no_of_double_room + $s_room;
+//                                 $exp_room_cat_id = isset($night_data['roomcat'][$s_index]) ? (int)$night_data['roomcat'][$s_index] : 0;
+//                                 $exp_meal_plan_id = isset($night_data['mealplan'][$s_index]) ? (int)$night_data['mealplan'][$s_index] : 0;
+//                                 $exp_s_room_rate = isset($night_data['s_adult_rate'][$s_index]) ? (float)$night_data['s_adult_rate'][$s_index] : 0;
+//                                 $exp_s_child_rate = isset($night_data['s_child_rate'][$s_index]) ? (float)$night_data['s_child_rate'][$s_index] : 0;
+//                                 $exp_s_child_wb_rate = isset($night_data['s_child_wb_rate'][$s_index]) ? (float)$night_data['s_child_wb_rate'][$s_index] : 0;
+//                                 $exp_s_extra_rate = isset($night_data['s_extra_bed_rate'][$s_index]) ? (float)$night_data['s_extra_bed_rate'][$s_index] : 0;
+//                                 $exp_single_total = isset($night_data['s_total_rate'][$s_index]) ? (float)$night_data['s_total_rate'][$s_index] : 0;
+
+//                                 // Double fields set to 0 for single room expansions
+//                                 $exp_d_room_rate = 0;
+//                                 $exp_d_child_rate = 0;
+//                                 $exp_d_child_wb_rate = 0;
+//                                 $exp_d_extra_rate = 0;
+//                                 $exp_double_total = 0;
+
+//                                 $expansion_data = [
+//                                     'tour_details_id' => $tour_details_id,
+//                                     'tour_expansion_date' => $exp_date_str,
+//                                     'room_category_id' => $exp_room_cat_id,
+//                                     'meal_plan_id' => $exp_meal_plan_id,
+//                                     'room_rate_double' => $exp_d_room_rate,
+//                                     'child_with_bed_double' => $exp_d_child_rate,
+//                                     'child_without_bed_double' => $exp_d_child_wb_rate,
+//                                     'extra_bed_double' => $exp_d_extra_rate,
+//                                     'double_total_rate' => $exp_double_total,
+//                                     'room_rate_single' => $exp_s_room_rate,
+//                                     'child_with_bed_single' => $exp_s_child_rate,
+//                                     'child_without_bed_single' => $exp_s_child_wb_rate,
+//                                     'extra_bed_single' => $exp_s_extra_rate,
+//                                     'single_total_rate' => $exp_single_total,
+//                                     'vehicle_details_json' => $veh_json_str
+//                                 ];
+
+//                                 // Always insert since we deleted all
+//                                 $Enquiry_model->insert_tour_expansion($expansion_data);
+//                             }
+//                         }
+//                     }
+
+//                     if ($tour_updated && $is_quick_quote == 1) {
+//                         // Update QQ with first rates
+//                         $d_room_rate = array(
+//                             'quick_quote_tariff' => $first_d_adult_rate,
+//                             'is_draft' => $is_draft
+//                         );
+//                         $qq_update = $Enquiry_model->update_qq_details($d_room_rate, $tour_details_id, 6, 2);
+//                         $s_room_rate = array(
+//                             'quick_quote_tariff' => $first_s_adult_rate,
+//                             'is_draft' => $is_draft
+//                         );
+//                         $qq_update = $Enquiry_model->update_qq_details($s_room_rate, $tour_details_id, 6, 1);
+//                         $d_c_rate = array(
+//                             'quick_quote_tariff' => $first_d_child_rate,
+//                             'is_draft' => $is_draft
+//                         );
+//                         $qq_update = $Enquiry_model->update_qq_details($d_c_rate, $tour_details_id, 12, 2);
+//                         $s_c_rate = array(
+//                             'quick_quote_tariff' => $first_s_child_rate,
+//                             'is_draft' => $is_draft
+//                         );
+//                         $qq_update = $Enquiry_model->update_qq_details($s_c_rate, $tour_details_id, 12, 1);
+//                         $d_cw_rate = array(
+//                             'quick_quote_tariff' => $first_d_child_wb_rate,
+//                             'is_draft' => $is_draft
+//                         );
+//                         $qq_update = $Enquiry_model->update_qq_details($d_cw_rate, $tour_details_id, 15, 2);
+//                         $s_cw_rate = array(
+//                             'quick_quote_tariff' => $first_s_child_wb_rate,
+//                             'is_draft' => $is_draft
+//                         );
+//                         $qq_update = $Enquiry_model->update_qq_details($s_cw_rate, $tour_details_id, 15, 1);
+
+//                         $d_e_rate = array(
+//                             'quick_quote_tariff' => $first_d_extra_bed_rate,
+//                             'is_draft' => $is_draft
+//                         );
+//                         $qq_update = $Enquiry_model->update_qq_details($d_e_rate, $tour_details_id, 9, 2);
+//                         $s_e_rate = array(
+//                             'quick_quote_tariff' => $first_s_extra_bed_rate,
+//                             'is_draft' => $is_draft
+//                         );
+//                         $qq_update = $Enquiry_model->update_qq_details($s_e_rate, $tour_details_id, 9, 1);
+//                     }
+//                 } else {
+//                     // Insert new location - similar processing as above, but insert tour_details
+//                     $tour_data = array(
+//                         'enquiry_header_id' => $enquiry_header_id,
+//                         'enquiry_details_id' => $enquiry_details_id,
+//                         'tour_location' => $item['tour_location_id'],
+//                         'no_of_days' => $item['no_of_night'],
+//                         'check_in_date' => $item['checkin'],
+//                         'check_out_date' => $item['checkout'],
+//                         'hot_cat_id' => $item['hotelcat'],
+//                         'meal_plan_id' => $item['mealplan'],
+//                         'hotel_id' => $item['hotelid'],
+//                         'room_category_id' => $item['roomcat_common'] ?? $item['roomcat'] ?? 0,
+//                         'accom_double_total' => $double_total,
+//                         'accom_single_total' => $single_total,
+//                         'is_own_arrangement' => $item['own_arrange'],
+//                         'tax_status' => $item['tax_status'],
+//                         'room_type' => $rt_json,
+//                         'vehicle_details' => $json_output,
+//                         'location_sequence' => $item['location_sequence'],
+//                         'is_active' => 1,
+//                         'is_draft' => $is_draft,
+//                         'updated_time' => $updated_time,
+//                         'enterprise_id' => 1
+//                     );
+//                     $tour_details_id = $Enquiry_model->insert_tour_details($tour_data);
+
+//                     // Handle tax - insert without deletes
+//                     if ($item['tax_status'] == 1 && $tour_details_id) {
+//                         $seq_str = strval($seq);
+//                         if (!empty($all_hd_ster_addloc_d) && is_array($all_hd_ster_addloc_d)) {
+//                             foreach ($all_hd_ster_addloc_d as $tt => $item_d) {
+//                                 if (strpos($tt, $seq_str) === 0) {
+//                                     $ster_ddata = array(
+//                                         'tour_details_id' => $tour_details_id,
+//                                         'sequence_id' => $item_d['ster_id'] ?? $tt,
+//                                         'room_rate' => $item_d['d_adult_rate'] ?? 0,
+//                                         'no_of_child' => $item_d['n_child_rate'] ?? 0,
+//                                         'child_rate' => $item_d['d_child_rate'] ?? 0,
+//                                         'no_of_child_wb' => $item_d['n_child_wb_rate'] ?? 0,
+//                                         'child_wb_rate' => $item_d['d_child_wb_rate'] ?? 0,
+//                                         'no_of_extra' => $item_d['n_extra_bed_rate'] ?? 0,
+//                                         'extra_rate' => $item_d['d_extra_bed_rate'] ?? 0,
+//                                         'total' => $item_d['d_total_rate'] ?? 0,
+//                                         'gst' => $item_d['gst_per'] ?? 0,
+//                                         'grand_total' => $item_d['g_tot'] ?? 0
+//                                     );
+//                                     $Enquiry_model->insert_eighteen_details_double($ster_ddata);
+//                                 }
+//                             }
+//                         }
+//                         if ($no_of_single_room > 0 && !empty($all_hd_ster_addloc_s) && is_array($all_hd_ster_addloc_s)) {
+//                             foreach ($all_hd_ster_addloc_s as $tt => $item_s) {
+//                                 if (strpos($tt, $seq_str) === 0) {
+//                                     $ster_sdata = array(
+//                                         'tour_details_id' => $tour_details_id,
+//                                         'sequence_id' => $item_s['ster_s_id'] ?? $tt,
+//                                         'room_rate' => $item_s['s_adult_rate'] ?? 0,
+//                                         'no_of_child' => $item_s['n_s_child_rate'] ?? 0,
+//                                         'child_rate' => $item_s['s_child_rate'] ?? 0,
+//                                         'no_of_child_wb' => $item_s['n_s_child_wb_rate'] ?? 0,
+//                                         'child_wb_rate' => $item_s['s_child_wb_rate'] ?? 0,
+//                                         'no_of_extra' => $item_s['n_s_extra_bed_rate'] ?? 0,
+//                                         'extra_rate' => $item_s['s_extra_bed_rate'] ?? 0,
+//                                         'total' => $item_s['s_total_rate'] ?? 0,
+//                                         'gst' => $item_s['s_gst_per'] ?? 0,
+//                                         'grand_total' => $item_s['s_g_tot'] ?? 0
+//                                     );
+//                                     $Enquiry_model->insert_eighteen_details_single($ster_sdata);
+//                                 }
+//                             }
+//                         }
+//                     }
+
+//                     // Insert/upsert expansion per night per room (for new, always insert) - MODIFIED TO SAVE PER ROOM
+//                     if ($tour_details_id && isset($item['nights']) && is_array($item['nights'])) {
+//                         $checkin_date = new DateTime($item['checkin']);
+//                         foreach ($item['nights'] as $night => $night_data) {
+//                             $expansion_date = clone $checkin_date;
+//                             $expansion_date->add(new DateInterval('P' . ($night - 1) . 'D'));
+//                             $exp_date_str = $expansion_date->format('Y-m-d');
+
+//                             // Vehicle JSON for this night (shared across rooms) - ENSURE NIGHT-SPECIFIC VEHICLE DATA IS USED FOR ALL ROOMS OF THIS NIGHT
+//                             $night_veh_json = [];
+//                             if (isset($night_data['veh_model']) && !empty(array_filter($night_data['veh_model'] ?? []))) {
+//                                 foreach ($night_data['veh_model'] as $vindex => $model_name) {
+//                                     if (isset($night_data['veh_type_id'][$vindex])) {
+//                                         $night_veh_json[] = [
+//                                             "vehicle_model" => $model_name,
+//                                             "veh_type_id" => $night_data['veh_type_id'][$vindex],
+//                                             "vehicle_count" => $night_data['veh_count'][$vindex] ?? 0,
+//                                             "day_rent" => $night_data['day_rent'][$vindex] ?? 0,
+//                                             "max_km_day" => $night_data['max_km_day'][$vindex] ?? 0,
+//                                             "travel_distance" => $night_data['travel_distance'][$vindex] ?? 0,
+//                                             "extra_kilometer" => $night_data['extra_kilometer'][$vindex] ?? 0,
+//                                             "extra_km_rate" => $night_data['extra_km_rate'][$vindex] ?? 0,
+//                                             "veh_total" => $night_data['veh_total'][$vindex] ?? 0,
+//                                             'veh_header' => $night_data['veh_header'] ?? '',
+//                                             'pre_to_cur' => $night_data['pre_to_cur'] ?? '',
+//                                             'cur_to_dep' => $night_data['cur_to_dep'] ?? '',
+//                                             'dep_to_arr' => $night_data['dep_to_arr'] ?? '',
+//                                             'hub_to_arr' => $night_data['hub_to_arr'] ?? '',
+//                                             'arr_to_loc' => $night_data['arr_to_loc'] ?? ''
+//                                         ];
+//                                     }
+//                                 }
+//                             }
+//                             $veh_json_str = json_encode($night_veh_json, JSON_PRETTY_PRINT);
+
+//                             // Loop over double rooms - USE NIGHT-SPECIFIC VEHICLE FOR ALL DOUBLE ROOMS OF THIS NIGHT
+//                             for ($d_room = 1; $d_room <= $no_of_double_room; $d_room++) {
+//                                 $exp_room_cat_id = isset($night_data['roomcat'][$d_room]) ? (int)$night_data['roomcat'][$d_room] : 0;
+//                                 $exp_meal_plan_id = isset($night_data['mealplan'][$d_room]) ? (int)$night_data['mealplan'][$d_room] : 0;
+//                                 $exp_d_room_rate = isset($night_data['d_adult_rate'][$d_room]) ? (float)$night_data['d_adult_rate'][$d_room] : 0;
+//                                 $exp_d_child_rate = isset($night_data['d_child_rate'][$d_room]) ? (float)$night_data['d_child_rate'][$d_room] : 0;
+//                                 $exp_d_child_wb_rate = isset($night_data['d_child_wb_rate'][$d_room]) ? (float)$night_data['d_child_wb_rate'][$d_room] : 0;
+//                                 $exp_d_extra_rate = isset($night_data['d_extra_bed_rate'][$d_room]) ? (float)$night_data['d_extra_bed_rate'][$d_room] : 0;
+//                                 $exp_double_total = isset($night_data['d_total_rate'][$d_room]) ? (float)$night_data['d_total_rate'][$d_room] : 0;
+
+//                                 // Single fields set to 0 for double room expansions
+//                                 $exp_s_room_rate = 0;
+//                                 $exp_s_child_rate = 0;
+//                                 $exp_s_child_wb_rate = 0;
+//                                 $exp_s_extra_rate = 0;
+//                                 $exp_single_total = 0;
+
+//                                 $expansion_data = [
+//                                     'tour_details_id' => $tour_details_id,
+//                                     'tour_expansion_date' => $exp_date_str,
+//                                     'room_category_id' => $exp_room_cat_id,
+//                                     'meal_plan_id' => $exp_meal_plan_id,
+//                                     'room_rate_double' => $exp_d_room_rate,
+//                                     'child_with_bed_double' => $exp_d_child_rate,
+//                                     'child_without_bed_double' => $exp_d_child_wb_rate,
+//                                     'extra_bed_double' => $exp_d_extra_rate,
+//                                     'double_total_rate' => $exp_double_total,
+//                                     'room_rate_single' => $exp_s_room_rate,
+//                                     'child_with_bed_single' => $exp_s_child_rate,
+//                                     'child_without_bed_single' => $exp_s_child_wb_rate,
+//                                     'extra_bed_single' => $exp_s_extra_rate,
+//                                     'single_total_rate' => $exp_single_total,
+//                                     'vehicle_details_json' => $veh_json_str
+//                                 ];
+
+//                                 // For insert, always insert since new
+//                                 $Enquiry_model->insert_tour_expansion($expansion_data);
+//                             }
+
+//                             // Loop over single rooms - USE NIGHT-SPECIFIC VEHICLE FOR ALL SINGLE ROOMS OF THIS NIGHT
+//                             for ($s_room = 1; $s_room <= $no_of_single_room; $s_room++) {
+//                                 $s_index = $no_of_double_room + $s_room;
+//                                 $exp_room_cat_id = isset($night_data['roomcat'][$s_index]) ? (int)$night_data['roomcat'][$s_index] : 0;
+//                                 $exp_meal_plan_id = isset($night_data['mealplan'][$s_index]) ? (int)$night_data['mealplan'][$s_index] : 0;
+//                                 $exp_s_room_rate = isset($night_data['s_adult_rate'][$s_index]) ? (float)$night_data['s_adult_rate'][$s_index] : 0;
+//                                 $exp_s_child_rate = isset($night_data['s_child_rate'][$s_index]) ? (float)$night_data['s_child_rate'][$s_index] : 0;
+//                                 $exp_s_child_wb_rate = isset($night_data['s_child_wb_rate'][$s_index]) ? (float)$night_data['s_child_wb_rate'][$s_index] : 0;
+//                                 $exp_s_extra_rate = isset($night_data['s_extra_bed_rate'][$s_index]) ? (float)$night_data['s_extra_bed_rate'][$s_index] : 0;
+//                                 $exp_single_total = isset($night_data['s_total_rate'][$s_index]) ? (float)$night_data['s_total_rate'][$s_index] : 0;
+
+//                                 // Double fields set to 0 for single room expansions
+//                                 $exp_d_room_rate = 0;
+//                                 $exp_d_child_rate = 0;
+//                                 $exp_d_child_wb_rate = 0;
+//                                 $exp_d_extra_rate = 0;
+//                                 $exp_double_total = 0;
+
+//                                 $expansion_data = [
+//                                     'tour_details_id' => $tour_details_id,
+//                                     'tour_expansion_date' => $exp_date_str,
+//                                     'room_category_id' => $exp_room_cat_id,
+//                                     'meal_plan_id' => $exp_meal_plan_id,
+//                                     'room_rate_double' => $exp_d_room_rate,
+//                                     'child_with_bed_double' => $exp_d_child_rate,
+//                                     'child_without_bed_double' => $exp_d_child_wb_rate,
+//                                     'extra_bed_double' => $exp_d_extra_rate,
+//                                     'double_total_rate' => $exp_double_total,
+//                                     'room_rate_single' => $exp_s_room_rate,
+//                                     'child_with_bed_single' => $exp_s_child_rate,
+//                                     'child_without_bed_single' => $exp_s_child_wb_rate,
+//                                     'extra_bed_single' => $exp_s_extra_rate,
+//                                     'single_total_rate' => $exp_single_total,
+//                                     'vehicle_details_json' => $veh_json_str
+//                                 ];
+
+//                                 // For insert, always insert since new
+//                                 $Enquiry_model->insert_tour_expansion($expansion_data);
+//                             }
+//                         }
+//                     }
+
+//                     // Insert QQ if quick quote
+//                     if ($tour_details_id && $is_quick_quote == 1) {
+//                         $d_room_rate = array(
+//                             'enquiry_header_id' => $enquiry_header_id,
+//                             'enquiry_details_id' => $enquiry_details_id,
+//                             'tour_details_id' => $tour_details_id,
+//                             'room_type_id' => 2,
+//                             'cost_component_id' => 6,
+//                             'quick_quote_tariff' => $first_d_adult_rate,
+//                             'is_active' => 1,
+//                             'is_draft' => $is_draft,
+//                             'enterprise_id' => 1
+//                         );
+//                         $qq_insert = $Enquiry_model->insert_qq_details($d_room_rate);
+//                         $s_room_rate = array(
+//                             'enquiry_header_id' => $enquiry_header_id,
+//                             'enquiry_details_id' => $enquiry_details_id,
+//                             'tour_details_id' => $tour_details_id,
+//                             'room_type_id' => 1,
+//                             'cost_component_id' => 6,
+//                             'quick_quote_tariff' => $first_s_adult_rate,
+//                             'is_active' => 1,
+//                             'is_draft' => $is_draft,
+//                             'enterprise_id' => 1
+//                         );
+//                         $qq_insert = $Enquiry_model->insert_qq_details($s_room_rate);
+
+//                         $d_c_rate = array(
+//                             'enquiry_header_id' => $enquiry_header_id,
+//                             'enquiry_details_id' => $enquiry_details_id,
+//                             'tour_details_id' => $tour_details_id,
+//                             'room_type_id' => 2,
+//                             'cost_component_id' => 12,
+//                             'quick_quote_tariff' => $first_d_child_rate,
+//                             'is_active' => 1,
+//                             'is_draft' => $is_draft,
+//                             'enterprise_id' => 1
+//                         );
+//                         $qq_insert = $Enquiry_model->insert_qq_details($d_c_rate);
+//                         $s_c_rate = array(
+//                             'enquiry_header_id' => $enquiry_header_id,
+//                             'enquiry_details_id' => $enquiry_details_id,
+//                             'tour_details_id' => $tour_details_id,
+//                             'room_type_id' => 1,
+//                             'cost_component_id' => 12,
+//                             'quick_quote_tariff' => $first_s_child_rate,
+//                             'is_active' => 1,
+//                             'is_draft' => $is_draft,
+//                             'enterprise_id' => 1
+//                         );
+//                         $qq_insert = $Enquiry_model->insert_qq_details($s_c_rate);
+
+//                         $d_cw_rate = array(
+//                             'enquiry_header_id' => $enquiry_header_id,
+//                             'enquiry_details_id' => $enquiry_details_id,
+//                             'tour_details_id' => $tour_details_id,
+//                             'room_type_id' => 2,
+//                             'cost_component_id' => 15,
+//                             'quick_quote_tariff' => $first_d_child_wb_rate,
+//                             'is_active' => 1,
+//                             'is_draft' => $is_draft,
+//                             'enterprise_id' => 1
+//                         );
+//                         $qq_insert = $Enquiry_model->insert_qq_details($d_cw_rate);
+//                         $s_cw_rate = array(
+//                             'enquiry_header_id' => $enquiry_header_id,
+//                             'enquiry_details_id' => $enquiry_details_id,
+//                             'tour_details_id' => $tour_details_id,
+//                             'room_type_id' => 1,
+//                             'cost_component_id' => 15,
+//                             'quick_quote_tariff' => $first_s_child_wb_rate,
+//                             'is_active' => 1,
+//                             'is_draft' => $is_draft,
+//                             'enterprise_id' => 1
+//                         );
+//                         $qq_insert = $Enquiry_model->insert_qq_details($s_cw_rate);
+
+//                         $d_e_rate = array(
+//                             'enquiry_header_id' => $enquiry_header_id,
+//                             'enquiry_details_id' => $enquiry_details_id,
+//                             'tour_details_id' => $tour_details_id,
+//                             'room_type_id' => 2,
+//                             'cost_component_id' => 9,
+//                             'quick_quote_tariff' => $first_d_extra_bed_rate,
+//                             'is_active' => 1,
+//                             'is_draft' => $is_draft,
+//                             'enterprise_id' => 1
+//                         );
+//                         $qq_insert = $Enquiry_model->insert_qq_details($d_e_rate);
+//                         $s_e_rate = array(
+//                             'enquiry_header_id' => $enquiry_header_id,
+//                             'enquiry_details_id' => $enquiry_details_id,
+//                             'tour_details_id' => $tour_details_id,
+//                             'room_type_id' => 1,
+//                             'cost_component_id' => 9,
+//                             'quick_quote_tariff' => $first_s_extra_bed_rate,
+//                             'is_active' => 1,
+//                             'is_draft' => $is_draft,
+//                             'enterprise_id' => 1
+//                         );
+//                         $qq_insert = $Enquiry_model->insert_qq_details($s_e_rate);
+//                     }
+//                 }
+//             }
+
+//             if ($submit_type == "final") {
+//                 $tour_plan_det = $Enquiry_model->get_tour_plan_details($enquiry_header_id, $enquiry_details_id);
+//                 $ext_ref_id_tour_plan = $tour_plan_det[0]['tour_details_id'];
+//                 $ext_tp_data = array(
+//                     'extension_ref_id' => $ext_ref_id_tour_plan
+//                 );
+//                 $ext_tp_updated = $Enquiry_model->linkItinearywithTourplan($ext_tp_data, $enquiry_header_id, $enquiry_details_id);
+//             }
+//             return redirect()->to($sURL);
+//         }
+//     }
+// }
+
 public function saveTourPlan()
 {
     if (!empty(session()->get('user_id'))) {
@@ -3348,6 +4087,7 @@ public function saveTourPlan()
         $user_id = session('user_id');
         $edit_id = $this->request->getPost('edit_id');
         $enquiry_header_id = $this->request->getPost('enquiry_header_id');
+        
         if ($edit_id > 0) {
             $up_data = array(
                 'is_active' => 0,
@@ -3376,22 +4116,24 @@ public function saveTourPlan()
         $is_quick_quote = (int)($this->request->getPost('is_quick_quote') ?? 0);
 
         $addloc = $this->request->getPost('addloc');
-        $all_hd_ster_addloc_d = $this->request->getPost('hd_ster_addloc_'); // Captures hd_ster_addloc_[tt] for double
-        $all_hd_ster_addloc_s = $this->request->getPost('hd_ster_addloc_s'); // Captures hd_ster_addloc_s[tt] for single
 
         if (!empty($addloc)) {
             $is_draft = ($submit_type == "draft") ? 1 : 0;
             $edited_count = count($addloc);
             $original_count = $Enquiry_model->get_tour_locations_count($enquiry_header_id, $enquiry_details_id);
+            
             if ($original_count > $edited_count) {
                 $deleted_count = $original_count - $edited_count;
                 $deleted_id = $Enquiry_model->delete_tour_locations($enquiry_header_id, $enquiry_details_id, $deleted_count);
             }
+            
             foreach ($addloc as $seq => $item) {
-                // Process nested nights to compute totals and details
+                // Initialize totals
                 $double_total = 0;
                 $single_total = 0;
-                $vehicle_types = []; // For summary computation
+                $vehicle_types = [];
+                
+                // First room rates for QQ
                 $first_d_adult_rate = 0;
                 $first_s_adult_rate = 0;
                 $first_d_child_rate = 0;
@@ -3403,15 +4145,86 @@ public function saveTourPlan()
                 $has_first_double = false;
                 $has_first_single = false;
 
+                // GST tracking for eighteen_details (if tax_status = 1)
+                $gst_data_double = [];
+                $gst_data_single = [];
+
                 if (isset($item['nights']) && is_array($item['nights'])) {
                     foreach ($item['nights'] as $night => $night_data) {
-                        // Double totals
+                        // Calculate double totals
                         if (isset($night_data['dd_total_rate'])) {
                             $double_total += (float)$night_data['dd_total_rate'];
                         }
-                        // Single totals
+                        
+                        // Calculate single totals
                         if (isset($night_data['ss_total_rate'])) {
                             $single_total += (float)$night_data['ss_total_rate'];
+                        }
+
+                        // Collect GST data for eighteen_details
+                        if ($item['tax_status'] == 1) {
+                            // Process double rooms
+                            if (isset($night_data['d_adult_rate']) && is_array($night_data['d_adult_rate'])) {
+                                foreach ($night_data['d_adult_rate'] as $room_idx => $adult_rate) {
+                                    $base_total = (float)($adult_rate ?? 0) +
+                                                 (float)($night_data['d_child_rate'][$room_idx] ?? 0) +
+                                                 (float)($night_data['d_child_wb_rate'][$room_idx] ?? 0) +
+                                                 (float)($night_data['d_extra_bed_rate'][$room_idx] ?? 0);
+                                    
+                                    $gst_percent = (float)($night_data['d_gst_per'][$room_idx] ?? 0);
+                                    $gst_amount = (float)($night_data['d_gst_amt'][$room_idx] ?? 0);
+                                    $total_with_gst = (float)($night_data['d_total_rate'][$room_idx] ?? 0);
+                                    
+                                    // Create unique identifier for room
+                                    $room_key = "{$seq}{$night}{$room_idx}";
+                                    
+                                    $gst_data_double[$room_key] = [
+                                        'sequence_id' => $room_key,
+                                        'room_rate' => (float)($night_data['d_adult_rate'][$room_idx] ?? 0),
+                                        'no_of_child' => 0,
+                                        'child_rate' => (float)($night_data['d_child_rate'][$room_idx] ?? 0),
+                                        'no_of_child_wb' => 0,
+                                        'child_wb_rate' => (float)($night_data['d_child_wb_rate'][$room_idx] ?? 0),
+                                        'no_of_extra' => 0,
+                                        'extra_rate' => (float)($night_data['d_extra_bed_rate'][$room_idx] ?? 0),
+                                        'total' => $base_total,
+                                        'gst' => $gst_percent,
+                                        'gst_amount' => $gst_amount,
+                                        'grand_total' => $total_with_gst
+                                    ];
+                                }
+                            }
+
+                            // Process single rooms
+                            if (isset($night_data['s_adult_rate']) && is_array($night_data['s_adult_rate'])) {
+                                foreach ($night_data['s_adult_rate'] as $room_idx => $adult_rate) {
+                                    $base_total = (float)($adult_rate ?? 0) +
+                                                 (float)($night_data['s_child_rate'][$room_idx] ?? 0) +
+                                                 (float)($night_data['s_child_wb_rate'][$room_idx] ?? 0) +
+                                                 (float)($night_data['s_extra_bed_rate'][$room_idx] ?? 0);
+                                    
+                                    $gst_percent = (float)($night_data['s_gst_per'][$room_idx] ?? 0);
+                                    $gst_amount = (float)($night_data['s_gst_amt'][$room_idx] ?? 0);
+                                    $total_with_gst = (float)($night_data['s_total_rate'][$room_idx] ?? 0);
+                                    
+                                    $room_key = "{$seq}{$night}{$room_idx}";
+                                    
+                                    $gst_data_single[$room_key] = [
+                                        'sequence_id' => $room_key,
+                                        'room_rate' => (float)($night_data['s_adult_rate'][$room_idx] ?? 0),
+                                        'no_of_child' => 0,
+                                        'child_rate' => (float)($night_data['s_child_rate'][$room_idx] ?? 0),
+                                        'no_of_child_wb' => 0,
+                                        'child_wb_rate' => (float)($night_data['s_child_wb_rate'][$room_idx] ?? 0),
+                                        'no_of_extra' => 0,
+                                        'extra_rate' => (float)($night_data['s_extra_bed_rate'][$room_idx] ?? 0),
+                                        'total' => $base_total,
+                                        'gst' => $gst_percent,
+                                        'gst_amount' => $gst_amount,
+                                        'grand_total' => $total_with_gst
+                                    ];
+                                }
+                            }
                         }
 
                         // Vehicle summary aggregation
@@ -3424,7 +4237,7 @@ public function saveTourPlan()
                             $extra_kms = $night_data['extra_kilometer'] ?? [];
                             $extra_rates = $night_data['extra_km_rate'] ?? [];
                             $veh_totals = $night_data['veh_total'] ?? [];
-                            $max_kms_day = $night_data['max_km_day'] ?? []; // Assuming indexed or shared
+                            $max_kms_day = $night_data['max_km_day'] ?? [];
 
                             for ($j = 0; $j < count($veh_models); $j++) {
                                 $type_id = (int)($veh_type_ids[$j] ?? 0);
@@ -3440,7 +4253,7 @@ public function saveTourPlan()
                                         'extra_km_rate' => (float)($extra_rates[$j] ?? 0),
                                         'extra_kilometer' => 0.0,
                                         'veh_total' => 0.0,
-                                        'max_km_day' => (float)($max_kms_day[$j] ?? $night_data['max_km_day'] ?? 0),
+                                        'max_km_day' => (float)($max_kms_day[$j] ?? 0),
                                         'veh_header' => '',
                                         'pre_to_cur' => '',
                                         'cur_to_dep' => '',
@@ -3459,17 +4272,9 @@ public function saveTourPlan()
                                 $vt['extra_kilometer'] += (float)($extra_kms[$j] ?? 0);
                                 $vt['veh_total'] += (float)($veh_totals[$j] ?? 0);
 
-                                // Append night-specific header fields (concatenate across nights)
-                                $new_veh_header = trim($night_data['veh_header'][$j] ?? $night_data['veh_header'] ?? '');
-                                if ($new_veh_header && $vt['veh_header']) {
-                                    $vt['veh_header'] .= ' + ' . $new_veh_header;
-                                } elseif ($new_veh_header) {
-                                    $vt['veh_header'] = $new_veh_header;
-                                }
-
-                                $header_fields = ['pre_to_cur', 'cur_to_dep', 'dep_to_arr', 'hub_to_arr', 'arr_to_loc'];
+                                $header_fields = ['veh_header', 'pre_to_cur', 'cur_to_dep', 'dep_to_arr', 'hub_to_arr', 'arr_to_loc'];
                                 foreach ($header_fields as $field) {
-                                    $new_val = trim($night_data[$field][$j] ?? $night_data[$field] ?? '');
+                                    $new_val = trim($night_data[$field] ?? '');
                                     if ($new_val && $vt[$field]) {
                                         $vt[$field] .= ' + ' . $new_val;
                                     } elseif ($new_val) {
@@ -3481,7 +4286,6 @@ public function saveTourPlan()
 
                         // Extract first rates for QQ (from first double/single room of first night)
                         if ($night == 1) {
-                            // First double room (index 1)
                             if (isset($night_data['d_adult_rate'][1]) && !$has_first_double) {
                                 $first_d_adult_rate = (float)$night_data['d_adult_rate'][1];
                                 $first_d_child_rate = (float)($night_data['d_child_rate'][1] ?? 0);
@@ -3489,7 +4293,7 @@ public function saveTourPlan()
                                 $first_d_extra_bed_rate = (float)($night_data['d_extra_bed_rate'][1] ?? 0);
                                 $has_first_double = true;
                             }
-                            // First single room (index = no_of_double_room + 1)
+                            
                             $first_single_index = $no_of_double_room + 1;
                             if ($no_of_single_room > 0 && isset($night_data['s_adult_rate'][$first_single_index]) && !$has_first_single) {
                                 $first_s_adult_rate = (float)$night_data['s_adult_rate'][$first_single_index];
@@ -3503,16 +4307,12 @@ public function saveTourPlan()
                 }
 
                 // Compute vehicle summary JSON
-                $no_of_nights = (int)($item['no_of_night'] ?? 0);
                 $vehicle_summaries = array_values($vehicle_types);
-
-                // Cast all values to strings to match the desired format
                 foreach ($vehicle_summaries as &$vs) {
                     foreach ($vs as $k => $v) {
                         $vs[$k] = (string)$v;
                     }
                 }
-
                 $json_output = json_encode($vehicle_summaries, JSON_PRETTY_PRINT);
 
                 // Room type as array of object
@@ -3522,21 +4322,25 @@ public function saveTourPlan()
                 ];
                 $rt_json = json_encode([$rt_data], JSON_PRETTY_PRINT);
 
+                // Check if tour location exists
                 $tour_exist = $Enquiry_model->check_tour_location_exist($enquiry_header_id, $enquiry_details_id, $item['location_sequence']);
+                
                 if ($tour_exist > 0) {
+                    // UPDATE EXISTING LOCATION
                     $tour_details_ids = $Enquiry_model->get_tour_details_id($enquiry_header_id, $enquiry_details_id, $item['location_sequence']);
                     $tour_details_id = $tour_details_ids[0]['tour_details_id'];
-                    // Delete old expansion and eighteen for update (keeping delete for simplicity, but expansions will be upserted below)
+                    
+                    // Delete old expansion and eighteen records
                     $Enquiry_model->delete_tour_expansion($tour_details_id);
-
-                    // Add null/empty check to prevent passing invalid ID
+                    
                     if (!empty($tour_details_id)) {
                         $Enquiry_model->delete_eighteen_double($tour_details_id);
                         if ($no_of_single_room > 0) {
                             $Enquiry_model->delete_eighteen_single($tour_details_id);
                         }
                     }
-                    // First, update the tour_details record
+                    
+                    // Update tour_details record
                     $tour_data_update = array(
                         'tour_location' => $item['tour_location_id'],
                         'no_of_days' => $item['no_of_night'],
@@ -3545,7 +4349,7 @@ public function saveTourPlan()
                         'hot_cat_id' => $item['hotelcat'],
                         'meal_plan_id' => $item['mealplan'],
                         'hotel_id' => $item['hotelid'],
-                        'room_category_id' => $item['roomcat_common'] ?? $item['roomcat'] ?? 0,
+                        'room_category_id' => $item['roomcat_common'] ?? 0,
                         'accom_double_total' => $double_total,
                         'accom_single_total' => $single_total,
                         'is_own_arrangement' => $item['own_arrange'],
@@ -3559,54 +4363,50 @@ public function saveTourPlan()
                     );
                     $tour_updated = $Enquiry_model->update_tour_details($tour_data_update, $tour_details_id);
 
-                    // Handle tax: filter and insert only for this location (rid starts with seq)
+                    // Insert GST data to eighteen_details
                     if ($item['tax_status'] == 1) {
-                        $seq_str = strval($seq);
-                        if (!empty($all_hd_ster_addloc_d) && is_array($all_hd_ster_addloc_d)) {
-                            foreach ($all_hd_ster_addloc_d as $tt => $item_d) {
-                                if (strpos($tt, $seq_str) === 0) { // tt starts with seq
-                                    $ster_ddata = array(
-                                        'tour_details_id' => $tour_details_id,
-                                        'sequence_id' => $item_d['ster_id'] ?? $tt,
-                                        'room_rate' => $item_d['d_adult_rate'] ?? 0,
-                                        'no_of_child' => $item_d['n_child_rate'] ?? 0,
-                                        'child_rate' => $item_d['d_child_rate'] ?? 0,
-                                        'no_of_child_wb' => $item_d['n_child_wb_rate'] ?? 0,
-                                        'child_wb_rate' => $item_d['d_child_wb_rate'] ?? 0,
-                                        'no_of_extra' => $item_d['n_extra_bed_rate'] ?? 0,
-                                        'extra_rate' => $item_d['d_extra_bed_rate'] ?? 0,
-                                        'total' => $item_d['d_total_rate'] ?? 0,
-                                        'gst' => $item_d['gst_per'] ?? 0,
-                                        'grand_total' => $item_d['g_tot'] ?? 0
-                                    );
-                                    $Enquiry_model->insert_eighteen_details_double($ster_ddata);
-                                }
-                            }
+                        // Insert double room GST data
+                        foreach ($gst_data_double as $gst_item) {
+                            $ster_ddata = array(
+                                'tour_details_id' => $tour_details_id,
+                                'sequence_id' => $gst_item['sequence_id'],
+                                'room_rate' => $gst_item['room_rate'],
+                                'no_of_child' => $gst_item['no_of_child'],
+                                'child_rate' => $gst_item['child_rate'],
+                                'no_of_child_wb' => $gst_item['no_of_child_wb'],
+                                'child_wb_rate' => $gst_item['child_wb_rate'],
+                                'no_of_extra' => $gst_item['no_of_extra'],
+                                'extra_rate' => $gst_item['extra_rate'],
+                                'total' => $gst_item['total'],
+                                'gst' => $gst_item['gst'],
+                                'grand_total' => $gst_item['grand_total']
+                            );
+                            $Enquiry_model->insert_eighteen_details_double($ster_ddata);
                         }
-                        if ($no_of_single_room > 0 && !empty($all_hd_ster_addloc_s) && is_array($all_hd_ster_addloc_s)) {
-                            foreach ($all_hd_ster_addloc_s as $tt => $item_s) {
-                                if (strpos($tt, $seq_str) === 0) {
-                                    $ster_sdata = array(
-                                        'tour_details_id' => $tour_details_id,
-                                        'sequence_id' => $item_s['ster_s_id'] ?? $tt,
-                                        'room_rate' => $item_s['s_adult_rate'] ?? 0,
-                                        'no_of_child' => $item_s['n_s_child_rate'] ?? 0,
-                                        'child_rate' => $item_s['s_child_rate'] ?? 0,
-                                        'no_of_child_wb' => $item_s['n_s_child_wb_rate'] ?? 0,
-                                        'child_wb_rate' => $item_s['s_child_wb_rate'] ?? 0,
-                                        'no_of_extra' => $item_s['n_s_extra_bed_rate'] ?? 0,
-                                        'extra_rate' => $item_s['s_extra_bed_rate'] ?? 0,
-                                        'total' => $item_s['s_total_rate'] ?? 0,
-                                        'gst' => $item_s['s_gst_per'] ?? 0,
-                                        'grand_total' => $item_s['s_g_tot'] ?? 0
-                                    );
-                                    $Enquiry_model->insert_eighteen_details_single($ster_sdata);
-                                }
+
+                        // Insert single room GST data
+                        if ($no_of_single_room > 0) {
+                            foreach ($gst_data_single as $gst_item) {
+                                $ster_sdata = array(
+                                    'tour_details_id' => $tour_details_id,
+                                    'sequence_id' => $gst_item['sequence_id'],
+                                    'room_rate' => $gst_item['room_rate'],
+                                    'no_of_child' => $gst_item['no_of_child'],
+                                    'child_rate' => $gst_item['child_rate'],
+                                    'no_of_child_wb' => $gst_item['no_of_child_wb'],
+                                    'child_wb_rate' => $gst_item['child_wb_rate'],
+                                    'no_of_extra' => $gst_item['no_of_extra'],
+                                    'extra_rate' => $gst_item['extra_rate'],
+                                    'total' => $gst_item['total'],
+                                    'gst' => $gst_item['gst'],
+                                    'grand_total' => $gst_item['grand_total']
+                                );
+                                $Enquiry_model->insert_eighteen_details_single($ster_sdata);
                             }
                         }
                     }
 
-                    // Upsert expansion per night per room (update if exists, insert if not) - MODIFIED TO SAVE PER ROOM
+                    // Insert expansion per night per room
                     if (isset($item['nights']) && is_array($item['nights'])) {
                         $checkin_date = new DateTime($item['checkin']);
                         foreach ($item['nights'] as $night => $night_data) {
@@ -3614,7 +4414,7 @@ public function saveTourPlan()
                             $expansion_date->add(new DateInterval('P' . ($night - 1) . 'D'));
                             $exp_date_str = $expansion_date->format('Y-m-d');
 
-                            // Vehicle JSON for this night (shared across rooms) - ENSURE NIGHT-SPECIFIC VEHICLE DATA IS USED FOR ALL ROOMS OF THIS NIGHT
+                            // Vehicle JSON for this night
                             $night_veh_json = [];
                             if (isset($night_data['veh_model']) && !empty(array_filter($night_data['veh_model'] ?? []))) {
                                 foreach ($night_data['veh_model'] as $vindex => $model_name) {
@@ -3641,133 +4441,77 @@ public function saveTourPlan()
                             }
                             $veh_json_str = json_encode($night_veh_json, JSON_PRETTY_PRINT);
 
-                            // Loop over double rooms - USE NIGHT-SPECIFIC VEHICLE FOR ALL DOUBLE ROOMS OF THIS NIGHT
+                            // Loop over double rooms
                             for ($d_room = 1; $d_room <= $no_of_double_room; $d_room++) {
-                                $exp_room_cat_id = isset($night_data['roomcat'][$d_room]) ? (int)$night_data['roomcat'][$d_room] : 0;
-                                $exp_meal_plan_id = isset($night_data['mealplan'][$d_room]) ? (int)$night_data['mealplan'][$d_room] : 0;
-                                $exp_d_room_rate = isset($night_data['d_adult_rate'][$d_room]) ? (float)$night_data['d_adult_rate'][$d_room] : 0;
-                                $exp_d_child_rate = isset($night_data['d_child_rate'][$d_room]) ? (float)$night_data['d_child_rate'][$d_room] : 0;
-                                $exp_d_child_wb_rate = isset($night_data['d_child_wb_rate'][$d_room]) ? (float)$night_data['d_child_wb_rate'][$d_room] : 0;
-                                $exp_d_extra_rate = isset($night_data['d_extra_bed_rate'][$d_room]) ? (float)$night_data['d_extra_bed_rate'][$d_room] : 0;
-                                $exp_double_total = isset($night_data['d_total_rate'][$d_room]) ? (float)$night_data['d_total_rate'][$d_room] : 0;
-
-                                // Single fields set to 0 for double room expansions
-                                $exp_s_room_rate = 0;
-                                $exp_s_child_rate = 0;
-                                $exp_s_child_wb_rate = 0;
-                                $exp_s_extra_rate = 0;
-                                $exp_single_total = 0;
-
                                 $expansion_data = [
                                     'tour_details_id' => $tour_details_id,
                                     'tour_expansion_date' => $exp_date_str,
-                                    'room_category_id' => $exp_room_cat_id,
-                                    'meal_plan_id' => $exp_meal_plan_id,
-                                    'room_rate_double' => $exp_d_room_rate,
-                                    'child_with_bed_double' => $exp_d_child_rate,
-                                    'child_without_bed_double' => $exp_d_child_wb_rate,
-                                    'extra_bed_double' => $exp_d_extra_rate,
-                                    'double_total_rate' => $exp_double_total,
-                                    'room_rate_single' => $exp_s_room_rate,
-                                    'child_with_bed_single' => $exp_s_child_rate,
-                                    'child_without_bed_single' => $exp_s_child_wb_rate,
-                                    'extra_bed_single' => $exp_s_extra_rate,
-                                    'single_total_rate' => $exp_single_total,
+                                    'room_category_id' => isset($night_data['roomcat'][$d_room]) ? (int)$night_data['roomcat'][$d_room] : 0,
+                                    'meal_plan_id' => isset($night_data['mealplan'][$d_room]) ? (int)$night_data['mealplan'][$d_room] : 0,
+                                    'room_rate_double' => isset($night_data['d_adult_rate'][$d_room]) ? (float)$night_data['d_adult_rate'][$d_room] : 0,
+                                    'child_with_bed_double' => isset($night_data['d_child_rate'][$d_room]) ? (float)$night_data['d_child_rate'][$d_room] : 0,
+                                    'child_without_bed_double' => isset($night_data['d_child_wb_rate'][$d_room]) ? (float)$night_data['d_child_wb_rate'][$d_room] : 0,
+                                    'extra_bed_double' => isset($night_data['d_extra_bed_rate'][$d_room]) ? (float)$night_data['d_extra_bed_rate'][$d_room] : 0,
+                                    'double_total_rate' => isset($night_data['d_total_rate'][$d_room]) ? (float)$night_data['d_total_rate'][$d_room] : 0,
+                                    'room_rate_single' => 0,
+                                    'child_with_bed_single' => 0,
+                                    'child_without_bed_single' => 0,
+                                    'extra_bed_single' => 0,
+                                    'single_total_rate' => 0,
                                     'vehicle_details_json' => $veh_json_str
                                 ];
-
-                                // Upsert logic for expansion (you may need to adjust exists check to include room index if added to schema; for now, delete all and insert)
-                                $Enquiry_model->insert_tour_expansion($expansion_data); // Always insert since we deleted all
+                                $Enquiry_model->insert_tour_expansion($expansion_data);
                             }
 
-                            // Loop over single rooms - USE NIGHT-SPECIFIC VEHICLE FOR ALL SINGLE ROOMS OF THIS NIGHT
+                            // Loop over single rooms
                             for ($s_room = 1; $s_room <= $no_of_single_room; $s_room++) {
                                 $s_index = $no_of_double_room + $s_room;
-                                $exp_room_cat_id = isset($night_data['roomcat'][$s_index]) ? (int)$night_data['roomcat'][$s_index] : 0;
-                                $exp_meal_plan_id = isset($night_data['mealplan'][$s_index]) ? (int)$night_data['mealplan'][$s_index] : 0;
-                                $exp_s_room_rate = isset($night_data['s_adult_rate'][$s_index]) ? (float)$night_data['s_adult_rate'][$s_index] : 0;
-                                $exp_s_child_rate = isset($night_data['s_child_rate'][$s_index]) ? (float)$night_data['s_child_rate'][$s_index] : 0;
-                                $exp_s_child_wb_rate = isset($night_data['s_child_wb_rate'][$s_index]) ? (float)$night_data['s_child_wb_rate'][$s_index] : 0;
-                                $exp_s_extra_rate = isset($night_data['s_extra_bed_rate'][$s_index]) ? (float)$night_data['s_extra_bed_rate'][$s_index] : 0;
-                                $exp_single_total = isset($night_data['s_total_rate'][$s_index]) ? (float)$night_data['s_total_rate'][$s_index] : 0;
-
-                                // Double fields set to 0 for single room expansions
-                                $exp_d_room_rate = 0;
-                                $exp_d_child_rate = 0;
-                                $exp_d_child_wb_rate = 0;
-                                $exp_d_extra_rate = 0;
-                                $exp_double_total = 0;
-
                                 $expansion_data = [
                                     'tour_details_id' => $tour_details_id,
                                     'tour_expansion_date' => $exp_date_str,
-                                    'room_category_id' => $exp_room_cat_id,
-                                    'meal_plan_id' => $exp_meal_plan_id,
-                                    'room_rate_double' => $exp_d_room_rate,
-                                    'child_with_bed_double' => $exp_d_child_rate,
-                                    'child_without_bed_double' => $exp_d_child_wb_rate,
-                                    'extra_bed_double' => $exp_d_extra_rate,
-                                    'double_total_rate' => $exp_double_total,
-                                    'room_rate_single' => $exp_s_room_rate,
-                                    'child_with_bed_single' => $exp_s_child_rate,
-                                    'child_without_bed_single' => $exp_s_child_wb_rate,
-                                    'extra_bed_single' => $exp_s_extra_rate,
-                                    'single_total_rate' => $exp_single_total,
+                                    'room_category_id' => isset($night_data['roomcat'][$s_index]) ? (int)$night_data['roomcat'][$s_index] : 0,
+                                    'meal_plan_id' => isset($night_data['mealplan'][$s_index]) ? (int)$night_data['mealplan'][$s_index] : 0,
+                                    'room_rate_double' => 0,
+                                    'child_with_bed_double' => 0,
+                                    'child_without_bed_double' => 0,
+                                    'extra_bed_double' => 0,
+                                    'double_total_rate' => 0,
+                                    'room_rate_single' => isset($night_data['s_adult_rate'][$s_index]) ? (float)$night_data['s_adult_rate'][$s_index] : 0,
+                                    'child_with_bed_single' => isset($night_data['s_child_rate'][$s_index]) ? (float)$night_data['s_child_rate'][$s_index] : 0,
+                                    'child_without_bed_single' => isset($night_data['s_child_wb_rate'][$s_index]) ? (float)$night_data['s_child_wb_rate'][$s_index] : 0,
+                                    'extra_bed_single' => isset($night_data['s_extra_bed_rate'][$s_index]) ? (float)$night_data['s_extra_bed_rate'][$s_index] : 0,
+                                    'single_total_rate' => isset($night_data['s_total_rate'][$s_index]) ? (float)$night_data['s_total_rate'][$s_index] : 0,
                                     'vehicle_details_json' => $veh_json_str
                                 ];
-
-                                // Always insert since we deleted all
                                 $Enquiry_model->insert_tour_expansion($expansion_data);
                             }
                         }
                     }
 
+                    // Update QQ if quick quote
                     if ($tour_updated && $is_quick_quote == 1) {
-                        // Update QQ with first rates
-                        $d_room_rate = array(
-                            'quick_quote_tariff' => $first_d_adult_rate,
-                            'is_draft' => $is_draft
-                        );
-                        $qq_update = $Enquiry_model->update_qq_details($d_room_rate, $tour_details_id, 6, 2);
-                        $s_room_rate = array(
-                            'quick_quote_tariff' => $first_s_adult_rate,
-                            'is_draft' => $is_draft
-                        );
-                        $qq_update = $Enquiry_model->update_qq_details($s_room_rate, $tour_details_id, 6, 1);
-                        $d_c_rate = array(
-                            'quick_quote_tariff' => $first_d_child_rate,
-                            'is_draft' => $is_draft
-                        );
-                        $qq_update = $Enquiry_model->update_qq_details($d_c_rate, $tour_details_id, 12, 2);
-                        $s_c_rate = array(
-                            'quick_quote_tariff' => $first_s_child_rate,
-                            'is_draft' => $is_draft
-                        );
-                        $qq_update = $Enquiry_model->update_qq_details($s_c_rate, $tour_details_id, 12, 1);
-                        $d_cw_rate = array(
-                            'quick_quote_tariff' => $first_d_child_wb_rate,
-                            'is_draft' => $is_draft
-                        );
-                        $qq_update = $Enquiry_model->update_qq_details($d_cw_rate, $tour_details_id, 15, 2);
-                        $s_cw_rate = array(
-                            'quick_quote_tariff' => $first_s_child_wb_rate,
-                            'is_draft' => $is_draft
-                        );
-                        $qq_update = $Enquiry_model->update_qq_details($s_cw_rate, $tour_details_id, 15, 1);
-
-                        $d_e_rate = array(
-                            'quick_quote_tariff' => $first_d_extra_bed_rate,
-                            'is_draft' => $is_draft
-                        );
-                        $qq_update = $Enquiry_model->update_qq_details($d_e_rate, $tour_details_id, 9, 2);
-                        $s_e_rate = array(
-                            'quick_quote_tariff' => $first_s_extra_bed_rate,
-                            'is_draft' => $is_draft
-                        );
-                        $qq_update = $Enquiry_model->update_qq_details($s_e_rate, $tour_details_id, 9, 1);
+                        $qq_updates = [
+                            ['tariff' => $first_d_adult_rate, 'room_type' => 2, 'component' => 6],
+                            ['tariff' => $first_s_adult_rate, 'room_type' => 1, 'component' => 6],
+                            ['tariff' => $first_d_child_rate, 'room_type' => 2, 'component' => 12],
+                            ['tariff' => $first_s_child_rate, 'room_type' => 1, 'component' => 12],
+                            ['tariff' => $first_d_child_wb_rate, 'room_type' => 2, 'component' => 15],
+                            ['tariff' => $first_s_child_wb_rate, 'room_type' => 1, 'component' => 15],
+                            ['tariff' => $first_d_extra_bed_rate, 'room_type' => 2, 'component' => 9],
+                            ['tariff' => $first_s_extra_bed_rate, 'room_type' => 1, 'component' => 9]
+                        ];
+                        
+                        foreach ($qq_updates as $qq) {
+                            $qq_data = array(
+                                'quick_quote_tariff' => $qq['tariff'],
+                                'is_draft' => $is_draft
+                            );
+                            $Enquiry_model->update_qq_details($qq_data, $tour_details_id, $qq['component'], $qq['room_type']);
+                        }
                     }
+                    
                 } else {
-                    // Insert new location - similar processing as above, but insert tour_details
+                    // INSERT NEW LOCATION
                     $tour_data = array(
                         'enquiry_header_id' => $enquiry_header_id,
                         'enquiry_details_id' => $enquiry_details_id,
@@ -3778,7 +4522,7 @@ public function saveTourPlan()
                         'hot_cat_id' => $item['hotelcat'],
                         'meal_plan_id' => $item['mealplan'],
                         'hotel_id' => $item['hotelid'],
-                        'room_category_id' => $item['roomcat_common'] ?? $item['roomcat'] ?? 0,
+                        'room_category_id' => $item['roomcat_common'] ?? 0,
                         'accom_double_total' => $double_total,
                         'accom_single_total' => $single_total,
                         'is_own_arrangement' => $item['own_arrange'],
@@ -3793,54 +4537,50 @@ public function saveTourPlan()
                     );
                     $tour_details_id = $Enquiry_model->insert_tour_details($tour_data);
 
-                    // Handle tax - insert without deletes
+                    // Insert GST data to eighteen_details
                     if ($item['tax_status'] == 1 && $tour_details_id) {
-                        $seq_str = strval($seq);
-                        if (!empty($all_hd_ster_addloc_d) && is_array($all_hd_ster_addloc_d)) {
-                            foreach ($all_hd_ster_addloc_d as $tt => $item_d) {
-                                if (strpos($tt, $seq_str) === 0) {
-                                    $ster_ddata = array(
-                                        'tour_details_id' => $tour_details_id,
-                                        'sequence_id' => $item_d['ster_id'] ?? $tt,
-                                        'room_rate' => $item_d['d_adult_rate'] ?? 0,
-                                        'no_of_child' => $item_d['n_child_rate'] ?? 0,
-                                        'child_rate' => $item_d['d_child_rate'] ?? 0,
-                                        'no_of_child_wb' => $item_d['n_child_wb_rate'] ?? 0,
-                                        'child_wb_rate' => $item_d['d_child_wb_rate'] ?? 0,
-                                        'no_of_extra' => $item_d['n_extra_bed_rate'] ?? 0,
-                                        'extra_rate' => $item_d['d_extra_bed_rate'] ?? 0,
-                                        'total' => $item_d['d_total_rate'] ?? 0,
-                                        'gst' => $item_d['gst_per'] ?? 0,
-                                        'grand_total' => $item_d['g_tot'] ?? 0
-                                    );
-                                    $Enquiry_model->insert_eighteen_details_double($ster_ddata);
-                                }
-                            }
+                        // Insert double room GST data
+                        foreach ($gst_data_double as $gst_item) {
+                            $ster_ddata = array(
+                                'tour_details_id' => $tour_details_id,
+                                'sequence_id' => $gst_item['sequence_id'],
+                                'room_rate' => $gst_item['room_rate'],
+                                'no_of_child' => $gst_item['no_of_child'],
+                                'child_rate' => $gst_item['child_rate'],
+                                'no_of_child_wb' => $gst_item['no_of_child_wb'],
+                                'child_wb_rate' => $gst_item['child_wb_rate'],
+                                'no_of_extra' => $gst_item['no_of_extra'],
+                                'extra_rate' => $gst_item['extra_rate'],
+                                'total' => $gst_item['total'],
+                                'gst' => $gst_item['gst'],
+                                'grand_total' => $gst_item['grand_total']
+                            );
+                            $Enquiry_model->insert_eighteen_details_double($ster_ddata);
                         }
-                        if ($no_of_single_room > 0 && !empty($all_hd_ster_addloc_s) && is_array($all_hd_ster_addloc_s)) {
-                            foreach ($all_hd_ster_addloc_s as $tt => $item_s) {
-                                if (strpos($tt, $seq_str) === 0) {
-                                    $ster_sdata = array(
-                                        'tour_details_id' => $tour_details_id,
-                                        'sequence_id' => $item_s['ster_s_id'] ?? $tt,
-                                        'room_rate' => $item_s['s_adult_rate'] ?? 0,
-                                        'no_of_child' => $item_s['n_s_child_rate'] ?? 0,
-                                        'child_rate' => $item_s['s_child_rate'] ?? 0,
-                                        'no_of_child_wb' => $item_s['n_s_child_wb_rate'] ?? 0,
-                                        'child_wb_rate' => $item_s['s_child_wb_rate'] ?? 0,
-                                        'no_of_extra' => $item_s['n_s_extra_bed_rate'] ?? 0,
-                                        'extra_rate' => $item_s['s_extra_bed_rate'] ?? 0,
-                                        'total' => $item_s['s_total_rate'] ?? 0,
-                                        'gst' => $item_s['s_gst_per'] ?? 0,
-                                        'grand_total' => $item_s['s_g_tot'] ?? 0
-                                    );
-                                    $Enquiry_model->insert_eighteen_details_single($ster_sdata);
-                                }
+
+                        // Insert single room GST data
+                        if ($no_of_single_room > 0) {
+                            foreach ($gst_data_single as $gst_item) {
+                                $ster_sdata = array(
+                                    'tour_details_id' => $tour_details_id,
+                                    'sequence_id' => $gst_item['sequence_id'],
+                                    'room_rate' => $gst_item['room_rate'],
+                                    'no_of_child' => $gst_item['no_of_child'],
+                                    'child_rate' => $gst_item['child_rate'],
+                                    'no_of_child_wb' => $gst_item['no_of_child_wb'],
+                                    'child_wb_rate' => $gst_item['child_wb_rate'],
+                                    'no_of_extra' => $gst_item['no_of_extra'],
+                                    'extra_rate' => $gst_item['extra_rate'],
+                                    'total' => $gst_item['total'],
+                                    'gst' => $gst_item['gst'],
+                                    'grand_total' => $gst_item['grand_total']
+                                );
+                                $Enquiry_model->insert_eighteen_details_single($ster_sdata);
                             }
                         }
                     }
 
-                    // Insert/upsert expansion per night per room (for new, always insert) - MODIFIED TO SAVE PER ROOM
+                    // Insert expansion per night per room
                     if ($tour_details_id && isset($item['nights']) && is_array($item['nights'])) {
                         $checkin_date = new DateTime($item['checkin']);
                         foreach ($item['nights'] as $night => $night_data) {
@@ -3848,7 +4588,7 @@ public function saveTourPlan()
                             $expansion_date->add(new DateInterval('P' . ($night - 1) . 'D'));
                             $exp_date_str = $expansion_date->format('Y-m-d');
 
-                            // Vehicle JSON for this night (shared across rooms) - ENSURE NIGHT-SPECIFIC VEHICLE DATA IS USED FOR ALL ROOMS OF THIS NIGHT
+                            // Vehicle JSON for this night
                             $night_veh_json = [];
                             if (isset($night_data['veh_model']) && !empty(array_filter($night_data['veh_model'] ?? []))) {
                                 foreach ($night_data['veh_model'] as $vindex => $model_name) {
@@ -3875,82 +4615,48 @@ public function saveTourPlan()
                             }
                             $veh_json_str = json_encode($night_veh_json, JSON_PRETTY_PRINT);
 
-                            // Loop over double rooms - USE NIGHT-SPECIFIC VEHICLE FOR ALL DOUBLE ROOMS OF THIS NIGHT
+                            // Loop over double rooms
                             for ($d_room = 1; $d_room <= $no_of_double_room; $d_room++) {
-                                $exp_room_cat_id = isset($night_data['roomcat'][$d_room]) ? (int)$night_data['roomcat'][$d_room] : 0;
-                                $exp_meal_plan_id = isset($night_data['mealplan'][$d_room]) ? (int)$night_data['mealplan'][$d_room] : 0;
-                                $exp_d_room_rate = isset($night_data['d_adult_rate'][$d_room]) ? (float)$night_data['d_adult_rate'][$d_room] : 0;
-                                $exp_d_child_rate = isset($night_data['d_child_rate'][$d_room]) ? (float)$night_data['d_child_rate'][$d_room] : 0;
-                                $exp_d_child_wb_rate = isset($night_data['d_child_wb_rate'][$d_room]) ? (float)$night_data['d_child_wb_rate'][$d_room] : 0;
-                                $exp_d_extra_rate = isset($night_data['d_extra_bed_rate'][$d_room]) ? (float)$night_data['d_extra_bed_rate'][$d_room] : 0;
-                                $exp_double_total = isset($night_data['d_total_rate'][$d_room]) ? (float)$night_data['d_total_rate'][$d_room] : 0;
-
-                                // Single fields set to 0 for double room expansions
-                                $exp_s_room_rate = 0;
-                                $exp_s_child_rate = 0;
-                                $exp_s_child_wb_rate = 0;
-                                $exp_s_extra_rate = 0;
-                                $exp_single_total = 0;
-
                                 $expansion_data = [
                                     'tour_details_id' => $tour_details_id,
                                     'tour_expansion_date' => $exp_date_str,
-                                    'room_category_id' => $exp_room_cat_id,
-                                    'meal_plan_id' => $exp_meal_plan_id,
-                                    'room_rate_double' => $exp_d_room_rate,
-                                    'child_with_bed_double' => $exp_d_child_rate,
-                                    'child_without_bed_double' => $exp_d_child_wb_rate,
-                                    'extra_bed_double' => $exp_d_extra_rate,
-                                    'double_total_rate' => $exp_double_total,
-                                    'room_rate_single' => $exp_s_room_rate,
-                                    'child_with_bed_single' => $exp_s_child_rate,
-                                    'child_without_bed_single' => $exp_s_child_wb_rate,
-                                    'extra_bed_single' => $exp_s_extra_rate,
-                                    'single_total_rate' => $exp_single_total,
+                                    'room_category_id' => isset($night_data['roomcat'][$d_room]) ? (int)$night_data['roomcat'][$d_room] : 0,
+                                    'meal_plan_id' => isset($night_data['mealplan'][$d_room]) ? (int)$night_data['mealplan'][$d_room] : 0,
+                                    'room_rate_double' => isset($night_data['d_adult_rate'][$d_room]) ? (float)$night_data['d_adult_rate'][$d_room] : 0,
+                                    'child_with_bed_double' => isset($night_data['d_child_rate'][$d_room]) ? (float)$night_data['d_child_rate'][$d_room] : 0,
+                                    'child_without_bed_double' => isset($night_data['d_child_wb_rate'][$d_room]) ? (float)$night_data['d_child_wb_rate'][$d_room] : 0,
+                                    'extra_bed_double' => isset($night_data['d_extra_bed_rate'][$d_room]) ? (float)$night_data['d_extra_bed_rate'][$d_room] : 0,
+                                    'double_total_rate' => isset($night_data['d_total_rate'][$d_room]) ? (float)$night_data['d_total_rate'][$d_room] : 0,
+                                    'room_rate_single' => 0,
+                                    'child_with_bed_single' => 0,
+                                    'child_without_bed_single' => 0,
+                                    'extra_bed_single' => 0,
+                                    'single_total_rate' => 0,
                                     'vehicle_details_json' => $veh_json_str
                                 ];
-
-                                // For insert, always insert since new
                                 $Enquiry_model->insert_tour_expansion($expansion_data);
                             }
 
-                            // Loop over single rooms - USE NIGHT-SPECIFIC VEHICLE FOR ALL SINGLE ROOMS OF THIS NIGHT
+                            // Loop over single rooms
                             for ($s_room = 1; $s_room <= $no_of_single_room; $s_room++) {
                                 $s_index = $no_of_double_room + $s_room;
-                                $exp_room_cat_id = isset($night_data['roomcat'][$s_index]) ? (int)$night_data['roomcat'][$s_index] : 0;
-                                $exp_meal_plan_id = isset($night_data['mealplan'][$s_index]) ? (int)$night_data['mealplan'][$s_index] : 0;
-                                $exp_s_room_rate = isset($night_data['s_adult_rate'][$s_index]) ? (float)$night_data['s_adult_rate'][$s_index] : 0;
-                                $exp_s_child_rate = isset($night_data['s_child_rate'][$s_index]) ? (float)$night_data['s_child_rate'][$s_index] : 0;
-                                $exp_s_child_wb_rate = isset($night_data['s_child_wb_rate'][$s_index]) ? (float)$night_data['s_child_wb_rate'][$s_index] : 0;
-                                $exp_s_extra_rate = isset($night_data['s_extra_bed_rate'][$s_index]) ? (float)$night_data['s_extra_bed_rate'][$s_index] : 0;
-                                $exp_single_total = isset($night_data['s_total_rate'][$s_index]) ? (float)$night_data['s_total_rate'][$s_index] : 0;
-
-                                // Double fields set to 0 for single room expansions
-                                $exp_d_room_rate = 0;
-                                $exp_d_child_rate = 0;
-                                $exp_d_child_wb_rate = 0;
-                                $exp_d_extra_rate = 0;
-                                $exp_double_total = 0;
-
                                 $expansion_data = [
                                     'tour_details_id' => $tour_details_id,
                                     'tour_expansion_date' => $exp_date_str,
-                                    'room_category_id' => $exp_room_cat_id,
-                                    'meal_plan_id' => $exp_meal_plan_id,
-                                    'room_rate_double' => $exp_d_room_rate,
-                                    'child_with_bed_double' => $exp_d_child_rate,
-                                    'child_without_bed_double' => $exp_d_child_wb_rate,
-                                    'extra_bed_double' => $exp_d_extra_rate,
-                                    'double_total_rate' => $exp_double_total,
-                                    'room_rate_single' => $exp_s_room_rate,
-                                    'child_with_bed_single' => $exp_s_child_rate,
-                                    'child_without_bed_single' => $exp_s_child_wb_rate,
-                                    'extra_bed_single' => $exp_s_extra_rate,
-                                    'single_total_rate' => $exp_single_total,
+                                    'room_category_id' => isset($night_data['roomcat'][$s_index]) ? (int)$night_data['roomcat'][$s_index] : 0,
+                                    'meal_plan_id' => isset($night_data['mealplan'][$s_index]) ? (int)$night_data['mealplan'][$s_index] : 0,
+                                    'room_rate_double' => 0,
+                                    'child_with_bed_double' => 0,
+                                    'child_without_bed_double' => 0,
+                                    'extra_bed_double' => 0,
+                                    'double_total_rate' => 0,
+                                    'room_rate_single' => isset($night_data['s_adult_rate'][$s_index]) ? (float)$night_data['s_adult_rate'][$s_index] : 0,
+                                    'child_with_bed_single' => isset($night_data['s_child_rate'][$s_index]) ? (float)$night_data['s_child_rate'][$s_index] : 0,
+                                    'child_without_bed_single' => isset($night_data['s_child_wb_rate'][$s_index]) ? (float)$night_data['s_child_wb_rate'][$s_index] : 0,
+                                    'extra_bed_single' => isset($night_data['s_extra_bed_rate'][$s_index]) ? (float)$night_data['s_extra_bed_rate'][$s_index] : 0,
+                                    'single_total_rate' => isset($night_data['s_total_rate'][$s_index]) ? (float)$night_data['s_total_rate'][$s_index] : 0,
                                     'vehicle_details_json' => $veh_json_str
                                 ];
-
-                                // For insert, always insert since new
                                 $Enquiry_model->insert_tour_expansion($expansion_data);
                             }
                         }
@@ -3958,109 +4664,36 @@ public function saveTourPlan()
 
                     // Insert QQ if quick quote
                     if ($tour_details_id && $is_quick_quote == 1) {
-                        $d_room_rate = array(
-                            'enquiry_header_id' => $enquiry_header_id,
-                            'enquiry_details_id' => $enquiry_details_id,
-                            'tour_details_id' => $tour_details_id,
-                            'room_type_id' => 2,
-                            'cost_component_id' => 6,
-                            'quick_quote_tariff' => $first_d_adult_rate,
-                            'is_active' => 1,
-                            'is_draft' => $is_draft,
-                            'enterprise_id' => 1
-                        );
-                        $qq_insert = $Enquiry_model->insert_qq_details($d_room_rate);
-                        $s_room_rate = array(
-                            'enquiry_header_id' => $enquiry_header_id,
-                            'enquiry_details_id' => $enquiry_details_id,
-                            'tour_details_id' => $tour_details_id,
-                            'room_type_id' => 1,
-                            'cost_component_id' => 6,
-                            'quick_quote_tariff' => $first_s_adult_rate,
-                            'is_active' => 1,
-                            'is_draft' => $is_draft,
-                            'enterprise_id' => 1
-                        );
-                        $qq_insert = $Enquiry_model->insert_qq_details($s_room_rate);
-
-                        $d_c_rate = array(
-                            'enquiry_header_id' => $enquiry_header_id,
-                            'enquiry_details_id' => $enquiry_details_id,
-                            'tour_details_id' => $tour_details_id,
-                            'room_type_id' => 2,
-                            'cost_component_id' => 12,
-                            'quick_quote_tariff' => $first_d_child_rate,
-                            'is_active' => 1,
-                            'is_draft' => $is_draft,
-                            'enterprise_id' => 1
-                        );
-                        $qq_insert = $Enquiry_model->insert_qq_details($d_c_rate);
-                        $s_c_rate = array(
-                            'enquiry_header_id' => $enquiry_header_id,
-                            'enquiry_details_id' => $enquiry_details_id,
-                            'tour_details_id' => $tour_details_id,
-                            'room_type_id' => 1,
-                            'cost_component_id' => 12,
-                            'quick_quote_tariff' => $first_s_child_rate,
-                            'is_active' => 1,
-                            'is_draft' => $is_draft,
-                            'enterprise_id' => 1
-                        );
-                        $qq_insert = $Enquiry_model->insert_qq_details($s_c_rate);
-
-                        $d_cw_rate = array(
-                            'enquiry_header_id' => $enquiry_header_id,
-                            'enquiry_details_id' => $enquiry_details_id,
-                            'tour_details_id' => $tour_details_id,
-                            'room_type_id' => 2,
-                            'cost_component_id' => 15,
-                            'quick_quote_tariff' => $first_d_child_wb_rate,
-                            'is_active' => 1,
-                            'is_draft' => $is_draft,
-                            'enterprise_id' => 1
-                        );
-                        $qq_insert = $Enquiry_model->insert_qq_details($d_cw_rate);
-                        $s_cw_rate = array(
-                            'enquiry_header_id' => $enquiry_header_id,
-                            'enquiry_details_id' => $enquiry_details_id,
-                            'tour_details_id' => $tour_details_id,
-                            'room_type_id' => 1,
-                            'cost_component_id' => 15,
-                            'quick_quote_tariff' => $first_s_child_wb_rate,
-                            'is_active' => 1,
-                            'is_draft' => $is_draft,
-                            'enterprise_id' => 1
-                        );
-                        $qq_insert = $Enquiry_model->insert_qq_details($s_cw_rate);
-
-                        $d_e_rate = array(
-                            'enquiry_header_id' => $enquiry_header_id,
-                            'enquiry_details_id' => $enquiry_details_id,
-                            'tour_details_id' => $tour_details_id,
-                            'room_type_id' => 2,
-                            'cost_component_id' => 9,
-                            'quick_quote_tariff' => $first_d_extra_bed_rate,
-                            'is_active' => 1,
-                            'is_draft' => $is_draft,
-                            'enterprise_id' => 1
-                        );
-                        $qq_insert = $Enquiry_model->insert_qq_details($d_e_rate);
-                        $s_e_rate = array(
-                            'enquiry_header_id' => $enquiry_header_id,
-                            'enquiry_details_id' => $enquiry_details_id,
-                            'tour_details_id' => $tour_details_id,
-                            'room_type_id' => 1,
-                            'cost_component_id' => 9,
-                            'quick_quote_tariff' => $first_s_extra_bed_rate,
-                            'is_active' => 1,
-                            'is_draft' => $is_draft,
-                            'enterprise_id' => 1
-                        );
-                        $qq_insert = $Enquiry_model->insert_qq_details($s_e_rate);
+                        $qq_inserts = [
+                            ['tariff' => $first_d_adult_rate, 'room_type' => 2, 'component' => 6],
+                            ['tariff' => $first_s_adult_rate, 'room_type' => 1, 'component' => 6],
+                            ['tariff' => $first_d_child_rate, 'room_type' => 2, 'component' => 12],
+                            ['tariff' => $first_s_child_rate, 'room_type' => 1, 'component' => 12],
+                            ['tariff' => $first_d_child_wb_rate, 'room_type' => 2, 'component' => 15],
+                            ['tariff' => $first_s_child_wb_rate, 'room_type' => 1, 'component' => 15],
+                            ['tariff' => $first_d_extra_bed_rate, 'room_type' => 2, 'component' => 9],
+                            ['tariff' => $first_s_extra_bed_rate, 'room_type' => 1, 'component' => 9]
+                        ];
+                        
+                        foreach ($qq_inserts as $qq) {
+                            $qq_data = array(
+                                'enquiry_header_id' => $enquiry_header_id,
+                                'enquiry_details_id' => $enquiry_details_id,
+                                'tour_details_id' => $tour_details_id,
+                                'room_type_id' => $qq['room_type'],
+                                'cost_component_id' => $qq['component'],
+                                'quick_quote_tariff' => $qq['tariff'],
+                                'is_active' => 1,
+                                'is_draft' => $is_draft,
+                                'enterprise_id' => 1
+                            );
+                            $Enquiry_model->insert_qq_details($qq_data);
+                        }
                     }
                 }
             }
 
+            // Final step: Link itinerary with tour plan if not draft
             if ($submit_type == "final") {
                 $tour_plan_det = $Enquiry_model->get_tour_plan_details($enquiry_header_id, $enquiry_details_id);
                 $ext_ref_id_tour_plan = $tour_plan_det[0]['tour_details_id'];
@@ -4069,19 +4702,24 @@ public function saveTourPlan()
                 );
                 $ext_tp_updated = $Enquiry_model->linkItinearywithTourplan($ext_tp_data, $enquiry_header_id, $enquiry_details_id);
             }
+            
             return redirect()->to($sURL);
         }
     }
 }
-   public function saveTourLocation()
+
+
+public function saveTourLocation()
 {
     if (!empty(session()->get('user_id'))) {
         $Enquiry_model = new Enquiry_m();
         $is_quick_quote = (int)$this->request->getPost('is_quick_quote');
         $enquiry_header_id = (int)$this->request->getPost('enquiry_header_id');
         $enquiry_details_id = (int)$this->request->getPost('enquiry_details_id');
+        $no_of_double_room = (int)$this->request->getPost('no_of_double_room');
+        $no_of_single_room = (int)$this->request->getPost('no_of_single_room');
         $addloc = $this->request->getPost('addloc');
-        $loc_index = 1; // Assuming single location as per data structure
+        $loc_index = 1;
         $loc = $addloc[$loc_index] ?? [];
         $location_sequence = (int)($loc['location_sequence'] ?? $this->request->getPost('location_sequence'));
         
@@ -4089,10 +4727,10 @@ public function saveTourPlan()
         $nights = $loc['nights'] ?? [];
         $no_of_nights = count($nights);
         
-        // Compute room_type, totals, and rates (assuming consistent across nights)
+        // Initialize variables
         $room_type = [
-            'double' => (int)$this->request->getPost('no_of_double_room'),
-            'single' => (int)$this->request->getPost('no_of_single_room')
+            'double' => $no_of_double_room,
+            'single' => $no_of_single_room
         ];
         $accom_double_total = 0;
         $accom_single_total = 0;
@@ -4105,26 +4743,97 @@ public function saveTourPlan()
         $d_extra_bed_rate = 0;
         $s_extra_bed_rate = 0;
         
+        // GST tracking for eighteen_details
+        $gst_data_double = [];
+        $gst_data_single = [];
+        
+        // Vehicle types aggregation
+        $vehicle_types = [];
+        
         foreach ($nights as $night_index => $night) {
+            // Calculate totals
             $accom_double_total += (float)($night['dd_total_rate'] ?? 0);
             $accom_single_total += (float)($night['ss_total_rate'] ?? 0);
             
             // Extract rates from first valid room in first night for QQ
             if ($night_index === 1 && empty($d_adult_rate)) {
                 $d_adult_rate = (float)($night['d_adult_rate'][1] ?? 0);
-                $s_adult_rate = (float)($night['s_adult_rate'][4] ?? 0);
+                $first_single_index = $no_of_double_room + 1;
+                $s_adult_rate = (float)($night['s_adult_rate'][$first_single_index] ?? 0);
                 $d_child_rate = (float)($night['d_child_rate'][1] ?? 0);
-                $s_child_rate = (float)($night['s_child_rate'][4] ?? 0);
+                $s_child_rate = (float)($night['s_child_rate'][$first_single_index] ?? 0);
                 $d_child_wb_rate = (float)($night['d_child_wb_rate'][1] ?? 0);
-                $s_child_wb_rate = (float)($night['s_child_wb_rate'][4] ?? 0);
+                $s_child_wb_rate = (float)($night['s_child_wb_rate'][$first_single_index] ?? 0);
                 $d_extra_bed_rate = (float)($night['d_extra_bed_rate'][1] ?? 0);
-                $s_extra_bed_rate = (float)($night['s_extra_bed_rate'][4] ?? 0);
+                $s_extra_bed_rate = (float)($night['s_extra_bed_rate'][$first_single_index] ?? 0);
             }
-        }
-        
-        // Compute vehicle summaries
-        $vehicle_types = [];
-        foreach ($nights as $night) {
+            
+            // Collect GST data for eighteen_details (if tax_status = 1)
+            if (isset($loc['tax_status']) && $loc['tax_status'] == 1) {
+                // Process double rooms
+                if (isset($night['d_adult_rate']) && is_array($night['d_adult_rate'])) {
+                    foreach ($night['d_adult_rate'] as $room_idx => $adult_rate) {
+                        $base_total = (float)($adult_rate ?? 0) +
+                                     (float)($night['d_child_rate'][$room_idx] ?? 0) +
+                                     (float)($night['d_child_wb_rate'][$room_idx] ?? 0) +
+                                     (float)($night['d_extra_bed_rate'][$room_idx] ?? 0);
+                        
+                        $gst_percent = (float)($night['d_gst_per'][$room_idx] ?? 0);
+                        $gst_amount = (float)($night['d_gst_amt'][$room_idx] ?? 0);
+                        $total_with_gst = (float)($night['d_total_rate'][$room_idx] ?? 0);
+                        
+                        $room_key = "{$loc_index}{$night_index}{$room_idx}";
+                        
+                        $gst_data_double[$room_key] = [
+                            'sequence_id' => $room_key,
+                            'room_rate' => (float)($night['d_adult_rate'][$room_idx] ?? 0),
+                            'no_of_child' => 0,
+                            'child_rate' => (float)($night['d_child_rate'][$room_idx] ?? 0),
+                            'no_of_child_wb' => 0,
+                            'child_wb_rate' => (float)($night['d_child_wb_rate'][$room_idx] ?? 0),
+                            'no_of_extra' => 0,
+                            'extra_rate' => (float)($night['d_extra_bed_rate'][$room_idx] ?? 0),
+                            'total' => $base_total,
+                            'gst' => $gst_percent,
+                            'gst_amount' => $gst_amount,
+                            'grand_total' => $total_with_gst
+                        ];
+                    }
+                }
+
+                // Process single rooms
+                if (isset($night['s_adult_rate']) && is_array($night['s_adult_rate'])) {
+                    foreach ($night['s_adult_rate'] as $room_idx => $adult_rate) {
+                        $base_total = (float)($adult_rate ?? 0) +
+                                     (float)($night['s_child_rate'][$room_idx] ?? 0) +
+                                     (float)($night['s_child_wb_rate'][$room_idx] ?? 0) +
+                                     (float)($night['s_extra_bed_rate'][$room_idx] ?? 0);
+                        
+                        $gst_percent = (float)($night['s_gst_per'][$room_idx] ?? 0);
+                        $gst_amount = (float)($night['s_gst_amt'][$room_idx] ?? 0);
+                        $total_with_gst = (float)($night['s_total_rate'][$room_idx] ?? 0);
+                        
+                        $room_key = "{$loc_index}{$night_index}{$room_idx}";
+                        
+                        $gst_data_single[$room_key] = [
+                            'sequence_id' => $room_key,
+                            'room_rate' => (float)($night['s_adult_rate'][$room_idx] ?? 0),
+                            'no_of_child' => 0,
+                            'child_rate' => (float)($night['s_child_rate'][$room_idx] ?? 0),
+                            'no_of_child_wb' => 0,
+                            'child_wb_rate' => (float)($night['s_child_wb_rate'][$room_idx] ?? 0),
+                            'no_of_extra' => 0,
+                            'extra_rate' => (float)($night['s_extra_bed_rate'][$room_idx] ?? 0),
+                            'total' => $base_total,
+                            'gst' => $gst_percent,
+                            'gst_amount' => $gst_amount,
+                            'grand_total' => $total_with_gst
+                        ];
+                    }
+                }
+            }
+            
+            // Vehicle summary aggregation
             $veh_models = $night['veh_model'] ?? [];
             $veh_type_ids = $night['veh_type_id'] ?? [];
             $veh_counts = $night['veh_count'] ?? [];
@@ -4132,38 +4841,63 @@ public function saveTourPlan()
             $travel_distances = $night['travel_distance'] ?? [];
             $extra_kms = $night['extra_kilometer'] ?? [];
             $extra_rates = $night['extra_km_rate'] ?? [];
+            $veh_totals = $night['veh_total'] ?? [];
+            $max_kms_day = $night['max_km_day'] ?? [];
             
             for ($j = 0; $j < count($veh_models); $j++) {
-                $type_id = (int)$veh_type_ids[$j];
+                $type_id = (int)($veh_type_ids[$j] ?? 0);
+                if ($type_id == 0) continue;
+                
                 if (!isset($vehicle_types[$type_id])) {
                     $vehicle_types[$type_id] = [
-                        'vehicle_model_name' => trim((string)$veh_models[$j]),
-                        'vehicle_type_id' => $type_id,
-                        'vehicle_count' => (int)$veh_counts[$j],
-                        'total_days' => 0,
-                        'daily_rent' => (float)$day_rents[$j],
-                        'total_distance' => 0.0,
-                        'extra_km_rate' => (float)$extra_rates[$j],
-                        'total_extra_km' => 0.0,
-                        'grand_total' => 0.0
+                        'vehicle_model' => trim((string)($veh_models[$j] ?? '')),
+                        'veh_type_id' => $type_id,
+                        'vehicle_count' => (int)($veh_counts[$j] ?? 0),
+                        'day_rent' => 0.0,
+                        'travel_distance' => 0.0,
+                        'extra_km_rate' => (float)($extra_rates[$j] ?? 0),
+                        'extra_kilometer' => 0.0,
+                        'veh_total' => 0.0,
+                        'max_km_day' => (float)($max_kms_day[$j] ?? 0),
+                        'veh_header' => '',
+                        'pre_to_cur' => '',
+                        'cur_to_dep' => '',
+                        'dep_to_arr' => '',
+                        'hub_to_arr' => '',
+                        'arr_to_loc' => ''
                     ];
                 }
-                $vehicle_types[$type_id]['total_days'] += 1;
-                $vehicle_types[$type_id]['total_distance'] += (float)$travel_distances[$j];
-                $vehicle_types[$type_id]['total_extra_km'] += (float)$extra_kms[$j];
+                $vt = &$vehicle_types[$type_id];
+
+                if ($vt['day_rent'] == 0.0 && (float)($day_rents[$j] ?? 0) > 0) {
+                    $vt['day_rent'] = (float)$day_rents[$j];
+                }
+
+                $vt['travel_distance'] += (float)($travel_distances[$j] ?? 0);
+                $vt['extra_kilometer'] += (float)($extra_kms[$j] ?? 0);
+                $vt['veh_total'] += (float)($veh_totals[$j] ?? 0);
+
+                $header_fields = ['veh_header', 'pre_to_cur', 'cur_to_dep', 'dep_to_arr', 'hub_to_arr', 'arr_to_loc'];
+                foreach ($header_fields as $field) {
+                    $new_val = trim($night[$field] ?? '');
+                    if ($new_val && $vt[$field]) {
+                        $vt[$field] .= ' + ' . $new_val;
+                    } elseif ($new_val) {
+                        $vt[$field] = $new_val;
+                    }
+                }
             }
         }
         
-        $vehicle_summaries = [];
-        $vehicle_summary_total = 0.0;
-        foreach ($vehicle_types as $type_id => $summary) {
-            $summary['grand_total'] = $summary['daily_rent'] * $summary['total_days'];
-            $vehicle_summaries[] = $summary;
-            $vehicle_summary_total += $summary['grand_total'];
+        // Compute vehicle summary JSON
+        $vehicle_summaries = array_values($vehicle_types);
+        foreach ($vehicle_summaries as &$vs) {
+            foreach ($vs as $k => $v) {
+                $vs[$k] = (string)$v;
+            }
         }
-        
-        $vehicle_details = json_encode($vehicle_summaries); // Store as array of summaries
-        $room_type_json = json_encode([$room_type]); // As per requested format: [{"double": "3", "single": "3"}]
+        $vehicle_details = json_encode($vehicle_summaries, JSON_PRETTY_PRINT);
+        $room_type_json = json_encode([$room_type], JSON_PRETTY_PRINT);
         
         $common_data = [
             'tour_location' => (int)($loc['tour_location_id'] ?? 0),
@@ -4175,82 +4909,516 @@ public function saveTourPlan()
             'hotel_id' => (int)($loc['hotelid'] ?? 0),
             'room_category_id' => (int)($loc['roomcat_common'] ?? 0),
             'room_type' => $room_type_json,
-            'accom_double_total' => (int)$accom_double_total,
-            'accom_single_total' => (int)$accom_single_total,
+            'accom_double_total' => $accom_double_total,
+            'accom_single_total' => $accom_single_total,
             'vehicle_details' => $vehicle_details,
             'location_sequence' => $location_sequence,
             'is_own_arrangement' => (int)($loc['own_arrange'] ?? 0),
             'tax_status' => (int)($loc['tax_status'] ?? 0),
             'is_active' => 1,
             'is_draft' => 1,
-            'updated_time' => date('Y-m-d H:i:s'),
-            'enterprise_id' => 1
+            'updated_time' => date('Y-m-d H:i:s')
         ];
         
         if ($tour_exist > 0) {
+            // UPDATE EXISTING LOCATION
             $tour_details_ids = $Enquiry_model->get_tour_details_id($enquiry_header_id, $enquiry_details_id, $location_sequence);
             $tour_details_id = $tour_details_ids[0]['tour_details_id'];
-            $common_data['enquiry_header_id'] = $enquiry_header_id;
-            $common_data['enquiry_details_id'] = $enquiry_details_id;
+            
+            // Delete old expansion and eighteen records
+            $Enquiry_model->delete_tour_expansion($tour_details_id);
+            
+            if (!empty($tour_details_id)) {
+                $Enquiry_model->delete_eighteen_double($tour_details_id);
+                if ($no_of_single_room > 0) {
+                    $Enquiry_model->delete_eighteen_single($tour_details_id);
+                }
+            }
+            
             $tour_updated = $Enquiry_model->update_tour_details($common_data, $tour_details_id);
             $result = $tour_updated ? ['status' => 'updated', 'tour_details_id' => $tour_details_id] : ['status' => 'error'];
             
+            // Insert GST data to eighteen_details
+            if ($loc['tax_status'] == 1) {
+                foreach ($gst_data_double as $gst_item) {
+                    $Enquiry_model->insert_eighteen_details_double(array(
+                        'tour_details_id' => $tour_details_id,
+                        'sequence_id' => $gst_item['sequence_id'],
+                        'room_rate' => $gst_item['room_rate'],
+                        'no_of_child' => $gst_item['no_of_child'],
+                        'child_rate' => $gst_item['child_rate'],
+                        'no_of_child_wb' => $gst_item['no_of_child_wb'],
+                        'child_wb_rate' => $gst_item['child_wb_rate'],
+                        'no_of_extra' => $gst_item['no_of_extra'],
+                        'extra_rate' => $gst_item['extra_rate'],
+                        'total' => $gst_item['total'],
+                        'gst' => $gst_item['gst'],
+                        'grand_total' => $gst_item['grand_total']
+                    ));
+                }
+
+                if ($no_of_single_room > 0) {
+                    foreach ($gst_data_single as $gst_item) {
+                        $Enquiry_model->insert_eighteen_details_single(array(
+                            'tour_details_id' => $tour_details_id,
+                            'sequence_id' => $gst_item['sequence_id'],
+                            'room_rate' => $gst_item['room_rate'],
+                            'no_of_child' => $gst_item['no_of_child'],
+                            'child_rate' => $gst_item['child_rate'],
+                            'no_of_child_wb' => $gst_item['no_of_child_wb'],
+                            'child_wb_rate' => $gst_item['child_wb_rate'],
+                            'no_of_extra' => $gst_item['no_of_extra'],
+                            'extra_rate' => $gst_item['extra_rate'],
+                            'total' => $gst_item['total'],
+                            'gst' => $gst_item['gst'],
+                            'grand_total' => $gst_item['grand_total']
+                        ));
+                    }
+                }
+            }
+            
+            // Insert expansion per night per room
+            if (isset($nights) && is_array($nights)) {
+                $checkin_date = new DateTime($loc['checkin']);
+                foreach ($nights as $night_index => $night_data) {
+                    $expansion_date = clone $checkin_date;
+                    $expansion_date->add(new DateInterval('P' . ($night_index - 1) . 'D'));
+                    $exp_date_str = $expansion_date->format('Y-m-d');
+
+                    // Vehicle JSON for this night
+                    $night_veh_json = [];
+                    if (isset($night_data['veh_model']) && !empty(array_filter($night_data['veh_model'] ?? []))) {
+                        foreach ($night_data['veh_model'] as $vindex => $model_name) {
+                            if (isset($night_data['veh_type_id'][$vindex])) {
+                                $night_veh_json[] = [
+                                    "vehicle_model" => $model_name,
+                                    "veh_type_id" => $night_data['veh_type_id'][$vindex],
+                                    "vehicle_count" => $night_data['veh_count'][$vindex] ?? 0,
+                                    "day_rent" => $night_data['day_rent'][$vindex] ?? 0,
+                                    "max_km_day" => $night_data['max_km_day'][$vindex] ?? 0,
+                                    "travel_distance" => $night_data['travel_distance'][$vindex] ?? 0,
+                                    "extra_kilometer" => $night_data['extra_kilometer'][$vindex] ?? 0,
+                                    "extra_km_rate" => $night_data['extra_km_rate'][$vindex] ?? 0,
+                                    "veh_total" => $night_data['veh_total'][$vindex] ?? 0,
+                                    'veh_header' => $night_data['veh_header'] ?? '',
+                                    'pre_to_cur' => $night_data['pre_to_cur'] ?? '',
+                                    'cur_to_dep' => $night_data['cur_to_dep'] ?? '',
+                                    'dep_to_arr' => $night_data['dep_to_arr'] ?? '',
+                                    'hub_to_arr' => $night_data['hub_to_arr'] ?? '',
+                                    'arr_to_loc' => $night_data['arr_to_loc'] ?? ''
+                                ];
+                            }
+                        }
+                    }
+                    $veh_json_str = json_encode($night_veh_json, JSON_PRETTY_PRINT);
+
+                    // Loop over double rooms
+                    for ($d_room = 1; $d_room <= $no_of_double_room; $d_room++) {
+                        $Enquiry_model->insert_tour_expansion([
+                            'tour_details_id' => $tour_details_id,
+                            'tour_expansion_date' => $exp_date_str,
+                            'room_category_id' => isset($night_data['roomcat'][$d_room]) ? (int)$night_data['roomcat'][$d_room] : 0,
+                            'meal_plan_id' => isset($night_data['mealplan'][$d_room]) ? (int)$night_data['mealplan'][$d_room] : 0,
+                            'room_rate_double' => isset($night_data['d_adult_rate'][$d_room]) ? (float)$night_data['d_adult_rate'][$d_room] : 0,
+                            'child_with_bed_double' => isset($night_data['d_child_rate'][$d_room]) ? (float)$night_data['d_child_rate'][$d_room] : 0,
+                            'child_without_bed_double' => isset($night_data['d_child_wb_rate'][$d_room]) ? (float)$night_data['d_child_wb_rate'][$d_room] : 0,
+                            'extra_bed_double' => isset($night_data['d_extra_bed_rate'][$d_room]) ? (float)$night_data['d_extra_bed_rate'][$d_room] : 0,
+                            'double_total_rate' => isset($night_data['d_total_rate'][$d_room]) ? (float)$night_data['d_total_rate'][$d_room] : 0,
+                            'room_rate_single' => 0,
+                            'child_with_bed_single' => 0,
+                            'child_without_bed_single' => 0,
+                            'extra_bed_single' => 0,
+                            'single_total_rate' => 0,
+                            'vehicle_details_json' => $veh_json_str
+                        ]);
+                    }
+
+                    // Loop over single rooms
+                    for ($s_room = 1; $s_room <= $no_of_single_room; $s_room++) {
+                        $s_index = $no_of_double_room + $s_room;
+                        $Enquiry_model->insert_tour_expansion([
+                            'tour_details_id' => $tour_details_id,
+                            'tour_expansion_date' => $exp_date_str,
+                            'room_category_id' => isset($night_data['roomcat'][$s_index]) ? (int)$night_data['roomcat'][$s_index] : 0,
+                            'meal_plan_id' => isset($night_data['mealplan'][$s_index]) ? (int)$night_data['mealplan'][$s_index] : 0,
+                            'room_rate_double' => 0,
+                            'child_with_bed_double' => 0,
+                            'child_without_bed_double' => 0,
+                            'extra_bed_double' => 0,
+                            'double_total_rate' => 0,
+                            'room_rate_single' => isset($night_data['s_adult_rate'][$s_index]) ? (float)$night_data['s_adult_rate'][$s_index] : 0,
+                            'child_with_bed_single' => isset($night_data['s_child_rate'][$s_index]) ? (float)$night_data['s_child_rate'][$s_index] : 0,
+                            'child_without_bed_single' => isset($night_data['s_child_wb_rate'][$s_index]) ? (float)$night_data['s_child_wb_rate'][$s_index] : 0,
+                            'extra_bed_single' => isset($night_data['s_extra_bed_rate'][$s_index]) ? (float)$night_data['s_extra_bed_rate'][$s_index] : 0,
+                            'single_total_rate' => isset($night_data['s_total_rate'][$s_index]) ? (float)$night_data['s_total_rate'][$s_index] : 0,
+                            'vehicle_details_json' => $veh_json_str
+                        ]);
+                    }
+                }
+            }
+            
             if ($is_quick_quote == 1 && $tour_updated) {
-                $qq_data = [
-                    ['room_type_id' => 2, 'cost_component_id' => 6, 'quick_quote_tariff' => $d_adult_rate],
-                    ['room_type_id' => 1, 'cost_component_id' => 6, 'quick_quote_tariff' => $s_adult_rate],
-                    ['room_type_id' => 2, 'cost_component_id' => 12, 'quick_quote_tariff' => $d_child_rate],
-                    ['room_type_id' => 1, 'cost_component_id' => 12, 'quick_quote_tariff' => $s_child_rate],
-                    ['room_type_id' => 2, 'cost_component_id' => 15, 'quick_quote_tariff' => $d_child_wb_rate],
-                    ['room_type_id' => 1, 'cost_component_id' => 15, 'quick_quote_tariff' => $s_child_wb_rate],
-                    ['room_type_id' => 2, 'cost_component_id' => 9, 'quick_quote_tariff' => $d_extra_bed_rate],
-                    ['room_type_id' => 1, 'cost_component_id' => 9, 'quick_quote_tariff' => $s_extra_bed_rate]
+                $qq_updates = [
+                    ['tariff' => $d_adult_rate, 'room_type' => 2, 'component' => 6],
+                    ['tariff' => $s_adult_rate, 'room_type' => 1, 'component' => 6],
+                    ['tariff' => $d_child_rate, 'room_type' => 2, 'component' => 12],
+                    ['tariff' => $s_child_rate, 'room_type' => 1, 'component' => 12],
+                    ['tariff' => $d_child_wb_rate, 'room_type' => 2, 'component' => 15],
+                    ['tariff' => $s_child_wb_rate, 'room_type' => 1, 'component' => 15],
+                    ['tariff' => $d_extra_bed_rate, 'room_type' => 2, 'component' => 9],
+                    ['tariff' => $s_extra_bed_rate, 'room_type' => 1, 'component' => 9]
                 ];
-                foreach ($qq_data as $qq_item) {
-                    $qq_update_data = [
-                        'quick_quote_tariff' => $qq_item['quick_quote_tariff']
-                    ];
-                    $Enquiry_model->update_qq_details($qq_update_data, $tour_details_id, $qq_item['cost_component_id'], $qq_item['room_type_id']);
+                
+                foreach ($qq_updates as $qq) {
+                    $qq_data = array(
+                        'quick_quote_tariff' => $qq['tariff'],
+                        'is_draft' => 1
+                    );
+                    $Enquiry_model->update_qq_details($qq_data, $tour_details_id, $qq['component'], $qq['room_type']);
                 }
             }
         } else {
+            // INSERT NEW LOCATION
             $tour_data = array_merge($common_data, [
                 'enquiry_header_id' => $enquiry_header_id,
                 'enquiry_details_id' => $enquiry_details_id,
-                'extension_ref_id' => 0 // Assuming default
+                'enterprise_id' => 1
             ]);
             $tour_details_id = $Enquiry_model->insert_tour_details($tour_data);
             $result = $tour_details_id ? ['status' => 'inserted', 'tour_details_id' => $tour_details_id] : ['status' => 'error'];
             
-            if ($is_quick_quote == 1 && $tour_details_id) {
-                $qq_base = [
-                    'enquiry_header_id' => $enquiry_header_id,
-                    'enquiry_details_id' => $enquiry_details_id,
-                    'tour_details_id' => $tour_details_id,
-                    'is_active' => 1,
-                    'is_draft' => 1,
-                    'enterprise_id' => 1
+            // Insert GST data to eighteen_details
+            if ($loc['tax_status'] == 1 && $tour_details_id) {
+                foreach ($gst_data_double as $gst_item) {
+                    $Enquiry_model->insert_eighteen_details_double(array(
+                        'tour_details_id' => $tour_details_id,
+                        'sequence_id' => $gst_item['sequence_id'],
+                        'room_rate' => $gst_item['room_rate'],
+                        'no_of_child' => $gst_item['no_of_child'],
+                        'child_rate' => $gst_item['child_rate'],
+                        'no_of_child_wb' => $gst_item['no_of_child_wb'],
+                        'child_wb_rate' => $gst_item['child_wb_rate'],
+                        'no_of_extra' => $gst_item['no_of_extra'],
+                        'extra_rate' => $gst_item['extra_rate'],
+                        'total' => $gst_item['total'],
+                        'gst' => $gst_item['gst'],
+                        'grand_total' => $gst_item['grand_total']
+                    ));
+                }
+
+                if ($no_of_single_room > 0) {
+                    foreach ($gst_data_single as $gst_item) {
+                        $Enquiry_model->insert_eighteen_details_single(array(
+                            'tour_details_id' => $tour_details_id,
+                            'sequence_id' => $gst_item['sequence_id'],
+                            'room_rate' => $gst_item['room_rate'],
+                            'no_of_child' => $gst_item['no_of_child'],
+                            'child_rate' => $gst_item['child_rate'],
+                            'no_of_child_wb' => $gst_item['no_of_child_wb'],
+                            'child_wb_rate' => $gst_item['child_wb_rate'],
+                            'no_of_extra' => $gst_item['no_of_extra'],
+                            'extra_rate' => $gst_item['extra_rate'],
+                            'total' => $gst_item['total'],
+                            'gst' => $gst_item['gst'],
+                            'grand_total' => $gst_item['grand_total']
+                        ));
+                    }
+                }
+            }
+            
+            // Insert expansion per night per room
+            if ($tour_details_id && isset($nights) && is_array($nights)) {
+                $checkin_date = new DateTime($loc['checkin']);
+                foreach ($nights as $night_index => $night_data) {
+                    $expansion_date = clone $checkin_date;
+                    $expansion_date->add(new DateInterval('P' . ($night_index - 1) . 'D'));
+                    $exp_date_str = $expansion_date->format('Y-m-d');
+
+                    // Vehicle JSON for this night
+                    $night_veh_json = [];
+                    if (isset($night_data['veh_model']) && !empty(array_filter($night_data['veh_model'] ?? []))) {
+                        foreach ($night_data['veh_model'] as $vindex => $model_name) {
+                            if (isset($night_data['veh_type_id'][$vindex])) {
+                                $night_veh_json[] = [
+                                    "vehicle_model" => $model_name,
+                                    "veh_type_id" => $night_data['veh_type_id'][$vindex],
+                                    "vehicle_count" => $night_data['veh_count'][$vindex] ?? 0,
+                                    "day_rent" => $night_data['day_rent'][$vindex] ?? 0,
+                                    "max_km_day" => $night_data['max_km_day'][$vindex] ?? 0,
+                                    "travel_distance" => $night_data['travel_distance'][$vindex] ?? 0,
+                                    "extra_kilometer" => $night_data['extra_kilometer'][$vindex] ?? 0,
+                                    "extra_km_rate" => $night_data['extra_km_rate'][$vindex] ?? 0,
+                                    "veh_total" => $night_data['veh_total'][$vindex] ?? 0,
+                                    'veh_header' => $night_data['veh_header'] ?? '',
+                                    'pre_to_cur' => $night_data['pre_to_cur'] ?? '',
+                                    'cur_to_dep' => $night_data['cur_to_dep'] ?? '',
+                                    'dep_to_arr' => $night_data['dep_to_arr'] ?? '',
+                                    'hub_to_arr' => $night_data['hub_to_arr'] ?? '',
+                                    'arr_to_loc' => $night_data['arr_to_loc'] ?? ''
+                                ];
+                            }
+                        }
+                    }
+                    $veh_json_str = json_encode($night_veh_json, JSON_PRETTY_PRINT);
+
+                    // Loop over double rooms
+                    for ($d_room = 1; $d_room <= $no_of_double_room; $d_room++) {
+                        $Enquiry_model->insert_tour_expansion([
+                            'tour_details_id' => $tour_details_id,
+                            'tour_expansion_date' => $exp_date_str,
+                            'room_category_id' => isset($night_data['roomcat'][$d_room]) ? (int)$night_data['roomcat'][$d_room] : 0,
+                            'meal_plan_id' => isset($night_data['mealplan'][$d_room]) ? (int)$night_data['mealplan'][$d_room] : 0,
+                            'room_rate_double' => isset($night_data['d_adult_rate'][$d_room]) ? (float)$night_data['d_adult_rate'][$d_room] : 0,
+                            'child_with_bed_double' => isset($night_data['d_child_rate'][$d_room]) ? (float)$night_data['d_child_rate'][$d_room] : 0,
+                            'child_without_bed_double' => isset($night_data['d_child_wb_rate'][$d_room]) ? (float)$night_data['d_child_wb_rate'][$d_room] : 0,
+                            'extra_bed_double' => isset($night_data['d_extra_bed_rate'][$d_room]) ? (float)$night_data['d_extra_bed_rate'][$d_room] : 0,
+                            'double_total_rate' => isset($night_data['d_total_rate'][$d_room]) ? (float)$night_data['d_total_rate'][$d_room] : 0,
+                            'room_rate_single' => 0,
+                            'child_with_bed_single' => 0,
+                            'child_without_bed_single' => 0,
+                            'extra_bed_single' => 0,
+                            'single_total_rate' => 0,
+                            'vehicle_details_json' => $veh_json_str
+                        ]);
+                    }
+
+                    // Loop over single rooms
+                    for ($s_room = 1; $s_room <= $no_of_single_room; $s_room++) {
+                        $s_index = $no_of_double_room + $s_room;
+                        $Enquiry_model->insert_tour_expansion([
+                            'tour_details_id' => $tour_details_id,
+                            'tour_expansion_date' => $exp_date_str,
+                            'room_category_id' => isset($night_data['roomcat'][$s_index]) ? (int)$night_data['roomcat'][$s_index] : 0,
+                            'meal_plan_id' => isset($night_data['mealplan'][$s_index]) ? (int)$night_data['mealplan'][$s_index] : 0,
+                            'room_rate_double' => 0,
+                            'child_with_bed_double' => 0,
+                            'child_without_bed_double' => 0,
+                            'extra_bed_double' => 0,
+                            'double_total_rate' => 0,
+                            'room_rate_single' => isset($night_data['s_adult_rate'][$s_index]) ? (float)$night_data['s_adult_rate'][$s_index] : 0,
+                            'child_with_bed_single' => isset($night_data['s_child_rate'][$s_index]) ? (float)$night_data['s_child_rate'][$s_index] : 0,
+                            'child_without_bed_single' => isset($night_data['s_child_wb_rate'][$s_index]) ? (float)$night_data['s_child_wb_rate'][$s_index] : 0,
+                            'extra_bed_single' => isset($night_data['s_extra_bed_rate'][$s_index]) ? (float)$night_data['s_extra_bed_rate'][$s_index] : 0,
+                            'single_total_rate' => isset($night_data['s_total_rate'][$s_index]) ? (float)$night_data['s_total_rate'][$s_index] : 0,
+                            'vehicle_details_json' => $veh_json_str
+                        ]);
+                    }
+                }
+            }
+            
+            // Insert QQ if quick quote
+            if ($tour_details_id && $is_quick_quote == 1) {
+                $qq_inserts = [
+                    ['tariff' => $d_adult_rate, 'room_type' => 2, 'component' => 6],
+                    ['tariff' => $s_adult_rate, 'room_type' => 1, 'component' => 6],
+                    ['tariff' => $d_child_rate, 'room_type' => 2, 'component' => 12],
+                    ['tariff' => $s_child_rate, 'room_type' => 1, 'component' => 12],
+                    ['tariff' => $d_child_wb_rate, 'room_type' => 2, 'component' => 15],
+                    ['tariff' => $s_child_wb_rate, 'room_type' => 1, 'component' => 15],
+                    ['tariff' => $d_extra_bed_rate, 'room_type' => 2, 'component' => 9],
+                    ['tariff' => $s_extra_bed_rate, 'room_type' => 1, 'component' => 9]
                 ];
-                $qq_data = [
-                    array_merge($qq_base, ['room_type_id' => 2, 'cost_component_id' => 6, 'quick_quote_tariff' => $d_adult_rate]),
-                    array_merge($qq_base, ['room_type_id' => 1, 'cost_component_id' => 6, 'quick_quote_tariff' => $s_adult_rate]),
-                    array_merge($qq_base, ['room_type_id' => 2, 'cost_component_id' => 12, 'quick_quote_tariff' => $d_child_rate]),
-                    array_merge($qq_base, ['room_type_id' => 1, 'cost_component_id' => 12, 'quick_quote_tariff' => $s_child_rate]),
-                    array_merge($qq_base, ['room_type_id' => 2, 'cost_component_id' => 15, 'quick_quote_tariff' => $d_child_wb_rate]),
-                    array_merge($qq_base, ['room_type_id' => 1, 'cost_component_id' => 15, 'quick_quote_tariff' => $s_child_wb_rate]),
-                    array_merge($qq_base, ['room_type_id' => 2, 'cost_component_id' => 9, 'quick_quote_tariff' => $d_extra_bed_rate]),
-                    array_merge($qq_base, ['room_type_id' => 1, 'cost_component_id' => 9, 'quick_quote_tariff' => $s_extra_bed_rate])
-                ];
-                foreach ($qq_data as $qq_item) {
-                    $Enquiry_model->insert_qq_details($qq_item);
+                
+                foreach ($qq_inserts as $qq) {
+                    $qq_data = array(
+                        'enquiry_header_id' => $enquiry_header_id,
+                        'enquiry_details_id' => $enquiry_details_id,
+                        'tour_details_id' => $tour_details_id,
+                        'room_type_id' => $qq['room_type'],
+                        'cost_component_id' => $qq['component'],
+                        'quick_quote_tariff' => $qq['tariff'],
+                        'is_active' => 1,
+                        'is_draft' => 1,
+                        'enterprise_id' => 1
+                    );
+                    $Enquiry_model->insert_qq_details($qq_data);
                 }
             }
         }
+        
         echo json_encode($result);
     } else {
         return redirect()->to('Login');
     }
 }
+//    public function saveTourLocation()
+// {
+//     if (!empty(session()->get('user_id'))) {
+//         $Enquiry_model = new Enquiry_m();
+//         $is_quick_quote = (int)$this->request->getPost('is_quick_quote');
+//         $enquiry_header_id = (int)$this->request->getPost('enquiry_header_id');
+//         $enquiry_details_id = (int)$this->request->getPost('enquiry_details_id');
+//         $addloc = $this->request->getPost('addloc');
+//         $loc_index = 1; // Assuming single location as per data structure
+//         $loc = $addloc[$loc_index] ?? [];
+//         $location_sequence = (int)($loc['location_sequence'] ?? $this->request->getPost('location_sequence'));
+        
+//         $tour_exist = $Enquiry_model->check_tour_location_exist($enquiry_header_id, $enquiry_details_id, $location_sequence);
+//         $nights = $loc['nights'] ?? [];
+//         $no_of_nights = count($nights);
+        
+//         // Compute room_type, totals, and rates (assuming consistent across nights)
+//         $room_type = [
+//             'double' => (int)$this->request->getPost('no_of_double_room'),
+//             'single' => (int)$this->request->getPost('no_of_single_room')
+//         ];
+//         $accom_double_total = 0;
+//         $accom_single_total = 0;
+//         $d_adult_rate = 0;
+//         $s_adult_rate = 0;
+//         $d_child_rate = 0;
+//         $s_child_rate = 0;
+//         $d_child_wb_rate = 0;
+//         $s_child_wb_rate = 0;
+//         $d_extra_bed_rate = 0;
+//         $s_extra_bed_rate = 0;
+        
+//         foreach ($nights as $night_index => $night) {
+//             $accom_double_total += (float)($night['dd_total_rate'] ?? 0);
+//             $accom_single_total += (float)($night['ss_total_rate'] ?? 0);
+            
+//             // Extract rates from first valid room in first night for QQ
+//             if ($night_index === 1 && empty($d_adult_rate)) {
+//                 $d_adult_rate = (float)($night['d_adult_rate'][1] ?? 0);
+//                 $s_adult_rate = (float)($night['s_adult_rate'][4] ?? 0);
+//                 $d_child_rate = (float)($night['d_child_rate'][1] ?? 0);
+//                 $s_child_rate = (float)($night['s_child_rate'][4] ?? 0);
+//                 $d_child_wb_rate = (float)($night['d_child_wb_rate'][1] ?? 0);
+//                 $s_child_wb_rate = (float)($night['s_child_wb_rate'][4] ?? 0);
+//                 $d_extra_bed_rate = (float)($night['d_extra_bed_rate'][1] ?? 0);
+//                 $s_extra_bed_rate = (float)($night['s_extra_bed_rate'][4] ?? 0);
+//             }
+//         }
+        
+//         // Compute vehicle summaries
+//         $vehicle_types = [];
+//         foreach ($nights as $night) {
+//             $veh_models = $night['veh_model'] ?? [];
+//             $veh_type_ids = $night['veh_type_id'] ?? [];
+//             $veh_counts = $night['veh_count'] ?? [];
+//             $day_rents = $night['day_rent'] ?? [];
+//             $travel_distances = $night['travel_distance'] ?? [];
+//             $extra_kms = $night['extra_kilometer'] ?? [];
+//             $extra_rates = $night['extra_km_rate'] ?? [];
+            
+//             for ($j = 0; $j < count($veh_models); $j++) {
+//                 $type_id = (int)$veh_type_ids[$j];
+//                 if (!isset($vehicle_types[$type_id])) {
+//                     $vehicle_types[$type_id] = [
+//                         'vehicle_model_name' => trim((string)$veh_models[$j]),
+//                         'vehicle_type_id' => $type_id,
+//                         'vehicle_count' => (int)$veh_counts[$j],
+//                         'total_days' => 0,
+//                         'daily_rent' => (float)$day_rents[$j],
+//                         'total_distance' => 0.0,
+//                         'extra_km_rate' => (float)$extra_rates[$j],
+//                         'total_extra_km' => 0.0,
+//                         'grand_total' => 0.0
+//                     ];
+//                 }
+//                 $vehicle_types[$type_id]['total_days'] += 1;
+//                 $vehicle_types[$type_id]['total_distance'] += (float)$travel_distances[$j];
+//                 $vehicle_types[$type_id]['total_extra_km'] += (float)$extra_kms[$j];
+//             }
+//         }
+        
+//         $vehicle_summaries = [];
+//         $vehicle_summary_total = 0.0;
+//         foreach ($vehicle_types as $type_id => $summary) {
+//             $summary['grand_total'] = $summary['daily_rent'] * $summary['total_days'];
+//             $vehicle_summaries[] = $summary;
+//             $vehicle_summary_total += $summary['grand_total'];
+//         }
+        
+//         $vehicle_details = json_encode($vehicle_summaries); // Store as array of summaries
+//         $room_type_json = json_encode([$room_type]); // As per requested format: [{"double": "3", "single": "3"}]
+        
+//         $common_data = [
+//             'tour_location' => (int)($loc['tour_location_id'] ?? 0),
+//             'no_of_days' => $no_of_nights,
+//             'check_in_date' => $loc['checkin'] ?? '',
+//             'check_out_date' => $loc['checkout'] ?? '',
+//             'hot_cat_id' => (int)($loc['hotelcat'] ?? 0),
+//             'meal_plan_id' => (int)($loc['mealplan'] ?? 0),
+//             'hotel_id' => (int)($loc['hotelid'] ?? 0),
+//             'room_category_id' => (int)($loc['roomcat_common'] ?? 0),
+//             'room_type' => $room_type_json,
+//             'accom_double_total' => (int)$accom_double_total,
+//             'accom_single_total' => (int)$accom_single_total,
+//             'vehicle_details' => $vehicle_details,
+//             'location_sequence' => $location_sequence,
+//             'is_own_arrangement' => (int)($loc['own_arrange'] ?? 0),
+//             'tax_status' => (int)($loc['tax_status'] ?? 0),
+//             'is_active' => 1,
+//             'is_draft' => 1,
+//             'updated_time' => date('Y-m-d H:i:s'),
+//             'enterprise_id' => 1
+//         ];
+        
+//         if ($tour_exist > 0) {
+//             $tour_details_ids = $Enquiry_model->get_tour_details_id($enquiry_header_id, $enquiry_details_id, $location_sequence);
+//             $tour_details_id = $tour_details_ids[0]['tour_details_id'];
+//             $common_data['enquiry_header_id'] = $enquiry_header_id;
+//             $common_data['enquiry_details_id'] = $enquiry_details_id;
+//             $tour_updated = $Enquiry_model->update_tour_details($common_data, $tour_details_id);
+//             $result = $tour_updated ? ['status' => 'updated', 'tour_details_id' => $tour_details_id] : ['status' => 'error'];
+            
+//             if ($is_quick_quote == 1 && $tour_updated) {
+//                 $qq_data = [
+//                     ['room_type_id' => 2, 'cost_component_id' => 6, 'quick_quote_tariff' => $d_adult_rate],
+//                     ['room_type_id' => 1, 'cost_component_id' => 6, 'quick_quote_tariff' => $s_adult_rate],
+//                     ['room_type_id' => 2, 'cost_component_id' => 12, 'quick_quote_tariff' => $d_child_rate],
+//                     ['room_type_id' => 1, 'cost_component_id' => 12, 'quick_quote_tariff' => $s_child_rate],
+//                     ['room_type_id' => 2, 'cost_component_id' => 15, 'quick_quote_tariff' => $d_child_wb_rate],
+//                     ['room_type_id' => 1, 'cost_component_id' => 15, 'quick_quote_tariff' => $s_child_wb_rate],
+//                     ['room_type_id' => 2, 'cost_component_id' => 9, 'quick_quote_tariff' => $d_extra_bed_rate],
+//                     ['room_type_id' => 1, 'cost_component_id' => 9, 'quick_quote_tariff' => $s_extra_bed_rate]
+//                 ];
+//                 foreach ($qq_data as $qq_item) {
+//                     $qq_update_data = [
+//                         'quick_quote_tariff' => $qq_item['quick_quote_tariff']
+//                     ];
+//                     $Enquiry_model->update_qq_details($qq_update_data, $tour_details_id, $qq_item['cost_component_id'], $qq_item['room_type_id']);
+//                 }
+//             }
+//         } else {
+//             $tour_data = array_merge($common_data, [
+//                 'enquiry_header_id' => $enquiry_header_id,
+//                 'enquiry_details_id' => $enquiry_details_id,
+//                 'extension_ref_id' => 0 // Assuming default
+//             ]);
+//             $tour_details_id = $Enquiry_model->insert_tour_details($tour_data);
+//             $result = $tour_details_id ? ['status' => 'inserted', 'tour_details_id' => $tour_details_id] : ['status' => 'error'];
+            
+//             if ($is_quick_quote == 1 && $tour_details_id) {
+//                 $qq_base = [
+//                     'enquiry_header_id' => $enquiry_header_id,
+//                     'enquiry_details_id' => $enquiry_details_id,
+//                     'tour_details_id' => $tour_details_id,
+//                     'is_active' => 1,
+//                     'is_draft' => 1,
+//                     'enterprise_id' => 1
+//                 ];
+//                 $qq_data = [
+//                     array_merge($qq_base, ['room_type_id' => 2, 'cost_component_id' => 6, 'quick_quote_tariff' => $d_adult_rate]),
+//                     array_merge($qq_base, ['room_type_id' => 1, 'cost_component_id' => 6, 'quick_quote_tariff' => $s_adult_rate]),
+//                     array_merge($qq_base, ['room_type_id' => 2, 'cost_component_id' => 12, 'quick_quote_tariff' => $d_child_rate]),
+//                     array_merge($qq_base, ['room_type_id' => 1, 'cost_component_id' => 12, 'quick_quote_tariff' => $s_child_rate]),
+//                     array_merge($qq_base, ['room_type_id' => 2, 'cost_component_id' => 15, 'quick_quote_tariff' => $d_child_wb_rate]),
+//                     array_merge($qq_base, ['room_type_id' => 1, 'cost_component_id' => 15, 'quick_quote_tariff' => $s_child_wb_rate]),
+//                     array_merge($qq_base, ['room_type_id' => 2, 'cost_component_id' => 9, 'quick_quote_tariff' => $d_extra_bed_rate]),
+//                     array_merge($qq_base, ['room_type_id' => 1, 'cost_component_id' => 9, 'quick_quote_tariff' => $s_extra_bed_rate])
+//                 ];
+//                 foreach ($qq_data as $qq_item) {
+//                     $Enquiry_model->insert_qq_details($qq_item);
+//                 }
+//             }
+//         }
+//         echo json_encode($result);
+//     } else {
+//         return redirect()->to('Login');
+//     }
+// }
 
     public function getVehicleTariffDetails()
     {
