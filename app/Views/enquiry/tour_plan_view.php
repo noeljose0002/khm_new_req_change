@@ -3912,76 +3912,70 @@ function updateVehicleSummary(count) {
 
 	// Single card-options-remove handler (FIX: Removed duplicate)
 	$(document).on("click", ".card-options-remove", function(e) {
-		e.preventDefault();
-		var card = $(this).closest(".location-card");
-		// capture sequence (data-index) or fallback to DOM index
-		var removedSeqAttr = parseInt(card.attr("data-index"), 10);
-		var removedSeq = Number.isFinite(removedSeqAttr) ? removedSeqAttr : card.index();
-		// Capture the current first card's checkin BEFORE removing anything
-		var currentFirstCheckin = '';
-		var firstCard = $('.tour_plan_div .location-card').first();
-		if (firstCard.length) {
-			// look for an input whose id starts with "checkin" inside the first card
-			var firstCheckinInput = firstCard.find('input[id^="checkin"]');
-			if (firstCheckinInput.length) currentFirstCheckin = firstCheckinInput.val();
-		}
-		// Remove the card from DOM
-		card.remove();
-		// Remove matching list entries (dyn_list)
-		$('.dyn_list li').each(function() {
-			var txt = $(this).text().trim();
-			if (txt.startsWith(removedSeq + ".")) {
-				$(this).remove();
-			}
-		});
-		// Re-number remaining cards (assumes updateSequenceNumbers reassigns data-index and element ids)
-		updateSequenceNumbers();
-		var remainingCards = $('.tour_plan_div .location-card');
-		if (remainingCards.length === 0) {
-			$("#btn_save_tour_plan, #btn_savedraft_tour_plan").hide();
-		} else {
-			// If the first card was removed, set the new first checkin to tourStartDate (prefer) or fallback to previous first checkin
-			if (removedSeq === 1) {
-				var newFirstSeq = 1;
-				var valueToSet = (typeof tourStartDate !== 'undefined' && tourStartDate) ? tourStartDate : currentFirstCheckin;
-				if (valueToSet && $(`#checkin${newFirstSeq}`).length) {
-					$(`#checkin${newFirstSeq}`).val(valueToSet);
-				}
-			}
-			// **FIX: Recalculate checkouts for each remaining card using their new sequence**
-			// Use a flag to prevent multiple vehicle summary regenerations
-			window.isRecalculating = true; // FIX: Global flag to prevent recursion
-			remainingCards.each(function(i) {
-				var seq = i + 1;
-				// **IMPORTANT: Clear vehicle summaries before recalculation**
-				if (i === 0) {
-					// Only on first iteration, clean all vehicle summaries
-					remainingCards.each(function(j) {
-						var cardSeq = j + 1;
-						$(`#vehicle-summary-${cardSeq}`).remove();
-						$(`#nightly-details${cardSeq}`).find('.vehicle-summary-section').remove();
-					});
-				}
-				calculateCheckout(seq);
-			});
-			window.isRecalculating = false;
-		}
-		// Update total nights and related UI
-		var totalNights = calculateTotalNights();
-		$('#planned_night').text(totalNights + " / ");
-		var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
-		if (totalNights === no_of_night) {
-			$("#btn_save_tour_plan").show();
-			$('#btn_add_bt').prop('disabled', true);
-		} else {
-			$("#btn_save_tour_plan").hide();
-			$('#btn_add_bt').prop('disabled', false);
-		}
-		updateGrandtotalBoth();
-		get_veh_grand_total();
-		toggleNightsVisibility();
-		calculateVehicleExtraKmCharges();
-	});
+    e.preventDefault();
+    var card = $(this).closest(".location-card");
+    // capture sequence (data-index) or fallback to DOM index
+    var removedSeqAttr = parseInt(card.attr("data-index"), 10);
+    var removedSeq = Number.isFinite(removedSeqAttr) ? removedSeqAttr : card.index();
+    // Capture the current first card's checkin BEFORE removing anything
+    var currentFirstCheckin = '';
+    var firstCard = $('.tour_plan_div .location-card').first();
+    if (firstCard.length) {
+        // look for an input whose id starts with "checkin" inside the first card
+        var firstCheckinInput = firstCard.find('input[id^="checkin"]');
+        if (firstCheckinInput.length) currentFirstCheckin = firstCheckinInput.val();
+    }
+    // Remove the card from DOM
+    card.remove();
+    // Remove matching list entries (dyn_list)
+    $('.dyn_list li').each(function() {
+        var txt = $(this).text().trim();
+        if (txt.startsWith(removedSeq + ".")) {
+            $(this).remove();
+        }
+    });
+    // Re-number remaining cards (assumes updateSequenceNumbers reassigns data-index and element ids)
+    updateSequenceNumbers();
+    var remainingCards = $('.tour_plan_div .location-card');
+    if (remainingCards.length === 0) {
+        $("#btn_save_tour_plan, #btn_savedraft_tour_plan").hide();
+    } else {
+        // If the first card was removed, set the new first checkin to tourStartDate (prefer) or fallback to previous first checkin
+        if (removedSeq === 1) {
+            var newFirstSeq = 1;
+            var valueToSet = (typeof tourStartDate !== 'undefined' && tourStartDate) ? tourStartDate : currentFirstCheckin;
+            if (valueToSet && $(`#checkin${newFirstSeq}`).length) {
+                $(`#checkin${newFirstSeq}`).val(valueToSet);
+            }
+        }
+        // **FIX: Recalculate checkouts for each remaining card using their new sequence**
+        // Use a flag to prevent multiple vehicle summary regenerations
+        window.isRecalculating = true; // FIX: Global flag to prevent recursion
+        remainingCards.each(function(i) {
+            var seq = i + 1;
+            // **REMOVED: Clearing vehicle summaries here was causing loss of summaries on remaining cards after renumbering.**
+            // Summaries are already preserved and renumbered in updateSequenceNumbers().
+            // If regeneration is needed, it should be triggered explicitly in calculateCheckout or elsewhere.
+            calculateCheckout(seq);
+        });
+        window.isRecalculating = false;
+    }
+    // Update total nights and related UI
+    var totalNights = calculateTotalNights();
+    $('#planned_night').text(totalNights + " / ");
+    var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
+    if (totalNights === no_of_night) {
+        $("#btn_save_tour_plan").show();
+        $('#btn_add_bt').prop('disabled', true);
+    } else {
+        $("#btn_save_tour_plan").hide();
+        $('#btn_add_bt').prop('disabled', false);
+    }
+    updateGrandtotalBoth();
+    get_veh_grand_total();
+    toggleNightsVisibility();
+    calculateVehicleExtraKmCharges();
+});
 
 	// Handle close night button - REMOVED DUPLICATE, use above
 
