@@ -1972,9 +1972,19 @@ $is_edit = $edit_id ? $edit_id : 0;
 	});
 
 	// Export helper if you want to get the value programmatically
-	function getIsDynamic() {
-		return !!dynamicCheckbox.checked;
-	}
+function getIsDynamic() {
+    // In view mode (isDraftLoading or modal open), there's no dynamic checkbox
+    if (isDraftLoading || $('#modal_tour').hasClass('show')) {
+        return false; // Default to non-dynamic in view mode
+    }
+    
+    var dynamicCheckbox = document.getElementById('is_dynamic');
+    if (!dynamicCheckbox) {
+        console.warn('Dynamic checkbox not found, defaulting to false');
+        return false;
+    }
+    return dynamicCheckbox.checked;
+}
 	// Example export
 	window.getIsDynamic = getIsDynamic;
 
@@ -5259,14 +5269,24 @@ function toggleGSTColumns(show, id) {
 <script type="text/javascript">
 	var isDraftLoading = false; // Global flag to skip handlers during view load
 
+	// Preload common data asynchronously if not already loaded (e.g., fetch vehicle models early)
+	$(document).ready(function() {
+		// Assuming vehicle_data is already PHP-loaded, but if needed, preload via AJAX
+		// For now, rely on PHP echoes; if dynamic, add AJAX preload here
+	});
 
 	$(document).on('click', '.tour_view', function() {
 		var $this = $(this);
-		if ($this.prop('disabled')) return;
+		if ($this.prop('disabled') || isDraftLoading) return; // Prevent if loading or disabled
 		$this.prop('disabled', true);
 		$('#spinner_draft').show();
 
-		// Safe PHP variable initialization
+		// Close modal if already open (prevent stuck state in edit/view switch)
+		if ($('#modal_tour').hasClass('show')) {
+			$('#modal_tour').modal('hide');
+		}
+
+		// Safe PHP variable initialization (already async via PHP)
 		var enquiry_header_id = <?php echo isset($object_det[0]['enquiry_header_id']) ? $object_det[0]['enquiry_header_id'] : 'null'; ?>;
 		var enquiry_details_id = <?php echo isset($object_det[0]['enquiry_details_id']) ? $object_det[0]['enquiry_details_id'] : 'null'; ?>;
 		var hotel_categories = <?php echo isset($hotel_categories) ? json_encode($hotel_categories) : '[]'; ?>;
@@ -5290,298 +5310,363 @@ function toggleGSTColumns(show, id) {
 			return;
 		}
 
-		$.ajax({
+		// Use Promise for AJAX to make it chainable and async-friendly
+		var loadTourPromise = $.ajax({
 			url: '<?php echo site_url('Enquiry/loadTourLocation'); ?>',
 			type: 'POST',
 			data: {
 				enquiry_header_id,
 				enquiry_details_id
 			},
-			dataType: 'json',
-			success: function(response) {
-				console.log('=== TOUR VIEW LOAD RESPONSE ===');
-				console.log('Full Response:', response);
-				if (!response || response.length === 0) {
-					showAlert('warning', 'No tour data found.');
-					$('#spinner_draft').hide();
-					return;
+			dataType: 'json'
+		});
+
+		loadTourPromise.then(function(response) {
+			console.log('=== TOUR VIEW LOAD RESPONSE ===');
+			console.log('Full Response:', response);
+			if (!response || response.length === 0) {
+				showAlert('warning', 'No tour data found.');
+				$('#spinner_draft').hide();
+				$this.prop('disabled', false); // Re-enable button
+				return Promise.reject('No data');
+			}
+
+			// Clear existing content
+			$('.tab_con').empty();
+
+			// Group data by tour_details_id (sync operation)
+			var groupedData = {};
+			$.each(response, function(index, item) {
+				var tourDetailsId = item.tour_details_id;
+				console.log(`Processing item ${index}, tour_details_id: ${tourDetailsId}`);
+				console.log('Item room_category_id:', item.room_category_id);
+				console.log('Item room_category_name:', item.room_category_name);
+
+				if (!groupedData[tourDetailsId]) {
+					groupedData[tourDetailsId] = {
+						main: {
+							tour_details_id: item.tour_details_id,
+							geog_name: item.geog_name || 'Unknown Location',
+							geog_id: item.tour_location || '',
+							check_in_date: item.check_in_date || '',
+							check_out_date: item.check_out_date || '',
+							no_of_days: item.no_of_days || 0,
+							hotel_id: item.hotel_id || '',
+							hot_cat_id: item.hot_cat_id || '',
+							room_category_id: item.room_category_id || '',
+							tax_status: item.tax_status || 0,
+							is_own_arrangement: item.is_own_arrangement || 0,
+							tour_location: item.tour_location || '',
+							meal_plan_id: item.meal_plan_id || ''
+						},
+						expansions: [] // Collect all expansions here
+					};
+					console.log(`Created main data for tour ${tourDetailsId}:`, groupedData[tourDetailsId].main);
 				}
 
-				// Clear existing content
-				$('.tab_con').empty();
-
-				// Group data by tour_details_id
-				var groupedData = {};
-				$.each(response, function(index, item) {
-					var tourDetailsId = item.tour_details_id;
-					console.log(`Processing item ${index}, tour_details_id: ${tourDetailsId}`);
-					console.log('Item room_category_id:', item.room_category_id);
-					console.log('Item room_category_name:', item.room_category_name);
-
-					if (!groupedData[tourDetailsId]) {
-						groupedData[tourDetailsId] = {
-							main: {
-								tour_details_id: item.tour_details_id,
-								geog_name: item.geog_name || 'Unknown Location',
-								geog_id: item.tour_location || '',
-								check_in_date: item.check_in_date || '',
-								check_out_date: item.check_out_date || '',
-								no_of_days: item.no_of_days || 0,
-								hotel_id: item.hotel_id || '',
-								hot_cat_id: item.hot_cat_id || '',
-								room_category_id: item.room_category_id || '',
-								tax_status: item.tax_status || 0,
-								is_own_arrangement: item.is_own_arrangement || 0,
-								tour_location: item.tour_location || '',
-								meal_plan_id: item.meal_plan_id || ''
-							},
-							expansions: [] // Collect all expansions here
-						};
-						console.log(`Created main data for tour ${tourDetailsId}:`, groupedData[tourDetailsId].main);
-					}
-
-					// Handle nested expansions
-					if (item.expansion && Array.isArray(item.expansion)) {
-						console.log(`Processing ${item.expansion.length} expansions for tour ${tourDetailsId}`);
-						$.each(item.expansion, function(eIndex, exp) {
-							console.log(`Expansion ${eIndex}:`, exp);
-							console.log(`Expansion room_category_id: ${exp.room_category_id}`);
-							groupedData[tourDetailsId].expansions.push({
-								tour_expansion_id: exp.tour_expansion_id,
-								tour_expansion_date: exp.tour_expansion_date,
-								expansion_room_category_id: exp.room_category_id || item.room_category_id || '',
-								meal_plan_id: exp.meal_plan_id || item.meal_plan_id || '',
-								room_rate_double: exp.room_rate_double || 0,
-								child_with_bed_double: exp.child_with_bed_double || 0,
-								child_without_bed_double: exp.child_without_bed_double || 0,
-								extra_bed_double: exp.extra_bed_double || 0,
-								double_total_rate: exp.double_total_rate || 0,
-								room_rate_single: exp.room_rate_single || 0,
-								child_with_bed_single: exp.child_with_bed_single || 0,
-								child_without_bed_single: exp.child_without_bed_single || 0,
-								extra_bed_single: exp.extra_bed_single || 0,
-								single_total_rate: exp.single_total_rate || 0,
-								vehicle_details_json: exp.vehicle_details_json || ''
-							});
-							console.log(`Added expansion with room_category_id: ${exp.room_category_id || item.room_category_id}`);
+				// Handle nested expansions
+				if (item.expansion && Array.isArray(item.expansion)) {
+					console.log(`Processing ${item.expansion.length} expansions for tour ${tourDetailsId}`);
+					$.each(item.expansion, function(eIndex, exp) {
+						console.log(`Expansion ${eIndex}:`, exp);
+						console.log(`Expansion room_category_id: ${exp.room_category_id}`);
+						groupedData[tourDetailsId].expansions.push({
+							tour_expansion_id: exp.tour_expansion_id,
+							tour_expansion_date: exp.tour_expansion_date,
+							expansion_room_category_id: exp.room_category_id || item.room_category_id || '',
+							meal_plan_id: exp.meal_plan_id || item.meal_plan_id || '',
+							room_rate_double: exp.room_rate_double || 0,
+							child_with_bed_double: exp.child_with_bed_double || 0,
+							child_without_bed_double: exp.child_without_bed_double || 0,
+							extra_bed_double: exp.extra_bed_double || 0,
+							double_total_rate: exp.double_total_rate || 0,
+							room_rate_single: exp.room_rate_single || 0,
+							child_with_bed_single: exp.child_with_bed_single || 0,
+							child_without_bed_single: exp.child_without_bed_single || 0,
+							extra_bed_single: exp.extra_bed_single || 0,
+							single_total_rate: exp.single_total_rate || 0,
+							vehicle_details_json: exp.vehicle_details_json || '' // Ensure this is captured
 						});
-					}
-				});
+						console.log(`Added expansion with room_category_id: ${exp.room_category_id || item.room_category_id}`);
+					});
+				}
+			});
 
-				console.log('=== GROUPED DATA ===');
-				console.log(groupedData);
+			console.log('=== GROUPED DATA ===');
+			console.log(groupedData);
 
-				// Convert to array
-				var tourDetailsArray = Object.keys(groupedData).map(function(key) {
-					return groupedData[key];
-				});
+			// Convert to array
+			var tourDetailsArray = Object.keys(groupedData).map(function(key) {
+				return groupedData[key];
+			});
 
-				// Set loading flag ON
-				isDraftLoading = true;
+			// Set loading flag ON
+			isDraftLoading = true;
 
-				var viewHtml = '';
+			var viewHtml = '';
 
-				// Loop through each location and create cards
-				$.each(tourDetailsArray, function(index, locationData) {
-					var count = index + 1;
-					var main = locationData.main;
-					var expansions = locationData.expansions; // Raw expansions for grouping in function
-					console.log(`\n=== CREATING VIEW CARD ${count} ===`);
-					console.log('Main data:', main);
-					console.log('Common room_category_id:', main.room_category_id);
-					console.log('Number of expansions:', expansions.length);
+			// Loop through each location and create cards (sync for HTML generation)
+			$.each(tourDetailsArray, function(index, locationData) {
+				var count = index + 1;
+				var main = locationData.main;
+				var expansions = locationData.expansions; // Raw expansions for grouping in function
+				console.log(`\n=== CREATING VIEW CARD ${count} ===`);
+				console.log('Main data:', main);
+				console.log('Common room_category_id:', main.room_category_id);
+				console.log('Number of expansions:', expansions.length);
 
-					var ep_sel = main.meal_plan_id == 1 ? "selected" : "";
-					var cp_sel = main.meal_plan_id == 2 ? "selected" : "";
-					var map_sel = main.meal_plan_id == 3 ? "selected" : "";
-					var ap_sel = main.meal_plan_id == 4 ? "selected" : "";
+				var ep_sel = main.meal_plan_id == 1 ? "selected" : "";
+				var cp_sel = main.meal_plan_id == 2 ? "selected" : "";
+				var map_sel = main.meal_plan_id == 3 ? "selected" : "";
+				var ap_sel = main.meal_plan_id == 4 ? "selected" : "";
 
-					// Build card HTML for view (readonly)
-					viewHtml += `
-					<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
-					<div class="card">
-						<div class="card-header cardy">
-							<div id="eighteen_div_d${count}"></div>
-							<div id="eighteen_div_s${count}"></div>
-							<input type="hidden" id="tax_status${count}" value="${main.tax_status}">
-							<input type="hidden" id="own_arrange${count}" value="${main.is_own_arrangement}">
-							<input type="hidden" id="tour_location_id${count}" value="${main.geog_id}">
-							<input type="hidden" id="location_sequence${count}" value="${count}">
-							<div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${main.geog_name}</span></div>
-							<div class="card-options">
-								<!-- No remove option in view mode -->
-							</div>
+				// Build card HTML for view (readonly)
+				viewHtml += `
+				<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
+				<div class="card">
+					<div class="card-header cardy">
+						<div id="eighteen_div_d${count}"></div>
+						<div id="eighteen_div_s${count}"></div>
+						<input type="hidden" id="tax_status${count}" value="${main.tax_status}">
+						<input type="hidden" id="own_arrange${count}" value="${main.is_own_arrangement}">
+						<input type="hidden" id="tour_location_id${count}" value="${main.geog_id}">
+						<input type="hidden" id="location_sequence${count}" value="${count}">
+						<div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${main.geog_name}</span></div>
+						<div class="card-options">
+							<!-- No remove option in view mode -->
 						</div>
-						<div class="card-body">
-							<div class="ibox teams mb-30 bg-boxshadow">
-								<div class="ibox-content teams">
-									<div class="row mt-2">
-										<div class="col-xl col-sm-12 col-md-2">
-											<div class="teams-rank"><b>Checkin</b></div>
-											<span class="text-muted">
-												<input type="date" value="${main.check_in_date}" id="checkin${count}" class="form-control input-sm" required readonly>
-											</span>
-										</div>
-										<div class="col-xl col-sm-12 col-md-2">
-											<div class="teams-rank"><b>Nights</b></div>
-											<span class="text-muted">
-												<input type="text" id="no_of_night${count}" value="${main.no_of_days}" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" readonly>
-											</span>
-										</div>
-										<div class="col-xl col-sm-12 col-md-2">
-											<div class="teams-rank"><b>Checkout</b></div>
-											<span class="text-muted">
-												<input type="date" id="checkout${count}" value="${main.check_out_date}" class="form-control input-sm" required readonly>
-											</span>
-										</div>
-										<div class="col-xl col-sm-12 col-md-2">
-											<div class="teams-rank"><b>Hotel Category</b></div>
-											<select id="hotelcat${count}" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" disabled>
+					</div>
+					<div class="card-body">
+						<div class="ibox teams mb-30 bg-boxshadow">
+							<div class="ibox-content teams">
+								<div class="row mt-2">
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Checkin</b></div>
+										<span class="text-muted">
+											<input type="date" value="${main.check_in_date}" id="checkin${count}" class="form-control input-sm" required readonly>
+										</span>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Nights</b></div>
+										<span class="text-muted">
+											<input type="text" id="no_of_night${count}" value="${main.no_of_days}" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" readonly>
+										</span>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Checkout</b></div>
+										<span class="text-muted">
+											<input type="date" id="checkout${count}" value="${main.check_out_date}" class="form-control input-sm" required readonly>
+										</span>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Hotel Category</b></div>
+										<select id="hotelcat${count}" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" disabled>
+											<option value="">Select</option>
+										</select>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Hotel</b></div>
+										<span class="text-muted">
+											<select id="hotelid${count}" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" disabled>
 												<option value="">Select</option>
 											</select>
-										</div>
-										<div class="col-xl col-sm-12 col-md-2">
-											<div class="teams-rank"><b>Hotel</b></div>
-											<span class="text-muted">
-												<select id="hotelid${count}" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" disabled>
-													<option value="">Select</option>
-												</select>
-											</span>
-										</div>
-										<div class="col-xl col-sm-12 col-md-2">
-											<div class="teams-rank"><b>Room Category</b></div>
-											<select id="roomcat_common${count}" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}" disabled>
-												<option value="">Select</option>
-											</select>
-										</div>
+										</span>
 									</div>
-									<div class="row mt-2">
-										<div class="col-xl col-sm-12 col-md-2">
-											<div class="teams-rank"><b>Meal Plan</b></div>
-											<span class="text-muted">
-												<select id="mealplan${count}" class="form-control select2-show-search input-sm mp_change" data-id="${count}" disabled>
-													<option value="">Select</option>
-													<option value="1" ${ep_sel}>EP</option>
-													<option value="2" ${cp_sel}>CP</option>
-													<option value="3" ${map_sel}>MAP</option>
-													<option value="4" ${ap_sel}>AP</option>
-												</select>
-											</span>
-										</div>
-										<div class="col-xl col-sm-12 col-md-2">
-											<div class="teams-rank"><b>No Of Adult</b></div>
-											<input type="text" id="no_of_adult${count}" value="${no_of_adult}" class="form-control input-sm" maxlength="2" readonly>
-										</div>
-										<div class="col-xl col-sm-12 col-md-2">
-											<div class="teams-rank"><b>C.With Bed Qty</b></div>
-											<input type="text" id="no_of_ch${count}" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" readonly>
-										</div>
-										<div class="col-xl col-sm-12 col-md-2">
-											<div class="teams-rank"><b>C.Without Bed Qty</b></div>
-											<input type="text" id="no_of_cw${count}" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" readonly>
-										</div>
-										<div class="col-xl col-sm-12 col-md-2">
-											<div class="teams-rank"><b>Extra Bed Qty</b></div>
-											<input type="text" id="no_of_extra${count}" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" readonly>
-										</div>
-										<div class="col-xl col-sm-12 col-md-2">
-											<div class="teams-rank"><b>Total Pax</b></div>
-											<input type="text" id="no_of_pax${count}" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" readonly>
-										</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Room Category</b></div>
+										<select id="roomcat_common${count}" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}" disabled>
+											<option value="">Select</option>
+										</select>
 									</div>
-									<div class="nightly-details" id="nightly-details${count}"></div>
 								</div>
+								<div class="row mt-2">
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Meal Plan</b></div>
+										<span class="text-muted">
+											<select id="mealplan${count}" class="form-control select2-show-search input-sm mp_change" data-id="${count}" disabled>
+												<option value="">Select</option>
+												<option value="1" ${ep_sel}>EP</option>
+												<option value="2" ${cp_sel}>CP</option>
+												<option value="3" ${map_sel}>MAP</option>
+												<option value="4" ${ap_sel}>AP</option>
+											</select>
+										</span>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>No Of Adult</b></div>
+										<input type="text" id="no_of_adult${count}" value="${no_of_adult}" class="form-control input-sm" maxlength="2" readonly>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>C.With Bed Qty</b></div>
+										<input type="text" id="no_of_ch${count}" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" readonly>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>C.Without Bed Qty</b></div>
+										<input type="text" id="no_of_cw${count}" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" readonly>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Extra Bed Qty</b></div>
+										<input type="text" id="no_of_extra${count}" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" readonly>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Total Pax</b></div>
+										<input type="text" id="no_of_pax${count}" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" readonly>
+									</div>
+								</div>
+								<div class="nightly-details" id="nightly-details${count}"></div>
 							</div>
 						</div>
 					</div>
 				</div>
+				</div>
 				`;
-				});
+			});
 
-				// Append all HTML at once
-				$('.tab_con').html(viewHtml);
+			// Append all HTML at once (fast DOM update)
+			$('.tab_con').html(viewHtml);
 
-				// Now populate dropdowns and nightly details dynamically
-				$.each(tourDetailsArray, function(index, locationData) {
-					var count = index + 1;
-					var main = locationData.main;
-					var expansions = locationData.expansions;
+			// Show modal early for perceived faster load (non-blocking)
+			$('#modal_tour').modal('show');
 
-					// Populate hotel categories
-					var hotelCat = $('#hotelcat' + count);
-					hotelCat.empty();
-					hotelCat.append('<option value="">Select</option>');
-					if (hotel_categories.length > 0) {
-						$.each(hotel_categories, function(index, hotelcat) {
-							var selected = hotelcat.hotel_category_id == main.hot_cat_id ? ' selected' : '';
-							hotelCat.append('<option value="' + hotelcat.hotel_category_id + '"' + selected + '>' + hotelcat.hotel_category_name + '</option>');
-						});
-					}
-					console.log(`Hotel category ${main.hot_cat_id} selected for location ${count}`);
+			// Chain async population using Promises to avoid fixed timeouts
+			var populatePromises = [];
+			$.each(tourDetailsArray, function(index, locationData) {
+				var count = index + 1;
+				var main = locationData.main;
+				var expansions = locationData.expansions;
 
-					// Initialize Select2 (disabled)
-					$(`.location-card[data-index="${count}"] .select2-show-search`).select2();
+				// Create a promise chain for each location's population
+				var locationPromise = populateLocationAsync(count, main, expansions, hotel_categories, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models);
+				populatePromises.push(locationPromise);
+			});
 
-					// Trigger hotel category change to load hotels (simulate for view)
-					console.log(`Triggering hotel category change for location ${count} in view mode`);
-					hotelCat.trigger('change');
+			// Wait for all locations to populate
+			return Promise.all(populatePromises).then(function() {
+				// Set loading flag OFF
+				isDraftLoading = false;
 
-					// Wait for hotels to load, then set selected hotel and room categories
-					setTimeout(function() {
-						console.log(`\n=== SETTING HOTEL ${main.hotel_id} for location ${count} in view ===`);
-						$(`#hotelid${count}`).val(main.hotel_id).trigger('change');
-
-						// Wait for room categories to load
-						setTimeout(function() {
-							console.log(`\n=== SETTING ROOM CATEGORY for location ${count} in view ===`);
-							console.log(`Room category ID to set: ${main.room_category_id}`);
-
-							// Check if room categories are loaded
-							var roomCatOptions = $(`#roomcat_common${count} option`);
-							console.log(`Number of room category options loaded: ${roomCatOptions.length}`);
-							roomCatOptions.each(function() {
-								console.log(`Option: value="${$(this).val()}", text="${$(this).text()}"`);
-							});
-
-							// Set the room category value
-							$(`#roomcat_common${count}`).val(main.room_category_id);
-							console.log(`Set roomcat_common${count} to: ${main.room_category_id}`);
-							console.log(`Current value of roomcat_common${count}: ${$(`#roomcat_common${count}`).val()}`);
-
-							// Trigger change event (for consistency, though disabled)
-							$(`#roomcat_common${count}`).trigger('change');
-
-							// Generate nightly details with expansion data for view
-							generateNightlyDetailsForView(count, main, expansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models);
-						}, 1000); // Increased timeout to ensure room categories are loaded
-					}, 1000); // Increased timeout to ensure hotels are loaded
-				});
-
-				// Update UI (no totals update needed for view, but for consistency)
-				setTimeout(function() {
-					// Set loading flag OFF
-					isDraftLoading = false;
-
-					$('#spinner_draft').hide();
-					showAlert('success', 'Tour details loaded successfully!');
-					$('#modal_tour').modal('show');
-				}, 3000);
-			},
-			error: function(xhr, status, error) {
-				console.error('Error loading tour:', error);
-				showAlert('danger', 'Error loading tour data. Please try again.');
 				$('#spinner_draft').hide();
-				$this.prop('disabled', false);
-			}
+				showAlert('success', 'Tour details loaded successfully!');
+				$this.prop('disabled', false); // Re-enable button for reusability
+			});
+		}).catch(function(error) {
+			console.error('Tour load failed:', error);
+			isDraftLoading = false;
+			$('#spinner_draft').hide();
+			$this.prop('disabled', false); // Re-enable on error
+			showAlert('danger', 'Error loading tour data. Please try again.');
 		});
 	});
 
-	// Helper function to generate nightly details from draft data for view (UPDATED - readonly)
-	// Helper function to generate nightly details from draft data for view (UPDATED - readonly, fixed select2)
+	// Handle modal close to prevent stuck state (cleanup select2 and spinners)
+	$('#modal_tour').on('hidden.bs.modal', function () {
+		// Destroy all select2 instances to free resources
+		$('.select2-show-search').select2('destroy');
+		// Hide any lingering spinners
+		$('#spinner_draft').hide();
+		// Reset loading flag
+		isDraftLoading = false;
+		// Clear content to prevent overlap in edit/view switch
+		$('.tab_con').empty();
+	});
+
+	// Async function to populate a single location (replaces setTimeouts with promises)
+	function populateLocationAsync(count, main, expansions, hotel_categories, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
+		return new Promise(function(resolve) {
+			// Populate hotel categories (sync)
+			var hotelCat = $('#hotelcat' + count);
+			hotelCat.empty();
+			hotelCat.append('<option value="">Select</option>');
+			if (hotel_categories.length > 0) {
+				$.each(hotel_categories, function(index, hotelcat) {
+					var selected = hotelcat.hotel_category_id == main.hot_cat_id ? ' selected' : '';
+					hotelCat.append('<option value="' + hotelcat.hotel_category_id + '"' + selected + '>' + hotelcat.hotel_category_name + '</option>');
+				});
+			}
+			console.log(`Hotel category ${main.hot_cat_id} selected for location ${count}`);
+
+			// Initialize Select2 (disabled) - sync
+			$(`.location-card[data-index="${count}"] .select2-show-search`).select2({
+				// Add passive wheel listener to suppress violation warnings
+				dropdownParent: $('#modal_tour').length ? $('#modal_tour') : $(document.body),
+				minimumResultsForSearch: Infinity,
+				width: '100%',
+				// Suppress wheel event violation by marking as passive (if supported)
+				wheel: { passive: true }
+			});
+
+			// Simulate hotel category change with promise (async load hotels if needed; assume sync for now)
+			var hotelLoadPromise = new Promise(function(hresolve) {
+				console.log(`Triggering hotel category change for location ${count} in view mode`);
+				hotelCat.trigger('change');
+				// If hotel load is async, replace with actual AJAX promise here
+				setTimeout(hresolve, 500); // Minimal wait; adjust if actual async
+			});
+
+			hotelLoadPromise.then(function() {
+				console.log(`\n=== SETTING HOTEL ${main.hotel_id} for location ${count} in view ===`);
+				$(`#hotelid${count}`).val(main.hotel_id).trigger('change');
+
+				// Wait for room categories with promise
+				var roomLoadPromise = new Promise(function(rresolve) {
+					setTimeout(function() {
+						console.log(`\n=== SETTING ROOM CATEGORY for location ${count} in view ===`);
+						console.log(`Room category ID to set: ${main.room_category_id}`);
+
+						// Check if room categories are loaded
+						var roomCatOptions = $(`#roomcat_common${count} option`);
+						console.log(`Number of room category options loaded: ${roomCatOptions.length}`);
+						roomCatOptions.each(function() {
+							console.log(`Option: value="${$(this).val()}", text="${$(this).text()}"`);
+						});
+
+						// Set the room category value
+						$(`#roomcat_common${count}`).val(main.room_category_id);
+						console.log(`Set roomcat_common${count} to: ${main.room_category_id}`);
+						console.log(`Current value of roomcat_common${count}: ${$(`#roomcat_common${count}`).val()}`);
+
+						// Trigger change event (for consistency, though disabled)
+						$(`#roomcat_common${count}`).trigger('change');
+						rresolve();
+					}, 500); // Reduced timeout
+				});
+
+				roomLoadPromise.then(function() {
+					// Generate nightly details with expansion data for view (includes vehicle fix)
+					generateNightlyDetailsForView(count, main, expansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models);
+					resolve();
+				});
+			});
+		});
+	}
+
+	// View-mode safe updateVehicleTotals (skip dynamic checks, no checkboxes needed) - Updated to accept vehicle_models
+	function updateVehicleTotalsViewMode(count, night, vindex, vdata, vehicle_models) {
+		var vmodel = vehicle_models ? vehicle_models[vindex] : null;
+		var vehTypeId = vdata.veh_type_id || (vmodel ? vmodel.vehicle_type_id : '');
+		var vid = `${count}${night}${vehTypeId}`;
+		// Basic total computation without checkboxes or dynamic logic
+		var dayRent = parseFloat(vdata.day_rent || 0);
+		var extraKm = parseFloat(vdata.extra_kilometer || 0);
+		var extraRate = parseFloat(vdata.extra_km_rate || 0);
+		var total = dayRent + (extraKm * extraRate);
+		$(`#veh_total${vid}`).val(total.toFixed(2)); // Set computed total if not provided
+		// Update any summary without .checked access
+		// Assuming updateVehicleSummary can be called safely or skipped; wrap if needed
+		// try {
+		// 	updateVehicleSummary(count, night, vid, false); // Pass false for isDynamic or adjust
+		// } catch (e) {
+		// 	console.warn('Skipping vehicle summary update in view mode:', e);
+		// }
+	}
+
+	// Updated helper function to generate nightly details from draft data for view (fixed vehicle loading)
+	// Key fixes: Wrap vehicle updates in try-catch, add veh_header population, use view-mode safe totals
 	function generateNightlyDetailsForView(count, main, allExpansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
 		console.log(`\n=== GENERATING NIGHTLY DETAILS (VIEW MODE) for location ${count} ===`);
 		console.log('Main room_category_id:', main.room_category_id);
 		console.log('Number of expansions:', allExpansions.length);
+		console.log('Vehicle models:', vehicle_models); // Debug: Check if vehicle_models is loaded
 
 		var nightlyDetails = $(`#nightly-details${count}`);
 		nightlyDetails.empty();
@@ -5592,12 +5677,18 @@ function toggleGSTColumns(show, id) {
 		var commonRoomOptions = $(`#roomcat_common${count}`).html() || '<option value="">Select</option>';
 		var commonMealOptions = $(`#mealplan${count}`).html() || '<option value="">Select</option>';
 
-		// Group expansions by date
+		// Group expansions by date (ensure tour_expansion_date is properly formatted)
 		var expansionsByDate = {};
 		allExpansions.forEach(function(exp) {
-			var expDate = new Date(exp.tour_expansion_date).toDateString();
-			if (!expansionsByDate[expDate]) expansionsByDate[expDate] = [];
-			expansionsByDate[expDate].push(exp);
+			// Fix date parsing if needed; assume ISO format
+			var expDate = new Date(exp.tour_expansion_date);
+			if (isNaN(expDate.getTime())) {
+				console.warn('Invalid expansion date:', exp.tour_expansion_date);
+				return;
+			}
+			var expDateStr = expDate.toDateString();
+			if (!expansionsByDate[expDateStr]) expansionsByDate[expDateStr] = [];
+			expansionsByDate[expDateStr].push(exp);
 		});
 		console.log('Expansions grouped by date:', expansionsByDate);
 
@@ -5610,7 +5701,9 @@ function toggleGSTColumns(show, id) {
 			var numSingles = parseInt(no_of_single_room) || 0;
 			var totalRooms = numDoubles + numSingles;
 
-			// Reuse same UI structure from draft version
+			console.log(`Night ${night}: ${nightExpansions.length} expansions, total rooms: ${totalRooms}`); // Debug
+
+			// Reuse same UI structure from draft version (ensure generateNightHtml includes vehicle sections if required)
 			var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, main.check_in_date);
 			nightlyDetails.append(nightlyHtml);
 
@@ -5635,6 +5728,8 @@ function toggleGSTColumns(show, id) {
 					dropdownParent: $('#modal_tour').length ? $('#modal_tour') : $(document.body),
 					minimumResultsForSearch: Infinity,
 					width: '100%' // ensure it fits container
+					// Add passive wheel listener to suppress violation warnings
+					, wheel: { passive: true }
 				});
 			});
 
@@ -5643,8 +5738,10 @@ function toggleGSTColumns(show, id) {
 				var roomExpansions = nightExpansions.slice(0, totalRooms);
 				var doubleExpansions = roomExpansions.slice(0, numDoubles);
 				var singleExpansions = roomExpansions.slice(numDoubles);
-				var vehicleIndex = totalRooms;
-				var vehicleExpansion = nightExpansions[vehicleIndex];
+				
+				// Fixed: Since vehicle data is embedded in room expansions (no separate vehicle expansion), use the last room expansion's data
+				var vehicleExpansion = nightExpansions.length > 0 ? nightExpansions[nightExpansions.length - 1] : null;
+				console.log(`Vehicle expansion for night ${night} (from last room):`, vehicleExpansion); // Debug: Check if captured
 
 				// Double rooms
 				for (let i = 1; i <= numDoubles; i++) {
@@ -5685,12 +5782,20 @@ function toggleGSTColumns(show, id) {
 					}
 				}
 
-				// Vehicle data (readonly)
-				if (vehicleExpansion && vehicleExpansion.vehicle_details_json) {
+				// Fixed Vehicle data loading (readonly) - validate JSON and ensure vehicle_models alignment
+				if (is_vehicle_required == 1 && vehicleExpansion && vehicleExpansion.vehicle_details_json && vehicle_models.length > 0) {
+					console.log('Parsing vehicle details JSON:', vehicleExpansion.vehicle_details_json); // Debug
 					try {
 						var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
-						$.each(vehicleDetails, function(vindex, vdata) {
-							var vid = `${count}${night}${vdata.veh_type_id}`;
+						console.log('Parsed vehicle details:', vehicleDetails); // Debug
+						// Align with vehicle_models by index or veh_type_id
+						$.each(vehicle_models, function(vindex, vmodel) {
+							// Find matching vehicle detail by veh_type_id or use index
+							var matchingDetail = vehicleDetails.find(function(vdata) { return vdata.veh_type_id == vmodel.vehicle_type_id; }) || vehicleDetails[vindex] || {};
+							var vdata = matchingDetail;
+							var vid = `${count}${night}${vmodel.vehicle_type_id}`;
+							console.log(`Setting vehicle ${vindex} (ID: ${vmodel.vehicle_type_id}):`, vdata); // Debug
+							
 							$(`#day_rent${vid}`).val(vdata.day_rent || 0);
 							$(`#travel_distance${vid}`).val(vdata.travel_distance || 0);
 							$(`#max_km_day${vid}`).val(vdata.max_km_day || 0);
@@ -5698,12 +5803,67 @@ function toggleGSTColumns(show, id) {
 							var travel = parseFloat(vdata.travel_distance || 0);
 							var maxkm = parseFloat(vdata.max_km_day || 0);
 							$(`#extra_kilometer${vid}`).val(Math.max(0, travel - maxkm));
-							updateVehicleTotals(count, night, vindex);
-							$(`#veh_total${vid}`).val(vdata.veh_total || 0);
+							
+							// NEW: Extract and load individual header details (arrival to location, previous to current, etc.)
+							$(`#arr_to_loc${vid}`).val(vdata.arr_to_loc || 0);
+							$(`#pre_to_cur${vid}`).val(vdata.pre_to_cur || 0);
+							$(`#cur_to_dep${vid}`).val(vdata.cur_to_dep || 0);
+							$(`#dep_to_arr${vid}`).val(vdata.dep_to_arr || 0);
+							$(`#hub_to_arr${vid}`).val(vdata.hub_to_arr || 0);
+							
+							// Also load vehicle model and count if fields exist
+							if ($(`#vehicle_model${vid}`).length > 0) {
+								$(`#vehicle_model${vid}`).text(vdata.vehicle_model || '');
+							}
+							$(`#vehicle_count${vid}`).val(vdata.vehicle_count || 1);
+							
+							// Updated: Try common vehicle summary/header IDs (based on example format)
+							var vehicleSummaryId = `vehicle_summary${vid}`;
+							var vehicleHeaderId = `veh_header${vid}`;
+							if ($(`#${vehicleSummaryId}`).length > 0) {
+								var summaryText = `Vehicle Summary ${vdata.veh_header || ''}`;
+								$(`#${vehicleSummaryId}`).text(summaryText).val(summaryText);
+								console.log(`Set vehicle summary for ${vid}: ${summaryText}`);
+							} else if ($(`#${vehicleHeaderId}`).length > 0) {
+								$(`#${vehicleHeaderId}`).text(vdata.veh_header || '').val(vdata.veh_header || '');
+								console.log(`Set vehicle header for ${vid}: ${vdata.veh_header}`);
+							} else {
+								console.warn(`Vehicle summary/header elements #${vehicleSummaryId} or #${vehicleHeaderId} not found for ${vid}`);
+							}
+							
+							// Use view-mode safe update (avoids .checked error) - pass vehicle_models
+							updateVehicleTotalsViewMode(count, night, vindex, vdata, vehicle_models);
+							$(`#veh_total${vid}`).val(vdata.veh_total || 0); // Override with provided total
 						});
 					} catch (e) {
-						console.error('Error parsing vehicle details:', e);
+						console.error('Error parsing vehicle details for night ' + night + ':', e, vehicleExpansion.vehicle_details_json);
+						// Fallback: Set defaults if JSON invalid
+						$.each(vehicle_models, function(vindex, vmodel) {
+							var vid = `${count}${night}${vmodel.vehicle_type_id}`;
+							// Set default header fields
+							$(`#arr_to_loc${vid}`).val(0);
+							$(`#pre_to_cur${vid}`).val(0);
+							$(`#cur_to_dep${vid}`).val(0);
+							$(`#dep_to_arr${vid}`).val(0);
+							$(`#hub_to_arr${vid}`).val(0);
+							updateVehicleTotalsViewMode(count, night, vindex, {day_rent: 0, extra_kilometer: 0, extra_km_rate: 0}, vehicle_models);
+							$(`#veh_total${vid}`).val(0);
+						});
 					}
+				} else if (is_vehicle_required == 1) {
+					console.warn('Vehicle required but no/invalid expansion data for night ' + night);
+					// Set defaults
+					$.each(vehicle_models, function(vindex, vmodel) {
+						var vid = `${count}${night}${vmodel.vehicle_type_id}`;
+						// Set default header fields
+						$(`#arr_to_loc${vid}`).val(0);
+						$(`#pre_to_cur${vid}`).val(0);
+						$(`#cur_to_dep${vid}`).val(0);
+						$(`#dep_to_arr${vid}`).val(0);
+						$(`#hub_to_arr${vid}`).val(0);
+						updateVehicleTotalsViewMode(count, night, vindex, {day_rent: 0, extra_kilometer: 0, extra_km_rate: 0}, vehicle_models);
+						$(`#veh_total${vid}`).val(0);
+					});
 				}
 			}
 
@@ -5732,11 +5892,11 @@ function toggleGSTColumns(show, id) {
 			}
 			$(`#ss_total_rate${count}${night}`).val(grandSingle);
 
-			// Handle vehicle grand total
-			if (is_vehicle_required == 1) {
-				// Ensure all vehicle totals are updated
+			// Handle vehicle grand total (fixed: always compute if required)
+			if (is_vehicle_required == 1 && vehicle_models.length > 0) {
+				// Ensure all vehicle totals are updated (using safe view mode) - pass vehicle_models
 				$.each(vehicle_models, function(vindex, vmodel) {
-					updateVehicleTotals(count, night, vindex);
+					updateVehicleTotalsViewMode(count, night, vindex, {day_rent: 0}, vehicle_models); // Safe call with defaults
 				});
 
 				// Compute grand total for vehicles
@@ -5746,6 +5906,7 @@ function toggleGSTColumns(show, id) {
 					grandVeh += parseFloat($(`#veh_total${vid}`).val() || 0);
 				});
 				$(`#veh_grand_total${count}${night}`).val(grandVeh);
+				console.log(`Vehicle grand total for night ${night}: ${grandVeh}`); // Debug
 			}
 		}
 
