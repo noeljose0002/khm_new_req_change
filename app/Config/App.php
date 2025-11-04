@@ -17,6 +17,7 @@ class App extends BaseConfig
      * E.g., http://example.com/
      */
     public string $baseURL = 'http://localhost/khm/public';
+    // public string $baseURL = 'http://ec2-13-233-17-185.ap-south-1.compute.amazonaws.com/khm/public';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

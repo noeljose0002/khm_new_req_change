@@ -167,7 +167,7 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<label class="form-control-label" style="font-weight: bold;">Payment Details</label>
-											<textarea class="form-control" id="payment_details"></textarea>
+											<textarea class="form-control input-sm" id="payment_details"></textarea>
 										</div>
 									</div>
 									<div class="row" style="padding-top:10px;">
@@ -182,7 +182,7 @@
 			</div>
 
 
-	<div class="modal fade" id="paymenthistorymodal" tabindex="-1" role="dialog"  aria-hidden="true">
+	<div class="modal fade" id="paymenthistorymodal" tabindex="-1" role="dialog"  aria-hidden="true" data-backdrop="static" data-keyboard="false">
 				<div class="modal-dialog custom-modal-width" role="document">
 					<div class="modal-content">
 						<div class="modal-header" style="background-color:#339966;color:#fff;">
@@ -247,11 +247,13 @@
 										<table class="table" id="table_payment_history" style="width: 100%;">
 											<thead style="background-color: #c6ecd9;"> 
 												<tr>
-													<th scope="col">Date</th>
+													<th scope="col">Si No</th>
+													<th scope="col">Datetime</th>
+													<th scope="col">Amount</th>
 													<th scope="col">Payment Type</th>
 													<th scope="col">Bank</th>
 													<th scope="col">Description</th>
-													<th scope="col">Amount</th>
+													
 													<th scope="col">Status</th>
 
 													<th scope="col">Remarks</th>
@@ -470,23 +472,28 @@
 										    <table id="payment_table" class="table table-bordered table-striped" cellspacing="0" width="100%">
 											<thead style="background-color:#c6ecd9;">
 													<tr>
-														<th scope="col">Ref No</th>
+														<th scope="col">Si No</th>
+														<th scope="col">Received On</th>
 														<th scope="col">Guest Name</th>
+														<th scope="col">Ref No</th>
 														
 														
-														<th scope="col">Check In</th>
-														<th scope="col">Check Out</th>
-														<th scope="col">Total Amount</th>
-														<th scope="col">Paid Amount</th>
+														<th scope="col">Amount</th>
+
+														<th scope="col">Type</th>
+														<th scope="col">Bank Details</th>
+														<th scope="col">Payment Details</th>
 														
+														<th scope="col">Received By</th>
 														
-														<th scope="col">Balance</th>
-														<th scope="col">Status</th>
-														<th scope="col">Added By</th>
-														<th scope="col">Invoice No</th>
 														<th scope="col">Agent Name</th>
 														<th scope="col">Executive</th>
 														<th scope="col">SOP Executive</th>
+														<th scope="col">Check In</th>
+														<th scope="col">Check Out</th>
+														<th scope="col">Total</th>
+														<th scope="col">To Pay</th>
+														<th scope="col">Status</th>
 														<th scope="col">Actions</th>
 													</tr>
 												</thead>
@@ -661,7 +668,7 @@ function cs_confirm_table() {
         dom: 'Bfrtip',
         buttons: ['colvis'],
         ajax: {
-            url: '<?= site_url('Enquiry/payment_list_view'); ?>',
+            url: '<?= site_url('Enquiry/latest_payment_list_view'); ?>',
             type: 'POST',
             data: {
                 enquiry_header_id: enquiry_header_id,
@@ -676,13 +683,58 @@ function cs_confirm_table() {
             { orderable: false, targets: [3, 4] }
         ],
         columns: [
+			{
+				data: null,
+				render: function (data, type, row, meta) {
+					return meta.row + meta.settings._iDisplayStart + 1; // SI No
+				},
+			},
+			{ data: 'pdate' },
+			{ data: 'guest_name' },
             { data: 'ref_no' },
-            { data: 'guest_name' },
-            { data: 'checkin' },
-            { data: 'checkout' },
-            { data: 'total_amount' },
+            
+            
             { data: 'paidamount' },
-            {
+
+			{
+				data: 'payment_type',
+				render: function(data, type, row, meta) {
+					if (data == 1)
+						{ return '<label>Direct</label>'; }
+					else if (data == 2)
+						{ return '<label>Bank</label>'; }
+					else if (data == 3)
+						{ return '<label>Website</label>'; }
+					else
+						{return '<label></label>';}
+				}
+			},
+			{
+				data: 'payment_bank',
+				render: function(data, type, row, meta) {
+					if (data == 1)
+						{ return '<label>HDFC-00208620000029</label>'; }
+					else if (data == 2)
+						{ return '<label>ICICI (New A/c)-027705002910</label>'; }
+					else if (data == 3)
+						{ return '<label>Cash</label>'; }
+					else if (data == 4)
+						{ return '<label>Transfer from other package</label>'; }
+					else
+						{return '<label></label>';}
+				}
+			},
+           	{ data: 'payment_details' },
+			
+			{ data: 'added_by_name' },
+          
+            { data: 'agent_name' },
+            { data: 'executive_name' },
+            { data: 'sop_name' },
+			{ data: 'checkin' },
+            { data: 'checkout' },
+			{ data: 'total_amount' },
+			{
                 data: null,
                 render: function(data, type, row, meta) {
                     const total = parseFloat(row.total_amount) || 0;
@@ -691,7 +743,7 @@ function cs_confirm_table() {
                 },
                 title: 'Balance'
             },
-            {
+			{
 				data: 'approved_status',
 				render: function(data, type, row, meta) {
 					if (data == 1)
@@ -700,11 +752,6 @@ function cs_confirm_table() {
 						return '<label class="text-danger">Pending</label>';
 				}
 			},
-			{ data: 'added_by_name' },
-            { data: 'ref_no' },
-            { data: 'agent_name' },
-            { data: 'executive_name' },
-            { data: 'sop_name' },
             {
                 data: 'enquiry_header_id',
                 render: function(data, type, row, meta) {
@@ -875,9 +922,17 @@ $(document).on('click', '#add_new_payment', function(e) {
                 }
             },
             'columns': [
-            
+            {
+				data: null,
+				render: function (data, type, row, meta) {
+					return meta.row + meta.settings._iDisplayStart + 1; // SI No
+				},
+			},
             {
                 data: 'pdate'
+            },
+			{
+                data: 'paid_amount'
             },
 			{
 				data: 'payment_type',
@@ -921,9 +976,7 @@ $(document).on('click', '#add_new_payment', function(e) {
 			{
                 data: 'payment_details'
             },
-			{
-                data: 'paid_amount'
-            },
+		
 			{
 				data: 'approved_status',
 				render: function (data, type, row, meta) {
@@ -975,10 +1028,10 @@ $(document).on('click', '#add_new_payment', function(e) {
 					else{
 						return `<a href="#" class="nav-link edit_pay_history" data-id="${data}"><i class="fa fa-edit fa-sm"></i></a>`;
 					}
-					}
-					else{
-						return '<a href="javascript:void(0)" class="btn btn-success btn-sm text-white disabled" style="pointer-events: none; opacity: 0.6;"><i class="fa fa-edit"></i></a>';
-					}
+				}
+				else{
+					return '<a href="javascript:void(0)" class="btn btn-success btn-sm text-white disabled" style="pointer-events: none; opacity: 0.6;"><i class="fa fa-edit"></i></a>';
+				}
 				}
 			},
 			{

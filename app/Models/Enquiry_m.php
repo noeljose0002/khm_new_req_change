@@ -149,7 +149,7 @@ class Enquiry_m extends Model
         if ($parent_id == 9 || $parent_id == 3) {
             $query->where('stt.assigned_to', $user_id);
         }
-        if ($parent_id == 11) {
+        if($parent_id == 11){
             $query->where('er.cs_confirmed_id >', 0);
         }
 
@@ -176,7 +176,7 @@ class Enquiry_m extends Model
         }
         $query->orderBy($columnName, $columnSortOrder);
         $query->limit($rowperpage, $start);
-
+        
         $records = $query->get()->getResultArray();
 
         $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
@@ -361,14 +361,14 @@ class Enquiry_m extends Model
     {
         $db = \Config\Database::connect();
         $selected_table = $db->table('khm_obj_hotel a');
-        $selected_table->select('a.*,g.object_name')
-            ->join('khm_obj_mst g', 'g.object_id = a.object_id', 'left')
-            ->join('khm_obj_hotel_room_category r', 'r.hotel_id = a.hotel_id', 'inner')
-            ->where('g.object_location_id', $tour_location_id)
-            ->where('a.hotel_rr', 1)
-            ->groupBy('a.hotel_id')
-            ->orderBy('g.object_name', 'ASC');
-        $result = $selected_table->get()->getResult();
+            $selected_table->select('a.*,g.object_name')
+                ->join('khm_obj_mst g', 'g.object_id = a.object_id', 'left')
+                ->join('khm_obj_hotel_room_category r', 'r.hotel_id = a.hotel_id', 'inner')
+                ->where('g.object_location_id', $tour_location_id)
+                ->where('a.hotel_rr', 1)
+                ->groupBy('a.hotel_id')
+                ->orderBy('g.object_name', 'ASC');
+            $result = $selected_table->get()->getResult();
         $total_hotels = count($result);
         if ($total_hotels == 0) {
             return null;
@@ -450,7 +450,8 @@ class Enquiry_m extends Model
                 ->get()->getResultArray();
             if (!empty($hotel_row)) {
                 $hotel_status = $hotel_row[0]['boolean_value'];
-            } else {
+            }
+            else{
                 $hotel_status = 0;
             }
 
@@ -712,7 +713,8 @@ class Enquiry_m extends Model
                 ->get()->getResultArray();
             if (!empty($hotel_row)) {
                 $hotel_status = $hotel_row[0]['boolean_value'];
-            } else {
+            }
+            else{
                 $hotel_status = 0;
             }
 
@@ -1288,11 +1290,11 @@ class Enquiry_m extends Model
         $db = \Config\Database::connect();
         return $this->db->table($this->khm_obj_enquiry_detail_extensions)->update($data, ['enquiry_detail_details_id' => $enquiry_detail_details_id]);
     }
-
-    public function update_transport_itinerary($data, $enquiry_detail_details_id, $ymd)
+    
+    public function update_transport_itinerary($data,$enquiry_detail_details_id,$ymd)
     {
         $db = \Config\Database::connect();
-        return $this->db->table($this->khm_obj_enquiry_itinerary_details)->update($data, ['extension_ref_id' => $enquiry_detail_details_id, 'tour_date' => $ymd]);
+        return $this->db->table($this->khm_obj_enquiry_itinerary_details)->update($data, ['extension_ref_id' => $enquiry_detail_details_id,'tour_date' => $ymd]);
     }
     public function updateAssignedStatus($data, $enquiry_header_id)
     {
@@ -1755,7 +1757,7 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
-
+  
     public function get_all_enquiry_details($enq_header_id)
     {
         $db = \Config\Database::connect();
@@ -2032,25 +2034,7 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
-    // public function get_previous_tour_plan_lastupdated($extension_ref_id)
-    // {
-    //     $db = \Config\Database::connect();
-    //     $table = $db->table('khm_obj_enquiry_tour_details');
-    //     $response = [];
-    //     $result = $table->select('*')
-    //         ->where('extension_ref_id', $extension_ref_id)
-    //         ->get()->getResultArray();
-
-    //     foreach ($result as $key => $vals) {
-    //         $cost = $this->get_tourcost_byid($vals['tour_details_id']);
-    //         $response[$key] = $vals;
-    //         $response[$key]['cost'] = $cost;
-    //     }
-    //     return $response;
-    // }
-
-    //nj//
-    public function get_previous_tour_plan_lastupdated($extension_ref_id)
+   public function get_previous_tour_plan_lastupdated($extension_ref_id)
     {
         $db = \Config\Database::connect();
         $table = $db->table('khm_obj_enquiry_tour_details a');
@@ -2087,7 +2071,6 @@ class Enquiry_m extends Model
 
         return $response;
     }
-
     public function get_tour_details_for_import($enquiry_header_id, $enquiry_details_id)
     {
         $db = \Config\Database::connect();
@@ -2273,7 +2256,7 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
-    public function get_bifur_datas($extension_id, $bifur_type)
+    public function get_bifur_datas($extension_id,$bifur_type)
     {
         $db = \Config\Database::connect();
         $selected_table = $db->table('khm_mst_bifurcation_details');
@@ -2526,7 +2509,7 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
-    public function loadTourLocation($enquiry_header_id, $enquiry_details_id)
+ public function loadTourLocation($enquiry_header_id, $enquiry_details_id)
     {
         $db = \Config\Database::connect();
         $response = [];
@@ -2576,7 +2559,6 @@ class Enquiry_m extends Model
             $response[$key]['expansion'] = $expansion;  // multiple expansion rows
             $response[$key]['cost'] = $cost;
         }
-
         return $response;
     }
     public function loadTourLocationEdit($enquiry_header_id, $enquiry_details_id, $extension_ref_id)
@@ -3171,7 +3153,7 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
-
+    
     public function get_last_itinerary_saved($enquiry_header_id)
     {
         $db = \Config\Database::connect();
@@ -3179,8 +3161,8 @@ class Enquiry_m extends Model
         $result = $table->select('*')
             ->where('enquiry_header_id', $enquiry_header_id)
             ->orderBy('enquiry_detail_details_id', 'DESC')
-            ->get()
-            ->getFirstRow('array');
+        ->get()
+        ->getFirstRow('array');
         return $result;
     }
     public function get_tour_details_for_edit($enquiry_details_id)
@@ -3383,7 +3365,7 @@ class Enquiry_m extends Model
             } else {
             }
         }
-        usort($out, function ($a, $b) {
+        usort($out, function($a, $b) {
             return (int)$a['tour_details_id'] <=> (int)$b['tour_details_id'];
         });
         return [
@@ -4137,50 +4119,50 @@ class Enquiry_m extends Model
     }
     //nj//
     public function get_advanced_payment_tracker_data($params)
-    {
-        $draw                  = $params['draw'];
-        $start                 = $params['start'];
-        $rowperpage            = $params['length'];
-        $columnIndex           = $params['order'][0]['column'];
-        $columnName            = $params['columns'][$columnIndex]['data'];
-        $columnSortOrder       = $params['order'][0]['dir'];
-        $searchValue           = $params['search']['value'];
-        $fromDate              = $params['fromDate'];
-        $toDate                = $params['toDate'];
-        $selectOptionAgent     = $params['selectOptionAgent'];
-        $selectOptionStatus    = $params['selectOptionStatus'];
-        $selectOptionsystem    = $params['selectOptionsystem'];
-        $selectOptionpayment   = $params['selectOptionpayment'];
-        $selectOptionExecutive = $params['selectOptionExecutive'];
-        $selectOptionSource    = $params['selectOptionSource'];
+{
+    $draw                  = $params['draw'];
+    $start                 = $params['start'];
+    $rowperpage            = $params['length'];
+    $columnIndex           = $params['order'][0]['column'];
+    $columnName            = $params['columns'][$columnIndex]['data'];
+    $columnSortOrder       = $params['order'][0]['dir'];
+    $searchValue           = $params['search']['value'];
+    $fromDate              = $params['fromDate'];
+    $toDate                = $params['toDate'];
+    $selectOptionAgent     = $params['selectOptionAgent'];
+    $selectOptionStatus    = $params['selectOptionStatus'];
+    $selectOptionsystem    = $params['selectOptionsystem'];
+    $selectOptionpayment   = $params['selectOptionpayment'];
+    $selectOptionExecutive = $params['selectOptionExecutive'];
+    $selectOptionSource    = $params['selectOptionSource'];
 
-        $db = \Config\Database::connect();
-        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
-            ->select('s.enquiry_status_id, s.enquiry_header_id, s.current_status_id, s.updated_time')
-            ->join(
-                '(SELECT MAX(enquiry_status_id) AS max_status_id, enquiry_header_id
+    $db = \Config\Database::connect();
+    $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+        ->select('s.enquiry_status_id, s.enquiry_header_id, s.current_status_id, s.updated_time')
+        ->join(
+            '(SELECT MAX(enquiry_status_id) AS max_status_id, enquiry_header_id
                FROM khm_obj_enquiry_status
                GROUP BY enquiry_header_id) latest',
-                's.enquiry_header_id = latest.enquiry_header_id 
+            's.enquiry_header_id = latest.enquiry_header_id 
              AND s.enquiry_status_id = latest.max_status_id',
-                'inner'
-            );
-        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
-        $ApprQuery = $db->table('khm_obj_enquiry_payment ap')
-            ->select('ap.paid_amount, ap.enquiry_header_id, latest.total_appr, ap.approved_status, ap.remarks')
-            ->join(
-                '(SELECT SUM(paid_amount) AS total_appr, enquiry_header_id
+            'inner'
+        );
+    $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+    $ApprQuery = $db->table('khm_obj_enquiry_payment ap')
+        ->select('ap.paid_amount, ap.enquiry_header_id, latest.total_appr, ap.approved_status, ap.remarks')
+        ->join(
+            '(SELECT SUM(paid_amount) AS total_appr, enquiry_header_id
                FROM khm_obj_enquiry_payment
               WHERE approved_status = 1
               GROUP BY enquiry_header_id) latest',
-                'ap.enquiry_header_id = latest.enquiry_header_id',
-                'inner'
-            );
-        $latestAppr = $ApprQuery->getCompiledSelect(false);
+            'ap.enquiry_header_id = latest.enquiry_header_id',
+            'inner'
+        );
+    $latestAppr = $ApprQuery->getCompiledSelect(false);
 
-        $query = $db->table('khm_obj_enquiry_header a');
-        $query->select(
-            'SQL_CALC_FOUND_ROWS
+    $query = $db->table('khm_obj_enquiry_header a');
+    $query->select(
+        'SQL_CALC_FOUND_ROWS
          a.*, 
          app.remarks,
          app.approved_status,
@@ -4199,21 +4181,21 @@ class Enquiry_m extends Model
          gu.entity_name  AS guest_name,
          ex.entity_name  AS executive_name,
          h.cs_confirmed_id',
-            false
-        );
+        false
+    );
 
-        $query->join('khm_obj_enquiry_edit_request h',  'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1', 'left');
-        $query->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = h.cs_confirmed_id', 'left');
-        $query->join('khm_obj_enquiry_details d',          'd.enquiry_details_id = ext.enquiry_ref_id', 'left');
-        $query->join('khm_obj_enquiry_status exe',         'exe.enquiry_header_id = a.enquiry_header_id AND exe.edit_request_id = h.enquiry_edit_request_id AND exe.current_status_id = 1', 'left');
-        $query->join('khm_obj_enquiry_status sop',         'sop.enquiry_header_id = a.enquiry_header_id AND sop.edit_request_id = h.enquiry_edit_request_id AND sop.current_status_id = 13', 'left');
-        $query->join('khm_entity_mst ex',                  'ex.entity_id = exe.assigned_to', 'left');
-        $query->join('khm_entity_mst sp',                  'sp.entity_id = sop.assigned_to', 'left');
-        $query->join('khm_entity_mst gu',                  'gu.entity_id = a.guest_entity_id', 'left');
-        $query->join('khm_entity_mst ag',                  'ag.entity_id = a.agent_entity_id', 'left');
-        $query->join('(' . $latestStatusSql . ') est',     'est.enquiry_header_id = a.enquiry_header_id', 'left');
-        $query->join('khm_obj_mst_enquiry_status ss',      'ss.status_id = est.current_status_id', 'left');
-        $receivedSub = "
+    $query->join('khm_obj_enquiry_edit_request h',  'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1', 'left');
+    $query->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = h.cs_confirmed_id', 'left');
+    $query->join('khm_obj_enquiry_details d',          'd.enquiry_details_id = ext.enquiry_ref_id', 'left');
+    $query->join('khm_obj_enquiry_status exe',         'exe.enquiry_header_id = a.enquiry_header_id AND exe.edit_request_id = h.enquiry_edit_request_id AND exe.current_status_id = 1', 'left');
+    $query->join('khm_obj_enquiry_status sop',         'sop.enquiry_header_id = a.enquiry_header_id AND sop.edit_request_id = h.enquiry_edit_request_id AND sop.current_status_id = 13', 'left');
+    $query->join('khm_entity_mst ex',                  'ex.entity_id = exe.assigned_to', 'left');
+    $query->join('khm_entity_mst sp',                  'sp.entity_id = sop.assigned_to', 'left');
+    $query->join('khm_entity_mst gu',                  'gu.entity_id = a.guest_entity_id', 'left');
+    $query->join('khm_entity_mst ag',                  'ag.entity_id = a.agent_entity_id', 'left');
+    $query->join('(' . $latestStatusSql . ') est',     'est.enquiry_header_id = a.enquiry_header_id', 'left');
+    $query->join('khm_obj_mst_enquiry_status ss',      'ss.status_id = est.current_status_id', 'left');
+    $receivedSub = "
       (SELECT 
          enquiry_header_id,
          SUM(paid_amount) AS total_paid
@@ -4221,68 +4203,68 @@ class Enquiry_m extends Model
        GROUP BY enquiry_header_id
       ) rec
     ";
-        $query->join($receivedSub, 'rec.enquiry_header_id = a.enquiry_header_id', 'left');
+    $query->join($receivedSub, 'rec.enquiry_header_id = a.enquiry_header_id', 'left');
 
-        $query->join('(' . $latestAppr . ') app', 'app.enquiry_header_id = a.enquiry_header_id', 'left');
+    $query->join('(' . $latestAppr . ') app', 'app.enquiry_header_id = a.enquiry_header_id', 'left');
 
-        $query->where('h.cs_confirmed_id >', 0, false)
-            ->where("DATE(d.date_of_tour_start) BETWEEN '$fromDate' AND '$toDate'");
+    $query->where('h.cs_confirmed_id >', 0, false)
+          ->where("DATE(d.date_of_tour_start) BETWEEN '$fromDate' AND '$toDate'");
 
-        if (!empty($selectOptionStatus)) {
-            $query->where('est.current_status_id', $selectOptionStatus);
-        }
-        if (!empty($selectOptionExecutive)) {
-            $query->where('exe.assigned_to', $selectOptionExecutive);
-        }
-        if (!empty($selectOptionAgent)) {
-            $query->where('a.agent_entity_id', $selectOptionAgent);
-        }
-        if (!empty($selectOptionSource)) {
-            $query->where('d.enquiry_source', $selectOptionSource);
-        }
-        if (!empty($selectOptionsystem)) {
-            $query->where('a.enq_type_id', $selectOptionsystem);
-        }
-        if (!empty($selectOptionpayment)) {
-            if ($selectOptionpayment == 1) {
-                $query->where('(app.total_appr >= ext.tpc)');
-            } elseif ($selectOptionpayment == 2) {
-                $query->where('(app.total_appr > 0 AND app.total_appr < ext.tpc)');
-            } elseif ($selectOptionpayment == 3) {
-                $query->groupStart()
-                    ->where('app.total_appr', 0)
-                    ->orWhere('app.total_appr IS NULL', null, false)
-                    ->groupEnd();
-            }
-        }
-        if (!empty($searchValue)) {
-            $query->groupStart()
-                ->like('a.enq_added_date', $searchValue)
-                ->orLike('a.ref_no', $searchValue)
-                ->groupEnd();
-        }
-
-        $query->groupBy('a.enquiry_header_id');
-        $query->orderBy($columnName, $columnSortOrder)
-            ->limit($rowperpage, $start);
-        $records = $query->get()->getResultArray();
-        $totalRecords = $this->db->query('SELECT FOUND_ROWS() AS count')
-            ->getRow()
-            ->count;
-
-        foreach ($records as &$rec) {
-            $tpc = floatval($rec['tpc']  ?? 0);
-            $appr = floatval($rec['total_appr'] ?? 0);
-            $rec['balance'] = $tpc - $appr;
-        }
-
-        return [
-            "draw"                 => intval($draw),
-            "iTotalRecords"        => $totalRecords,
-            "iTotalDisplayRecords" => $totalRecords,
-            "aaData"               => $records
-        ];
+    if (!empty($selectOptionStatus)) {
+        $query->where('est.current_status_id', $selectOptionStatus);
     }
+    if (!empty($selectOptionExecutive)) {
+        $query->where('exe.assigned_to', $selectOptionExecutive);
+    }
+    if (!empty($selectOptionAgent)) {
+        $query->where('a.agent_entity_id', $selectOptionAgent);
+    }
+    if (!empty($selectOptionSource)) {
+        $query->where('d.enquiry_source', $selectOptionSource);
+    }
+    if (!empty($selectOptionsystem)) {
+        $query->where('a.enq_type_id', $selectOptionsystem);
+    }
+    if (!empty($selectOptionpayment)) {
+        if ($selectOptionpayment == 1) {
+            $query->where('(app.total_appr >= ext.tpc)');
+        } elseif ($selectOptionpayment == 2) {
+            $query->where('(app.total_appr > 0 AND app.total_appr < ext.tpc)');
+        } elseif ($selectOptionpayment == 3) {
+            $query->groupStart()
+                  ->where('app.total_appr', 0)
+                  ->orWhere('app.total_appr IS NULL', null, false)
+                  ->groupEnd();
+        }
+    }
+    if (!empty($searchValue)) {
+        $query->groupStart()
+              ->like('a.enq_added_date', $searchValue)
+              ->orLike('a.ref_no', $searchValue)
+              ->groupEnd();
+    }
+
+    $query->groupBy('a.enquiry_header_id');
+    $query->orderBy($columnName, $columnSortOrder)
+          ->limit($rowperpage, $start);
+    $records = $query->get()->getResultArray();
+    $totalRecords = $this->db->query('SELECT FOUND_ROWS() AS count')
+                             ->getRow()
+                             ->count;
+
+    foreach ($records as &$rec) {
+        $tpc = floatval($rec['tpc']  ?? 0);
+        $appr = floatval($rec['total_appr'] ?? 0);
+        $rec['balance'] = $tpc - $appr;
+    }
+
+    return [
+        "draw"                 => intval($draw),
+        "iTotalRecords"        => $totalRecords,
+        "iTotalDisplayRecords" => $totalRecords,
+        "aaData"               => $records
+    ];
+}
     // public function delete_eighteen_double_function($tour_details_id)
     // {
     //     $db = \Config\Database::connect();
@@ -4293,7 +4275,6 @@ class Enquiry_m extends Model
     //     $db = \Config\Database::connect();
     //     return $this->db->table($this->khm_eighteen_percentage_single)->delete(['tour_details_id' => $tour_details_id]);
     // }
-
 
     public function reminder_customer_followup($params)
     {
@@ -4676,7 +4657,7 @@ class Enquiry_m extends Model
 
     public function proforma_list_view($params)
     {
-        $system_id = session('system_id');
+        $system_id = session('system_id'); 
         $user_id = session('user_id');
         $parent_id = session('parent_id');
         $hierarchy_id = session('hierarchy_id');
@@ -4781,9 +4762,9 @@ class Enquiry_m extends Model
         $query->where('h.is_active', 1);
         $query->where('t.is_active', 1);
         $query->where('h.enq_type_id', $system_id);
-        $query->where('er.cs_confirmed_id>', 0);
-
-
+        $query->where('er.cs_confirmed_id>',0);
+      
+     
         $query->orderBy('h.enquiry_header_id', 'DESC');
 
         if (!empty($searchValue)) {
@@ -4795,7 +4776,7 @@ class Enquiry_m extends Model
         }
         $query->orderBy($columnName, $columnSortOrder);
         $query->limit($rowperpage, $start);
-
+        
         $records = $query->get()->getResultArray();
 
         $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
