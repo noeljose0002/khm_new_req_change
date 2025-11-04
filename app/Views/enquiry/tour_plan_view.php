@@ -3464,7 +3464,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			var gstPercent = 0;
 			var gstAmount = 0;
 			if (tax_status == 1 && baseTotal > 0) {
-				gstPercent = baseTotal >= 7500 ? 18 : 12;
+				gstPercent = baseTotal >= 7500 ? 18 : 5;
 				gstAmount = (gstPercent / 100) * baseTotal;
 				finalTotal = baseTotal + gstAmount;
 				console.log('GST calculation:', {
@@ -3513,7 +3513,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			var gstPercent = 0;
 			var gstAmount = 0;
 			if (tax_status == 1 && baseTotal > 0) {
-				gstPercent = baseTotal >= 7500 ? 18 : 12;
+				gstPercent = baseTotal >= 7500 ? 18 : 5;
 				gstAmount = (gstPercent / 100) * baseTotal;
 				finalTotal = baseTotal + gstAmount;
 				console.log('GST calculation:', {
@@ -5190,7 +5190,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 							const tot_d = values.room_r + (counts.child * values.child_r) +
 								(counts.child_wb * values.child_wb_r) + (counts.extra * values.extra_r);
-							const gst = tot_d >= 7500 ? 18 : 12;
+							const gst = tot_d >= 7500 ? 18 : 5;
 							const total_doubles = tot_d + ((gst / 100) * tot_d);
 
 							// First frame: Update rate fields
@@ -5228,7 +5228,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 							// Handle single rooms
 							if (values.nsingle > 0) {
 								const tot_s = parseInt(data.s_room_tariff) || 0;
-								const s_gst = tot_s >= 7500 ? 18 : 12;
+								const s_gst = tot_s >= 7500 ? 18 : 5;
 								const total_singles = tot_s + ((s_gst / 100) * tot_s);
 
 								requestAnimationFrame(() => {
@@ -9046,7 +9046,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		if (total >= 7500) {
 			var gst = 18;
 		} else {
-			var gst = 12;
+			var gst = 5;
 		}
 		$('#ster_gst_per' + id).val(gst);
 		var gst_val = total * (gst / 100);
@@ -9120,7 +9120,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		if (total >= 7500) {
 			var gst = 18;
 		} else {
-			var gst = 12;
+			var gst = 5;
 		}
 		$('#ster_s_gst_per' + id).val(gst);
 		var gst_val = total * (gst / 100);
