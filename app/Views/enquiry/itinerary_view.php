@@ -869,6 +869,14 @@ $cs_trans_total = 0;
 																									$s_extra_tariff = $tppval['s_extra_tariff'];
 																						}
 																					}
+																			$d_room_tariff_t = 0;
+																			$s_room_tariff_t = 0;
+																			$d_child_tariff_t = 0;
+																			$s_child_tariff_t = 0;
+																			$d_child_wb_tariff_t = 0;
+																			$s_child_wb_tariff_t = 0;
+																			$d_extra_tariff_t = 0;
+																			$s_extra_tariff_t = 0;
 
 																					foreach($tour_plan_tariff as $tppkey => $tppval){
 																						if($ttval['tour_details_id'] == $tppkey){

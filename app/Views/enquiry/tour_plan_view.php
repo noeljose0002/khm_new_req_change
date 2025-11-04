@@ -4461,78 +4461,84 @@ $is_edit = $edit_id ? $edit_id : 0;
 	// Event handler for rate inputs to propagate in static mode
 	// ===== FIXED RATE INPUT HANDLER WITH PROPER STATIC MODE CALCULATION =====
 	$(document).on('input', 'input[id^="d_adult_rate"], input[id^="d_child_rate"], input[id^="d_child_wb_rate"], input[id^="d_extra_bed_rate"], input[id^="s_adult_rate"], input[id^="s_child_rate"], input[id^="s_child_wb_rate"], input[id^="s_extra_bed_rate"]', function() {
-		var $input = $(this);
-		validateNumericInput($input[0]);
+    var $input = $(this);
+    validateNumericInput($input[0]);
 
-		var count = $input.data('count');
-		var night = parseInt($input.data('night'));
-		var roomIndex = parseInt($input.data('room-index'));
-		var fieldId = $input.attr('id');
-		var value = $input.val();
+    var count = $input.data('count');
+    var night = parseInt($input.data('night'));
+    var roomIndex = parseInt($input.data('room-index'));
+    var fieldId = $input.attr('id');
+    var value = $input.val();
 
-		var roomType = fieldId.includes('d_') ? 'double' : 'single';
-		var prefix = roomType === 'double' ? 'd_' : 's_';
+    var roomType = fieldId.includes('d_') ? 'double' : 'single';
+    var prefix = roomType === 'double' ? 'd_' : 's_';
 
-		console.log('=== Rate Input Change ===');
-		console.log('Field:', fieldId, 'Count:', count, 'Night:', night, 'Room Index:', roomIndex, 'Room Type:', roomType, 'Value:', value);
+    console.log('=== Rate Input Change ===');
+    console.log('Field:', fieldId, 'Count:', count, 'Night:', night, 'Room Index:', roomIndex, 'Room Type:', roomType, 'Value:', value);
 
-		// Dynamic mode or not the first room
-		if (getIsDynamic() || roomIndex !== 1) {
-			console.log('Dynamic mode or not first room - Updating only current room');
-			debouncedUpdateRoomTotals(count, night, roomIndex);
-			// Add this callback to update totals after room calculation
-			setTimeout(function() {
-				updateAllTotals();
-			}, 100);
-			return;
-		}
+    // **FIX: Compute if this is the first room of its type for the current night**
+    var totalDoublesThisNight = parseInt($(`#double${count}${night}`).val()) || 0;
+    var firstSingleIndex = totalDoublesThisNight + 1;
+    var isFirstOfType = (roomType === 'double' && roomIndex === 1) || (roomType === 'single' && roomIndex === firstSingleIndex);
+    console.log('Total Doubles This Night:', totalDoublesThisNight, 'First Single Index:', firstSingleIndex, 'Is First of Type:', isFirstOfType);
 
-		// STATIC MODE: Propagate rate change
-		console.log('Static mode - Propagating rate change for first room');
-		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-		var fieldType = fieldId.replace(prefix, '').split(`${count}${night}${roomIndex}`)[0];
+    // Dynamic mode or not the first room of type
+    if (getIsDynamic() || !isFirstOfType) {
+        console.log('Dynamic mode or not first of type - Updating only current room');
+        debouncedUpdateRoomTotals(count, night, roomIndex);
+        // Add this callback to update totals after room calculation
+        setTimeout(function() {
+            updateAllTotals();
+        }, 100);
+        return;
+    }
 
-		console.log('Field Type:', fieldType, 'Total Nights:', no_of_night);
+    // STATIC MODE: Propagate rate change
+    console.log('Static mode - Propagating rate change for first room of type');
+    var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+    var fieldType = fieldId.replace(prefix, '').split(`${count}${night}${roomIndex}`)[0];
 
-		// Loop through ALL nights
-		for (let n = 1; n <= no_of_night; n++) {
-			var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
-			var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
+    console.log('Field Type:', fieldType, 'Total Nights:', no_of_night);
 
-			var startIndex, endIndex;
-			if (roomType === 'double') {
-				startIndex = 1;
-				endIndex = totalDoubleRooms;
-			} else {
-				startIndex = totalDoubleRooms + 1;
-				endIndex = totalDoubleRooms + totalSingleRooms;
-			}
+    // Loop through ALL nights
+    for (let n = 1; n <= no_of_night; n++) {
+        var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
+        var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
 
-			console.log(`Night ${n}: Propagating to rooms ${startIndex} to ${endIndex}`);
+        var startIndex, endIndex;
+        if (roomType === 'double') {
+            startIndex = 1;
+            endIndex = totalDoubleRooms;
+        } else {
+            startIndex = totalDoubleRooms + 1;
+            endIndex = totalDoubleRooms + totalSingleRooms;
+        }
 
-			for (let r = startIndex; r <= endIndex; r++) {
-				var otherRid = `${count}${n}${r}`;
-				var otherFieldId = `${prefix}${fieldType}${otherRid}`;
-				var $otherField = $(`#${otherFieldId}`);
+        console.log(`Night ${n}: Propagating to rooms ${startIndex} to ${endIndex}`);
 
-				if ($otherField.length > 0) {
-					$otherField.val(value);
-					updateRoomTotals(count, n, r);
-				}
-			}
+        for (let r = startIndex; r <= endIndex; r++) {
+            var otherRid = `${count}${n}${r}`;
+            var otherFieldId = `${prefix}${fieldType}${otherRid}`;
+            var $otherField = $(`#${otherFieldId}`);
 
-			if (roomType === 'double') {
-				calculateDoubleGrandTotalStatic(count, n);
-			} else {
-				calculateSingleGrandTotalStatic(count, n);
-			}
-		}
+            if ($otherField.length > 0) {
+                $otherField.val(value);
+                updateRoomTotals(count, n, r);
+            }
+        }
 
-		// **FIX: Update all totals in the correct order**
-		updateAllTotals();
+        if (roomType === 'double') {
+            calculateDoubleGrandTotalStatic(count, n);
+        } else {
+            calculateSingleGrandTotalStatic(count, n);
+        }
+    }
 
-		console.log('Rate propagation complete');
-	});
+    // **FIX: Update all totals in the correct order**
+    updateAllTotals();
+
+    console.log('Rate propagation complete');
+});
 
 	// Create a separate function to update all totals
 	function updateAllTotals() {
