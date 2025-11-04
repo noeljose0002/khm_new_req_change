@@ -6978,10 +6978,192 @@ $is_edit = $edit_id ? $edit_id : 0;
 			toggleNightsVisibility();
 		}, 100);
 
-		// Rest of the function continues as before...
-		// (Vehicle summary generation, etc.)
+		// **Add and populate vehicle summary with combined headers**
+		if (is_vehicle_required == 1) {
+			console.log(`\n=== GENERATING VEHICLE SUMMARY for location ${count} ===`);
+
+			// Generate vehicle summary HTML
+			var summaryHtml = generateVehicleSummary(count, no_of_days, vehicle_models);
+			nightlyDetails.append(summaryHtml);
+
+			// **Populate vehicle summary from draft data**
+			var isDynamic = getIsDynamic();
+			console.log('Is Dynamic Mode:', isDynamic);
+
+			if (!isDynamic) {
+				// **STATIC MODE: Use aggregated vehicle_details from main (parent level)**
+				console.log('Static Mode - Using main.vehicle_details');
+
+				if (main.vehicle_details) {
+					try {
+						var mainVehicleDetails = typeof main.vehicle_details === 'string' ?
+							JSON.parse(main.vehicle_details) :
+							main.vehicle_details;
+
+						console.log('Main vehicle details:', mainVehicleDetails);
+
+						$.each(mainVehicleDetails, function(vindex, vdata) {
+							console.log(`Populating summary for vehicle ${vindex}:`, vdata);
+
+							// Match by vehicle_type_id
+							var matchedVehicleIndex = -1;
+							$.each(vehicle_models, function(modelIndex, model) {
+								if (model.vehicle_type_id == vdata.veh_type_id) {
+									matchedVehicleIndex = modelIndex;
+									return false; // break
+								}
+							});
+
+							if (matchedVehicleIndex !== -1) {
+								// Calculate total days (should equal no_of_days in static mode)
+								var totalDays = no_of_days;
+
+								// Daily rent (total rent / days)
+								var totalRent = parseFloat(vdata.veh_total) || 0;
+								var dailyRent = totalDays > 0 ? (totalRent / totalDays) : 0;
+
+								// Total distance
+								var totalDistance = parseFloat(vdata.travel_distance) || 0;
+
+								// Extra KM
+								var maxKmDay = parseFloat(vdata.max_km_day) || 0;
+								var extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
+								var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
+
+								console.log(`Setting summary values - Daily Rent: ${dailyRent}, Distance: ${totalDistance}, Extra KM: ${totalExtraKm}`);
+
+								// Populate summary fields
+								$(`#summary_days_${count}_${matchedVehicleIndex}`).val(totalDays);
+								$(`#summary_rent_${count}_${matchedVehicleIndex}`).val(dailyRent.toFixed(0));
+								$(`#summary_distance_${count}_${matchedVehicleIndex}`).val(totalDistance);
+								$(`#summary_extra_km_rate_${count}_${matchedVehicleIndex}`).val(extraKmRate);
+								$(`#summary_extra_km_${count}_${matchedVehicleIndex}`).val(totalExtraKm);
+								$(`#summary_total_${count}_${matchedVehicleIndex}`).val(totalRent);
+							}
+						});
+					} catch (e) {
+						console.error('Error parsing main vehicle details:', e);
+					}
+				}
+			} else {
+				// **DYNAMIC MODE: Aggregate from expansion vehicle_details_json**
+				console.log('Dynamic Mode - Aggregating from expansions');
+
+				// Initialize aggregation object for each vehicle type
+				var vehicleAggregates = {};
+				$.each(vehicle_models, function(vindex, vmodel) {
+					vehicleAggregates[vmodel.vehicle_type_id] = {
+						modelIndex: vindex,
+						totalDays: 0,
+						totalRent: 0,
+						totalDistance: 0,
+						totalExtraKm: 0,
+						extraKmRate: 0 // Take from first occurrence
+					};
+				});
+
+				// Aggregate from all expansions
+				$.each(allExpansions, function(expIndex, exp) {
+					if (exp.vehicle_details_json) {
+						try {
+							var expVehicleDetails = JSON.parse(exp.vehicle_details_json);
+							$.each(expVehicleDetails, function(vindex, vdata) {
+								var vehTypeId = vdata.veh_type_id;
+								if (vehicleAggregates[vehTypeId]) {
+									vehicleAggregates[vehTypeId].totalDays++;
+									vehicleAggregates[vehTypeId].totalRent += parseFloat(vdata.veh_total) || 0;
+									vehicleAggregates[vehTypeId].totalDistance += parseFloat(vdata.travel_distance) || 0;
+									vehicleAggregates[vehTypeId].totalExtraKm += parseFloat(vdata.extra_kilometer) || 0;
+
+									// Take extra km rate from first occurrence
+									if (vehicleAggregates[vehTypeId].extraKmRate === 0) {
+										vehicleAggregates[vehTypeId].extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
+									}
+								}
+							});
+						} catch (e) {
+							console.error('Error parsing expansion vehicle details:', e);
+						}
+					}
+				});
+
+				console.log('Aggregated vehicle data:', vehicleAggregates);
+
+				// Populate summary from aggregates
+				$.each(vehicleAggregates, function(vehTypeId, agg) {
+					if (agg.totalDays > 0) {
+						var dailyRent = agg.totalRent / agg.totalDays;
+
+						console.log(`Setting summary for vehicle type ${vehTypeId}:`, agg);
+
+						$(`#summary_days_${count}_${agg.modelIndex}`).val(agg.totalDays);
+						$(`#summary_rent_${count}_${agg.modelIndex}`).val(dailyRent.toFixed(0));
+						$(`#summary_distance_${count}_${agg.modelIndex}`).val(agg.totalDistance);
+						$(`#summary_extra_km_rate_${count}_${agg.modelIndex}`).val(agg.extraKmRate);
+						$(`#summary_extra_km_${count}_${agg.modelIndex}`).val(agg.totalExtraKm);
+						$(`#summary_total_${count}_${agg.modelIndex}`).val(agg.totalRent);
+					}
+				});
+			}
+
+			// **NOW build and set the vehicle header AFTER all night data is populated**
+			// Use setTimeout to ensure DOM is fully updated
+			setTimeout(function() {
+				var combinedHeaders = [];
+				for (let night = 1; night <= no_of_days; night++) {
+					var nightHeader = $(`#v_from_to${count}${night}`).text().trim();
+					if (nightHeader && nightHeader !== '') {
+						// Remove leading dash/hyphen if present
+						nightHeader = nightHeader.replace(/^\s*-\s*/, '');
+						// For static mode, avoid duplicates by using unique headers
+						if (combinedHeaders.indexOf(nightHeader) === -1) {
+							combinedHeaders.push(nightHeader);
+						}
+					} else {
+						combinedHeaders.push(`N${night}`);
+					}
+				}
+
+				var summaryHeaderText = '';
+				if (combinedHeaders.length > 0) {
+					summaryHeaderText = ' (' + combinedHeaders.join(' + ') + ')';
+				}
+
+				console.log('Combined vehicle header for summary:', summaryHeaderText);
+
+				// Update the summary header with combined route info (only one refresh icon)
+				var $summaryHeader = $(`#vehicle-summary-header-${count}`);
+				$summaryHeader.html(`
+            <span style="display: flex; align-items: center; justify-content: center; width: 100%;">
+                <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
+                    <i class="fa fa-refresh"></i>
+                </a>
+                <span>Vehicle Summary${summaryHeaderText}</span>
+            </span>
+        `);
+
+				// Ensure header is centered
+				$summaryHeader.css({
+					'text-align': 'center',
+					'display': 'flex',
+					'align-items': 'center',
+					'justify-content': 'center'
+				});
+
+				// Update the overall total after populating
+				updateVehicleSummary(count);
+				console.log(`=== VEHICLE SUMMARY HEADER UPDATED for location ${count} ===`);
+			}, 500); // Give time for DOM to update
+
+			console.log(`=== VEHICLE SUMMARY POPULATED for location ${count} ===`);
+		}
+
+		// Update totals
+		updateGrandtotalBoth();
+		get_veh_grand_total();
+		console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
 	}
-</script>    
+</script> 
 
 <script>
 	function get_veh_grand_total() {
