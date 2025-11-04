@@ -9122,33 +9122,40 @@ function updateLocationTotal(count) {
 		}
 
 		// NEW FUNCTION: Set vehicle header with refresh icon
-		function setVehicleHeaderWithIcon(count, night, headerText) {
-			var $headerElement = $(`#v_from_to${count}${night}`);
+	function setVehicleHeaderWithIcon(count, night, headerText) {
+    var $headerElement = $(`#v_from_to${count}${night}`);
 
-			if ($headerElement.length === 0) {
-				console.error(`Vehicle header element #v_from_to${count}${night} not found!`);
-				return;
-			}
+    if ($headerElement.length === 0) {
+        console.error(`Vehicle header element #v_from_to${count}${night} not found!`);
+        return;
+    }
 
-			// Clean header text
-			headerText = (headerText || '').trim().replace(/^\s*-\s*/, '');
+    // FIXED: Prevent duplicate - check if icon already exists
+    if ($headerElement.find('.refresh-night-vehicle').length > 0) {
+        console.log(`Icon already exists for ${count}-${night}, skipping set.`);
+        // Optionally update text only: $headerElement.find('span').text(headerText ? '- ' + headerText : '');
+        return;
+    }
 
-			// Build HTML with icon
-			var headerHtml = `
-			<a href="#" class="refresh-night-vehicle" 
-			   data-count="${count}" 
-			   data-night="${night}" 
-			   style="font-size: 14px; color: #003300; margin-right: 8px;" 
-			   title="Refresh Vehicle Data">
-				<i class="fa fa-refresh"></i>
-			</a>
-			<span>${headerText ? '- ' + headerText : ''}</span>
-		`;
+    // Clean header text
+    headerText = (headerText || '').trim().replace(/^\s*-\s*/, '');
 
-			$headerElement.html(headerHtml);
+    // Build HTML with icon (only if not duplicate)
+    var headerHtml = `
+        <a href="#" class="refresh-night-vehicle" 
+           data-count="${count}" 
+           data-night="${night}" 
+           style="font-size: 14px; color: #003300; margin-right: 8px;" 
+           title="Refresh Vehicle Data">
+            <i class="fa fa-refresh"></i>
+        </a>
+        <span>${headerText ? '- ' + headerText : ''}</span>
+    `;
 
-			console.log(`Vehicle header set for Night ${night}: "${headerText}"`);
-		}
+    $headerElement.html(headerHtml);
+
+    console.log(`Vehicle header set for Night ${night}: "${headerText}" (icon added)`);
+}
 
 		async function setRoomDataFromExpansion(count, night, locationData, expansionData) {
 			console.log(`Setting PRE-TARIFF rates for Location ${count}, Night ${night}`);
@@ -9334,54 +9341,47 @@ function updateLocationTotal(count) {
 		}
 
 		// UPDATED FUNCTION: Build vehicle summary header with refresh icon
-		async function buildVehicleSummaryHeaderWithIcon(count, no_of_days) {
-			var combinedHeaders = [];
+	async function buildVehicleSummaryHeaderWithIcon(count, no_of_days) {
+    var isDynamic = getIsDynamic();  // Re-fetch for logging
+    console.log(`Building summary header for ${count} (Dynamic: ${isDynamic}, Nights: ${no_of_days})`);
 
-			// Collect all night headers
-			for (let night = 1; night <= no_of_days; night++) {
-				// Wait a bit to ensure headers are set
-				await delay(50);
+    var combinedHeaders = [];
+    // Collect all night headers (with delay for DOM ready in dynamic loops)
+    for (let night = 1; night <= no_of_days; night++) {
+        await delay(50);
+        var $nightHeader = $(`#v_from_to${count}${night}`);
+        if ($nightHeader.length > 0) {
+            // FIXED: Extract text only, ignore icons
+            var nightHeaderText = $nightHeader.find('span').text().trim();
+            if (nightHeaderText && nightHeaderText !== '' && nightHeaderText !== '-') {
+                nightHeaderText = nightHeaderText.replace(/^\s*-\s*/, '');
+                combinedHeaders.push('(' + nightHeaderText + ')');
+            }
+        }
+    }
 
-				var $nightHeader = $(`#v_from_to${count}${night}`);
-				if ($nightHeader.length > 0) {
-					// Extract only the text, not the icon
-					var nightHeaderText = $nightHeader.find('span').text().trim();
-					if (nightHeaderText && nightHeaderText !== '' && nightHeaderText !== '-') {
-						nightHeaderText = nightHeaderText.replace(/^\s*-\s*/, '');
-						combinedHeaders.push('(' + nightHeaderText + ')');
-					}
-				}
-			}
+    var summaryHeaderText = combinedHeaders.length > 0 ? ' ' + combinedHeaders.join(' + ') : '';
 
-			var summaryHeaderText = combinedHeaders.length > 0 ? ' ' + combinedHeaders.join(' + ') : '';
+    var $summaryHeader = $(`#vehicle-summary-header-${count}`);
+    if ($summaryHeader.length === 0) {
+        console.error(`Summary header element not found: #vehicle-summary-header-${count}`);
+        return;
+    }
 
-			var $summaryHeader = $(`#vehicle-summary-header-${count}`);
+    // FIXED: Clear any existing content/icons first
+    $summaryHeader.empty().html('');  // Wipe clean
 
-			if ($summaryHeader.length === 0) {
-				console.error(`Summary header element not found: #vehicle-summary-header-${count}`);
-				return;
-			}
+    // No icon - just text (padding adjusted for no icon space)
+    $summaryHeader.html(`<span style="display: block; width: 100%; padding: 0 10px; text-align: center;">Vehicle Summary${summaryHeaderText}</span>`);
 
-			// Build header HTML with refresh icon
-			$summaryHeader.html(`
-			<a href="#" class="refresh-vehicle-summary" 
-			   data-count="${count}" 
-			   style="font-size: 16px; color: #003300; position: absolute; left: 10px;" 
-			   title="Refresh All Vehicle Data">
-				<i class="fa fa-refresh"></i>
-			</a>
-			<span style="display: block; width: 100%; padding: 0 40px;">Vehicle Summary${summaryHeaderText}</span>
-		`);
+    $summaryHeader.css({
+        'position': 'relative',
+        'text-align': 'center',
+        'display': 'block'
+    });
 
-			$summaryHeader.css({
-				'position': 'relative',
-				'text-align': 'center',
-				'display': 'block'
-			});
-
-			console.log(`Vehicle summary header set for location ${count} with ${combinedHeaders.length} headers`);
-		}
-
+    console.log(`Vehicle summary header set for location ${count} with ${combinedHeaders.length} headers (NO ICON, Dynamic: ${isDynamic})`);
+}
 		function parseVehicleDetails(vehDetails) {
 			try {
 				return typeof vehDetails === 'string' ? JSON.parse(vehDetails) : (vehDetails || []);
