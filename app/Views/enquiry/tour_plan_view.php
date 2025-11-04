@@ -4460,85 +4460,107 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 	// Event handler for rate inputs to propagate in static mode
 	// ===== FIXED RATE INPUT HANDLER WITH PROPER STATIC MODE CALCULATION =====
-$(document).on('input', 'input[id^="d_adult_rate"], input[id^="d_child_rate"], input[id^="d_child_wb_rate"], input[id^="d_extra_bed_rate"], input[id^="s_adult_rate"], input[id^="s_child_rate"], input[id^="s_child_wb_rate"], input[id^="s_extra_bed_rate"]', function() {
-	var $input = $(this);
-	validateNumericInput($input[0]);
+	$(document).on('input', 'input[id^="d_adult_rate"], input[id^="d_child_rate"], input[id^="d_child_wb_rate"], input[id^="d_extra_bed_rate"], input[id^="s_adult_rate"], input[id^="s_child_rate"], input[id^="s_child_wb_rate"], input[id^="s_extra_bed_rate"]', function() {
+		var $input = $(this);
+		validateNumericInput($input[0]);
 
-	var count = $input.data('count');
-	var night = parseInt($input.data('night'));
-	var roomIndex = parseInt($input.data('room-index'));
-	var fieldId = $input.attr('id');
-	var value = $input.val();
+		var count = $input.data('count');
+		var night = parseInt($input.data('night'));
+		var roomIndex = parseInt($input.data('room-index'));
+		var fieldId = $input.attr('id');
+		var value = $input.val();
 
-	var roomType = fieldId.includes('d_') ? 'double' : 'single';
-	var prefix = roomType === 'double' ? 'd_' : 's_';
+		var roomType = fieldId.includes('d_') ? 'double' : 'single';
+		var prefix = roomType === 'double' ? 'd_' : 's_';
 
-	console.log('=== Rate Input Change ===');
-	console.log('Field:', fieldId, 'Count:', count, 'Night:', night, 'Room Index:', roomIndex, 'Room Type:', roomType, 'Value:', value);
+		console.log('=== Rate Input Change ===');
+		console.log('Field:', fieldId, 'Count:', count, 'Night:', night, 'Room Index:', roomIndex, 'Room Type:', roomType, 'Value:', value);
 
-	// Dynamic mode or not the first room
-	if (getIsDynamic() || roomIndex !== 1) {
-		console.log('Dynamic mode or not first room - Updating only current room');
-		debouncedUpdateRoomTotals(count, night, roomIndex);
-		return;
-	}
-
-	// STATIC MODE: Propagate rate change
-	console.log('Static mode - Propagating rate change for first room');
-	var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-	var fieldType = fieldId.replace(prefix, '').split(`${count}${night}${roomIndex}`)[0];
-
-	console.log('Field Type:', fieldType, 'Total Nights:', no_of_night);
-
-	// Loop through ALL nights
-	for (let n = 1; n <= no_of_night; n++) {
-		var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
-		var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
-
-		// Determine room range based on room type
-		var startIndex, endIndex;
-		if (roomType === 'double') {
-			startIndex = 1;
-			endIndex = totalDoubleRooms;
-		} else {
-			startIndex = totalDoubleRooms + 1;
-			endIndex = totalDoubleRooms + totalSingleRooms;
+		// Dynamic mode or not the first room
+		if (getIsDynamic() || roomIndex !== 1) {
+			console.log('Dynamic mode or not first room - Updating only current room');
+			debouncedUpdateRoomTotals(count, night, roomIndex);
+			// Add this callback to update totals after room calculation
+			setTimeout(function() {
+				updateAllTotals();
+			}, 100);
+			return;
 		}
 
-		console.log(`Night ${n}: Propagating to rooms ${startIndex} to ${endIndex}`);
+		// STATIC MODE: Propagate rate change
+		console.log('Static mode - Propagating rate change for first room');
+		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+		var fieldType = fieldId.replace(prefix, '').split(`${count}${night}${roomIndex}`)[0];
 
-		// Propagate to all rooms of same type and update each room's total
-		for (let r = startIndex; r <= endIndex; r++) {
-			var otherRid = `${count}${n}${r}`;
-			var otherFieldId = `${prefix}${fieldType}${otherRid}`;
-			var $otherField = $(`#${otherFieldId}`);
+		console.log('Field Type:', fieldType, 'Total Nights:', no_of_night);
 
-			if ($otherField.length > 0) {
-				$otherField.val(value);
-				
-				// **FIX: Update the individual room total immediately after changing rate**
-				updateRoomTotals(count, n, r);
+		// Loop through ALL nights
+		for (let n = 1; n <= no_of_night; n++) {
+			var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
+			var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
+
+			var startIndex, endIndex;
+			if (roomType === 'double') {
+				startIndex = 1;
+				endIndex = totalDoubleRooms;
+			} else {
+				startIndex = totalDoubleRooms + 1;
+				endIndex = totalDoubleRooms + totalSingleRooms;
+			}
+
+			console.log(`Night ${n}: Propagating to rooms ${startIndex} to ${endIndex}`);
+
+			for (let r = startIndex; r <= endIndex; r++) {
+				var otherRid = `${count}${n}${r}`;
+				var otherFieldId = `${prefix}${fieldType}${otherRid}`;
+				var $otherField = $(`#${otherFieldId}`);
+
+				if ($otherField.length > 0) {
+					$otherField.val(value);
+					updateRoomTotals(count, n, r);
+				}
+			}
+
+			if (roomType === 'double') {
+				calculateDoubleGrandTotalStatic(count, n);
+			} else {
+				calculateSingleGrandTotalStatic(count, n);
 			}
 		}
 
-		// **FIX: Now recalculate grand totals AFTER all room totals are updated**
-		if (roomType === 'double') {
-			calculateDoubleGrandTotalStatic(count, n);
-		} else {
-			calculateSingleGrandTotalStatic(count, n);
-		}
+		// **FIX: Update all totals in the correct order**
+		updateAllTotals();
+
+		console.log('Rate propagation complete');
+	});
+
+	// Create a separate function to update all totals
+	function updateAllTotals() {
+		// First, calculate totals for each card
+		$('[id^="loc_total"]').each(function() {
+			let cardCount = $(this).attr('id').replace('loc_total', '');
+			let singleCardTotal = updateGrandtotalBoth(cardCount) || 0;
+			let veh_grand_total = get_veh_grand_total() || 0;
+			$(this).text(singleCardTotal + " + " + veh_grand_total);
+		});
+
+		// Then calculate grand totals
+		let allCardsTotal = 0;
+		$('[id^="loc_total"]').each(function() {
+			let cardCount = $(this).attr('id').replace('loc_total', '');
+			allCardsTotal += (updateGrandtotalBoth(cardCount) || 0);
+		});
+
+		let veh_grand_total = get_veh_grand_total() || 0;
+
+		$('#v_total').text(veh_grand_total);
+		$('#a_total').text(allCardsTotal);
+		$('#g_total').text(allCardsTotal + veh_grand_total);
+
+		calculateVehicleExtraKmCharges();
+
+		console.log('All totals updated - a_total:', allCardsTotal, 'v_total:', veh_grand_total, 'g_total:', allCardsTotal + veh_grand_total);
 	}
-
-	// Update overall totals
-	var singleCardTotal = updateGrandtotalBoth(count);
-	var veh_grand_total = get_veh_grand_total();
-	$(`#loc_total${count}`).text(singleCardTotal + " + " + veh_grand_total);
-	$('#v_total').text(veh_grand_total);
-	$('#g_total').text((updateGrandtotalBoth() + veh_grand_total));
-	calculateVehicleExtraKmCharges();
-
-	console.log('Rate propagation complete');
-});	
 	// ===== PERFORMANCE OPTIMIZATION UTILITIES =====
 	// Batch DOM updates to prevent layout thrashing
 	let updateBatchQueue = [];
@@ -8212,38 +8234,96 @@ $(document).on('input', 'input[id^="d_adult_rate"], input[id^="d_child_rate"], i
 	}
 
 
-function updateAllTotals() {
+	// function updateAllTotals() {
+	// 	console.log('=== Updating All Totals ===');
+
+	// 	// 1. Update accommodation grand total
+	// 	var accom_grand_total = 0;
+	// 	var isDynamic = getIsDynamic(); // Check if we're in dynamic mode
+
+	// 	$('.tour_plan_div .location-card').each(function() {
+	// 		var count = $(this).attr('data-index');
+	// 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+	// 		var cardTotal = 0;
+
+	// 		if (isDynamic) {
+	// 			// DYNAMIC MODE: Sum from night-by-night rows
+	// 			for (let night = 1; night <= no_of_night; night++) {
+	// 				var dd_total = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
+	// 				var ss_total = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
+	// 				cardTotal += dd_total + ss_total;
+	// 			}
+	// 		} else {
+	// 			// STATIC MODE: Get from summary total only
+	// 			var summary_total = parseFloat($(`#accommodation_summary_total${count}`).val()) || 0;
+	// 			cardTotal = summary_total;
+	// 		}
+
+	// 		accom_grand_total += cardTotal;
+	// 	});
+
+	// 	$('#a_total').text(Math.round(accom_grand_total));
+	// 	console.log('Accommodation Total:', accom_grand_total);
+
+	// 	// 2. Update vehicle grand total (remains the same)
+	// 	var veh_grand_total = 0;
+	// 	$('.tour_plan_div .location-card').each(function() {
+	// 		var count = $(this).attr('data-index');
+	// 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+	// 		for (let night = 1; night <= no_of_night; night++) {
+	// 			var $elem = $(`#veh_grand_total${count}${night}`);
+	// 			if ($elem.length > 0) {
+	// 				var veh_total = parseFloat($elem.val()) || 0;
+	// 				veh_grand_total += veh_total;
+	// 			}
+	// 		}
+	// 	});
+
+	// 	$('#v_total').text(Math.round(veh_grand_total));
+	// 	console.log('Vehicle Total:', veh_grand_total);
+
+	// 	// 3. Update grand total
+	// 	var grand_total = accom_grand_total + veh_grand_total;
+	// 	$('#g_total').text(Math.round(grand_total));
+	// 	console.log('Grand Total:', grand_total);
+
+	// 	// 4. Update each location's breadcrumb
+	// 	$('.tour_plan_div .location-card').each(function() {
+	// 		var count = $(this).attr('data-index');
+	// 		updateLocationTotal(count);
+	// 	});
+
+	// 	console.log('=== All Totals Updated ===');
+	// }
+	function updateAllTotals() {
 	console.log('=== Updating All Totals ===');
 
 	// 1. Update accommodation grand total
 	var accom_grand_total = 0;
-	var isDynamic = getIsDynamic(); // Check if we're in dynamic mode
 	
 	$('.tour_plan_div .location-card').each(function() {
 		var count = $(this).attr('data-index');
 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
 		var cardTotal = 0;
 
-		if (isDynamic) {
-			// DYNAMIC MODE: Sum from night-by-night rows
-			for (let night = 1; night <= no_of_night; night++) {
-				var dd_total = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
-				var ss_total = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
-				cardTotal += dd_total + ss_total;
-			}
-		} else {
-			// STATIC MODE: Get from summary total only
-			var summary_total = parseFloat($(`#accommodation_summary_total${count}`).val()) || 0;
-			cardTotal = summary_total;
+		// ALWAYS sum from night-by-night rows (whether visible or not)
+		for (let night = 1; night <= no_of_night; night++) {
+			var dd_total = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
+			var ss_total = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
+			cardTotal += dd_total + ss_total;
+			
+			console.log(`  Night ${night}: DD=${dd_total}, SS=${ss_total}`);
 		}
 
+		console.log(`Location ${count} Accom Total: ${cardTotal}`);
 		accom_grand_total += cardTotal;
 	});
 
 	$('#a_total').text(Math.round(accom_grand_total));
 	console.log('Accommodation Total:', accom_grand_total);
 
-	// 2. Update vehicle grand total (remains the same)
+	// 2. Update vehicle grand total
 	var veh_grand_total = 0;
 	$('.tour_plan_div .location-card').each(function() {
 		var count = $(this).attr('data-index');
@@ -8273,6 +8353,30 @@ function updateAllTotals() {
 	});
 
 	console.log('=== All Totals Updated ===');
+}
+
+function updateLocationTotal(count) {
+	let no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+	// Calculate accommodation total for this location
+	let accom_total = 0;
+	for (let night = 1; night <= no_of_night; night++) {
+		let dd_total = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
+		let ss_total = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
+		accom_total += dd_total + ss_total;
+	}
+
+	// Calculate vehicle total for this location
+	let veh_total = 0;
+	for (let night = 1; night <= no_of_night; night++) {
+		let night_veh_total = parseFloat($(`#veh_grand_total${count}${night}`).val()) || 0;
+		veh_total += night_veh_total;
+	}
+
+	// Update location breadcrumb display
+	$(`#loc_total${count}`).text(`${Math.round(accom_total)} + ${Math.round(veh_total)}`);
+
+	console.log(`Location ${count}: Accom=${accom_total}, Vehicle=${veh_total}`);
 }
 
 	function updateLocationTotal(count) {
