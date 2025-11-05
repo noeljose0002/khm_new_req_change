@@ -3745,30 +3745,66 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
-    function get_proforma_office_tpdata($enquiry_header_id, $tour_plan_ref_id, $confirm_cs_id)
-    {
-        $db = \Config\Database::connect();
-        $response = [];
-        $selected_table = $db->table('khm_obj_enquiry_tour_details a');
-        $result = $selected_table->select('a.*,ml.meal_plan_name,m.no_of_extra_bed,m.no_of_single_room,m.no_of_double_room,m.no_of_child_with_bed,m.no_of_child_without_bed,m.no_of_adult,hd.ref_no,e.entity_name,g.geog_name,o.object_name,o.object_email,o.object_address,o.object_ph_no,r.room_category_name')
-            ->join('khm_obj_enquiry_details m', 'm.enquiry_details_id = a.enquiry_details_id', 'left')
-            ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left')
-            ->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = a.enquiry_header_id', 'left')
-            ->join('khm_obj_hotel h', 'h.hotel_id = a.hotel_id', 'left')
-            ->join('khm_obj_mst o', 'o.object_id = h.object_id', 'left')
-            ->join('khm_entity_mst e', 'e.entity_id = hd.guest_entity_id', 'left')
-            ->join('khm_obj_mst_hotel_room_category r', 'r.room_category_id = a.room_category_id', 'left')
-            ->join('khm_obj_meal_plan ml', 'ml.meal_plan_id = m.meal_plan', 'left')
-            ->where('a.extension_ref_id', $tour_plan_ref_id)
-            ->get()->getResultArray();
+    // function get_proforma_office_tpdata($enquiry_header_id, $tour_plan_ref_id, $confirm_cs_id)
+    // {
+    //     $db = \Config\Database::connect();
+    //     $response = [];
+    //     $selected_table = $db->table('khm_obj_enquiry_tour_details a');
+    //     $result = $selected_table->select('a.*,ml.meal_plan_name,m.no_of_extra_bed,m.no_of_single_room,m.no_of_double_room,m.no_of_child_with_bed,m.no_of_child_without_bed,m.no_of_adult,hd.ref_no,e.entity_name,g.geog_name,o.object_name,o.object_email,o.object_address,o.object_ph_no,r.room_category_name')
+    //         ->join('khm_obj_enquiry_details m', 'm.enquiry_details_id = a.enquiry_details_id', 'left')
+    //         ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left')
+    //         ->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = a.enquiry_header_id', 'left')
+    //         ->join('khm_obj_hotel h', 'h.hotel_id = a.hotel_id', 'left')
+    //         ->join('khm_obj_mst o', 'o.object_id = h.object_id', 'left')
+    //         ->join('khm_entity_mst e', 'e.entity_id = hd.guest_entity_id', 'left')
+    //         ->join('khm_obj_mst_hotel_room_category r', 'r.room_category_id = a.room_category_id', 'left')
+    //         ->join('khm_obj_meal_plan ml', 'ml.meal_plan_id = m.meal_plan', 'left')
+    //         ->where('a.extension_ref_id', $tour_plan_ref_id)
+    //         ->get()->getResultArray();
 
-        foreach ($result as $key => $vals) {
-            $cost = $this->get_tourcost_byid($vals['tour_details_id']);
-            $response[$key] = $vals;
-            $response[$key]['cost'] = $cost;
-        }
-        return $response;
+    //     foreach ($result as $key => $vals) {
+    //         $cost = $this->get_tourcost_byid($vals['tour_details_id']);
+    //         $response[$key] = $vals;
+    //         $response[$key]['cost'] = $cost;
+    //     }
+    //     return $response;
+    // }
+    
+function get_proforma_office_tpdata($enquiry_header_id, $tour_plan_ref_id, $confirm_cs_id)
+{
+    $db = \Config\Database::connect();
+    $response = [];
+    $selected_table = $db->table('khm_obj_enquiry_tour_details a');
+    $result = $selected_table->select('a.*,ml.meal_plan_name,m.no_of_extra_bed,m.no_of_single_room,m.no_of_double_room,m.no_of_child_with_bed,m.no_of_child_without_bed,m.no_of_adult,hd.ref_no,e.entity_name,g.geog_name,o.object_name,o.object_email,o.object_address,o.object_ph_no,r.room_category_name')
+        ->join('khm_obj_enquiry_details m', 'm.enquiry_details_id = a.enquiry_details_id', 'left')
+        ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left')
+        ->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = a.enquiry_header_id', 'left')
+        ->join('khm_obj_hotel h', 'h.hotel_id = a.hotel_id', 'left')
+        ->join('khm_obj_mst o', 'o.object_id = h.object_id', 'left')
+        ->join('khm_entity_mst e', 'e.entity_id = hd.guest_entity_id', 'left')
+        ->join('khm_obj_mst_hotel_room_category r', 'r.room_category_id = a.room_category_id', 'left')
+        ->join('khm_obj_meal_plan ml', 'ml.meal_plan_id = m.meal_plan', 'left')
+        ->where('a.extension_ref_id', $tour_plan_ref_id)
+        ->get()->getResultArray();
+
+    foreach ($result as $key => $vals) {
+        $cost = $this->get_tourcost_byid($vals['tour_details_id']);
+        
+        // Get expansion data from khm_obj_enquiry_tour_expansion with room category and meal plan names
+        $expansion_data = $db->table('khm_obj_enquiry_tour_expansion exp')
+            ->select('exp.tour_expansion_id, exp.tour_details_id, exp.tour_expansion_date, exp.room_category_id, exp.meal_plan_id, exp.room_rate_double, exp.child_with_bed_double, exp.child_without_bed_double, exp.extra_bed_double, exp.double_total_rate, exp.room_rate_single, exp.child_with_bed_single, exp.child_without_bed_single, exp.extra_bed_single, exp.single_total_rate, exp.vehicle_details_json, rc.room_category_name as exp_room_category_name, mp.meal_plan_name as exp_meal_plan_name')
+            ->join('khm_obj_mst_hotel_room_category rc', 'rc.room_category_id = exp.room_category_id', 'left')
+            ->join('khm_obj_meal_plan mp', 'mp.meal_plan_id = exp.meal_plan_id', 'left')
+            ->where('exp.tour_details_id', $vals['tour_details_id'])
+            ->orderBy('exp.tour_expansion_date', 'ASC')
+            ->get()->getResultArray();
+        
+        $response[$key] = $vals;
+        $response[$key]['cost'] = $cost;
+        $response[$key]['expansion_details'] = $expansion_data;
     }
+    return $response;
+}
 
     public function get_sales_report_data($params)
     {

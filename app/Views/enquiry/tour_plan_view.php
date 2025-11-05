@@ -272,7 +272,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			margin-left: 4px;
 		}
 
-		/* Label (like Total(Double), Grand Total(Double)) */
+		/* Label (like Total(D), Grand Total(D)) */
 
 
 		.total-col .form-control {
@@ -2606,7 +2606,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 				let rid = `${count}${night}${i}`;
 				nightlyHtml += ` <div class="row mt-2 align-items-center">
 				<div style="display:none;" class="col-xl col-sm-12 col-md-2 room-type-col">
-				<div class="teams-rank"><b>No. of Double Rooms</b></div>
+				<div class="teams-rank"><b>Double Rooms</b></div>
 				<input type="text" id="double${rid}" name="addloc[${count}][nights][${night}][double][${i}]" value="1" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${i}">
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2">
@@ -2626,19 +2626,19 @@ $is_edit = $edit_id ? $edit_id : 0;
 				</select>
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2">
-				<div class="teams-rank"><b>Daily Room Rate</b></div>
+				<div class="teams-rank"><b>Daily Room ₹</b></div>
 				<input type="text" id="d_adult_rate${rid}" name="addloc[${count}][nights][${night}][d_adult_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); debouncedUpdateRoomTotals(${count}, ${night}, ${i});" required data-night="${night}" data-room-index="${i}" value="0">
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2">
-				<div class="teams-rank"><b>C.With Bed Rate</b></div>
+				<div class="teams-rank"><b>C.With Bed ₹</b></div>
 				<input type="text" id="d_child_rate${rid}" name="addloc[${count}][nights][${night}][d_child_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); debouncedUpdateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}" value="0">
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2">
-				<div class="teams-rank"><b>C.Without Bed Rate</b></div>
+				<div class="teams-rank"><b>C.Without Bed ₹</b></div>
 				<input type="text" id="d_child_wb_rate${rid}" name="addloc[${count}][nights][${night}][d_child_wb_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); debouncedUpdateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}" value="0">
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2">
-				<div class="teams-rank"><b>Extra Bed Rate</b></div>
+				<div class="teams-rank"><b>Extra Bed ₹</b></div>
 				<input type="text" id="d_extra_bed_rate${rid}" name="addloc[${count}][nights][${night}][d_extra_bed_rate][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); debouncedUpdateRoomTotals(${count}, ${night}, ${i});" data-night="${night}" data-room-index="${i}" value="0">
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2 gst-column" style="display:none; ">
@@ -2650,11 +2650,11 @@ $is_edit = $edit_id ? $edit_id : 0;
 				<input type="text" id="d_gst_per${rid}" name="addloc[${count}][nights][${night}][d_gst_per][${i}]" class="form-control input-sm" data-count="${count}" maxlength="2" readonly data-night="${night}" data-room-index="${i}" value="0">
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2 gst-column" style="display:none;">
-				<div class="teams-rank"><b>GST Amount</b></div>
+				<div class="teams-rank"><b>GST ₹</b></div>
 				<input type="text" id="d_gst_amt${rid}" name="addloc[${count}][nights][${night}][d_gst_amt][${i}]" class="form-control input-sm" data-count="${count}" maxlength="6" readonly data-night="${night}" data-room-index="${i}" value="0">
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2">
-				<div class="teams-rank"><b>Total(Double)</b></div>
+				<div class="teams-rank"><b>Total(D)</b></div>
 				<input type="text" id="d_total_rate${rid}" name="addloc[${count}][nights][${night}][d_total_rate][${i}]" class="form-control input-sm d_total_rate" data-count="${count}" maxlength="6" readonly data-night="${night}" data-room-index="${i}" value="0">
 				</div>
 			</div>`;
@@ -2662,7 +2662,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			nightlyHtml += ` <div class="row mt-3">
     <div class="col-12 d-flex justify-content-end">
         <div class="col-xl col-sm-12 col-md-2 ps-2 room-label-col">
-            <div class="teams-rank textlef"><b>Grand Total(Double)</b></div>
+            <div class="teams-rank textlef"><b>Grand Total(D)</b></div>
             <input type="text" id="dd_total_rate${count}${night}" name="addloc[${count}][nights][${night}][dd_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}"><br>
         </div>
     </div>
@@ -2695,7 +2695,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 				let sid = `${count}${night}${seq}`;
 				nightlyHtml += ` <div class="row mt-2 align-items-center">
 				<div style="display:none;" class="col-xl col-sm-12 col-md-2 room-type-col">
-				<div class="teams-rank"><b>No. of Single Rooms</b></div>
+				<div class="teams-rank"><b>Single Rooms</b></div>
 				<input type="text" id="single${sid}" name="addloc[${count}][nights][${night}][single][${seq}]" value="1" class="form-control input-sm" data-count="${count}" maxlength="2" oninput="validateNumericInput(this);" readonly data-night="${night}" data-room-index="${seq}">
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2">
@@ -2715,19 +2715,19 @@ $is_edit = $edit_id ? $edit_id : 0;
 				</select>
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2">
-				<div class="teams-rank"><b>Daily Room Rate</b></div>
+				<div class="teams-rank"><b>Daily Room ₹</b></div>
 				<input type="text" id="s_adult_rate${sid}" name="addloc[${count}][nights][${night}][s_adult_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this); debouncedUpdateRoomTotals(${count}, ${night}, ${seq});" data-night="${night}" data-room-index="${seq}" value="0">
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2">
-				<div class="teams-rank"><b>C.With Bed Rate</b></div>
+				<div class="teams-rank"><b>C.With Bed ₹</b></div>
 				<input type="text" id="s_child_rate${sid}" name="addloc[${count}][nights][${night}][s_child_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" data-night="${night}" data-room-index="${seq}" value="0" readonly>
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2">
-				<div class="teams-rank"><b>C.Without Bed Rate</b></div>
+				<div class="teams-rank"><b>C.Without Bed ₹</b></div>
 				<input type="text" id="s_child_wb_rate${sid}" name="addloc[${count}][nights][${night}][s_child_wb_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" data-night="${night}" data-room-index="${seq}" value="0" readonly>
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2">
-				<div class="teams-rank"><b>Extra Bed Rate</b></div>
+				<div class="teams-rank"><b>Extra Bed ₹</b></div>
 				<input type="text" id="s_extra_bed_rate${sid}" name="addloc[${count}][nights][${night}][s_extra_bed_rate][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" oninput="validateNumericInput(this);" data-night="${night}" data-room-index="${seq}" value="0" readonly>
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2 gst-column" style="display:none;">
@@ -2739,11 +2739,11 @@ $is_edit = $edit_id ? $edit_id : 0;
 				<input type="text" id="s_gst_per${sid}" name="addloc[${count}][nights][${night}][s_gst_per][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="2" readonly data-night="${night}" data-room-index="${seq}" value="0" readonly >
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2 gst-column" style="display:none;">
-				<div class="teams-rank"><b>GST Amount</b></div>
+				<div class="teams-rank"><b>GST ₹</b></div>
 				<input type="text" id="s_gst_amt${sid}" name="addloc[${count}][nights][${night}][s_gst_amt][${seq}]" class="form-control input-sm" data-count="${count}" maxlength="6" readonly data-night="${night}" data-room-index="${seq}" value="0" readonly >
 				</div>
 				<div class="col-xl col-sm-12 col-md-2 ps-2">
-				<div class="teams-rank"><b>Total(Single)</b></div>
+				<div class="teams-rank"><b>Total(S)</b></div>
 				<input type="text" id="s_total_rate${sid}" name="addloc[${count}][nights][${night}][s_total_rate][${seq}]" class="form-control input-sm s_total_rate" data-count="${count}" maxlength="6" data-night="${night}" data-room-index="${seq}" value="0" readonly>
 				</div>
 			</div>`;
@@ -2751,7 +2751,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			nightlyHtml += ` <div class="row mt-3">
     <div class="col-12 d-flex justify-content-end">
         <div class="col-xl col-sm-12 col-md-2 ps-2 room-label-col">
-            <div class="teams-rank textlef"><b>Grand Total(Single)</b></div>
+            <div class="teams-rank textlef"><b>Grand Total(S)</b></div>
             <input type="text" id="ss_total_rate${count}${night}" name="addloc[${count}][nights][${night}][ss_total_rate]" value="0" class="form-control input-sm" maxlength="6" readonly data-night="${night}"><br>
         </div>
     </div>

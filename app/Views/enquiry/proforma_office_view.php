@@ -157,17 +157,17 @@
                                     <td style="text-align:center;background-color:#4baf58;color:#fff;border:1px solid black;" colspan="19"><b>Accomodation</b></td>
                                 </tr>
                                 <tr>
-                                    <td rowspan="9" style="border:1px solid black;"><b>Day</b></td>
-                                    <td rowspan="9" style="border:1px solid black;"><b>Check In</b></td>
-                                    <td rowspan="9" style="border:1px solid black;"><b>Check Out</b></td>
-                                    <td rowspan="9" style="border:1px solid black;"><b>Place</b></td>
-                                    <td rowspan="9" style="border:1px solid black;"><b>Hotel</b></td>
-                                    <td rowspan="9" style="border:1px solid black;"><b>Category</b></td>
-                                    <td rowspan="9" style="border:1px solid black;"><b>Food Plan</b></td>
-                                    <td rowspan="9" style="border:1px solid black;"><b>No:Of Rooms</b></td>
-                                    <td rowspan="9" style="border:1px solid black;"><b>Room Type</b></td>
-                                    <td colspan="<?php echo $nop; ?>" style="text-align:center;"><b>No Of Pax</b></td>
-                                    <td colspan="<?php echo $nop; ?>" style="text-align:center;"><b>Rate</b></td>
+                                    <td rowspan="2" style="border:1px solid black;"><b>Day</b></td>
+                                    <td rowspan="2" style="border:1px solid black;"><b>Check In</b></td>
+                                    <td rowspan="2" style="border:1px solid black;"><b>Check Out</b></td>
+                                    <td rowspan="2" style="border:1px solid black;"><b>Place</b></td>
+                                    <td rowspan="2" style="border:1px solid black;"><b>Hotel</b></td>
+                                    <td rowspan="2" style="border:1px solid black;"><b>Category</b></td>
+                                    <td rowspan="2" style="border:1px solid black;"><b>Food Plan</b></td>
+                                    <td rowspan="2" style="border:1px solid black;"><b>No:Of Rooms</b></td>
+                                    <td rowspan="2" style="border:1px solid black;"><b>Room Type</b></td>
+                                    <td colspan="<?php echo $nop; ?>" style="text-align:center;border:1px solid black;"><b>No Of Pax</b></td>
+                                    <td colspan="<?php echo $nop; ?>" style="text-align:center;border:1px solid black;"><b>Rate</b></td>
                                     <td rowspan="2" style="border:1px solid black;"><b>Total</b></td>
                                     <td rowspan="2" style="border:1px solid black;"><b>ITC</b></td>
                                 </tr>
@@ -203,139 +203,271 @@
                            <tbody>
                             <?php 
                             $k = 1;
-                            $sum = 0;
-                        
+                            $grand_total_accommodation = 0;
+                            
                             foreach($tour_plan as $key => $val) { 
-                                foreach($val['cost'] as $tkey => $tval){
-                                    if($tval['cost_component_id'] == 6 && $tval['room_type_id'] == 2){
-                                        $d_adult = $tval['quick_quote_tariff'];
-                                    }
-                                    if($tval['cost_component_id'] == 12 && $tval['room_type_id'] == 2){
-                                        $d_child = $tval['quick_quote_tariff'];
-                                    }
-                                    if($tval['cost_component_id'] == 15 && $tval['room_type_id'] == 2){
-                                        $d_child_wb = $tval['quick_quote_tariff'];
-                                    }
-                                    if($tval['cost_component_id'] == 9 && $tval['room_type_id'] == 2){
-                                        $d_extra = $tval['quick_quote_tariff'];
-                                    }
-
-                                    if($tval['cost_component_id'] == 6 && $tval['room_type_id'] == 1){
-                                        $s_adult = $tval['quick_quote_tariff'];
-                                    }
-                                    if($tval['cost_component_id'] == 12 && $tval['room_type_id'] == 1){
-                                        $s_child = $tval['quick_quote_tariff'];
-                                    }
-                                    if($tval['cost_component_id'] == 15 && $tval['room_type_id'] == 1){
-                                        $s_child_wb = $tval['quick_quote_tariff'];
-                                    }
-                                    if($tval['cost_component_id'] == 9 && $tval['room_type_id'] == 1){
-                                        $s_extra = $tval['quick_quote_tariff'];
-                                    }
-                                }
-
-                                $double_room_total = ($val['no_of_double_room']*$d_adult) + ($cdata[0]['no_of_child_with_bed']*$d_child) + ($cdata[0]['no_of_child_without_bed']*$d_child_wb) + ($cdata[0]['no_of_extra_bed']*$d_extra);
-                                $single_room_total = $val['no_of_single_room']*$s_adult;
-                                $rlen = 0;
-                                if($val['no_of_double_room'] > 0){
-                                    $rlen = $rlen + 1;
-                                }
-                                if($val['no_of_single_room'] > 0){
-                                    $rlen = $rlen + 1;
-                                }
                                 if($val['is_own_arrangement'] == 1) { ?>
-                                    <tr><td style="border:1px solid black;"><?php echo $k++; ?></td>
-                                    <td style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($val['check_in_date'])); ?></td>
-                                    <td style="border:1px solid black;">Own Arrangements</td></tr> <?php
-                                }
-                                else {
-                                    $sdate = $val['check_in_date'];
-                                    $edate = $val['check_out_date'];
-                                    $hname = $val['object_name'];
-                                    $cat = $val['room_category_name'];
-                                    $meals = $val['meal_plan_name'];
-                                    ?>
-                                        <tr>
-                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $k++; ?></td>
-                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($sdate)); ?></td>
-                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($edate)); ?></td>
-                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
-                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $hname; ?></td>
-                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $cat; ?></td>
-                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $meals; ?></td>
-                                            <?php
-                                            if($val['no_of_double_room'] > 0) {  
-                                            ?>   
-                                                <td style="border:1px solid black;"><?php echo $val['no_of_double_room']; ?></td>
-                                                <td style="border:1px solid black;">Double</td>
-                                                <?php if($val['no_of_adult'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $val['no_of_adult']; ?></td>
-                                                <?php } ?>
-                                                <?php if($val['no_of_child_with_bed'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $val['no_of_child_with_bed']; ?></td>
-                                                <?php } ?>
-                                                <?php if($val['no_of_child_without_bed'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $val['no_of_child_without_bed']; ?></td>
-                                                <?php } ?>
-                                                <?php if($val['no_of_extra_bed'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $val['no_of_extra_bed']; ?></td>
-                                                <?php } ?>
-
-                                                <?php if($cdata[0]['no_of_adult'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $d_adult; ?></td>
-                                                <?php } ?>
-                                                <?php if($cdata[0]['no_of_child_with_bed'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $d_child; ?></td>
-                                                <?php } ?>
-                                                <?php if($cdata[0]['no_of_child_without_bed'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $d_child_wb; ?></td>
-                                                <?php } ?>
-                                                <?php if($cdata[0]['no_of_extra_bed'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $d_extra; ?></td>
-                                                <?php } ?>
-                                              
-                                                    <td style="border:1px solid black;"><?php echo $val['no_of_days']*$double_room_total; ?></td>
-                                                    <td style="border:1px solid black;">0</td>
+                                    <tr>
+                                        <td style="border:1px solid black;"><?php echo $k++; ?></td>
+                                        <td style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($val['check_in_date'])); ?></td>
+                                        <td style="border:1px solid black;" colspan="11">Own Arrangements</td>
+                                    </tr>
+                                <?php } else {
+                                    // Check if expansion details exist
+                                    if(!empty($val['expansion_details']) && count($val['expansion_details']) > 0) {
+                                        // Use expansion data for dynamic rows
+                                        foreach($val['expansion_details'] as $exp_key => $exp) {
+                                            $sdate = $exp['tour_expansion_date'];
+                                            $edate = date('Y-m-d', strtotime($sdate . ' +1 day'));
+                                            $hname = $val['object_name'];
+                                            $cat = $exp['exp_room_category_name'] ?? $val['room_category_name'];
+                                            $meals = $exp['exp_meal_plan_name'] ?? $val['meal_plan_name'];
+                                            
+                                            // Count room types for this expansion entry
+                                            $has_double = ($exp['room_rate_double'] > 0);
+                                            $has_single = ($exp['room_rate_single'] > 0);
+                                            $rlen = ($has_double ? 1 : 0) + ($has_single ? 1 : 0);
+                                            
+                                            if($rlen > 0) {
+                                                $first_row = true;
                                                 
-                                                </tr>
-                                            <?php 
-                                            } 
-                                            if($val['no_of_single_room'] > 0) {
-                                            ?>
-                                            <tr>
-                                             <td style="border:1px solid black;"><?php echo $val['no_of_single_room']; ?></td>
-                                                <td style="border:1px solid black;">Single</td>
-                                                <?php if($val['no_of_adult'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $val['no_of_adult']; ?></td>
-                                                <?php } ?>
-                                                <?php if($val['no_of_child_with_bed'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $val['no_of_child_with_bed']; ?></td>
-                                                <?php } ?>
-                                                <?php if($val['no_of_child_without_bed'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $val['no_of_child_without_bed']; ?></td>
-                                                <?php } ?>
-                                                <?php if($val['no_of_extra_bed'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $val['no_of_extra_bed']; ?></td>
-                                                <?php } ?>
+                                                // Double Room Row
+                                                if($has_double) { 
+                                                    $double_room_total = $exp['double_total_rate'];
+                                                    $grand_total_accommodation += $double_room_total;
+                                                    ?>
+                                                    <tr>
+                                                        <?php if($first_row) { ?>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($sdate)); ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($edate)); ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $hname; ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $cat; ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $meals; ?></td>
+                                                            <?php $first_row = false; ?>
+                                                        <?php } ?>
+                                                        
+                                                        <td style="border:1px solid black;"><?php echo $val['no_of_double_room']; ?></td>
+                                                        <td style="border:1px solid black;">Double</td>
+                                                        
+                                                        <?php if($val['no_of_adult'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $val['no_of_adult']; ?></td>
+                                                        <?php } ?>
+                                                        <?php if($val['no_of_child_with_bed'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $val['no_of_child_with_bed']; ?></td>
+                                                        <?php } ?>
+                                                        <?php if($val['no_of_child_without_bed'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $val['no_of_child_without_bed']; ?></td>
+                                                        <?php } ?>
+                                                        <?php if($val['no_of_extra_bed'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $val['no_of_extra_bed']; ?></td>
+                                                        <?php } ?>
 
-                                                <?php if($cdata[0]['no_of_adult'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $s_adult; ?></td>
-                                                <?php } ?>
-                                                <?php if($cdata[0]['no_of_child_with_bed'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $s_child; ?></td>
-                                                <?php } ?>
-                                                <?php if($cdata[0]['no_of_child_without_bed'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $s_child_wb; ?></td>
-                                                <?php } ?>
-                                                <?php if($cdata[0]['no_of_extra_bed'] > 0){ ?>
-                                                    <td style="border:1px solid black;"><?php echo $s_extra; ?></td>
-                                                <?php } ?>
-                                                    <td style="border:1px solid black;"><?php echo $val['no_of_days']*$single_room_total; ?></td>
-                                                    <td style="border:1px solid black;">0</td>
+                                                        <?php if($cdata[0]['no_of_adult'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $exp['room_rate_double']; ?></td>
+                                                        <?php } ?>
+                                                        <?php if($cdata[0]['no_of_child_with_bed'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $exp['child_with_bed_double']; ?></td>
+                                                        <?php } ?>
+                                                        <?php if($cdata[0]['no_of_child_without_bed'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $exp['child_without_bed_double']; ?></td>
+                                                        <?php } ?>
+                                                        <?php if($cdata[0]['no_of_extra_bed'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $exp['extra_bed_double']; ?></td>
+                                                        <?php } ?>
+                                                        
+                                                        <td style="border:1px solid black;"><?php echo $double_room_total; ?></td>
+                                                        <td style="border:1px solid black;">0</td>
+                                                    </tr>
+                                                <?php 
+                                                } 
+                                                
+                                                // Single Room Row
+                                                if($has_single) {
+                                                    $single_room_total = $exp['single_total_rate'];
+                                                    $grand_total_accommodation += $single_room_total;
+                                                    ?>
+                                                    <tr>
+                                                        <?php if($first_row) { ?>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($sdate)); ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($edate)); ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $hname; ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $cat; ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $meals; ?></td>
+                                                            <?php $first_row = false; ?>
+                                                        <?php } ?>
+                                                        
+                                                        <td style="border:1px solid black;"><?php echo $val['no_of_single_room']; ?></td>
+                                                        <td style="border:1px solid black;">Single</td>
+                                                        
+                                                        <?php if($val['no_of_adult'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $val['no_of_adult']; ?></td>
+                                                        <?php } ?>
+                                                        <?php if($val['no_of_child_with_bed'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $val['no_of_child_with_bed']; ?></td>
+                                                        <?php } ?>
+                                                        <?php if($val['no_of_child_without_bed'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $val['no_of_child_without_bed']; ?></td>
+                                                        <?php } ?>
+                                                        <?php if($val['no_of_extra_bed'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $val['no_of_extra_bed']; ?></td>
+                                                        <?php } ?>
+
+                                                        <?php if($cdata[0]['no_of_adult'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $exp['room_rate_single']; ?></td>
+                                                        <?php } ?>
+                                                        <?php if($cdata[0]['no_of_child_with_bed'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $exp['child_with_bed_single']; ?></td>
+                                                        <?php } ?>
+                                                        <?php if($cdata[0]['no_of_child_without_bed'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $exp['child_without_bed_single']; ?></td>
+                                                        <?php } ?>
+                                                        <?php if($cdata[0]['no_of_extra_bed'] > 0){ ?>
+                                                            <td style="border:1px solid black;"><?php echo $exp['extra_bed_single']; ?></td>
+                                                        <?php } ?>
+                                                        
+                                                        <td style="border:1px solid black;"><?php echo $single_room_total; ?></td>
+                                                        <td style="border:1px solid black;">0</td>
+                                                    </tr>
+                                                <?php 
+                                                }
+                                                $k++;
+                                            }
+                                        }
+                                    } else {
+                                        // Fallback to old logic if no expansion data
+                                        foreach($val['cost'] as $tkey => $tval){
+                                            if($tval['cost_component_id'] == 6 && $tval['room_type_id'] == 2){
+                                                $d_adult = $tval['quick_quote_tariff'];
+                                            }
+                                            if($tval['cost_component_id'] == 12 && $tval['room_type_id'] == 2){
+                                                $d_child = $tval['quick_quote_tariff'];
+                                            }
+                                            if($tval['cost_component_id'] == 15 && $tval['room_type_id'] == 2){
+                                                $d_child_wb = $tval['quick_quote_tariff'];
+                                            }
+                                            if($tval['cost_component_id'] == 9 && $tval['room_type_id'] == 2){
+                                                $d_extra = $tval['quick_quote_tariff'];
+                                            }
+
+                                            if($tval['cost_component_id'] == 6 && $tval['room_type_id'] == 1){
+                                                $s_adult = $tval['quick_quote_tariff'];
+                                            }
+                                            if($tval['cost_component_id'] == 12 && $tval['room_type_id'] == 1){
+                                                $s_child = $tval['quick_quote_tariff'];
+                                            }
+                                            if($tval['cost_component_id'] == 15 && $tval['room_type_id'] == 1){
+                                                $s_child_wb = $tval['quick_quote_tariff'];
+                                            }
+                                            if($tval['cost_component_id'] == 9 && $tval['room_type_id'] == 1){
+                                                $s_extra = $tval['quick_quote_tariff'];
+                                            }
+                                        }
+
+                                        $double_room_total = ($val['no_of_double_room']*$d_adult) + ($cdata[0]['no_of_child_with_bed']*$d_child) + ($cdata[0]['no_of_child_without_bed']*$d_child_wb) + ($cdata[0]['no_of_extra_bed']*$d_extra);
+                                        $single_room_total = $val['no_of_single_room']*$s_adult;
+                                        $rlen = 0;
+                                        if($val['no_of_double_room'] > 0){
+                                            $rlen = $rlen + 1;
+                                        }
+                                        if($val['no_of_single_room'] > 0){
+                                            $rlen = $rlen + 1;
+                                        }
+                                        
+                                        $sdate = $val['check_in_date'];
+                                        $edate = $val['check_out_date'];
+                                        $hname = $val['object_name'];
+                                        $cat = $val['room_category_name'];
+                                        $meals = $val['meal_plan_name'];
+                                        ?>
+                                            <tr>
+                                                <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $k++; ?></td>
+                                                <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($sdate)); ?></td>
+                                                <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($edate)); ?></td>
+                                                <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
+                                                <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $hname; ?></td>
+                                                <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $cat; ?></td>
+                                                <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $meals; ?></td>
+                                                <?php
+                                                if($val['no_of_double_room'] > 0) {  
+                                                ?>   
+                                                    <td style="border:1px solid black;"><?php echo $val['no_of_double_room']; ?></td>
+                                                    <td style="border:1px solid black;">Double</td>
+                                                    <?php if($val['no_of_adult'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $val['no_of_adult']; ?></td>
+                                                    <?php } ?>
+                                                    <?php if($val['no_of_child_with_bed'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $val['no_of_child_with_bed']; ?></td>
+                                                    <?php } ?>
+                                                    <?php if($val['no_of_child_without_bed'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $val['no_of_child_without_bed']; ?></td>
+                                                    <?php } ?>
+                                                    <?php if($val['no_of_extra_bed'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $val['no_of_extra_bed']; ?></td>
+                                                    <?php } ?>
+
+                                                    <?php if($cdata[0]['no_of_adult'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $d_adult; ?></td>
+                                                    <?php } ?>
+                                                    <?php if($cdata[0]['no_of_child_with_bed'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $d_child; ?></td>
+                                                    <?php } ?>
+                                                    <?php if($cdata[0]['no_of_child_without_bed'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $d_child_wb; ?></td>
+                                                    <?php } ?>
+                                                    <?php if($cdata[0]['no_of_extra_bed'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $d_extra; ?></td>
+                                                    <?php } ?>
+                                                  
+                                                        <td style="border:1px solid black;"><?php echo $val['no_of_days']*$double_room_total; ?></td>
+                                                        <td style="border:1px solid black;">0</td>
                                                     
-                                        </tr> <?php
+                                                    </tr>
+                                                <?php 
+                                                $grand_total_accommodation += $val['no_of_days']*$double_room_total;
+                                                } 
+                                                if($val['no_of_single_room'] > 0) {
+                                                ?>
+                                                <tr>
+                                                 <td style="border:1px solid black;"><?php echo $val['no_of_single_room']; ?></td>
+                                                    <td style="border:1px solid black;">Single</td>
+                                                    <?php if($val['no_of_adult'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $val['no_of_adult']; ?></td>
+                                                    <?php } ?>
+                                                    <?php if($val['no_of_child_with_bed'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $val['no_of_child_with_bed']; ?></td>
+                                                    <?php } ?>
+                                                    <?php if($val['no_of_child_without_bed'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $val['no_of_child_without_bed']; ?></td>
+                                                    <?php } ?>
+                                                    <?php if($val['no_of_extra_bed'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $val['no_of_extra_bed']; ?></td>
+                                                    <?php } ?>
+
+                                                    <?php if($cdata[0]['no_of_adult'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $s_adult; ?></td>
+                                                    <?php } ?>
+                                                    <?php if($cdata[0]['no_of_child_with_bed'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $s_child; ?></td>
+                                                    <?php } ?>
+                                                    <?php if($cdata[0]['no_of_child_without_bed'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $s_child_wb; ?></td>
+                                                    <?php } ?>
+                                                    <?php if($cdata[0]['no_of_extra_bed'] > 0){ ?>
+                                                        <td style="border:1px solid black;"><?php echo $s_extra; ?></td>
+                                                    <?php } ?>
+                                                        <td style="border:1px solid black;"><?php echo $val['no_of_days']*$single_room_total; ?></td>
+                                                        <td style="border:1px solid black;">0</td>
+                                                        
+                                            </tr> <?php
+                                            $grand_total_accommodation += $val['no_of_days']*$single_room_total;
+                                        } 
+                                    } 
                                 } 
-                            } } ?>
+                            } ?>
                            </tbody>
                         </table>
                       
