@@ -1040,7 +1040,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 
 																					<div class="form-check ml-2">
-																						<input class="form-check-input" type="checkbox" id="dynamicNeeded" />
+																						<input class="form-check-input " type="checkbox" id="dynamicNeeded" />
 																						<label class="btn btn-success dyna" for="dynamicNeeded">Dynamic needed</label>
 																					</div>
 
@@ -2357,7 +2357,11 @@ $is_edit = $edit_id ? $edit_id : 0;
 		calculateVehicleExtraKmCharges();
 	}, 300);
 
+	  $(document).on('input', '.no_of_night', function () {
+        checkTotalNights();
+    });
 	$(document).on('click', '#btn_add_bt', function(e) {
+		// checkTotalNights()
 		e.preventDefault();
 		var tour_plan_div = $('.tour_plan_div').val();
 		var hotel_categories = <?php echo json_encode($hotel_categories); ?>;
@@ -2425,44 +2429,45 @@ $is_edit = $edit_id ? $edit_id : 0;
                 <div class="ibox teams mb-30 bg-boxshadow">
                   <div class="ibox-content teams">
                     <div class="row mt-2">
-                      <div class="col-xl col-sm-12 col-md-2">
-                        <div class="teams-rank"><b>Checkin</b></div>
-                        <span class="text-muted">
-                          <input type="date" value="${checkinDate}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
-                        </span>
-                      </div>
-                      <div class="col-xl col-sm-12 col-md-2">
-                        <div class="teams-rank"><b>Nights</b></div>
-                        <span class="text-muted">
-                          <input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count}); updateNightlyDetails(${count});" required>
-                        </span>
-                      </div>
-                      <div class="col-xl col-sm-12 col-md-2">
-                        <div class="teams-rank"><b>Checkout</b></div>
-                        <span class="text-muted">
-                          <input type="date" id="checkout${count}" name="addloc[${count}][checkout]" class="form-control input-sm" required readonly>
-                        </span>
-                      </div>
-                      <div class="col-xl col-sm-12 col-md-2">
-                        <div class="teams-rank"><b>Hotel Category</b></div>
-                        <select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" required>
-                          <option value="">Select</option>
-                        </select>
-                      </div>
-                      <div class="col-xl col-sm-12 col-md-2">
-                        <div class="teams-rank"><b>Hotel</b></div>
-                        <span class="text-muted">
-                          <select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" required>
-                            <option value="">Select</option>
-                          </select>
-                        </span>
-                      </div>
-                      <div class="col-xl col-sm-12 col-md-2">
-                        <div class="teams-rank"><b>Room Category</b></div>
-                        <select id="roomcat_common${count}" name="addloc[${count}][roomcat_common]" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}">
-                          <option value="">Select</option>
-                        </select>
-                      </div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Hotel Category</b></div>
+					<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" required>
+					<option value="">Select</option>
+					</select>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Hotel</b></div>
+					<span class="text-muted">
+					<select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" required>
+					<option value="">Select</option>
+					</select>
+					</span>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Room Category</b></div>
+					<select id="roomcat_common${count}" name="addloc[${count}][roomcat_common]" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}">
+					<option value="">Select</option>
+					</select>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Checkin</b></div>
+					<span class="text-muted">
+					<input type="date" value="${checkinDate}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
+					</span>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Nights</b></div>
+					<span class="text-muted">
+					<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count}); updateNightlyDetails(${count});" required>
+					</span>
+					</div>
+					
+					<div class="col-xl col-sm-12 col-md-2">
+					  <div class="teams-rank"><b>Checkout</b></div>
+					  <span class="text-muted">
+						<input type="date" id="checkout${count}" name="addloc[${count}][checkout]" class="form-control input-sm" required readonly>
+					  </span>
+					</div>
                     </div>
                     <div class="row mt-2">
                       <div class="col-xl col-sm-12 col-md-2">
@@ -3792,174 +3797,246 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 	// Function to toggle visibility of nights based on checkbox
 	function toggleNightsVisibility() {
-		var showAll = getIsDynamic(); // true if checked (dynamic), false otherwise
+	var showAll = getIsDynamic(); // true if checked (dynamic), false otherwise
 
-		$('.location-card').each(function() {
-			var $locationCard = $(this);
-			var count = $locationCard.attr('data-index');
+	console.log('Toggling nights visibility: dynamic=', showAll);
 
-			// CRITICAL: Force location card visible at start
+	$('.location-card').each(function() {
+		var $locationCard = $(this);
+		var count = $locationCard.attr('data-index');
+
+		// CRITICAL: Force location card visible at start
+		$locationCard.show().css('display', 'block');
+
+		// Also ensure the nightly-details container is visible
+		$(`#nightly-details${count}`).show().css('display', 'block');
+
+		var noOfNight = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+		// If no nights specified, ensure card stays visible and clear all night inputs
+		if (noOfNight === 0) {
 			$locationCard.show().css('display', 'block');
-
-			// Also ensure the nightly-details container is visible
 			$(`#nightly-details${count}`).show().css('display', 'block');
+			
+			// Clear all night-specific inputs
+			for (let n = 1; n <= 10; n++) { // Assuming max 10 nights; adjust if needed
+				$(`#double${count}${n}`).val(0);
+				$(`#single${count}${n}`).val(0);
+			}
+			return; // Skip processing if no nights
+		}
 
-			var noOfNight = parseInt($(`#no_of_night${count}`).val()) || 0;
+		$(`#nightly-details${count} .night-section`).each(function() {
+			var $nightSection = $(this);
+			var night = parseInt($nightSection.attr('data-night'));
 
-			// If no nights specified, ensure card stays visible
-			if (noOfNight === 0) {
-				$locationCard.show().css('display', 'block');
-				$(`#nightly-details${count}`).show().css('display', 'block');
-				return; // Skip processing if no nights
+			// CRITICAL: Hide nights beyond the current no_of_night and clear values
+			if (night > noOfNight) {
+				$nightSection.hide();
+				
+				// Set quantities and related inputs to 0 for hidden nights to prevent carryover
+				$(`#double${count}${night}`).val(0).trigger('change');
+				$(`#single${count}${night}`).val(0).trigger('change');
+				
+				// Clear room totals and other night-specific fields if needed
+				$nightSection.find('input[id^="d_total_rate"], input[id^="s_total_rate"], input[id^="dd_total_rate"], input[id^="ss_total_rate"]').val(0);
+				$nightSection.find('.mp_row_change').val('');
+				
+				return;
 			}
 
-			$(`#nightly-details${count} .night-section`).each(function() {
-				var $nightSection = $(this);
-				var night = parseInt($nightSection.attr('data-night'));
-
-				// CRITICAL: Hide nights beyond the current no_of_night
-				if (night > noOfNight) {
-					$nightSection.hide();
-					return;
-				}
-
-				if (night > 1) {
-					if (showAll) {
-						// Show everything for nights > 1 when dynamic
-						$nightSection.show();
-					} else {
-						// Hide entire night section when not dynamic
-						$nightSection.hide();
-					}
-				} else {
-					// Night 1 - ALWAYS show the section
+			if (night > 1) {
+				if (showAll) {
+					// Show everything for nights > 1 when dynamic
 					$nightSection.show();
-
-					if (!showAll) {
-						// Static mode: Hide night header, count rows, and grand room totals
-						$nightSection.find('> h3').hide();
-						$nightSection.find('.double_row, .single_row').hide(); // Hide room count rows
-						$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').hide(); // Hide grand room totals
-
-						// For double rooms - hide all room input rows except the first
-						var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-							return $(this).find('[id^="roomcat"]').length > 0 &&
-								$(this).find('[id^="d_adult_rate"]').length > 0;
-						});
-						$doubleRoomRows.each(function(index) {
-							if (index > 0) {
-								$(this).hide();
-							}
-						});
-
-						// For single rooms - hide all room input rows except the first
-						var $singleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-							return $(this).find('[id^="roomcat"]').length > 0 &&
-								$(this).find('[id^="s_adult_rate"]').length > 0;
-						});
-						$singleRoomRows.each(function(index) {
-							if (index > 0) {
-								$(this).hide();
-							}
-						});
-
-						// Static mode: Show quantity and adjust totals for first visible rows
-						var $firstDoubleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-							return $(this).find('input[id^="d_adult_rate"]').length > 0;
-						}).first();
-						if ($firstDoubleRow.length) {
-							var $roomTypeColDouble = $firstDoubleRow.find('.room-type-col');
-							$roomTypeColDouble.show();
-							var doubleQty = parseInt($(`#double${count}${night}`).val()) || 0;
-							var doubleQtyInput = $roomTypeColDouble.find('input');
-							doubleQtyInput.val(doubleQty);
-							var ddTotal = calculateAllNightsDoubleTotal(count);
-							$firstDoubleRow.find('input.d_total_rate').val(Math.round(ddTotal));
-						}
-
-						var $firstSingleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-							return $(this).find('input[id^="s_adult_rate"]').length > 0;
-						}).first();
-						if ($firstSingleRow.length) {
-							var $roomTypeColSingle = $firstSingleRow.find('.room-type-col');
-							$roomTypeColSingle.show();
-							var singleQty = parseInt($(`#single${count}${night}`).val()) || 0;
-							var singleQtyInput = $roomTypeColSingle.find('input');
-							singleQtyInput.val(singleQty);
-							var ssTotal = calculateAllNightsSingleTotal(count);
-							$firstSingleRow.find('input.s_total_rate').val(Math.round(ssTotal));
-						}
-
-					} else {
-						// Dynamic mode: Show everything in night 1, revert static modifications
-						$nightSection.find('> h3').show();
-						$nightSection.find('.double_row, .single_row').show(); // Show count rows
-						$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show(); // Show grand room totals
-						$nightSection.find('.row.mt-2.align-items-center').show();
-
-						// Revert room type columns to hidden and value=1
-						$nightSection.find('.room-type-col').hide();
-						$nightSection.find('input[id^="double"], input[id^="single"]').not(`#double${count}${night}, #single${count}${night}`).val(1);
-
-						// Re-update per-room totals (since static may have overridden)
-						for (let n = 1; n <= noOfNight; n++) {
-							// Re-call updateRoomTotals for all rooms in this night to reset per-room values
-							var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
-							for (let i = 1; i <= numDouble; i++) {
-								updateRoomTotals(count, n, i);
-							}
-							var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
-							var doubleCount = numDouble;
-							for (let i = 1; i <= numSingle; i++) {
-								updateRoomTotals(count, n, doubleCount + i);
-							}
-						}
-					}
-				}
-			});
-
-			// Handle vehicle visibility based on dynamic state
-			var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-			if (is_vehicle_required == 1) {
-				if (!showAll) {
-					// Static mode: Hide all vehicle details except Vehicle Summary
-					$(`#nightly-details${count} .vehicle-details-section`).hide();
-					$(`#nightly-details${count} .vehicle-rows`).hide();
-					$(`#nightly-details${count} .vehicle-row`).hide();
-
-					// Hide vehicle grand total in all nights (static mode)
-					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
-
-					// Show Vehicle Summary
-					$(`#vehicle-summary-${count}`).show();
 				} else {
-					// Dynamic mode: Show all vehicle details, hide Vehicle Summary
-					$(`#nightly-details${count} .vehicle-details-section`).show();
-					$(`#nightly-details${count} .vehicle-rows`).show();
-					$(`#nightly-details${count} .vehicle-row`).show();
+					// Hide entire night section when not dynamic
+					$nightSection.hide();
+					
+					// In static mode, still set quantities but calculations will aggregate
+					// (No need to clear here since avg will be set uniformly below)
+				}
+			} else {
+				// Night 1 - ALWAYS show the section
+				$nightSection.show();
 
-					// Hide vehicle grand total in all nights (dynamic mode)
-					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+				if (!showAll) {
+					// Aggregate quantities for static mode (average across nights)
+					let totalDouble = 0;
+					let totalSingle = 0;
+					for (let n = 1; n <= noOfNight; n++) {
+						totalDouble += parseInt($(`#double${count}${n}`).val() || 0);
+						totalSingle += parseInt($(`#single${count}${n}`).val() || 0);
+					}
+					const avgDouble = noOfNight > 0 ? Math.round(totalDouble / noOfNight) : 0;
+					const avgSingle = noOfNight > 0 ? Math.round(totalSingle / noOfNight) : 0;
 
-					// Hide Vehicle Summary in dynamic mode
-					$(`#vehicle-summary-${count}`).hide();
+					// Set uniform quantity across all nights (only up to noOfNight)
+					for (let n = 1; n <= noOfNight; n++) {
+						$(`#double${count}${n}`).val(avgDouble).trigger('change');
+						$(`#single${count}${n}`).val(avgSingle).trigger('change');
+					}
+
+					// Static mode: Hide night header, count rows, and grand room totals
+					$nightSection.find('> h3').hide();
+					$nightSection.find('.double_row, .single_row').hide(); // Hide room count rows
+					$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').hide(); // Hide grand room totals
+
+					// For double rooms - hide all room input rows except the first
+					var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+						return $(this).find('[id^="roomcat"]').length > 0 &&
+							$(this).find('[id^="d_adult_rate"]').length > 0;
+					});
+					$doubleRoomRows.each(function(index) {
+						if (index > 0) {
+							$(this).hide();
+						}
+					});
+
+					// For single rooms - hide all room input rows except the first
+					var $singleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+						return $(this).find('[id^="roomcat"]').length > 0 &&
+							$(this).find('[id^="s_adult_rate"]').length > 0;
+					});
+					$singleRoomRows.each(function(index) {
+						if (index > 0) {
+							$(this).hide();
+						}
+					});
+
+					// Static mode: Show quantity and adjust for first visible rows
+					var $firstDoubleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+						return $(this).find('input[id^="d_adult_rate"]').length > 0;
+					}).first();
+					if ($firstDoubleRow.length) {
+						var $roomTypeColDouble = $firstDoubleRow.find('.room-type-col');
+						$roomTypeColDouble.show();
+						var doubleQtyInput = $roomTypeColDouble.find('input');
+						doubleQtyInput.val(avgDouble);
+						var ddTotal = calculateAllNightsDoubleTotal(count);
+						$firstDoubleRow.find('input.d_total_rate').val(Math.round(ddTotal));
+					}
+
+					var $firstSingleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+						return $(this).find('input[id^="s_adult_rate"]').length > 0;
+					}).first();
+					if ($firstSingleRow.length) {
+						var $roomTypeColSingle = $firstSingleRow.find('.room-type-col');
+						$roomTypeColSingle.show();
+						var singleQtyInput = $roomTypeColSingle.find('input');
+						singleQtyInput.val(avgSingle);
+						var ssTotal = calculateAllNightsSingleTotal(count);
+						$firstSingleRow.find('input.s_total_rate').val(Math.round(ssTotal));
+					}
+
+				} else {
+					// Dynamic mode for night 1: Show everything
+					$nightSection.find('> h3').show();
+					$nightSection.find('.double_row, .single_row').show(); // Show count rows
+					$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show(); // Show grand room totals
+					$nightSection.find('.row.mt-2.align-items-center').show();
 				}
 			}
-
-			// CRITICAL: Force card and parent containers to be visible at end
-			$locationCard.show().css('display', 'block');
-			$locationCard.parent().show().css('display', 'block'); // Show parent container too
-			$(`#nightly-details${count}`).show().css('display', 'block');
-
-			// Ensure the card body and ibox are also visible
-			$locationCard.find('.card-body').show().css('display', 'block');
-			$locationCard.find('.ibox').show().css('display', 'block');
 		});
 
-		updateGrandtotalBoth();
-		get_veh_grand_total();
-		// $('.load_vehs_click').trigger('click');
-	}
+		// Dynamic mode: Ensure all nights show full details and revert per-room quantities
+		if (showAll) {
+			for (let n = 1; n <= noOfNight; n++) {
+				var $nightSec = $(`#nightly-details${count} .night-section[data-night="${n}"]`);
+				$nightSec.find('> h3').show();
+				$nightSec.find('.double_row, .single_row').show();
+				$nightSec.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show();
+				$nightSec.find('.row.mt-2.align-items-center').show();
+
+				// Revert room type columns to hidden and per-room qty=1
+				$nightSec.find('.room-type-col').hide();
+				$nightSec.find('input[id^="double"], input[id^="single"]').not(`#double${count}${n}, #single${count}${n}`).val(1);
+			}
+
+			// Re-update per-room totals for all rooms across all nights
+			for (let n = 1; n <= noOfNight; n++) {
+				var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
+				for (let i = 1; i <= numDouble; i++) {
+					rtc_updateRoomTotals(count, n, i);
+				}
+				var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
+				var doubleCount = numDouble;
+				for (let i = 1; i <= numSingle; i++) {
+					rtc_updateRoomTotals(count, n, doubleCount + i);
+				}
+			}
+		} else {
+			// Static mode: Recalculate all rooms and grand totals for consistency
+			for (let n = 1; n <= noOfNight; n++) {
+				var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
+				for (let roomIdx = 1; roomIdx <= numDouble; roomIdx++) {
+					rtc_updateRoomTotals(count, n, roomIdx);
+				}
+				var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
+				for (let roomIdx = 1; roomIdx <= numSingle; roomIdx++) {
+					rtc_updateRoomTotals(count, n, numDouble + roomIdx);
+				}
+
+				// Recalculate grand totals for each night
+				calculateDoubleGrandTotalStatic(count, n);
+				calculateSingleGrandTotalStatic(count, n);
+			}
+
+			// Update the static mode display
+			updateStaticModeDisplayTotal(count);
+		}
+
+		// Handle vehicle visibility based on dynamic state
+		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+		if (is_vehicle_required == 1) {
+			if (!showAll) {
+				// Static mode: Hide all vehicle details except Vehicle Summary
+				$(`#nightly-details${count} .vehicle-details-section`).hide();
+				$(`#nightly-details${count} .vehicle-rows`).hide();
+				$(`#nightly-details${count} .vehicle-row`).hide();
+
+				// Hide vehicle grand total in all nights (static mode)
+				$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+
+				// Show Vehicle Summary
+				$(`#vehicle-summary-${count}`).show();
+			} else {
+				// Dynamic mode: Show all vehicle details, hide Vehicle Summary
+				$(`#nightly-details${count} .vehicle-details-section`).show();
+				$(`#nightly-details${count} .vehicle-rows`).show();
+				$(`#nightly-details${count} .vehicle-row`).show();
+
+				// Hide vehicle grand total in all nights (dynamic mode)
+				$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+
+				// Hide Vehicle Summary in dynamic mode
+				$(`#vehicle-summary-${count}`).hide();
+			}
+		}
+
+		// CRITICAL: Force card and parent containers to be visible at end
+		$locationCard.show().css('display', 'block');
+		$locationCard.parent().show().css('display', 'block'); // Show parent container too
+		$(`#nightly-details${count}`).show().css('display', 'block');
+
+		// Ensure the card body and ibox are also visible
+		$locationCard.find('.card-body').show().css('display', 'block');
+		$locationCard.find('.ibox').show().css('display', 'block');
+
+		// Update location totals
+		var cardTotal = updateGrandtotalBoth(count);
+		var veh_grand_total = get_veh_grand_total();
+		$(`#loc_total${count}`).text(cardTotal + " + " + veh_grand_total);
+	});
+
+	// Update global totals
+	$('#v_total').text(get_veh_grand_total());
+	$('#a_total').text(updateGrandtotalBoth());
+	$('#g_total').text((updateGrandtotalBoth() + get_veh_grand_total()));
+
+	console.log('Nights visibility toggle complete');
+	// $('.load_vehs_click').trigger('click');
+}
 
 	// ===== REMOVE: Event listener that prevented manual toggle =====
 	// Normal checkbox behavior - no restrictions
@@ -3976,6 +4053,23 @@ $is_edit = $edit_id ? $edit_id : 0;
 		});
 		return totalNights;
 	}
+  function checkTotalNights() {
+        var totalNights = calculateTotalNights();
+		 var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;
+
+		// alert(no_of_night);
+        if (totalNights == no_of_night) {
+            $('.dyna').show();
+			$('#dynamicNeeded').show();
+        } else {
+            $('.dyna').hide();
+			$('#dynamicNeeded').hide();
+        }
+    }
+
+    // Initially hide the button
+    $('.dyna').hide();
+	$('#dynamicNeeded').hide();
 
 	// Function to calculate location count
 	function calculateLocationCount() {
@@ -4553,84 +4647,84 @@ $is_edit = $edit_id ? $edit_id : 0;
 	// Event handler for rate inputs to propagate in static mode
 	// ===== FIXED RATE INPUT HANDLER WITH PROPER STATIC MODE CALCULATION =====
 	$(document).on('input', 'input[id^="d_adult_rate"], input[id^="d_child_rate"], input[id^="d_child_wb_rate"], input[id^="d_extra_bed_rate"], input[id^="s_adult_rate"], input[id^="s_child_rate"], input[id^="s_child_wb_rate"], input[id^="s_extra_bed_rate"]', function() {
-		var $input = $(this);
-		validateNumericInput($input[0]);
+	var $input = $(this);
+	validateNumericInput($input[0]);
 
-		var count = $input.data('count');
-		var night = parseInt($input.data('night'));
-		var roomIndex = parseInt($input.data('room-index'));
-		var fieldId = $input.attr('id');
-		var value = $input.val();
+	var count = $input.data('count');
+	var night = parseInt($input.data('night'));
+	var roomIndex = parseInt($input.data('room-index'));
+	var fieldId = $input.attr('id');
+	var value = $input.val();
 
-		var roomType = fieldId.includes('d_') ? 'double' : 'single';
-		var prefix = roomType === 'double' ? 'd_' : 's_';
+	var roomType = fieldId.includes('d_') ? 'double' : 'single';
+	var prefix = roomType === 'double' ? 'd_' : 's_';
 
-		console.log('=== Rate Input Change ===');
-		console.log('Field:', fieldId, 'Count:', count, 'Night:', night, 'Room Index:', roomIndex, 'Room Type:', roomType, 'Value:', value);
+	console.log('=== Rate Input Change ===');
+	console.log('Field:', fieldId, 'Count:', count, 'Night:', night, 'Room Index:', roomIndex, 'Room Type:', roomType, 'Value:', value);
 
-		// **FIX: Compute if this is the first room of its type for the current night**
-		var totalDoublesThisNight = parseInt($(`#double${count}${night}`).val()) || 0;
-		var firstSingleIndex = totalDoublesThisNight + 1;
-		var isFirstOfType = (roomType === 'double' && roomIndex === 1) || (roomType === 'single' && roomIndex === firstSingleIndex);
-		console.log('Total Doubles This Night:', totalDoublesThisNight, 'First Single Index:', firstSingleIndex, 'Is First of Type:', isFirstOfType);
+	// **FIX: Compute if this is the first room of its type for the current night**
+	var totalDoublesThisNight = parseInt($(`#double${count}${night}`).val()) || 0;
+	var firstSingleIndex = totalDoublesThisNight + 1;
+	var isFirstOfType = (roomType === 'double' && roomIndex === 1) || (roomType === 'single' && roomIndex === firstSingleIndex);
+	console.log('Total Doubles This Night:', totalDoublesThisNight, 'First Single Index:', firstSingleIndex, 'Is First of Type:', isFirstOfType);
 
-		// Dynamic mode or not the first room of type
-		if (getIsDynamic() || !isFirstOfType) {
-			console.log('Dynamic mode or not first of type - Updating only current room');
-			debouncedUpdateRoomTotals(count, night, roomIndex);
-			// Add this callback to update totals after room calculation
-			setTimeout(function() {
-				updateAllTotals();
-			}, 100);
-			return;
+	// Dynamic mode or not the first room of type
+	if (getIsDynamic() || !isFirstOfType) {
+		console.log('Dynamic mode or not first of type - Updating only current room');
+		rtc_updateRoomTotals(count, night, roomIndex);
+		// Add this callback to update totals after room calculation
+		setTimeout(function() {
+			updateAllTotals();
+		}, 100);
+		return;
+	}
+
+	// STATIC MODE: Propagate rate change
+	console.log('Static mode - Propagating rate change for first room of type');
+	var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+	var fieldType = fieldId.replace(prefix, '').split(`${count}${night}${roomIndex}`)[0];
+
+	console.log('Field Type:', fieldType, 'Total Nights:', no_of_night);
+
+	// Loop through ALL nights
+	for (let n = 1; n <= no_of_night; n++) {
+		var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
+		var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
+
+		var startIndex, endIndex;
+		if (roomType === 'double') {
+			startIndex = 1;
+			endIndex = totalDoubleRooms;
+		} else {
+			startIndex = totalDoubleRooms + 1;
+			endIndex = totalDoubleRooms + totalSingleRooms;
 		}
 
-		// STATIC MODE: Propagate rate change
-		console.log('Static mode - Propagating rate change for first room of type');
-		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-		var fieldType = fieldId.replace(prefix, '').split(`${count}${night}${roomIndex}`)[0];
+		console.log(`Night ${n}: Propagating to rooms ${startIndex} to ${endIndex}`);
 
-		console.log('Field Type:', fieldType, 'Total Nights:', no_of_night);
+		for (let r = startIndex; r <= endIndex; r++) {
+			var otherRid = `${count}${n}${r}`;
+			var otherFieldId = `${prefix}${fieldType}${otherRid}`;
+			var $otherField = $(`#${otherFieldId}`);
 
-		// Loop through ALL nights
-		for (let n = 1; n <= no_of_night; n++) {
-			var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
-			var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
-
-			var startIndex, endIndex;
-			if (roomType === 'double') {
-				startIndex = 1;
-				endIndex = totalDoubleRooms;
-			} else {
-				startIndex = totalDoubleRooms + 1;
-				endIndex = totalDoubleRooms + totalSingleRooms;
-			}
-
-			console.log(`Night ${n}: Propagating to rooms ${startIndex} to ${endIndex}`);
-
-			for (let r = startIndex; r <= endIndex; r++) {
-				var otherRid = `${count}${n}${r}`;
-				var otherFieldId = `${prefix}${fieldType}${otherRid}`;
-				var $otherField = $(`#${otherFieldId}`);
-
-				if ($otherField.length > 0) {
-					$otherField.val(value);
-					updateRoomTotals(count, n, r);
-				}
-			}
-
-			if (roomType === 'double') {
-				calculateDoubleGrandTotalStatic(count, n);
-			} else {
-				calculateSingleGrandTotalStatic(count, n);
+			if ($otherField.length > 0) {
+				$otherField.val(value);
+				rtc_updateRoomTotals(count, n, r);
 			}
 		}
 
-		// **FIX: Update all totals in the correct order**
-		updateAllTotals();
+		if (roomType === 'double') {
+			calculateDoubleGrandTotalStatic(count, n);
+		} else {
+			calculateSingleGrandTotalStatic(count, n);
+		}
+	}
 
-		console.log('Rate propagation complete');
-	});
+	// **FIX: Update all totals in the correct order**
+	updateAllTotals();
+
+	console.log('Rate propagation complete');
+});
 
 	// Create a separate function to update all totals
 	function updateAllTotals() {
@@ -4690,45 +4784,73 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 	}
 
-	$(document).on('change', '.room_cat_common_change', function() {
+		$(document).on('change', '.room_cat_common_change', function() {
 		if (isDraftLoading) {
 			console.log('Skipping room cat change during draft load');
 			return;
 		}
-		var value = $(this).val();
-		var count = $(this).attr('data-id');
-		var commonOptions = $(this).html();
 
-		// FIX: Prevent recursive updates
-		var isUpdating = $(this).data('updating');
+		const value = $(this).val();
+		const count = $(this).attr('data-id');
+		const commonOptions = $(this).html();
+
+		// Prevent recursive updates
+		const isUpdating = $(this).data('updating');
 		if (isUpdating) return;
 		$(this).data('updating', true);
 
-		var $spinner = $('#csspinner');
+		const $spinner = $('#csspinner');
 		$spinner.show();
 
-		// Update all room category dropdowns
+		console.log('Common room cat change:', { count, value });
+
+		// Update all room category dropdowns for this location
 		$(`#nightly-details${count} .room_cat_change`).each(function() {
-			var $roomCat = $(this);
+			const $roomCat = $(this);
 			$roomCat.select2('destroy');
 			$roomCat.html(commonOptions);
 			$roomCat.select2();
 
-			// Mark as programmatic to prevent meal plan handler from triggering AJAX
+			// Mark as programmatic to prevent individual handlers from triggering
 			$roomCat.data('programmatic-change', true);
 			$roomCat.val(value);
 			$roomCat.trigger('change');
 		});
 
-		// FIX: Wait for all room category changes to complete, then recalculate
+		// Wait for all room category changes to complete, then recalculate
 		setTimeout(function() {
-			var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+			const no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+			const no_of_ch = parseInt($(`#no_of_ch${count}`).val()) || 0;
+			const no_of_cw = parseInt($(`#no_of_cw${count}`).val()) || 0;
+			const no_of_extra = parseInt($(`#no_of_extra${count}`).val()) || 0;
+
+			console.log('Recalculating after common room cat change:', {
+				count,
+				no_of_night,
+				no_of_ch,
+				no_of_cw,
+				no_of_extra
+			});
 
 			// In static mode, recalculate ALL nights
 			if (!getIsDynamic()) {
 				console.log('Static mode: Recalculating all nights after room cat change');
 
 				for (let night = 1; night <= no_of_night; night++) {
+					// Get room quantities for this night
+					const numDouble = parseInt($(`#double${count}${night}`).val()) || 0;
+					const numSingle = parseInt($(`#single${count}${night}`).val()) || 0;
+
+					// Recalculate each double room with round-robin
+					for (let roomIdx = 1; roomIdx <= numDouble; roomIdx++) {
+						rtc_updateRoomTotals(count, night, roomIdx);
+					}
+
+					// Recalculate each single room
+					for (let roomIdx = 1; roomIdx <= numSingle; roomIdx++) {
+						rtc_updateRoomTotals(count, night, numDouble + roomIdx);
+					}
+
 					// Recalculate grand totals for each night
 					calculateDoubleGrandTotalStatic(count, night);
 					calculateSingleGrandTotalStatic(count, night);
@@ -4736,24 +4858,30 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 				// Update the static mode display
 				updateStaticModeDisplayTotal(count);
+
 			} else {
-				// Dynamic mode: recalculate each room
+				// Dynamic mode: recalculate each room for each night
+				console.log('Dynamic mode: Recalculating all rooms');
+
 				for (let night = 1; night <= no_of_night; night++) {
-					var numDouble = parseInt($(`#double${count}${night}`).val()) || 0;
-					for (let i = 1; i <= numDouble; i++) {
-						updateRoomTotals(count, night, i);
+					const numDouble = parseInt($(`#double${count}${night}`).val()) || 0;
+					const numSingle = parseInt($(`#single${count}${night}`).val()) || 0;
+
+					// Recalculate each double room with round-robin
+					for (let roomIdx = 1; roomIdx <= numDouble; roomIdx++) {
+						rtc_updateRoomTotals(count, night, roomIdx);
 					}
 
-					var numSingle = parseInt($(`#single${count}${night}`).val()) || 0;
-					for (let i = 1; i <= numSingle; i++) {
-						updateRoomTotals(count, night, numDouble + i);
+					// Recalculate each single room
+					for (let roomIdx = 1; roomIdx <= numSingle; roomIdx++) {
+						rtc_updateRoomTotals(count, night, numDouble + roomIdx);
 					}
 				}
 			}
 
 			// Update overall totals
-			var cardTotal = updateGrandtotalBoth(count);
-			var veh_grand_total = get_veh_grand_total();
+			const cardTotal = updateGrandtotalBoth(count);
+			const veh_grand_total = get_veh_grand_total();
 			$(`#loc_total${count}`).text(cardTotal + " + " + veh_grand_total);
 			$('#v_total').text(veh_grand_total);
 			$('#a_total').text(updateGrandtotalBoth());
@@ -4761,48 +4889,118 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 			$spinner.hide();
 			$('.room_cat_common_change[data-id="' + count + '"]').removeData('updating');
-		}, 500); // Delay to ensure all async operations complete
+
+			console.log('Common room cat change complete');
+		}, 500);
 	});
 
+	// Fallback for browsers without requestIdleCallback
+	if (!window.requestIdleCallback) {
+		window.requestIdleCallback = function(cb, options) {
+			const start = Date.now();
+			return setTimeout(() => {
+				cb({
+					didTimeout: false,
+					timeRemaining: () => Math.max(0, 50 - (Date.now() - start))
+				});
+			}, 1);
+		};
+	}
 	$(document).on('change', '.mp_change', function() {
-		if (isDraftLoading) {
-			console.log('Skipping meal plan change during draft load');
-			return;
-		}
-		var value = $(this).val();
-		var count = $(this).attr('data-id');
+	if (isDraftLoading) {
+		console.log('Skipping meal plan change during draft load');
+		return;
+	}
 
-		var $spinner = $('#csspinner');
-		$spinner.show();
+	// Prevent recursive updates
+	const isUpdating = $(this).data('updating');
+	if (isUpdating) return;
+	$(this).data('updating', true);
 
-		// Update all meal plans
-		$(`#nightly-details${count} .mp_row_change`).each(function() {
-			$(this).data('programmatic-change', true);
-			$(this).val(value);
-			$(this).trigger('change');
+	var value = $(this).val();
+	var count = $(this).attr('data-id');
+
+	var $spinner = $('#csspinner');
+	$spinner.show();
+
+	console.log('Common meal plan change:', { count, value });
+
+	// Update all meal plans
+	$(`#nightly-details${count} .mp_row_change`).each(function() {
+		$(this).data('programmatic-change', true);
+		$(this).val(value);
+		$(this).trigger('change');
+	});
+
+	// Wait for all changes to complete, then recalculate
+	setTimeout(function() {
+		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+		console.log('Recalculating after common meal plan change:', {
+			count,
+			no_of_night
 		});
 
-		// FIX: Wait for all changes to complete
-		setTimeout(function() {
-			var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+		// Recalculate in static or dynamic mode
+		if (!getIsDynamic()) {
+			console.log('Static mode: Recalculating all nights after meal plan change');
 
-			if (!getIsDynamic()) {
-				for (let night = 1; night <= no_of_night; night++) {
-					calculateDoubleGrandTotalStatic(count, night);
-					calculateSingleGrandTotalStatic(count, night);
+			for (let night = 1; night <= no_of_night; night++) {
+				// Get room quantities for this night
+				const numDouble = parseInt($(`#double${count}${night}`).val()) || 0;
+				const numSingle = parseInt($(`#single${count}${night}`).val()) || 0;
+
+				// Recalculate each double room with round-robin
+				for (let roomIdx = 1; roomIdx <= numDouble; roomIdx++) {
+					rtc_updateRoomTotals(count, night, roomIdx);
 				}
-				updateStaticModeDisplayTotal(count);
+
+				// Recalculate each single room
+				for (let roomIdx = 1; roomIdx <= numSingle; roomIdx++) {
+					rtc_updateRoomTotals(count, night, numDouble + roomIdx);
+				}
+
+				// Recalculate grand totals for each night
+				calculateDoubleGrandTotalStatic(count, night);
+				calculateSingleGrandTotalStatic(count, night);
 			}
 
-			var cardTotal = updateGrandtotalBoth(count);
-			var veh_grand_total = get_veh_grand_total();
-			$(`#loc_total${count}`).text(cardTotal + " + " + veh_grand_total);
-			$('#v_total').text(veh_grand_total);
-			$('#g_total').text((updateGrandtotalBoth() + veh_grand_total));
+			// Update the static mode display
+			updateStaticModeDisplayTotal(count);
 
-			$spinner.hide();
-		}, 800); // Longer delay for AJAX to complete
-	});
+		} else {
+			// Dynamic mode: recalculate each room for each night
+			console.log('Dynamic mode: Recalculating all rooms after meal plan change');
+
+			for (let night = 1; night <= no_of_night; night++) {
+				const numDouble = parseInt($(`#double${count}${night}`).val()) || 0;
+				const numSingle = parseInt($(`#single${count}${night}`).val()) || 0;
+
+				// Recalculate each double room with round-robin
+				for (let roomIdx = 1; roomIdx <= numDouble; roomIdx++) {
+					rtc_updateRoomTotals(count, night, roomIdx);
+				}
+
+				// Recalculate each single room
+				for (let roomIdx = 1; roomIdx <= numSingle; roomIdx++) {
+					rtc_updateRoomTotals(count, night, numDouble + roomIdx);
+				}
+			}
+		}
+
+		// Update overall totals
+		var cardTotal = updateGrandtotalBoth(count);
+		var veh_grand_total = get_veh_grand_total();
+		$(`#loc_total${count}`).text(cardTotal + " + " + veh_grand_total);
+		$('#v_total').text(veh_grand_total);
+		$('#g_total').text((updateGrandtotalBoth() + veh_grand_total));
+
+		$spinner.hide();
+		$('.mp_change[data-id="' + count + '"]').removeData('updating');
+
+		console.log('Common meal plan change complete');
+	}, 800); // Longer delay for AJAX to complete
+});
 
 	// **HELPER FUNCTION: Display alerts consistently**
 	function showAlert(type, message) {
@@ -5044,7 +5242,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 	// Debounce helper to prevent rapid successive calls
 	let changeTimeout = null;
 
-	// Renamed function: calculateDistribution -> rtc_calculateDistribution
+	// Helper function: Calculate round-robin distribution
 	function rtc_calculateDistribution(totalItems, totalRooms, roomIndex) {
 		totalItems = parseInt(totalItems, 10) || 0;
 		totalRooms = parseInt(totalRooms, 10) || 0;
@@ -5052,40 +5250,70 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		if (totalItems === 0 || totalRooms === 0 || roomIndex === 0) return 0;
 
-		var count = 0;
+		let count = 0;
 		for (let i = 1; i <= totalItems; i++) {
-			var targetRoom = ((i - 1) % totalRooms) + 1;
+			const targetRoom = ((i - 1) % totalRooms) + 1;
 			if (targetRoom === roomIndex) count++;
 		}
 		return count;
 	}
 
-	// **UPDATED: Set rates with round-robin zeros applied**
-	// Call this function RIGHT AFTER getting rates from AJAX
-	// Renamed: setRoomRatesWithRoundRobin -> rtc_setRoomRatesWithRoundRobin
+	// NEW: Clear all rate fields before setting new values
+	function rtc_clearRoomRates(count, night, roomIndex, type) {
+		const rid = `${count}${night}${roomIndex}`;
+		
+		if (type === 'double' || type === 'both') {
+			$(`#d_adult_rate${rid}`).val(0);
+			$(`#d_child_rate${rid}`).val(0);
+			$(`#d_child_wb_rate${rid}`).val(0);
+			$(`#d_extra_bed_rate${rid}`).val(0);
+			$(`#d_base_total${rid}`).val(0);
+			$(`#d_gst_per${rid}`).val(0);
+			$(`#d_gst_amt${rid}`).val(0);
+			$(`#d_total_rate${rid}`).val(0);
+		}
+		
+		if (type === 'single' || type === 'both') {
+			$(`#s_adult_rate${rid}`).val(0);
+			$(`#s_child_rate${rid}`).val(0);
+			$(`#s_child_wb_rate${rid}`).val(0);
+			$(`#s_extra_bed_rate${rid}`).val(0);
+			$(`#s_base_total${rid}`).val(0);
+			$(`#s_gst_per${rid}`).val(0);
+			$(`#s_gst_amt${rid}`).val(0);
+			$(`#s_total_rate${rid}`).val(0);
+		}
+		
+		console.log(`Cleared rates for ${type} room ${rid}`);
+	}
+
+	// IMPROVED: Set rates WITH round-robin logic (consolidated function)
 	function rtc_setRoomRatesWithRoundRobin(count, night, roomIndex, type, rates) {
-		var rid = `${count}${night}${roomIndex}`;
-		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
-		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
-		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+		const rid = `${count}${night}${roomIndex}`;
+		const no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+		const no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+		const no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
 
 		console.log('rtc_setRoomRatesWithRoundRobin:', {
 			rid,
 			type,
 			no_of_ch,
 			no_of_cw,
-			no_of_extra
+			no_of_extra,
+			rates
 		});
 
 		if (type === 'double') {
-			var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
-
+			const double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+			
 			// Calculate what this room gets in round-robin
-			var childCount = rtc_calculateDistribution(no_of_ch, double_qty, roomIndex);
-			var childWbCount = rtc_calculateDistribution(no_of_cw, double_qty, roomIndex);
-			var extraCount = rtc_calculateDistribution(no_of_extra, double_qty, roomIndex);
+			const childCount = rtc_calculateDistribution(no_of_ch, double_qty, roomIndex);
+			const childWbCount = rtc_calculateDistribution(no_of_cw, double_qty, roomIndex);
+			const extraCount = rtc_calculateDistribution(no_of_extra, double_qty, roomIndex);
 
 			console.log('Double room distribution:', {
+				roomIndex,
+				double_qty,
 				childCount,
 				childWbCount,
 				extraCount
@@ -5094,26 +5322,10 @@ $is_edit = $edit_id ? $edit_id : 0;
 			// Set adult rate (always gets value)
 			$(`#d_adult_rate${rid}`).prop("readonly", false).val(rates.room_r || 0);
 
-			// Set child with bed rate - 0 if this room doesn't get any
-			if (childCount > 0) {
-				$(`#d_child_rate${rid}`).prop("readonly", false).val(rates.child_r || 0);
-			} else {
-				$(`#d_child_rate${rid}`).prop("readonly", false).val(0);
-			}
-
-			// Set child without bed rate - 0 if this room doesn't get any
-			if (childWbCount > 0) {
-				$(`#d_child_wb_rate${rid}`).prop("readonly", false).val(rates.child_wb_r || 0);
-			} else {
-				$(`#d_child_wb_rate${rid}`).prop("readonly", false).val(0);
-			}
-
-			// Set extra bed rate - 0 if this room doesn't get any
-			if (extraCount > 0) {
-				$(`#d_extra_bed_rate${rid}`).prop("readonly", false).val(rates.extra_r || 0);
-			} else {
-				$(`#d_extra_bed_rate${rid}`).prop("readonly", false).val(0);
-			}
+			// Set child rates - 0 if this room doesn't get any, otherwise use rate
+			$(`#d_child_rate${rid}`).prop("readonly", false).val(childCount > 0 ? (rates.child_r || 0) : 0);
+			$(`#d_child_wb_rate${rid}`).prop("readonly", false).val(childWbCount > 0 ? (rates.child_wb_r || 0) : 0);
+			$(`#d_extra_bed_rate${rid}`).prop("readonly", false).val(extraCount > 0 ? (rates.extra_r || 0) : 0);
 
 			console.log('Double room rates set:', {
 				adult: $(`#d_adult_rate${rid}`).val(),
@@ -5123,9 +5335,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			});
 
 		} else if (type === 'single') {
-			var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
-
-			// Single rooms: typically only adult rate, others are 0
+			// Single rooms: only adult rate, others are always 0
 			$(`#s_adult_rate${rid}`).prop("readonly", false).val(rates.room_r || 0);
 			$(`#s_child_rate${rid}`).prop("readonly", true).val(0);
 			$(`#s_child_wb_rate${rid}`).prop("readonly", true).val(0);
@@ -5140,38 +5350,31 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 	}
 
-	// Updated updateRoomTotals - ONLY calculates totals, doesn't modify rates
-	// Renamed: updateRoomTotals -> rtc_updateRoomTotals
+	// Update room totals - ONLY calculates totals, doesn't modify rates
 	function rtc_updateRoomTotals(count, night, roomIndex) {
-		var rid = `${count}${night}${roomIndex}`;
-		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
-		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
-		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
-		var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
-		var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
-		var tax_status = parseInt($(`#tax_status${count}`).val()) || 0;
+		const rid = `${count}${night}${roomIndex}`;
+		const no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+		const no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+		const no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+		const double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+		const tax_status = parseInt($(`#tax_status${count}`).val()) || 0;
 
-		console.log('rtc_updateRoomTotals called:', {
-			count,
-			night,
-			roomIndex,
-			rid
-		});
+		console.log('rtc_updateRoomTotals called:', { count, night, roomIndex, rid });
 
 		if ($(`#d_adult_rate${rid}`).length > 0) {
 			// Double room - READ current values
-			var d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
-			var d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
-			var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
-			var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
+			const d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
+			const d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
+			const d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
+			const d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
 
 			// Calculate distribution
-			var childCount = rtc_calculateDistribution(no_of_ch, double_qty, roomIndex);
-			var childWbCount = rtc_calculateDistribution(no_of_cw, double_qty, roomIndex);
-			var extraCount = rtc_calculateDistribution(no_of_extra, double_qty, roomIndex);
+			const childCount = rtc_calculateDistribution(no_of_ch, double_qty, roomIndex);
+			const childWbCount = rtc_calculateDistribution(no_of_cw, double_qty, roomIndex);
+			const extraCount = rtc_calculateDistribution(no_of_extra, double_qty, roomIndex);
 
-			// Calculate base total - if rate is 0, contribution is 0
-			var baseTotal = d_adult_rate +
+			// Calculate base total
+			const baseTotal = d_adult_rate +
 				(childCount * d_child_rate) +
 				(childWbCount * d_child_wb_rate) +
 				(extraCount * d_extra_bed_rate);
@@ -5179,15 +5382,14 @@ $is_edit = $edit_id ? $edit_id : 0;
 			$(`#d_base_total${rid}`).val(Math.round(baseTotal));
 
 			// Apply GST
-			var finalTotal = baseTotal;
-			var gstPercent = 0;
-			var gstAmount = 0;
+			let finalTotal = baseTotal;
+			let gstPercent = 0;
+			let gstAmount = 0;
 
 			if (tax_status == 1 && baseTotal > 0) {
 				gstPercent = baseTotal >= 7500 ? 18 : 5;
 				gstAmount = (gstPercent / 100) * baseTotal;
 				finalTotal = baseTotal + gstAmount;
-
 				$(`#d_gst_per${rid}`).val(gstPercent);
 				$(`#d_gst_amt${rid}`).val(Math.round(gstAmount));
 			} else {
@@ -5200,24 +5402,20 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		} else if ($(`#s_adult_rate${rid}`).length > 0) {
 			// Single room - READ current values
-			var s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
-			var s_child_rate = parseFloat($(`#s_child_rate${rid}`).val()) || 0;
-			var s_child_wb_rate = parseFloat($(`#s_child_wb_rate${rid}`).val()) || 0;
-			var s_extra_bed_rate = parseFloat($(`#s_extra_bed_rate${rid}`).val()) || 0;
+			const s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
+			const baseTotal = s_adult_rate;
 
-			var baseTotal = s_adult_rate;
 			$(`#s_base_total${rid}`).val(Math.round(baseTotal));
 
 			// Apply GST
-			var finalTotal = baseTotal;
-			var gstPercent = 0;
-			var gstAmount = 0;
+			let finalTotal = baseTotal;
+			let gstPercent = 0;
+			let gstAmount = 0;
 
 			if (tax_status == 1 && baseTotal > 0) {
 				gstPercent = baseTotal >= 7500 ? 18 : 5;
 				gstAmount = (gstPercent / 100) * baseTotal;
 				finalTotal = baseTotal + gstAmount;
-
 				$(`#s_gst_per${rid}`).val(gstPercent);
 				$(`#s_gst_amt${rid}`).val(Math.round(gstAmount));
 			} else {
@@ -5230,48 +5428,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 
 		updateGrandtotalBoth();
-	}
-
-	// **NEW FUNCTION: Set rates to 0 for non-allocated fields**
-	// This should be called AFTER rates are fetched from AJAX
-	// Renamed: applyRoundRobinZeros -> rtc_applyRoundRobinZeros
-	function rtc_applyRoundRobinZeros(count, night, roomIndex, type) {
-		var rid = `${count}${night}${roomIndex}`;
-		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
-		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
-		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
-
-		if (type === 'double') {
-			var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
-
-			// Calculate what this room gets
-			var childCount = rtc_calculateDistribution(no_of_ch, double_qty, roomIndex);
-			var childWbCount = rtc_calculateDistribution(no_of_cw, double_qty, roomIndex);
-			var extraCount = rtc_calculateDistribution(no_of_extra, double_qty, roomIndex);
-
-			console.log('Applying zeros for double room:', {
-				rid,
-				childCount,
-				childWbCount,
-				extraCount
-			});
-
-			// Set to 0 if this room doesn't get any
-			if (childCount === 0) {
-				$(`#d_child_rate${rid}`).val(0);
-			}
-			if (childWbCount === 0) {
-				$(`#d_child_wb_rate${rid}`).val(0);
-			}
-			if (extraCount === 0) {
-				$(`#d_extra_bed_rate${rid}`).val(0);
-			}
-		} else if (type === 'single') {
-			// Single rooms: child/extra should always be 0 (they're readonly)
-			$(`#s_child_rate${rid}`).val(0);
-			$(`#s_child_wb_rate${rid}`).val(0);
-			$(`#s_extra_bed_rate${rid}`).val(0);
-		}
 	}
 
 	$(document).on('change', '.room_cat_change', function() {
@@ -5318,7 +5474,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		// Reset totals if room_cat_id is empty or 0
 		if (room_cat_id === "" || room_cat_id === "0") {
-			// Defer non-critical updates
 			changeTimeout = setTimeout(() => {
 				const nightIndex = parseInt(rid[rid.length - 2], 10);
 				const roomIndex = parseInt(rid[rid.length - 1], 10);
@@ -5371,7 +5526,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			}
 		});
 
-		// Gather data for AJAX call (use const for better optimization)
+		// Gather data for AJAX call
 		const ajaxData = {
 			hotel_id: $(`#hotelid${count}`).val(),
 			room_cat_id: room_cat_id,
@@ -5379,8 +5534,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 			checkin: $(`#checkin${count}`).val(),
 			checkout: $(`#checkout${count}`).val(),
 			no_of_night: $(`#no_of_night${count}`).val(),
-			double: $(`#double${count}${rid[rid.length - 2]}`).val() || 0, // Fixed to per night
-			single: $(`#single${count}${rid[rid.length - 2]}`).val() || 0, // Fixed to per night
+			double: $(`#double${count}${rid[rid.length - 2]}`).val() || 0,
+			single: $(`#single${count}${rid[rid.length - 2]}`).val() || 0,
 			vehicle_from_location: <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>,
 			arrival_location: <?php echo $object_det[0]['arrival_location']; ?>,
 			departure_location: <?php echo $object_det[0]['departure_location']; ?>,
@@ -5413,7 +5568,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		const night = parseInt(rid[rid.length - 2], 10);
 		const roomIndex = parseInt(rid[rid.length - 1], 10);
 
-		// Optimized HTML generation using array join (faster than string concatenation)
+		// Optimized HTML generation using array join
 		const createSterlingHTML = (type, rates, counts, ridVal, tot, gst, total) => {
 			const effectiveRates = {
 				room: rates.room,
@@ -5508,7 +5663,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 						extra_r: parseInt(data.d_extra_tariff) || 0
 					};
 
-					// Split DOM updates into chunks for better INP
+					// Process updates with improved sequencing
 					const processUpdates = () => {
 						const rates_double = {
 							room_r: values.room_r,
@@ -5517,41 +5672,47 @@ $is_edit = $edit_id ? $edit_id : 0;
 							extra_r: values.extra_r
 						};
 
-						// Set rates using round-robin logic
+						const rates_single = values.nsingle > 0 ? {
+							room_r: parseInt(data.s_room_tariff) || 0,
+							child_r: 0,
+							child_wb_r: 0,
+							extra_r: 0
+						} : null;
+
+						console.log('Processing updates for:', { count, night, roomIndex, rates_double, rates_single });
+
+						// STEP 1: Clear existing values FIRST
+						rtc_clearRoomRates(count, night, roomIndex, 'both');
+
+						// STEP 2: Set rates with round-robin logic (in a single frame)
 						requestAnimationFrame(() => {
+							// Set double room rates
 							rtc_setRoomRatesWithRoundRobin(count, night, roomIndex, 'double', rates_double);
-							rtc_applyRoundRobinZeros(count, night, roomIndex, 'double'); // Ensure zeros applied
-
-							if (values.nsingle > 0) {
-								const rates_single = {
-									room_r: parseInt(data.s_room_tariff) || 0,
-									child_r: parseInt(data.s_child_tariff) || 0,
-									child_wb_r: parseInt(data.s_child_wb_tariff) || 0,
-									extra_r: parseInt(data.s_extra_tariff) || 0 // Assuming extra for single if needed
-								};
+							
+							// Set single room rates if applicable
+							if (values.nsingle > 0 && rates_single) {
 								rtc_setRoomRatesWithRoundRobin(count, night, roomIndex, 'single', rates_single);
-								rtc_applyRoundRobinZeros(count, night, roomIndex, 'single');
 							}
-						});
 
-						if (ajaxData.tax_status == 1) {
-							// Set readonly for rates in tax mode
-							requestAnimationFrame(() => {
+							// STEP 3: Set readonly status for tax mode
+							if (ajaxData.tax_status == 1) {
 								cachedElements.rateFields.d_adult.prop("readonly", true);
 								cachedElements.rateFields.d_child.prop("readonly", true);
 								cachedElements.rateFields.d_child_wb.prop("readonly", true);
 								cachedElements.rateFields.d_extra_bed.prop("readonly", true);
-
 								if (values.nsingle > 0) {
 									cachedElements.rateFields.s_adult.prop("readonly", true);
 								}
-							});
+							}
+						});
 
-							// Defer calculations and HTML generation
+						// STEP 4: Calculate totals and generate HTML
+						if (ajaxData.tax_status == 1) {
 							requestIdleCallback(() => {
+								// Calculate totals
 								rtc_updateRoomTotals(count, night, roomIndex);
 
-								// Calculate counts for HTML
+								// Prepare HTML generation data
 								const double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
 								const counts = {
 									child: rtc_calculateDistribution(values.no_of_ch, double_qty, roomIndex),
@@ -5563,6 +5724,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 								const gst_d = parseFloat($(`#d_gst_per${rid}`).val()) || 0;
 								const total_d = parseFloat($(`#d_total_rate${rid}`).val()) || 0;
 
+								// Generate double room HTML
 								requestAnimationFrame(() => {
 									const sterling_double = createSterlingHTML('d', rates_double, counts, rid, tot_d, gst_d, total_d);
 									const ediv_d = createHiddenFields('d', rates_double, counts, rid, tot_d, gst_d, total_d);
@@ -5571,14 +5733,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 									$(`#eighteen_div_d${count}`).append(ediv_d);
 								});
 
-								// Similar for single if nsingle > 0
-								if (values.nsingle > 0) {
-									const single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
-									const counts_s = {
-										child: 0,
-										child_wb: 0,
-										extra: 0
-									};
+								// Generate single room HTML if applicable
+								if (values.nsingle > 0 && rates_single) {
+									const counts_s = { child: 0, child_wb: 0, extra: 0 };
 									const tot_s = parseFloat($(`#s_base_total${rid}`).val()) || 0;
 									const gst_s = parseFloat($(`#s_gst_per${rid}`).val()) || 0;
 									const total_s = parseFloat($(`#s_total_rate${rid}`).val()) || 0;
@@ -5592,8 +5749,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 									});
 								}
 							}, { timeout: 100 });
+
 						} else {
-							// Non-tax case: no HTML generation, just clear if needed
+							// Non-tax case
 							requestAnimationFrame(() => {
 								$(`#sterling_double${count}${night}${roomIndex}`).empty();
 								$(`#sterling_single${count}${night}${roomIndex}`).empty();
@@ -5606,7 +5764,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 							}, { timeout: 100 });
 						}
 
-						// Final frame: Update totals
+						// STEP 5: Update grand totals
 						requestIdleCallback(() => {
 							const singleCardTotal = updateGrandtotalBoth(count);
 							const allCardTotal = updateGrandtotalBoth();
@@ -5620,9 +5778,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 							});
 
 							calculateVehicleExtraKmCharges();
-						}, {
-							timeout: 150
-						});
+						}, { timeout: 150 });
 					};
 
 					processUpdates();
@@ -5837,49 +5993,50 @@ $is_edit = $edit_id ? $edit_id : 0;
 						<div class="ibox teams mb-30 bg-boxshadow">
 							<div class="ibox-content teams">
 								<div class="row mt-2">
-									<div class="col-xl col-sm-12 col-md-2">
-										<div class="teams-rank"><b>Checkin</b></div>
-										<span class="text-muted">
-											<input type="date" value="${main.check_in_date}" id="checkin${count}" class="form-control input-sm" required readonly>
-										</span>
-									</div>
-									<div class="col-xl col-sm-12 col-md-2">
-										<div class="teams-rank"><b>Nights</b></div>
-										<span class="text-muted">
-											<input type="text" id="no_of_night${count}" value="${main.no_of_days}" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" readonly>
-										</span>
-									</div>
-									<div class="col-xl col-sm-12 col-md-2">
-										<div class="teams-rank"><b>Checkout</b></div>
-										<span class="text-muted">
-											<input type="date" id="checkout${count}" value="${main.check_out_date}" class="form-control input-sm" required readonly>
-										</span>
-									</div>
-									<div class="col-xl col-sm-12 col-md-2">
-										<div class="teams-rank"><b>Hotel Category</b></div>
-										<select id="hotelcat${count}" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" disabled>
-											<option value="">Select</option>
-										</select>
-									</div>
-									<div class="col-xl col-sm-12 col-md-2">
-										<div class="teams-rank"><b>Hotel</b></div>
-										<span class="text-muted">
-											<select id="hotelid${count}" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" disabled>
-												<option value="">Select</option>
-											</select>
-										</span>
-									</div>
-									<div class="col-xl col-sm-12 col-md-2">
-										<div class="teams-rank"><b>Room Category</b></div>
-										<select id="roomcat_common${count}" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}" disabled>
-											<option value="">Select</option>
-										</select>
-									</div>
+								<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>Hotel Category</b></div>
+								<select id="hotelcat${count}" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" disabled>
+								<option value="">Select</option>
+								</select>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>Hotel</b></div>
+								<span class="text-muted">
+								<select id="hotelid${count}" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" disabled>
+								<option value="">Select</option>
+								</select>
+								</span>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>Room Category</b></div>
+								<select id="roomcat_common${count}" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}" disabled>
+								<option value="">Select</option>
+								</select>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>Checkin</b></div>
+								<span class="text-muted">
+								<input type="date" value="${main.check_in_date}" id="checkin${count}" class="form-control input-sm" required readonly>
+								</span>
+								</div>
+								
+								<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>Nights</b></div>
+								<span class="text-muted">
+								<input type="text" id="no_of_night${count}" value="${main.no_of_days}" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" readonly>
+								</span>
+								</div>
+								<div class="col-xl col-sm-12 col-md-2">
+									<div class="teams-rank"><b>Checkout</b></div>
+									<span class="text-muted">
+										<input type="date" id="checkout${count}" value="${main.check_out_date}" class="form-control input-sm" required readonly>
+									</span>
+								</div>
 								</div>
 								<div class="row mt-2">
-									<div class="col-xl col-sm-12 col-md-2">
-										<div class="teams-rank"><b>Meal Plan</b></div>
-										<span class="text-muted">
+								<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>Meal Plan</b></div>
+								<span class="text-muted">
 											<select id="mealplan${count}" class="form-control select2-show-search input-sm mp_change" data-id="${count}" disabled>
 												<option value="">Select</option>
 												<option value="1" ${ep_sel}>EP</option>
@@ -6919,44 +7076,45 @@ $is_edit = $edit_id ? $edit_id : 0;
 				<div class="ibox teams mb-30 bg-boxshadow">
 					<div class="ibox-content teams">
 						<div class="row mt-2">
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Checkin</b></div>
-								<span class="text-muted">
-									<input type="date" value="${main.check_in_date}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
-								</span>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Nights</b></div>
-								<span class="text-muted">
-									<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" value="${main.no_of_days}" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count}); updateNightlyDetails(${count});" required>
-								</span>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Checkout</b></div>
-								<span class="text-muted">
-									<input type="date" id="checkout${count}" name="addloc[${count}][checkout]" value="${main.check_out_date}" class="form-control input-sm" required readonly>
-								</span>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Hotel Category</b></div>
-								<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" required>
-									<option value="">Select</option>
-								</select>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Hotel</b></div>
-								<span class="text-muted">
-									<select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" required>
-										<option value="">Select</option>
-									</select>
-								</span>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Room Category</b></div>
-								<select id="roomcat_common${count}" name="addloc[${count}][roomcat_common]" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}">
-									<option value="">Select</option>
-								</select>
-							</div>
+						<div class="col-xl col-sm-12 col-md-2">
+						<div class="teams-rank"><b>Hotel Category</b></div>
+						<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" required>
+						<option value="">Select</option>
+						</select>
+						</div>
+						<div class="col-xl col-sm-12 col-md-2">
+						<div class="teams-rank"><b>Hotel</b></div>
+						<span class="text-muted">
+						<select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" required>
+						<option value="">Select</option>
+						</select>
+						</span>
+						</div>
+						<div class="col-xl col-sm-12 col-md-2">
+						<div class="teams-rank"><b>Room Category</b></div>
+						<select id="roomcat_common${count}" name="addloc[${count}][roomcat_common]" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}">
+						<option value="">Select</option>
+						</select>
+						</div>
+						<div class="col-xl col-sm-12 col-md-2">
+						<div class="teams-rank"><b>Checkin</b></div>
+						<span class="text-muted">
+						<input type="date" value="${main.check_in_date}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
+						</span>
+						</div>
+						
+						<div class="col-xl col-sm-12 col-md-2">
+						<div class="teams-rank"><b>Nights</b></div>
+						<span class="text-muted">
+						<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" value="${main.no_of_days}" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count}); updateNightlyDetails(${count});" required>
+						</span>
+						</div>
+						<div class="col-xl col-sm-12 col-md-2">
+							<div class="teams-rank"><b>Checkout</b></div>
+							<span class="text-muted">
+								<input type="date" id="checkout${count}" name="addloc[${count}][checkout]" value="${main.check_out_date}" class="form-control input-sm" required readonly>
+							</span>
+						</div>
 						</div>
 						<div class="row mt-2">
 							<div class="col-xl col-sm-12 col-md-2">
@@ -9049,41 +9207,42 @@ $is_edit = $edit_id ? $edit_id : 0;
 					<div class="ibox teams mb-30 bg-boxshadow">
 						<div class="ibox-content teams">
 							<div class="row mt-2">
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Checkin</b></div>
-									<span class="text-muted">
-										<input type="date" value="${locationData.check_in_date || ''}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
-									</span>
+							
+							<div class="col-xl col-sm-12 col-md-2">
+							<div class="teams-rank"><b>Hotel</b></div>
+							<span class="text-muted">
+							<select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" required>
+							<option value="">Select</option>
+							</select>
+							</span>
+							</div>
+							<div class="col-xl col-sm-12 col-md-2">
+							<div class="teams-rank"><b>Room Category</b></div>
+							<select id="roomcat_common${count}" name="addloc[${count}][roomcat_common]" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}">
+							<option value="">Select</option>
+							</select>
+							</div>
+							<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>Checkin</b></div>
+								<span class="text-muted">
+									<input type="date" value="${locationData.check_in_date || ''}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
+								</span>
+							</div>
+							<div class="col-xl col-sm-12 col-md-2">
+							<div class="teams-rank"><b>Nights</b></div>
+							<span class="text-muted">
+								<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" value="${locationData.no_of_days || 0}" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count}); updateNightlyDetails(${count});" required>
+								</span>
 								</div>
 								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Nights</b></div>
-									<span class="text-muted">
-										<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" value="${locationData.no_of_days || 0}" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count}); updateNightlyDetails(${count});" required>
-									</span>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Checkout</b></div>
-									<span class="text-muted">
-										<input type="date" id="checkout${count}" name="addloc[${count}][checkout]" value="${locationData.check_out_date || ''}" class="form-control input-sm" required readonly>
-									</span>
+								<div class="teams-rank"><b>Checkout</b></div>
+								<span class="text-muted">
+								<input type="date" id="checkout${count}" name="addloc[${count}][checkout]" value="${locationData.check_out_date || ''}" class="form-control input-sm" required readonly>
+								</span>
 								</div>
 								<div class="col-xl col-sm-12 col-md-2">
 									<div class="teams-rank"><b>Hotel Category</b></div>
 									<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" required>
-										<option value="">Select</option>
-									</select>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Hotel</b></div>
-									<span class="text-muted">
-										<select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" required>
-											<option value="">Select</option>
-										</select>
-									</span>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Room Category</b></div>
-									<select id="roomcat_common${count}" name="addloc[${count}][roomcat_common]" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}">
 										<option value="">Select</option>
 									</select>
 								</div>
