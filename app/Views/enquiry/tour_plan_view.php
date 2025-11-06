@@ -3420,132 +3420,151 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 	// Updated updateRoomTotals function with fix for static mode totals
 	function updateRoomTotals(count, night, roomIndex) {
-		var rid = `${count}${night}${roomIndex}`;
-		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
-		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
-		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
-		var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
-		var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
-		var tax_status = parseInt($(`#tax_status${count}`).val()) || 0;
-		console.log('updateRoomTotals called:', {
-			count,
-			night,
-			roomIndex,
-			rid,
-			tax_status
-		});
-		if ($(`#d_adult_rate${rid}`).length > 0) {
-			// Double room
-			var d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
-			var d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
-			var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
-			var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
-			console.log('Double room rates:', {
-				d_adult_rate,
-				d_child_rate,
-				d_child_wb_rate,
-				d_extra_bed_rate
-			});
-			// Calculate base total (without GST)
-			var childCount = calculateDistribution(no_of_ch, double_qty, roomIndex);
-			var childWbCount = calculateDistribution(no_of_cw, double_qty, roomIndex);
-			var extraCount = calculateDistribution(no_of_extra, double_qty, roomIndex);
-			var baseTotal = d_adult_rate + (childCount * d_child_rate) + (childWbCount * d_child_wb_rate) + (extraCount * d_extra_bed_rate);
-			console.log('Base total calculation:', {
-				baseTotal,
-				childCount,
-				childWbCount,
-				extraCount
-			});
-			// Set base total
-			$(`#d_base_total${rid}`).val(Math.round(baseTotal));
-			// Apply GST if tax_status is 1
-			var finalTotal = baseTotal;
-			var gstPercent = 0;
-			var gstAmount = 0;
-			if (tax_status == 1 && baseTotal > 0) {
-				gstPercent = baseTotal >= 7500 ? 18 : 5;
-				gstAmount = (gstPercent / 100) * baseTotal;
-				finalTotal = baseTotal + gstAmount;
-				console.log('GST calculation:', {
-					gstPercent,
-					gstAmount,
-					finalTotal
-				});
-				$(`#d_gst_per${rid}`).val(gstPercent);
-				$(`#d_gst_amt${rid}`).val(Math.round(gstAmount));
-			} else {
-				$(`#d_gst_per${rid}`).val(0);
-				$(`#d_gst_amt${rid}`).val(0);
-			}
-			$(`#d_total_rate${rid}`).val(Math.round(finalTotal));
-			calculateDoubleGrandTotal(count, night);
-			if (no_of_ch === 0) $(`#d_child_rate${rid}`).val(0);
-			if (no_of_cw === 0) $(`#d_child_wb_rate${rid}`).val(0);
-			if (no_of_extra === 0) $(`#d_extra_bed_rate${rid}`).val(0);
-		} else if ($(`#s_adult_rate${rid}`).length > 0) {
-			// Single room
-			var s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
-			var s_child_rate = parseFloat($(`#s_child_rate${rid}`).val()) || 0;
-			var s_child_wb_rate = parseFloat($(`#s_child_wb_rate${rid}`).val()) || 0;
-			var s_extra_bed_rate = parseFloat($(`#s_extra_bed_rate${rid}`).val()) || 0;
-			console.log('Single room rates:', {
-				s_adult_rate,
-				s_child_rate,
-				s_child_wb_rate,
-				s_extra_bed_rate
-			});
-			var singleRoomIndex = roomIndex - double_qty;
-			var childCount = calculateDistribution(no_of_ch, single_qty, singleRoomIndex);
-			var childWbCount = calculateDistribution(no_of_cw, single_qty, singleRoomIndex);
-			var extraCount = calculateDistribution(no_of_extra, single_qty, singleRoomIndex);
-			var baseTotal = s_adult_rate + (childCount * s_child_rate) + (childWbCount * s_child_wb_rate) + (extraCount * s_extra_bed_rate);
-			console.log('Base total calculation:', {
-				baseTotal,
-				childCount,
-				childWbCount,
-				extraCount
-			});
-			// Set base total
-			$(`#s_base_total${rid}`).val(Math.round(baseTotal));
-			// Apply GST if tax_status is 1
-			var finalTotal = baseTotal;
-			var gstPercent = 0;
-			var gstAmount = 0;
-			if (tax_status == 1 && baseTotal > 0) {
-				gstPercent = baseTotal >= 7500 ? 18 : 5;
-				gstAmount = (gstPercent / 100) * baseTotal;
-				finalTotal = baseTotal + gstAmount;
-				console.log('GST calculation:', {
-					gstPercent,
-					gstAmount,
-					finalTotal
-				});
-				$(`#s_gst_per${rid}`).val(gstPercent);
-				$(`#s_gst_amt${rid}`).val(Math.round(gstAmount));
-			} else {
-				$(`#s_gst_per${rid}`).val(0);
-				$(`#s_gst_amt${rid}`).val(0);
-			}
-			$(`#s_total_rate${rid}`).val(Math.round(finalTotal));
-			calculateSingleGrandTotal(count, night);
-			if (no_of_ch === 0) $(`#s_child_rate${rid}`).val(0);
-			if (no_of_cw === 0) $(`#s_child_wb_rate${rid}`).val(0);
-			if (no_of_extra === 0) $(`#s_extra_bed_rate${rid}`).val(0);
-		}
-		updateGrandtotalBoth();
-	}
+    var rid = `${count}${night}${roomIndex}`;
+    var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+    var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+    var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+    var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+    var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
+    var tax_status = parseInt($(`#tax_status${count}`).val()) || 0;
 
-	// Helper functions
-	function calculateDistribution(totalItems, totalRooms, roomIndex) {
-		if (totalItems === 0 || totalRooms === 0) return 0;
-		var count = 0;
-		for (let i = 1; i <= totalItems; i++) {
-			var targetRoom = ((i - 1) % totalRooms) + 1;
-			if (targetRoom === roomIndex) count++;
-		}
-		return count;
-	}
+    console.log('updateRoomTotals called:', {count, night, roomIndex, rid, tax_status});
+
+    if ($(`#d_adult_rate${rid}`).length > 0) {
+        // Double room
+        var d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
+        var d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
+        var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
+        var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
+
+        console.log('Double room rates:', {d_adult_rate, d_child_rate, d_child_wb_rate, d_extra_bed_rate});
+
+        // Calculate distribution for this specific room
+        var childCount = calculateDistribution(no_of_ch, double_qty, roomIndex);
+        var childWbCount = calculateDistribution(no_of_cw, double_qty, roomIndex);
+        var extraCount = calculateDistribution(no_of_extra, double_qty, roomIndex);
+
+        console.log('Distribution for double room:', {childCount, childWbCount, extraCount});
+
+        // **FIX: Explicitly set field values to 0 if no allocation**
+        if (childCount === 0) {
+            $(`#d_child_rate${rid}`).val(0);
+            d_child_rate = 0;
+        }
+        if (childWbCount === 0) {
+            $(`#d_child_wb_rate${rid}`).val(0);
+            d_child_wb_rate = 0;
+        }
+        if (extraCount === 0) {
+            $(`#d_extra_bed_rate${rid}`).val(0);
+            d_extra_bed_rate = 0;
+        }
+
+        // Calculate base total using the counts
+        var baseTotal = d_adult_rate + 
+                       (childCount * d_child_rate) + 
+                       (childWbCount * d_child_wb_rate) + 
+                       (extraCount * d_extra_bed_rate);
+
+        console.log('Base total calculation:', {baseTotal, childCount, childWbCount, extraCount});
+
+        // Set base total
+        $(`#d_base_total${rid}`).val(Math.round(baseTotal));
+
+        // Apply GST if tax_status is 1
+        var finalTotal = baseTotal;
+        var gstPercent = 0;
+        var gstAmount = 0;
+
+        if (tax_status == 1 && baseTotal > 0) {
+            gstPercent = baseTotal >= 7500 ? 18 : 5;
+            gstAmount = (gstPercent / 100) * baseTotal;
+            finalTotal = baseTotal + gstAmount;
+
+            console.log('GST calculation:', {gstPercent, gstAmount, finalTotal});
+
+            $(`#d_gst_per${rid}`).val(gstPercent);
+            $(`#d_gst_amt${rid}`).val(Math.round(gstAmount));
+        } else {
+            $(`#d_gst_per${rid}`).val(0);
+            $(`#d_gst_amt${rid}`).val(0);
+        }
+
+        $(`#d_total_rate${rid}`).val(Math.round(finalTotal));
+        calculateDoubleGrandTotal(count, night);
+
+    } else if ($(`#s_adult_rate${rid}`).length > 0) {
+        // Single room
+        var s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
+        var s_child_rate = parseFloat($(`#s_child_rate${rid}`).val()) || 0;
+        var s_child_wb_rate = parseFloat($(`#s_child_wb_rate${rid}`).val()) || 0;
+        var s_extra_bed_rate = parseFloat($(`#s_extra_bed_rate${rid}`).val()) || 0;
+
+        console.log('Single room rates:', {s_adult_rate, s_child_rate, s_child_wb_rate, s_extra_bed_rate});
+
+        var singleRoomIndex = roomIndex - double_qty;
+
+        // Calculate distribution for this specific single room
+        var childCount = calculateDistribution(no_of_ch, single_qty, singleRoomIndex);
+        var childWbCount = calculateDistribution(no_of_cw, single_qty, singleRoomIndex);
+        var extraCount = calculateDistribution(no_of_extra, single_qty, singleRoomIndex);
+
+        console.log('Distribution for single room:', {childCount, childWbCount, extraCount});
+
+        // **FIX: Explicitly set field values to 0 if no allocation**
+        // Note: Single rooms should always show 0 for child/extra beds as they're readonly
+        $(`#s_child_rate${rid}`).val(0);
+        $(`#s_child_wb_rate${rid}`).val(0);
+        $(`#s_extra_bed_rate${rid}`).val(0);
+        s_child_rate = 0;
+        s_child_wb_rate = 0;
+        s_extra_bed_rate = 0;
+
+        // Calculate base total (single rooms typically only have adult rate)
+        var baseTotal = s_adult_rate;
+
+        console.log('Base total calculation:', {baseTotal});
+
+        // Set base total
+        $(`#s_base_total${rid}`).val(Math.round(baseTotal));
+
+        // Apply GST if tax_status is 1
+        var finalTotal = baseTotal;
+        var gstPercent = 0;
+        var gstAmount = 0;
+
+        if (tax_status == 1 && baseTotal > 0) {
+            gstPercent = baseTotal >= 7500 ? 18 : 5;
+            gstAmount = (gstPercent / 100) * baseTotal;
+            finalTotal = baseTotal + gstAmount;
+
+            console.log('GST calculation:', {gstPercent, gstAmount, finalTotal});
+
+            $(`#s_gst_per${rid}`).val(gstPercent);
+            $(`#s_gst_amt${rid}`).val(Math.round(gstAmount));
+        } else {
+            $(`#s_gst_per${rid}`).val(0);
+            $(`#s_gst_amt${rid}`).val(0);
+        }
+
+        $(`#s_total_rate${rid}`).val(Math.round(finalTotal));
+        calculateSingleGrandTotal(count, night);
+    }
+
+    updateGrandtotalBoth();
+}
+
+// Helper function - calculateDistribution (unchanged)
+function calculateDistribution(totalItems, totalRooms, roomIndex) {
+    if (totalItems === 0 || totalRooms === 0) return 0;
+    
+    var count = 0;
+    for (let i = 1; i <= totalItems; i++) {
+        var targetRoom = ((i - 1) % totalRooms) + 1;
+        if (targetRoom === roomIndex) count++;
+    }
+    return count;
+}
 
 	function calculateDoubleGrandTotal(count, night) {
 		var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
@@ -4538,7 +4557,7 @@ $is_edit = $edit_id ? $edit_id : 0;
     updateAllTotals();
 
     console.log('Rate propagation complete');
-});
+	});
 
 	// Create a separate function to update all totals
 	function updateAllTotals() {
