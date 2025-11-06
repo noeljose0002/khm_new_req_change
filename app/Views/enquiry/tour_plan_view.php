@@ -5044,6 +5044,236 @@ $is_edit = $edit_id ? $edit_id : 0;
 	// Debounce helper to prevent rapid successive calls
 	let changeTimeout = null;
 
+	// Renamed function: calculateDistribution -> rtc_calculateDistribution
+	function rtc_calculateDistribution(totalItems, totalRooms, roomIndex) {
+		totalItems = parseInt(totalItems, 10) || 0;
+		totalRooms = parseInt(totalRooms, 10) || 0;
+		roomIndex = parseInt(roomIndex, 10) || 0;
+
+		if (totalItems === 0 || totalRooms === 0 || roomIndex === 0) return 0;
+
+		var count = 0;
+		for (let i = 1; i <= totalItems; i++) {
+			var targetRoom = ((i - 1) % totalRooms) + 1;
+			if (targetRoom === roomIndex) count++;
+		}
+		return count;
+	}
+
+	// **UPDATED: Set rates with round-robin zeros applied**
+	// Call this function RIGHT AFTER getting rates from AJAX
+	// Renamed: setRoomRatesWithRoundRobin -> rtc_setRoomRatesWithRoundRobin
+	function rtc_setRoomRatesWithRoundRobin(count, night, roomIndex, type, rates) {
+		var rid = `${count}${night}${roomIndex}`;
+		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+
+		console.log('rtc_setRoomRatesWithRoundRobin:', {
+			rid,
+			type,
+			no_of_ch,
+			no_of_cw,
+			no_of_extra
+		});
+
+		if (type === 'double') {
+			var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+
+			// Calculate what this room gets in round-robin
+			var childCount = rtc_calculateDistribution(no_of_ch, double_qty, roomIndex);
+			var childWbCount = rtc_calculateDistribution(no_of_cw, double_qty, roomIndex);
+			var extraCount = rtc_calculateDistribution(no_of_extra, double_qty, roomIndex);
+
+			console.log('Double room distribution:', {
+				childCount,
+				childWbCount,
+				extraCount
+			});
+
+			// Set adult rate (always gets value)
+			$(`#d_adult_rate${rid}`).prop("readonly", false).val(rates.room_r || 0);
+
+			// Set child with bed rate - 0 if this room doesn't get any
+			if (childCount > 0) {
+				$(`#d_child_rate${rid}`).prop("readonly", false).val(rates.child_r || 0);
+			} else {
+				$(`#d_child_rate${rid}`).prop("readonly", false).val(0);
+			}
+
+			// Set child without bed rate - 0 if this room doesn't get any
+			if (childWbCount > 0) {
+				$(`#d_child_wb_rate${rid}`).prop("readonly", false).val(rates.child_wb_r || 0);
+			} else {
+				$(`#d_child_wb_rate${rid}`).prop("readonly", false).val(0);
+			}
+
+			// Set extra bed rate - 0 if this room doesn't get any
+			if (extraCount > 0) {
+				$(`#d_extra_bed_rate${rid}`).prop("readonly", false).val(rates.extra_r || 0);
+			} else {
+				$(`#d_extra_bed_rate${rid}`).prop("readonly", false).val(0);
+			}
+
+			console.log('Double room rates set:', {
+				adult: $(`#d_adult_rate${rid}`).val(),
+				child: $(`#d_child_rate${rid}`).val(),
+				childWb: $(`#d_child_wb_rate${rid}`).val(),
+				extra: $(`#d_extra_bed_rate${rid}`).val()
+			});
+
+		} else if (type === 'single') {
+			var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
+
+			// Single rooms: typically only adult rate, others are 0
+			$(`#s_adult_rate${rid}`).prop("readonly", false).val(rates.room_r || 0);
+			$(`#s_child_rate${rid}`).prop("readonly", true).val(0);
+			$(`#s_child_wb_rate${rid}`).prop("readonly", true).val(0);
+			$(`#s_extra_bed_rate${rid}`).prop("readonly", true).val(0);
+
+			console.log('Single room rates set:', {
+				adult: $(`#s_adult_rate${rid}`).val(),
+				child: 0,
+				childWb: 0,
+				extra: 0
+			});
+		}
+	}
+
+	// Updated updateRoomTotals - ONLY calculates totals, doesn't modify rates
+	// Renamed: updateRoomTotals -> rtc_updateRoomTotals
+	function rtc_updateRoomTotals(count, night, roomIndex) {
+		var rid = `${count}${night}${roomIndex}`;
+		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+		var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+		var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
+		var tax_status = parseInt($(`#tax_status${count}`).val()) || 0;
+
+		console.log('rtc_updateRoomTotals called:', {
+			count,
+			night,
+			roomIndex,
+			rid
+		});
+
+		if ($(`#d_adult_rate${rid}`).length > 0) {
+			// Double room - READ current values
+			var d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
+			var d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
+			var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
+			var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
+
+			// Calculate distribution
+			var childCount = rtc_calculateDistribution(no_of_ch, double_qty, roomIndex);
+			var childWbCount = rtc_calculateDistribution(no_of_cw, double_qty, roomIndex);
+			var extraCount = rtc_calculateDistribution(no_of_extra, double_qty, roomIndex);
+
+			// Calculate base total - if rate is 0, contribution is 0
+			var baseTotal = d_adult_rate +
+				(childCount * d_child_rate) +
+				(childWbCount * d_child_wb_rate) +
+				(extraCount * d_extra_bed_rate);
+
+			$(`#d_base_total${rid}`).val(Math.round(baseTotal));
+
+			// Apply GST
+			var finalTotal = baseTotal;
+			var gstPercent = 0;
+			var gstAmount = 0;
+
+			if (tax_status == 1 && baseTotal > 0) {
+				gstPercent = baseTotal >= 7500 ? 18 : 5;
+				gstAmount = (gstPercent / 100) * baseTotal;
+				finalTotal = baseTotal + gstAmount;
+
+				$(`#d_gst_per${rid}`).val(gstPercent);
+				$(`#d_gst_amt${rid}`).val(Math.round(gstAmount));
+			} else {
+				$(`#d_gst_per${rid}`).val(0);
+				$(`#d_gst_amt${rid}`).val(0);
+			}
+
+			$(`#d_total_rate${rid}`).val(Math.round(finalTotal));
+			calculateDoubleGrandTotal(count, night);
+
+		} else if ($(`#s_adult_rate${rid}`).length > 0) {
+			// Single room - READ current values
+			var s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
+			var s_child_rate = parseFloat($(`#s_child_rate${rid}`).val()) || 0;
+			var s_child_wb_rate = parseFloat($(`#s_child_wb_rate${rid}`).val()) || 0;
+			var s_extra_bed_rate = parseFloat($(`#s_extra_bed_rate${rid}`).val()) || 0;
+
+			var baseTotal = s_adult_rate;
+			$(`#s_base_total${rid}`).val(Math.round(baseTotal));
+
+			// Apply GST
+			var finalTotal = baseTotal;
+			var gstPercent = 0;
+			var gstAmount = 0;
+
+			if (tax_status == 1 && baseTotal > 0) {
+				gstPercent = baseTotal >= 7500 ? 18 : 5;
+				gstAmount = (gstPercent / 100) * baseTotal;
+				finalTotal = baseTotal + gstAmount;
+
+				$(`#s_gst_per${rid}`).val(gstPercent);
+				$(`#s_gst_amt${rid}`).val(Math.round(gstAmount));
+			} else {
+				$(`#s_gst_per${rid}`).val(0);
+				$(`#s_gst_amt${rid}`).val(0);
+			}
+
+			$(`#s_total_rate${rid}`).val(Math.round(finalTotal));
+			calculateSingleGrandTotal(count, night);
+		}
+
+		updateGrandtotalBoth();
+	}
+
+	// **NEW FUNCTION: Set rates to 0 for non-allocated fields**
+	// This should be called AFTER rates are fetched from AJAX
+	// Renamed: applyRoundRobinZeros -> rtc_applyRoundRobinZeros
+	function rtc_applyRoundRobinZeros(count, night, roomIndex, type) {
+		var rid = `${count}${night}${roomIndex}`;
+		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+
+		if (type === 'double') {
+			var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+
+			// Calculate what this room gets
+			var childCount = rtc_calculateDistribution(no_of_ch, double_qty, roomIndex);
+			var childWbCount = rtc_calculateDistribution(no_of_cw, double_qty, roomIndex);
+			var extraCount = rtc_calculateDistribution(no_of_extra, double_qty, roomIndex);
+
+			console.log('Applying zeros for double room:', {
+				rid,
+				childCount,
+				childWbCount,
+				extraCount
+			});
+
+			// Set to 0 if this room doesn't get any
+			if (childCount === 0) {
+				$(`#d_child_rate${rid}`).val(0);
+			}
+			if (childWbCount === 0) {
+				$(`#d_child_wb_rate${rid}`).val(0);
+			}
+			if (extraCount === 0) {
+				$(`#d_extra_bed_rate${rid}`).val(0);
+			}
+		} else if (type === 'single') {
+			// Single rooms: child/extra should always be 0 (they're readonly)
+			$(`#s_child_rate${rid}`).val(0);
+			$(`#s_child_wb_rate${rid}`).val(0);
+			$(`#s_extra_bed_rate${rid}`).val(0);
+		}
+	}
+
 	$(document).on('change', '.room_cat_change', function() {
 		if (isDraftLoading) {
 			console.log('Skipping meal plan change during draft load');
@@ -5090,7 +5320,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 		if (room_cat_id === "" || room_cat_id === "0") {
 			// Defer non-critical updates
 			changeTimeout = setTimeout(() => {
-				const nightIndex = rid[rid.length - 2];
+				const nightIndex = parseInt(rid[rid.length - 2], 10);
+				const roomIndex = parseInt(rid[rid.length - 1], 10);
 
 				// Batch all updates in a single animation frame
 				requestAnimationFrame(() => {
@@ -5104,15 +5335,15 @@ $is_edit = $edit_id ? $edit_id : 0;
 						fields[i].val(0).prop('readonly', true);
 					}
 
-					$(`#sterling_double${count}${nightIndex}`).empty();
-					$(`#sterling_single${count}${nightIndex}`).empty();
-					$(`#eighteen_div_d${count}`).empty();
-					$(`#eighteen_div_s${count}`).empty();
+					$(`#sterling_double${count}${nightIndex}${roomIndex}`).empty();
+					$(`#sterling_single${count}${nightIndex}${roomIndex}`).empty();
+					$(`#eighteen_div_d${count}`).find(`[id$="${rid}"]`).remove();
+					$(`#eighteen_div_s${count}`).find(`[id$="${rid}"]`).remove();
 				});
 
 				// Defer calculation-heavy operations
 				requestIdleCallback(() => {
-					updateRoomTotals(count, rid[rid.length - 2], rid[rid.length - 1]);
+					rtc_updateRoomTotals(count, nightIndex, roomIndex);
 					updateGrandtotalBoth();
 					const veh_total = get_veh_grand_total();
 
@@ -5148,8 +5379,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 			checkin: $(`#checkin${count}`).val(),
 			checkout: $(`#checkout${count}`).val(),
 			no_of_night: $(`#no_of_night${count}`).val(),
-			double: $(`#double${rid}`).val() || 0,
-			single: $(`#single${rid}`).val() || 0,
+			double: $(`#double${count}${rid[rid.length - 2]}`).val() || 0, // Fixed to per night
+			single: $(`#single${count}${rid[rid.length - 2]}`).val() || 0, // Fixed to per night
 			vehicle_from_location: <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>,
 			arrival_location: <?php echo $object_det[0]['arrival_location']; ?>,
 			departure_location: <?php echo $object_det[0]['departure_location']; ?>,
@@ -5179,19 +5410,26 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 
 		// Extract night and room index once
-		const night = rid[rid.length - 2];
-		const roomIndex = rid[rid.length - 1];
+		const night = parseInt(rid[rid.length - 2], 10);
+		const roomIndex = parseInt(rid[rid.length - 1], 10);
 
 		// Optimized HTML generation using array join (faster than string concatenation)
 		const createSterlingHTML = (type, rates, counts, ridVal, tot, gst, total) => {
+			const effectiveRates = {
+				room: rates.room,
+				child: counts.child > 0 ? rates.child : 0,
+				child_wb: counts.child_wb > 0 ? rates.child_wb : 0,
+				extra: counts.extra > 0 ? rates.extra : 0
+			};
+
 			const fields = [
-				['Room Rate', `ster_${type}_adult_rate`, rates.room, false, type === 'd'],
+				['Room Rate', `ster_${type}_adult_rate`, effectiveRates.room, false, type === 'd'],
 				['Child', `ster_n_${type}_child_rate`, counts.child, type === 's', type === 'd', 'cls_child_count'],
-				['Child Rate', `ster_${type}_child_rate`, rates.child, type === 's', type === 'd'],
+				['Child Rate', `ster_${type}_child_rate`, effectiveRates.child, type === 's', type === 'd'],
 				['No.Of C.WB', `ster_n_${type}_child_wb_rate`, counts.child_wb, type === 's', type === 'd', 'cls_child_wb_count'],
-				['C.WBed Rate', `ster_${type}_child_wb_rate`, rates.child_wb, type === 's', type === 'd'],
+				['C.WBed Rate', `ster_${type}_child_wb_rate`, effectiveRates.child_wb, type === 's', type === 'd'],
 				['No.Of Extra', `ster_n_${type}_extra_bed_rate`, counts.extra, type === 's', type === 'd', 'cls_extra_count'],
-				['Extra Rate', `ster_${type}_extra_bed_rate`, rates.extra, type === 's', type === 'd'],
+				['Extra Rate', `ster_${type}_extra_bed_rate`, effectiveRates.extra, type === 's', type === 'd'],
 				['Room wise total', `ster_${type}_total_rate`, tot, true, false],
 				['GST%', `ster_${type}_gst_per`, gst, true, false],
 				['Room wise total', `ster_${type}_g_tot`, total, true, false, `sterling_${type}_grand`]
@@ -5200,7 +5438,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			const htmlParts = ['<div class="row"><div class="col-xl-1 col-sm-12 col-md-1"></div>'];
 
 			for (let i = 0; i < fields.length; i++) {
-				const [label, id, value, readonly, hasInput, extraClass] = fields[i];
+				const [label, id, value, readonly, hasInput, extraClass = ''] = fields[i];
 				const readonlyAttr = readonly ? ' readonly' : '';
 				const classAttr = extraClass ? extraClass + ' ' : '';
 				const oninput = !readonly && hasInput ? ' oninput="validateNumericInput(this);"' : '';
@@ -5271,226 +5509,121 @@ $is_edit = $edit_id ? $edit_id : 0;
 					};
 
 					// Split DOM updates into chunks for better INP
-					// DEBUGGING AND CORRECTED VERSION
-// Add this RIGHT AFTER the AJAX data gathering section (before the AJAX call)
+					const processUpdates = () => {
+						const rates_double = {
+							room_r: values.room_r,
+							child_r: values.child_r,
+							child_wb_r: values.child_wb_r,
+							extra_r: values.extra_r
+						};
 
-// Extract night and room index from rid
-const night = rid[rid.length - 2];
-const roomIndex = parseInt(rid[rid.length - 1]); // Make sure it's a number
+						// Set rates using round-robin logic
+						requestAnimationFrame(() => {
+							rtc_setRoomRatesWithRoundRobin(count, night, roomIndex, 'double', rates_double);
+							rtc_applyRoundRobinZeros(count, night, roomIndex, 'double'); // Ensure zeros applied
 
-console.log('Room category change - Initial values:', {
-	rid: rid,
-	night: night,
-	roomIndex: roomIndex,
-	count: count,
-	no_of_ch: ajaxData.no_of_night,
-	double_qty: ajaxData.double
-});
+							if (values.nsingle > 0) {
+								const rates_single = {
+									room_r: parseInt(data.s_room_tariff) || 0,
+									child_r: parseInt(data.s_child_tariff) || 0,
+									child_wb_r: parseInt(data.s_child_wb_tariff) || 0,
+									extra_r: parseInt(data.s_extra_tariff) || 0 // Assuming extra for single if needed
+								};
+								rtc_setRoomRatesWithRoundRobin(count, night, roomIndex, 'single', rates_single);
+								rtc_applyRoundRobinZeros(count, night, roomIndex, 'single');
+							}
+						});
 
-// Then REPLACE the entire processUpdates function with this:
+						if (ajaxData.tax_status == 1) {
+							// Set readonly for rates in tax mode
+							requestAnimationFrame(() => {
+								cachedElements.rateFields.d_adult.prop("readonly", true);
+								cachedElements.rateFields.d_child.prop("readonly", true);
+								cachedElements.rateFields.d_child_wb.prop("readonly", true);
+								cachedElements.rateFields.d_extra_bed.prop("readonly", true);
 
-const processUpdates = () => {
-	// Get the room quantities
-	const double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
-	const single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
-	
-	console.log('Processing updates for:', {
-		count: count,
-		night: night,
-		roomIndex: roomIndex,
-		double_qty: double_qty,
-		total_children: values.no_of_ch,
-		total_child_wb: values.no_of_cw,
-		total_extra: values.no_of_extra
-	});
-	
-	if (ajaxData.tax_status == 1) {
-		// Calculate what THIS specific room gets in round-robin
-		const childCount = calculateDistribution(values.no_of_ch, double_qty, roomIndex);
-		const childWbCount = calculateDistribution(values.no_of_cw, double_qty, roomIndex);
-		const extraCount = calculateDistribution(values.no_of_extra, double_qty, roomIndex);
+								if (values.nsingle > 0) {
+									cachedElements.rateFields.s_adult.prop("readonly", true);
+								}
+							});
 
-		console.log('Round-robin allocation:', {
-			roomIndex: roomIndex,
-			childCount: childCount,
-			childWbCount: childWbCount,
-			extraCount: extraCount
-		});
+							// Defer calculations and HTML generation
+							requestIdleCallback(() => {
+								rtc_updateRoomTotals(count, night, roomIndex);
 
-		// Determine actual rates based on allocation
-		const actual_child_rate = childCount > 0 ? values.child_r : 0;
-		const actual_child_wb_rate = childWbCount > 0 ? values.child_wb_r : 0;
-		const actual_extra_rate = extraCount > 0 ? values.extra_r : 0;
+								// Calculate counts for HTML
+								const double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+								const counts = {
+									child: rtc_calculateDistribution(values.no_of_ch, double_qty, roomIndex),
+									child_wb: rtc_calculateDistribution(values.no_of_cw, double_qty, roomIndex),
+									extra: rtc_calculateDistribution(values.no_of_extra, double_qty, roomIndex)
+								};
 
-		console.log('Calculated rates for room:', {
-			room_rate: values.room_r,
-			actual_child_rate: actual_child_rate,
-			actual_child_wb_rate: actual_child_wb_rate,
-			actual_extra_rate: actual_extra_rate
-		});
+								const tot_d = parseFloat($(`#d_base_total${rid}`).val()) || 0;
+								const gst_d = parseFloat($(`#d_gst_per${rid}`).val()) || 0;
+								const total_d = parseFloat($(`#d_total_rate${rid}`).val()) || 0;
 
-		const counts = {
-			child: childCount > 0 ? 1 : 0,
-			child_wb: childWbCount > 0 ? 1 : 0,
-			extra: extraCount > 0 ? 1 : 0
-		};
+								requestAnimationFrame(() => {
+									const sterling_double = createSterlingHTML('d', rates_double, counts, rid, tot_d, gst_d, total_d);
+									const ediv_d = createHiddenFields('d', rates_double, counts, rid, tot_d, gst_d, total_d);
 
-		const tot_d = values.room_r + (counts.child * values.child_r) +
-			(counts.child_wb * values.child_wb_r) + (counts.extra * values.extra_r);
-		const gst = tot_d >= 7500 ? 18 : 5;
-		const total_doubles = tot_d + ((gst / 100) * tot_d);
+									$(`#sterling_double${count}${night}${roomIndex}`).html(sterling_double);
+									$(`#eighteen_div_d${count}`).append(ediv_d);
+								});
 
-		// First frame: Update rate fields with correct values
-		requestAnimationFrame(() => {
-			console.log('Setting field values for rid:', rid);
-			
-			cachedElements.rateFields.d_adult.prop("readonly", true).val(values.room_r);
-			cachedElements.rateFields.d_child.prop("readonly", true).val(actual_child_rate);
-			cachedElements.rateFields.d_child_wb.prop("readonly", true).val(actual_child_wb_rate);
-			cachedElements.rateFields.d_extra_bed.prop("readonly", true).val(actual_extra_rate);
-			cachedElements.d_total_rate.val(total_doubles);
-			
-			console.log('Values set:', {
-				d_adult: cachedElements.rateFields.d_adult.val(),
-				d_child: cachedElements.rateFields.d_child.val(),
-				d_child_wb: cachedElements.rateFields.d_child_wb.val(),
-				d_extra_bed: cachedElements.rateFields.d_extra_bed.val()
-			});
-		});
+								// Similar for single if nsingle > 0
+								if (values.nsingle > 0) {
+									const single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
+									const counts_s = {
+										child: 0,
+										child_wb: 0,
+										extra: 0
+									};
+									const tot_s = parseFloat($(`#s_base_total${rid}`).val()) || 0;
+									const gst_s = parseFloat($(`#s_gst_per${rid}`).val()) || 0;
+									const total_s = parseFloat($(`#s_total_rate${rid}`).val()) || 0;
 
-		// Second frame: Generate and insert HTML
-		requestAnimationFrame(() => {
-			const sterling_double = createSterlingHTML('d', {
-					room: values.room_r,
-					child: values.child_r,
-					child_wb: values.child_wb_r,
-					extra: values.extra_r
-				},
-				counts, rid, tot_d, gst, total_doubles
-			);
-			const ediv = createHiddenFields('d', {
-					room: values.room_r,
-					child: values.child_r,
-					child_wb: values.child_wb_r,
-					extra: values.extra_r
-				},
-				counts, rid, tot_d, gst, total_doubles
-			);
+									requestAnimationFrame(() => {
+										const sterling_single = createSterlingHTML('s', rates_single, counts_s, rid, tot_s, gst_s, total_s);
+										const ediv_s = createHiddenFields('s', rates_single, counts_s, rid, tot_s, gst_s, total_s);
 
-			$(`#eighteen_div_d${count}`).html(ediv);
-			$(`#sterling_double${count}${night}`).html(sterling_double);
-		});
+										$(`#sterling_single${count}${night}${roomIndex}`).html(sterling_single);
+										$(`#eighteen_div_s${count}`).append(ediv_s);
+									});
+								}
+							}, { timeout: 100 });
+						} else {
+							// Non-tax case: no HTML generation, just clear if needed
+							requestAnimationFrame(() => {
+								$(`#sterling_double${count}${night}${roomIndex}`).empty();
+								$(`#sterling_single${count}${night}${roomIndex}`).empty();
+								$(`#eighteen_div_d${count}`).find(`[id$="${rid}"]`).remove();
+								$(`#eighteen_div_s${count}`).find(`[id$="${rid}"]`).remove();
+							});
 
-		// Handle single rooms
-		if (values.nsingle > 0) {
-			const tot_s = parseInt(data.s_room_tariff) || 0;
-			const s_gst = tot_s >= 7500 ? 18 : 5;
-			const total_singles = tot_s + ((s_gst / 100) * tot_s);
+							requestIdleCallback(() => {
+								rtc_updateRoomTotals(count, night, roomIndex);
+							}, { timeout: 100 });
+						}
 
-			requestAnimationFrame(() => {
-				cachedElements.rateFields.s_adult.prop("readonly", true).val(tot_s);
-				cachedElements.rateFields.s_child.prop("readonly", true).val(0);
-				cachedElements.rateFields.s_child_wb.prop("readonly", true).val(0);
-				cachedElements.rateFields.s_extra_bed.prop("readonly", true).val(0);
-				cachedElements.s_total_rate.val(total_singles);
+						// Final frame: Update totals
+						requestIdleCallback(() => {
+							const singleCardTotal = updateGrandtotalBoth(count);
+							const allCardTotal = updateGrandtotalBoth();
+							const veh_grand_total = get_veh_grand_total();
 
-				const sterling_single = createSterlingHTML('s', {
-						room: tot_s,
-						child: 0,
-						child_wb: 0,
-						extra: 0
-					}, {
-						child: 0,
-						child_wb: 0,
-						extra: 0
-					},
-					rid, tot_s, s_gst, total_singles
-				);
-				const sdiv = createHiddenFields('s', {
-						room: tot_s,
-						child: 0,
-						child_wb: 0,
-						extra: 0
-					}, {
-						child: 0,
-						child_wb: 0,
-						extra: 0
-					},
-					rid, tot_s, s_gst, total_singles
-				);
+							requestAnimationFrame(() => {
+								cachedElements.loc_total.text(singleCardTotal + " + " + 0);
+								cachedElements.v_total.text(veh_grand_total);
+								cachedElements.a_total.text(allCardTotal);
+								cachedElements.g_total.text((allCardTotal + veh_grand_total));
+							});
 
-				$(`#eighteen_div_s${count}`).html(sdiv);
-				$(`#sterling_single${count}${night}`).html(sterling_single);
-			});
-		}
-
-		// Defer calculations to idle time
-		requestIdleCallback(() => {
-			updateRoomTotals(count, night, roomIndex);
-			calculateVehicleExtraKmCharges();
-		}, {
-			timeout: 100
-		});
-	} else {
-		// Non-tax case
-		const childCount = calculateDistribution(values.no_of_ch, double_qty, roomIndex);
-		const childWbCount = calculateDistribution(values.no_of_cw, double_qty, roomIndex);
-		const extraCount = calculateDistribution(values.no_of_extra, double_qty, roomIndex);
-
-		const actual_child_rate = childCount > 0 ? values.child_r : 0;
-		const actual_child_wb_rate = childWbCount > 0 ? values.child_wb_r : 0;
-		const actual_extra_rate = extraCount > 0 ? values.extra_r : 0;
-
-		console.log('Non-tax case - rates:', {
-			actual_child_rate,
-			actual_child_wb_rate,
-			actual_extra_rate
-		});
-
-		requestAnimationFrame(() => {
-			$(`#sterling_double${count}${night}`).empty();
-			$(`#sterling_single${count}${night}`).empty();
-			$(`#eighteen_div_d${count}`).empty();
-			$(`#eighteen_div_s${count}`).empty();
-
-			cachedElements.rateFields.d_adult.prop("readonly", false).val(values.room_r);
-			cachedElements.rateFields.d_child.prop("readonly", false).val(actual_child_rate);
-			cachedElements.rateFields.d_child_wb.prop("readonly", false).val(actual_child_wb_rate);
-			cachedElements.rateFields.d_extra_bed.prop("readonly", false).val(actual_extra_rate);
-
-			if (values.nsingle > 0) {
-				cachedElements.rateFields.s_adult.prop("readonly", false).val(data.s_room_tariff);
-				cachedElements.rateFields.s_child.prop("readonly", false).val(0);
-				cachedElements.rateFields.s_child_wb.prop("readonly", false).val(0);
-				cachedElements.rateFields.s_extra_bed.prop("readonly", false).val(0);
-			}
-		});
-
-		requestIdleCallback(() => {
-			updateRoomTotals(count, night, roomIndex);
-		}, {
-			timeout: 100
-		});
-	}
-
-	// Final frame: Update totals
-	requestIdleCallback(() => {
-		const singleCardTotal = updateGrandtotalBoth(count);
-		const allCardTotal = updateGrandtotalBoth();
-		const veh_grand_total = get_veh_grand_total();
-
-		requestAnimationFrame(() => {
-			cachedElements.loc_total.text(singleCardTotal + " + " + 0);
-			cachedElements.v_total.text(veh_grand_total);
-			cachedElements.a_total.text(allCardTotal);
-			cachedElements.g_total.text((allCardTotal + veh_grand_total));
-		});
-
-		calculateVehicleExtraKmCharges();
-	}, {
-		timeout: 150
-	});
-};
+							calculateVehicleExtraKmCharges();
+						}, {
+							timeout: 150
+						});
+					};
 
 					processUpdates();
 				},
