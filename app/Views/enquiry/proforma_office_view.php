@@ -216,6 +216,7 @@
                                     // Check if expansion details exist
                                     if(!empty($val['expansion_details']) && count($val['expansion_details']) > 0) {
                                         // Use expansion data for dynamic rows
+                                        $exp_day_counter = $k;
                                         foreach($val['expansion_details'] as $exp_key => $exp) {
                                             $sdate = $exp['tour_expansion_date'];
                                             $edate = date('Y-m-d', strtotime($sdate . ' +1 day'));
@@ -238,7 +239,7 @@
                                                     ?>
                                                     <tr>
                                                         <?php if($first_row) { ?>
-                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $exp_day_counter; ?></td>
                                                             <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($sdate)); ?></td>
                                                             <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($edate)); ?></td>
                                                             <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
@@ -248,7 +249,7 @@
                                                             <?php $first_row = false; ?>
                                                         <?php } ?>
                                                         
-                                                        <td style="border:1px solid black;"><?php echo $val['no_of_double_room']; ?></td>
+                                                        <td style="border:1px solid black;">1</td>
                                                         <td style="border:1px solid black;">Double</td>
                                                         
                                                         <?php if($val['no_of_adult'] > 0){ ?>
@@ -290,7 +291,7 @@
                                                     ?>
                                                     <tr>
                                                         <?php if($first_row) { ?>
-                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $exp_day_counter; ?></td>
                                                             <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($sdate)); ?></td>
                                                             <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($edate)); ?></td>
                                                             <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
@@ -300,7 +301,7 @@
                                                             <?php $first_row = false; ?>
                                                         <?php } ?>
                                                         
-                                                        <td style="border:1px solid black;"><?php echo $val['no_of_single_room']; ?></td>
+                                                        <td style="border:1px solid black;">1</td>
                                                         <td style="border:1px solid black;">Single</td>
                                                         
                                                         <?php if($val['no_of_adult'] > 0){ ?>
@@ -334,9 +335,10 @@
                                                     </tr>
                                                 <?php 
                                                 }
-                                                $k++;
+                                                $exp_day_counter++;
                                             }
                                         }
+                                        $k = $exp_day_counter;
                                     } else {
                                         // Fallback to old logic if no expansion data
                                         foreach($val['cost'] as $tkey => $tval){
