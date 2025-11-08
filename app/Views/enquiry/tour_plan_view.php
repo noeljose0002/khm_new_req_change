@@ -3367,17 +3367,25 @@ $is_edit = $edit_id ? $edit_id : 0;
 			$(`#vehicle-summary-${count}`).hide();
 		}
 
-		// Update header with vehicle details
-		var nightLabels = [];
+		// Update header with vehicle details - DEDUPLICATED
+		var headerMap = new Map(); // Use Map for better deduplication with normalization
 		for (let i = 1; i <= no_of_night; i++) {
 			var vFromTo = $(`#v_from_to${count}${i}`).text().trim();
-			if (vFromTo && vFromTo !== '') {
-				vFromTo = vFromTo.replace(/^\s*-\s*/, '');
-				nightLabels.push(vFromTo);
-			} else {
-				nightLabels.push(`N${i}`);
+			// Improved cleaning: Remove any leading sequences of + or - with spaces, then normalize spaces
+			var cleaned = vFromTo.replace(/^(?:\s*[\+\-]\s*)+/, '').replace(/\s+/g, ' ').trim();
+			var effective = cleaned || `N${i}`;
+
+			// Normalize further for deduplication key (lowercase, remove non-alphanumeric except spaces and -, collapse spaces)
+			var normalized = effective.toLowerCase()
+				.replace(/[^\w\s-]/g, '') // Remove punctuation like commas, parens, etc.
+				.replace(/\s+/g, ' ')
+				.trim();
+
+			if (!headerMap.has(normalized)) {
+				headerMap.set(normalized, effective); // Store the original cleaned for display
 			}
 		}
+		var nightLabels = Array.from(headerMap.values());
 
 		// FIX: Update only the span text, preserve the icon (no duplicate icons)
 		var $header = $(`#vehicle-summary-header-${count}`);
@@ -3744,119 +3752,141 @@ $is_edit = $edit_id ? $edit_id : 0;
 	});
 	// Updated updateRoomTotals - ONLY calculates totals, doesn't modify rates
 	function updateRoomTotals(count, night, roomIndex) {
-  var rid = `${count}${night}${roomIndex}`;
-  var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
-  var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
-  var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
-  var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
-  var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
-  var tax_status = parseInt($(`#tax_status${count}`).val()) || 0;
-  var isDynamic = getIsDynamic();
-  console.log('updateRoomTotals called:', { count, night, roomIndex, rid, isDynamic });
+		var rid = `${count}${night}${roomIndex}`;
+		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
+		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
+		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+		var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
+		var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
+		var tax_status = parseInt($(`#tax_status${count}`).val()) || 0;
+		var isDynamic = getIsDynamic();
+		console.log('updateRoomTotals called:', {
+			count,
+			night,
+			roomIndex,
+			rid,
+			isDynamic
+		});
 
-  if ($(`#d_adult_rate${rid}`).length > 0) {
-    // Double room
-    var d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
-    var d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
-    var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
-    var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
+		if ($(`#d_adult_rate${rid}`).length > 0) {
+			// Double room
+			var d_adult_rate = parseFloat($(`#d_adult_rate${rid}`).val()) || 0;
+			var d_child_rate = parseFloat($(`#d_child_rate${rid}`).val()) || 0;
+			var d_child_wb_rate = parseFloat($(`#d_child_wb_rate${rid}`).val()) || 0;
+			var d_extra_bed_rate = parseFloat($(`#d_extra_bed_rate${rid}`).val()) || 0;
 
-    var childCount = calculateDistribution(no_of_ch, double_qty, roomIndex);
-    var childWbCount = calculateDistribution(no_of_cw, double_qty, roomIndex);
-    var extraCount = calculateExtraBedDistribution(no_of_extra, double_qty, roomIndex, no_of_ch);
+			var childCount = calculateDistribution(no_of_ch, double_qty, roomIndex);
+			var childWbCount = calculateDistribution(no_of_cw, double_qty, roomIndex);
+			var extraCount = calculateExtraBedDistribution(no_of_extra, double_qty, roomIndex, no_of_ch);
 
-    console.log('Priority distribution for double room:', { roomIndex, childWithBed: childCount, childWithoutBed: childWbCount, extraBed: extraCount, hasChildBed: childCount > 0, d_extra_bed_rate_before: d_extra_bed_rate, isDynamic });
+			console.log('Priority distribution for double room:', {
+				roomIndex,
+				childWithBed: childCount,
+				childWithoutBed: childWbCount,
+				extraBed: extraCount,
+				hasChildBed: childCount > 0,
+				d_extra_bed_rate_before: d_extra_bed_rate,
+				isDynamic
+			});
 
-    // CRITICAL: Check if this is the static mode first display room (111)
-    var isStaticFirstRoom = (!isDynamic && night === 1 && roomIndex === 1);
-    if (isStaticFirstRoom) {
-      // **STATIC MODE FIRST ROOM - Special handling: Preserve/Force extra bed**
-      console.log('Static mode first room - forcing/preserving extra bed rate for display');
-      // Clear child rates if not allocated (extra bed takes priority here)
-      if (childCount === 0) {
-        $(`#d_child_rate${rid}`).val(0);
-        d_child_rate = 0;
-      }
-      if (childWbCount === 0) {
-        $(`#d_child_wb_rate${rid}`).val(0);
-        d_child_wb_rate = 0;
-      }
-      // **UPDATED: Rely on toggleNightsVisibility force-set; preserve if already set**
-      // No need for base pull here - toggle ensures it's set before this call
-      // If somehow zero, it will stay (but toggle handles restoration)
-    } else {
-      // **DYNAMIC MODE OR OTHER ROOMS - Apply normal priority logic**
-      if (childCount > 0) {
-        $(`#d_extra_bed_rate${rid}`).val(0);
-        d_extra_bed_rate = 0;
-        console.log('Clearing extra bed rate - room has child with bed');
-      } else if (extraCount === 0) {
-        $(`#d_extra_bed_rate${rid}`).val(0);
-        d_extra_bed_rate = 0;
-        console.log('Clearing extra bed rate - no extra bed allocated to this room');
-      }
-      // **REMOVED: Broad search logic - causes stale rate override (e.g., 1500 for EP)**
-      
-      if (childCount === 0) {
-        $(`#d_child_rate${rid}`).val(0);
-        d_child_rate = 0;
-      }
-      if (childWbCount === 0) {
-        $(`#d_child_wb_rate${rid}`).val(0);
-        d_child_wb_rate = 0;
-      }
-    }
+			// CRITICAL: Check if this is the static mode first display room (111)
+			var isStaticFirstRoom = (!isDynamic && night === 1 && roomIndex === 1);
+			if (isStaticFirstRoom) {
+				// **STATIC MODE FIRST ROOM - Special handling: Preserve/Force extra bed**
+				console.log('Static mode first room - forcing/preserving extra bed rate for display');
+				// Clear child rates if not allocated (extra bed takes priority here)
+				if (childCount === 0) {
+					$(`#d_child_rate${rid}`).val(0);
+					d_child_rate = 0;
+				}
+				if (childWbCount === 0) {
+					$(`#d_child_wb_rate${rid}`).val(0);
+					d_child_wb_rate = 0;
+				}
+				// **UPDATED: Rely on toggleNightsVisibility force-set; preserve if already set**
+				// No need for base pull here - toggle ensures it's set before this call
+				// If somehow zero, it will stay (but toggle handles restoration)
+			} else {
+				// **DYNAMIC MODE OR OTHER ROOMS - Apply normal priority logic**
+				if (childCount > 0) {
+					$(`#d_extra_bed_rate${rid}`).val(0);
+					d_extra_bed_rate = 0;
+					console.log('Clearing extra bed rate - room has child with bed');
+				} else if (extraCount === 0) {
+					$(`#d_extra_bed_rate${rid}`).val(0);
+					d_extra_bed_rate = 0;
+					console.log('Clearing extra bed rate - no extra bed allocated to this room');
+				}
+				// **REMOVED: Broad search logic - causes stale rate override (e.g., 1500 for EP)**
 
-    console.log('Rates after priority adjustment:', { d_adult_rate, d_child_rate, d_child_wb_rate, d_extra_bed_rate, childCount, childWbCount, extraCount });
+				if (childCount === 0) {
+					$(`#d_child_rate${rid}`).val(0);
+					d_child_rate = 0;
+				}
+				if (childWbCount === 0) {
+					$(`#d_child_wb_rate${rid}`).val(0);
+					d_child_wb_rate = 0;
+				}
+			}
 
-    // Calculate base total
-    var baseTotal = d_adult_rate + (childCount * d_child_rate) + (childWbCount * d_child_wb_rate) + (extraCount * d_extra_bed_rate);
-    $(`#d_base_total${rid}`).val(Math.round(baseTotal));
+			console.log('Rates after priority adjustment:', {
+				d_adult_rate,
+				d_child_rate,
+				d_child_wb_rate,
+				d_extra_bed_rate,
+				childCount,
+				childWbCount,
+				extraCount
+			});
 
-    // Apply GST
-    var finalTotal = baseTotal;
-    var gstPercent = 0;
-    var gstAmount = 0;
-    if (tax_status == 1 && baseTotal > 0) {
-      gstPercent = baseTotal >= 7500 ? 18 : 5;
-      gstAmount = (gstPercent / 100) * baseTotal;
-      finalTotal = baseTotal + gstAmount;
-      $(`#d_gst_per${rid}`).val(gstPercent);
-      $(`#d_gst_amt${rid}`).val(Math.round(gstAmount));
-    } else {
-      $(`#d_gst_per${rid}`).val(0);
-      $(`#d_gst_amt${rid}`).val(0);
-    }
-    $(`#d_total_rate${rid}`).val(Math.round(finalTotal));
+			// Calculate base total
+			var baseTotal = d_adult_rate + (childCount * d_child_rate) + (childWbCount * d_child_wb_rate) + (extraCount * d_extra_bed_rate);
+			$(`#d_base_total${rid}`).val(Math.round(baseTotal));
 
-    calculateDoubleGrandTotal(count, night);
-  } else if ($(`#s_adult_rate${rid}`).length > 0) {
-    // Single room - no changes needed
-    var s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
-    var baseTotal = s_adult_rate;
-    $(`#s_base_total${rid}`).val(Math.round(baseTotal));
+			// Apply GST
+			var finalTotal = baseTotal;
+			var gstPercent = 0;
+			var gstAmount = 0;
+			if (tax_status == 1 && baseTotal > 0) {
+				gstPercent = baseTotal >= 7500 ? 18 : 5;
+				gstAmount = (gstPercent / 100) * baseTotal;
+				finalTotal = baseTotal + gstAmount;
+				$(`#d_gst_per${rid}`).val(gstPercent);
+				$(`#d_gst_amt${rid}`).val(Math.round(gstAmount));
+			} else {
+				$(`#d_gst_per${rid}`).val(0);
+				$(`#d_gst_amt${rid}`).val(0);
+			}
+			$(`#d_total_rate${rid}`).val(Math.round(finalTotal));
 
-    var finalTotal = baseTotal;
-    var gstPercent = 0;
-    var gstAmount = 0;
-    if (tax_status == 1 && baseTotal > 0) {
-      gstPercent = baseTotal >= 7500 ? 18 : 5;
-      gstAmount = (gstPercent / 100) * baseTotal;
-      finalTotal = baseTotal + gstAmount;
-      $(`#s_gst_per${rid}`).val(gstPercent);
-      $(`#s_gst_amt${rid}`).val(Math.round(gstAmount));
-    } else {
-      $(`#s_gst_per${rid}`).val(0);
-      $(`#s_gst_amt${rid}`).val(0);
-    }
-    $(`#s_total_rate${rid}`).val(Math.round(finalTotal));
+			calculateDoubleGrandTotal(count, night);
+		} else if ($(`#s_adult_rate${rid}`).length > 0) {
+			// Single room - no changes needed
+			var s_adult_rate = parseFloat($(`#s_adult_rate${rid}`).val()) || 0;
+			var baseTotal = s_adult_rate;
+			$(`#s_base_total${rid}`).val(Math.round(baseTotal));
 
-    calculateSingleGrandTotal(count, night);
-  }
+			var finalTotal = baseTotal;
+			var gstPercent = 0;
+			var gstAmount = 0;
+			if (tax_status == 1 && baseTotal > 0) {
+				gstPercent = baseTotal >= 7500 ? 18 : 5;
+				gstAmount = (gstPercent / 100) * baseTotal;
+				finalTotal = baseTotal + gstAmount;
+				$(`#s_gst_per${rid}`).val(gstPercent);
+				$(`#s_gst_amt${rid}`).val(Math.round(gstAmount));
+			} else {
+				$(`#s_gst_per${rid}`).val(0);
+				$(`#s_gst_amt${rid}`).val(0);
+			}
+			$(`#s_total_rate${rid}`).val(Math.round(finalTotal));
 
-  // updateGrandtotalBoth();
-  updateAllTotals();
-}
+			calculateSingleGrandTotal(count, night);
+		}
+
+		// updateGrandtotalBoth();
+		updateAllTotals();
+	}
 	// **NEW FUNCTION: Set rates to 0 for non-allocated fields**
 	// This should be called AFTER rates are fetched from AJAX
 	function applyRoundRobinZeros(count, night, roomIndex, type) {
@@ -4744,58 +4774,58 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		// Skip if programmatic change
 
-			// STATIC MODE: Optimized propagation
-			if (!getIsDynamic()) {
-				var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-				console.log('Static mode propagation - Room Type:', type, 'Total Nights:', no_of_night);
+		// STATIC MODE: Optimized propagation
+		if (!getIsDynamic()) {
+			var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+			console.log('Static mode propagation - Room Type:', type, 'Total Nights:', no_of_night);
 
-				var propagationTargets = [];
-				for (let n = 1; n <= no_of_night; n++) {
-					var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
-					var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
+			var propagationTargets = [];
+			for (let n = 1; n <= no_of_night; n++) {
+				var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
+				var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
 
-					var startIndex, endIndex;
-					if (type === 'double') {
-						startIndex = 1;
-						endIndex = totalDoubleRooms;
-					} else {
-						startIndex = totalDoubleRooms + 1;
-						endIndex = totalDoubleRooms + totalSingleRooms;
-					}
-
-					for (let r = startIndex; r <= endIndex; r++) {
-						if (n === night && r === roomIndex) {
-							continue;
-						}
-						var otherRid = `${count}${n}${r}`;
-						var mealPlanId = `mealplan${otherRid}`;
-						var $otherMealPlan = $(`#${mealPlanId}`);
-
-						if ($otherMealPlan.length > 0 && $otherMealPlan.val() !== mealplan) {
-							propagationTargets.push({
-								element: $otherMealPlan,
-								value: mealplan,
-								rid: otherRid
-							});
-						}
-					}
+				var startIndex, endIndex;
+				if (type === 'double') {
+					startIndex = 1;
+					endIndex = totalDoubleRooms;
+				} else {
+					startIndex = totalDoubleRooms + 1;
+					endIndex = totalDoubleRooms + totalSingleRooms;
 				}
 
-				if (propagationTargets.length > 0) {
-					console.log(`Batching ${propagationTargets.length} propagation updates`);
-					batchDOMUpdate(function() {
-						propagationTargets.forEach(function(target) {
-							target.element.data('programmatic-change', true).val(target.value);
-							if (target.element.hasClass('select2-hidden-accessible')) {
-								target.element.trigger('change.select2');
-							}
-							target.element.trigger('change');
+				for (let r = startIndex; r <= endIndex; r++) {
+					if (n === night && r === roomIndex) {
+						continue;
+					}
+					var otherRid = `${count}${n}${r}`;
+					var mealPlanId = `mealplan${otherRid}`;
+					var $otherMealPlan = $(`#${mealPlanId}`);
+
+					if ($otherMealPlan.length > 0 && $otherMealPlan.val() !== mealplan) {
+						propagationTargets.push({
+							element: $otherMealPlan,
+							value: mealplan,
+							rid: otherRid
 						});
-					});
+					}
 				}
-				console.log('Meal plan propagation complete');
 			}
-		
+
+			if (propagationTargets.length > 0) {
+				console.log(`Batching ${propagationTargets.length} propagation updates`);
+				batchDOMUpdate(function() {
+					propagationTargets.forEach(function(target) {
+						target.element.data('programmatic-change', true).val(target.value);
+						if (target.element.hasClass('select2-hidden-accessible')) {
+							target.element.trigger('change.select2');
+						}
+						target.element.trigger('change');
+					});
+				});
+			}
+			console.log('Meal plan propagation complete');
+		}
+
 
 		// Process the current room
 		$spinner.show();
@@ -7156,12 +7186,11 @@ $is_edit = $edit_id ? $edit_id : 0;
 					toggleNightsVisibility();
 					updateAllTotals();
 					calculateVehicleExtraKmCharges();
-
 					// Set loading flag OFF
 					isDraftLoading = false;
-
 					$('#spinner_draft').hide();
 					showAlert('success', 'Draft loaded successfully!');
+					$this.prop('disabled', false); // Re-enable the button after loading
 				}, 3000);
 			},
 			error: function(xhr, status, error) {
@@ -7374,7 +7403,56 @@ $is_edit = $edit_id ? $edit_id : 0;
 				}
 			}
 		}
+if (!isDynamic && main.vehicle_details) {
+  try {
+    var mainVehicleDetails = typeof main.vehicle_details === 'string' ? JSON.parse(main.vehicle_details) : main.vehicle_details;
+    console.log(`Static Mode - Backfilling per-night for location ${count} from main:`, mainVehicleDetails);
+    $.each(mainVehicleDetails, function(vindex, vdata) {
+      // Find matching vehicle model index
+      var matchedVehicleIndex = -1;
+      $.each(vehicle_models, function(modelIndex, model) {
+        if (model.vehicle_type_id == vdata.veh_type_id) {
+          matchedVehicleIndex = modelIndex;
+          return false;
+        }
+      });
+      if (matchedVehicleIndex !== -1) {
+        var totalDays = no_of_days;
+        var totalRent = parseFloat(vdata.veh_total) || 0;  // Use veh_total as total rent
+        var totalDistance = parseFloat(vdata.travel_distance) || 0;
+        var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
+        var dailyRent = totalDays > 0 ? (parseFloat(vdata.day_rent) || (totalRent / totalDays)) : 0;  // Prefer day_rent if present, else divide
+        var dailyDistance = totalDays > 0 ? (totalDistance / totalDays) : 0;
+        var dailyExtraKm = totalDays > 0 ? (totalExtraKm / totalDays) : 0;
+        var dailyVehTotal = totalDays > 0 ? (totalRent / totalDays) : 0;
+        var kmRate = parseFloat(vdata.extra_km_rate) || 0;
+        var maxKmDay = parseFloat(vdata.max_km_day) || 0;
+        var headerText = vdata.veh_header || '';  // Preserve empty if none
 
+        // Set IDENTICAL values for EVERY night (static = uniform across stay)
+        for (let night = 1; night <= totalDays; night++) {
+          var vid = `${count}${night}${vdata.veh_type_id}`;
+          $(`#day_rent${vid}`).val(dailyRent.toFixed(0));
+          $(`#travel_distance${vid}`).val(dailyDistance.toFixed(0));
+          $(`#max_km_day${vid}`).val(maxKmDay);
+          $(`#extra_km_rate${vid}`).val(kmRate);
+          $(`#extra_kilometer${vid}`).val(dailyExtraKm.toFixed(0));
+          $(`#veh_total${vid}`).val(dailyVehTotal.toFixed(0));
+          
+          // *** NEW: Also backfill the v_from_to header per night if empty ***
+          if (!$(`#v_from_to${count}${night}`).text().trim()) {
+            $(`#v_from_to${count}${night}`).text(headerText);
+          }
+          
+          updateVehicleTotals(count, night, vindex);  // Recalc if function exists
+        }
+      }
+    });
+    console.log(`Per-night fields backfilled for location ${count}`);
+  } catch (e) {
+    console.error(`Error backfilling per-night for location ${count}:`, e);
+  }
+}
 		// *** FORCE GST COLUMN VISIBILITY AFTER ALL DATA IS LOADED ***
 		setTimeout(function() {
 			console.log(`Forcing GST column visibility for location ${count}, tax_status: ${main.tax_status}`);
@@ -7496,59 +7574,45 @@ $is_edit = $edit_id ? $edit_id : 0;
 			// Build and set the vehicle header AFTER all night data is populated
 			// Use a short timeout so DOM is ready, but de-duplicate and skip placeholder N# unless no real headers
 			setTimeout(function() {
-				var headerSet = new Set();
-				var placeholderCount = 0;
+				var headerMap = new Map(); // Use Map for better deduplication with normalization
 				for (let night = 1; night <= no_of_days; night++) {
 					var nightHeader = $(`#v_from_to${count}${night}`).text().trim();
-					if (nightHeader && nightHeader !== '') {
-						// Normalize: remove leading dash and collapse whitespace
-						nightHeader = nightHeader.replace(/^\s*-\s*/, '').replace(/\s+/g, ' ').trim();
-						if (nightHeader !== '') headerSet.add(nightHeader);
-					} else {
-						placeholderCount++;
+					// Improved cleaning: Remove any leading sequences of + or - with spaces, then normalize spaces
+					var cleaned = nightHeader.replace(/^(?:\s*[\+\-]\s*)+/, '').replace(/\s+/g, ' ').trim();
+					var effective = cleaned || `N${night}`;
+
+					// Normalize further for deduplication key (lowercase, remove non-alphanumeric except spaces and -, collapse spaces)
+					var normalized = effective.toLowerCase()
+						.replace(/[^\w\s-]/g, '') // Remove punctuation like commas, parens, etc.
+						.replace(/\s+/g, ' ')
+						.trim();
+
+					if (!headerMap.has(normalized)) {
+						headerMap.set(normalized, effective); // Store the original cleaned for display
 					}
 				}
-
-				var combinedHeaders = [];
-				headerSet.forEach(function(h) {
-					combinedHeaders.push(h);
-				});
-
-				// If there are no real headers but placeholders exist, fallback to placeholders
-				if (combinedHeaders.length === 0 && placeholderCount > 0) {
-					for (let night = 1; night <= no_of_days; night++) {
-						combinedHeaders.push(`N${night}`);
-					}
-				}
-
-				var summaryHeaderText = '';
-				if (combinedHeaders.length > 0) {
-					summaryHeaderText = ' (' + combinedHeaders.join(' + ') + ')';
-				}
-
+				var combinedHeaders = Array.from(headerMap.values());
+				var summaryHeaderText = combinedHeaders.length > 0 ? ' (' + combinedHeaders.join(' + ') + ')' : '';
 				console.log('Combined vehicle header for summary:', summaryHeaderText);
-
 				var $summaryHeader = $(`#vehicle-summary-header-${count}`);
 				$summaryHeader.html(`
-                <span style="display: flex; align-items: center; justify-content: center; width: 100%;">
-                    <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
-                        <i class="fa fa-refresh"></i>
-                    </a>
-                    <span>Vehicle Summary${summaryHeaderText}</span>
-                </span>
-            `);
-
+        <span style="display: flex; align-items: center; justify-content: center; width: 100%;">
+            <a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
+                <i class="fa fa-refresh"></i>
+            </a>
+            <span>Vehicle Summary${summaryHeaderText}</span>
+        </span>
+    `);
 				$summaryHeader.css({
 					'text-align': 'center',
 					'display': 'flex',
 					'align-items': 'center',
 					'justify-content': 'center'
 				});
-
 				// Update the overall total after populating
 				updateVehicleSummary(count);
 				console.log(`=== VEHICLE SUMMARY HEADER UPDATED for location ${count} ===`);
-			}, 150); // small delay to ensure DOM updates
+			}, 150); // small delay to ensure DOM updates // small delay to ensure DOM updates
 
 			console.log(`=== VEHICLE SUMMARY POPULATED for location ${count} ===`);
 		}
