@@ -4350,7 +4350,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 				}
 
 				// Update static mode display totals (for UI display only)
-				updateStaticModeDisplayTotal(count);
+				if (!getIsDynamic()) {
+					updateStaticModeDisplayTotal(count);
+				}
 			}
 
 			// Vehicle visibility
@@ -4944,7 +4946,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 					};
 
 					setRoomRatesWithRoundRobin(count, night, roomIndex, type, rates);
-					updateStaticModeDisplayTotal(count);
+					if (!getIsDynamic()) {
+						updateStaticModeDisplayTotal(count);
+					}
 					// updateAllTotals();
 				});
 
@@ -5425,7 +5429,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 				}
 
 				// Update the static mode display
-				updateStaticModeDisplayTotal(count);
+				if (!getIsDynamic()) {
+					updateStaticModeDisplayTotal(count);
+				}
 
 			} else {
 				// Dynamic mode: recalculate each room for each night
@@ -7403,56 +7409,56 @@ $is_edit = $edit_id ? $edit_id : 0;
 				}
 			}
 		}
-if (!isDynamic && main.vehicle_details) {
-  try {
-    var mainVehicleDetails = typeof main.vehicle_details === 'string' ? JSON.parse(main.vehicle_details) : main.vehicle_details;
-    console.log(`Static Mode - Backfilling per-night for location ${count} from main:`, mainVehicleDetails);
-    $.each(mainVehicleDetails, function(vindex, vdata) {
-      // Find matching vehicle model index
-      var matchedVehicleIndex = -1;
-      $.each(vehicle_models, function(modelIndex, model) {
-        if (model.vehicle_type_id == vdata.veh_type_id) {
-          matchedVehicleIndex = modelIndex;
-          return false;
-        }
-      });
-      if (matchedVehicleIndex !== -1) {
-        var totalDays = no_of_days;
-        var totalRent = parseFloat(vdata.veh_total) || 0;  // Use veh_total as total rent
-        var totalDistance = parseFloat(vdata.travel_distance) || 0;
-        var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
-        var dailyRent = totalDays > 0 ? (parseFloat(vdata.day_rent) || (totalRent / totalDays)) : 0;  // Prefer day_rent if present, else divide
-        var dailyDistance = totalDays > 0 ? (totalDistance / totalDays) : 0;
-        var dailyExtraKm = totalDays > 0 ? (totalExtraKm / totalDays) : 0;
-        var dailyVehTotal = totalDays > 0 ? (totalRent / totalDays) : 0;
-        var kmRate = parseFloat(vdata.extra_km_rate) || 0;
-        var maxKmDay = parseFloat(vdata.max_km_day) || 0;
-        var headerText = vdata.veh_header || '';  // Preserve empty if none
+		if (!isDynamic && main.vehicle_details) {
+			try {
+				var mainVehicleDetails = typeof main.vehicle_details === 'string' ? JSON.parse(main.vehicle_details) : main.vehicle_details;
+				console.log(`Static Mode - Backfilling per-night for location ${count} from main:`, mainVehicleDetails);
+				$.each(mainVehicleDetails, function(vindex, vdata) {
+					// Find matching vehicle model index
+					var matchedVehicleIndex = -1;
+					$.each(vehicle_models, function(modelIndex, model) {
+						if (model.vehicle_type_id == vdata.veh_type_id) {
+							matchedVehicleIndex = modelIndex;
+							return false;
+						}
+					});
+					if (matchedVehicleIndex !== -1) {
+						var totalDays = no_of_days;
+						var totalRent = parseFloat(vdata.veh_total) || 0; // Use veh_total as total rent
+						var totalDistance = parseFloat(vdata.travel_distance) || 0;
+						var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
+						var dailyRent = totalDays > 0 ? (parseFloat(vdata.day_rent) || (totalRent / totalDays)) : 0; // Prefer day_rent if present, else divide
+						var dailyDistance = totalDays > 0 ? (totalDistance / totalDays) : 0;
+						var dailyExtraKm = totalDays > 0 ? (totalExtraKm / totalDays) : 0;
+						var dailyVehTotal = totalDays > 0 ? (totalRent / totalDays) : 0;
+						var kmRate = parseFloat(vdata.extra_km_rate) || 0;
+						var maxKmDay = parseFloat(vdata.max_km_day) || 0;
+						var headerText = vdata.veh_header || ''; // Preserve empty if none
 
-        // Set IDENTICAL values for EVERY night (static = uniform across stay)
-        for (let night = 1; night <= totalDays; night++) {
-          var vid = `${count}${night}${vdata.veh_type_id}`;
-          $(`#day_rent${vid}`).val(dailyRent.toFixed(0));
-          $(`#travel_distance${vid}`).val(dailyDistance.toFixed(0));
-          $(`#max_km_day${vid}`).val(maxKmDay);
-          $(`#extra_km_rate${vid}`).val(kmRate);
-          $(`#extra_kilometer${vid}`).val(dailyExtraKm.toFixed(0));
-          $(`#veh_total${vid}`).val(dailyVehTotal.toFixed(0));
-          
-          // *** NEW: Also backfill the v_from_to header per night if empty ***
-          if (!$(`#v_from_to${count}${night}`).text().trim()) {
-            $(`#v_from_to${count}${night}`).text(headerText);
-          }
-          
-          updateVehicleTotals(count, night, vindex);  // Recalc if function exists
-        }
-      }
-    });
-    console.log(`Per-night fields backfilled for location ${count}`);
-  } catch (e) {
-    console.error(`Error backfilling per-night for location ${count}:`, e);
-  }
-}
+						// Set IDENTICAL values for EVERY night (static = uniform across stay)
+						for (let night = 1; night <= totalDays; night++) {
+							var vid = `${count}${night}${vdata.veh_type_id}`;
+							$(`#day_rent${vid}`).val(dailyRent.toFixed(0));
+							$(`#travel_distance${vid}`).val(dailyDistance.toFixed(0));
+							$(`#max_km_day${vid}`).val(maxKmDay);
+							$(`#extra_km_rate${vid}`).val(kmRate);
+							$(`#extra_kilometer${vid}`).val(dailyExtraKm.toFixed(0));
+							$(`#veh_total${vid}`).val(dailyVehTotal.toFixed(0));
+
+							// *** NEW: Also backfill the v_from_to header per night if empty ***
+							if (!$(`#v_from_to${count}${night}`).text().trim()) {
+								$(`#v_from_to${count}${night}`).text(headerText);
+							}
+
+							updateVehicleTotals(count, night, vindex); // Recalc if function exists
+						}
+					}
+				});
+				console.log(`Per-night fields backfilled for location ${count}`);
+			} catch (e) {
+				console.error(`Error backfilling per-night for location ${count}:`, e);
+			}
+		}
 		// *** FORCE GST COLUMN VISIBILITY AFTER ALL DATA IS LOADED ***
 		setTimeout(function() {
 			console.log(`Forcing GST column visibility for location ${count}, tax_status: ${main.tax_status}`);
