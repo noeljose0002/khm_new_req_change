@@ -3334,7 +3334,7 @@ class Enquiry extends BaseController
         }
     }
 
- public function saveTourPlan()
+    public function saveTourPlan()
 {
     if (!empty(session()->get('user_id'))) {
         $Dashboard_model = new Dashboard_m();
@@ -4622,7 +4622,7 @@ class Enquiry extends BaseController
 //         return redirect()->to('Login');
 //     }
 // }
-
+ 
 public function saveTourLocation()
 {
     if (!empty(session()->get('user_id'))) {

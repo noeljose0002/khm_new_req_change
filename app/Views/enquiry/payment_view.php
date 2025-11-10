@@ -58,6 +58,11 @@
 		<link rel="stylesheet" href="https://pn-ciamis.go.id/asset/DataTables/extensions/Buttons/css/buttons.dataTables.css">
 		<script src="<?php echo base_url('assets/tiny_mce/tiny_mce.js');?>"></script>
 		<style>
+			.modal-header {
+			cursor: move;
+			}
+		</style>
+		<style>
 				
 		table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
     		top: 0px !important;
@@ -186,7 +191,7 @@
 				<div class="modal-dialog custom-modal-width" role="document">
 					<div class="modal-content">
 						<div class="modal-header" style="background-color:#339966;color:#fff;">
-							<h5 class="modal-title" id="example-Modal3">Payment History</h5>
+							<h5 class="modal-title" id="example-Modal3"><span id="guest_name_id"></span> (<span id="ref_no_id"></span>) - Payment History</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -589,6 +594,7 @@
 
 		<!-- Custom js -->
 		<script src="<?php echo base_url('assets/js/custom.js'); ?>"></script>
+		<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
 		<script src="<?php echo base_url('assets/plugins/datatable/jquery.dataTables.min.js'); ?>"></script>
 		<script src="<?php echo base_url('assets/plugins/datatable/dataTables.bootstrap4.min.js'); ?>"></script>
@@ -709,7 +715,7 @@ function cs_confirm_table() {
                 data: 'enquiry_header_id',
                 render: function(data, type, row, meta) {
                     if (data) {
-                        return '<button type="button" data-id="'+data+'" class="btn btn-success btn-sm payment_history">History</button>';
+                        return '<button type="button" data-gid="'+row.guest_name+'" data-rid="'+row.ref_no+'" data-id="'+data+'" class="btn btn-success btn-sm payment_history">History</button>';
                     }
                     return '';
                 }
@@ -790,6 +796,10 @@ $(document).on('click', '#add_new_payment', function(e) {
     $(document).on('click', '.payment_history', function(e) {
         e.preventDefault();
        	var enquiry_header_id = $(this).attr('data-id');
+		var guest_name = $(this).attr('data-gid');
+		var ref_no = $(this).attr('data-rid');
+		$('#guest_name_id').text(guest_name);
+		$('#ref_no_id').text(ref_no);
 		payment_history_datatable(enquiry_header_id);
     });
 
@@ -1077,4 +1087,13 @@ $(document).on('click', '#add_new_payment', function(e) {
             }
         });
     });
+</script>
+<script>
+$(function() {
+  $("#paymenthistorymodal").on('shown.bs.modal', function () {
+    $(this).find('.modal-dialog').draggable({
+      handle: ".modal-header"   // drag only by header
+    });
+  });
+});
 </script>

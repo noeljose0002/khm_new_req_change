@@ -150,6 +150,33 @@
                       if($cdata[0]['no_of_extra_bed'] > 0){
                         $nop = $nop  + 1;
                       }
+                      
+                      // CREATE DATE TO DAY MAPPING
+                      $date_to_day_map = [];
+                      $day_counter = 1;
+                      
+                      foreach($tour_plan as $key => $val) {
+                          if($val['is_own_arrangement'] == 1) {
+                              $check_in = date("Y-m-d", strtotime($val['check_in_date']));
+                              if (!isset($date_to_day_map[$check_in])) {
+                                  $date_to_day_map[$check_in] = $day_counter++;
+                              }
+                          } else {
+                              if(!empty($val['expansion_details']) && count($val['expansion_details']) > 0) {
+                                  foreach($val['expansion_details'] as $exp_key => $exp) {
+                                      $check_in = date("Y-m-d", strtotime($exp['tour_expansion_date']));
+                                      if (!isset($date_to_day_map[$check_in])) {
+                                          $date_to_day_map[$check_in] = $day_counter++;
+                                      }
+                                  }
+                              } else {
+                                  $check_in = date("Y-m-d", strtotime($val['check_in_date']));
+                                  if (!isset($date_to_day_map[$check_in])) {
+                                      $date_to_day_map[$check_in] = $day_counter++;
+                                  }
+                              }
+                          }
+                      }
                     ?>
                     <table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
                             <thead>
@@ -202,13 +229,15 @@
                             </thead>
                            <tbody>
                             <?php 
-                            $k = 1;
                             $grand_total_accommodation = 0;
                             
                             foreach($tour_plan as $key => $val) { 
-                                if($val['is_own_arrangement'] == 1) { ?>
+                                if($val['is_own_arrangement'] == 1) { 
+                                    $check_in = date("Y-m-d", strtotime($val['check_in_date']));
+                                    $current_day = $date_to_day_map[$check_in];
+                                    ?>
                                     <tr>
-                                        <td style="border:1px solid black;"><?php echo $k++; ?></td>
+                                        <td style="border:1px solid black;"><?php echo $current_day; ?></td>
                                         <td style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($val['check_in_date'])); ?></td>
                                         <td style="border:1px solid black;" colspan="11">Own Arrangements</td>
                                     </tr>
@@ -216,9 +245,10 @@
                                     // Check if expansion details exist
                                     if(!empty($val['expansion_details']) && count($val['expansion_details']) > 0) {
                                         // Use expansion data for dynamic rows
-                                        $exp_day_counter = $k;
                                         foreach($val['expansion_details'] as $exp_key => $exp) {
                                             $sdate = $exp['tour_expansion_date'];
+                                            $check_in = date("Y-m-d", strtotime($sdate));
+                                            $current_day = $date_to_day_map[$check_in];
                                             $edate = date('Y-m-d', strtotime($sdate . ' +1 day'));
                                             $hname = $val['object_name'];
                                             $cat = $exp['exp_room_category_name'] ?? $val['room_category_name'];
@@ -239,7 +269,7 @@
                                                     ?>
                                                     <tr>
                                                         <?php if($first_row) { ?>
-                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $exp_day_counter; ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $current_day; ?></td>
                                                             <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($sdate)); ?></td>
                                                             <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($edate)); ?></td>
                                                             <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
@@ -291,7 +321,7 @@
                                                     ?>
                                                     <tr>
                                                         <?php if($first_row) { ?>
-                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $exp_day_counter; ?></td>
+                                                            <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $current_day; ?></td>
                                                             <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($sdate)); ?></td>
                                                             <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($edate)); ?></td>
                                                             <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
@@ -335,12 +365,13 @@
                                                     </tr>
                                                 <?php 
                                                 }
-                                                $exp_day_counter++;
                                             }
                                         }
-                                        $k = $exp_day_counter;
                                     } else {
                                         // Fallback to old logic if no expansion data
+                                        $check_in = date("Y-m-d", strtotime($val['check_in_date']));
+                                        $current_day = $date_to_day_map[$check_in];
+                                        
                                         foreach($val['cost'] as $tkey => $tval){
                                             if($tval['cost_component_id'] == 6 && $tval['room_type_id'] == 2){
                                                 $d_adult = $tval['quick_quote_tariff'];
@@ -386,7 +417,7 @@
                                         $meals = $val['meal_plan_name'];
                                         ?>
                                             <tr>
-                                                <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $k++; ?></td>
+                                                <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $current_day; ?></td>
                                                 <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($sdate)); ?></td>
                                                 <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($edate)); ?></td>
                                                 <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
