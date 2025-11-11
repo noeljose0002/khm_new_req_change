@@ -1991,7 +1991,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 <script>
 	// Get DOM refs
-	
+
 	// Get DOM refs
 	const dynamicCheckbox = document.getElementById('dynamicNeeded');
 	const addBtn = document.getElementById('btn_add_bt');
@@ -2036,25 +2036,25 @@ $is_edit = $edit_id ? $edit_id : 0;
 	window.getIsDynamic = getIsDynamic;
 
 	// Event handler for Final Save button: Show dynamic wait UI, then process save
-document.getElementById('btn_save_tour_plan').addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent immediate form submission
+	document.getElementById('btn_save_tour_plan').addEventListener('click', function(e) {
+		e.preventDefault(); // Prevent immediate form submission
 
-    // Set submit type for backend processing
-    document.getElementById('submit_type').value = 'final_save';
+		// Set submit type for backend processing
+		document.getElementById('submit_type').value = 'final_save';
 
-    // Disable save buttons and show dynamic wait UI
-    $('#btn_savedraft_tour_plan, #btn_save_tour_plan').prop('disabled', true);
-    $('#btn_save_tour_plan').html('<span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>Saving... Please wait');
+		// Disable save buttons and show dynamic wait UI
+		$('#btn_savedraft_tour_plan, #btn_save_tour_plan').prop('disabled', true);
+		$('#btn_save_tour_plan').html('<span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>Saving... Please wait');
 
-    // Animate UI for dynamic feel (e.g., fade out form content)
-    $('.tour_plan_div').fadeTo(300, 0.5); // Semi-transparent overlay effect
-    $('#csspinner').show().text('Finalizing tour plan...'); // Update spinner text
+		// Animate UI for dynamic feel (e.g., fade out form content)
+		$('.tour_plan_div').fadeTo(300, 0.5); // Semi-transparent overlay effect
+		$('#csspinner').show().text('Finalizing tour plan...'); // Update spinner text
 
-    // After a short delay for visual effect, submit the form to process final save
-    setTimeout(function() {
-        document.getElementById('myTourplanForm').submit();
-    }, 500); // 500ms delay for smooth transition
-});
+		// After a short delay for visual effect, submit the form to process final save
+		setTimeout(function() {
+			document.getElementById('myTourplanForm').submit();
+		}, 500); // 500ms delay for smooth transition
+	});
 
 
 	// Add event handler for day_rent input to synchronize across all nights
@@ -8070,89 +8070,176 @@ document.getElementById('btn_save_tour_plan').addEventListener('click', function
 	console.log('✅ Vehicle calculation system fixed and loaded');
 
 	function calculateVehicleExtraKmCharges() {
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-		if (is_vehicle_required != 1) {
-			return 0;
-		}
+    var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+    if (is_vehicle_required != 1) {
+        return 0;
+    }
 
-		console.log('=== Calculating Vehicle Extra KM Charges ===');
+    console.log('=== Calculating Vehicle Extra KM Charges (TRIP-LEVEL) ===');
 
-		let locationCount = $('.location-card').length;
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+    let locationCount = $('.location-card').length;
+    var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
 
-		let total_extra_charges = 0;
+    let total_extra_charges = 0;
 
-		// Loop through all locations
-		for (let count = 1; count <= locationCount; count++) {
-			let no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+    // Loop through each vehicle type FIRST (trip-level calculation)
+    $.each(vehicle_models, function(index, vmodel) {
+        let type_id = vmodel.vehicle_type_id;
 
-			if (no_of_night === 0) continue;
+        // Trip-level accumulators
+        let total_distance_trip = 0;
+        let total_max_km_trip = 0;    // will include per-night veh_count multipliers
+        let total_base_cost_trip = 0;
+        let maxVehCountSeen = 1;
+        let extra_km_rate = 0;
+        let last_night_day_rent = 0;
 
-			console.log(`Processing Location ${count} (${no_of_night} nights)`);
+        // Keep track of existence so we skip vehicle types not present in the DOM
+        let foundAny = false;
 
-			// Loop through all nights for this location
-			for (let night = 1; night <= no_of_night; night++) {
+        // ---------- PASS 1: accumulate across ALL locations & nights ----------
+        for (let count = 1; count <= locationCount; count++) {
+            let no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+            if (no_of_night === 0) continue;
 
-				// Process each vehicle type
-				$.each(vehicle_models, function(index, vmodel) {
-					let type_id = vmodel.vehicle_type_id;
-					let vid = `${count}${night}${type_id}`;
+            for (let night = 1; night <= no_of_night; night++) {
+                let vid = `${count}${night}${type_id}`;
+                var $dayRent = $(`#day_rent${vid}`);
+                if ($dayRent.length === 0) {
+                    continue; // this vehicle not used this night
+                }
 
-					// Check if inputs exist
-					var $dayRent = $(`#day_rent${vid}`);
-					if ($dayRent.length === 0) {
-						return true; // Skip this vehicle
-					}
+                foundAny = true;
+                let veh_count = parseInt($(`#veh_count${vid}`).val()) || 1;
+                let travel_distance = parseFloat($(`#travel_distance${vid}`).val()) || 0;
+                let max_km_day = parseFloat($(`#max_km_day${vid}`).val()) || 0;
+                extra_km_rate = parseFloat($(`#extra_km_rate${vid}`).val()) || extra_km_rate;
+                let daily_rent = parseFloat($dayRent.val()) || 0;
 
-					// Get values for this vehicle on this night
-					let veh_count = parseInt($(`#veh_count${vid}`).val()) || 1;
-					let travel_distance = parseFloat($(`#travel_distance${vid}`).val()) || 0;
-					let max_km_day = parseFloat($(`#max_km_day${vid}`).val()) || 0;
-					let extra_km_rate = parseFloat($(`#extra_km_rate${vid}`).val()) || 0;
-					let day_rent = parseFloat($dayRent.val()) || 0;
+                // Accumulate trip totals. Note: multiply allowance by veh_count for that night.
+                total_distance_trip += travel_distance;
+                total_max_km_trip += (max_km_day * veh_count);
+                total_base_cost_trip += (daily_rent * veh_count);
 
-					// Calculate extra KM for this night
-					let extra_km_per_vehicle = Math.max(0, travel_distance - max_km_day);
+                if (veh_count > maxVehCountSeen) maxVehCountSeen = veh_count;
+                last_night_day_rent = daily_rent; // last-seen daily rent (used as fallback)
+            }
+        }
 
-					// Update the extra kilometer field
-					$(`#extra_kilometer${vid}`).val(extra_km_per_vehicle);
+        if (!foundAny) {
+            // no DOM fields for this vehicle type at all, skip
+            console.log(`  Vehicle ${type_id} not found in DOM — skipping.`);
+            return true; // continue $.each
+        }
 
-					// Calculate total for this vehicle on this night
-					let base_cost = day_rent * veh_count;
-					let extra_cost = extra_km_per_vehicle * extra_km_rate * veh_count;
-					let veh_total = base_cost + extra_cost;
+        // ---------- Add single return-day allowance & rent (from last location's last night) ----------
+        let lastLocation = locationCount;
+        let lastLocationNights = parseInt($(`#no_of_night${lastLocation}`).val()) || 0;
+        if (lastLocationNights > 0) {
+            let last_vid = `${lastLocation}${lastLocationNights}${type_id}`;
+            let last_night_max_km = parseFloat($(`#max_km_day${last_vid}`).val()) || 0;
+            let last_night_dayrent = parseFloat($(`#day_rent${last_vid}`).val());
+            let last_night_vehcount = parseInt($(`#veh_count${last_vid}`).val());
 
-					// Update vehicle total field
-					$(`#veh_total${vid}`).val(Math.round(veh_total));
+            // fallback to previously-seen values if any selector missing
+            if (isNaN(last_night_dayrent)) last_night_dayrent = last_night_day_rent || 0;
+            if (isNaN(last_night_vehcount)) last_night_vehcount = maxVehCountSeen || 1;
 
-					console.log(`  Night ${night}, Vehicle ${type_id}: Base=${base_cost}, Extra=${extra_cost}, Total=${veh_total}`);
+            // Add return day's allowance and rent multiplied by the vehicles present that last night
+            total_max_km_trip += (last_night_max_km * last_night_vehcount);
+            total_base_cost_trip += (last_night_dayrent * last_night_vehcount);
 
-					total_extra_charges += extra_cost;
-				});
+            console.log(`  Vehicle ${type_id}: Added return-day allowance ${last_night_max_km} * ${last_night_vehcount} and rent ${last_night_dayrent} * ${last_night_vehcount}`);
+        }
 
-				// Update night grand total (sum of all vehicles for this night)
-				let night_total = 0;
-				$.each(vehicle_models, function(index, vmodel) {
-					let type_id = vmodel.vehicle_type_id;
-					let vid = `${count}${night}${type_id}`;
-					let veh_total = parseFloat($(`#veh_total${vid}`).val()) || 0;
-					night_total += veh_total;
-				});
+        // ---------- Compute extra KM for the whole trip for this vehicle type ----------
+        let total_extra_km_trip = Math.max(0, total_distance_trip - total_max_km_trip);
 
-				$(`#veh_grand_total${count}${night}`).val(Math.round(night_total));
-				console.log(`  Night ${night} Total: ${night_total}`);
-			}
-		}
+        // Use last night vehicle count for applying per-vehicle extra-rate (keeps behaviour close to original)
+        let applyVehCountForExtra = (function() {
+            let lastLocation = locationCount;
+            let lastLocationNights = parseInt($(`#no_of_night${lastLocation}`).val()) || 0;
+            if (lastLocationNights === 0) return maxVehCountSeen || 1;
+            let last_vid = `${lastLocation}${lastLocationNights}${type_id}`;
+            let last_night_vehcount = parseInt($(`#veh_count${last_vid}`).val());
+            if (isNaN(last_night_vehcount) || last_night_vehcount <= 0) return maxVehCountSeen || 1;
+            return last_night_vehcount;
+        })();
 
-		console.log('Total Extra KM Charges:', total_extra_charges);
+        let extra_cost_trip = total_extra_km_trip * extra_km_rate * applyVehCountForExtra;
 
-		// **CRITICAL: Update all display totals**
-		updateAllTotals();
-		checkTotalNights();
+        console.log(`  Vehicle ${type_id} TRIP Summary: Distance=${total_distance_trip}, Allowed=${total_max_km_trip}, ExtraKM=${total_extra_km_trip}, ExtraCost=${extra_cost_trip}`);
 
-		return total_extra_charges;
-	}
+        // ---------- PASS 2: write per-night base totals and then add extra cost to LAST night ----------
+        for (let count = 1; count <= locationCount; count++) {
+            let no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+            if (no_of_night === 0) continue;
 
+            for (let night = 1; night <= no_of_night; night++) {
+                let vid = `${count}${night}${type_id}`;
+                let day_rent = parseFloat($(`#day_rent${vid}`).val()) || 0;
+                let veh_cnt = parseInt($(`#veh_count${vid}`).val()) || 1;
+
+                // For display: set 0 extra per-night (we show trip-level extra only on last night)
+                $(`#extra_kilometer${vid}`).val(0);
+
+                // per-night base
+                let night_base = day_rent * veh_cnt;
+
+                // If this is last night of last location, add return-day rent here (so doubling of rent)
+                if (count === locationCount && night === no_of_night) {
+                    night_base += (day_rent * veh_cnt); // add return-day rent
+                    console.log(`  Vehicle ${type_id} - last night of last location: adding return rent ${day_rent * veh_cnt}`);
+                }
+
+                $(`#veh_total${vid}`).val(Math.round(night_base));
+            }
+        }
+
+        // Add trip-level extra cost onto the last night's total and set its extra_kilometer field
+        let final_vid = `${locationCount}${parseInt($(`#no_of_night${locationCount}`).val() || 0)}${type_id}`;
+        if (final_vid && $(`#veh_total${final_vid}`).length) {
+            let last_night_base = parseFloat($(`#veh_total${final_vid}`).val()) || 0;
+            let last_with_extra = last_night_base + extra_cost_trip;
+            $(`#veh_total${final_vid}`).val(Math.round(last_with_extra));
+
+            // store trip-level extra km in that last-night extra_kilometer field
+            $(`#extra_kilometer${final_vid}`).val(total_extra_km_trip);
+
+            console.log(`  Vehicle ${type_id} - added trip extra ${extra_cost_trip} to ${final_vid}`);
+        } else {
+            console.log(`  Vehicle ${type_id} - final VID ${final_vid} not found; cannot attach extra cost to last night.`);
+        }
+
+        total_extra_charges += extra_cost_trip;
+
+        // ---------- UPDATE night grand totals for all nights (for UI) ----------
+        for (let count = 1; count <= locationCount; count++) {
+            let no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+            if (no_of_night === 0) continue;
+
+            for (let night = 1; night <= no_of_night; night++) {
+                let night_total = 0;
+                $.each(vehicle_models, function(idx, vm) {
+                    let vid = `${count}${night}${vm.vehicle_type_id}`;
+                    let veh_total = parseFloat($(`#veh_total${vid}`).val()) || 0;
+                    night_total += veh_total;
+                });
+
+                $(`#veh_grand_total${count}${night}`).val(Math.round(night_total));
+                console.log(`  Night ${count}-${night} Grand Total: ${night_total}`);
+            }
+        }
+    });
+
+    console.log('Total Extra KM Charges (all vehicle types):', total_extra_charges);
+
+    // Update all display totals
+    updateAllTotals();
+    checkTotalNights();
+
+    return total_extra_charges;
+}
 
 	// function updateAllTotals() {
 	// 	console.log('=== Updating All Totals ===');
