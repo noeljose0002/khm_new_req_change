@@ -956,7 +956,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 									</div>
 								</div>
 							</div>
-							<form id="myTourplanForm" method="POST" action="<?= site_url('Enquiry/saveTourPlan'); ?>">
+								<form id="myTourplanForm" method="POST" action="<?= site_url('Enquiry/saveTourPlan'); ?>">
 								<input type="hidden" name="enquiry_header_id" value="<?php echo $object_det[0]['enquiry_header_id']; ?>">
 								<input type="hidden" name="enquiry_details_id" value="<?php echo $object_det[0]['enquiry_details_id']; ?>">
 								<input type="hidden" name="is_quick_quote" value="<?php echo $object_det[0]['is_quick_quote']; ?>">
@@ -1040,8 +1040,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 
 																					<div class="form-check ml-2">
-																						<input class="form-check-input " type="checkbox" id="dynamicNeeded" />
-																						<label class="btn btn-success dyna " for="dynamicNeeded">Dynamic needed</label>
+																						<input class="form-check-input" type="checkbox" id="dynamicNeeded" />
+																						<label class="btn btn-success dyna" for="dynamicNeeded">Dynamic needed</label>
 																					</div>
 
 																					<div class="ml-2">
@@ -1938,13 +1938,13 @@ $is_edit = $edit_id ? $edit_id : 0;
 		if (is_vehicle_required == 1) {
 			$('#btn_savedraft_tour_plan').on('click', function(e) {
 				let isValid = true;
-				// $('.load_vehs_click').each(function() {
-				// 	if ($(this).attr('data-loaded') !== 'true') {
-				// 		alert('Please refresh vehicle details (click refresh icon) for all locations before saving.');
-				// 		isValid = false;
-				// 		return false; // break loop
-				// 	}
-				// });
+				$('.load_vehs_click').each(function() {
+					if ($(this).attr('data-loaded') !== 'true') {
+						alert('Please refresh vehicle details (click refresh icon) for all locations before saving.');
+						isValid = false;
+						return false; // break loop
+					}
+				});
 
 				if (!isValid) {
 					e.preventDefault();
@@ -3037,32 +3037,26 @@ $is_edit = $edit_id ? $edit_id : 0;
 			console.error('Location card not found for count:', count);
 			return;
 		}
-
 		var $firstNightSection = $(`#nightly-details${count} .night-section[data-night="1"]`);
 		if (!$firstNightSection.length) {
 			console.error('First night section not found for count:', count);
 			return;
 		}
-
 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
 
-		// **FIX: Force recalculation of all night totals BEFORE capturing**
-		for (let night = 1; night <= no_of_night; night++) {
-			calculateDoubleGrandTotalStatic(count, night);
-			calculateSingleGrandTotalStatic(count, night);
-		}
+		// **FIX: REMOVED redundant loop here (caused overlap)—calculateAllNights* functions now handle per-night calcs**
+		// Previously: for (let night = 1; night <= no_of_night; night++) { calculateDoubleGrandTotalStatic(count, night); calculateSingleGrandTotalStatic(count, night); }
 
-		// Calculate totals across all nights
+		// Calculate totals across all nights (this triggers the single-source per-night calcs)
 		var allNightsDoubleTotal = calculateAllNightsDoubleTotal(count);
 		var allNightsSingleTotal = calculateAllNightsSingleTotal(count);
-
 		console.log('Static display totals (used):', {
 			count: count,
 			doubleTotal: allNightsDoubleTotal,
 			singleTotal: allNightsSingleTotal
 		});
 
-		// **FIX: Update first double room display field (Room 1 of Night 1)**
+		// Update first double room display field (Room 1 of Night 1)
 		var firstDoubleRoomId = `${count}11`;
 		var $doubleTotalField = $(`#d_total_rate${firstDoubleRoomId}`);
 		if ($doubleTotalField.length) {
@@ -3072,19 +3066,17 @@ $is_edit = $edit_id ? $edit_id : 0;
 			console.warn('First double total field not found:', `#d_total_rate${firstDoubleRoomId}`);
 		}
 
-		// **FIX: Update first single room display field with CORRECT room index**
+		// Update first single room display field with CORRECT room index
 		var double_qty = parseInt($(`#double${count}1`).val()) || 0;
 		var firstSingleRoomIndex = double_qty + 1; // First single room is after all double rooms
 		var firstSingleRoomId = `${count}1${firstSingleRoomIndex}`;
 		var $singleTotalField = $(`#s_total_rate${firstSingleRoomId}`);
-
 		console.log('Single room display field lookup:', {
 			double_qty,
 			firstSingleRoomIndex,
 			firstSingleRoomId,
 			fieldExists: $singleTotalField.length > 0
 		});
-
 		if ($singleTotalField.length) {
 			$singleTotalField.val(Math.round(allNightsSingleTotal));
 			console.log('Updated single total display field:', firstSingleRoomId, allNightsSingleTotal);
@@ -4200,65 +4192,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}, 500);
 	});
 
-	// Function to toggle visibility of nights based on checkbox
-	// **FIXED: calculateSingleGrandTotalStatic - Correct room index calculation**
-	function calculateSingleGrandTotalStatic(count, night) {
-		var double_qty = parseInt($(`#double${count}${night}`).val()) || 0;
-		var single_qty = parseInt($(`#single${count}${night}`).val()) || 0;
-		var no_of_ch = parseFloat($(`#no_of_ch${count}`).val()) || 0;
-		var no_of_cw = parseFloat($(`#no_of_cw${count}`).val()) || 0;
-		var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
-
-		if (single_qty === 0) {
-			$(`#ss_total_rate${count}${night}`).val(0);
-			return;
-		}
-
-		// **FIX: Get rates from FIRST single room with CORRECT index**
-		var firstSingleRoomIndex = double_qty + 1;
-		var firstRid = `${count}${night}${firstSingleRoomIndex}`;
-
-		console.log('calculateSingleGrandTotalStatic:', {
-			count,
-			night,
-			double_qty,
-			single_qty,
-			firstSingleRoomIndex,
-			firstRid
-		});
-
-		var s_adult_rate = parseFloat($(`#s_adult_rate${firstRid}`).val()) || 0;
-		var s_child_rate = parseFloat($(`#s_child_rate${firstRid}`).val()) || 0;
-		var s_child_wb_rate = parseFloat($(`#s_child_wb_rate${firstRid}`).val()) || 0;
-		var s_extra_bed_rate = parseFloat($(`#s_extra_bed_rate${firstRid}`).val()) || 0;
-
-		var ss_total = 0;
-
-		// **FIX: Loop through single rooms with correct indexing**
-		for (let i = 1; i <= single_qty; i++) {
-			var roomIndex = double_qty + i; // Correct room index
-			var childCount = calculateDistribution(no_of_ch, single_qty, i);
-			var childWbCount = calculateDistribution(no_of_cw, single_qty, i);
-			var extraCount = calculateDistribution(no_of_extra, single_qty, i);
-
-			var roomTotal = s_adult_rate +
-				(childCount * s_child_rate) +
-				(childWbCount * s_child_wb_rate) +
-				(extraCount * s_extra_bed_rate);
-
-			ss_total += roomTotal;
-
-			console.log(`Single Room ${roomIndex} (index ${i}):`, {
-				childCount,
-				childWbCount,
-				extraCount,
-				roomTotal
-			});
-		}
-
-		console.log(`Single Grand Total Calc for Night ${night}: ss_total = ${ss_total}`);
-		$(`#ss_total_rate${count}${night}`).val(Math.round(ss_total));
-	}
 
 	// **FIXED: calculateAllNightsSingleTotal - Ensure it uses the fixed function**
 	function calculateAllNightsSingleTotal(count) {
@@ -4349,7 +4282,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 	}
 
-	
+
 
 	// **COMPLETE FIXED toggleNightsVisibility FUNCTION**
 	function toggleNightsVisibility() {
