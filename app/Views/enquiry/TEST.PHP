@@ -1938,13 +1938,13 @@ $is_edit = $edit_id ? $edit_id : 0;
 		if (is_vehicle_required == 1) {
 			$('#btn_savedraft_tour_plan').on('click', function(e) {
 				let isValid = true;
-				$('.load_vehs_click').each(function() {
-					if ($(this).attr('data-loaded') !== 'true') {
-						alert('Please refresh vehicle details (click refresh icon) for all locations before saving.');
-						isValid = false;
-						return false; // break loop
-					}
-				});
+				// $('.load_vehs_click').each(function() {
+				// 	if ($(this).attr('data-loaded') !== 'true') {
+				// 		alert('Please refresh vehicle details (click refresh icon) for all locations before saving.');
+				// 		isValid = false;
+				// 		return false; // break loop
+				// 	}
+				// });
 
 				if (!isValid) {
 					e.preventDefault();
@@ -1991,71 +1991,81 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 <script>
 	// Get DOM refs
-	
-	// Get DOM refs
 	const dynamicCheckbox = document.getElementById('dynamicNeeded');
 	const addBtn = document.getElementById('btn_add_bt');
+	const finalSaveBtn = document.getElementById('btn_save_tour_plan');
 
 	// Variable that will hold the current checkbox state (true/false)
-	// Initialize from the checkbox's current state
 	let isDynamic = !!dynamicCheckbox.checked;
 
 	// Keep variable in sync if user toggles the checkbox
 	dynamicCheckbox.addEventListener('change', () => {
 		isDynamic = dynamicCheckbox.checked;
-		// optional: expose globally if other scripts need it
 		window.isDynamic = isDynamic;
 		console.log('dynamic toggled ->', isDynamic);
 		toggleNightsVisibility(); // Toggle visibility on checkbox change
 	});
 
-	// On button click, read the variable and act accordingly
+	// On "Add Location" button click
 	addBtn.addEventListener('click', (e) => {
 		e.preventDefault();
-		// Ensure variable is up-to-date (in case code changed it elsewhere)
 		isDynamic = !!dynamicCheckbox.checked;
-		window.isDynamic = isDynamic; // optional global
+		window.isDynamic = isDynamic;
 		console.log('Add Location clicked. isDynamic =', isDynamic);
 
 		if (isDynamic) {
-			// call your dynamic creation function, e.g. createDynamicLocation();
-			// createDynamicLocation();
 			console.log('-> create dynamic location');
+			// createDynamicLocation();
 		} else {
-			// call your static behaviour, e.g. createStaticLocation();
-			// createStaticLocation();
 			console.log('-> create static location');
+			// createStaticLocation();
 		}
 	});
 
-	// Export helper if you want to get the value programmatically
+	// On "Final Save" button click - make dynamic AND save in one click
+	finalSaveBtn.addEventListener('click', (e) => {
+		e.preventDefault(); // Prevent default form submission
+
+		console.log('Final Save clicked');
+
+		// Step 1: Make things dynamic if not already
+		if (!dynamicCheckbox.checked) {
+			console.log('Making things dynamic before save...');
+
+			// Check the checkbox
+			dynamicCheckbox.checked = true;
+			isDynamic = true;
+			window.isDynamic = true;
+
+			// Call your function to convert existing items to dynamic
+			// makeAllItemsDynamic(); // <-- Add your conversion logic here
+
+			// Optionally trigger toggleNightsVisibility if needed
+			toggleNightsVisibility();
+		}
+
+		// Step 2: Set submit type
+		document.getElementById('submit_type').value = 'final_save';
+
+		// Step 3: Now save immediately
+		console.log('Saving now. isDynamic =', isDynamic);
+
+		// Option A: If using AJAX to save
+		// saveTourPlan(); // Call your save function
+
+		// Option B: If submitting the form normally
+		const form = finalSaveBtn.closest('form');
+		if (form) {
+			form.submit(); // This will submit the form
+		}
+	});
+
+	// Export helper
 	function getIsDynamic() {
 		return !!dynamicCheckbox.checked;
 	}
 	// Example export
 	window.getIsDynamic = getIsDynamic;
-
-	// Event handler for Final Save button: Show dynamic wait UI, then process save
-document.getElementById('btn_save_tour_plan').addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent immediate form submission
-
-    // Set submit type for backend processing
-    document.getElementById('submit_type').value = 'final_save';
-
-    // Disable save buttons and show dynamic wait UI
-    $('#btn_savedraft_tour_plan, #btn_save_tour_plan').prop('disabled', true);
-    $('#btn_save_tour_plan').html('<span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>Saving... Please wait');
-
-    // Animate UI for dynamic feel (e.g., fade out form content)
-    $('.tour_plan_div').fadeTo(300, 0.5); // Semi-transparent overlay effect
-    $('#csspinner').show().text('Finalizing tour plan...'); // Update spinner text
-
-    // After a short delay for visual effect, submit the form to process final save
-    setTimeout(function() {
-        document.getElementById('myTourplanForm').submit();
-    }, 500); // 500ms delay for smooth transition
-});
-
 
 	// Add event handler for day_rent input to synchronize across all nights
 	$(document).on('input', '[id^="day_rent"]', function() {
@@ -2327,7 +2337,6 @@ document.getElementById('btn_save_tour_plan').addEventListener('click', function
 		}
 	}
 </script>
-
 <script>
 	function calculateAllNightsDoubleTotal(count) {
 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
@@ -3728,7 +3737,7 @@ document.getElementById('btn_save_tour_plan').addEventListener('click', function
 				if (allocationCount > 0) {
 					$field.prop("readonly", false).val(newValue || 0);
 					console.log(`Setting ${fieldSelector}: ${newValue} (allocated)`);
-				} else {
+			} else {
 					$field.prop("readonly", false).val(0);
 					console.log(`Clearing ${fieldSelector}: No allocation`);
 				}
@@ -3754,7 +3763,7 @@ document.getElementById('btn_save_tour_plan').addEventListener('click', function
 			// Single rooms: typically only adult rate, others are 0
 			var currentAdult = currentRates ? currentRates.currentRoomRate : 0;
 			if (currentAdult === 0) {
-				$(`#s_adult_rate${rid}`).prop("readonly", false).val(rates.room_r || 0);
+			$(`#s_adult_rate${rid}`).prop("readonly", false).val(rates.room_r || 0);
 			}
 			$(`#s_child_rate${rid}`).prop("readonly", true).val(0);
 			$(`#s_child_wb_rate${rid}`).prop("readonly", true).val(0);
@@ -4469,7 +4478,7 @@ document.getElementById('btn_save_tour_plan').addEventListener('click', function
 				}
 
 				// **FIX: Then update the static display with aggregated totals**
-				updateStaticModeDisplayTotal(count);
+					updateStaticModeDisplayTotal(count);
 			}
 
 			// Vehicle visibility
