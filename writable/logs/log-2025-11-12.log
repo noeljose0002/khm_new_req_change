@@ -1,0 +1,826 @@
+ERROR - 2025-11-12 05:50:23 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`t...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`t...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`t...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`t...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-11-12 05:50:23 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+[Method: GET, Route: Enquiry/itinerary/2789/1]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 2 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:50:23 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 4 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:50:23 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 5 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-12 05:50:27 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`t...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`t...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`t...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`t...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '0')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-11-12 05:50:27 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+[Method: GET, Route: Enquiry/itinerary/2789/0]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 2 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '0')
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:50:27 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 4 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '0')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:50:27 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 5 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-12 05:50:28 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`t...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`t...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`t...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`t...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-11-12 05:50:28 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+[Method: GET, Route: Enquiry/itinerary/2789/1]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 2 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:50:28 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 4 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:50:28 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 5 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-12 05:50:31 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`t...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`t...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`t...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`t...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-11-12 05:50:31 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+[Method: GET, Route: Enquiry/itinerary/2789/1]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 2 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:50:31 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 4 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:50:31 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 5 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-12 05:50:32 --> mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`t...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`t...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`t...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`t...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-11-12 05:50:32 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+[Method: GET, Route: Enquiry/itinerary/2789/1]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 2 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:50:32 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 4 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:50:32 --> [Caused by] mysqli_sql_exception: Table 'khm_touracle_db.khm_obj_mst_hotel' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+LEFT JOIN `khm_obj_mst_hotel` `h` ON `h`.`hotel_id` = `exp`.`hotel_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 5 APPPATH\Controllers\Enquiry.php(6045): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-12 05:55:22 --> mysqli_sql_exception: Unknown column 'exp.hotel_id' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`t...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`t...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`t...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`t...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\Enquiry.php(6044): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-11-12 05:55:22 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'exp.hotel_id' in 'field list'
+[Method: GET, Route: Enquiry/itinerary/2789/1]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 2 APPPATH\Controllers\Enquiry.php(6044): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:55:22 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'exp.hotel_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 4 APPPATH\Controllers\Enquiry.php(6044): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:55:23 --> [Caused by] mysqli_sql_exception: Unknown column 'exp.hotel_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 5 APPPATH\Controllers\Enquiry.php(6044): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-12 05:55:25 --> mysqli_sql_exception: Unknown column 'exp.hotel_id' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`t...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`t...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`t...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`t...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\Enquiry.php(6044): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-11-12 05:55:25 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'exp.hotel_id' in 'field list'
+[Method: GET, Route: Enquiry/itinerary/2789/1]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 2 APPPATH\Controllers\Enquiry.php(6044): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:55:25 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'exp.hotel_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 4 APPPATH\Controllers\Enquiry.php(6044): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:55:25 --> [Caused by] mysqli_sql_exception: Unknown column 'exp.hotel_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 5 APPPATH\Controllers\Enquiry.php(6044): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-12 05:55:36 --> mysqli_sql_exception: Unknown column 'exp.hotel_id' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`t...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`t...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`t...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`t...', Array, false)
+#4 C:\wamp64\www\khm\app\Controllers\Enquiry.php(6044): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+#6 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-11-12 05:55:36 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'exp.hotel_id' in 'field list'
+[Method: GET, Route: Enquiry/itinerary/2789/1]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 2 APPPATH\Controllers\Enquiry.php(6044): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:55:36 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'exp.hotel_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 4 APPPATH\Controllers\Enquiry.php(6044): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:55:36 --> [Caused by] mysqli_sql_exception: Unknown column 'exp.hotel_id' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = \'1446\'
+ORDER BY `exp`.`tour_expansion_date` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1644): CodeIgniter\Database\BaseConnection->query('SELECT `exp`.`tour_expansion_id`, `exp`.`tour_details_id`, `exp`.`tour_expansion_date`, `exp`.`hotel_id`, `exp`.`double`, `exp`.`single`, `exp`.`no_of_ch`, `exp`.`no_of_cw`, `exp`.`no_of_extra`, `exp`.`room_category_id`, `exp`.`meal_plan_id`, `exp`.`room_rate_double`, `exp`.`child_with_bed_double`, `exp`.`child_without_bed_double`, `exp`.`extra_bed_double`, `exp`.`double_total_rate`, `exp`.`room_rate_single`, `exp`.`child_with_bed_single`, `exp`.`child_without_bed_single`, `exp`.`extra_bed_single`, `exp`.`single_total_rate`, `exp`.`vehicle_details_json`, `exp`.`remarks`, `rc`.`room_category_name` as `exp_room_category_name`, `mp`.`meal_plan_name` as `exp_meal_plan_name`, `h`.`hotel_name`
+FROM `khm_obj_enquiry_tour_expansion` `exp`
+LEFT JOIN `khm_obj_mst_hotel_room_category` `rc` ON `rc`.`room_category_id` = `exp`.`room_category_id`
+LEFT JOIN `khm_obj_meal_plan` `mp` ON `mp`.`meal_plan_id` = `exp`.`meal_plan_id`
+WHERE `exp`.`tour_details_id` = :exp.tour_details_id:
+ORDER BY `exp`.`tour_expansion_date` ASC', [...], false)
+ 5 APPPATH\Controllers\Enquiry.php(6044): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:59:55 --> ErrorException: Undefined variable $addon_count
+[Method: GET, Route: Enquiry/itinerary/2789/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 2347.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(2347): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $addon_count', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 2347)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(6128): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 05:59:57 --> ErrorException: Undefined variable $addon_count
+[Method: GET, Route: Enquiry/itinerary/2789/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 2347.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(2347): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $addon_count', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 2347)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(6128): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 06:05:40 --> ErrorException: Undefined variable $addon_count
+[Method: GET, Route: Enquiry/itinerary/2789/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 2347.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(2347): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $addon_count', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 2347)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(6128): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 06:55:37 --> ParseError: Unmatched '}'
+[Method: GET, Route: Enquiry/itinerary/2789/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 2594.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(6128): view('enquiry/itinerary_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '0')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-12 06:55:39 --> ParseError: Unmatched '}'
+[Method: GET, Route: Enquiry/itinerary/2789/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 2594.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(6128): view('enquiry/itinerary_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2789', '0')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
