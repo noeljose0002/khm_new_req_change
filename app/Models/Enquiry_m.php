@@ -1828,6 +1828,20 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
+    //nj//
+    public function get_tour_expansion_by_tour_id($tour_details_id)
+{
+    $builder = $this->db->table('khm_obj_enquiry_tour_expansion exp');
+    $builder->select('exp.tour_expansion_id,mp.meal_plan_name,rc.room_category_name, exp.tour_details_id, exp.tour_expansion_date, exp.room_category_id, exp.meal_plan_id, exp.room_rate_double, exp.child_with_bed_double, exp.child_without_bed_double, exp.extra_bed_double, exp.double_total_rate, exp.room_rate_single, exp.child_with_bed_single, exp.child_without_bed_single, exp.extra_bed_single, exp.single_total_rate, exp.vehicle_details_json, rc.room_category_name as exp_room_category_name, mp.meal_plan_name as exp_meal_plan_name');
+    $builder->join('khm_obj_mst_hotel_room_category rc', 'rc.room_category_id = exp.room_category_id', 'left');
+    $builder->join('khm_obj_meal_plan mp', 'mp.meal_plan_id = exp.meal_plan_id', 'left');
+    $builder->where('exp.tour_details_id', $tour_details_id);
+    $builder->orderBy('exp.tour_expansion_date', 'ASC');
+    $builder->orderBy('exp.tour_expansion_id', 'ASC');
+    
+    $query = $builder->get();
+    return $query->getResultArray();
+}
     public function get_eighteen_datas_double($tour_details_id)
     {
         $db = \Config\Database::connect();

@@ -599,6 +599,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 		</div>
 	</div>
 
+
+	
+
 	<div class="modal fade overflow-hidden" id="modal_qq" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
 		<div class="modal-dialog custom-modal-width" role="document">
 			<div class="modal-content">
@@ -2327,7 +2330,284 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 	}
 </script>
+<script>// **ENHANCED REFRESH SYSTEM WITH CHRONOLOGICAL ORDER AND USER CONFIRMATION (ALERT VERSION)**
 
+// **REMOVE OLD REFRESH HANDLER - Replace with this new one**
+$(document).off('click', '.refresh-vehicle-summary'); // Remove old handler
+
+// **MAIN REFRESH HANDLER WITH CONFIRMATION**
+$(document).on('click', '.refresh-vehicle-summary', function(e) {
+  e.preventDefault();
+  
+  var $clickedIcon = $(this);
+  var targetCount = parseInt($clickedIcon.attr('data-count'));
+  var isDynamic = getIsDynamic();
+  
+  console.log('Refresh icon clicked:', { targetCount, isDynamic });
+  
+  // Add spinning animation
+  var $icon = $clickedIcon.find('i');
+  $icon.addClass('fa-spin');
+  
+  // Build confirmation message
+  var locationNames = [];
+  for (let i = 1; i <= targetCount; i++) {
+    if ($(`#tour_location_id${i}`).length > 0) {
+      locationNames.push('Location ' + i);
+    }
+  }
+  
+  var message = 'Refresh Vehicle Data\n\n';
+  message += 'Target: Location ' + targetCount + '\n';
+  message += 'Mode: ' + (isDynamic ? 'Dynamic' : 'Static') + '\n\n';
+  message += 'Choose refresh option:\n';
+  message += '- Press OK to refresh ALL previous locations + this one (' + locationNames.join(', ') + ')\n';
+  message += '- Press Cancel to refresh ONLY this location (Location ' + targetCount + ')';
+  
+  var refreshAll = confirm(message);
+  
+  if (refreshAll) {
+    // Refresh all locations from 1 to targetCount
+    var locationsToRefresh = [];
+    for (let i = 1; i <= targetCount; i++) {
+      if ($(`#tour_location_id${i}`).length > 0) {
+        locationsToRefresh.push(i);
+      }
+    }
+    refreshLocationsSequentially(locationsToRefresh, isDynamic, function() {
+      $icon.removeClass('fa-spin');
+    });
+  } else {
+    // Refresh only this location
+    if (isDynamic) {
+      refreshSingleLocationAllNights(targetCount, function() {
+        $icon.removeClass('fa-spin');
+      });
+    } else {
+      refreshSingleLocationStatic(targetCount, function() {
+        $icon.removeClass('fa-spin');
+      });
+    }
+  }
+});
+
+// **HELPER: Get locations to refresh based on mode**
+function getLocationsToRefresh(targetCount, isDynamic) {
+  var locations = [];
+  
+  if (isDynamic) {
+    // Dynamic mode: all locations up to and including target
+    for (let i = 1; i <= targetCount; i++) {
+      if ($(`#tour_location_id${i}`).length > 0) {
+        locations.push(i);
+      }
+    }
+  } else {
+    // Static mode: just the target location
+    locations.push(targetCount);
+  }
+  
+  return locations;
+}
+
+// **REFRESH SINGLE LOCATION - DYNAMIC MODE (ALL NIGHTS)**
+function refreshSingleLocationAllNights(count, callback) {
+  var $spinner = $('#csspinner');
+  $spinner.show();
+  
+  var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+  
+  if (no_of_night === 0) {
+    $spinner.hide();
+    alert('Location ' + count + ' has no nights configured.');
+    if (typeof callback === 'function') callback();
+    return;
+  }
+  
+  console.log('Refreshing Location ' + count + ' - All ' + no_of_night + ' nights (Dynamic Mode)');
+  
+  // Refresh nights sequentially
+  var nightsToRefresh = [];
+  for (let night = 1; night <= no_of_night; night++) {
+    nightsToRefresh.push(night);
+  }
+  
+  refreshNightsSequentially(count, nightsToRefresh, function() {
+    updateVehicleSummary(count);
+    updateAllTotals();
+    $spinner.hide();
+    alert('Vehicle data refreshed successfully for Location ' + count);
+    if (typeof callback === 'function') callback();
+  });
+}
+
+// **REFRESH SINGLE LOCATION - STATIC MODE (SUMMARY ONLY)**
+function refreshSingleLocationStatic(count, callback) {
+  var $spinner = $('#csspinner');
+  $spinner.show();
+  
+  var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+  
+  if (no_of_night === 0) {
+    $spinner.hide();
+    alert('Location ' + count + ' has no nights configured.');
+    if (typeof callback === 'function') callback();
+    return;
+  }
+  
+  console.log('Refreshing Location ' + count + ' - Static Mode (Summary Only)');
+  
+  // In static mode, we still need to refresh all nights to calculate summary
+  var nightsToRefresh = [];
+  for (let night = 1; night <= no_of_night; night++) {
+    nightsToRefresh.push(night);
+  }
+  
+  refreshNightsSequentially(count, nightsToRefresh, function() {
+    updateVehicleSummary(count);
+    updateAllTotals();
+    $spinner.hide();
+    alert('Vehicle data refreshed successfully for Location ' + count);
+    if (typeof callback === 'function') callback();
+  });
+}
+
+// **REFRESH MULTIPLE LOCATIONS SEQUENTIALLY**
+function refreshLocationsSequentially(locations, isDynamic, onComplete) {
+  var $spinner = $('#csspinner');
+  $spinner.show();
+  
+  var totalLocations = locations.length;
+  var completedLocations = 0;
+  
+  console.log('Refreshing ' + totalLocations + ' locations in chronological order:', locations);
+  
+  // Show initial progress alert
+  var progressMessage = 'Starting refresh...\nTotal locations: ' + totalLocations;
+  console.log(progressMessage);
+  
+  function refreshNextLocation(index) {
+    if (index >= locations.length) {
+      // All locations refreshed
+      $spinner.hide();
+      
+      if (typeof onComplete === 'function') {
+        onComplete();
+      }
+      
+      alert('SUCCESS!\n\nAll ' + totalLocations + ' location(s) refreshed successfully!');
+      return;
+    }
+    
+    var currentCount = locations[index];
+    var progress = Math.round(((index + 1) / totalLocations) * 100);
+    
+    console.log('Refreshing Location ' + currentCount + ' (' + (index + 1) + '/' + totalLocations + ') - ' + progress + '%');
+    
+    if (isDynamic) {
+      refreshSingleLocationAllNightsInternal(currentCount, function() {
+        completedLocations++;
+        // Move to next location after 500ms delay
+        setTimeout(function() {
+          refreshNextLocation(index + 1);
+        }, 500);
+      });
+    } else {
+      refreshSingleLocationStaticInternal(currentCount, function() {
+        completedLocations++;
+        // Move to next location after 500ms delay
+        setTimeout(function() {
+          refreshNextLocation(index + 1);
+        }, 500);
+      });
+    }
+  }
+  
+  // Start refreshing from first location
+  refreshNextLocation(0);
+}
+
+// **INTERNAL: Refresh single location (no spinner/alert management)**
+function refreshSingleLocationAllNightsInternal(count, callback) {
+  var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+  
+  if (no_of_night === 0) {
+    if (typeof callback === 'function') callback();
+    return;
+  }
+  
+  var nightsToRefresh = [];
+  for (let night = 1; night <= no_of_night; night++) {
+    nightsToRefresh.push(night);
+  }
+  
+  refreshNightsSequentially(count, nightsToRefresh, function() {
+    updateVehicleSummary(count);
+    updateAllTotals();
+    if (typeof callback === 'function') callback();
+  });
+}
+
+function refreshSingleLocationStaticInternal(count, callback) {
+  var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+  
+  if (no_of_night === 0) {
+    if (typeof callback === 'function') callback();
+    return;
+  }
+  
+  var nightsToRefresh = [];
+  for (let night = 1; night <= no_of_night; night++) {
+    nightsToRefresh.push(night);
+  }
+  
+  refreshNightsSequentially(count, nightsToRefresh, function() {
+    updateVehicleSummary(count);
+    updateAllTotals();
+    if (typeof callback === 'function') callback();
+  });
+}
+
+// **REFRESH NIGHTS SEQUENTIALLY FOR A LOCATION**
+function refreshNightsSequentially(count, nights, onComplete) {
+  var totalNights = nights.length;
+  var completedNights = 0;
+  
+  function refreshNextNight(index) {
+    if (index >= nights.length) {
+      // All nights refreshed
+      if (typeof onComplete === 'function') {
+        onComplete();
+      }
+      return;
+    }
+    
+    var currentNight = nights[index];
+    var $loadBtn = $(`#loadvehs${count}${currentNight}`);
+    
+    if ($loadBtn.length > 0) {
+      console.log('  Refreshing Night ' + currentNight + '/' + totalNights + ' for Location ' + count);
+      
+      // Trigger the load button
+      $loadBtn.trigger('click');
+      
+      // Wait for AJAX to complete (adjust delay if needed)
+      setTimeout(function() {
+        completedNights++;
+        refreshNextNight(index + 1);
+      }, 300); // Stagger by 300ms
+    } else {
+      // No load button, skip to next
+      refreshNextNight(index + 1);
+    }
+  }
+  
+  // Start refreshing from first night
+  refreshNextNight(0);
+}
+
+console.log('Enhanced chronological refresh system loaded successfully (Alert Version)');
+</script>
 <script>
 	function calculateAllNightsDoubleTotal(count) {
 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
@@ -8069,7 +8349,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 	console.log('✅ Vehicle calculation system fixed and loaded');
 
-	function calculateVehicleExtraKmCharges() {
+function calculateVehicleExtraKmCharges() {
     var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
     if (is_vehicle_required != 1) {
         return 0;
@@ -8079,6 +8359,13 @@ $is_edit = $edit_id ? $edit_id : 0;
 
     let locationCount = $('.location-card').length;
     var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+    
+    // Check if trip is complete
+    var totalNights = calculateTotalNights();
+    var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;
+    var isTripComplete = (totalNights === no_of_night);
+    
+    console.log(`Trip Status: totalNights=${totalNights}, expected=${no_of_night}, isComplete=${isTripComplete}`);
 
     let total_extra_charges = 0;
 
@@ -8132,24 +8419,28 @@ $is_edit = $edit_id ? $edit_id : 0;
             return true; // continue $.each
         }
 
-        // ---------- Add single return-day allowance & rent (from last location's last night) ----------
-        let lastLocation = locationCount;
-        let lastLocationNights = parseInt($(`#no_of_night${lastLocation}`).val()) || 0;
-        if (lastLocationNights > 0) {
-            let last_vid = `${lastLocation}${lastLocationNights}${type_id}`;
-            let last_night_max_km = parseFloat($(`#max_km_day${last_vid}`).val()) || 0;
-            let last_night_dayrent = parseFloat($(`#day_rent${last_vid}`).val());
-            let last_night_vehcount = parseInt($(`#veh_count${last_vid}`).val());
+        // ---------- Add return-day allowance & rent ONLY if trip is complete ----------
+        if (isTripComplete) {
+            let lastLocation = locationCount;
+            let lastLocationNights = parseInt($(`#no_of_night${lastLocation}`).val()) || 0;
+            if (lastLocationNights > 0) {
+                let last_vid = `${lastLocation}${lastLocationNights}${type_id}`;
+                let last_night_max_km = parseFloat($(`#max_km_day${last_vid}`).val()) || 0;
+                let last_night_dayrent = parseFloat($(`#day_rent${last_vid}`).val());
+                let last_night_vehcount = parseInt($(`#veh_count${last_vid}`).val());
 
-            // fallback to previously-seen values if any selector missing
-            if (isNaN(last_night_dayrent)) last_night_dayrent = last_night_day_rent || 0;
-            if (isNaN(last_night_vehcount)) last_night_vehcount = maxVehCountSeen || 1;
+                // fallback to previously-seen values if any selector missing
+                if (isNaN(last_night_dayrent)) last_night_dayrent = last_night_day_rent || 0;
+                if (isNaN(last_night_vehcount)) last_night_vehcount = maxVehCountSeen || 1;
 
-            // Add return day's allowance and rent multiplied by the vehicles present that last night
-            total_max_km_trip += (last_night_max_km * last_night_vehcount);
-            total_base_cost_trip += (last_night_dayrent * last_night_vehcount);
+                // Add return day's allowance and rent multiplied by the vehicles present that last night
+                total_max_km_trip += (last_night_max_km * last_night_vehcount);
+                total_base_cost_trip += (last_night_dayrent * last_night_vehcount);
 
-            console.log(`  Vehicle ${type_id}: Added return-day allowance ${last_night_max_km} * ${last_night_vehcount} and rent ${last_night_dayrent} * ${last_night_vehcount}`);
+                console.log(`  Vehicle ${type_id}: Trip Complete - Added return-day allowance ${last_night_max_km} * ${last_night_vehcount} and rent ${last_night_dayrent} * ${last_night_vehcount}`);
+            }
+        } else {
+            console.log(`  Vehicle ${type_id}: Trip NOT complete - Skipping return-day doubling`);
         }
 
         // ---------- Compute extra KM for the whole trip for this vehicle type ----------
@@ -8186,10 +8477,10 @@ $is_edit = $edit_id ? $edit_id : 0;
                 // per-night base
                 let night_base = day_rent * veh_cnt;
 
-                // If this is last night of last location, add return-day rent here (so doubling of rent)
-                if (count === locationCount && night === no_of_night) {
-                    night_base += (day_rent * veh_cnt); // add return-day rent
-                    console.log(`  Vehicle ${type_id} - last night of last location: adding return rent ${day_rent * veh_cnt}`);
+                // If this is last night of last location AND trip is complete, add return-day rent
+                if (count === locationCount && night === no_of_night && isTripComplete) {
+                    night_base += (day_rent * veh_cnt); // add return-day rent (doubling)
+                    console.log(`  Vehicle ${type_id} - last night of completed trip: adding return rent ${day_rent * veh_cnt}`);
                 }
 
                 $(`#veh_total${vid}`).val(Math.round(night_base));
