@@ -7808,28 +7808,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 </script>
 <!-- //nj// -->
 <script>
-	// stable dynamic flag and helper
-	window._isDynamic = !!(window._isDynamic || (typeof dynamicCheckbox !== 'undefined' && dynamicCheckbox.checked));
-
-	function getIsDynamic() {
-		// prefer checkbox state when available, but fall back to the global flag
-		return (dynamicCheckbox ? !!dynamicCheckbox.checked : !!window._isDynamic);
-	}
-	window.getIsDynamic = getIsDynamic;
-</script>
-<script>
 	var isDraftLoading = false; // Global flag to skip handlers during draft load
-	isDraftLoading = true;
-	window._isDynamic = true;
-	if (dynamicCheckbox) {
-		dynamicCheckbox.checked = true;
-		// trigger change so any listeners (toggleNightsVisibility etc.) fire
-		dynamicCheckbox.dispatchEvent(new Event('change'));
-	} else {
-		// fallback: expose global for other scripts
-		window.isDynamic = true;
-	}
-	console.log('Draft render: forced initial dynamic = true');
 
 	$(document).on('click', '.draft_view', function() {
 
@@ -8178,7 +8157,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 	// Replace the generateNightlyDetailsFromDraft function with this corrected version
 
 
-
 	function generateNightlyDetailsFromDraft(count, main, allExpansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
 		console.log(`\n=== GENERATING NIGHTLY DETAILS for location ${count} ===`);
 		console.log('Main room_category_id:', main.room_category_id);
@@ -8202,7 +8180,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		});
 		console.log('Expansions grouped by date:', expansionsByDate);
 
-		// Check if expansions contain vehicle data
+		// Check if expansions contain vehicle data (to decide whether to distribute or not)
 		var hasExpansionVehicleData = allExpansions.some(function(exp) {
 			return exp.vehicle_details_json && exp.vehicle_details_json.trim() !== '' && exp.vehicle_details_json !== '{}';
 		});
@@ -8279,62 +8257,44 @@ $is_edit = $edit_id ? $edit_id : 0;
 					}
 				}
 
-				// CRITICAL FIX: Set room data for double rooms with proper room category handling
+				// Set room data for double rooms - FIX: Use expansion room category first
 				for (let i = 1; i <= numDoubles; i++) {
 					var rid = `${count}${night}${i}`;
 					var exp = doubleExpansions[i - 1] || null;
 					console.log(`Setting double room ${i} (ID: ${rid})`);
-
 					if (exp) {
-						console.log(`Expansion data for double room ${i}:`, exp);
+						console.log(`Using expansion for double room ${i}:`, exp);
+						console.log(`Expansion room_category_id: ${exp.expansion_room_category_id}`);
 
-						// CRITICAL: Determine room category with proper precedence
-						// Priority: 1. Expansion room_category_id, 2. Main room_category_id
-						var roomCatId = null;
+						// FIX: Set room category - prioritize expansion room category
+						var roomCatId = exp.expansion_room_category_id;
 
-						// Check expansion room category first
-						if (exp.expansion_room_category_id &&
-							exp.expansion_room_category_id !== '' &&
-							exp.expansion_room_category_id !== '0' &&
-							exp.expansion_room_category_id != 0) {
-							roomCatId = exp.expansion_room_category_id;
-							console.log(`Using expansion room_category_id: ${roomCatId}`);
-						}
-						// Fallback to main room category only if expansion is truly empty
-						else if (main.room_category_id &&
-							main.room_category_id !== '' &&
-							main.room_category_id !== '0' &&
-							main.room_category_id != 0) {
+						// Fallback to main only if expansion is null/undefined/empty
+						if (!roomCatId || roomCatId === '' || roomCatId === '0' || roomCatId === 0) {
 							roomCatId = main.room_category_id;
-							console.log(`Using main room_category_id: ${roomCatId}`);
+							console.log(`Using fallback main room_category_id: ${roomCatId}`);
 						}
+						console.log(`Final room category to set: ${roomCatId}`);
 
-						// Set room category with proper delay using closure
+						// Set room category with longer delay to ensure Select2 is ready
 						(function(targetRid, targetRoomCatId) {
 							setTimeout(function() {
 								var $roomCatSelect = $(`#roomcat${targetRid}`);
 								console.log(`Setting roomcat${targetRid} to ${targetRoomCatId}`);
-
-								// Verify option exists
-								var optionExists = $roomCatSelect.find(`option[value="${targetRoomCatId}"]`).length > 0;
-								console.log(`Option ${targetRoomCatId} exists: ${optionExists}`);
-
-								if (optionExists && targetRoomCatId) {
-									$roomCatSelect.val(targetRoomCatId).trigger('change');
-									console.log(`Successfully set roomcat${targetRid} to: ${$roomCatSelect.val()}`);
-								} else {
-									console.warn(`Room category ${targetRoomCatId} not found in options for ${targetRid}`);
-								}
-							}, 700); // Increased delay for better Select2 initialization
+								console.log(`Available options:`, $roomCatSelect.find('option').map(function() {
+									return $(this).val();
+								}).get());
+								$roomCatSelect.val(targetRoomCatId).trigger('change');
+								console.log(`After set, value is: ${$roomCatSelect.val()}`);
+							}, 500); // Increased timeout for better Select2 readiness
 						})(rid, roomCatId);
 
-						// Set meal plan with fallback
-						var mealPlanId = exp.meal_plan_id || main.meal_plan_id || '';
-						(function(targetRid, targetMealPlanId) {
-							setTimeout(function() {
-								$(`#mealplan${targetRid}`).val(targetMealPlanId).trigger('change');
-							}, 750);
-						})(rid, mealPlanId);
+						// Set meal plan
+						var mealPlanId = exp.meal_plan_id;
+						if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
+							mealPlanId = main.meal_plan_id;
+						}
+						$(`#mealplan${rid}`).val(mealPlanId).trigger('change');
 
 						// Set rate fields
 						$(`#d_adult_rate${rid}`).val(exp.room_rate_double || 0);
@@ -8342,7 +8302,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 						$(`#d_child_wb_rate${rid}`).val(exp.child_without_bed_double || 0);
 						$(`#d_extra_bed_rate${rid}`).val(exp.extra_bed_double || 0);
 
-						// Set GST fields for double rooms if applicable
+						// Set GST fields for double rooms
 						if (main.tax_status == 1) {
 							$(`#d_adult_gst${rid}`).val(exp.room_rate_double_gst || 0);
 							$(`#d_child_gst${rid}`).val(exp.child_with_bed_double_gst || 0);
@@ -8351,70 +8311,53 @@ $is_edit = $edit_id ? $edit_id : 0;
 						}
 					}
 
-					// Update totals after all fields are set
+					// Update totals after a delay
 					(function(targetCount, targetNight, targetI) {
 						setTimeout(function() {
 							updateRoomTotals(targetCount, targetNight, targetI);
-						}, 900);
+						}, 600); // Increased delay to account for room cat change processing
 					})(count, night, i);
 				}
 
-				// CRITICAL FIX: Set room data for single rooms with proper room category handling
+				// Set room data for single rooms - FIX: Use expansion room category first
 				for (let i = 1; i <= numSingles; i++) {
 					var seq = numDoubles + i;
 					var sid = `${count}${night}${seq}`;
 					var exp = singleExpansions[i - 1] || null;
 					console.log(`Setting single room ${i} (ID: ${sid})`);
-
 					if (exp) {
-						console.log(`Expansion data for single room ${i}:`, exp);
+						console.log(`Using expansion for single room ${i}:`, exp);
+						console.log(`Expansion room_category_id: ${exp.expansion_room_category_id}`);
 
-						// CRITICAL: Determine room category with proper precedence
-						var roomCatId = null;
+						// FIX: Set room category - prioritize expansion room category
+						var roomCatId = exp.expansion_room_category_id;
 
-						// Check expansion room category first
-						if (exp.expansion_room_category_id &&
-							exp.expansion_room_category_id !== '' &&
-							exp.expansion_room_category_id !== '0' &&
-							exp.expansion_room_category_id != 0) {
-							roomCatId = exp.expansion_room_category_id;
-							console.log(`Using expansion room_category_id: ${roomCatId}`);
-						}
-						// Fallback to main room category only if expansion is truly empty
-						else if (main.room_category_id &&
-							main.room_category_id !== '' &&
-							main.room_category_id !== '0' &&
-							main.room_category_id != 0) {
+						// Fallback to main only if expansion is null/undefined/empty
+						if (!roomCatId || roomCatId === '' || roomCatId === '0' || roomCatId === 0) {
 							roomCatId = main.room_category_id;
-							console.log(`Using main room_category_id: ${roomCatId}`);
+							console.log(`Using fallback main room_category_id: ${roomCatId}`);
 						}
+						console.log(`Final room category to set: ${roomCatId}`);
 
-						// Set room category with proper delay using closure
+						// Set room category with longer delay to ensure Select2 is ready
 						(function(targetSid, targetRoomCatId) {
 							setTimeout(function() {
 								var $roomCatSelect = $(`#roomcat${targetSid}`);
 								console.log(`Setting roomcat${targetSid} to ${targetRoomCatId}`);
-
-								// Verify option exists
-								var optionExists = $roomCatSelect.find(`option[value="${targetRoomCatId}"]`).length > 0;
-								console.log(`Option ${targetRoomCatId} exists: ${optionExists}`);
-
-								if (optionExists && targetRoomCatId) {
-									$roomCatSelect.val(targetRoomCatId).trigger('change');
-									console.log(`Successfully set roomcat${targetSid} to: ${$roomCatSelect.val()}`);
-								} else {
-									console.warn(`Room category ${targetRoomCatId} not found in options for ${targetSid}`);
-								}
-							}, 700);
+								console.log(`Available options:`, $roomCatSelect.find('option').map(function() {
+									return $(this).val();
+								}).get());
+								$roomCatSelect.val(targetRoomCatId).trigger('change');
+								console.log(`After set, value is: ${$roomCatSelect.val()}`);
+							}, 500); // Increased timeout for better Select2 readiness
 						})(sid, roomCatId);
 
-						// Set meal plan with fallback
-						var mealPlanId = exp.meal_plan_id || main.meal_plan_id || '';
-						(function(targetSid, targetMealPlanId) {
-							setTimeout(function() {
-								$(`#mealplan${targetSid}`).val(targetMealPlanId).trigger('change');
-							}, 750);
-						})(sid, mealPlanId);
+						// Set meal plan
+						var mealPlanId = exp.meal_plan_id;
+						if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
+							mealPlanId = main.meal_plan_id;
+						}
+						$(`#mealplan${sid}`).val(mealPlanId).trigger('change');
 
 						// Set rate fields
 						$(`#s_adult_rate${sid}`).val(exp.room_rate_single || 0);
@@ -8422,7 +8365,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 						$(`#s_child_wb_rate${sid}`).val(exp.child_without_bed_single || 0);
 						$(`#s_extra_bed_rate${sid}`).val(exp.extra_bed_single || 0);
 
-						// Set GST fields for single rooms if applicable
+						// Set GST fields for single rooms
 						if (main.tax_status == 1) {
 							$(`#s_adult_gst${sid}`).val(exp.room_rate_single_gst || 0);
 							$(`#s_child_gst${sid}`).val(exp.child_with_bed_single_gst || 0);
@@ -8431,27 +8374,29 @@ $is_edit = $edit_id ? $edit_id : 0;
 						}
 					}
 
-					// Update totals after all fields are set
+					// Update totals after a delay
 					(function(targetCount, targetNight, targetSeq) {
 						setTimeout(function() {
 							updateRoomTotals(targetCount, targetNight, targetSeq);
-						}, 900);
+						}, 600); // Increased delay to account for room cat change processing
 					})(count, night, seq);
 				}
 
-				// Populate vehicle data - Use expansion data if available
+				// Populate vehicle data - Use expansion data if available (both dynamic and static saved data)
 				if (vehicleExpansion && vehicleExpansion.vehicle_details_json) {
 					try {
 						var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
 						console.log(`Night ${night}: Loading vehicle data from expansion:`, vehicleDetails);
 						$.each(vehicleDetails, function(vindex, vdata) {
 							var vid = `${count}${night}${vdata.veh_type_id}`;
+							// Use the exact values from expansion - these are already per-night values
 							$(`#day_rent${vid}`).val(vdata.day_rent || 0);
 							$(`#travel_distance${vid}`).val(vdata.travel_distance || 0);
 							$(`#max_km_day${vid}`).val(vdata.max_km_day || 0);
 							$(`#extra_km_rate${vid}`).val(vdata.extra_km_rate || 0);
 							$(`#extra_kilometer${vid}`).val(vdata.extra_kilometer || 0);
 							$(`#veh_total${vid}`).val(vdata.veh_total || 0);
+							console.log(`Set vehicle ${vdata.veh_type_id} for night ${night}: distance=${vdata.travel_distance}, total=${vdata.veh_total}`);
 							updateVehicleTotals(count, night, vindex);
 						});
 					} catch (e) {
@@ -8461,13 +8406,14 @@ $is_edit = $edit_id ? $edit_id : 0;
 			}
 		}
 
-		// Distribute vehicle totals only if main has data AND no expansion vehicle data
+		// FIX: Distribute vehicle totals only if main has data AND no expansion vehicle data (preserves per-night from dynamic saves)
 		if (main.vehicle_details && !hasExpansionVehicleData) {
 			try {
-				var mainVehicleDetails = typeof main.vehicle_details === 'string' ?
-					JSON.parse(main.vehicle_details) : main.vehicle_details;
+				var mainVehicleDetails = typeof main.vehicle_details === 'string' ? JSON.parse(main.vehicle_details) : main.vehicle_details;
+				console.log(`Distributing vehicle totals across ${no_of_days} nights for location ${count} (no expansion vehicle data):`, mainVehicleDetails);
 
 				$.each(mainVehicleDetails, function(vindex, vdata) {
+					// Find matching vehicle model index
 					var matchedVehicleIndex = -1;
 					$.each(vehicle_models, function(modelIndex, model) {
 						if (model.vehicle_type_id == vdata.veh_type_id) {
@@ -8478,6 +8424,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 					if (matchedVehicleIndex !== -1) {
 						var totalDays = no_of_days;
+
+						// These are TOTAL values stored in static mode - need to DISTRIBUTE per night
 						var totalRent = parseFloat(vdata.veh_total) || 0;
 						var storedDayRent = parseFloat(vdata.day_rent) || 0;
 						var totalDistance = parseFloat(vdata.travel_distance) || 0;
@@ -8486,11 +8434,15 @@ $is_edit = $edit_id ? $edit_id : 0;
 						var maxKmDay = parseFloat(vdata.max_km_day) || 0;
 						var headerText = vdata.veh_header || '';
 
+						// Calculate per-night values by dividing totals
 						var perNightRent = totalDays > 0 ? (storedDayRent || (totalRent / totalDays)) : 0;
 						var perNightDistance = totalDays > 0 ? (totalDistance / totalDays) : 0;
 						var perNightExtraKm = totalDays > 0 ? (totalExtraKm / totalDays) : 0;
 						var perNightVehTotal = totalDays > 0 ? (totalRent / totalDays) : 0;
 
+						console.log(`Vehicle ${vdata.veh_type_id}: Total Rent=${totalRent}, Per Night=${perNightVehTotal}, Total Distance=${totalDistance}, Per Night Distance=${perNightDistance}`);
+
+						// Distribute values equally across all nights
 						for (let night = 1; night <= totalDays; night++) {
 							var vid = `${count}${night}${vdata.veh_type_id}`;
 							$(`#day_rent${vid}`).val(Math.round(perNightRent));
@@ -8500,6 +8452,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 							$(`#extra_kilometer${vid}`).val(Math.round(perNightExtraKm));
 							$(`#veh_total${vid}`).val(Math.round(perNightVehTotal));
 
+							// Set header if empty
 							if (!$(`#v_from_to${count}${night}`).text().trim()) {
 								$(`#v_from_to${count}${night}`).text(headerText);
 							}
@@ -8508,32 +8461,40 @@ $is_edit = $edit_id ? $edit_id : 0;
 						}
 					}
 				});
+				console.log(`Vehicle fields distributed for location ${count}`);
 			} catch (e) {
-				console.error(`Error distributing vehicle data:`, e);
+				console.error(`Error distributing vehicle data for location ${count}:`, e);
 			}
 		}
 
 		// Force GST column visibility after all data is loaded
 		setTimeout(function() {
+			console.log(`Forcing GST column visibility for location ${count}, tax_status: ${main.tax_status}`);
 			if (main.tax_status == 1) {
 				toggleGSTColumns(true, count);
 			} else {
 				toggleGSTColumns(false, count);
 			}
 			toggleNightsVisibility();
-		}, 1000);
+		}, 200);
 
 		// Add vehicle summary
 		if (is_vehicle_required == 1) {
+			console.log(`\n=== GENERATING VEHICLE SUMMARY for location ${count} ===`);
+
 			var summaryHtml = generateVehicleSummary(count, no_of_days, vehicle_models);
 			nightlyDetails.append(summaryHtml);
 
+			console.log('Is Dynamic Mode:', isDynamic);
+
 			if (!isDynamic) {
-				// STATIC MODE
+				// STATIC MODE: Use main.vehicle_details directly
+				console.log('Static Mode - Using main.vehicle_details for summary');
+
 				if (main.vehicle_details) {
 					try {
-						var mainVehicleDetails = typeof main.vehicle_details === 'string' ?
-							JSON.parse(main.vehicle_details) : main.vehicle_details;
+						var mainVehicleDetails = typeof main.vehicle_details === 'string' ? JSON.parse(main.vehicle_details) : main.vehicle_details;
+						console.log('Main vehicle details:', mainVehicleDetails);
 
 						$.each(mainVehicleDetails, function(vindex, vdata) {
 							var matchedVehicleIndex = -1;
@@ -8546,11 +8507,13 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 							if (matchedVehicleIndex !== -1) {
 								var totalDays = no_of_days;
+								// FIX: Use stored values directly - these are already totals
 								var totalRent = parseFloat(vdata.veh_total) || 0;
 								var dailyRent = parseFloat(vdata.day_rent) || 0;
 								var totalDistance = parseFloat(vdata.travel_distance) || 0;
-								var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
+								var maxKmDay = parseFloat(vdata.max_km_day) || 0;
 								var extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
+								var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
 
 								$(`#summary_days_${count}_${matchedVehicleIndex}`).val(totalDays);
 								$(`#summary_rent_${count}_${matchedVehicleIndex}`).val(dailyRent);
@@ -8565,7 +8528,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 					}
 				}
 			} else {
-				// DYNAMIC MODE
+				// DYNAMIC MODE: Aggregate from expansions
+				console.log('Dynamic Mode - Aggregating from expansions');
+
 				var vehicleAggregates = {};
 				$.each(vehicle_models, function(vindex, vmodel) {
 					vehicleAggregates[vmodel.vehicle_type_id] = {
@@ -8613,7 +8578,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 				});
 			}
 
-			// Build vehicle header
+			// Build and set the vehicle header
 			setTimeout(function() {
 				var headerMap = new Map();
 				for (let night = 1; night <= no_of_days; night++) {
@@ -8640,47 +8605,21 @@ $is_edit = $edit_id ? $edit_id : 0;
 					<span>Vehicle Summary${summaryHeaderText}</span>
 				</span>
 			`);
+				$summaryHeader.css({
+					'text-align': 'center',
+					'display': 'flex',
+					'align-items': 'center',
+					'justify-content': 'center'
+				});
 				updateVehicleSummary(count);
-			}, 1200);
+			}, 250);
 		}
 
-		// Final updates
+		// Update totals
 		get_veh_grand_total();
 		updateAllTotals();
 		console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
 	}
-	// --- Decide final dynamic state from response/allExpansions ---
-	// Heuristic: final dynamic = true if any expansion rows exist or any expansion has vehicle_details_json
-	var finalDynamic = false;
-
-	// `response` is the AJAX JSON you received; if you already grouped to `tourDetailsArray` use that.
-	// Check raw response for expansions:
-	if (response && response.length > 0) {
-		finalDynamic = response.some(function(item) {
-			// If item has nested expansion array with length > 0 -> dynamic
-			if (item.expansion && Array.isArray(item.expansion) && item.expansion.length > 0) return true;
-
-			// Or if item contains vehicle data in expansion or main -> dynamic
-			if (item.expansion && Array.isArray(item.expansion)) {
-				for (var ei = 0; ei < item.expansion.length; ei++) {
-					var e = item.expansion[ei];
-					if (e && e.vehicle_details_json && e.vehicle_details_json.trim() !== '' && e.vehicle_details_json !== '{}') return true;
-				}
-			}
-			return false;
-		});
-	}
-
-	// Apply final state (propagate to checkbox/global and trigger listeners)
-	window._isDynamic = !!finalDynamic;
-	if (dynamicCheckbox) {
-		dynamicCheckbox.checked = !!finalDynamic;
-		dynamicCheckbox.dispatchEvent(new Event('change'));
-	} else {
-		window.isDynamic = !!finalDynamic;
-	}
-
-	console.log('Draft render: final dynamic =', finalDynamic);
 </script>
 
 <script>
