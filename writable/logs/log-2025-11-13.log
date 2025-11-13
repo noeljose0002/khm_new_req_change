@@ -540,3 +540,23 @@ hello: 250-smtp.gmail.com at your service, [103.38.15.23]
 Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
 535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-343ed5331c0sm827441a91.10 - gsmtp
 
+CRITICAL - 2025-11-13 08:17:09 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/getTourTariffDetails]
+in APPPATH\Controllers\Enquiry.php on line 2995.
+ 1 APPPATH\Controllers\Enquiry.php(2995): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 2995)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-13 08:17:09 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/getTourTariffDetails]
+in APPPATH\Controllers\Enquiry.php on line 2995.
+ 1 APPPATH\Controllers\Enquiry.php(2995): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 2995)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourTariffDetails()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
