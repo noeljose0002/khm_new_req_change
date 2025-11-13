@@ -1043,7 +1043,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 
 																					<div class="form-check ml-2">
-																						<input class="form-check-input " type="checkbox" id="dynamicNeeded" />
+																						<input class="form-check-input " type="checkbox" id="dynamicNeeded" checked  />
 																						<label class="btn btn-success dyna " for="dynamicNeeded">Dynamic needed</label>
 																					</div>
 
