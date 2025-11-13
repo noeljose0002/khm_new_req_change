@@ -5009,61 +5009,94 @@ $is_edit = $edit_id ? $edit_id : 0;
 	// **COMPLETE FIXED toggleNightsVisibility FUNCTION**
 	// **FIXED: Static mode should ONLY display, never modify underlying calculations**
 function toggleNightsVisibility() {
+    function saveOriginalInputs($inputs) {
+        $inputs.each(function() {
+            var $i = $(this);
+            // Only save once
+            if ($i.data('origVal') === undefined) $i.data('origVal', $i.val());
+        });
+    }
+    function restoreOriginalInputs($inputs) {
+        $inputs.each(function() {
+            var $i = $(this);
+            var orig = $i.data('origVal');
+            if (orig !== undefined) {
+                $i.val(orig);
+                // optional: remove saved value to free memory
+                $i.removeData('origVal');
+            }
+        });
+    }
+
     var showAll = getIsDynamic();
     console.log('Toggling nights visibility: dynamic=', showAll);
-    
+
     $('.location-card').each(function() {
         var $locationCard = $(this);
         var count = $locationCard.attr('data-index');
         var noOfNight = parseInt($(`#no_of_night${count}`).val()) || 0;
-        
+
         if (noOfNight === 0) return;
-        
+
         $(`#nightly-details${count} .night-section`).each(function() {
             var $nightSection = $(this);
             var night = parseInt($nightSection.attr('data-night'));
-            
+
             if (night > noOfNight) {
                 $nightSection.hide();
                 return;
             }
-            
+
             if (night > 1) {
                 // Show/hide nights 2+ based on mode
                 if (showAll) {
+                    // restore anything we may have changed earlier for this night
                     $nightSection.show();
+                    $nightSection.find('.row.mt-2.align-items-center').show();
+                    $nightSection.find('> h3').show();
+                    $nightSection.find('.double_row, .single_row').show();
+                    $nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show();
+
+                    // restore saved individual inputs for this night (if any)
+                    restoreOriginalInputs($nightSection.find('input'));
                 } else {
-                    $nightSection.hide(); // Just hide visually, don't touch data
+                    $nightSection.hide();
                 }
             } else {
                 // Night 1 always visible
                 $nightSection.show();
-                
+
                 if (!showAll) {
                     // **STATIC MODE: Only modify display, preserve all calculations**
-                    
                     // Hide night headers/labels
                     $nightSection.find('> h3').hide();
                     $nightSection.find('.double_row, .single_row').hide();
-                    
+
                     // Hide individual night grand totals (dd_total_rate, ss_total_rate)
-                    $nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').hide();
-                    
+                    var $ddssTotals = $nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]');
+                    // save originals before hiding/overwriting
+                    saveOriginalInputs($ddssTotals);
+                    $ddssTotals.closest('.row').hide();
+
                     // Hide extra room rows (keep only first room of each type visible)
                     var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
                         return $(this).find('[id^="d_adult_rate"]').length > 0;
                     });
-                    $doubleRoomRows.each(function(index) {
-                        if (index > 0) $(this).hide();
-                    });
-                    
                     var $singleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
                         return $(this).find('[id^="s_adult_rate"]').length > 0;
+                    });
+
+                    // Save originals for all room row inputs (so first row can be replaced visually)
+                    saveOriginalInputs($doubleRoomRows.find('input'));
+                    saveOriginalInputs($singleRoomRows.find('input'));
+
+                    $doubleRoomRows.each(function(index) {
+                        if (index > 0) $(this).hide();
                     });
                     $singleRoomRows.each(function(index) {
                         if (index > 0) $(this).hide();
                     });
-                    
+
                     // Show room type columns with average quantities (for display only)
                     var totalDouble = 0;
                     var totalSingle = 0;
@@ -5073,28 +5106,48 @@ function toggleNightsVisibility() {
                     }
                     var avgDouble = noOfNight > 0 ? Math.round(totalDouble / noOfNight) : 0;
                     var avgSingle = noOfNight > 0 ? Math.round(totalSingle / noOfNight) : 0;
-                    
+
                     // Display average quantities in first room row
                     var $firstDoubleRow = $doubleRoomRows.first();
                     if ($firstDoubleRow.length) {
                         var $roomTypeCol = $firstDoubleRow.find('.room-type-col');
                         $roomTypeCol.show();
-                        $roomTypeCol.find('input').val(avgDouble);
+                        // save original inputs in that column (if any), then write avg
+                        var $inputs = $roomTypeCol.find('input');
+                        saveOriginalInputs($inputs);
+                        $inputs.val(avgDouble);
                     }
-                    
+
                     var $firstSingleRow = $singleRoomRows.first();
                     if ($firstSingleRow.length) {
                         var $roomTypeCol = $firstSingleRow.find('.room-type-col');
                         $roomTypeCol.show();
-                        $roomTypeCol.find('input').val(avgSingle);
+                        var $inputs = $roomTypeCol.find('input');
+                        saveOriginalInputs($inputs);
+                        $inputs.val(avgSingle);
                     }
-                    
+
                     // **KEY FIX: Display aggregated totals from ALL nights**
+                    // This function should only update display widgets, not overwrite saved original inputs.
                     updateStaticModeDisplayTotal(count);
+                } else {
+                    // switching back to DYNAMIC from static -> restore everything for night 1
+                    // show the hidden elements and restore saved input values
+                    $nightSection.find('> h3').show();
+                    $nightSection.find('.double_row, .single_row').show();
+                    $nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show();
+
+                    // restore all inputs that were saved earlier for night 1
+                    restoreOriginalInputs($nightSection.find('input'));
+
+                    // show extra rows again
+                    $nightSection.find('.row.mt-2.align-items-center').show();
+                    // hide the aggregated-only display columns if needed
+                    $nightSection.find('.room-type-col').hide();
                 }
             }
         });
-        
+
         if (showAll) {
             // DYNAMIC MODE: Show all details
             for (let n = 1; n <= noOfNight; n++) {
@@ -5104,9 +5157,12 @@ function toggleNightsVisibility() {
                 $nightSec.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show();
                 $nightSec.find('.row.mt-2.align-items-center').show();
                 $nightSec.find('.room-type-col').hide();
+
+                // Restore any saved input values for this night as well
+                restoreOriginalInputs($nightSec.find('input'));
             }
         }
-        
+
         // Vehicle summary visibility
         var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
         if (is_vehicle_required == 1) {
@@ -5121,12 +5177,19 @@ function toggleNightsVisibility() {
                 $(`#nightly-details${count} .vehicle-rows`).show();
                 $(`#nightly-details${count} .vehicle-row`).show();
                 $(`#vehicle-summary-${count}`).hide();
+
+                // restore any vehicle inputs that were changed in static mode
+                $(`#nightly-details${count} .vehicle-details-section`).each(function() {
+                    restoreOriginalInputs($(this).find('input'));
+                });
             }
         }
     });
-    
+
+    // final recompute to ensure dynamic totals are correct
     updateAllTotals();
 }
+
 
 // **FIXED: Static display shows sum of ALL night calculations**
 function updateStaticModeDisplayTotal(count) {
