@@ -2056,7 +2056,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		// After a short delay for visual effect, submit the form to process final save
 		setTimeout(function() {
 			document.getElementById('myTourplanForm').submit();
-		}, 1500); // 500ms delay for smooth transition
+		}, 500); // 500ms delay for smooth transition
 	});
 
 
@@ -3058,6 +3058,79 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 	console.log('Enhanced night-level chronological refresh system loaded successfully');
 </script>
+<script>
+(function () {
+    const finalBtn = document.getElementById('btn_save_tour_plan');
+    const draftBtn = document.getElementById('btn_savedraft_tour_plan');
+    const checkbox = document.getElementById('dynamicNeeded');
+    const form = document.getElementById('myTourplanForm');
+    const SUBMIT_POLL_INTERVAL = 100; // ms
+    const SUBMIT_TIMEOUT = 5000; // ms, adjust if your dynamic switch takes longer
+
+    // Generic check to see if UI has become dynamic.
+    // Preference order:
+    // 1) use window.isDynamic if your change handler sets it (your code does).
+    // 2) check for a selector that only exists in dynamic mode (customize if needed).
+    function isFormDynamic() {
+        try {
+            if (typeof window.isDynamic !== 'undefined') {
+                if (window.isDynamic === true) return true;
+            }
+            // Example DOM checks - change these to match your dynamic DOM changes:
+            if (document.querySelector('.dynamic-night') || document.querySelector('.night.dynamic')) return true;
+        } catch (err) {
+            // ignore
+        }
+        return false;
+    }
+
+    function forceCheckAndWaitThenSubmit(submitType) {
+        // set hidden submit type so backend knows
+        document.getElementById('submit_type').value = submitType;
+
+        // force-check the checkbox (native property)
+        checkbox.checked = true;
+
+        // dispatch native change event so your addEventListener('change', ...) runs
+        const evt = new Event('change', { bubbles: true, cancelable: true });
+        checkbox.dispatchEvent(evt);
+
+        // visual feedback, disable buttons, spinner etc (keeps your previous UX)
+        $('#btn_savedraft_tour_plan, #btn_save_tour_plan').prop('disabled', true);
+        $('#btn_save_tour_plan').html('<span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>Saving... Please wait');
+        $('.tour_plan_div').fadeTo(300, 0.5);
+        $('#csspinner').show().text('Finalizing tour plan...');
+
+        // Poll until dynamic is ready or timeout
+        const start = Date.now();
+        const poll = setInterval(function () {
+            if (isFormDynamic()) {
+                clearInterval(poll);
+                // small extra delay to ensure any final DOM work completes
+                setTimeout(() => form.submit(), 50);
+                return;
+            }
+            if (Date.now() - start > SUBMIT_TIMEOUT) {
+                clearInterval(poll);
+                // Timeout reached — submit anyway (or you can choose to re-enable buttons)
+                form.submit();
+            }
+        }, SUBMIT_POLL_INTERVAL);
+    }
+
+    finalBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        forceCheckAndWaitThenSubmit('final_save');
+    });
+
+    draftBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        forceCheckAndWaitThenSubmit('draft_save');
+    });
+
+})();
+</script>
+
 <script>
 	function calculateAllNightsDoubleTotal(count) {
 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
@@ -5007,269 +5080,228 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 
 	// **COMPLETE FIXED toggleNightsVisibility FUNCTION**
-	// **FIXED: Static mode should ONLY display, never modify underlying calculations**
-function toggleNightsVisibility() {
-    function saveOriginalInputs($inputs) {
-        $inputs.each(function() {
-            var $i = $(this);
-            // Only save once
-            if ($i.data('origVal') === undefined) $i.data('origVal', $i.val());
-        });
-    }
-    function restoreOriginalInputs($inputs) {
-        $inputs.each(function() {
-            var $i = $(this);
-            var orig = $i.data('origVal');
-            if (orig !== undefined) {
-                $i.val(orig);
-                // optional: remove saved value to free memory
-                $i.removeData('origVal');
-            }
-        });
-    }
+	function toggleNightsVisibility() {
+		var showAll = getIsDynamic();
+		console.log('Toggling nights visibility: dynamic=', showAll);
+		$('.location-card').each(function() {
+			var $locationCard = $(this);
+			var count = $locationCard.attr('data-index');
+			var taxStatus = parseInt($(`#tax_status${count}`).val()) || 0;
+			if (taxStatus == 1) {
+				toggleGSTColumns(true, count);
+			} else {
+				toggleGSTColumns(false, count);
+			}
+			$locationCard.show().css('display', 'block');
+			$(`#nightly-details${count}`).show().css('display', 'block');
+			var noOfNight = parseInt($(`#no_of_night${count}`).val()) || 0;
+			if (noOfNight === 0) {
+				$locationCard.show().css('display', 'block');
+				$(`#nightly-details${count}`).show().css('display', 'block');
+				for (let n = 1; n <= 10; n++) {
+					$(`#double${count}${n}`).val(0);
+					$(`#single${count}${n}`).val(0);
+				}
+				return;
+			}
+			$(`#nightly-details${count} .night-section`).each(function() {
+				var $nightSection = $(this);
+				var night = parseInt($nightSection.attr('data-night'));
+				if (night > noOfNight) {
+					$nightSection.hide();
+					$(`#double${count}${night}`).val(0).trigger('change');
+					$(`#single${count}${night}`).val(0).trigger('change');
+					$nightSection.find('input[id^="d_total_rate"], input[id^="s_total_rate"], input[id^="dd_total_rate"], input[id^="ss_total_rate"]').val(0);
+					$nightSection.find('.mp_row_change').val('');
+					return;
+				}
+				if (night > 1) {
+					if (showAll) {
+						$nightSection.show();
+					} else {
+						$nightSection.hide();
+						console.log(`Static mode: Night ${night} hidden (but totals preserved for calculation), count ${count}`);
+					}
+				} else {
+					$nightSection.show();
+					if (!showAll) {
+						// STATIC MODE PROCESSING
+						let totalDouble = 0;
+						let totalSingle = 0;
+						for (let n = 1; n <= noOfNight; n++) {
+							totalDouble += parseInt($(`#double${count}${n}`).val() || 0);
+							totalSingle += parseInt($(`#single${count}${n}`).val() || 0);
+						}
+						const avgDouble = noOfNight > 0 ? Math.round(totalDouble / noOfNight) : 0;
+						const avgSingle = noOfNight > 0 ? Math.round(totalSingle / noOfNight) : 0;
+						for (let n = 1; n <= noOfNight; n++) {
+							$(`#double${count}${n}`).val(avgDouble).trigger('change');
+							$(`#single${count}${n}`).val(avgSingle).trigger('change');
+						}
+						$nightSection.find('> h3').hide();
+						$nightSection.find('.double_row, .single_row').hide();
+						$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').hide();
+						var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+							return $(this).find('[id^="roomcat"]').length > 0 && $(this).find('[id^="d_adult_rate"]').length > 0;
+						});
+						$doubleRoomRows.each(function(index) {
+							if (index > 0) {
+								$(this).hide();
+								console.log(`Static mode: Hidden extra double room ${index + 1} for night 1, count ${count}`);
+							}
+						});
+						var $singleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+							return $(this).find('[id^="roomcat"]').length > 0 && $(this).find('[id^="s_adult_rate"]').length > 0;
+						});
+						$singleRoomRows.each(function(index) {
+							if (index > 0) {
+								$(this).hide();
+								console.log(`Static mode: Hidden extra single room ${index + 1} for night 1, count ${count}`);
+							}
+						});
+						var firstDoubleRoomId = `${count}11`;
+						var $firstDoubleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+							return $(this).find('input[id^="d_adult_rate"]').length > 0;
+						}).first();
+						if ($firstDoubleRow.length) {
+							var $roomTypeColDouble = $firstDoubleRow.find('.room-type-col');
+							$roomTypeColDouble.show();
+							var doubleQtyInput = $roomTypeColDouble.find('input');
+							doubleQtyInput.val(avgDouble);
+							var $extraBedRateField = $(`#d_extra_bed_rate${firstDoubleRoomId}`);
+							$extraBedRateField.prop("readonly", false);
+							$extraBedRateField.closest('.col-md-1').show();
+							var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+							if (no_of_extra > 0) {
+								var currentExtraRate = parseFloat($extraBedRateField.val()) || 0;
+								if (currentExtraRate === 0) {
+									var extraRate = 0;
+									var found = false;
+									for (let searchNight = 1; !found && searchNight <= 10; searchNight++) {
+										for (let searchRoom = 1; !found && searchRoom <= 10; searchRoom++) {
+											var searchRid = `${count}${searchNight}${searchRoom}`;
+											if ($(`#d_extra_bed_rate${searchRid}`).length > 0) {
+												var searchRate = parseFloat($(`#d_extra_bed_rate${searchRid}`).val()) || 0;
+												if (searchRate > 0) {
+													extraRate = searchRate;
+													found = true;
+													console.log('Static mode: Forced extra bed rate from broad search:', {
+														field: firstDoubleRoomId,
+														setValue: extraRate,
+														sourceNight: searchNight,
+														sourceRoom: searchRoom
+													});
+												}
+											}
+										}
+									}
+									if (extraRate > 0) {
+										$extraBedRateField.val(extraRate);
+									} else {
+										console.warn('Static mode: No extra bed rate found across all double rooms/nights for', firstDoubleRoomId);
+									}
+								} else {
+									console.log('Static mode: Extra bed rate already set:', {
+										field: firstDoubleRoomId,
+										value: currentExtraRate
+									});
+								}
+							}
+							console.log('Static mode: Extra bed rate field enabled:', {
+								field: firstDoubleRoomId,
+								currentValue: $extraBedRateField.val(),
+								readonly: $extraBedRateField.prop("readonly")
+							});
+						}
+						var $firstSingleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+							return $(this).find('input[id^="s_adult_rate"]').length > 0;
+						}).first();
+						if ($firstSingleRow.length) {
+							var $roomTypeColSingle = $firstSingleRow.find('.room-type-col');
+							$roomTypeColSingle.show();
+							var singleQtyInput = $roomTypeColSingle.find('input');
+							singleQtyInput.val(avgSingle);
+							console.log('Static mode: Single room quantity set, total will be calculated by updateStaticModeDisplayTotal');
+						}
+					}
+				}
+			});
 
-    var showAll = getIsDynamic();
-    console.log('Toggling nights visibility: dynamic=', showAll);
+			if (showAll) {
+				// DYNAMIC MODE: full details
+				for (let n = 1; n <= noOfNight; n++) {
+					var $nightSec = $(`#nightly-details${count} .night-section[data-night="${n}"]`);
+					$nightSec.find('> h3').show();
+					$nightSec.find('.double_row, .single_row').show();
+					$nightSec.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show();
+					$nightSec.find('.row.mt-2.align-items-center').show();
+					$nightSec.find('.room-type-col').hide();
+					$nightSec.find('input[id^="double"], input[id^="single"]').not(`#double${count}${n}, #single${count}${n}`).val(1);
+				}
+				syncRatesFromNight1(count);
+				// Now calculate totals with synced/zeroed rates
+				for (let n = 1; n <= noOfNight; n++) {
+					var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
+					for (let i = 1; i <= numDouble; i++) {
+						updateRoomTotals(count, n, i);
+					}
+					var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
+					var doubleCount = numDouble;
+					for (let i = 1; i <= numSingle; i++) {
+						updateRoomTotals(count, n, doubleCount + i);
+					}
+				}
+			} else {
+				// **FIXED STATIC MODE CALCULATION**
+				console.log(`Static mode: Recalculating all nights for count ${count}`);
 
-    $('.location-card').each(function() {
-        var $locationCard = $(this);
-        var count = $locationCard.attr('data-index');
-        var noOfNight = parseInt($(`#no_of_night${count}`).val()) || 0;
+				// First, update all room totals for all nights
+				for (let n = 1; n <= noOfNight; n++) {
+					var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
+					for (let roomIdx = 1; roomIdx <= numDouble; roomIdx++) {
+						updateRoomTotals(count, n, roomIdx);
+					}
+					var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
+					for (let roomIdx = 1; roomIdx <= numSingle; roomIdx++) {
+						updateRoomTotals(count, n, numDouble + roomIdx);
+					}
 
-        if (noOfNight === 0) return;
+					// **FIX: Force recalculation of grand totals for each night**
+					calculateDoubleGrandTotalStatic(count, n);
+					calculateSingleGrandTotalStatic(count, n);
+				}
 
-        $(`#nightly-details${count} .night-section`).each(function() {
-            var $nightSection = $(this);
-            var night = parseInt($nightSection.attr('data-night'));
+				// **FIX: Then update the static display with aggregated totals**
+				updateStaticModeDisplayTotal(count);
+			}
 
-            if (night > noOfNight) {
-                $nightSection.hide();
-                return;
-            }
+			// Vehicle visibility
+			var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+			if (is_vehicle_required == 1) {
+				if (!showAll) {
+					$(`#nightly-details${count} .vehicle-details-section`).hide();
+					$(`#nightly-details${count} .vehicle-rows`).hide();
+					$(`#nightly-details${count} .vehicle-row`).hide();
+					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+					$(`#vehicle-summary-${count}`).show();
+				} else {
+					$(`#nightly-details${count} .vehicle-details-section`).show();
+					$(`#nightly-details${count} .vehicle-rows`).show();
+					$(`#nightly-details${count} .vehicle-row`).show();
+					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+					$(`#vehicle-summary-${count}`).hide();
+				}
+			}
+			$locationCard.show().css('display', 'block');
+			$locationCard.parent().show().css('display', 'block');
+			$(`#nightly-details${count}`).show().css('display', 'block');
+			$locationCard.find('.card-body').show().css('display', 'block');
+			$locationCard.find('.ibox').show().css('display', 'block');
+		});
 
-            if (night > 1) {
-                // Show/hide nights 2+ based on mode
-                if (showAll) {
-                    // restore anything we may have changed earlier for this night
-                    $nightSection.show();
-                    $nightSection.find('.row.mt-2.align-items-center').show();
-                    $nightSection.find('> h3').show();
-                    $nightSection.find('.double_row, .single_row').show();
-                    $nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show();
-
-                    // restore saved individual inputs for this night (if any)
-                    restoreOriginalInputs($nightSection.find('input'));
-                } else {
-                    $nightSection.hide();
-                }
-            } else {
-                // Night 1 always visible
-                $nightSection.show();
-
-                if (!showAll) {
-                    // **STATIC MODE: Only modify display, preserve all calculations**
-                    // Hide night headers/labels
-                    $nightSection.find('> h3').hide();
-                    $nightSection.find('.double_row, .single_row').hide();
-
-                    // Hide individual night grand totals (dd_total_rate, ss_total_rate)
-                    var $ddssTotals = $nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]');
-                    // save originals before hiding/overwriting
-                    saveOriginalInputs($ddssTotals);
-                    $ddssTotals.closest('.row').hide();
-
-                    // Hide extra room rows (keep only first room of each type visible)
-                    var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-                        return $(this).find('[id^="d_adult_rate"]').length > 0;
-                    });
-                    var $singleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-                        return $(this).find('[id^="s_adult_rate"]').length > 0;
-                    });
-
-                    // Save originals for all room row inputs (so first row can be replaced visually)
-                    saveOriginalInputs($doubleRoomRows.find('input'));
-                    saveOriginalInputs($singleRoomRows.find('input'));
-
-                    $doubleRoomRows.each(function(index) {
-                        if (index > 0) $(this).hide();
-                    });
-                    $singleRoomRows.each(function(index) {
-                        if (index > 0) $(this).hide();
-                    });
-
-                    // Show room type columns with average quantities (for display only)
-                    var totalDouble = 0;
-                    var totalSingle = 0;
-                    for (let n = 1; n <= noOfNight; n++) {
-                        totalDouble += parseInt($(`#double${count}${n}`).val() || 0);
-                        totalSingle += parseInt($(`#single${count}${n}`).val() || 0);
-                    }
-                    var avgDouble = noOfNight > 0 ? Math.round(totalDouble / noOfNight) : 0;
-                    var avgSingle = noOfNight > 0 ? Math.round(totalSingle / noOfNight) : 0;
-
-                    // Display average quantities in first room row
-                    var $firstDoubleRow = $doubleRoomRows.first();
-                    if ($firstDoubleRow.length) {
-                        var $roomTypeCol = $firstDoubleRow.find('.room-type-col');
-                        $roomTypeCol.show();
-                        // save original inputs in that column (if any), then write avg
-                        var $inputs = $roomTypeCol.find('input');
-                        saveOriginalInputs($inputs);
-                        $inputs.val(avgDouble);
-                    }
-
-                    var $firstSingleRow = $singleRoomRows.first();
-                    if ($firstSingleRow.length) {
-                        var $roomTypeCol = $firstSingleRow.find('.room-type-col');
-                        $roomTypeCol.show();
-                        var $inputs = $roomTypeCol.find('input');
-                        saveOriginalInputs($inputs);
-                        $inputs.val(avgSingle);
-                    }
-
-                    // **KEY FIX: Display aggregated totals from ALL nights**
-                    // This function should only update display widgets, not overwrite saved original inputs.
-                    updateStaticModeDisplayTotal(count);
-                } else {
-                    // switching back to DYNAMIC from static -> restore everything for night 1
-                    // show the hidden elements and restore saved input values
-                    $nightSection.find('> h3').show();
-                    $nightSection.find('.double_row, .single_row').show();
-                    $nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show();
-
-                    // restore all inputs that were saved earlier for night 1
-                    restoreOriginalInputs($nightSection.find('input'));
-
-                    // show extra rows again
-                    $nightSection.find('.row.mt-2.align-items-center').show();
-                    // hide the aggregated-only display columns if needed
-                    $nightSection.find('.room-type-col').hide();
-                }
-            }
-        });
-
-        if (showAll) {
-            // DYNAMIC MODE: Show all details
-            for (let n = 1; n <= noOfNight; n++) {
-                var $nightSec = $(`#nightly-details${count} .night-section[data-night="${n}"]`);
-                $nightSec.find('> h3').show();
-                $nightSec.find('.double_row, .single_row').show();
-                $nightSec.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show();
-                $nightSec.find('.row.mt-2.align-items-center').show();
-                $nightSec.find('.room-type-col').hide();
-
-                // Restore any saved input values for this night as well
-                restoreOriginalInputs($nightSec.find('input'));
-            }
-        }
-
-        // Vehicle summary visibility
-        var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-        if (is_vehicle_required == 1) {
-            if (!showAll) {
-                $(`#nightly-details${count} .vehicle-details-section`).hide();
-                $(`#nightly-details${count} .vehicle-rows`).hide();
-                $(`#nightly-details${count} .vehicle-row`).hide();
-                $(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
-                $(`#vehicle-summary-${count}`).show();
-            } else {
-                $(`#nightly-details${count} .vehicle-details-section`).show();
-                $(`#nightly-details${count} .vehicle-rows`).show();
-                $(`#nightly-details${count} .vehicle-row`).show();
-                $(`#vehicle-summary-${count}`).hide();
-
-                // restore any vehicle inputs that were changed in static mode
-                $(`#nightly-details${count} .vehicle-details-section`).each(function() {
-                    restoreOriginalInputs($(this).find('input'));
-                });
-            }
-        }
-    });
-
-    // final recompute to ensure dynamic totals are correct
-    updateAllTotals();
-}
-
-
-// **FIXED: Static display shows sum of ALL night calculations**
-function updateStaticModeDisplayTotal(count) {
-    var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-    
-    // Calculate REAL totals from all nights (unchanged calculations)
-    var allNightsDoubleTotal = 0;
-    var allNightsSingleTotal = 0;
-    
-    for (let night = 1; night <= no_of_night; night++) {
-        // These values are already calculated and stored - just sum them
-        var dd_total = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
-        var ss_total = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
-        
-        allNightsDoubleTotal += dd_total;
-        allNightsSingleTotal += ss_total;
-    }
-    
-    console.log('Static display totals (SUM of all nights):', {
-        count: count,
-        doubleTotal: allNightsDoubleTotal,
-        singleTotal: allNightsSingleTotal
-    });
-    
-    // Display these totals in the first room's total field (visual only)
-    var firstDoubleRoomId = `${count}11`;
-    var $doubleTotalField = $(`#d_total_rate${firstDoubleRoomId}`);
-    if ($doubleTotalField.length) {
-        $doubleTotalField.val(Math.round(allNightsDoubleTotal));
-    }
-    
-    var double_qty = parseInt($(`#double${count}1`).val()) || 0;
-    var firstSingleRoomIndex = double_qty + 1;
-    var firstSingleRoomId = `${count}1${firstSingleRoomIndex}`;
-    var $singleTotalField = $(`#s_total_rate${firstSingleRoomId}`);
-    if ($singleTotalField.length) {
-        $singleTotalField.val(Math.round(allNightsSingleTotal));
-    }
-}
-
-// **NEW: Unified total calculation that works in both modes**
-function updateAllTotals() {
-    var accom_grand_total = 0;
-    var veh_grand_total = 0;
-    
-    $('.location-card').each(function() {
-        var count = $(this).attr('data-index');
-        var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-        
-        var locationAccomTotal = 0;
-        var locationVehTotal = 0;
-        
-        // **ALWAYS use dynamic calculation (sum of all nights)**
-        for (let night = 1; night <= no_of_night; night++) {
-            var dd_total = parseFloat($(`#dd_total_rate${count}${night}`).val()) || 0;
-            var ss_total = parseFloat($(`#ss_total_rate${count}${night}`).val()) || 0;
-            var veh_total = parseFloat($(`#veh_grand_total${count}${night}`).val()) || 0;
-            
-            locationAccomTotal += dd_total + ss_total;
-            locationVehTotal += veh_total;
-        }
-        
-        accom_grand_total += locationAccomTotal;
-        veh_grand_total += locationVehTotal;
-        
-        // Update location breadcrumb
-        $(`#loc_total${count}`).text(Math.round(locationAccomTotal) + " + " + Math.round(locationVehTotal));
-    });
-    
-    // Update grand totals
-    $('#a_total').text(Math.round(accom_grand_total));
-    $('#v_total').text(Math.round(veh_grand_total));
-    $('#g_total').text(Math.round(accom_grand_total + veh_grand_total));
-    
-    console.log('Total calculation complete:', {
-        accommodation: accom_grand_total,
-        vehicle: veh_grand_total,
-        grand: accom_grand_total + veh_grand_total
-    });
-}
+		updateAllTotals();
+		console.log('Nights visibility toggle complete (using dynamic calculations for totals)');
+	}
 	// NEW: Sync rates from Night 1 to other nights in dynamic mode (if configs match & rates missing)
 	// UPDATED: Sync rates from Night 1 to other nights in dynamic mode (if configs match & extra missing)
 	// FIXED: Sync rates from Night 1 to other nights in dynamic mode (only if configs match & ANY rate missing)
@@ -5362,17 +5394,20 @@ function updateAllTotals() {
 	}
 
 	function checkTotalNights() {
-    var totalNights = calculateTotalNights();
-    var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
+		var totalNights = calculateTotalNights();
+		var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;
 
-    if (totalNights = no_of_night) {
-        $('.dyna').show();
-        $('#dynamicNeeded').show().prop('checked', true);
-    } else {
-        $('.dyna').hide();
-        $('#dynamicNeeded').hide().prop('checked', false);
-    }
+		// alert(no_of_night);
+		// if (totalNights == no_of_night) {
+		if (totalNights) {
+			$('.dyna').show();
+			$('#dynamicNeeded').show();
+		} else {
+			$('.dyna').hide();
+			$('#dynamicNeeded').hide();
+		}
 	}
+
 	// Initially hide the button
 	$('.dyna').hide();
 	$('#dynamicNeeded').hide();
@@ -7849,7 +7884,6 @@ function updateAllTotals() {
 	var isDraftLoading = false; // Global flag to skip handlers during draft load
 
 	$(document).on('click', '.draft_view', function() {
-		checkTotalNights()
 
 		var $this = $(this);
 		if ($this.prop('disabled')) return;
