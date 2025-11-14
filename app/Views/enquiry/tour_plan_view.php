@@ -3244,6 +3244,18 @@ $is_edit = $edit_id ? $edit_id : 0;
 		calculateVehicleExtraKmCharges();
 	}, 300);
 
+	$(document).on('focus', '.no_of_night', function() {
+		var id = $(this).attr('data-id') || $(this).attr('count-id');
+		
+		// **NEW: Check if room category is selected before allowing focus**
+		var roomCatCommon = $(`#roomcat_common${id}`).val();
+		if (!roomCatCommon || roomCatCommon === "" || roomCatCommon === "0") {
+			alert("Please select Room Category first before entering number of nights");
+			$(this).blur(); // Remove focus immediately
+			return false;
+		}
+	});
+	
 	$(document).on('input', '.no_of_night', function() {
 		checkTotalNights();
 		var id = $(this).attr('data-id') || $(this).attr('count-id');
