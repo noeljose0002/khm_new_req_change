@@ -1290,7 +1290,7 @@ $cs_trans_total = 0;
 																				<div class="p-3">
 
 
-
+<!-- //nj// -->
 																					<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="<?php echo $iti_id; ?>">
 																						<div class="card">
 																							<div class="card-header">
@@ -1310,7 +1310,7 @@ $cs_trans_total = 0;
 																								<input type="hidden" id="child_eighteen_double<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][child_eighteen_double]" value="<?php echo $ttval['child_eighteen_double']; ?>">
 																								<input type="hidden" id="child_wb_eighteen_double<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][child_wb_eighteen_double]" value="<?php echo $ttval['child_wb_eighteen_double']; ?>">
 																								<input type="hidden" id="extra_eighteen_double<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][extra_eighteen_double]" value="<?php echo $ttval['extra_eighteen_double']; ?>">
-																								<input type="hidden" id="tac_eighadult_eighteen_singleteen_total<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][adult_eighteen_single]" value="<?php echo $ttval['adult_eighteen_single']; ?>">
+																								<input type="hidden" id="adult_eighteen_single<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][adult_eighteen_single]" value="<?php echo $ttval['adult_eighteen_single']; ?>">
 																							</div>
 																							<div class="card-body">
 																								<div class="ibox teams mb-30 bg-boxshadow">
@@ -1372,9 +1372,7 @@ $cs_trans_total = 0;
 
 																													</div>
 																												</div>
-																											<?php } else {
-
-																											?>
+																											<?php } else { ?>
 
 																												<div class="row mt-2">
 
@@ -1488,8 +1486,80 @@ $cs_trans_total = 0;
 																												</div>
 
 																												<?php
-																												if ($object_det[0]['no_of_double_room'] > 0) { ?>
+																												$day_expansions = array();
+																												if (isset($tour_expansion_details[$ttval['tour_details_id']])) {
+																													foreach ($tour_expansion_details[$ttval['tour_details_id']] as $exp) {
+																														if ($exp['tour_expansion_date'] == $startDate1->format('Y-m-d') && $exp['room_category_id'] == $room_cat_exist) {
+																															$day_expansions[] = $exp;
+																														}
+																													}
+																												}
 
+																												$expansion_hotel_total = 0;
+																												$double_expansions = array();
+																												$single_expansions = array();
+
+																												if (!empty($day_expansions)) {
+																													foreach ($day_expansions as $exp) {
+																														$expansion_hotel_total += (int)$exp['double_total_rate'] + (int)$exp['single_total_rate'];
+																														if ((int)$exp['double_total_rate'] > 0) {
+																															$double_expansions[] = $exp;
+																														}
+																														if ((int)$exp['single_total_rate'] > 0) {
+																															$single_expansions[] = $exp;
+																														}
+																													}
+																												}
+
+																												$tac = $expansion_hotel_total + $hot_fac_tariff + $daily_addon + $spcl_tariff;
+
+																												// For dynamic rows, assume number of expansions matches or pad/repeat
+																												$double_rows = count($double_expansions) > 0 ? $double_expansions : array_fill(0, $double_room, $day_expansions[0] ?? array());
+																												$single_rows = count($single_expansions) > 0 ? $single_expansions : array_fill(0, $single_room, $day_expansions[0] ?? array());
+
+																												// Hide the static hidden fields if dynamic
+																												$use_dynamic = !empty($day_expansions);
+																												?>
+
+																												<?php if ($object_det[0]['no_of_double_room'] > 0 && $use_dynamic) { 
+																													foreach ($double_rows as $d_index => $d_exp) { 
+																														$d_room_no = 1; // per row
+																														$d_room_tariff = (int)($d_exp['room_rate_double'] ?? $d_room_tariff);
+																														$d_child_tariff = (int)($d_exp['child_with_bed_double'] ?? $d_child_tariff);
+																														$d_child_wb_tariff = (int)($d_exp['child_without_bed_double'] ?? $d_child_wb_tariff);
+																														$d_extra_tariff = (int)($d_exp['extra_bed_double'] ?? $d_extra_tariff);
+																												?>
+																													<div class="row mt-2 double_row">
+																														<div class="col-xl-2 col-sm-12 col-md-2">
+
+																															<input type="text" value="Double" class="form-control input-sm" maxlength="2" readonly>
+																														</div>
+																														<div class="col-xl-2 col-sm-12 col-md-2">
+
+																															<input type="text" id="double_<?php echo $iti_id . '_' . $d_index; ?>" data-id="<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][double][<?php echo $d_index; ?>]" value="<?php echo $d_room_no; ?>" class="form-control input-sm" maxlength="2" required <?php echo $read_only; ?>>
+																														</div>
+
+																														<div class="col-xl-2 col-sm-12 col-md-2">
+
+																															<input type="text" id="d_adult_rate_<?php echo $iti_id . '_' . $d_index; ?>" data-id="<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][d_adult_rate][<?php echo $d_index; ?>]" class="form-control input-sm" maxlength="6" value="<?php echo $d_room_tariff; ?>" required <?php echo $read_only; ?>>
+																														</div>
+																														<div class="col-xl-2 col-sm-12 col-md-2">
+
+																															<input type="text" id="d_child_rate_<?php echo $iti_id . '_' . $d_index; ?>" data-id="<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][d_child_rate][<?php echo $d_index; ?>]" class="form-control input-sm" maxlength="6" value="<?php echo $d_child_tariff; ?>" required <?php echo $read_only; ?>>
+																														</div>
+																														<div class="col-xl-2 col-sm-12 col-md-2">
+
+																															<input type="text" id="d_child_wb_rate_<?php echo $iti_id . '_' . $d_index; ?>" data-id="<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][d_child_wb_rate][<?php echo $d_index; ?>]" class="form-control input-sm" maxlength="6" value="<?php echo $d_child_wb_tariff; ?>" required <?php echo $read_only; ?>>
+																														</div>
+																														<div class="col-xl-2 col-sm-12 col-md-2">
+
+																															<input type="text" id="d_extra_bed_rate_<?php echo $iti_id . '_' . $d_index; ?>" data-id="<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][d_extra_bed_rate][<?php echo $d_index; ?>]" class="form-control input-sm" maxlength="6" value="<?php echo $d_extra_tariff; ?>" required <?php echo $read_only; ?>>
+																														</div>
+
+
+																													</div>
+																												<?php } ?>
+																												<?php } elseif ($object_det[0]['no_of_double_room'] > 0) { ?>
 																													<div class="row mt-2 double_row">
 																														<div class="col-xl-2 col-sm-12 col-md-2">
 
@@ -1519,17 +1589,54 @@ $cs_trans_total = 0;
 
 
 																													</div>
-																												<?php
-																												} else { ?>
+																												<?php } else { ?>
 																													<input type="hidden" id="double<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][double]" value="0">
 																													<input type="hidden" id="d_adult_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][d_adult_rate]" value="0">
 																													<input type="hidden" id="d_child_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][d_child_rate]" value="0">
 																													<input type="hidden" id="d_child_wb_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][d_child_wb_rate]" value="0">
 																													<input type="hidden" id="d_extra_bed_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][d_extra_bed_rate]" value="0">
 
-																												<?php
-																												}
-																												if ($object_det[0]['no_of_single_room'] > 0) { ?>
+																												<?php } 
+																												if ($object_det[0]['no_of_single_room'] > 0 && $use_dynamic) { 
+																													foreach ($single_rows as $s_index => $s_exp) { 
+																														$s_room_no = 1;
+																														$s_room_tariff = (int)($s_exp['room_rate_single'] ?? $s_room_tariff);
+																														$s_child_tariff = (int)($s_exp['child_with_bed_single'] ?? 0);
+																														$s_child_wb_tariff = (int)($s_exp['child_without_bed_single'] ?? 0);
+																														$s_extra_tariff = (int)($s_exp['extra_bed_single'] ?? 0);
+																												?>
+																													<div class="row mt-2 single_row">
+																														<div class="col-xl-2 col-sm-12 col-md-2">
+
+																															<input type="text" value="Single" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+																														</div>
+																														<div class="col-xl-2 col-sm-12 col-md-2">
+
+																															<input type="text" id="single_<?php echo $iti_id . '_' . $s_index; ?>" data-id="<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][single][<?php echo $s_index; ?>]" value="<?php echo $s_room_no; ?>" class="form-control input-sm" maxlength="2" required <?php echo $read_only; ?>>
+																														</div>
+
+																														<div class="col-xl-2 col-sm-12 col-md-2">
+
+																															<input type="text" id="s_adult_rate_<?php echo $iti_id . '_' . $s_index; ?>" data-id="<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_adult_rate][<?php echo $s_index; ?>]" class="form-control input-sm" maxlength="6" value="<?php echo $s_room_tariff; ?>" required <?php echo $read_only; ?>>
+																														</div>
+																														<div class="col-xl-2 col-sm-12 col-md-2">
+
+																															<input type="text" id="s_child_rate_<?php echo $iti_id . '_' . $s_index; ?>" data-id="<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_child_rate][<?php echo $s_index; ?>]" class="form-control input-sm" maxlength="6" value="<?php echo $s_child_tariff; ?>" readonly>
+																														</div>
+																														<div class="col-xl-2 col-sm-12 col-md-2">
+
+																															<input type="text" id="s_child_wb_rate_<?php echo $iti_id . '_' . $s_index; ?>" data-id="<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_child_wb_rate][<?php echo $s_index; ?>]" class="form-control input-sm" maxlength="6" value="<?php echo $s_child_wb_tariff; ?>" readonly>
+																														</div>
+																														<div class="col-xl-2 col-sm-12 col-md-2">
+
+																															<input type="text" id="s_extra_bed_rate_<?php echo $iti_id . '_' . $s_index; ?>" data-id="<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_extra_bed_rate][<?php echo $s_index; ?>]" class="form-control input-sm" maxlength="6" value="<?php echo $s_extra_tariff; ?>" readonly>
+																														</div>
+
+
+																													</div>
+
+																												<?php } ?>
+																												<?php } elseif ($object_det[0]['no_of_single_room'] > 0) { ?>
 																													<div class="row mt-2 single_row">
 																														<div class="col-xl-2 col-sm-12 col-md-2">
 
@@ -1560,16 +1667,14 @@ $cs_trans_total = 0;
 
 																													</div>
 
-																												<?php
-																												} else { ?>
+																												<?php } else { ?>
 																													<input type="hidden" id="single<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][single]" value="0">
 																													<input type="hidden" id="s_adult_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_adult_rate]" value="0">
 																													<input type="hidden" id="s_child_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_child_rate]" value="0">
 																													<input type="hidden" id="s_child_wb_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_child_wb_rate]" value="0">
 																													<input type="hidden" id="s_extra_bed_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_extra_bed_rate]" value="0">
 
-																												<?php
-																												} ?>
+																												<?php } ?>
 																										</div>
 																										<?php
 																												$cur_fac = $Enquiry_model->getHotelFacilitybyhotelid($hotel_exist);
@@ -1630,8 +1735,16 @@ $cs_trans_total = 0;
 																										</div>
 																									<?php } ?>
 
-																									<?php if ($object_det[0]['is_vehicle_required'] == 1) {
+																									<?php 
+																									if ($use_dynamic && !empty($day_expansions)) {
+																										$first_exp = $day_expansions[0];
+																										$vehicle_details = json_decode($first_exp['vehicle_details_json']);
+																									}
+																									?>
 
+																									<?php if ($object_det[0]['is_vehicle_required'] == 1) { ?>
+
+																										<?php
 																										$newdateObj = DateTime::createFromFormat('d-m-Y', $object_det[0]['end_date']);
 																										$newdateObj->modify('-1 day');
 																										$newendDate = $newdateObj->format('d-m-Y');
@@ -1643,7 +1756,6 @@ $cs_trans_total = 0;
 																											if ($vindex == 0) {
 																												if ($ttkey == $tpd_count) {
 																													if ($cnt1 == 0) {
-
 																														if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
 																															$header_temp = " (Previous Location to Current Location - " . $vmodel->pre_to_cur . "KM, Location to Departure - " . $vmodel->cur_to_dep . "KM, Departure to Hub Location - " . $vmodel->dep_to_arr . "KM)";
 																															echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
@@ -1679,8 +1791,7 @@ $cs_trans_total = 0;
 																												}
 																											}
 																										}
-																									?>
-
+																										?>
 
 																										<input type="hidden" id="veh_header<?php echo $iti_id; ?>" name="addloc[<?php echo $iti_id; ?>][veh_header]" value="">
 																										<div class="row mt-2 single_row">
@@ -1700,9 +1811,6 @@ $cs_trans_total = 0;
 																											<div class="col-xl-2 col-sm-12 col-md-2">
 																												<div class="teams-rank"><label class="small-label">Extra KM</label></div>
 																											</div>
-																											<!--<div class="col-xl-1 col-sm-12 col-md-2">
-																															<div class="teams-rank"><label class="small-label">Extra Rate</label></div>
-																														</div>-->
 																											<div class="col-xl-2 col-sm-12 col-md-2">
 																												<div class="teams-rank"><label class="small-label">Total</label></div>
 																											</div>
@@ -1718,7 +1826,6 @@ $cs_trans_total = 0;
 																														$veh_total = $vmodel->day_rent + ($vmodel->extra_kilometer * $vmodel->extra_km_rate);
 																														$grand_veh_total = $grand_veh_total + ($veh_total * $vmodel->vehicle_count);
 																													} else if ($startDate1->format('d-m-Y') == $newendDate1) {
-																														//$travel_distance_temp = $vmodel->travel_distance; 
 																														$travel_distance_temp = (float)($vmodel->hub_to_arr ?? 0) + (float)($vmodel->arr_to_loc ?? 0);
 																														$max_km_day_temp = $vmodel->max_km_day;
 																														if ($travel_distance_temp > $max_km_day_temp) {
@@ -1736,13 +1843,11 @@ $cs_trans_total = 0;
 																														} else {
 																															$extra_kilometer_temp = 0;
 																														}
-																														//$extra_kilometer_temp = $vmodel->extra_kilometer;
 																														$veh_total = $vmodel->day_rent + ($vmodel->extra_kilometer * $vmodel->extra_km_rate);
 																														$grand_veh_total = $grand_veh_total + ($veh_total * $vmodel->vehicle_count);
 																													}
 																												} else {
 																													if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
-																														//$travel_distance_temp = $vmodel->cur_to_dep + $vmodel->dep_to_arr; 
 																														$travel_distance_temp = (float)($vmodel->cur_to_dep ?? 0) + (float)($vmodel->dep_to_arr ?? 0);
 																														$max_km_day_temp = $vmodel->max_km_day;
 																														if ($travel_distance_temp > $max_km_day_temp) {
@@ -1750,7 +1855,6 @@ $cs_trans_total = 0;
 																														} else {
 																															$extra_kilometer_temp = 0;
 																														}
-																														//$extra_kilometer_temp = $vmodel->extra_kilometer;
 																														$veh_total = $vmodel->day_rent + ($vmodel->extra_kilometer * $vmodel->extra_km_rate);
 																														$grand_veh_total = $grand_veh_total + ($veh_total * $vmodel->vehicle_count);
 																													} else {
@@ -1775,12 +1879,7 @@ $cs_trans_total = 0;
 																											}
 
 																											$travel_distance_copy = $travel_distance_temp;
-																											//$veh_total = $vmodel->day_rent + ($vmodel->extra_kilometer*$vmodel->extra_km_rate);	
-																											//$grand_veh_total = $grand_veh_total + ($veh_total*$vmodel->vehicle_count);
 																											$si_nos = $vindex + 1;
-																											//$vid = $iti_id.$vmodel['vehicle_type_id'];
-
-
 
 
 																											for ($j = 0; $j < $vmodel->vehicle_count; $j++) {
@@ -1867,11 +1966,8 @@ $cs_trans_total = 0;
 
 																														<input type="text" id="extra_kilometer<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_kilometer][<?php echo $vid; ?>]" value="<?php echo $extra_kilometer_temp; ?>" class="form-control input-sm extra_kilometer<?php echo $vindex; ?>" maxlength="5" readonly>
 																													</div>
-																													<!--<div class="col-xl-1 col-sm-12 col-md-2">-->
-
 																													<input type="hidden" id="extra_km_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate][<?php echo $vid; ?>]" value="0" class="form-control input-sm extra_km_rate<?php echo $vindex; ?>" maxlength="5" readonly>
 																													<input type="hidden" id="extra_km_rate_hidden<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate_hidden][<?php echo $vid; ?>]" value="<?php echo $vmodel->extra_km_rate; ?>">
-																													<!--</div>-->
 																													<div class="col-xl-2 col-sm-12 col-md-2">
 
 																														<input type="text" id="veh_total<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_total][<?php echo $vid; ?>]" value="<?php echo $veh_total; ?>" class="form-control input-sm veh_total<?php echo $vindex; ?>" maxlength="5" readonly>
@@ -1885,13 +1981,11 @@ $cs_trans_total = 0;
 																										<input type="hidden" id="veh_type_id<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_type_id][0]" value="">
 																										<input type="hidden" id="v_tour_date<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][v_tour_date][0]" value="">
 																										<input type="hidden" id="veh_count<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_count][0]" value="0">
-																										<input type="hidden" id="day_rent$<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][day_rent][0]" value="0">
+																										<input type="hidden" id="day_rent<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][day_rent][0]" value="0">
 																										<input type="hidden" id="max_km_day<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][max_km_day][0]" value="0">
 																										<input type="hidden" id="extra_km_rate<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][extra_km_rate][0]" value="0">
 																										<input type="hidden" id="veh_total<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_total][0]" value="0">
-																									<?php
-																									}
-																									?>
+																									<?php } ?>
 
 
 																									<div class="row mt-2 single_row">
@@ -4272,19 +4366,25 @@ if (!empty($itinerary_details_save)) {
 		var id = $(this).attr('data-id');
 		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
 		var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
-		$.ajax({
-			url: "<?= site_url('Enquiry/getTourRoomCategory'); ?>",
-			method: "POST",
-			data: {
-				hotel_id: hotel_id,
-				no_of_double_room: no_of_double_room,
-				no_of_single_room: no_of_single_room
-			},
-			success: function(data) {
-				$('#roomcat' + id).html(data);
-			}
-		});
-
+		 $.ajax({
+        url: "<?= site_url('Enquiry/getTourRoomCategory'); ?>",
+        method: "POST",
+        dataType: "json",  // Add this to automatically parse JSON
+        data: {
+            hotel_id: hotel_id,
+            no_of_double_room: no_of_double_room,
+            no_of_single_room: no_of_single_room
+        },
+        success: function(data) {
+            // Extract the HTML output from the JSON response
+            $('#roomcat' + id).html(data.output);
+            
+            // Optional: Use hotel_status if needed
+            if(data.hotel_status == 0) {
+                console.log('No rooms available');
+            }
+        }
+    });
 		$.ajax({
 			url: "<?= site_url('Enquiry/getHotelfacilities'); ?>",
 			method: "POST",
@@ -4380,7 +4480,7 @@ if (!empty($itinerary_details_save)) {
 		});
 	});
 </script>
-<script>
+<!-- <script>
 	$(document).on('change', '.room_cat_change', function() {
 		var iti_edit_id = <?php echo isset($iti_edit_id) && $iti_edit_id !== '' ? $iti_edit_id : 0; ?>;
 		var id = $(this).attr('data-id');
@@ -4635,6 +4735,331 @@ if (!empty($itinerary_details_save)) {
 			}
 		}
 	});
+</script> -->
+<script>
+	$(document).on('change', '.room_cat_change', function() {
+	var iti_edit_id = <?php echo isset($iti_edit_id) && $iti_edit_id !== '' ? $iti_edit_id : 0; ?>;
+	var id = $(this).attr('data-id');
+	var sid = $(this).attr('data-sid');
+	
+	if (sid == "2") {
+		// Dynamic added rows logic (existing code remains same)
+		var dataIndex = $(this).closest('[data-index]').data('index');
+		var first_hotel = $('#hotelid' + dataIndex).val();
+		var first_rc = $('#roomcat' + dataIndex).val();
+
+		var $row = $(this).closest('.dynamic-added');
+		var currentId = $row.attr('id');
+		var selectedHotel = $row.find('.hotel').val();
+		var selectedRoomCat = $row.find('.room_cat').val();
+		var isDuplicate = false;
+
+		$('[data-index="' + dataIndex + '"] .dynamic-added').each(function() {
+			var rowId = $(this).attr('id');
+			if (rowId !== currentId) {
+				var hotel = $(this).find('.hotel').val();
+				var roomcat = $(this).find('.room_cat').val();
+				if (hotel === selectedHotel && roomcat === selectedRoomCat) {
+					isDuplicate = true;
+					return false;
+				}
+			}
+		});
+		
+		if (selectedHotel === first_hotel && selectedRoomCat === first_rc) {
+			isDuplicate = true;
+		}
+
+		if (isDuplicate) {
+			alert("This hotel and room category combination already exists.");
+			$row.find('.room_cat').val('');
+		} else {
+			var room_cat_id = $(this).val();
+			if (room_cat_id == 0) {
+				$row.find('.own_arrange').val(1);
+				$row.find('.d_adult_rate').val(0).prop('readonly', true);
+				$row.find('.d_child_rate').val(0).prop('readonly', true);
+				$row.find('.d_child_wb_rate').val(0).prop('readonly', true);
+				$row.find('.d_extra_bed_rate').val(0).prop('readonly', true);
+
+				$row.find('.s_adult_rate').val(0).prop('readonly', true);
+				$row.find('.s_child_rate').val(0).prop('readonly', true);
+				$row.find('.s_child_wb_rate').val(0).prop('readonly', true);
+				$row.find('.s_extra_bed_rate').val(0).prop('readonly', true);
+
+				var this_total = 0;
+				$row.find('.acc_total').val(this_total);
+				setTimeout(() => calculateGrandTotal(dataIndex), 300);
+			} else {
+				$row.find('.own_arrange').val(0);
+				if (iti_edit_id == 0) {
+					$row.find('.d_adult_rate').prop('readonly', false);
+					$row.find('.d_child_rate').prop('readonly', false);
+					$row.find('.d_child_wb_rate').prop('readonly', false);
+					$row.find('.d_extra_bed_rate').prop('readonly', false);
+					$row.find('.s_adult_rate').prop('readonly', false);
+				}
+
+				var mealplan = $('#meal_plan_id' + id).val();
+				var hotel_id = $row.find('.hotel').val();
+				var doubleInput = $row.find('.double');
+				var double = doubleInput.length ? parseInt(doubleInput.val() || 0) : 0;
+				var singleInput = $row.find('.single');
+				var single = singleInput.length ? parseInt(singleInput.val() || 0) : 0;
+				var tour_date = $('#tour_date' + id).val();
+				var tour_location_id = $('#tour_location_id' + id).val();
+				var tax_status = $('#tax_status' + id).val();
+				var no_of_ch = parseInt($('#no_of_ch' + id).val() || 0);
+				var no_of_cw = parseInt($('#no_of_cw' + id).val() || 0);
+				var no_of_extra = parseInt($('#no_of_extra' + id).val() || 0);
+
+				$.ajax({
+					url: "<?= site_url('Enquiry/getTourTariffDetailsbydate'); ?>",
+					method: "POST",
+					data: {
+						hotel_id: hotel_id,
+						room_cat_id: room_cat_id,
+						mealplan: mealplan,
+						double: double,
+						single: single,
+						id: id,
+						tour_location_id: tour_location_id,
+						tour_date: tour_date
+					},
+					dataType: 'json',
+					success: function(data) {
+						var ndouble = parseInt(double);
+						var nsingle = parseInt(single);
+						var room_r = parseInt(data.d_room_tariff || 0);
+						var child_r = parseInt(data.d_child_tariff || 0);
+						var child_wb_r = parseInt(data.d_child_wb_tariff || 0);
+						var extra_r = parseInt(data.d_extra_tariff || 0);
+
+						$row.find('.d_adult_rate').val(data.d_room_tariff);
+						$row.find('.d_child_rate').val(data.d_child_tariff);
+						$row.find('.d_child_wb_rate').val(data.d_child_wb_tariff);
+						$row.find('.d_extra_bed_rate').val(data.d_extra_tariff);
+						
+						var total_double;
+						if (tax_status == 1) {
+							var tot_d = room_r + (no_of_ch * child_r) + (no_of_cw * child_wb_r) + (no_of_extra * extra_r);
+							if (tot_d >= 7500) {
+								var gst = 18;
+								var gstval = (gst / 100) * tot_d;
+								total_double = (tot_d + gstval) * ndouble;
+							} else {
+								total_double = (ndouble * room_r) + (no_of_ch * child_r) + (no_of_cw * child_wb_r) + (no_of_extra * extra_r);
+							}
+						} else {
+							total_double = (ndouble * room_r) + (no_of_ch * child_r) + (no_of_cw * child_wb_r) + (no_of_extra * extra_r);
+						}
+
+						$row.find('.s_adult_rate').val(data.s_room_tariff);
+						$row.find('.s_child_rate').val(data.s_child_tariff);
+						$row.find('.s_child_wb_rate').val(data.s_child_wb_tariff);
+						$row.find('.s_extra_bed_rate').val(data.s_extra_tariff);
+						
+						var total_single;
+						if (tax_status == 1) {
+							var tot_s = parseInt(data.s_room_tariff || 0);
+							if (tot_s >= 7500) {
+								var gst = 18;
+								var gstval = (gst / 100) * tot_s;
+								total_single = (tot_s + gstval) * nsingle;
+							} else {
+								total_single = parseInt(data.s_room_tariff || 0) * parseInt(nsingle);
+							}
+						} else {
+							total_single = parseInt(data.s_room_tariff || 0) * parseInt(nsingle);
+						}
+
+						var this_total = total_double + total_single;
+						$row.find('.acc_total').val(this_total);
+						setTimeout(() => calculateGrandTotal(dataIndex), 300);
+					}
+				});
+			}
+		}
+	} else {
+		// Main form logic with intelligent child/extra bed distribution
+		var dataIndex = $(this).closest('[data-index]').data('index');
+		var room_cat_id = $(this).val();
+		var $locationCard = $('.location-card[data-index="' + dataIndex + '"]');
+		
+		if (room_cat_id == 0) {
+			$('#own_arrange' + dataIndex).val(1);
+			$locationCard.find('input[id^="d_adult_rate_' + dataIndex + '_"], #d_adult_rate' + dataIndex).val(0).prop('readonly', true);
+			$locationCard.find('input[id^="d_child_rate_' + dataIndex + '_"], #d_child_rate' + dataIndex).val(0).prop('readonly', true);
+			$locationCard.find('input[id^="d_child_wb_rate_' + dataIndex + '_"], #d_child_wb_rate' + dataIndex).val(0).prop('readonly', true);
+			$locationCard.find('input[id^="d_extra_bed_rate_' + dataIndex + '_"], #d_extra_bed_rate' + dataIndex).val(0).prop('readonly', true);
+
+			$locationCard.find('input[id^="s_adult_rate_' + dataIndex + '_"], #s_adult_rate' + dataIndex).val(0).prop('readonly', true);
+			$locationCard.find('input[id^="s_child_rate_' + dataIndex + '_"], #s_child_rate' + dataIndex).val(0).prop('readonly', true);
+			$locationCard.find('input[id^="s_child_wb_rate_' + dataIndex + '_"], #s_child_wb_rate' + dataIndex).val(0).prop('readonly', true);
+			$locationCard.find('input[id^="s_extra_bed_rate_' + dataIndex + '_"], #s_extra_bed_rate' + dataIndex).val(0).prop('readonly', true);
+
+			$('#acc_total' + dataIndex).val(0);
+			setTimeout(() => calculateGrandTotal(dataIndex), 300);
+		} else {
+			$('#own_arrange' + dataIndex).val(0);
+			if (iti_edit_id == 0) {
+				$locationCard.find('input[id^="d_adult_rate_' + dataIndex + '_"], #d_adult_rate' + dataIndex).prop('readonly', false);
+				$locationCard.find('input[id^="d_child_rate_' + dataIndex + '_"], #d_child_rate' + dataIndex).prop('readonly', false);
+				$locationCard.find('input[id^="d_child_wb_rate_' + dataIndex + '_"], #d_child_wb_rate' + dataIndex).prop('readonly', false);
+				$locationCard.find('input[id^="d_extra_bed_rate_' + dataIndex + '_"], #d_extra_bed_rate' + dataIndex).prop('readonly', false);
+				$locationCard.find('input[id^="s_adult_rate_' + dataIndex + '_"], #s_adult_rate' + dataIndex).prop('readonly', false);
+			}
+
+			var mealplan = $('#meal_plan_id' + dataIndex).val();
+			var hotel_id = $('#hotelid' + dataIndex).val();
+			var tour_date = $('#tour_date' + dataIndex).val();
+			var tour_location_id = $('#tour_location_id' + dataIndex).val();
+			var tax_status = $('#tax_status' + dataIndex).val();
+
+			// Get total children and extra bed counts
+			var no_of_ch = parseInt($('#no_of_ch' + dataIndex).val() || 0);
+			var no_of_cw = parseInt($('#no_of_cw' + dataIndex).val() || 0);
+			var no_of_extra = parseInt($('#no_of_extra' + dataIndex).val() || 0);
+
+			// Get all double room inputs
+			var doubleInputs = $locationCard.find('input[id^="double_' + dataIndex + '_"], #double' + dataIndex);
+			var totalDoubleRooms = 0;
+			doubleInputs.each(function() {
+				totalDoubleRooms += parseInt($(this).val() || 0);
+			});
+
+			// Get all single room inputs
+			var singleInputs = $locationCard.find('input[id^="single_' + dataIndex + '_"], #single' + dataIndex);
+			var totalSingleRooms = 0;
+			singleInputs.each(function() {
+				totalSingleRooms += parseInt($(this).val() || 0);
+			});
+
+			$.ajax({
+				url: "<?= site_url('Enquiry/getTourTariffDetailsbydate'); ?>",
+				method: "POST",
+				data: {
+					hotel_id: hotel_id,
+					room_cat_id: room_cat_id,
+					mealplan: mealplan,
+					double: totalDoubleRooms,
+					single: totalSingleRooms,
+					id: dataIndex,
+					tour_location_id: tour_location_id,
+					tour_date: tour_date
+				},
+				dataType: 'json',
+				success: function(data) {
+					var room_r = parseInt(data.d_room_tariff || 0);
+					var child_r = parseInt(data.d_child_tariff || 0);
+					var child_wb_r = parseInt(data.d_child_wb_tariff || 0);
+					var extra_r = parseInt(data.d_extra_tariff || 0);
+					var s_room_r = parseInt(data.s_room_tariff || 0);
+
+					// Calculate total cost based on distribution
+					var total_double = 0;
+					var total_single = 0;
+
+					// INTELLIGENT DISTRIBUTION LOGIC FOR MULTIPLE DOUBLE ROOMS
+					if (doubleInputs.length > 1) {
+						// Multiple double room rows exist
+						var remaining_ch = no_of_ch;
+						var remaining_cw = no_of_cw;
+						var remaining_extra = no_of_extra;
+						
+						doubleInputs.each(function(index) {
+							var $currentRow = $(this).closest('.row');
+							var rowId = $(this).attr('id');
+							var roomCount = parseInt($(this).val() || 0);
+							
+							var row_ch = 0;
+							var row_cw = 0;
+							var row_extra = 0;
+							
+							// Distribute children with bed first
+							if (remaining_ch > 0) {
+								row_ch = Math.min(remaining_ch, 1); // 1 child per row
+								remaining_ch -= row_ch;
+								
+								// Also assign child without bed to same row
+								if (remaining_cw > 0) {
+									row_cw = Math.min(remaining_cw, 1);
+									remaining_cw -= row_cw;
+								}
+							}
+							// If no child with bed assigned, check for extra bed
+							else if (remaining_extra > 0) {
+								row_extra = Math.min(remaining_extra, 1);
+								remaining_extra -= row_extra;
+							}
+							
+							// Set the rates for THIS specific row
+							$currentRow.find('input[id^="d_adult_rate"]').val(room_r);
+							$currentRow.find('input[id^="d_child_rate"]').val(row_ch > 0 ? child_r : 0);
+							$currentRow.find('input[id^="d_child_wb_rate"]').val(row_cw > 0 ? child_wb_r : 0);
+							$currentRow.find('input[id^="d_extra_bed_rate"]').val(row_extra > 0 ? extra_r : 0);
+							
+							// Calculate this row's total
+							var row_total = (room_r * roomCount) + (row_ch * child_r) + (row_cw * child_wb_r) + (row_extra * extra_r);
+							
+							if (tax_status == 1) {
+								var per_room = room_r + (row_ch * child_r) + (row_cw * child_wb_r) + (row_extra * extra_r);
+								if (per_room >= 7500) {
+									var gst = 18;
+									var gstval = (gst / 100) * per_room;
+									total_double += (per_room + gstval) * roomCount;
+								} else {
+									total_double += row_total;
+								}
+							} else {
+								total_double += row_total;
+							}
+						});
+					} else {
+						// Single double room row - use all children/extra beds
+						var roomCount = parseInt(doubleInputs.val() || 0);
+						
+						// Set rates for single row
+						$locationCard.find('input[id^="d_adult_rate_' + dataIndex + '_"], #d_adult_rate' + dataIndex).val(room_r);
+						$locationCard.find('input[id^="d_child_rate_' + dataIndex + '_"], #d_child_rate' + dataIndex).val(child_r);
+						$locationCard.find('input[id^="d_child_wb_rate_' + dataIndex + '_"], #d_child_wb_rate' + dataIndex).val(child_wb_r);
+						$locationCard.find('input[id^="d_extra_bed_rate_' + dataIndex + '_"], #d_extra_bed_rate' + dataIndex).val(extra_r);
+						
+						var tot_d = room_r + (no_of_ch * child_r) + (no_of_cw * child_wb_r) + (no_of_extra * extra_r);
+						
+						if (tax_status == 1 && tot_d >= 7500) {
+							var gst = 18;
+							var gstval = (gst / 100) * tot_d;
+							total_double = (tot_d + gstval) * roomCount;
+						} else {
+							total_double = tot_d * roomCount;
+						}
+					}
+					
+					// Set single room rates
+					$locationCard.find('input[id^="s_adult_rate_' + dataIndex + '_"], #s_adult_rate' + dataIndex).val(s_room_r);
+					$locationCard.find('input[id^="s_child_rate_' + dataIndex + '_"], #s_child_rate' + dataIndex).val(0);
+					$locationCard.find('input[id^="s_child_wb_rate_' + dataIndex + '_"], #s_child_wb_rate' + dataIndex).val(0);
+					$locationCard.find('input[id^="s_extra_bed_rate_' + dataIndex + '_"], #s_extra_bed_rate' + dataIndex).val(0);
+
+					// Calculate single room total
+					if (singleInputs.length > 0) {
+						if (tax_status == 1 && s_room_r >= 7500) {
+							var gst = 18;
+							var gstval = (gst / 100) * s_room_r;
+							total_single = (s_room_r + gstval) * totalSingleRooms;
+						} else {
+							total_single = s_room_r * totalSingleRooms;
+						}
+					}
+
+					$('#acc_total' + dataIndex).val(total_double + total_single);
+					setTimeout(() => calculateGrandTotal(dataIndex), 300);
+				}
+			});
+		}
+	}
+});
 </script>
 <script type="text/javascript">
 	/*$(document).on('click', '.tour_view', function(e) {
@@ -6810,7 +7235,125 @@ if (!empty($itinerary_details_save)) {
 		}, 500);
 
 	}
+	//NJ//
+	$(document).on('input change', 'input[id^="no_of_ch"], input[id^="no_of_cw"], input[id^="no_of_extra"]', function() {
+	var dataIndex = $(this).closest('[data-index]').data('index');
+	var $locationCard = $('.location-card[data-index="' + dataIndex + '"]');
+	
+	// Get room category
+	var room_cat_id = $('#roomcat' + dataIndex).val();
+	
+	if (room_cat_id && room_cat_id != 0) {
+		// Trigger room category change to recalculate
+		$('#roomcat' + dataIndex).trigger('change');
+	}
+});
 
+// Recalculate when room rates change manually
+$(document).on('input change', 'input[id^="d_adult_rate"], input[id^="d_child_rate"], input[id^="d_child_wb_rate"], input[id^="d_extra_bed_rate"], input[id^="s_adult_rate"]', function() {
+	var dataIndex = $(this).closest('[data-index]').data('index');
+	var $locationCard = $('.location-card[data-index="' + dataIndex + '"]');
+	
+	// Get values
+	var tax_status = $('#tax_status' + dataIndex).val();
+	var no_of_ch = parseInt($('#no_of_ch' + dataIndex).val() || 0);
+	var no_of_cw = parseInt($('#no_of_cw' + dataIndex).val() || 0);
+	var no_of_extra = parseInt($('#no_of_extra' + dataIndex).val() || 0);
+	
+	var total_double = 0;
+	var total_single = 0;
+	
+	// Get all double room rows
+	var doubleRows = $locationCard.find('.double_row');
+	doubleRows.each(function() {
+		var $row = $(this);
+		var roomInput = $row.find('input[id^="double"]');
+		
+		if (roomInput.length && roomInput.val()) {
+			var roomCount = parseInt(roomInput.val() || 0);
+			var room_r = parseInt($row.find('input[id^="d_adult_rate"]').val() || 0);
+			var child_r = parseInt($row.find('input[id^="d_child_rate"]').val() || 0);
+			var child_wb_r = parseInt($row.find('input[id^="d_child_wb_rate"]').val() || 0);
+			var extra_r = parseInt($row.find('input[id^="d_extra_bed_rate"]').val() || 0);
+			
+			// Calculate row total based on actual values in fields
+			var row_ch = child_r > 0 ? 1 : 0;
+			var row_cw = child_wb_r > 0 ? 1 : 0;
+			var row_extra = extra_r > 0 ? 1 : 0;
+			
+			var row_total = (room_r * roomCount) + (row_ch * child_r) + (row_cw * child_wb_r) + (row_extra * extra_r);
+			
+			if (tax_status == 1) {
+				var per_room = room_r + (row_ch * child_r) + (row_cw * child_wb_r) + (row_extra * extra_r);
+				if (per_room >= 7500) {
+					var gst = 18;
+					var gstval = (gst / 100) * per_room;
+					total_double += (per_room + gstval) * roomCount;
+				} else {
+					total_double += row_total;
+				}
+			} else {
+				total_double += row_total;
+			}
+		}
+	});
+	
+	// Calculate single room total
+	var singleRows = $locationCard.find('.single_row');
+	singleRows.each(function() {
+		var $row = $(this);
+		var roomInput = $row.find('input[id^="single"]');
+		
+		if (roomInput.length && roomInput.val()) {
+			var roomCount = parseInt(roomInput.val() || 0);
+			var s_room_r = parseInt($row.find('input[id^="s_adult_rate"]').val() || 0);
+			
+			if (tax_status == 1 && s_room_r >= 7500) {
+				var gst = 18;
+				var gstval = (gst / 100) * s_room_r;
+				total_single += (s_room_r + gstval) * roomCount;
+			} else {
+				total_single += s_room_r * roomCount;
+			}
+		}
+	});
+	
+	$('#acc_total' + dataIndex).val(total_double + total_single);
+	
+	// Trigger recalculation
+	setTimeout(() => {
+		calculateGrandTotal(dataIndex);
+		updateTotalAccommodationCost();
+	}, 300);
+});
+
+// Recalculate when facility rate changes
+$(document).on('input change', 'input[id^="fac_rate"]', function() {
+	var dataIndex = $(this).closest('[data-index]').data('index');
+	setTimeout(() => {
+		calculateGrandTotal(dataIndex);
+		updateTotalAccommodationCost();
+	}, 300);
+});
+
+// Recalculate when special tariff changes
+$(document).on('input change', 'input[id^="spcl_tariff"]', function() {
+	var dataIndex = $(this).closest('[data-index]').data('index');
+	setTimeout(() => {
+		calculateGrandTotal(dataIndex);
+		updateTotalAccommodationCost();
+	}, 300);
+});
+
+// Recalculate when daily addon changes
+$(document).on('input change', 'input[id^="daily_addon"], input[id^="permit"]', function() {
+	var dataIndex = $(this).closest('[data-index]').data('index');
+	setTimeout(() => {
+		calculateGrandTotal(dataIndex);
+		updateTotalAccommodationCost();
+	}, 300);
+});
+	//////
 	$(document).on('change', '.hotel_fac_change', function() {
 		var vid = $(this).attr('data-id');
 		var dataIndex = $(this).closest('[data-index]').data('index');
