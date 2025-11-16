@@ -42,13 +42,13 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									
                                     <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Remarks</b></td>
                                     <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Hotel</b></td>
+                                    <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Room Type</b></td>
                                     <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Room Category</b></td>
                                     <td style="text-align:center;background-color:#4baf58;color:#fff;border:1px solid black;"><b>Meal Plan</b></td>
 								
 									
 									<td style="text-align:center;background-color:#4baf58;color:#fff;border:1px solid black;"><b>No Of Adult</b></td>
 
-                                    <td style="text-align:center;background-color:#4baf58;color:#fff;border:1px solid black;"><b>Room Type</b></td>
                                     <td style="text-align:center;background-color:#4baf58;color:#fff;border:1px solid black;"><b>No:Of Rooms</b></td>
                                   
                                     <td style="text-align:right;background-color:#4baf58;color:#fff;border:1px solid black;"><b>Adult Rate</b></td>
@@ -88,6 +88,61 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 								if(!empty($json_addons)){
 									$addon_count = $addon_count + 1;
 								}
+
+                                // NEW EXPANSION DATA LOGIC
+                                $tour_details_id = $val['tour_details_id'];
+                                $tour_date = $val['tour_date'];
+                                $itinerary_details_id = $val['itinerary_details_id'] ?? null;
+
+                                // PRIORITY LOGIC: Check itinerary_expansion_details FIRST, then fallback to tour_expansion_details
+                                $expansion_data = [];
+                                $data_source = '';
+
+                                // PRIORITY 1: Check itinerary_expansion_details (saved data)
+                                if (!empty($itinerary_expansion_details[$tour_details_id])) {
+                                    foreach ($itinerary_expansion_details[$tour_details_id] as $exp) {
+                                        if ($exp['tour_expansion_date'] === $tour_date) {
+                                            $expansion_data[] = $exp;
+                                            $data_source = 'itinerary';
+                                        }
+                                    }
+                                }
+
+                                // FALLBACK: If no itinerary expansion data, use tour_expansion_details
+                                if (empty($expansion_data) && !empty($tour_expansion_details[$tour_details_id])) {
+                                    foreach ($tour_expansion_details[$tour_details_id] as $exp) {
+                                        if ($exp['tour_expansion_date'] === $tour_date) {
+                                            $expansion_data[] = $exp;
+                                            $data_source = 'tour';
+                                        }
+                                    }
+                                }
+
+                                // Separate double/single expansions
+                                $double_expansions = [];
+                                $single_expansions = [];
+                                if (!empty($expansion_data)) {
+                                    foreach ($expansion_data as $exp) {
+                                        $double_rate = (int)($exp['room_rate_double'] ?? 0);
+                                        $single_rate = (int)($exp['room_rate_single'] ?? 0);
+                                        
+                                        if ($double_rate > 0) {
+                                            $double_expansions[] = $exp;
+                                        }
+                                        if ($single_rate > 0) {
+                                            $single_expansions[] = $exp;
+                                        }
+                                    }
+                                }
+
+                                // Calculate row counts
+                                $double_row_count = !empty($double_expansions) ? count($double_expansions) : ($object_det[0]['no_of_double_room'] > 0 ? 1 : 0);
+                                $single_row_count = !empty($single_expansions) ? count($single_expansions) : ($object_det[0]['no_of_single_room'] > 0 ? 1 : 0);
+                                $total_rows = $double_row_count + $single_row_count;
+
+                                $row_counter = 0;
+
+                                // Extract cost data (existing logic)
 								foreach($val['cost'] as $ckey => $cval) { 
 									if($cval['cost_component_id'] == "6" && $cval['room_type_id'] == "2"){
 										$room_t_d = $cval['tariff'];
@@ -116,9 +171,6 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									}
 									if($cval['cost_component_id'] == "18" && $cval['room_type_id'] == "1"){
 										$facility_id = $cval['tariff'];
-										/*if(!empty($cval['tariff']) || !empty($hot_det_count)){
-											$addon_count = $addon_count + 1;
-										}*/
 									}
 									if($cval['cost_component_id'] == "19" && $cval['room_type_id'] == "1"){
 										$facility_tafiff = $cval['tariff'];
@@ -137,125 +189,234 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 										}
 									}
 								}
-								$dtotal = ($val['double_room']*$room_t_d) + ($val['child_with_bed']*$child_t_d) + ($val['child_without_bed']*$child_wb_t_d) + ($val['extra_bed']*$extra_t_d);
-								$stotal = $val['single_room']*$room_t_s;
-								
-								?>
+
+                                // === RENDER DOUBLE ROOM ROWS ===
+                                if ($double_row_count > 0) {
+                                    if (!empty($double_expansions)) {
+                                        // DYNAMIC MODE: Show expansion data
+                                        foreach ($double_expansions as $d_idx => $d_exp) {
+                                            $d_adult_rate = $d_exp['room_rate_double'] ?? 0;
+                                            $d_child_rate = $d_exp['child_with_bed_double'] ?? 0;
+                                            $d_child_wb_rate = $d_exp['child_without_bed_double'] ?? 0;
+                                            $d_extra_rate = $d_exp['extra_bed_double'] ?? 0;
+
+                                            $d_room_cat_name = $d_exp['room_category_name'] ?? 'N/A';
+                                            $d_meal_plan_name = $d_exp['meal_plan_name'] ?? 'N/A';
+
+                                            // Apply GST if applicable
+                                            if (isset($val['tax_status']) && $val['tax_status'] == 1) {
+                                                $gst_percent = $d_exp['gst'] ?? 0;
+                                                $d_adult_rate_display = $d_adult_rate * (1 + ($gst_percent / 100));
+                                                $d_child_rate_display = $d_child_rate * (1 + ($gst_percent / 100));
+                                                $d_child_wb_rate_display = $d_child_wb_rate * (1 + ($gst_percent / 100));
+                                                $d_extra_rate_display = $d_extra_rate * (1 + ($gst_percent / 100));
+                                            } else {
+                                                $d_adult_rate_display = $d_adult_rate;
+                                                $d_child_rate_display = $d_child_rate;
+                                                $d_child_wb_rate_display = $d_child_wb_rate;
+                                                $d_extra_rate_display = $d_extra_rate;
+                                            }
+
+                                            $dtotal = $d_exp['double_total_rate'] ?? ($d_adult_rate_display + $d_child_rate_display + $d_child_wb_rate_display + $d_extra_rate_display);
+                            ?>
+                                            <tr>
+                                                <?php if ($row_counter === 0) { ?>
+                                                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
+                                                    <td rowspan="<?php echo $total_rows; ?>" style="text-align:center;border:1px solid black;"><?php echo date("d-m-Y", strtotime($val['tour_date'])); ?></td>
+                                                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
+                                                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['remarks']; ?></td>
+                                                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['object_name']?$val['object_name']:"Own Arrangements"; ?></td>
+                                                <?php } ?>
+
+                                                <td style="border:1px solid black;">Double (Room <?php echo ($d_idx + 1); ?>)</td>
+                                                <td style="border:1px solid black;"><?php echo $d_room_cat_name; ?></td>
+                                                <td style="border:1px solid black;"><?php echo $d_meal_plan_name; ?></td>
+                                                <td style="border:1px solid black;"><?php echo $object_det[0]['no_of_adult']; ?></td>
+                                                <td style="border:1px solid black;">1</td>
+                                                <td style="border:1px solid black;text-align:right;"><?php echo number_format($d_adult_rate_display, 2); ?></td>
+
+                                                <?php if($object_det[0]['no_of_child_with_bed'] > 0){ ?>
+                                                    <td style="border:1px solid black;"><?php echo isset($val['child_with_bed']) && $val['child_with_bed'] > 0 ? 1 : 0; ?></td>
+                                                    <td style="border:1px solid black;text-align:right;"><?php echo number_format($d_child_rate_display, 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if($object_det[0]['no_of_child_without_bed'] > 0){ ?>
+                                                    <td style="border:1px solid black;"><?php echo isset($val['child_without_bed']) && $val['child_without_bed'] > 0 ? 1 : 0; ?></td>
+                                                    <td style="border:1px solid black;text-align:right;"><?php echo number_format($d_child_wb_rate_display, 2); ?></td>
+                                                <?php } ?>
+
+                                                <?php if($object_det[0]['no_of_extra_bed'] > 0){ ?>
+                                                    <td style="border:1px solid black;"><?php echo isset($val['extra_bed']) && $val['extra_bed'] > 0 ? 1 : 0; ?></td>
+                                                    <td style="border:1px solid black;text-align:right;"><?php echo number_format($d_extra_rate_display, 2); ?></td>
+                                                <?php } ?>
+
+                                                <td style="border:1px solid black;text-align:right;"><?php echo number_format($dtotal, 2); ?></td>
+                                            </tr>
+                            <?php
+                                            $row_counter++;
+                                        }
+                                    } else {
+                                        // STATIC MODE: Original logic
+                                        $dtotal = ($val['double_room']*$room_t_d) + ($val['child_with_bed']*$child_t_d) + ($val['child_without_bed']*$child_wb_t_d) + ($val['extra_bed']*$extra_t_d);
+                                        
+                                        if($val['tax_status'] == 1){
+                                            $room_t_d_display = $val['adult_eighteen_double'] ?? $room_t_d;
+                                            $child_t_d_display = $val['child_eighteen_double'] ?? $child_t_d;
+                                            $child_wb_t_d_display = $val['child_wb_eighteen_double'] ?? $child_wb_t_d;
+                                            $extra_t_d_display = $val['extra_eighteen_double'] ?? $extra_t_d;
+                                            $dtotal = $val['tac_eighteen_double'] ?? $dtotal;
+                                        } else {
+                                            $room_t_d_display = $room_t_d;
+                                            $child_t_d_display = $child_t_d;
+                                            $child_wb_t_d_display = $child_wb_t_d;
+                                            $extra_t_d_display = $extra_t_d;
+                                        }
+                            ?>
 								<tr>
-								<td rowspan="<?php echo $rt_count; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
-								<td rowspan="<?php echo $rt_count; ?>" style="text-align:center;border:1px solid black;"><?php echo date("d-m-Y", strtotime($val['tour_date'])); ?></td>
-								<td rowspan="<?php echo $rt_count; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
+								<?php if ($row_counter === 0) { ?>
+								<td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
+								<td rowspan="<?php echo $total_rows; ?>" style="text-align:center;border:1px solid black;"><?php echo date("d-m-Y", strtotime($val['tour_date'])); ?></td>
+								<td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
 								
-								<td rowspan="<?php echo $rt_count; ?>" style="border:1px solid black;"><?php echo $val['remarks']; ?></td>
-								<td rowspan="<?php echo $rt_count; ?>" style="border:1px solid black;"><?php echo $val['object_name']?$val['object_name']:"Own Arrangements"; ?></td>
-								<td rowspan="<?php echo $rt_count; ?>" style="border:1px solid black;"><?php echo $val['room_category_name']; ?></td>
-								<td rowspan="<?php echo $rt_count; ?>" style="border:1px solid black;"><?php echo $val['meal_plan_name']; ?></td>
-								
-								<td rowspan="<?php echo $rt_count; ?>" style="border:1px solid black;"><?php echo $object_det[0]['no_of_adult']; ?></td>
-								<?php 
-								    if($object_det[0]['no_of_double_room'] > 0) { ?>
+								<td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['remarks']; ?></td>
+								<td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['object_name']?$val['object_name']:"Own Arrangements"; ?></td>
+                                <?php } ?>
 										<td style="border:1px solid black;">Double</td>
+                                        <td style="border:1px solid black;"><?php echo $val['room_category_name']; ?></td>
+                                        <td style="border:1px solid black;"><?php echo $val['meal_plan_name']; ?></td>
+								
+								<td style="border:1px solid black;"><?php echo $object_det[0]['no_of_adult']; ?></td>
 										<td style="border:1px solid black;"><?php echo $val['double_room']; ?></td>
 										
 										
-												<td>
-													<?php 
-													    if($val['tax_status'] == 1){
-															echo $val['adult_eighteen_double'];
-														}
-														else{
-															echo $room_t_d;
-														}
-													 ?>
+												<td style="border:1px solid black;text-align:right;">
+													<?php echo number_format($room_t_d_display, 2); ?>
 												</td>
 										<?php if($object_det[0]['no_of_child_with_bed'] > 0){ ?>
 											<td style="border:1px solid black;"><?php echo $val['child_with_bed']; ?></td>
 											
-													<td>
-														<?php 
-															if($val['tax_status'] == 1){
-																echo $val['child_eighteen_double'];
-															}
-															else{
-																echo $child_t_d;
-															}
-														?>
+													<td style="border:1px solid black;text-align:right;">
+														<?php echo number_format($child_t_d_display, 2); ?>
 													</td>
 										<?php } ?>
 										<?php if($object_det[0]['no_of_child_without_bed'] > 0){ ?>	
 											<td style="border:1px solid black;"><?php echo $val['child_without_bed']; ?></td>
 										
-													<td>
-														<?php 
-															if($val['tax_status'] == 1){
-																echo $val['child_wb_eighteen_double'];
-															}
-															else{
-																echo $child_wb_t_d;
-															}
-														?>
+													<td style="border:1px solid black;text-align:right;">
+														<?php echo number_format($child_wb_t_d_display, 2); ?>
 													</td>
 										<?php } ?>
 										<?php if($object_det[0]['no_of_extra_bed'] > 0){ ?>	
 											<td style="border:1px solid black;"><?php echo $val['extra_bed']; ?></td>
 											
-													<td>
-														<?php 
-															if($val['tax_status'] == 1){
-																echo $val['extra_eighteen_double'];
-															}
-															else{
-																echo $extra_t_d;
-															}
-														?>
+													<td style="border:1px solid black;text-align:right;">
+														<?php echo number_format($extra_t_d_display, 2); ?>
 													</td>
-										<?php } 
-										if($val['tax_status'] == 1){
-											$dtotal = $val['tac_eighteen_double'];
-										}
-										?>	
-										<td style="border:1px solid black;text-align:right;"><?php echo $dtotal; ?></td>
+										<?php } ?>	
+										<td style="border:1px solid black;text-align:right;"><?php echo number_format($dtotal, 2); ?></td>
 										</tr>
-								<?php } ?>
 								<?php 
-								    if($object_det[0]['no_of_single_room'] > 0) { 
-										if($object_det[0]['no_of_double_room'] > 0) {
-										?>
+                                        $row_counter++;
+                                    }
+                                } ?>
+
+                                <?php 
+                                // === RENDER SINGLE ROOM ROWS ===
+                                if ($single_row_count > 0) {
+                                    if (!empty($single_expansions)) {
+                                        // DYNAMIC MODE: Show expansion data
+                                        foreach ($single_expansions as $s_idx => $s_exp) {
+                                            $s_adult_rate = $s_exp['room_rate_single'] ?? 0;
+
+                                            $s_room_cat_name = $s_exp['room_category_name'] ?? 'N/A';
+                                            $s_meal_plan_name = $s_exp['meal_plan_name'] ?? 'N/A';
+
+                                            if (isset($val['tax_status']) && $val['tax_status'] == 1) {
+                                                $gst_percent = $s_exp['gst'] ?? 0;
+                                                $s_adult_rate_display = $s_adult_rate * (1 + ($gst_percent / 100));
+                                            } else {
+                                                $s_adult_rate_display = $s_adult_rate;
+                                            }
+
+                                            $stotal = $s_exp['single_total_rate'] ?? $s_adult_rate_display;
+                            ?>
+										<tr>
+                                        <?php if ($row_counter === 0 && $double_row_count == 0) { ?>
+                                            <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
+                                            <td rowspan="<?php echo $total_rows; ?>" style="text-align:center;border:1px solid black;"><?php echo date("d-m-Y", strtotime($val['tour_date'])); ?></td>
+                                            <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
+                                            <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['remarks']; ?></td>
+                                            <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['object_name']?$val['object_name']:"Own Arrangements"; ?></td>
+                                        <?php } ?>
+
+                                        <td style="border:1px solid black;">Single (Room <?php echo ($s_idx + 1); ?>)</td>
+                                        <td style="border:1px solid black;"><?php echo $s_room_cat_name; ?></td>
+                                        <td style="border:1px solid black;"><?php echo $s_meal_plan_name; ?></td>
+                                        <td style="border:1px solid black;"><?php echo $object_det[0]['no_of_adult']; ?></td>
+                                        <td style="border:1px solid black;">1</td>
+                                        <td style="border:1px solid black;text-align:right;"><?php echo number_format($s_adult_rate_display, 2); ?></td>
+
+                                        <?php if($object_det[0]['no_of_child_with_bed'] > 0){ ?>
+                                            <td style="border:1px solid black;">0</td>
+                                            <td style="border:1px solid black;text-align:right;">0.00</td>
+                                        <?php } ?>
+
+                                        <?php if($object_det[0]['no_of_child_without_bed'] > 0){ ?>
+                                            <td style="border:1px solid black;">0</td>
+                                            <td style="border:1px solid black;text-align:right;">0.00</td>
+                                        <?php } ?>
+
+                                        <?php if($object_det[0]['no_of_extra_bed'] > 0){ ?>
+                                            <td style="border:1px solid black;">0</td>
+                                            <td style="border:1px solid black;text-align:right;">0.00</td>
+                                        <?php } ?>
+
+                                        <td style="border:1px solid black;text-align:right;"><?php echo number_format($stotal, 2); ?></td>
+                                    </tr>
+                            <?php
+                                            $row_counter++;
+                                        }
+                                    } else {
+                                        // STATIC MODE: Original logic
+                                        $stotal = $val['single_room']*$room_t_s;
+                                        
+                                        if($val['tax_status'] == 1){
+                                            $room_t_s_display = $val['adult_eighteen_single'] ?? $room_t_s;
+                                            $stotal = $val['tac_eighteen_single'] ?? $stotal;
+                                        } else {
+                                            $room_t_s_display = $room_t_s;
+                                        }
+                            ?>
+								    <?php if($double_row_count > 0) { ?>
 									    <tr>
 										<?php } ?>
 										<td style="border:1px solid black;">Single</td>
+                                        <td style="border:1px solid black;"><?php echo $val['room_category_name']; ?></td>
+                                        <td style="border:1px solid black;"><?php echo $val['meal_plan_name']; ?></td>
+										<td style="border:1px solid black;"><?php echo $object_det[0]['no_of_adult']; ?></td>
 										<td style="border:1px solid black;"><?php echo $val['single_room']; ?></td>
 									
-									
-													<td>
-														<?php 
-															if($val['tax_status'] == 1){
-																echo $val['adult_eighteen_single'];
-															}
-															else{
-																echo $room_t_s;
-															}
-														?>
+													<td style="border:1px solid black;text-align:right;">
+														<?php echo number_format($room_t_s_display, 2); ?>
 													</td>
 										<?php if($object_det[0]['no_of_child_with_bed'] > 0){ ?>	
 											<td style="border:1px solid black;">0</td>
-											<td style="border:1px solid black;"><?php echo $child_t_s; ?></td>
+											<td style="border:1px solid black;text-align:right;">0.00</td>
 										<?php } ?>
 										<?php if($object_det[0]['no_of_child_without_bed'] > 0){ ?>	
 											<td style="border:1px solid black;">0</td>
-											<td style="border:1px solid black;"><?php echo $child_wb_t_s; ?></td>
+											<td style="border:1px solid black;text-align:right;">0.00</td>
 										<?php } ?>
 										<?php if($object_det[0]['no_of_extra_bed'] > 0){ ?>	
 											<td style="border:1px solid black;">0</td>
-											<td style="border:1px solid black;"><?php echo $extra_t_s; ?></td>
-										<?php } 
-										if($val['tax_status'] == 1){
-											$stotal = $val['tac_eighteen_single'];
-										}
-										?>	
-										<td style="border:1px solid black;text-align:right;"><?php echo $stotal; ?></td>
+											<td style="border:1px solid black;text-align:right;">0.00</td>
+										<?php } ?>	
+										<td style="border:1px solid black;text-align:right;"><?php echo number_format($stotal, 2); ?></td>
 										</tr>
-								<?php } 
+								<?php 
+                                        $row_counter++;
+                                    }
+                                } 
 								$hot_details = json_decode($val['hotel_details']);
 								if(!empty($hot_details)){ 
 									foreach($hot_details as $key1 => $val1) { 
@@ -270,13 +431,13 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 								
 									<td rowspan="<?php echo $rt_count; ?>" style="border:1px solid black;"><?php echo $val1->remarks; ?></td>
 									<td rowspan="<?php echo $rt_count; ?>" style="border:1px solid black;"><?php echo $val1->hotel_name; ?></td>
+									<td style="border:1px solid black;">Doubles</td>
 									<td rowspan="<?php echo $rt_count; ?>" style="border:1px solid black;"><?php echo $val1->room_category_name; ?></td>
 									<td rowspan="<?php echo $rt_count; ?>" style="border:1px solid black;"><?php echo $val['meal_plan_name']; ?></td>
 								
 									<td rowspan="<?php echo $rt_count; ?>" style="border:1px solid black;"><?php echo $object_det[0]['no_of_adult']; ?></td>
 									<?php 
 										if($object_det[0]['no_of_double_room'] > 0) { ?>
-											<td style="border:1px solid black;">Doubles</td>
 											<td style="border:1px solid black;"><?php echo $val1->double; ?></td>
 											
 											<td style="border:1px solid black;"><?php echo $val1->d_adult_rate; ?></td>
@@ -544,7 +705,6 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$dayNo.'</td>';
 									echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.date('d-m-Y', strtotime($tourDate)).'</td>';
 									echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$day['transport_remarks'].'</td>';
-									//echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$ss_name_temp.'</td>';
 
 															if(date("d-m-Y", strtotime($tourDate)) == date("d-m-Y", strtotime($object_det[0]['date_of_tour_completion']))){
 																if(!empty($ss_name_temp)){
@@ -562,7 +722,6 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									$first = false;
 								}
 
-													
 														echo '<td style="border:1px solid black;">'.$v->travel_distance.'</td>';
 														echo '<td style="border:1px solid black;">'.$v->vehicle_model.'</td>';
 														echo '<td style="border:1px solid black;text-align:right;">'.$v->day_rent.'</td>';

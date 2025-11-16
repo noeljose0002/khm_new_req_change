@@ -8119,49 +8119,147 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
         //}
     }
 
-    public function viewCostingSheet()
-    {
-        $Enquiry_model = new Enquiry_m();
-        $itinerary_details_save = [];
-        $result2 = [];
-        $object_det = [];
-        $tour_plan_det = [];
-        $final_cs_data = [];
-        $id = $this->request->getPost('id');
-        $extension_ref_id = $this->request->getPost('extension_ref_id');
-        $tourplan_ref_id = $this->request->getPost('tourplan_ref_id');
-        $enq_ref_id = $this->request->getPost('enq_ref_id');
-        $iti_cost_datas = $Enquiry_model->get_iti_cost($id);
-        if ($iti_cost_datas[0]['cs_confirmed_id'] > 0) {
-            $final_cs_datas = $Enquiry_model->get_final_costing_sheet($iti_cost_datas[0]['cs_confirmed_id']);
-            $final_cs_data = $final_cs_datas[0]['costing_sheet'];
-        }
+    // public function viewCostingSheet()
+    // {
+    //     $Enquiry_model = new Enquiry_m();
+    //     $itinerary_details_save = [];
+    //     $result2 = [];
+    //     $object_det = [];
+    //     $tour_plan_det = [];
+    //     $final_cs_data = [];
+    //     $id = $this->request->getPost('id');
+    //     $extension_ref_id = $this->request->getPost('extension_ref_id');
+    //     $tourplan_ref_id = $this->request->getPost('tourplan_ref_id');
+    //     $enq_ref_id = $this->request->getPost('enq_ref_id');
+    //     $iti_cost_datas = $Enquiry_model->get_iti_cost($id);
+    //     if ($iti_cost_datas[0]['cs_confirmed_id'] > 0) {
+    //         $final_cs_datas = $Enquiry_model->get_final_costing_sheet($iti_cost_datas[0]['cs_confirmed_id']);
+    //         $final_cs_data = $final_cs_datas[0]['costing_sheet'];
+    //     }
 
-        $object_det = $Enquiry_model->get_object_details_forcs($iti_cost_datas[0]['object_id'], $enq_ref_id);
+    //     $object_det = $Enquiry_model->get_object_details_forcs($iti_cost_datas[0]['object_id'], $enq_ref_id);
 
-        $tour_plan_det = $Enquiry_model->get_tour_plan_details_foredit($tourplan_ref_id);
+    //     $tour_plan_det = $Enquiry_model->get_tour_plan_details_foredit($tourplan_ref_id);
 
-        foreach ($tour_plan_det as $keys => $vals) {
-            $result2 = $Enquiry_model->get_itinerary_save_details_for_cs($id, $extension_ref_id, $enq_ref_id, $vals['tour_details_id']);
-            if (!empty($result2)) {
-                $itinerary_details_save = [...$itinerary_details_save, ...$result2];
+    //     foreach ($tour_plan_det as $keys => $vals) {
+    //         $result2 = $Enquiry_model->get_itinerary_save_details_for_cs($id, $extension_ref_id, $enq_ref_id, $vals['tour_details_id']);
+    //         if (!empty($result2)) {
+    //             $itinerary_details_save = [...$itinerary_details_save, ...$result2];
+    //         }
+    //     }
+
+    //     $response['iti_cost_datas'] = $iti_cost_datas;
+    //     $response['iti_data'] = $itinerary_details_save;
+    //     $response['object_det'] = $object_det;
+    //     $response['tour_plan_det'] = $tour_plan_det;
+
+    //     $response['tac_hidden'] = $iti_cost_datas[0]['tac'];
+    //     $response['ttc_hidden'] = $iti_cost_datas[0]['ttc'];
+    //     $response['spcl_hidden'] = $iti_cost_datas[0]['special_total_cost'];
+    //     $response['daily_hidden'] = $iti_cost_datas[0]['daily_total_cost'];
+    //     $response['tnr_hidden'] = $iti_cost_datas[0]['tnr'];
+    //     $response['final_cs_data'] = $final_cs_data;
+
+    //     echo view('enquiry/costing_sheet_view', $response);
+    // }
+    // CONTROLLER METHOD - Update viewCostingSheet() in your controller
+
+public function viewCostingSheet()
+{
+    $Enquiry_model = new Enquiry_m();
+    $itinerary_details_save = [];
+    $result2 = [];
+    $object_det = [];
+    $tour_plan_det = [];
+    $final_cs_data = [];
+    
+    $id = $this->request->getPost('id');
+    $extension_ref_id = $this->request->getPost('extension_ref_id');
+    $tourplan_ref_id = $this->request->getPost('tourplan_ref_id');
+    $enq_ref_id = $this->request->getPost('enq_ref_id');
+    
+    $iti_cost_datas = $Enquiry_model->get_iti_cost($id);
+    
+    if ($iti_cost_datas[0]['cs_confirmed_id'] > 0) {
+        $final_cs_datas = $Enquiry_model->get_final_costing_sheet($iti_cost_datas[0]['cs_confirmed_id']);
+        $final_cs_data = $final_cs_datas[0]['costing_sheet'];
+    }
+
+    $object_det = $Enquiry_model->get_object_details_forcs($iti_cost_datas[0]['object_id'], $enq_ref_id);
+    $tour_plan_det = $Enquiry_model->get_tour_plan_details_foredit($tourplan_ref_id);
+
+    // TWO SEPARATE ARRAYS FOR DIFFERENT PURPOSES
+    $tour_expansion_details = []; // For initial tour plan data
+    $itinerary_expansion_details = []; // For saved itinerary data
+    $itinerary_details_ids = []; // Collect IDs for expansion data
+
+    foreach ($tour_plan_det as $keys => $vals) {
+        $tid = $vals['tour_details_id'];
+        
+        // Fetch saved itinerary details
+        $result2 = $Enquiry_model->get_itinerary_save_details_for_cs($id, $extension_ref_id, $enq_ref_id, $vals['tour_details_id']);
+        if (!empty($result2)) {
+            $itinerary_details_save = [...$itinerary_details_save, ...$result2];
+            
+            // Collect itinerary_details_ids for expansion data
+            foreach ($result2 as $r) {
+                if (isset($r['itinerary_details_id'])) {
+                    $itinerary_details_ids[] = $r['itinerary_details_id'];
+                }
             }
         }
-
-        $response['iti_cost_datas'] = $iti_cost_datas;
-        $response['iti_data'] = $itinerary_details_save;
-        $response['object_det'] = $object_det;
-        $response['tour_plan_det'] = $tour_plan_det;
-
-        $response['tac_hidden'] = $iti_cost_datas[0]['tac'];
-        $response['ttc_hidden'] = $iti_cost_datas[0]['ttc'];
-        $response['spcl_hidden'] = $iti_cost_datas[0]['special_total_cost'];
-        $response['daily_hidden'] = $iti_cost_datas[0]['daily_total_cost'];
-        $response['tnr_hidden'] = $iti_cost_datas[0]['tnr'];
-        $response['final_cs_data'] = $final_cs_data;
-
-        echo view('enquiry/costing_sheet_view', $response);
+        
+        // FOR INITIAL DATA: Fetch tour expansion details (from khm_obj_enquiry_tour_expansion)
+        $tour_expansion_details[$tid] = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
     }
+
+    // FOR SAVED DATA: Fetch itinerary expansion details (from khm_obj_enquiry_tour_itinerary_expansion)
+    if (!empty($itinerary_details_ids)) {
+        $itinerary_details_ids = array_unique($itinerary_details_ids);
+        
+        // Get expansion data grouped by itinerary_details_id
+        $expansion_raw = $Enquiry_model->get_itinerary_expansion_grouped($itinerary_details_ids);
+        
+        // Build a mapping from itinerary_details_id to tour_details_id
+        $iti_to_tour_map = [];
+        foreach ($itinerary_details_save as $save) {
+            if (isset($save['itinerary_details_id']) && isset($save['tour_details_id'])) {
+                $iti_to_tour_map[$save['itinerary_details_id']] = $save['tour_details_id'];
+            }
+        }
+        
+        // Re-group expansion data by tour_details_id for easier access in the view
+        foreach ($expansion_raw as $iti_id => $expansions) {
+            if (isset($iti_to_tour_map[$iti_id])) {
+                $tour_details_id = $iti_to_tour_map[$iti_id];
+                if (!isset($itinerary_expansion_details[$tour_details_id])) {
+                    $itinerary_expansion_details[$tour_details_id] = [];
+                }
+                foreach ($expansions as $exp) {
+                    $itinerary_expansion_details[$tour_details_id][] = $exp;
+                }
+            }
+        }
+    }
+
+    $response['iti_cost_datas'] = $iti_cost_datas;
+    $response['iti_data'] = $itinerary_details_save;
+    $response['object_det'] = $object_det;
+    $response['tour_plan_det'] = $tour_plan_det;
+    
+    // PASS BOTH EXPANSION ARRAYS TO VIEW
+    $response['tour_expansion_details'] = $tour_expansion_details; // For initial load
+    $response['itinerary_expansion_details'] = $itinerary_expansion_details; // For saved data
+
+    $response['tac_hidden'] = $iti_cost_datas[0]['tac'];
+    $response['ttc_hidden'] = $iti_cost_datas[0]['ttc'];
+    $response['spcl_hidden'] = $iti_cost_datas[0]['special_total_cost'];
+    $response['daily_hidden'] = $iti_cost_datas[0]['daily_total_cost'];
+    $response['tnr_hidden'] = $iti_cost_datas[0]['tnr'];
+    $response['final_cs_data'] = $final_cs_data;
+
+    echo view('enquiry/costing_sheet_view', $response);
+}
 
 
     public function viewItinerarySheet()
