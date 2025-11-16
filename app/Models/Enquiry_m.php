@@ -8,6 +8,7 @@ class Enquiry_m extends Model
 {
     protected $khm_obj_enquiry_detail_extensions = 'khm_obj_enquiry_detail_extensions';
     protected $khm_obj_enquiry_tour_expansion = 'khm_obj_enquiry_tour_expansion'; //nj//
+    protected $khm_obj_enquiry_tour_itinerary_expansion='khm_obj_enquiry_tour_itinerary_expansion';//nj//
     protected $khm_obj_itinerary_costing_details = 'khm_obj_itinerary_costing_details';
     protected $khm_obj_enquiry_itinerary_details = 'khm_obj_enquiry_itinerary_details';
     protected $khm_obj_enquiry_header = 'khm_obj_enquiry_header';
@@ -1199,6 +1200,168 @@ class Enquiry_m extends Model
         $db = \Config\Database::connect();
         return $this->db->table($this->khm_obj_enquiry_tour_details)->update($data, ['tour_details_id' => $tour_details_id]);
     }
+   
+   //njitisave//
+    /**
+ * Add these methods to your Enquiry_m model class
+ */
+
+/**
+ * Insert expansion data into khm_obj_enquiry_tour_itinerary_expansion table
+ * 
+ * @param array $data Expansion data to insert
+ * @return int Inserted ID
+ */
+public function insert_expansion_data($data)
+{
+    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
+    $builder->insert($data);
+    return $this->db->insertID();
+}
+
+/**
+ * Delete expansion data for a specific itinerary_details_id
+ * Used when updating existing itineraries
+ * 
+ * @param int $itinerary_details_id The itinerary details ID
+ * @return bool Success status
+ */
+public function delete_expansion_data($itinerary_details_id)
+{
+    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
+    $builder->where('itinerary_details_id', $itinerary_details_id);
+    return $builder->delete();
+}
+
+/**
+ * Get expansion data for a specific itinerary_details_id
+ * 
+ * @param int $itinerary_details_id The itinerary details ID
+ * @return array Expansion data records
+ */
+public function get_expansion_data($itinerary_details_id)
+{
+    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
+    $builder->where('itinerary_details_id', $itinerary_details_id);
+    $query = $builder->get();
+    return $query->getResultArray();
+}
+
+/**
+ * Get expansion data for an entire enquiry with joins
+ * 
+ * @param int $enquiry_header_id The enquiry header ID
+ * @param int $enquiry_details_id The enquiry details ID (optional)
+ * @return array Expansion data with related information
+ */
+public function get_expansion_data_by_enquiry($enquiry_header_id, $enquiry_details_id = null)
+{
+    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion e');
+    $builder->select('e.*, 
+                      i.tour_date, 
+                      i.tour_details_id, 
+                      i.enquiry_header_id, 
+                      i.enquiry_details_id,
+                      rc.room_category_name,
+                      mp.meal_plan_name');
+    $builder->join('khm_obj_enquiry_itinerary_details i', 'e.itinerary_details_id = i.itinerary_details_id', 'left');
+    $builder->join('khm_obj_mst_hotel_room_category rc', 'e.room_category_id = rc.room_category_id', 'left');
+    $builder->join('khm_obj_meal_plan mp', 'e.meal_plan_id = mp.meal_plan_id', 'left');
+    $builder->where('i.enquiry_header_id', $enquiry_header_id);
+    
+    if($enquiry_details_id !== null) {
+        $builder->where('i.enquiry_details_id', $enquiry_details_id);
+    }
+    
+    $builder->orderBy('i.tour_date', 'ASC');
+    $builder->orderBy('e.tour_itinerary_expansion_id', 'ASC');
+    
+    $query = $builder->get();
+    return $query->getResultArray();
+}
+
+/**
+ * Update expansion data
+ * 
+ * @param array $data Data to update
+ * @param int $expansion_id The expansion record ID
+ * @return bool Success status
+ */
+public function update_expansion_data($data, $expansion_id)
+{
+    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
+    $builder->where('tour_itinerary_expansion_id', $expansion_id);
+    return $builder->update($data);
+}
+
+/**
+ * Delete all expansion data for an enquiry
+ * Useful for cleanup operations
+ * 
+ * @param int $enquiry_header_id The enquiry header ID
+ * @return bool Success status
+ */
+public function delete_expansion_data_by_enquiry($enquiry_header_id)
+{
+    $sql = "DELETE e FROM khm_obj_enquiry_tour_itinerary_expansion e
+            INNER JOIN khm_obj_enquiry_itinerary_details i 
+            ON e.itinerary_details_id = i.itinerary_details_id
+            WHERE i.enquiry_header_id = ?";
+    
+    return $this->db->query($sql, [$enquiry_header_id]);
+}
+   //end//
+   // Add this method to your Enquiry_m model
+
+public function get_itinerary_expansion_by_itinerary_id($itinerary_details_id)
+{
+    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion as itie');
+    $builder->select('itie.*, rc.room_category_name, mp.meal_plan_name');
+    $builder->join('khm_obj_mst_hotel_room_category as rc', 'rc.room_category_id = itie.room_category_id', 'left');
+    $builder->join('khm_obj_meal_plan as mp', 'mp.meal_plan_id = itie.meal_plan_id', 'left');
+    $builder->where('itie.itinerary_details_id', $itinerary_details_id);
+    $builder->orderBy('itie.tour_expansion_date', 'ASC');
+    $query = $builder->get();
+    return $query->getResultArray();
+}
+
+// Alternative: Get by tour_details_id and group by itinerary_details_id
+public function get_itinerary_expansion_grouped($itinerary_details_ids)
+{
+    if (empty($itinerary_details_ids)) {
+        return [];
+    }
+
+    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion as itie');
+    $builder->select('itie.*, 
+                      itid.tour_details_id, 
+                      itid.tour_date,
+                      rc.room_category_name, 
+                      mp.meal_plan_name');
+    $builder->join('khm_obj_enquiry_itinerary_details as itid', 
+                   'itid.itinerary_details_id = itie.itinerary_details_id', 
+                   'left');
+    $builder->join('khm_obj_mst_hotel_room_category as rc', 
+                   'rc.room_category_id = itie.room_category_id', 
+                   'left');
+    $builder->join('khm_obj_meal_plan as mp', 
+                   'mp.meal_plan_id = itie.meal_plan_id', 
+                   'left');
+    $builder->whereIn('itie.itinerary_details_id', $itinerary_details_ids);
+    $builder->orderBy('itie.tour_expansion_date', 'ASC');
+    $builder->orderBy('itie.tour_itinerary_expansion_id', 'ASC');
+    
+    $query = $builder->get();
+    $result = $query->getResultArray();
+    
+    // Group by itinerary_details_id
+    $grouped = [];
+    foreach ($result as $row) {
+        $grouped[$row['itinerary_details_id']][] = $row;
+    }
+    
+    return $grouped;
+}
     //nj//
     public function update_tour_expansion($data, $tour_details_id, $date)
     {
