@@ -1,0 +1,394 @@
+ERROR - 2025-11-17 11:03:01 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-17 11:03:01 --> 220 smtp.gmail.com ESMTP d9443c01a7336-2985c2568c1sm123038665ad.47 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-2985c2568c1sm123038665ad.47 - gsmtp
+
+CRITICAL - 2025-11-17 05:34:25 --> ErrorException: Undefined property: stdClass::$veh_header
+[Method: GET, Route: Enquiry/itinerary/2802/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1914.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1914): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$veh_header', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1914)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5472): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2802', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+UCRITICAL - 2025-11-17 05:41:44 --> ErrorException: Undefined property: stdClass::$vehicle_count
+[Method: GET, Route: Enquiry/itinerary/2802/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1996.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1996): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$vehicle_count', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1996)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5472): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2802', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 05:41:50 --> ErrorException: Undefined property: stdClass::$vehicle_count
+[Method: GET, Route: Enquiry/itinerary/2802/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1996.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1996): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$vehicle_count', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1996)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5472): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2802', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 05:41:53 --> ErrorException: Undefined property: stdClass::$vehicle_count
+[Method: GET, Route: Enquiry/itinerary/2802/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1996.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1996): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$vehicle_count', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1996)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5472): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2802', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 05:46:39 --> ParseError: syntax error, unexpected token "<"
+[Method: GET, Route: Enquiry/itinerary/2802/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1884.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(5472): view('enquiry/itinerary_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2802', '0')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 05:46:42 --> ParseError: syntax error, unexpected token "<"
+[Method: GET, Route: Enquiry/itinerary/2802/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1884.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(5472): view('enquiry/itinerary_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2802', '0')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 05:47:16 --> ParseError: Unclosed '{' on line 938
+[Method: GET, Route: Enquiry/itinerary/2802/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 8971.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(5472): view('enquiry/itinerary_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2802', '0')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 05:55:39 --> ParseError: Unclosed '{' on line 938
+[Method: GET, Route: Enquiry/itinerary/2802/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 8971.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(5472): view('enquiry/itinerary_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2802', '0')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 06:11:22 --> ErrorException: Undefined property: stdClass::$pre_to_cur
+[Method: GET, Route: Enquiry/itinerary/2802/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1901.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1901): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$pre_to_cur', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1901)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5472): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2802', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 06:18:54 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 8856.
+ 1 APPPATH\Controllers\Enquiry.php(8856): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 8856)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 06:40:39 --> ErrorException: Undefined property: stdClass::$veh_header
+[Method: GET, Route: Enquiry/itinerary/2802/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1914.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1914): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$veh_header', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1914)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5472): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2802', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 06:40:41 --> ErrorException: Undefined property: stdClass::$veh_header
+[Method: GET, Route: Enquiry/itinerary/2802/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1914.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1914): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$veh_header', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1914)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5472): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2802', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-17 12:40:24 --> mysqli_sql_exception: Unknown column 'no_of_child_with_bed' in 'field list' in C:\wamp64\www\khm\system\Database\MySQLi\Connection.php:312
+Stack trace:
+#0 C:\wamp64\www\khm\system\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `kh...', 0)
+#1 C:\wamp64\www\khm\system\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `kh...')
+#2 C:\wamp64\www\khm\system\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `kh...')
+#3 C:\wamp64\www\khm\system\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `kh...', Array, false)
+#4 C:\wamp64\www\khm\app\Models\Enquiry_m.php(1218): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\wamp64\www\khm\app\Controllers\Enquiry.php(7373): App\Models\Enquiry_m->insert_expansion_data(Array)
+#6 C:\wamp64\www\khm\app\Controllers\Enquiry.php(7257): App\Controllers\Enquiry->insertExpansionData(Object(App\Models\Enquiry_m), 2342, Array, 'double')
+#7 C:\wamp64\www\khm\system\CodeIgniter.php(933): App\Controllers\Enquiry->saveItinerary()
+#8 C:\wamp64\www\khm\system\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+#9 C:\wamp64\www\khm\system\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\wamp64\www\khm\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\wamp64\www\khm\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\wamp64\www\khm\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-11-17 12:40:24 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'no_of_child_with_bed' in 'field list'
+[Method: POST, Route: Enquiry/saveItinerary]
+in SYSTEMPATH\Database\BaseConnection.php on line 688.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_enquiry_tour_itinerary_expansion` (`itinerary_details_id`, `tour_details_id`, `tour_expansion_date`, `room_category_id`, `meal_plan_id`, `room_rate_double`, `child_with_bed_double`, `child_without_bed_double`, `extra_bed_double`, `no_of_child_with_bed`, `no_of_child_without_bed`, `no_of_extra_bed`, `double_total_rate`, `vehicle_details_json`) VALUES (:itinerary_details_id:, :tour_details_id:, :tour_expansion_date:, :room_category_id:, :meal_plan_id:, :room_rate_double:, :child_with_bed_double:, :child_without_bed_double:, :extra_bed_double:, :no_of_child_with_bed:, :no_of_child_without_bed:, :no_of_extra_bed:, :double_total_rate:, :vehicle_details_json:)', [...], false)
+ 2 APPPATH\Models\Enquiry_m.php(1218): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 APPPATH\Controllers\Enquiry.php(7373): App\Models\Enquiry_m->insert_expansion_data([...])
+ 4 APPPATH\Controllers\Enquiry.php(7257): App\Controllers\Enquiry->insertExpansionData(Object(App\Models\Enquiry_m), 2342, [...], 'double')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->saveItinerary()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 12:40:24 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'no_of_child_with_bed' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 317.
+ 1 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `khm_obj_enquiry_tour_itinerary_expansion` (`itinerary_details_id`, `tour_details_id`, `tour_expansion_date`, `room_category_id`, `meal_plan_id`, `room_rate_double`, `child_with_bed_double`, `child_without_bed_double`, `extra_bed_double`, `no_of_child_with_bed`, `no_of_child_without_bed`, `no_of_extra_bed`, `double_total_rate`, `vehicle_details_json`) VALUES (2342, \'1516\', \'2025-11-29\', 2926, 3, 4100, 1450, 1250, 0, 1, 1, 0, 6800, \'[\\n    {\\n        \\"vehicle_model\\": \\"Innova A\\\\/C (7+1)\\",\\n        \\"veh_type_id\\": \\"84\\",\\n        \\"tour_date\\": \\"2025-11-29\\",\\n        \\"day_rent\\": \\"2300\\",\\n        \\"max_km_day\\": \\"100\\",\\n        \\"extra_km_rate\\": \\"20\\",\\n        \\"travel_distance\\": \\"176\\",\\n        \\"extra_kilometer\\": \\"0\\",\\n        \\"veh_total\\": \\"2300\\"\\n    }\\n]\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `khm_obj_enquiry_tour_itinerary_expansion` (`itinerary_details_id`, `tour_details_id`, `tour_expansion_date`, `room_category_id`, `meal_plan_id`, `room_rate_double`, `child_with_bed_double`, `child_without_bed_double`, `extra_bed_double`, `no_of_child_with_bed`, `no_of_child_without_bed`, `no_of_extra_bed`, `double_total_rate`, `vehicle_details_json`) VALUES (2342, \'1516\', \'2025-11-29\', 2926, 3, 4100, 1450, 1250, 0, 1, 1, 0, 6800, \'[\\n    {\\n        \\"vehicle_model\\": \\"Innova A\\\\/C (7+1)\\",\\n        \\"veh_type_id\\": \\"84\\",\\n        \\"tour_date\\": \\"2025-11-29\\",\\n        \\"day_rent\\": \\"2300\\",\\n        \\"max_km_day\\": \\"100\\",\\n        \\"extra_km_rate\\": \\"20\\",\\n        \\"travel_distance\\": \\"176\\",\\n        \\"extra_kilometer\\": \\"0\\",\\n        \\"veh_total\\": \\"2300\\"\\n    }\\n]\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_enquiry_tour_itinerary_expansion` (`itinerary_details_id`, `tour_details_id`, `tour_expansion_date`, `room_category_id`, `meal_plan_id`, `room_rate_double`, `child_with_bed_double`, `child_without_bed_double`, `extra_bed_double`, `no_of_child_with_bed`, `no_of_child_without_bed`, `no_of_extra_bed`, `double_total_rate`, `vehicle_details_json`) VALUES (:itinerary_details_id:, :tour_details_id:, :tour_expansion_date:, :room_category_id:, :meal_plan_id:, :room_rate_double:, :child_with_bed_double:, :child_without_bed_double:, :extra_bed_double:, :no_of_child_with_bed:, :no_of_child_without_bed:, :no_of_extra_bed:, :double_total_rate:, :vehicle_details_json:)', [...], false)
+ 4 APPPATH\Models\Enquiry_m.php(1218): CodeIgniter\Database\BaseBuilder->insert([...])
+ 5 APPPATH\Controllers\Enquiry.php(7373): App\Models\Enquiry_m->insert_expansion_data([...])
+ 6 APPPATH\Controllers\Enquiry.php(7257): App\Controllers\Enquiry->insertExpansionData(Object(App\Models\Enquiry_m), 2342, [...], 'double')
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->saveItinerary()
+ 8 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 9 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 12:40:24 --> [Caused by] mysqli_sql_exception: Unknown column 'no_of_child_with_bed' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 312.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(312): mysqli->query('INSERT INTO `khm_obj_enquiry_tour_itinerary_expansion` (`itinerary_details_id`, `tour_details_id`, `tour_expansion_date`, `room_category_id`, `meal_plan_id`, `room_rate_double`, `child_with_bed_double`, `child_without_bed_double`, `extra_bed_double`, `no_of_child_with_bed`, `no_of_child_without_bed`, `no_of_extra_bed`, `double_total_rate`, `vehicle_details_json`) VALUES (2342, \'1516\', \'2025-11-29\', 2926, 3, 4100, 1450, 1250, 0, 1, 1, 0, 6800, \'[\\n    {\\n        \\"vehicle_model\\": \\"Innova A\\\\/C (7+1)\\",\\n        \\"veh_type_id\\": \\"84\\",\\n        \\"tour_date\\": \\"2025-11-29\\",\\n        \\"day_rent\\": \\"2300\\",\\n        \\"max_km_day\\": \\"100\\",\\n        \\"extra_km_rate\\": \\"20\\",\\n        \\"travel_distance\\": \\"176\\",\\n        \\"extra_kilometer\\": \\"0\\",\\n        \\"veh_total\\": \\"2300\\"\\n    }\\n]\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(734): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `khm_obj_enquiry_tour_itinerary_expansion` (`itinerary_details_id`, `tour_details_id`, `tour_expansion_date`, `room_category_id`, `meal_plan_id`, `room_rate_double`, `child_with_bed_double`, `child_without_bed_double`, `extra_bed_double`, `no_of_child_with_bed`, `no_of_child_without_bed`, `no_of_extra_bed`, `double_total_rate`, `vehicle_details_json`) VALUES (2342, \'1516\', \'2025-11-29\', 2926, 3, 4100, 1450, 1250, 0, 1, 1, 0, 6800, \'[\\n    {\\n        \\"vehicle_model\\": \\"Innova A\\\\/C (7+1)\\",\\n        \\"veh_type_id\\": \\"84\\",\\n        \\"tour_date\\": \\"2025-11-29\\",\\n        \\"day_rent\\": \\"2300\\",\\n        \\"max_km_day\\": \\"100\\",\\n        \\"extra_km_rate\\": \\"20\\",\\n        \\"travel_distance\\": \\"176\\",\\n        \\"extra_kilometer\\": \\"0\\",\\n        \\"veh_total\\": \\"2300\\"\\n    }\\n]\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(648): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `khm_obj_enquiry_tour_itinerary_expansion` (`itinerary_details_id`, `tour_details_id`, `tour_expansion_date`, `room_category_id`, `meal_plan_id`, `room_rate_double`, `child_with_bed_double`, `child_without_bed_double`, `extra_bed_double`, `no_of_child_with_bed`, `no_of_child_without_bed`, `no_of_extra_bed`, `double_total_rate`, `vehicle_details_json`) VALUES (2342, \'1516\', \'2025-11-29\', 2926, 3, 4100, 1450, 1250, 0, 1, 1, 0, 6800, \'[\\n    {\\n        \\"vehicle_model\\": \\"Innova A\\\\/C (7+1)\\",\\n        \\"veh_type_id\\": \\"84\\",\\n        \\"tour_date\\": \\"2025-11-29\\",\\n        \\"day_rent\\": \\"2300\\",\\n        \\"max_km_day\\": \\"100\\",\\n        \\"extra_km_rate\\": \\"20\\",\\n        \\"travel_distance\\": \\"176\\",\\n        \\"extra_kilometer\\": \\"0\\",\\n        \\"veh_total\\": \\"2300\\"\\n    }\\n]\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2340): CodeIgniter\Database\BaseConnection->query('INSERT INTO `khm_obj_enquiry_tour_itinerary_expansion` (`itinerary_details_id`, `tour_details_id`, `tour_expansion_date`, `room_category_id`, `meal_plan_id`, `room_rate_double`, `child_with_bed_double`, `child_without_bed_double`, `extra_bed_double`, `no_of_child_with_bed`, `no_of_child_without_bed`, `no_of_extra_bed`, `double_total_rate`, `vehicle_details_json`) VALUES (:itinerary_details_id:, :tour_details_id:, :tour_expansion_date:, :room_category_id:, :meal_plan_id:, :room_rate_double:, :child_with_bed_double:, :child_without_bed_double:, :extra_bed_double:, :no_of_child_with_bed:, :no_of_child_without_bed:, :no_of_extra_bed:, :double_total_rate:, :vehicle_details_json:)', [...], false)
+ 5 APPPATH\Models\Enquiry_m.php(1218): CodeIgniter\Database\BaseBuilder->insert([...])
+ 6 APPPATH\Controllers\Enquiry.php(7373): App\Models\Enquiry_m->insert_expansion_data([...])
+ 7 APPPATH\Controllers\Enquiry.php(7257): App\Controllers\Enquiry->insertExpansionData(Object(App\Models\Enquiry_m), 2342, [...], 'double')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->saveItinerary()
+ 9 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+10 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-17 16:37:12 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-11-17 16:37:12 --> 220 smtp.gmail.com ESMTP 41be03b00d2f7-bc376c64418sm11739034a12.30 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-bc376c64418sm11739034a12.30 - gsmtp
+
+CRITICAL - 2025-11-17 11:21:48 --> ErrorException: Undefined array key "vehicle_details_json"
+[Method: GET, Route: Enquiry/itinerary/2803/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1869.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1869): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "vehicle_details_json"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1869)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5925): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 11:21:50 --> ErrorException: Undefined array key "vehicle_details_json"
+[Method: GET, Route: Enquiry/itinerary/2803/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1869.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1869): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "vehicle_details_json"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1869)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5925): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 11:21:51 --> ErrorException: Undefined array key "vehicle_details_json"
+[Method: GET, Route: Enquiry/itinerary/2803/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1869.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1869): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "vehicle_details_json"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1869)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5925): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 11:22:02 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 9304.
+ 1 APPPATH\Controllers\Enquiry.php(9304): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 9304)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 11:22:21 --> ErrorException: Undefined array key "vehicle_details_json"
+[Method: GET, Route: Enquiry/itinerary/2803/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1869.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1869): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "vehicle_details_json"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1869)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5925): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 11:35:25 --> ErrorException: Undefined array key "tour_expansion_date"
+[Method: GET, Route: Enquiry/itinerary/2803/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1506.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1506): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "tour_expansion_date"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1506)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5553): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 11:35:28 --> ErrorException: Undefined array key "tour_expansion_date"
+[Method: GET, Route: Enquiry/itinerary/2803/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1506.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1506): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "tour_expansion_date"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1506)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5553): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 11:37:28 --> ErrorException: Undefined array key "double_total_rate"
+[Method: GET, Route: Enquiry/itinerary/2803/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1520.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1520): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "double_total_rate"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1520)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5938): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 11:37:29 --> ErrorException: Undefined array key "double_total_rate"
+[Method: GET, Route: Enquiry/itinerary/2803/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1520.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1520): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "double_total_rate"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1520)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5938): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 11:42:40 --> ErrorException: Undefined array key "vehicle_details_json"
+[Method: GET, Route: Enquiry/itinerary/2803/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1869.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1869): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "vehicle_details_json"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1869)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5935): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-17 11:42:43 --> ErrorException: Undefined array key "vehicle_details_json"
+[Method: GET, Route: Enquiry/itinerary/2803/0]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1869.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1869): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "vehicle_details_json"', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1869)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5935): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '0')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
