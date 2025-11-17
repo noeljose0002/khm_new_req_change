@@ -5565,6 +5565,13 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
                 $eighteen_datas_double = $Enquiry_model->get_eighteen_datas_double($vals['tour_details_id']);
                 $eighteen_datas_single = $Enquiry_model->get_eighteen_datas_single($vals['tour_details_id']);
 
+                // Fetch original tour expansion for vehicle details
+                $original_tour_expansion = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
+                $vehicle_details_json = '';
+                if (!empty($original_tour_expansion)) {
+                    $vehicle_details_json = $original_tour_expansion[0]['vehicle_details_json'] ?? '';
+                }
+
                 // POPULATE TOUR EXPANSION DETAILS DYNAMICALLY FROM TAX TABLES
                 $tour_expansion_details[$tid] = [];
 
@@ -5622,7 +5629,7 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
                             // Defaults if not in tax data
                             'room_category_id' => $vals['room_category_id'],
                             'meal_plan_id' => $vals['meal_plan_id'],
-                            'vehicle_details_json' => ''
+                            'vehicle_details_json' => $vehicle_details_json
                         ];
                         $tour_expansion_details[$tid][] = $expansion_row;
                     }
@@ -5661,7 +5668,7 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
                             // Defaults if not in tax data
                             'room_category_id' => $vals['room_category_id'],
                             'meal_plan_id' => $vals['meal_plan_id'],
-                            'vehicle_details_json' => ''
+                            'vehicle_details_json' => $vehicle_details_json
                         ];
                         $tour_expansion_details[$tid][] = $expansion_row;
                     }

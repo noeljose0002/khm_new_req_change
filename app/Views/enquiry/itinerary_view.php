@@ -1863,270 +1863,275 @@ $cs_trans_total = 0;
 																											</div>
 																										</div>
 																									<?php } ?>
-<?php
-if ($use_dynamic && !empty($day_expansions)) {
-	$first_exp = $day_expansions[0];
-	$vehicle_details = json_decode($first_exp['vehicle_details_json']);
-	
-	// Add safety check
-	if (!is_array($vehicle_details) && !is_object($vehicle_details)) {
-		$vehicle_details = [];
-	}
-}
-?>
+																									<?php
+																									if ($use_dynamic && !empty($day_expansions)) {
+																										$first_exp = $day_expansions[0];
+																										$vehicle_details = json_decode($first_exp['vehicle_details_json']);
 
-<?php if ($object_det[0]['is_vehicle_required'] == 1) { ?>
+																										// Add safety check
+																										if (!is_array($vehicle_details) && !is_object($vehicle_details)) {
+																											$vehicle_details = [];
+																										}
+																									}
+																									?>
 
-	<?php
-	$newdateObj = DateTime::createFromFormat('d-m-Y', $object_det[0]['end_date']);
-	$newdateObj->modify('-1 day');
-	$newendDate = $newdateObj->format('d-m-Y');
+																									<?php if ($object_det[0]['is_vehicle_required'] == 1) { ?>
 
-	$newdateObj1 = DateTime::createFromFormat('d-m-Y', $object_det[0]['start_date']);
-	$newendDate1 = $newdateObj1->format('d-m-Y');
+																										<?php
+																										$newdateObj = DateTime::createFromFormat('d-m-Y', $object_det[0]['end_date']);
+																										$newdateObj->modify('-1 day');
+																										$newendDate = $newdateObj->format('d-m-Y');
 
-	foreach ($vehicle_details as $vindex => $vmodel) {
-		if ($vindex == 0) {
-			if ($ttkey == $tpd_count) {
-				if ($cnt1 == 0) {
-					if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
-						$pre_to_cur = isset($vmodel->pre_to_cur) ? $vmodel->pre_to_cur : 0;
-						$cur_to_dep = isset($vmodel->cur_to_dep) ? $vmodel->cur_to_dep : 0;
-						$dep_to_arr = isset($vmodel->dep_to_arr) ? $vmodel->dep_to_arr : 0;
-						$header_temp = " (Previous Location to Current Location - " . $pre_to_cur . "KM, Location to Departure - " . $cur_to_dep . "KM, Departure to Hub Location - " . $dep_to_arr . "KM)";
-						echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
-						echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
-					} else if ($startDate1->format('d-m-Y') == $newendDate1) {
-						$hub_to_arr = isset($vmodel->hub_to_arr) ? $vmodel->hub_to_arr : 0;
-						$arr_to_loc = isset($vmodel->arr_to_loc) ? $vmodel->arr_to_loc : 0;
-						$header_temp = " (Hub Location to Arrival - " . $hub_to_arr . "KM, Arrival to Location - " . $arr_to_loc . "KM)";
-						echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
-						echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
-					} else {
-						$pre_to_cur = isset($vmodel->pre_to_cur) ? $vmodel->pre_to_cur : 0;
-						$header_temp = " (Previous Location to Current Location - " . $pre_to_cur . "KM)";
-						echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
-						echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
-					}
-				} else {
-					if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
-						$cur_to_dep = isset($vmodel->cur_to_dep) ? $vmodel->cur_to_dep : 0;
-						$dep_to_arr = isset($vmodel->dep_to_arr) ? $vmodel->dep_to_arr : 0;
-						$header_temp = " (Location to Departure - " . $cur_to_dep . "KM, Departure to Hub Location - " . $dep_to_arr . "KM)";
-						echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
-						echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
-					} else {
-						$header_temp = " (Current location is same as previous location, Tour travel = 0 KM)";
-						echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
-						echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
-					}
-				}
-			} else {
-				if ($cnt1 == 0) {
-					// Check if veh_header exists in the object, otherwise use default
-					$veh_header_value = isset($vmodel->veh_header) ? $vmodel->veh_header : '';
-					echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $veh_header_value . '</h5></center>';
-					echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $veh_header_value . '">';
-				} else {
-					echo '<center><h5 style="padding-top:10px;">Vehicle Details : Current location is same as previous location, Tour travel = 0 KM</h5></center>';
-					echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="Current location is same as previous location, Tour travel = 0 KM">';
-				}
-			}
-		}
-	}
-	?>
+																										$newdateObj1 = DateTime::createFromFormat('d-m-Y', $object_det[0]['start_date']);
+																										$newendDate1 = $newdateObj1->format('d-m-Y');
 
-	<input type="hidden" id="veh_header<?php echo $iti_id; ?>" name="addloc[<?php echo $iti_id; ?>][veh_header]" value="">
-	<div class="row mt-2 single_row">
-		<div class="col-xl-4 col-sm-12 col-md-4">
-			<div class="teams-rank"><label class="small-label">Vehicle Model</label></div>
-		</div>
+																										foreach ($vehicle_details as $vindex => $vmodel) {
+																											if ($vindex == 0) {
+																												if ($ttkey == $tpd_count) {
+																													if ($cnt1 == 0) {
+																														if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
+																															$pre_to_cur = isset($vmodel->pre_to_cur) ? $vmodel->pre_to_cur : 0;
+																															$cur_to_dep = isset($vmodel->cur_to_dep) ? $vmodel->cur_to_dep : 0;
+																															$dep_to_arr = isset($vmodel->dep_to_arr) ? $vmodel->dep_to_arr : 0;
+																															$header_temp = " (Previous Location to Current Location - " . $pre_to_cur . "KM, Location to Departure - " . $cur_to_dep . "KM, Departure to Hub Location - " . $dep_to_arr . "KM)";
+																															echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
+																															echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
+																														} else if ($startDate1->format('d-m-Y') == $newendDate1) {
+																															$hub_to_arr = isset($vmodel->hub_to_arr) ? $vmodel->hub_to_arr : 0;
+																															$arr_to_loc = isset($vmodel->arr_to_loc) ? $vmodel->arr_to_loc : 0;
+																															$header_temp = " (Hub Location to Arrival - " . $hub_to_arr . "KM, Arrival to Location - " . $arr_to_loc . "KM)";
+																															echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
+																															echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
+																														} else {
+																															$pre_to_cur = isset($vmodel->pre_to_cur) ? $vmodel->pre_to_cur : 0;
+																															$header_temp = " (Previous Location to Current Location - " . $pre_to_cur . "KM)";
+																															echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
+																															echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
+																														}
+																													} else {
+																														if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
+																															$cur_to_dep = isset($vmodel->cur_to_dep) ? $vmodel->cur_to_dep : 0;
+																															$dep_to_arr = isset($vmodel->dep_to_arr) ? $vmodel->dep_to_arr : 0;
+																															$header_temp = " (Location to Departure - " . $cur_to_dep . "KM, Departure to Hub Location - " . $dep_to_arr . "KM)";
+																															echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
+																															echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
+																														} else {
+																															$header_temp = " (Current location is same as previous location, Tour travel = 0 KM)";
+																															echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
+																															echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
+																														}
+																													}
+																												} else {
+																													if ($cnt1 == 0) {
+																														// Check if veh_header exists in the object, otherwise use default
+																														$veh_header_value = isset($vmodel->veh_header) ? $vmodel->veh_header : '';
+																														echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $veh_header_value . '</h5></center>';
+																														echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $veh_header_value . '">';
+																													} else {
+																														echo '<center><h5 style="padding-top:10px;">Vehicle Details : Current location is same as previous location, Tour travel = 0 KM</h5></center>';
+																														echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="Current location is same as previous location, Tour travel = 0 KM">';
+																													}
+																												}
+																											}
+																										}
+																										?>
 
-		<div class="col-xl-2 col-sm-12 col-md-2">
-			<div class="teams-rank"><label class="small-label">Daily Rent</label></div>
-		</div>
-		<div class="col-xl-1 col-sm-12 col-md-2">
-			<div class="teams-rank"><label class="small-label">Max KM/Day</label></div>
-		</div>
-		<div class="col-xl-1 col-sm-12 col-md-2">
-			<div class="teams-rank"><label class="small-label">Distance</label></div>
-		</div>
-		<div class="col-xl-2 col-sm-12 col-md-2">
-			<div class="teams-rank"><label class="small-label">Extra KM</label></div>
-		</div>
-		<div class="col-xl-2 col-sm-12 col-md-2">
-			<div class="teams-rank"><label class="small-label">Total</label></div>
-		</div>
-	</div>
-	<?php
-	$grand_veh_total = 0;
-	foreach ($vehicle_details as $vindex => $vmodel) {
-		// Add safety checks for all properties
-		$vehicle_count = isset($vmodel->vehicle_count) ? $vmodel->vehicle_count : 1;
-		$travel_distance = isset($vmodel->travel_distance) ? $vmodel->travel_distance : 0;
-		$extra_kilometer = isset($vmodel->extra_kilometer) ? $vmodel->extra_kilometer : 0;
-		$day_rent = isset($vmodel->day_rent) ? $vmodel->day_rent : 0;
-		$extra_km_rate = isset($vmodel->extra_km_rate) ? $vmodel->extra_km_rate : 0;
-		$max_km_day = isset($vmodel->max_km_day) ? $vmodel->max_km_day : 0;
-		$pre_to_cur = isset($vmodel->pre_to_cur) ? $vmodel->pre_to_cur : 0;
-		$cur_to_dep = isset($vmodel->cur_to_dep) ? $vmodel->cur_to_dep : 0;
-		$dep_to_arr = isset($vmodel->dep_to_arr) ? $vmodel->dep_to_arr : 0;
-		$hub_to_arr = isset($vmodel->hub_to_arr) ? $vmodel->hub_to_arr : 0;
-		$arr_to_loc = isset($vmodel->arr_to_loc) ? $vmodel->arr_to_loc : 0;
-		
-		if ($ttkey == $tpd_count) {
-			if ($cnt1 == 0) {
-				if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
-					$travel_distance_temp = $travel_distance;
-					$extra_kilometer_temp = $extra_kilometer;
-					$veh_total = $day_rent + ($extra_kilometer * $extra_km_rate);
-					$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
-				} else if ($startDate1->format('d-m-Y') == $newendDate1) {
-					$travel_distance_temp = (float)$hub_to_arr + (float)$arr_to_loc;
-					$max_km_day_temp = $max_km_day;
-					if ($travel_distance_temp > $max_km_day_temp) {
-						$extra_kilometer_temp = $travel_distance_temp - $max_km_day_temp;
-					} else {
-						$extra_kilometer_temp = 0;
-					}
-					$veh_total = $day_rent + ($extra_kilometer * $extra_km_rate);
-					$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
-				} else {
-					$travel_distance_temp = $pre_to_cur;
-					$max_km_day_temp = $max_km_day;
-					if ($travel_distance_temp > $max_km_day_temp) {
-						$extra_kilometer_temp = $travel_distance_temp - $max_km_day_temp;
-					} else {
-						$extra_kilometer_temp = 0;
-					}
-					$veh_total = $day_rent + ($extra_kilometer * $extra_km_rate);
-					$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
-				}
-			} else {
-				if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
-					$travel_distance_temp = (float)$cur_to_dep + (float)$dep_to_arr;
-					$max_km_day_temp = $max_km_day;
-					if ($travel_distance_temp > $max_km_day_temp) {
-						$extra_kilometer_temp = $travel_distance_temp - $max_km_day_temp;
-					} else {
-						$extra_kilometer_temp = 0;
-					}
-					$veh_total = $day_rent + ($extra_kilometer * $extra_km_rate);
-					$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
-				} else {
-					$travel_distance_temp = 0;
-					$extra_kilometer_temp = 0;
-					$veh_total = $day_rent;
-					$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
-				}
-			}
-		} else {
-			if ($cnt1 == 0) {
-				$travel_distance_temp = $travel_distance;
-				$extra_kilometer_temp = $extra_kilometer;
-				$veh_total = $day_rent + ($extra_kilometer * $extra_km_rate);
-				$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
-			} else {
-				$travel_distance_temp = 0;
-				$extra_kilometer_temp = 0;
-				$veh_total = $day_rent;
-				$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
-			}
-		}
+																										<input type="hidden" id="veh_header<?php echo $iti_id; ?>" name="addloc[<?php echo $iti_id; ?>][veh_header]" value="">
+																										<div class="row mt-2 single_row">
+																											<div class="col-xl-4 col-sm-12 col-md-4">
+																												<div class="teams-rank"><label class="small-label">Vehicle Model</label></div>
+																											</div>
 
-		$travel_distance_copy = $travel_distance_temp;
-		$si_nos = $vindex + 1;
+																											<div class="col-xl-2 col-sm-12 col-md-2">
+																												<div class="teams-rank"><label class="small-label">Daily Rent</label></div>
+																											</div>
+																											<div class="col-xl-1 col-sm-12 col-md-2">
+																												<div class="teams-rank"><label class="small-label">Max KM/Day</label></div>
+																											</div>
+																											<div class="col-xl-1 col-sm-12 col-md-2">
+																												<div class="teams-rank"><label class="small-label">Distance</label></div>
+																											</div>
+																											<div class="col-xl-2 col-sm-12 col-md-2">
+																												<div class="teams-rank"><label class="small-label">Extra KM</label></div>
+																											</div>
+																											<div class="col-xl-2 col-sm-12 col-md-2">
+																												<div class="teams-rank"><label class="small-label">Total</label></div>
+																											</div>
+																										</div>
+																										<?php
+																										$grand_veh_total = 0;
+																										foreach ($vehicle_details as $vindex => $vmodel) {
+																											// Add safety checks for all properties
+																											$vehicle_count = isset($vmodel->vehicle_count) ? $vmodel->vehicle_count : 1;
+																											$travel_distance = isset($vmodel->travel_distance) ? $vmodel->travel_distance : 0;
+																											$extra_kilometer = isset($vmodel->extra_kilometer) ? $vmodel->extra_kilometer : 0;
+																											$day_rent = isset($vmodel->day_rent) ? $vmodel->day_rent : 0;
+																											$extra_km_rate = isset($vmodel->extra_km_rate) ? $vmodel->extra_km_rate : 0;
+																											$max_km_day = isset($vmodel->max_km_day) ? $vmodel->max_km_day : 0;
+																											$pre_to_cur = isset($vmodel->pre_to_cur) ? $vmodel->pre_to_cur : 0;
+																											$cur_to_dep = isset($vmodel->cur_to_dep) ? $vmodel->cur_to_dep : 0;
+																											$dep_to_arr = isset($vmodel->dep_to_arr) ? $vmodel->dep_to_arr : 0;
+																											$hub_to_arr = isset($vmodel->hub_to_arr) ? $vmodel->hub_to_arr : 0;
+																											$arr_to_loc = isset($vmodel->arr_to_loc) ? $vmodel->arr_to_loc : 0;
 
-		for ($j = 0; $j < $vehicle_count; $j++) {
-			$checked = "checked";
+																											if ($ttkey == $tpd_count) {
+																												if ($cnt1 == 0) {
+																													if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
+																														$travel_distance_temp = $travel_distance;
+																														$extra_kilometer_temp = $extra_kilometer;
+																														$veh_total = $day_rent + ($extra_kilometer * $extra_km_rate);
+																														$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
+																													} else if ($startDate1->format('d-m-Y') == $newendDate1) {
+																														$travel_distance_temp = (float)$hub_to_arr + (float)$arr_to_loc;
+																														$max_km_day_temp = $max_km_day;
+																														if ($travel_distance_temp > $max_km_day_temp) {
+																															$extra_kilometer_temp = $travel_distance_temp - $max_km_day_temp;
+																														} else {
+																															$extra_kilometer_temp = 0;
+																														}
+																														$veh_total = $day_rent + ($extra_kilometer * $extra_km_rate);
+																														$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
+																													} else {
+																														$travel_distance_temp = $pre_to_cur;
+																														$max_km_day_temp = $max_km_day;
+																														if ($travel_distance_temp > $max_km_day_temp) {
+																															$extra_kilometer_temp = $travel_distance_temp - $max_km_day_temp;
+																														} else {
+																															$extra_kilometer_temp = 0;
+																														}
+																														$veh_total = $day_rent + ($extra_kilometer * $extra_km_rate);
+																														$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
+																													}
+																												} else {
+																													if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
+																														$travel_distance_temp = (float)$cur_to_dep + (float)$dep_to_arr;
+																														$max_km_day_temp = $max_km_day;
+																														if ($travel_distance_temp > $max_km_day_temp) {
+																															$extra_kilometer_temp = $travel_distance_temp - $max_km_day_temp;
+																														} else {
+																															$extra_kilometer_temp = 0;
+																														}
+																														$veh_total = $day_rent + ($extra_kilometer * $extra_km_rate);
+																														$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
+																													} else {
+																														$travel_distance_temp = 0;
+																														$extra_kilometer_temp = 0;
+																														$veh_total = $day_rent;
+																														$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
+																													}
+																												}
+																											} else {
+																												if ($cnt1 == 0) {
+																													$travel_distance_temp = $travel_distance;
+																													$extra_kilometer_temp = $extra_kilometer;
+																													$veh_total = $day_rent + ($extra_kilometer * $extra_km_rate);
+																													$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
+																												} else {
+																													$travel_distance_temp = 0;
+																													$extra_kilometer_temp = 0;
+																													$veh_total = $day_rent;
+																													$grand_veh_total = $grand_veh_total + ($veh_total * $vehicle_count);
+																												}
+																											}
 
-			$vid = $iti_id . $vmodel->veh_type_id . "_" . $j;
-			if (!empty($itinerary_details_draft)) {
-				$checked = "";
-				if (!empty($d_vehicles)) {
-					foreach ($d_vehicles as $drkey => $drval) {
-						if ($drval->chk_vehicle_status == 1) {
-							$checked = "checked";
-						}
-						if ($vid == $drval->chk_vehicle) {
-							$travel_distance_temp = $drval->travel_distance;
-						}
-					}
-				} else {
-					$checked = "";
-				}
-			} else {
-				if (!empty($previous_itinerary_details_save)) {
-					$checked = "";
-					foreach ($previous_itinerary_details_save as $p_key => $p_val) {
-						$iti_id_new = $p_val['tour_details_id'] . "_" . $startDate1->format('d-m-Y');
-						$vid = $iti_id_new . $vmodel->veh_type_id . "_" . $j;
-						$d_vehicle_details_pre = $p_val['vehicle_details'];
+																											$travel_distance_copy = $travel_distance_temp;
+																											$si_nos = $vindex + 1;
 
-						$d_vehicles_pre = json_decode($d_vehicle_details_pre);
-						if (!empty($d_vehicles_pre)) {
-							foreach ($d_vehicles_pre as $drk => $drv) {
-								if ($drv->chk_vehicle_status == 1) {
-									$checked = "checked";
-								}
-								if ($vid == $drv->chk_vehicle) {
-									$travel_distance_temp = $drv->travel_distance;
-								}
-							}
-						} else {
-							$checked = "";
-						}
-					}
-				}
-			}
-	?>
+																											for ($j = 0; $j < $vehicle_count; $j++) {
+																												$checked = "checked";
 
-			<div class="row mt-2 single_row">
-				<div class="col-xl-1 col-sm-12 col-md-1">
-					<input type="hidden" name="additi[<?php echo $iti_id; ?>][chk_vehicle_value][<?php echo $vid; ?>]" value="<?php echo $vid; ?>">
-					<input type="hidden" name="additi[<?php echo $iti_id; ?>][chk_vehicle_hidden][<?php echo $vid; ?>]" value="1">
+																												$vid = $iti_id . $vmodel->veh_type_id . "_" . $j;
+																												if (!empty($itinerary_details_draft)) {
+																													$checked = "";
+																													if (!empty($d_vehicles)) {
+																														foreach ($d_vehicles as $drkey => $drval) {
+																															if ($drval->chk_vehicle_status == 1) {
+																																$checked = "checked";
+																															}
+																															if ($vid == $drval->chk_vehicle) {
+																																$travel_distance_temp = $drval->travel_distance;
+																															}
+																														}
+																													} else {
+																														$checked = "";
+																													}
+																												} else {
+																													if (!empty($previous_itinerary_details_save)) {
+																														$checked = "";
+																														foreach ($previous_itinerary_details_save as $p_key => $p_val) {
+																															$iti_id_new = $p_val['tour_details_id'] . "_" . $startDate1->format('d-m-Y');
+																															$vid = $iti_id_new . $vmodel->veh_type_id . "_" . $j;
+																															$d_vehicle_details_pre = $p_val['vehicle_details'];
 
-					<input type="checkbox" id="chk_vehicle<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][chk_vehicle][<?php echo $vid; ?>]" class="chk_vehicle" value="<?php echo $vid; ?>" data-id="<?php echo $iti_id; ?>" <?php echo $checked; ?> <?php echo $dis_abled; ?>>
-				</div>
-				<div class="col-xl-3 col-sm-12 col-md-3">
-					<input type="text" id="veh_model<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_model][<?php echo $vid; ?>]" value="<?php echo isset($vmodel->vehicle_model) ? $vmodel->vehicle_model : ''; ?>" class="form-control input-sm veh_model<?php echo $vindex; ?>" readonly>
-					<input type="hidden" id="veh_type_id<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_type_id][<?php echo $vid; ?>]" value="<?php echo isset($vmodel->veh_type_id) ? $vmodel->veh_type_id : ''; ?>" class="form-control input-sm veh_type_id<?php echo $vindex; ?>">
-					<input type="hidden" id="v_tour_date<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][v_tour_date][<?php echo $vid; ?>]" value="<?php echo $startDate1->format('Y-m-d'); ?>">
-				</div>
+																															$d_vehicles_pre = json_decode($d_vehicle_details_pre);
+																															if (!empty($d_vehicles_pre)) {
+																																foreach ($d_vehicles_pre as $drk => $drv) {
+																																	if ($drv->chk_vehicle_status == 1) {
+																																		$checked = "checked";
+																																	}
+																																	if ($vid == $drv->chk_vehicle) {
+																																		$travel_distance_temp = $drv->travel_distance;
+																																	}
+																																}
+																															} else {
+																																$checked = "";
+																															}
+																														}
+																													}
+																												}
 
-				<div class="col-xl-2 col-sm-12 col-md-2">
-					<input type="text" id="day_rent<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][day_rent][<?php echo $vid; ?>]" value="<?php echo $day_rent; ?>" class="form-control input-sm cls_daily day_rent<?php echo $vindex; ?>" data-id="" data-cid="" maxlength="5" readonly>
-				</div>
-				<div class="col-xl-1 col-sm-12 col-md-2">
-					<input type="text" id="max_km_day<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][max_km_day][<?php echo $vid; ?>]" value="<?php echo $max_km_day; ?>" class="form-control input-sm max_km_day<?php echo $vindex; ?>" maxlength="5" readonly>
-				</div>
-				<div class="col-xl-1 col-sm-12 col-md-2">
-					<input type="text" id="travel_distance<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][travel_distance][<?php echo $vid; ?>]" value="<?php echo $travel_distance_temp; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_temp; ?>" maxlength="5">
-					<input type="hidden" id="c_travel_distance_copy<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][c_travel_distance_copy][<?php echo $vid; ?>]" value="<?php echo $travel_distance_copy; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_copy; ?>" maxlength="5">
-				</div>
-				<div class="col-xl-2 col-sm-12 col-md-2">
-					<input type="text" id="extra_kilometer<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_kilometer][<?php echo $vid; ?>]" value="<?php echo $extra_kilometer_temp; ?>" class="form-control input-sm extra_kilometer<?php echo $vindex; ?>" maxlength="5" readonly>
-				</div>
-				<input type="hidden" id="extra_km_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate][<?php echo $vid; ?>]" value="0" class="form-control input-sm extra_km_rate<?php echo $vindex; ?>" maxlength="5" readonly>
-				<input type="hidden" id="extra_km_rate_hidden<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate_hidden][<?php echo $vid; ?>]" value="<?php echo $extra_km_rate; ?>">
-				<div class="col-xl-2 col-sm-12 col-md-2">
-					<input type="text" id="veh_total<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_total][<?php echo $vid; ?>]" value="<?php echo $veh_total; ?>" class="form-control input-sm veh_total<?php echo $vindex; ?>" maxlength="5" readonly>
-				</div>
-			</div>
-	<?php  
-		}
-	}
-} else { 
-?>
-	<input type="hidden" id="veh_model<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_model][0]" value="">
-	<input type="hidden" id="veh_type_id<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_type_id][0]" value="">
-	<input type="hidden" id="v_tour_date<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][v_tour_date][0]" value="">
-	<input type="hidden" id="veh_count<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_count][0]" value="0">
-	<input type="hidden" id="day_rent<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][day_rent][0]" value="0">
-	<input type="hidden" id="max_km_day<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][max_km_day][0]" value="0">
-	<input type="hidden" id="extra_km_rate<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][extra_km_rate][0]" value="0">
-	<input type="hidden" id="veh_total<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_total][0]" value="0">
-<?php } ?>
+																												// FORCE CHECKED FOR TAX STATUS 1: Override the checked state if tax_status is 1
+																												if ($ttval['tax_status'] == 1) {
+																													$checked = "checked";
+																												}
+																										?>
+
+																												<div class="row mt-2 single_row">
+																													<div class="col-xl-1 col-sm-12 col-md-1">
+																														<input type="hidden" name="additi[<?php echo $iti_id; ?>][chk_vehicle_value][<?php echo $vid; ?>]" value="<?php echo $vid; ?>">
+																														<input type="hidden" name="additi[<?php echo $iti_id; ?>][chk_vehicle_hidden][<?php echo $vid; ?>]" value="1">
+
+																														<input type="checkbox" id="chk_vehicle<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][chk_vehicle][<?php echo $vid; ?>]" class="chk_vehicle" value="<?php echo $vid; ?>" data-id="<?php echo $iti_id; ?>" <?php echo $checked; ?> <?php echo $dis_abled; ?>>
+																													</div>
+																													<div class="col-xl-3 col-sm-12 col-md-3">
+																														<input type="text" id="veh_model<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_model][<?php echo $vid; ?>]" value="<?php echo isset($vmodel->vehicle_model) ? $vmodel->vehicle_model : ''; ?>" class="form-control input-sm veh_model<?php echo $vindex; ?>" readonly>
+																														<input type="hidden" id="veh_type_id<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_type_id][<?php echo $vid; ?>]" value="<?php echo isset($vmodel->veh_type_id) ? $vmodel->veh_type_id : ''; ?>" class="form-control input-sm veh_type_id<?php echo $vindex; ?>">
+																														<input type="hidden" id="v_tour_date<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][v_tour_date][<?php echo $vid; ?>]" value="<?php echo $startDate1->format('Y-m-d'); ?>">
+																													</div>
+
+																													<div class="col-xl-2 col-sm-12 col-md-2">
+																														<input type="text" id="day_rent<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][day_rent][<?php echo $vid; ?>]" value="<?php echo $day_rent; ?>" class="form-control input-sm cls_daily day_rent<?php echo $vindex; ?>" data-id="" data-cid="" maxlength="5" readonly>
+																													</div>
+																													<div class="col-xl-1 col-sm-12 col-md-2">
+																														<input type="text" id="max_km_day<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][max_km_day][<?php echo $vid; ?>]" value="<?php echo $max_km_day; ?>" class="form-control input-sm max_km_day<?php echo $vindex; ?>" maxlength="5" readonly>
+																													</div>
+																													<div class="col-xl-1 col-sm-12 col-md-2">
+																														<input type="text" id="travel_distance<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][travel_distance][<?php echo $vid; ?>]" value="<?php echo $travel_distance_temp; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_temp; ?>" maxlength="5">
+																														<input type="hidden" id="c_travel_distance_copy<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][c_travel_distance_copy][<?php echo $vid; ?>]" value="<?php echo $travel_distance_copy; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_copy; ?>" maxlength="5">
+																													</div>
+																													<div class="col-xl-2 col-sm-12 col-md-2">
+																														<input type="text" id="extra_kilometer<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_kilometer][<?php echo $vid; ?>]" value="<?php echo $extra_kilometer_temp; ?>" class="form-control input-sm extra_kilometer<?php echo $vindex; ?>" maxlength="5" readonly>
+																													</div>
+																													<input type="hidden" id="extra_km_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate][<?php echo $vid; ?>]" value="0" class="form-control input-sm extra_km_rate<?php echo $vindex; ?>" maxlength="5" readonly>
+																													<input type="hidden" id="extra_km_rate_hidden<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate_hidden][<?php echo $vid; ?>]" value="<?php echo $extra_km_rate; ?>">
+																													<div class="col-xl-2 col-sm-12 col-md-2">
+																														<input type="text" id="veh_total<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_total][<?php echo $vid; ?>]" value="<?php echo $veh_total; ?>" class="form-control input-sm veh_total<?php echo $vindex; ?>" maxlength="5" readonly>
+																													</div>
+																												</div>
+																										<?php
+																											}
+																										}
+																									} else {
+																										?>
+																										<input type="hidden" id="veh_model<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_model][0]" value="">
+																										<input type="hidden" id="veh_type_id<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_type_id][0]" value="">
+																										<input type="hidden" id="v_tour_date<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][v_tour_date][0]" value="">
+																										<input type="hidden" id="veh_count<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_count][0]" value="0">
+																										<input type="hidden" id="day_rent<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][day_rent][0]" value="0">
+																										<input type="hidden" id="max_km_day<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][max_km_day][0]" value="0">
+																										<input type="hidden" id="extra_km_rate<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][extra_km_rate][0]" value="0">
+																										<input type="hidden" id="veh_total<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_total][0]" value="0">
+																									<?php } ?>
 
 
 																									<div class="row mt-2 single_row">
