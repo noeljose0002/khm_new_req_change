@@ -1210,6 +1210,32 @@ class Enquiry_m extends Model
      * @param array $data Expansion data to insert
      * @return int Inserted ID
      */
+
+    public function get_eighteen_datas_double_by_date($tour_details_id, $tour_date)
+{
+    return $this->db->table('khm_eighteen_percentage_double')
+        ->where('tour_details_id', $tour_details_id)
+        // Note: You may need to add a tour_date column or use sequence_id logic
+        // If using sequence_id, you'll need custom logic to match dates
+        ->get()
+        ->getResultArray();
+}
+
+/**
+ * Get eighteen single data by tour_details_id and tour_date
+ * 
+ * @param int $tour_details_id
+ * @param string $tour_date Format: Y-m-d
+ * @return array
+ */
+public function get_eighteen_datas_single_by_date($tour_details_id, $tour_date)
+{
+    return $this->db->table('khm_eighteen_percentage_single')
+        ->where('tour_details_id', $tour_details_id)
+        // Note: You may need to add a tour_date column or use sequence_id logic
+        ->get()
+        ->getResultArray();
+}
     public function insert_expansion_data($data)
     {
         $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
@@ -1367,6 +1393,15 @@ class Enquiry_m extends Model
         return $grouped;
     }
     //nj//
+    public function get_gst_rate_by_tour_and_sequence($tour_details_id, $sequence_id, $room_type = 'double') 
+{
+    // Query appropriate table based on room_type: double or single
+    $table_name = ($room_type === 'single') ? 'khm_eighteen_percentage_single' : 'khm_eighteen_percentage_double';
+    
+    $query = $this->db->query("SELECT gst FROM " . $table_name . " WHERE tour_details_id = ? AND sequence_id = ?", [$tour_details_id, $sequence_id]);
+    $result = $query->getRowArray();
+    return !empty($result) ? (float) $result['gst'] : 0;
+}
     public function update_tour_expansion($data, $tour_details_id, $date)
     {
         $db = \Config\Database::connect();
