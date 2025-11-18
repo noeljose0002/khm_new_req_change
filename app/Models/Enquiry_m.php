@@ -8,7 +8,7 @@ class Enquiry_m extends Model
 {
     protected $khm_obj_enquiry_detail_extensions = 'khm_obj_enquiry_detail_extensions';
     protected $khm_obj_enquiry_tour_expansion = 'khm_obj_enquiry_tour_expansion'; //nj//
-    protected $khm_obj_enquiry_tour_itinerary_expansion='khm_obj_enquiry_tour_itinerary_expansion';//nj//
+    protected $khm_obj_enquiry_tour_itinerary_expansion = 'khm_obj_enquiry_tour_itinerary_expansion'; //nj//
     protected $khm_obj_itinerary_costing_details = 'khm_obj_itinerary_costing_details';
     protected $khm_obj_enquiry_itinerary_details = 'khm_obj_enquiry_itinerary_details';
     protected $khm_obj_enquiry_header = 'khm_obj_enquiry_header';
@@ -150,7 +150,7 @@ class Enquiry_m extends Model
         if ($parent_id == 9 || $parent_id == 3) {
             $query->where('stt.assigned_to', $user_id);
         }
-        if($parent_id == 11){
+        if ($parent_id == 11) {
             $query->where('er.cs_confirmed_id >', 0);
         }
 
@@ -177,7 +177,7 @@ class Enquiry_m extends Model
         }
         $query->orderBy($columnName, $columnSortOrder);
         $query->limit($rowperpage, $start);
-        
+
         $records = $query->get()->getResultArray();
 
         $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
@@ -362,14 +362,14 @@ class Enquiry_m extends Model
     {
         $db = \Config\Database::connect();
         $selected_table = $db->table('khm_obj_hotel a');
-            $selected_table->select('a.*,g.object_name')
-                ->join('khm_obj_mst g', 'g.object_id = a.object_id', 'left')
-                ->join('khm_obj_hotel_room_category r', 'r.hotel_id = a.hotel_id', 'inner')
-                ->where('g.object_location_id', $tour_location_id)
-                ->where('a.hotel_rr', 1)
-                ->groupBy('a.hotel_id')
-                ->orderBy('g.object_name', 'ASC');
-            $result = $selected_table->get()->getResult();
+        $selected_table->select('a.*,g.object_name')
+            ->join('khm_obj_mst g', 'g.object_id = a.object_id', 'left')
+            ->join('khm_obj_hotel_room_category r', 'r.hotel_id = a.hotel_id', 'inner')
+            ->where('g.object_location_id', $tour_location_id)
+            ->where('a.hotel_rr', 1)
+            ->groupBy('a.hotel_id')
+            ->orderBy('g.object_name', 'ASC');
+        $result = $selected_table->get()->getResult();
         $total_hotels = count($result);
         if ($total_hotels == 0) {
             return null;
@@ -451,8 +451,7 @@ class Enquiry_m extends Model
                 ->get()->getResultArray();
             if (!empty($hotel_row)) {
                 $hotel_status = $hotel_row[0]['boolean_value'];
-            }
-            else{
+            } else {
                 $hotel_status = 0;
             }
 
@@ -714,8 +713,7 @@ class Enquiry_m extends Model
                 ->get()->getResultArray();
             if (!empty($hotel_row)) {
                 $hotel_status = $hotel_row[0]['boolean_value'];
-            }
-            else{
+            } else {
                 $hotel_status = 0;
             }
 
@@ -1203,165 +1201,171 @@ class Enquiry_m extends Model
    
    //njitisave//
     /**
- * Add these methods to your Enquiry_m model class
- */
+     * Add these methods to your Enquiry_m model class
+     */
 
-/**
- * Insert expansion data into khm_obj_enquiry_tour_itinerary_expansion table
- * 
- * @param array $data Expansion data to insert
- * @return int Inserted ID
- */
-public function insert_expansion_data($data)
-{
-    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
-    $builder->insert($data);
-    return $this->db->insertID();
-}
+    /**
+     * Insert expansion data into khm_obj_enquiry_tour_itinerary_expansion table
+     * 
+     * @param array $data Expansion data to insert
+     * @return int Inserted ID
+     */
+    public function insert_expansion_data($data)
+    {
+        $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
+        $builder->insert($data);
+        return $this->db->insertID();
+    }
 
-/**
- * Delete expansion data for a specific itinerary_details_id
- * Used when updating existing itineraries
- * 
- * @param int $itinerary_details_id The itinerary details ID
- * @return bool Success status
- */
-public function delete_expansion_data($itinerary_details_id)
-{
-    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
-    $builder->where('itinerary_details_id', $itinerary_details_id);
-    return $builder->delete();
-}
+    /**
+     * Delete expansion data for a specific itinerary_details_id
+     * Used when updating existing itineraries
+     * 
+     * @param int $itinerary_details_id The itinerary details ID
+     * @return bool Success status
+     */
+    public function delete_expansion_data($itinerary_details_id)
+    {
+        $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
+        $builder->where('itinerary_details_id', $itinerary_details_id);
+        return $builder->delete();
+    }
 
-/**
- * Get expansion data for a specific itinerary_details_id
- * 
- * @param int $itinerary_details_id The itinerary details ID
- * @return array Expansion data records
- */
-public function get_expansion_data($itinerary_details_id)
-{
-    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
-    $builder->where('itinerary_details_id', $itinerary_details_id);
-    $query = $builder->get();
-    return $query->getResultArray();
-}
+    /**
+     * Get expansion data for a specific itinerary_details_id
+     * 
+     * @param int $itinerary_details_id The itinerary details ID
+     * @return array Expansion data records
+     */
+    public function get_expansion_data($itinerary_details_id)
+    {
+        $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
+        $builder->where('itinerary_details_id', $itinerary_details_id);
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
 
-/**
- * Get expansion data for an entire enquiry with joins
- * 
- * @param int $enquiry_header_id The enquiry header ID
- * @param int $enquiry_details_id The enquiry details ID (optional)
- * @return array Expansion data with related information
- */
-public function get_expansion_data_by_enquiry($enquiry_header_id, $enquiry_details_id = null)
-{
-    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion e');
-    $builder->select('e.*, 
+    /**
+     * Get expansion data for an entire enquiry with joins
+     * 
+     * @param int $enquiry_header_id The enquiry header ID
+     * @param int $enquiry_details_id The enquiry details ID (optional)
+     * @return array Expansion data with related information
+     */
+    public function get_expansion_data_by_enquiry($enquiry_header_id, $enquiry_details_id = null)
+    {
+        $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion e');
+        $builder->select('e.*, 
                       i.tour_date, 
                       i.tour_details_id, 
                       i.enquiry_header_id, 
                       i.enquiry_details_id,
                       rc.room_category_name,
                       mp.meal_plan_name');
-    $builder->join('khm_obj_enquiry_itinerary_details i', 'e.itinerary_details_id = i.itinerary_details_id', 'left');
-    $builder->join('khm_obj_mst_hotel_room_category rc', 'e.room_category_id = rc.room_category_id', 'left');
-    $builder->join('khm_obj_meal_plan mp', 'e.meal_plan_id = mp.meal_plan_id', 'left');
-    $builder->where('i.enquiry_header_id', $enquiry_header_id);
-    
-    if($enquiry_details_id !== null) {
-        $builder->where('i.enquiry_details_id', $enquiry_details_id);
+        $builder->join('khm_obj_enquiry_itinerary_details i', 'e.itinerary_details_id = i.itinerary_details_id', 'left');
+        $builder->join('khm_obj_mst_hotel_room_category rc', 'e.room_category_id = rc.room_category_id', 'left');
+        $builder->join('khm_obj_meal_plan mp', 'e.meal_plan_id = mp.meal_plan_id', 'left');
+        $builder->where('i.enquiry_header_id', $enquiry_header_id);
+
+        if ($enquiry_details_id !== null) {
+            $builder->where('i.enquiry_details_id', $enquiry_details_id);
+        }
+
+        $builder->orderBy('i.tour_date', 'ASC');
+        $builder->orderBy('e.tour_itinerary_expansion_id', 'ASC');
+
+        $query = $builder->get();
+        return $query->getResultArray();
     }
-    
-    $builder->orderBy('i.tour_date', 'ASC');
-    $builder->orderBy('e.tour_itinerary_expansion_id', 'ASC');
-    
-    $query = $builder->get();
-    return $query->getResultArray();
-}
 
-/**
- * Update expansion data
- * 
- * @param array $data Data to update
- * @param int $expansion_id The expansion record ID
- * @return bool Success status
- */
-public function update_expansion_data($data, $expansion_id)
-{
-    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
-    $builder->where('tour_itinerary_expansion_id', $expansion_id);
-    return $builder->update($data);
-}
+    /**
+     * Update expansion data
+     * 
+     * @param array $data Data to update
+     * @param int $expansion_id The expansion record ID
+     * @return bool Success status
+     */
+    public function update_expansion_data($data, $expansion_id)
+    {
+        $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
+        $builder->where('tour_itinerary_expansion_id', $expansion_id);
+        return $builder->update($data);
+    }
 
-/**
- * Delete all expansion data for an enquiry
- * Useful for cleanup operations
- * 
- * @param int $enquiry_header_id The enquiry header ID
- * @return bool Success status
- */
-public function delete_expansion_data_by_enquiry($enquiry_header_id)
-{
-    $sql = "DELETE e FROM khm_obj_enquiry_tour_itinerary_expansion e
+    /**
+     * Delete all expansion data for an enquiry
+     * Useful for cleanup operations
+     * 
+     * @param int $enquiry_header_id The enquiry header ID
+     * @return bool Success status
+     */
+    public function delete_expansion_data_by_enquiry($enquiry_header_id)
+    {
+        $sql = "DELETE e FROM khm_obj_enquiry_tour_itinerary_expansion e
             INNER JOIN khm_obj_enquiry_itinerary_details i 
             ON e.itinerary_details_id = i.itinerary_details_id
             WHERE i.enquiry_header_id = ?";
-    
-    return $this->db->query($sql, [$enquiry_header_id]);
-}
-   //end//
-   // Add this method to your Enquiry_m model
 
-public function get_itinerary_expansion_by_itinerary_id($itinerary_details_id)
-{
-    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion as itie');
-    $builder->select('itie.*, rc.room_category_name, mp.meal_plan_name');
-    $builder->join('khm_obj_mst_hotel_room_category as rc', 'rc.room_category_id = itie.room_category_id', 'left');
-    $builder->join('khm_obj_meal_plan as mp', 'mp.meal_plan_id = itie.meal_plan_id', 'left');
-    $builder->where('itie.itinerary_details_id', $itinerary_details_id);
-    $builder->orderBy('itie.tour_expansion_date', 'ASC');
-    $query = $builder->get();
-    return $query->getResultArray();
-}
+        return $this->db->query($sql, [$enquiry_header_id]);
+    }
+    //end//
+    // Add this method to your Enquiry_m model
 
-// Alternative: Get by tour_details_id and group by itinerary_details_id
-public function get_itinerary_expansion_grouped($itinerary_details_ids)
-{
-    if (empty($itinerary_details_ids)) {
-        return [];
+    public function get_itinerary_expansion_by_itinerary_id($itinerary_details_id)
+    {
+        $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion as itie');
+        $builder->select('itie.*, rc.room_category_name, mp.meal_plan_name');
+        $builder->join('khm_obj_mst_hotel_room_category as rc', 'rc.room_category_id = itie.room_category_id', 'left');
+        $builder->join('khm_obj_meal_plan as mp', 'mp.meal_plan_id = itie.meal_plan_id', 'left');
+        $builder->where('itie.itinerary_details_id', $itinerary_details_id);
+        $builder->orderBy('itie.tour_expansion_date', 'ASC');
+        $query = $builder->get();
+        return $query->getResultArray();
     }
 
-    $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion as itie');
-    $builder->select('itie.*, 
+    // Alternative: Get by tour_details_id and group by itinerary_details_id
+    public function get_itinerary_expansion_grouped($itinerary_details_ids)
+    {
+        if (empty($itinerary_details_ids)) {
+            return [];
+        }
+
+        $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion as itie');
+        $builder->select('itie.*, 
                       itid.tour_details_id, 
                       itid.tour_date,
                       rc.room_category_name, 
                       mp.meal_plan_name');
-    $builder->join('khm_obj_enquiry_itinerary_details as itid', 
-                   'itid.itinerary_details_id = itie.itinerary_details_id', 
-                   'left');
-    $builder->join('khm_obj_mst_hotel_room_category as rc', 
-                   'rc.room_category_id = itie.room_category_id', 
-                   'left');
-    $builder->join('khm_obj_meal_plan as mp', 
-                   'mp.meal_plan_id = itie.meal_plan_id', 
-                   'left');
-    $builder->whereIn('itie.itinerary_details_id', $itinerary_details_ids);
-    $builder->orderBy('itie.tour_expansion_date', 'ASC');
-    $builder->orderBy('itie.tour_itinerary_expansion_id', 'ASC');
-    
-    $query = $builder->get();
-    $result = $query->getResultArray();
-    
-    // Group by itinerary_details_id
-    $grouped = [];
-    foreach ($result as $row) {
-        $grouped[$row['itinerary_details_id']][] = $row;
+        $builder->join(
+            'khm_obj_enquiry_itinerary_details as itid',
+            'itid.itinerary_details_id = itie.itinerary_details_id',
+            'left'
+        );
+        $builder->join(
+            'khm_obj_mst_hotel_room_category as rc',
+            'rc.room_category_id = itie.room_category_id',
+            'left'
+        );
+        $builder->join(
+            'khm_obj_meal_plan as mp',
+            'mp.meal_plan_id = itie.meal_plan_id',
+            'left'
+        );
+        $builder->whereIn('itie.itinerary_details_id', $itinerary_details_ids);
+        $builder->orderBy('itie.tour_expansion_date', 'ASC');
+        $builder->orderBy('itie.tour_itinerary_expansion_id', 'ASC');
+
+        $query = $builder->get();
+        $result = $query->getResultArray();
+
+        // Group by itinerary_details_id
+        $grouped = [];
+        foreach ($result as $row) {
+            $grouped[$row['itinerary_details_id']][] = $row;
+        }
+
+        return $grouped;
     }
-    
-    return $grouped;
-}
     //nj//
     public function update_tour_expansion($data, $tour_details_id, $date)
     {
@@ -1453,11 +1457,11 @@ public function get_itinerary_expansion_grouped($itinerary_details_ids)
         $db = \Config\Database::connect();
         return $this->db->table($this->khm_obj_enquiry_detail_extensions)->update($data, ['enquiry_detail_details_id' => $enquiry_detail_details_id]);
     }
-    
-    public function update_transport_itinerary($data,$enquiry_detail_details_id,$ymd)
+
+    public function update_transport_itinerary($data, $enquiry_detail_details_id, $ymd)
     {
         $db = \Config\Database::connect();
-        return $this->db->table($this->khm_obj_enquiry_itinerary_details)->update($data, ['extension_ref_id' => $enquiry_detail_details_id,'tour_date' => $ymd]);
+        return $this->db->table($this->khm_obj_enquiry_itinerary_details)->update($data, ['extension_ref_id' => $enquiry_detail_details_id, 'tour_date' => $ymd]);
     }
     public function updateAssignedStatus($data, $enquiry_header_id)
     {
@@ -1920,7 +1924,7 @@ public function get_itinerary_expansion_grouped($itinerary_details_ids)
             ->get()->getResultArray();
         return $result;
     }
-  
+
     public function get_all_enquiry_details($enq_header_id)
     {
         $db = \Config\Database::connect();
@@ -1993,18 +1997,18 @@ public function get_itinerary_expansion_grouped($itinerary_details_ids)
     }
     //nj//
     public function get_tour_expansion_by_tour_id($tour_details_id)
-{
-    $builder = $this->db->table('khm_obj_enquiry_tour_expansion exp');
-    $builder->select('exp.tour_expansion_id,mp.meal_plan_name,rc.room_category_name, exp.tour_details_id, exp.tour_expansion_date, exp.room_category_id, exp.meal_plan_id, exp.room_rate_double, exp.child_with_bed_double, exp.child_without_bed_double, exp.extra_bed_double, exp.double_total_rate, exp.room_rate_single, exp.child_with_bed_single, exp.child_without_bed_single, exp.extra_bed_single, exp.single_total_rate, exp.vehicle_details_json, rc.room_category_name as exp_room_category_name, mp.meal_plan_name as exp_meal_plan_name');
-    $builder->join('khm_obj_mst_hotel_room_category rc', 'rc.room_category_id = exp.room_category_id', 'left');
-    $builder->join('khm_obj_meal_plan mp', 'mp.meal_plan_id = exp.meal_plan_id', 'left');
-    $builder->where('exp.tour_details_id', $tour_details_id);
-    $builder->orderBy('exp.tour_expansion_date', 'ASC');
-    $builder->orderBy('exp.tour_expansion_id', 'ASC');
-    
-    $query = $builder->get();
-    return $query->getResultArray();
-}
+    {
+        $builder = $this->db->table('khm_obj_enquiry_tour_expansion exp');
+        $builder->select('exp.tour_expansion_id,mp.meal_plan_name,rc.room_category_name, exp.tour_details_id, exp.tour_expansion_date, exp.room_category_id, exp.meal_plan_id, exp.room_rate_double, exp.child_with_bed_double, exp.child_without_bed_double, exp.extra_bed_double, exp.double_total_rate, exp.room_rate_single, exp.child_with_bed_single, exp.child_without_bed_single, exp.extra_bed_single, exp.single_total_rate, exp.vehicle_details_json, rc.room_category_name as exp_room_category_name, mp.meal_plan_name as exp_meal_plan_name');
+        $builder->join('khm_obj_mst_hotel_room_category rc', 'rc.room_category_id = exp.room_category_id', 'left');
+        $builder->join('khm_obj_meal_plan mp', 'mp.meal_plan_id = exp.meal_plan_id', 'left');
+        $builder->where('exp.tour_details_id', $tour_details_id);
+        $builder->orderBy('exp.tour_expansion_date', 'ASC');
+        $builder->orderBy('exp.tour_expansion_id', 'ASC');
+
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
     public function get_eighteen_datas_double($tour_details_id)
     {
         $db = \Config\Database::connect();
@@ -2211,14 +2215,14 @@ public function get_itinerary_expansion_grouped($itinerary_details_ids)
             ->get()->getResultArray();
         return $result;
     }
-   public function get_previous_tour_plan_lastupdated($extension_ref_id)
+    public function get_previous_tour_plan_lastupdated($extension_ref_id)
     {
         $db = \Config\Database::connect();
         $table = $db->table('khm_obj_enquiry_tour_details a');
         $response = [];
 
         $result = $table
-        ->select('*,g.geog_name')
+            ->select('*,g.geog_name')
             ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left')
             ->where('extension_ref_id', $extension_ref_id)
             ->get()
@@ -2433,7 +2437,7 @@ public function get_itinerary_expansion_grouped($itinerary_details_ids)
             ->get()->getResultArray();
         return $result;
     }
-    public function get_bifur_datas($extension_id,$bifur_type)
+    public function get_bifur_datas($extension_id, $bifur_type)
     {
         $db = \Config\Database::connect();
         $selected_table = $db->table('khm_mst_bifurcation_details');
@@ -2686,7 +2690,7 @@ public function get_itinerary_expansion_grouped($itinerary_details_ids)
             ->get()->getResultArray();
         return $result;
     }
- public function loadTourLocation($enquiry_header_id, $enquiry_details_id)
+    public function loadTourLocation($enquiry_header_id, $enquiry_details_id)
     {
         $db = \Config\Database::connect();
         $response = [];
@@ -3330,7 +3334,7 @@ public function get_itinerary_expansion_grouped($itinerary_details_ids)
             ->get()->getResultArray();
         return $result;
     }
-    
+
     public function get_last_itinerary_saved($enquiry_header_id)
     {
         $db = \Config\Database::connect();
@@ -3338,8 +3342,8 @@ public function get_itinerary_expansion_grouped($itinerary_details_ids)
         $result = $table->select('*')
             ->where('enquiry_header_id', $enquiry_header_id)
             ->orderBy('enquiry_detail_details_id', 'DESC')
-        ->get()
-        ->getFirstRow('array');
+            ->get()
+            ->getFirstRow('array');
         return $result;
     }
     public function get_tour_details_for_edit($enquiry_details_id)
@@ -3542,7 +3546,7 @@ public function get_itinerary_expansion_grouped($itinerary_details_ids)
             } else {
             }
         }
-        usort($out, function($a, $b) {
+        usort($out, function ($a, $b) {
             return (int)$a['tour_details_id'] <=> (int)$b['tour_details_id'];
         });
         return [
@@ -3946,42 +3950,42 @@ public function get_itinerary_expansion_grouped($itinerary_details_ids)
     //     }
     //     return $response;
     // }
-    
-function get_proforma_office_tpdata($enquiry_header_id, $tour_plan_ref_id, $confirm_cs_id)
-{
-    $db = \Config\Database::connect();
-    $response = [];
-    $selected_table = $db->table('khm_obj_enquiry_tour_details a');
-    $result = $selected_table->select('a.*,ml.meal_plan_name,m.no_of_extra_bed,m.no_of_single_room,m.no_of_double_room,m.no_of_child_with_bed,m.no_of_child_without_bed,m.no_of_adult,hd.ref_no,e.entity_name,g.geog_name,o.object_name,o.object_email,o.object_address,o.object_ph_no,r.room_category_name')
-        ->join('khm_obj_enquiry_details m', 'm.enquiry_details_id = a.enquiry_details_id', 'left')
-        ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left')
-        ->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = a.enquiry_header_id', 'left')
-        ->join('khm_obj_hotel h', 'h.hotel_id = a.hotel_id', 'left')
-        ->join('khm_obj_mst o', 'o.object_id = h.object_id', 'left')
-        ->join('khm_entity_mst e', 'e.entity_id = hd.guest_entity_id', 'left')
-        ->join('khm_obj_mst_hotel_room_category r', 'r.room_category_id = a.room_category_id', 'left')
-        ->join('khm_obj_meal_plan ml', 'ml.meal_plan_id = m.meal_plan', 'left')
-        ->where('a.extension_ref_id', $tour_plan_ref_id)
-        ->get()->getResultArray();
 
-    foreach ($result as $key => $vals) {
-        $cost = $this->get_tourcost_byid($vals['tour_details_id']);
-        
-        // Get expansion data from khm_obj_enquiry_tour_expansion with room category and meal plan names
-        $expansion_data = $db->table('khm_obj_enquiry_tour_expansion exp')
-            ->select('exp.tour_expansion_id, exp.tour_details_id, exp.tour_expansion_date, exp.room_category_id, exp.meal_plan_id, exp.room_rate_double, exp.child_with_bed_double, exp.child_without_bed_double, exp.extra_bed_double, exp.double_total_rate, exp.room_rate_single, exp.child_with_bed_single, exp.child_without_bed_single, exp.extra_bed_single, exp.single_total_rate, exp.vehicle_details_json, rc.room_category_name as exp_room_category_name, mp.meal_plan_name as exp_meal_plan_name')
-            ->join('khm_obj_mst_hotel_room_category rc', 'rc.room_category_id = exp.room_category_id', 'left')
-            ->join('khm_obj_meal_plan mp', 'mp.meal_plan_id = exp.meal_plan_id', 'left')
-            ->where('exp.tour_details_id', $vals['tour_details_id'])
-            ->orderBy('exp.tour_expansion_date', 'ASC')
+    function get_proforma_office_tpdata($enquiry_header_id, $tour_plan_ref_id, $confirm_cs_id)
+    {
+        $db = \Config\Database::connect();
+        $response = [];
+        $selected_table = $db->table('khm_obj_enquiry_tour_details a');
+        $result = $selected_table->select('a.*,ml.meal_plan_name,m.no_of_extra_bed,m.no_of_single_room,m.no_of_double_room,m.no_of_child_with_bed,m.no_of_child_without_bed,m.no_of_adult,hd.ref_no,e.entity_name,g.geog_name,o.object_name,o.object_email,o.object_address,o.object_ph_no,r.room_category_name')
+            ->join('khm_obj_enquiry_details m', 'm.enquiry_details_id = a.enquiry_details_id', 'left')
+            ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left')
+            ->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id = a.enquiry_header_id', 'left')
+            ->join('khm_obj_hotel h', 'h.hotel_id = a.hotel_id', 'left')
+            ->join('khm_obj_mst o', 'o.object_id = h.object_id', 'left')
+            ->join('khm_entity_mst e', 'e.entity_id = hd.guest_entity_id', 'left')
+            ->join('khm_obj_mst_hotel_room_category r', 'r.room_category_id = a.room_category_id', 'left')
+            ->join('khm_obj_meal_plan ml', 'ml.meal_plan_id = m.meal_plan', 'left')
+            ->where('a.extension_ref_id', $tour_plan_ref_id)
             ->get()->getResultArray();
-        
-        $response[$key] = $vals;
-        $response[$key]['cost'] = $cost;
-        $response[$key]['expansion_details'] = $expansion_data;
+
+        foreach ($result as $key => $vals) {
+            $cost = $this->get_tourcost_byid($vals['tour_details_id']);
+
+            // Get expansion data from khm_obj_enquiry_tour_expansion with room category and meal plan names
+            $expansion_data = $db->table('khm_obj_enquiry_tour_expansion exp')
+                ->select('exp.tour_expansion_id, exp.tour_details_id, exp.tour_expansion_date, exp.room_category_id, exp.meal_plan_id, exp.room_rate_double, exp.child_with_bed_double, exp.child_without_bed_double, exp.extra_bed_double, exp.double_total_rate, exp.room_rate_single, exp.child_with_bed_single, exp.child_without_bed_single, exp.extra_bed_single, exp.single_total_rate, exp.vehicle_details_json, rc.room_category_name as exp_room_category_name, mp.meal_plan_name as exp_meal_plan_name')
+                ->join('khm_obj_mst_hotel_room_category rc', 'rc.room_category_id = exp.room_category_id', 'left')
+                ->join('khm_obj_meal_plan mp', 'mp.meal_plan_id = exp.meal_plan_id', 'left')
+                ->where('exp.tour_details_id', $vals['tour_details_id'])
+                ->orderBy('exp.tour_expansion_date', 'ASC')
+                ->get()->getResultArray();
+
+            $response[$key] = $vals;
+            $response[$key]['cost'] = $cost;
+            $response[$key]['expansion_details'] = $expansion_data;
+        }
+        return $response;
     }
-    return $response;
-}
 
     public function get_sales_report_data($params)
     {
@@ -4332,50 +4336,50 @@ function get_proforma_office_tpdata($enquiry_header_id, $tour_plan_ref_id, $conf
     }
     //nj//
     public function get_advanced_payment_tracker_data($params)
-{
-    $draw                  = $params['draw'];
-    $start                 = $params['start'];
-    $rowperpage            = $params['length'];
-    $columnIndex           = $params['order'][0]['column'];
-    $columnName            = $params['columns'][$columnIndex]['data'];
-    $columnSortOrder       = $params['order'][0]['dir'];
-    $searchValue           = $params['search']['value'];
-    $fromDate              = $params['fromDate'];
-    $toDate                = $params['toDate'];
-    $selectOptionAgent     = $params['selectOptionAgent'];
-    $selectOptionStatus    = $params['selectOptionStatus'];
-    $selectOptionsystem    = $params['selectOptionsystem'];
-    $selectOptionpayment   = $params['selectOptionpayment'];
-    $selectOptionExecutive = $params['selectOptionExecutive'];
-    $selectOptionSource    = $params['selectOptionSource'];
+    {
+        $draw                  = $params['draw'];
+        $start                 = $params['start'];
+        $rowperpage            = $params['length'];
+        $columnIndex           = $params['order'][0]['column'];
+        $columnName            = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder       = $params['order'][0]['dir'];
+        $searchValue           = $params['search']['value'];
+        $fromDate              = $params['fromDate'];
+        $toDate                = $params['toDate'];
+        $selectOptionAgent     = $params['selectOptionAgent'];
+        $selectOptionStatus    = $params['selectOptionStatus'];
+        $selectOptionsystem    = $params['selectOptionsystem'];
+        $selectOptionpayment   = $params['selectOptionpayment'];
+        $selectOptionExecutive = $params['selectOptionExecutive'];
+        $selectOptionSource    = $params['selectOptionSource'];
 
-    $db = \Config\Database::connect();
-    $subStatusQuery = $db->table('khm_obj_enquiry_status s')
-        ->select('s.enquiry_status_id, s.enquiry_header_id, s.current_status_id, s.updated_time')
-        ->join(
-            '(SELECT MAX(enquiry_status_id) AS max_status_id, enquiry_header_id
+        $db = \Config\Database::connect();
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id, s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id, enquiry_header_id
                FROM khm_obj_enquiry_status
                GROUP BY enquiry_header_id) latest',
-            's.enquiry_header_id = latest.enquiry_header_id 
+                's.enquiry_header_id = latest.enquiry_header_id 
              AND s.enquiry_status_id = latest.max_status_id',
-            'inner'
-        );
-    $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
-    $ApprQuery = $db->table('khm_obj_enquiry_payment ap')
-        ->select('ap.paid_amount, ap.enquiry_header_id, latest.total_appr, ap.approved_status, ap.remarks')
-        ->join(
-            '(SELECT SUM(paid_amount) AS total_appr, enquiry_header_id
+                'inner'
+            );
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+        $ApprQuery = $db->table('khm_obj_enquiry_payment ap')
+            ->select('ap.paid_amount, ap.enquiry_header_id, latest.total_appr, ap.approved_status, ap.remarks')
+            ->join(
+                '(SELECT SUM(paid_amount) AS total_appr, enquiry_header_id
                FROM khm_obj_enquiry_payment
               WHERE approved_status = 1
               GROUP BY enquiry_header_id) latest',
-            'ap.enquiry_header_id = latest.enquiry_header_id',
-            'inner'
-        );
-    $latestAppr = $ApprQuery->getCompiledSelect(false);
+                'ap.enquiry_header_id = latest.enquiry_header_id',
+                'inner'
+            );
+        $latestAppr = $ApprQuery->getCompiledSelect(false);
 
-    $query = $db->table('khm_obj_enquiry_header a');
-    $query->select(
-        'SQL_CALC_FOUND_ROWS
+        $query = $db->table('khm_obj_enquiry_header a');
+        $query->select(
+            'SQL_CALC_FOUND_ROWS
          a.*, 
          app.remarks,
          app.approved_status,
@@ -4394,21 +4398,21 @@ function get_proforma_office_tpdata($enquiry_header_id, $tour_plan_ref_id, $conf
          gu.entity_name  AS guest_name,
          ex.entity_name  AS executive_name,
          h.cs_confirmed_id',
-        false
-    );
+            false
+        );
 
-    $query->join('khm_obj_enquiry_edit_request h',  'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1', 'left');
-    $query->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = h.cs_confirmed_id', 'left');
-    $query->join('khm_obj_enquiry_details d',          'd.enquiry_details_id = ext.enquiry_ref_id', 'left');
-    $query->join('khm_obj_enquiry_status exe',         'exe.enquiry_header_id = a.enquiry_header_id AND exe.edit_request_id = h.enquiry_edit_request_id AND exe.current_status_id = 1', 'left');
-    $query->join('khm_obj_enquiry_status sop',         'sop.enquiry_header_id = a.enquiry_header_id AND sop.edit_request_id = h.enquiry_edit_request_id AND sop.current_status_id = 13', 'left');
-    $query->join('khm_entity_mst ex',                  'ex.entity_id = exe.assigned_to', 'left');
-    $query->join('khm_entity_mst sp',                  'sp.entity_id = sop.assigned_to', 'left');
-    $query->join('khm_entity_mst gu',                  'gu.entity_id = a.guest_entity_id', 'left');
-    $query->join('khm_entity_mst ag',                  'ag.entity_id = a.agent_entity_id', 'left');
-    $query->join('(' . $latestStatusSql . ') est',     'est.enquiry_header_id = a.enquiry_header_id', 'left');
-    $query->join('khm_obj_mst_enquiry_status ss',      'ss.status_id = est.current_status_id', 'left');
-    $receivedSub = "
+        $query->join('khm_obj_enquiry_edit_request h',  'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1', 'left');
+        $query->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = h.cs_confirmed_id', 'left');
+        $query->join('khm_obj_enquiry_details d',          'd.enquiry_details_id = ext.enquiry_ref_id', 'left');
+        $query->join('khm_obj_enquiry_status exe',         'exe.enquiry_header_id = a.enquiry_header_id AND exe.edit_request_id = h.enquiry_edit_request_id AND exe.current_status_id = 1', 'left');
+        $query->join('khm_obj_enquiry_status sop',         'sop.enquiry_header_id = a.enquiry_header_id AND sop.edit_request_id = h.enquiry_edit_request_id AND sop.current_status_id = 13', 'left');
+        $query->join('khm_entity_mst ex',                  'ex.entity_id = exe.assigned_to', 'left');
+        $query->join('khm_entity_mst sp',                  'sp.entity_id = sop.assigned_to', 'left');
+        $query->join('khm_entity_mst gu',                  'gu.entity_id = a.guest_entity_id', 'left');
+        $query->join('khm_entity_mst ag',                  'ag.entity_id = a.agent_entity_id', 'left');
+        $query->join('(' . $latestStatusSql . ') est',     'est.enquiry_header_id = a.enquiry_header_id', 'left');
+        $query->join('khm_obj_mst_enquiry_status ss',      'ss.status_id = est.current_status_id', 'left');
+        $receivedSub = "
       (SELECT 
          enquiry_header_id,
          SUM(paid_amount) AS total_paid
@@ -4416,68 +4420,68 @@ function get_proforma_office_tpdata($enquiry_header_id, $tour_plan_ref_id, $conf
        GROUP BY enquiry_header_id
       ) rec
     ";
-    $query->join($receivedSub, 'rec.enquiry_header_id = a.enquiry_header_id', 'left');
+        $query->join($receivedSub, 'rec.enquiry_header_id = a.enquiry_header_id', 'left');
 
-    $query->join('(' . $latestAppr . ') app', 'app.enquiry_header_id = a.enquiry_header_id', 'left');
+        $query->join('(' . $latestAppr . ') app', 'app.enquiry_header_id = a.enquiry_header_id', 'left');
 
-    $query->where('h.cs_confirmed_id >', 0, false)
-          ->where("DATE(d.date_of_tour_start) BETWEEN '$fromDate' AND '$toDate'");
+        $query->where('h.cs_confirmed_id >', 0, false)
+            ->where("DATE(d.date_of_tour_start) BETWEEN '$fromDate' AND '$toDate'");
 
-    if (!empty($selectOptionStatus)) {
-        $query->where('est.current_status_id', $selectOptionStatus);
-    }
-    if (!empty($selectOptionExecutive)) {
-        $query->where('exe.assigned_to', $selectOptionExecutive);
-    }
-    if (!empty($selectOptionAgent)) {
-        $query->where('a.agent_entity_id', $selectOptionAgent);
-    }
-    if (!empty($selectOptionSource)) {
-        $query->where('d.enquiry_source', $selectOptionSource);
-    }
-    if (!empty($selectOptionsystem)) {
-        $query->where('a.enq_type_id', $selectOptionsystem);
-    }
-    if (!empty($selectOptionpayment)) {
-        if ($selectOptionpayment == 1) {
-            $query->where('(app.total_appr >= ext.tpc)');
-        } elseif ($selectOptionpayment == 2) {
-            $query->where('(app.total_appr > 0 AND app.total_appr < ext.tpc)');
-        } elseif ($selectOptionpayment == 3) {
-            $query->groupStart()
-                  ->where('app.total_appr', 0)
-                  ->orWhere('app.total_appr IS NULL', null, false)
-                  ->groupEnd();
+        if (!empty($selectOptionStatus)) {
+            $query->where('est.current_status_id', $selectOptionStatus);
         }
-    }
-    if (!empty($searchValue)) {
-        $query->groupStart()
-              ->like('a.enq_added_date', $searchValue)
-              ->orLike('a.ref_no', $searchValue)
-              ->groupEnd();
-    }
+        if (!empty($selectOptionExecutive)) {
+            $query->where('exe.assigned_to', $selectOptionExecutive);
+        }
+        if (!empty($selectOptionAgent)) {
+            $query->where('a.agent_entity_id', $selectOptionAgent);
+        }
+        if (!empty($selectOptionSource)) {
+            $query->where('d.enquiry_source', $selectOptionSource);
+        }
+        if (!empty($selectOptionsystem)) {
+            $query->where('a.enq_type_id', $selectOptionsystem);
+        }
+        if (!empty($selectOptionpayment)) {
+            if ($selectOptionpayment == 1) {
+                $query->where('(app.total_appr >= ext.tpc)');
+            } elseif ($selectOptionpayment == 2) {
+                $query->where('(app.total_appr > 0 AND app.total_appr < ext.tpc)');
+            } elseif ($selectOptionpayment == 3) {
+                $query->groupStart()
+                    ->where('app.total_appr', 0)
+                    ->orWhere('app.total_appr IS NULL', null, false)
+                    ->groupEnd();
+            }
+        }
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('a.enq_added_date', $searchValue)
+                ->orLike('a.ref_no', $searchValue)
+                ->groupEnd();
+        }
 
-    $query->groupBy('a.enquiry_header_id');
-    $query->orderBy($columnName, $columnSortOrder)
-          ->limit($rowperpage, $start);
-    $records = $query->get()->getResultArray();
-    $totalRecords = $this->db->query('SELECT FOUND_ROWS() AS count')
-                             ->getRow()
-                             ->count;
+        $query->groupBy('a.enquiry_header_id');
+        $query->orderBy($columnName, $columnSortOrder)
+            ->limit($rowperpage, $start);
+        $records = $query->get()->getResultArray();
+        $totalRecords = $this->db->query('SELECT FOUND_ROWS() AS count')
+            ->getRow()
+            ->count;
 
-    foreach ($records as &$rec) {
-        $tpc = floatval($rec['tpc']  ?? 0);
-        $appr = floatval($rec['total_appr'] ?? 0);
-        $rec['balance'] = $tpc - $appr;
+        foreach ($records as &$rec) {
+            $tpc = floatval($rec['tpc']  ?? 0);
+            $appr = floatval($rec['total_appr'] ?? 0);
+            $rec['balance'] = $tpc - $appr;
+        }
+
+        return [
+            "draw"                 => intval($draw),
+            "iTotalRecords"        => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData"               => $records
+        ];
     }
-
-    return [
-        "draw"                 => intval($draw),
-        "iTotalRecords"        => $totalRecords,
-        "iTotalDisplayRecords" => $totalRecords,
-        "aaData"               => $records
-    ];
-}
     // public function delete_eighteen_double_function($tour_details_id)
     // {
     //     $db = \Config\Database::connect();
@@ -4870,7 +4874,7 @@ function get_proforma_office_tpdata($enquiry_header_id, $tour_plan_ref_id, $conf
 
     public function proforma_list_view($params)
     {
-        $system_id = session('system_id'); 
+        $system_id = session('system_id');
         $user_id = session('user_id');
         $parent_id = session('parent_id');
         $hierarchy_id = session('hierarchy_id');
@@ -4975,9 +4979,9 @@ function get_proforma_office_tpdata($enquiry_header_id, $tour_plan_ref_id, $conf
         $query->where('h.is_active', 1);
         $query->where('t.is_active', 1);
         $query->where('h.enq_type_id', $system_id);
-        $query->where('er.cs_confirmed_id>',0);
-      
-     
+        $query->where('er.cs_confirmed_id>', 0);
+
+
         $query->orderBy('h.enquiry_header_id', 'DESC');
 
         if (!empty($searchValue)) {
@@ -4989,7 +4993,7 @@ function get_proforma_office_tpdata($enquiry_header_id, $tour_plan_ref_id, $conf
         }
         $query->orderBy($columnName, $columnSortOrder);
         $query->limit($rowperpage, $start);
-        
+
         $records = $query->get()->getResultArray();
 
         $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');

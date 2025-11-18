@@ -1573,7 +1573,6 @@ $cs_trans_total = 0;
 																																name="additi[<?php echo $iti_id; ?>][d_room_cat][<?php echo $d_index; ?>]"
 																																class="d_room_cat_hidden"
 																																value="<?php echo $d_room_cat; ?>">
-
 																															<input type="hidden" id="d_meal_plan_<?php echo $iti_id . '_' . $d_index; ?>"
 																																name="additi[<?php echo $iti_id; ?>][d_meal_plan][<?php echo $d_index; ?>]"
 																																class="d_meal_plan_hidden"
@@ -1627,7 +1626,6 @@ $cs_trans_total = 0;
 																															name="additi[<?php echo $iti_id; ?>][d_room_cat][0]"
 																															class="d_room_cat_hidden"
 																															value="<?php echo $room_cat_exist; ?>">
-
 																														<input type="hidden" id="d_meal_plan_<?php echo $iti_id; ?>"
 																															name="additi[<?php echo $iti_id; ?>][d_meal_plan][0]"
 																															class="d_meal_plan_hidden"
@@ -1700,7 +1698,6 @@ $cs_trans_total = 0;
 																																name="additi[<?php echo $iti_id; ?>][s_room_cat][<?php echo $s_index; ?>]"
 																																class="s_room_cat_hidden"
 																																value="<?php echo $s_room_cat; ?>">
-
 																															<input type="hidden" id="s_meal_plan_<?php echo $iti_id . '_' . $s_index; ?>"
 																																name="additi[<?php echo $iti_id; ?>][s_meal_plan][<?php echo $s_index; ?>]"
 																																class="s_meal_plan_hidden"
@@ -1754,7 +1751,6 @@ $cs_trans_total = 0;
 																															name="additi[<?php echo $iti_id; ?>][s_room_cat][0]"
 																															class="s_room_cat_hidden"
 																															value="<?php echo $room_cat_exist; ?>">
-
 																														<input type="hidden" id="s_meal_plan_<?php echo $iti_id; ?>"
 																															name="additi[<?php echo $iti_id; ?>][s_meal_plan][0]"
 																															class="s_meal_plan_hidden"
@@ -9009,4 +9005,4 @@ $cs_trans_total = 0;
 
 		}
 	});
-</script>
+</script>5

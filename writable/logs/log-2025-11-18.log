@@ -1,0 +1,124 @@
+CRITICAL - 2025-11-18 04:57:44 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 9322.
+ 1 APPPATH\Controllers\Enquiry.php(9322): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 9322)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-18 04:59:15 --> ErrorException: Undefined array key "boolean_value"
+[Method: POST, Route: Enquiry/getTourRoomCategoryDraft]
+in APPPATH\Models\Enquiry_m.php on line 715.
+ 1 APPPATH\Models\Enquiry_m.php(715): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "boolean_value"', 'C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php', 715)
+ 2 APPPATH\Controllers\Enquiry.php(903): App\Models\Enquiry_m->getTourRoomCategoryDraft('1502', '2620', '3', '3')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourRoomCategoryDraft()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-18 07:18:22 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 9322.
+ 1 APPPATH\Controllers\Enquiry.php(9322): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 9322)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-18 07:18:38 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 9322.
+ 1 APPPATH\Controllers\Enquiry.php(9322): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 9322)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-18 07:19:30 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 9322.
+ 1 APPPATH\Controllers\Enquiry.php(9322): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 9322)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-18 07:19:52 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 9322.
+ 1 APPPATH\Controllers\Enquiry.php(9322): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 9322)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-18 07:24:59 --> ErrorException: Undefined array key "boolean_value"
+[Method: POST, Route: Enquiry/getTourRoomCategoryDraft]
+in APPPATH\Models\Enquiry_m.php on line 715.
+ 1 APPPATH\Models\Enquiry_m.php(715): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "boolean_value"', 'C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php', 715)
+ 2 APPPATH\Controllers\Enquiry.php(903): App\Models\Enquiry_m->getTourRoomCategoryDraft('1502', '2620', '3', '3')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->getTourRoomCategoryDraft()
+ 4 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-18 09:02:21 --> ErrorException: Undefined variable $use_dynamic
+[Method: GET, Route: Enquiry/itinerary/2803/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1769.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1769): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $use_dynamic', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1769)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5944): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-18 09:02:23 --> ErrorException: Undefined variable $use_dynamic
+[Method: GET, Route: Enquiry/itinerary/2803/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1769.
+ 1 APPPATH\Views\enquiry\itinerary_view.php(1769): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $use_dynamic', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php', 1769)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(5944): view('enquiry/itinerary_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '1')
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-18 09:05:22 --> ParseError: syntax error, unexpected token ";"
+[Method: GET, Route: Enquiry/itinerary/2803/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1491.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(5944): view('enquiry/itinerary_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '1')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-18 09:36:39 --> ParseError: syntax error, unexpected token "elseif"
+[Method: GET, Route: Enquiry/itinerary/2803/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 1600.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(5944): view('enquiry/itinerary_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2803', '1')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

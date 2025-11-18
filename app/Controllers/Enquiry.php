@@ -5674,6 +5674,18 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
                     }
                 }
 
+                // Safety check: Ensure vehicle_details_json is set if missing in any row
+                if (empty($vehicle_details_json)) {
+                    $original_tour_expansion = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
+                    $vehicle_details_json = !empty($original_tour_expansion) ? $original_tour_expansion[0]['vehicle_details_json'] ?? '' : '';
+                    // Update existing rows if needed
+                    if (!empty($tour_expansion_details[$tid])) {
+                        foreach ($tour_expansion_details[$tid] as &$row) {
+                            $row['vehicle_details_json'] = $vehicle_details_json;
+                        }
+                    }
+                }
+
                 // Store tax calculations
                 $tour_plan_det[$keys]['tac_eighteen'] = $tac_eighteen;
                 $tour_plan_det[$keys]['tac_eighteen_double'] = $tac_eighteen_double;
@@ -5685,7 +5697,7 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
                 $tour_plan_det[$keys]['adult_eighteen_single'] = $adult_eighteen_single;
                 
                 // DO NOT USE EXPANSION TABLES - But now populated dynamically from tax data
-                // Do NOT collect itinerary_details_ids for this tour
+                // FIXED: Now collect itinerary_details_ids for tax tours as well (post-save override)
                 
             } else {
                 // NO TAX - USE EXPANSION TABLES AS NORMAL
@@ -5724,23 +5736,19 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
 
             if (!empty($result1)) {
                 $itinerary_details_draft = [...$itinerary_details_draft, ...$result1];
-                // FOR COSTING SHEET: Only collect IDs if NOT using tax tables
-                if ($vals['tax_status'] != 1) {
-                    foreach ($result1 as $r) {
-                        if (isset($r['itinerary_details_id'])) {
-                            $itinerary_details_ids[] = $r['itinerary_details_id'];
-                        }
+                // FIXED: Always collect IDs, regardless of tax_status (for post-save override)
+                foreach ($result1 as $r) {
+                    if (isset($r['itinerary_details_id'])) {
+                        $itinerary_details_ids[] = $r['itinerary_details_id'];
                     }
                 }
             }
             if (!empty($result2)) {
                 $itinerary_details_save = [...$itinerary_details_save, ...$result2];
-                // FOR COSTING SHEET: Only collect IDs if NOT using tax tables
-                if ($vals['tax_status'] != 1) {
-                    foreach ($result2 as $r) {
-                        if (isset($r['itinerary_details_id'])) {
-                            $itinerary_details_ids[] = $r['itinerary_details_id'];
-                        }
+                // FIXED: Always collect IDs, regardless of tax_status (for post-save override)
+                foreach ($result2 as $r) {
+                    if (isset($r['itinerary_details_id'])) {
+                        $itinerary_details_ids[] = $r['itinerary_details_id'];
                     }
                 }
             }
@@ -5751,7 +5759,7 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
             }
         }
 
-        // FOR COSTING SHEET: Fetch itinerary expansion details (new structure) ONLY for non-tax items
+        // FOR COSTING SHEET: Fetch itinerary expansion details (new structure) for all (including tax post-save)
         if (!empty($itinerary_details_ids)) {
             $itinerary_details_ids = array_unique($itinerary_details_ids);
 
