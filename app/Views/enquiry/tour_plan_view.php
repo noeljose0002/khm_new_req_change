@@ -3246,7 +3246,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 	$(document).on('focus', '.no_of_night', function() {
 		var id = $(this).attr('data-id') || $(this).attr('count-id');
-		
+
 		// **NEW: Check if room category is selected before allowing focus**
 		var roomCatCommon = $(`#roomcat_common${id}`).val();
 		if (!roomCatCommon || roomCatCommon === "" || roomCatCommon === "0") {
@@ -3255,7 +3255,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			return false;
 		}
 	});
-	
+
 	$(document).on('input', '.no_of_night', function() {
 		checkTotalNights();
 		var id = $(this).attr('data-id') || $(this).attr('count-id');
@@ -9820,48 +9820,50 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 			return adjustedPlan;
 		}
-// Add "Insert Location" button to each card header
-function addInsertButtons() {
-	$('.location-card').each(function() {
-		var $card = $(this);
-		var currentIndex = parseInt($card.attr('data-index'));
-		
-		// Check if button already exists
-		if ($card.find('.btn-insert-location').length === 0) {
-			var insertBtn = `
+		// Add "Insert Location" button to each card header
+		function addInsertButtons() {
+			$('.location-card').each(function() {
+				var $card = $(this);
+				var currentIndex = parseInt($card.attr('data-index'));
+
+				// Check if button already exists
+				if ($card.find('.btn-insert-location').length === 0) {
+					var insertBtn = `
 				<button type="button" class="btn btn-sm btn-info btn-insert-location ml-2" 
 					data-insert-after="${currentIndex}" 
 					title="Insert location after this">
 					<i class="fe fe-plus"></i> Insert After
 				</button>
 			`;
-			$card.find('.card-options').before(insertBtn);
+					$card.find('.card-options').before(insertBtn);
+				}
+			});
 		}
-	});
-}
 
-// Handle insert location click - Show modal with location selection
-$(document).on('click', '.btn-insert-location', function(e) {
-	e.preventDefault();
-	var insertAfterIndex = parseInt($(this).attr('data-insert-after'));
-	
-	// Check if total nights allow adding more
-	var totalNights = calculateTotalNights();
-	var requiredNights = <?php echo $object_det[0]['no_of_night']; ?>;
-	
-	if (totalNights >= requiredNights) {
-		showAlert('warning', 'Cannot insert location. Total nights already match or exceed required nights.');
-		return;
-	}
-	
-	console.log(`Opening location selector for insertion after index ${insertAfterIndex}`);
-	showLocationSelectionModal(insertAfterIndex);
-});
+		// Handle insert location click - Show modal with location selection
+		$(document).on('click', '.btn-insert-location', function(e) {
+			e.preventDefault();
+			var insertAfterIndex = parseInt($(this).attr('data-insert-after'));
 
-// Show modal with location dropdown
-function showLocationSelectionModal(afterIndex) {
-	// Create modal HTML
-	var modalHtml = `
+			// Check if total nights allow adding more
+			var totalNights = calculateTotalNights();
+			var requiredNights = <?php echo $object_det[0]['no_of_night']; ?>;
+
+			if (totalNights >= requiredNights) {
+				showAlert('warning', 'Cannot insert location. Total nights already match or exceed required nights.');
+				return;
+			}
+
+			console.log(`Opening location selector for insertion after index ${insertAfterIndex}`);
+			showLocationSelectionModal(insertAfterIndex);
+		});
+
+		// Show modal with location dropdown
+		function showLocationSelectionModal(afterIndex) {
+			// Create modal HTML
+			var hotel_category_exist = <?php echo $object_det[0]['hotel_category']; ?>;
+			// alert(hotel_category_exist);
+			var modalHtml = `
 		<div class="modal fade" id="insertLocationModal" tabindex="-1" role="dialog">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -9878,15 +9880,11 @@ function showLocationSelectionModal(afterIndex) {
 								<option value="">-- Choose Location --</option>
 							</select>
 						</div>
-						<div class="form-group">
-							<label for="insert_nights"><b>Number of Nights:</b></label>
-							<input type="number" id="insert_nights" class="form-control" 
-								min="1" max="99" value="1" required>
-						</div>
+						
 						<div class="form-group">
 							<label for="insert_hotel_category"><b>Hotel Category:</b></label>
 							<select id="insert_hotel_category" class="form-control select2-show-search">
-								<option value="">-- Select Hotel Category --</option>
+								<option value="1">-- Select Hotel Category --</option>
 							</select>
 						</div>
 					</div>
@@ -9900,226 +9898,228 @@ function showLocationSelectionModal(afterIndex) {
 			</div>
 		</div>
 	`;
-	
-	// Remove existing modal if any
-	$('#insertLocationModal').remove();
-	
-	// Append and show modal
-	$('body').append(modalHtml);
-	
-	// Populate location dropdown
-	populateLocationDropdown();
-	
-	// Populate hotel categories
-	populateHotelCategoryDropdown();
-	
-	// Initialize Select2
-	$('#insert_location_select').select2({
-		dropdownParent: $('#insertLocationModal'),
-		placeholder: 'Search and select location...',
-		allowClear: true
-	});
-	
-	$('#insert_hotel_category').select2({
-		dropdownParent: $('#insertLocationModal'),
-		placeholder: 'Select hotel category...',
-		allowClear: true
-	});
-	
-	// Show modal
-	$('#insertLocationModal').modal('show');
-	
-	// Handle confirm button
-	$('#btn_confirm_insert').off('click').on('click', function() {
-		var locationId = $('#insert_location_select').val();
-		var locationName = $('#insert_location_select option:selected').text();
-		var nights = parseInt($('#insert_nights').val()) || 1;
-		var hotelCategoryId = $('#insert_hotel_category').val();
-		var hotelCategoryName = $('#insert_hotel_category option:selected').text();
-		
-		if (!locationId) {
-			showAlert('warning', 'Please select a location');
-			return;
-		}
-		
-		if (!hotelCategoryId) {
-			showAlert('warning', 'Please select a hotel category');
-			return;
-		}
-		
-		if (nights < 1) {
-			showAlert('warning', 'Nights must be at least 1');
-			return;
-		}
-		
-		// Check if total nights will exceed limit
-		var totalNights = calculateTotalNights();
-		var requiredNights = <?php echo $object_det[0]['no_of_night']; ?>;
-		
-		if (totalNights + nights > requiredNights) {
-			showAlert('warning', `Cannot add ${nights} nights. Only ${requiredNights - totalNights} nights remaining.`);
-			return;
-		}
-		
-		// Close modal
-		$('#insertLocationModal').modal('hide');
-		
-		// Insert location
-		insertLocationAfter(afterIndex, {
-			locationId: locationId,
-			locationName: locationName,
-			nights: nights,
-			hotelCategoryId: hotelCategoryId,
-			hotelCategoryName: hotelCategoryName
-		});
-	});
-}
 
-// Populate location dropdown from available locations
-function populateLocationDropdown() {
-	var $select = $('#insert_location_select');
-	$select.empty();
-	$select.append('<option value="">-- Choose Location --</option>');
-	
-	// Get locations from PHP variable or fetch via AJAX
-	var locations = <?php echo isset($all_locations) ? json_encode($all_locations) : '[]'; ?>;
-	
-	if (locations && locations.length > 0) {
-		$.each(locations, function(index, location) {
-			$select.append(`<option value="${location.geog_id}">${location.geog_name}</option>`);
-		});
-	} else {
-		// If locations not available, fetch via AJAX
-		$.ajax({
-			url: 'get_locations.php', // Your endpoint
-			method: 'GET',
-			dataType: 'json',
-			success: function(response) {
-				if (response.success && response.locations) {
-					$.each(response.locations, function(index, location) {
-						$select.append(`<option value="${location.geog_id}">${location.geog_name}</option>`);
-					});
+			// Remove existing modal if any
+			$('#insertLocationModal').remove();
+
+			// Append and show modal
+			$('body').append(modalHtml);
+
+			// Populate location dropdown
+			populateLocationDropdown();
+
+			// Populate hotel categories
+			populateHotelCategoryDropdown();
+
+			// Initialize Select2
+			$('#insert_location_select').select2({
+				dropdownParent: $('#insertLocationModal'),
+				placeholder: 'Search and select location...',
+				allowClear: true
+			});
+
+			$('#insert_hotel_category').select2({
+				dropdownParent: $('#insertLocationModal'),
+				placeholder: 'Select hotel category...',
+				allowClear: true
+			}).val(hotel_category_exist).trigger('change');
+
+			// Show modal
+			$('#insertLocationModal').modal('show');
+
+			// Handle confirm button
+			$('#btn_confirm_insert').off('click').on('click', function() {
+				var locationId = $('#insert_location_select').val();
+				var locationName = $('#insert_location_select option:selected').text();
+				var nights = parseInt($('#insert_nights').val()) || 1;
+				var hotelCategoryId = $('#insert_hotel_category').val();
+				var hotelCategoryName = $('#insert_hotel_category option:selected').text();
+
+				if (!locationId) {
+					showAlert('warning', 'Please select a location');
+					return;
 				}
-			},
-			error: function() {
-				showAlert('error', 'Failed to load locations');
+
+				if (!hotelCategoryId) {
+					showAlert('warning', 'Please select a hotel category');
+					return;
+				}
+
+				if (nights < 1) {
+					showAlert('warning', 'Nights must be at least 1');
+					return;
+				}
+
+				// Check if total nights will exceed limit
+				var totalNights = calculateTotalNights();
+				var requiredNights = <?php echo $object_det[0]['no_of_night']; ?>;
+
+				if (totalNights + nights > requiredNights) {
+					showAlert('warning', `Cannot add ${nights} nights. Only ${requiredNights - totalNights} nights remaining.`);
+					return;
+				}
+
+				// Close modal
+				$('#insertLocationModal').modal('hide');
+
+				// Insert location
+				insertLocationAfter(afterIndex, {
+					locationId: locationId,
+					locationName: locationName,
+					nights: nights,
+					hotelCategoryId: hotelCategoryId,
+					hotelCategoryName: hotelCategoryName
+				});
+			});
+		}
+
+		// Populate location dropdown from available locations
+		function populateLocationDropdown() {
+			var $select = $('#insert_location_select');
+			$select.empty();
+			$select.append('<option value="">-- Choose Location --</option>');
+
+			// Get locations from PHP variable or fetch via AJAX
+			var locations = <?php echo isset($all_locations) ? json_encode($all_locations) : '[]'; ?>;
+
+			if (locations && locations.length > 0) {
+				$.each(locations, function(index, location) {
+					$select.append(`<option value="${location.geog_id}">${location.geog_name}</option>`);
+				});
+			} else {
+				// If locations not available, fetch via AJAX
+				$.ajax({
+					url: 'get_locations.php', // Your endpoint
+					method: 'GET',
+					dataType: 'json',
+					success: function(response) {
+						if (response.success && response.locations) {
+							$.each(response.locations, function(index, location) {
+								$select.append(`<option value="${location.geog_id}">${location.geog_name}</option>`);
+							});
+						}
+					},
+					error: function() {
+						showAlert('error', 'Failed to load locations');
+					}
+				});
 			}
-		});
-	}
-}
-
-// Populate hotel category dropdown
-function populateHotelCategoryDropdown() {
-	var $select = $('#insert_hotel_category');
-	var hotel_categories = <?php echo isset($hotel_categories) ? json_encode($hotel_categories) : '[]'; ?>;
-	
-	$select.empty();
-	$select.append('<option value="">-- Select Hotel Category --</option>');
-	
-	if (hotel_categories.length > 0) {
-		$.each(hotel_categories, function(index, hotelcat) {
-			$select.append(`<option value="${hotelcat.hotel_category_id}">${hotelcat.hotel_category_name}</option>`);
-		});
-	}
-}
-
-// Main function to insert location with selected data
-function insertLocationAfter(afterIndex, locationData) {
-	var $allCards = $('.location-card').sort(function(a, b) {
-		return parseInt($(a).attr('data-index')) - parseInt($(b).attr('data-index'));
-	});
-	
-	var $allBreadcrumbs = $('.bc-card').sort(function(a, b) {
-		return parseInt($(a).attr('data-index')) - parseInt($(b).attr('data-index'));
-	});
-	
-	// Reindex all cards after the insertion point
-	$allCards.each(function() {
-		var currentIdx = parseInt($(this).attr('data-index'));
-		if (currentIdx > afterIndex) {
-			var newIdx = currentIdx + 1;
-			reindexLocationCard($(this), currentIdx, newIdx);
 		}
-	});
-	
-	// Reindex all breadcrumbs after the insertion point
-	$allBreadcrumbs.each(function() {
-		var currentIdx = parseInt($(this).attr('data-index'));
-		if (currentIdx > afterIndex) {
-			var newIdx = currentIdx + 1;
-			reindexBreadcrumb($(this), currentIdx, newIdx);
+
+		// Populate hotel category dropdown
+		function populateHotelCategoryDropdown() {
+			var $select = $('#insert_hotel_category');
+			var hotel_categories = <?php echo isset($hotel_categories) ? json_encode($hotel_categories) : '[]'; ?>;
+
+			$select.empty();
+			$select.append('<option value="">-- Select Hotel Category --</option>');
+
+			if (hotel_categories.length > 0) {
+				$.each(hotel_categories, function(index, hotelcat) {
+					$select.append(`<option value="${hotelcat.hotel_category_id}">${hotelcat.hotel_category_name}</option>`);
+				});
+			}
 		}
-	});
-	
-	// Calculate check-in date based on previous location's checkout
-	var checkInDate = calculateNextCheckInDate(afterIndex);
-	
-	// Create new location card with selected data
-	var newIndex = afterIndex + 1;
-	var newCardHtml = createLocationCardWithData(newIndex, locationData, checkInDate);
-	var newBreadcrumbHtml = createBreadcrumbWithData(newIndex, locationData);
-	
-	// Find the card to insert after
-	var $targetCard = $(`.location-card[data-index="${afterIndex}"]`);
-	var $targetBreadcrumb = $(`.bc-card[data-index="${afterIndex}"]`);
-	
-	// Insert new card and breadcrumb
-	$targetCard.after(newCardHtml);
-	$targetBreadcrumb.after(newBreadcrumbHtml);
-	
-	// Initialize Select2 for the new card
-	$(`.location-card[data-index="${newIndex}"] .select2-show-search`).select2();
-	
-	// Set hotel category and trigger change to load hotels
-	$(`#hotelcat${newIndex}`).val(locationData.hotelCategoryId).trigger('change');
-	
-	// Generate nightly details
-	setTimeout(function() {
-		updateNightlyDetails(newIndex);
-	}, 500);
-	
-	// Re-add insert buttons
-	addInsertButtons();
-	
-	// Update breadcrumb display
-	updateBreadcrumbDisplay();
-	
-	// Update totals
-	setTimeout(function() {
-		updateAllTotals();
-		checkTotalNights();
-	}, 1000);
-	
-	showAlert('success', `${locationData.locationName} added at position ${newIndex} with ${locationData.nights} night(s)`);
-}
 
-// Calculate next check-in date based on previous location's checkout
-function calculateNextCheckInDate(afterIndex) {
-	var $prevCard = $(`.location-card[data-index="${afterIndex}"]`);
-	var prevCheckout = $prevCard.find(`#checkout${afterIndex}`).val();
-	
-	if (prevCheckout) {
-		return prevCheckout;
-	}
-	
-	// Fallback to tour start date if no previous location
-	return '<?php echo $object_det[0]['start_date'] ?? ''; ?>';
-}
+		// Main function to insert location with selected data
+		function insertLocationAfter(afterIndex, locationData) {
+			var $allCards = $('.location-card').sort(function(a, b) {
+				return parseInt($(a).attr('data-index')) - parseInt($(b).attr('data-index'));
+			});
 
-// Create location card with selected data
-function createLocationCardWithData(count, locationData, checkInDate) {
+			var $allBreadcrumbs = $('.bc-card').sort(function(a, b) {
+				return parseInt($(a).attr('data-index')) - parseInt($(b).attr('data-index'));
+			});
+
+			// Reindex all cards after the insertion point
+			$allCards.each(function() {
+				var currentIdx = parseInt($(this).attr('data-index'));
+				if (currentIdx > afterIndex) {
+					var newIdx = currentIdx + 1;
+					reindexLocationCard($(this), currentIdx, newIdx);
+				}
+			});
+
+			// Reindex all breadcrumbs after the insertion point
+			$allBreadcrumbs.each(function() {
+				var currentIdx = parseInt($(this).attr('data-index'));
+				if (currentIdx > afterIndex) {
+					var newIdx = currentIdx + 1;
+					reindexBreadcrumb($(this), currentIdx, newIdx);
+				}
+			});
+
+			// Calculate check-in date based on previous location's checkout
+			var checkInDate = calculateNextCheckInDate(afterIndex);
+
+			// Create new location card with selected data
+			var newIndex = afterIndex + 1;
+			var newCardHtml = createLocationCardWithData(newIndex, locationData, checkInDate);
+			var newBreadcrumbHtml = createBreadcrumbWithData(newIndex, locationData);
+
+			// Find the card to insert after
+			var $targetCard = $(`.location-card[data-index="${afterIndex}"]`);
+			var $targetBreadcrumb = $(`.bc-card[data-index="${afterIndex}"]`);
+
+			// Insert new card and breadcrumb
+			$targetCard.after(newCardHtml);
+			$targetBreadcrumb.after(newBreadcrumbHtml);
+
+			// Initialize Select2 for the new card
+			$(`.location-card[data-index="${newIndex}"] .select2-show-search`).select2();
+
+			// Set hotel category and trigger change to load hotels
+			$(`#hotelcat${newIndex}`).val(locationData.hotelCategoryId).trigger('change');
+
+			// Generate nightly details
+			setTimeout(function() {
+				updateNightlyDetails(newIndex);
+			}, 500);
+
+			// Re-add insert buttons
+			addInsertButtons();
+
+			// Update breadcrumb display
+			updateBreadcrumbDisplay();
+
+			// Update totals
+			setTimeout(function() {
+				updateAllTotals();
+				checkTotalNights();
+			}, 1000);
+
+			showAlert('success', `${locationData.locationName} added at position ${newIndex} with ${locationData.nights} night(s)`);
+		}
+
+		// Calculate next check-in date based on previous location's checkout
+		function calculateNextCheckInDate(afterIndex) {
+			var $prevCard = $(`.location-card[data-index="${afterIndex}"]`);
+			var prevCheckout = $prevCard.find(`#checkout${afterIndex}`).val();
+
+			if (prevCheckout) {
+				return prevCheckout;
+			}
+
+			// Fallback to tour start date if no previous location
+			return '<?php echo $object_det[0]['start_date'] ?? ''; ?>';
+		}
+
+		// Create location card with selected data
+	function createLocationCardWithData(count, locationData, checkInDate) {
+		
 	var hotel_categories = <?php echo isset($hotel_categories) ? json_encode($hotel_categories) : '[]'; ?>;
 	var no_of_adult = <?php echo isset($object_det[0]['no_of_adult']) ? $object_det[0]['no_of_adult'] : '0'; ?>;
 	var no_of_child_with_bed = <?php echo isset($object_det[0]['no_of_child_with_bed']) ? $object_det[0]['no_of_child_with_bed'] : '0'; ?>;
 	var no_of_child_without_bed = <?php echo isset($object_det[0]['no_of_child_without_bed']) ? $object_det[0]['no_of_child_without_bed'] : '0'; ?>;
 	var no_of_extra_bed = <?php echo isset($object_det[0]['no_of_extra_bed']) ? $object_det[0]['no_of_extra_bed'] : '0'; ?>;
 	var total_no_of_pax = <?php echo isset($object_det[0]['total_no_of_pax']) ? $object_det[0]['total_no_of_pax'] : '0'; ?>;
-	
+	var meal_plan_exist = <?php echo isset($object_det[0]['meal_plan']) ? $object_det[0]['meal_plan'] : ''; ?>;
+
 	// Calculate checkout date
 	var checkoutDate = new Date(checkInDate);
 	checkoutDate.setDate(checkoutDate.getDate() + locationData.nights);
 	var checkoutDateStr = checkoutDate.toISOString().split('T')[0];
-	
+
 	var hotelCatOptions = '<option value="">Select</option>';
 	if (hotel_categories.length > 0) {
 		$.each(hotel_categories, function(index, hotelcat) {
@@ -10127,122 +10127,128 @@ function createLocationCardWithData(count, locationData, checkInDate) {
 			hotelCatOptions += `<option value="${hotelcat.hotel_category_id}" ${selected}>${hotelcat.hotel_category_name}</option>`;
 		});
 	}
-	
+
+	var mealplanOptions = '<option value="">Select</option>';
+	var mealOptions = [
+		{value: 1, text: 'EP'},
+		{value: 2, text: 'CP'},
+		{value: 3, text: 'MAP'},
+		{value: 4, text: 'AP'}
+	];
+	$.each(mealOptions, function(index, opt) {
+		var selected = (opt.value == meal_plan_exist) ? 'selected' : '';
+		mealplanOptions += `<option value="${opt.value}" ${selected}>${opt.text}</option>`;
+	});
+
 	return `
-	<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
-		<div class="card">
-			<div class="card-header cardy bg-success">
-				<div id="eighteen_div_d${count}"></div>
-				<div id="eighteen_div_s${count}"></div>
-				<input type="hidden" id="tax_status${count}" name="addloc[${count}][tax_status]" value="0">
-				<input type="hidden" id="own_arrange${count}" name="addloc[${count}][own_arrange]" value="0">
-				<input type="hidden" id="tour_location_id${count}" name="addloc[${count}][tour_location_id]" value="${locationData.locationId}">
-				<input type="hidden" id="location_sequence${count}" name="addloc[${count}][location_sequence]" value="${count}">
-				<div class="card-title">
-					<span class="card-seq" style="color:#fff;">${count}</span>. 
-					<span style="color:#fff;">${locationData.locationName} (${locationData.nights} Night${locationData.nights > 1 ? 's' : ''})</span>
-				</div>
-				<div class="card-options">
-					<a href="#" class="card-options-remove"><i class="fe fe-x"></i></a>
-				</div>
-			</div>
-			<div class="card-body">
-				<div class="ibox teams mb-30 bg-boxshadow">
-					<div class="ibox-content teams">
-						<div class="row mt-2">
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Hotel Category</b></div>
-								<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" 
-									class="form-control select2-show-search input-sm hotel_cat_change" 
-									data-id="${count}" required>
-									${hotelCatOptions}
-								</select>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Hotel</b></div>
-								<select id="hotelid${count}" name="addloc[${count}][hotelid]" 
-									class="form-control select2-show-search input-sm hotel_change" 
-									data-id="${count}" required>
-									<option value="">Select</option>
-								</select>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Room Category</b></div>
-								<select id="roomcat_common${count}" name="addloc[${count}][roomcat_common]" 
-									class="form-control select2-show-search input-sm room_cat_common_change" 
-									data-id="${count}">
-									<option value="">Select</option>
-								</select>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Checkin</b></div>
-								<input type="date" id="checkin${count}" name="addloc[${count}][checkin]" 
-									value="${checkInDate}" class="form-control input-sm" required>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Nights</b></div>
-								<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" 
-									value="${locationData.nights}" class="form-control input-sm no_of_night" count-id="${count}" 
-									maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count}); updateNightlyDetails(${count});" 
-									required>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Checkout</b></div>
-								<input type="date" id="checkout${count}" name="addloc[${count}][checkout]" 
-									value="${checkoutDateStr}" class="form-control input-sm" required readonly>
+			<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
+				<div class="card">
+					<div class="card-header cardy bg-success">
+						<div id="eighteen_div_d${count}"></div>
+						<div id="eighteen_div_s${count}"></div>
+						<input type="hidden" id="tax_status${count}" name="addloc[${count}][tax_status]" value="0">
+						<input type="hidden" id="own_arrange${count}" name="addloc[${count}][own_arrange]" value="0">
+						<input type="hidden" id="tour_location_id${count}" name="addloc[${count}][tour_location_id]" value="${locationData.locationId}">
+						<input type="hidden" id="location_sequence${count}" name="addloc[${count}][location_sequence]" value="${count}">
+						<div class="card-title">
+							<span class="card-seq" style="color:#fff;">${count}</span>. 
+							<span style="color:#fff;">${locationData.locationName} (${locationData.nights} Night${locationData.nights > 1 ? 's' : ''})</span>
+						</div>
+						<div class="card-options">
+							<a href="#" class="card-options-remove"><i class="fe fe-x"></i></a>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="ibox teams mb-30 bg-boxshadow">
+							<div class="ibox-content teams">
+								<div class="row mt-2">
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Hotel Category</b></div>
+										<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" 
+											class="form-control select2-show-search input-sm hotel_cat_change" 
+											data-id="${count}" required>
+											${hotelCatOptions}
+										</select>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Hotel</b></div>
+										<select id="hotelid${count}" name="addloc[${count}][hotelid]" 
+											class="form-control select2-show-search input-sm hotel_change" 
+											data-id="${count}" required>
+											<option value="">Select</option>
+										</select>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Room Category</b></div>
+										<select id="roomcat_common${count}" name="addloc[${count}][roomcat_common]" 
+											class="form-control select2-show-search input-sm room_cat_common_change" 
+											data-id="${count}">
+											<option value="">Select</option>
+										</select>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Checkin</b></div>
+										<input type="date" id="checkin${count}" name="addloc[${count}][checkin]" 
+											value="${checkInDate}" class="form-control input-sm" readonly required>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Nights</b></div>
+										<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" 
+											value="0" class="form-control input-sm no_of_night" count-id="${count}" 
+											maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count}); updateNightlyDetails(${count});" 
+											required>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Checkout</b></div>
+										<input type="date" id="checkout${count}" name="addloc[${count}][checkout]" 
+											value="${checkoutDateStr}" class="form-control input-sm" required readonly>
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Meal Plan</b></div>
+										<select id="mealplan${count}" name="addloc[${count}][mealplan]" 
+											class="form-control select2-show-search input-sm mp_change" 
+											data-id="${count}" required>
+											${mealplanOptions}
+										</select>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>No Of Adult</b></div>
+										<input type="text" id="no_of_adult${count}" name="addloc[${count}][no_of_adult]" 
+											value="${no_of_adult}" class="form-control input-sm" readonly>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>C.With Bed Qty</b></div>
+										<input type="text" id="no_of_ch${count}" name="addloc[${count}][no_of_ch]" 
+											value="${no_of_child_with_bed}" class="form-control input-sm" readonly>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>C.Without Bed Qty</b></div>
+										<input type="text" id="no_of_cw${count}" name="addloc[${count}][no_of_cw]" 
+											value="${no_of_child_without_bed}" class="form-control input-sm" readonly>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Extra Bed Qty</b></div>
+										<input type="text" id="no_of_extra${count}" name="addloc[${count}][no_of_extra]" 
+											value="${no_of_extra_bed}" class="form-control input-sm" readonly>
+									</div>
+									<div class="col-xl col-sm-12 col-md-2">
+										<div class="teams-rank"><b>Total Pax</b></div>
+										<input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" 
+											value="${total_no_of_pax}" class="form-control input-sm" readonly>
+									</div>
+								</div>
+								<div class="nightly-details" id="nightly-details${count}"></div>
 							</div>
 						</div>
-						<div class="row mt-2">
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Meal Plan</b></div>
-								<select id="mealplan${count}" name="addloc[${count}][mealplan]" 
-									class="form-control select2-show-search input-sm mp_change" 
-									data-id="${count}" required>
-									<option value="">Select</option>
-									<option value="1">EP</option>
-									<option value="2">CP</option>
-									<option value="3">MAP</option>
-									<option value="4">AP</option>
-								</select>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>No Of Adult</b></div>
-								<input type="text" id="no_of_adult${count}" name="addloc[${count}][no_of_adult]" 
-									value="${no_of_adult}" class="form-control input-sm" readonly>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>C.With Bed Qty</b></div>
-								<input type="text" id="no_of_ch${count}" name="addloc[${count}][no_of_ch]" 
-									value="${no_of_child_with_bed}" class="form-control input-sm" readonly>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>C.Without Bed Qty</b></div>
-								<input type="text" id="no_of_cw${count}" name="addloc[${count}][no_of_cw]" 
-									value="${no_of_child_without_bed}" class="form-control input-sm" readonly>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Extra Bed Qty</b></div>
-								<input type="text" id="no_of_extra${count}" name="addloc[${count}][no_of_extra]" 
-									value="${no_of_extra_bed}" class="form-control input-sm" readonly>
-							</div>
-							<div class="col-xl col-sm-12 col-md-2">
-								<div class="teams-rank"><b>Total Pax</b></div>
-								<input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" 
-									value="${total_no_of_pax}" class="form-control input-sm" readonly>
-							</div>
-						</div>
-						<div class="nightly-details" id="nightly-details${count}"></div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	`;
-}
-
-// Create breadcrumb with selected data
-function createBreadcrumbWithData(count, locationData) {
-	return `
+			`;
+		}
+		function createBreadcrumbWithData(count, locationData) {
+			return `
 	<li class="bc-card" data-index="${count}">
 		<a>
 			<span class="bc-card-seq" style="color:#fff">${count}</span>.
@@ -10251,76 +10257,76 @@ function createBreadcrumbWithData(count, locationData) {
 		</a>
 	</li>
 	`;
-}
+		}
 
-// Reindex functions (keep as is from original code)
-function reindexLocationCard($card, oldIdx, newIdx) {
-	console.log(`Reindexing card from ${oldIdx} to ${newIdx}`);
-	
-	$card.attr('data-index', newIdx);
-	
-	$card.find('[id*="' + oldIdx + '"]').each(function() {
-		var oldId = $(this).attr('id');
-		var newId = oldId.replace(new RegExp(oldIdx + '(?![0-9])', 'g'), newIdx);
-		$(this).attr('id', newId);
-	});
-	
-	$card.find('[name*="[' + oldIdx + ']"]').each(function() {
-		var oldName = $(this).attr('name');
-		var newName = oldName.replace('[' + oldIdx + ']', '[' + newIdx + ']');
-		$(this).attr('name', newName);
-	});
-	
-	$card.find('[data-id="' + oldIdx + '"]').each(function() {
-		$(this).attr('data-id', newIdx);
-	});
-	
-	$card.find('[count-id="' + oldIdx + '"]').each(function() {
-		$(this).attr('count-id', newIdx);
-	});
-	
-	$card.find('.card-seq').text(newIdx);
-	
-	$card.find('[onclick*="' + oldIdx + '"]').each(function() {
-		var oldOnclick = $(this).attr('onclick');
-		var newOnclick = oldOnclick.replace(new RegExp('\\b' + oldIdx + '\\b', 'g'), newIdx);
-		$(this).attr('onclick', newOnclick);
-	});
-}
+		// Reindex functions (keep as is from original code)
+		function reindexLocationCard($card, oldIdx, newIdx) {
+			console.log(`Reindexing card from ${oldIdx} to ${newIdx}`);
 
-function reindexBreadcrumb($breadcrumb, oldIdx, newIdx) {
-	$breadcrumb.attr('data-index', newIdx);
-	$breadcrumb.find('.bc-card-seq').text(newIdx);
-	
-	$breadcrumb.find('[id*="' + oldIdx + '"]').each(function() {
-		var oldId = $(this).attr('id');
-		var newId = oldId.replace(new RegExp(oldIdx + '(?![0-9])', 'g'), newIdx);
-		$(this).attr('id', newId);
-	});
-}
+			$card.attr('data-index', newIdx);
 
-function updateBreadcrumbDisplay() {
-	$('.bc-card').each(function() {
-		var idx = parseInt($(this).attr('data-index'));
-		var nights = $(`#no_of_night${idx}`).val() || '0';
-		var locationName = $(`.location-card[data-index="${idx}"] .card-title span:eq(1)`).text() || 'NEW';
-		
-		$(this).find('a span:eq(1)').html(
-			`${locationName}(<span id="span_night_id${idx}" style="color:#fff">${nights}</span>)` +
-			`<span id="loc_total${idx}" style="color:#fff"></span>`
-		);
-	});
-}
+			$card.find('[id*="' + oldIdx + '"]').each(function() {
+				var oldId = $(this).attr('id');
+				var newId = oldId.replace(new RegExp(oldIdx + '(?![0-9])', 'g'), newIdx);
+				$(this).attr('id', newId);
+			});
 
-// Initialize insert buttons when document is ready
-$(document).ready(function() {
-	addInsertButtons();
-});
+			$card.find('[name*="[' + oldIdx + ']"]').each(function() {
+				var oldName = $(this).attr('name');
+				var newName = oldName.replace('[' + oldIdx + ']', '[' + newIdx + ']');
+				$(this).attr('name', newName);
+			});
 
-// Re-add insert buttons after any card operations
-$(document).on('DOMNodeInserted', '.location-card', function() {
-	setTimeout(addInsertButtons, 100);
-});
+			$card.find('[data-id="' + oldIdx + '"]').each(function() {
+				$(this).attr('data-id', newIdx);
+			});
+
+			$card.find('[count-id="' + oldIdx + '"]').each(function() {
+				$(this).attr('count-id', newIdx);
+			});
+
+			$card.find('.card-seq').text(newIdx);
+
+			$card.find('[onclick*="' + oldIdx + '"]').each(function() {
+				var oldOnclick = $(this).attr('onclick');
+				var newOnclick = oldOnclick.replace(new RegExp('\\b' + oldIdx + '\\b', 'g'), newIdx);
+				$(this).attr('onclick', newOnclick);
+			});
+		}
+
+		function reindexBreadcrumb($breadcrumb, oldIdx, newIdx) {
+			$breadcrumb.attr('data-index', newIdx);
+			$breadcrumb.find('.bc-card-seq').text(newIdx);
+
+			$breadcrumb.find('[id*="' + oldIdx + '"]').each(function() {
+				var oldId = $(this).attr('id');
+				var newId = oldId.replace(new RegExp(oldIdx + '(?![0-9])', 'g'), newIdx);
+				$(this).attr('id', newId);
+			});
+		}
+
+		function updateBreadcrumbDisplay() {
+			$('.bc-card').each(function() {
+				var idx = parseInt($(this).attr('data-index'));
+				var nights = $(`#no_of_night${idx}`).val() || '0';
+				var locationName = $(`.location-card[data-index="${idx}"] .card-title span:eq(1)`).text() || 'NEW';
+
+				$(this).find('a span:eq(1)').html(
+					`${locationName}(<span id="span_night_id${idx}" style="color:#fff">${nights}</span>)` +
+					`<span id="loc_total${idx}" style="color:#fff"></span>`
+				);
+			});
+		}
+
+		// Initialize insert buttons when document is ready
+		$(document).ready(function() {
+			addInsertButtons();
+		});
+
+		// Re-add insert buttons after any card operations
+		$(document).on('DOMNodeInserted', '.location-card', function() {
+			setTimeout(addInsertButtons, 100);
+		});
 		async function copyTourPlanWithChangeHandling(planData, index, mode, changes) {
 			if (index >= planData.length) return;
 
@@ -11367,7 +11373,6 @@ $(document).on('DOMNodeInserted', '.location-card', function() {
 			checkTotalNights();
 		}
 	});
-	
 </script>
 
 
