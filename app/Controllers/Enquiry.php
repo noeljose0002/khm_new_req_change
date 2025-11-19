@@ -8629,10 +8629,10 @@ class Enquiry extends BaseController
         $cs_name = $this->request->getPost('cs_name');
         $cs_name_exist = $Enquiry_model->check_cs_name_exist($enquiry_header_id, $cs_name);
         /*if($cs_name_exist > 0){
-            session()->setFlashdata('error', 'Costing sheet name already exist');
-          
-        }
-        else{*/
+        session()->setFlashdata('error', 'Costing sheet name already exist');
+      
+    }
+    else{*/
         $itinerary_details_save = [];
         $tour_plan_det = $Enquiry_model->get_tour_plan_details($enquiry_header_id, $enquiry_details_id);
         $ext_ref_id_tour_plan = $tour_plan_det[0]['tour_details_id'];
@@ -8679,6 +8679,10 @@ class Enquiry extends BaseController
         $tnr_hidden = $this->request->getPost('tnr_hidden');
         $bifurcation_status = $this->request->getPost('bifurcation_status');
 
+        // Capture TCS checkbox value and TCS final value
+        $tcs_checkbox = $this->request->getPost('tcs_checkbox') ? 1 : 0;
+        $tcs_final = $this->request->getPost('tcs_final');
+
         $data_cs = array(
             'object_id' => $object_id,
             'enquiry_header_id' => $enquiry_header_id,
@@ -8703,6 +8707,8 @@ class Enquiry extends BaseController
             'version_count' => $version_count,
             'cs_name' => $cs_name,
             'is_bifurcation' => $bifurcation_status,
+            'is_tcs' => $tcs_checkbox,  // TCS checkbox status (1 if checked, 0 if not)
+            'tcs_value' => $tcs_final,  // TCS calculated value
             'enterprise_id' => 1
         );
         $enquiry_detail_details_id = $Enquiry_model->insert_iti_costing($data_cs);
@@ -9015,6 +9021,8 @@ class Enquiry extends BaseController
         $response['daily_hidden'] = $iti_cost_datas[0]['daily_total_cost'];
         $response['tnr_hidden'] = $iti_cost_datas[0]['tnr'];
         $response['final_cs_data'] = $final_cs_data;
+        $response['is_tcs'] = $iti_cost_datas[0]['is_tcs'];
+        $response['tcs_value'] = $iti_cost_datas[0]['tcs_value'];
 
         echo view('enquiry/costing_sheet_view', $response);
     }

@@ -802,6 +802,16 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 							 <td><b>GST Total</b></td>
 							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['gst_value']; ?></td>
 						</tr>
+						 <?php if($iti_cost_datas[0]['is_tcs'] == 1){ ?>
+        <tr>
+            <td><b>TCS %</b></td>
+            <td style="text-align:right;">5%</td>
+        </tr>
+        <tr>
+            <td><b>TCS Amount</b></td>
+            <td style="text-align:right;"><?php echo number_format($iti_cost_datas[0]['tcs_value'], 2); ?></td>
+        </tr>
+        <?php } ?>
 						<tr>
 							 <td><b>Total Package Cost</b></td>
 							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['tpc']; ?></td>

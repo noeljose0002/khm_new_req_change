@@ -1377,7 +1377,8 @@ $cs_trans_total = 0;
 																												<div class="row mt-2">
 
 																													<div class="col-xl-12 col-sm-12 col-md-12">
-																														<h4 style="font-weight:bold;font-size:20px;color:#004d00;text-align:center;">Day <?php echo $day_count; ?> - <?php echo $ttval['geog_name']; ?> (Meal Plan : <?php echo $ttval['meal_type_name']; ?>)</h4>
+																														<!-- <h4 style="font-weight:bold;font-size:20px;color:#004d00;text-align:center;">Day <?php echo $day_count; ?> - <?php echo $ttval['geog_name']; ?> (Meal Plan : <?php echo $ttval['meal_type_name']; ?>)</h4> -->
+																														 							<h4 style="font-weight:bold;font-size:20px;color:#004d00;text-align:center;">Day <?php echo $day_count; ?> - <?php echo $ttval['geog_name']; ?></h4>
 																													</div>
 
 																												</div>
@@ -1412,7 +1413,7 @@ $cs_trans_total = 0;
 
 
 
-																													<div class="col-xl-2 col-sm-12 col-md-2">
+																													<!-- <div class="col-xl-2 col-sm-12 col-md-2">
 																														<div class="teams-rank"><label class="small-label">Room Category</label></div>
 																														<select id="roomcat<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][roomcat]" data-id="<?php echo $iti_id; ?>" data-sid="1" readonly class="form-control input-sm room_cat_change" required <?php echo $dis_abled; ?>>
 																															<option value="">Select</option>
@@ -1433,6 +1434,37 @@ $cs_trans_total = 0;
 																															<?php } ?>
 																														</select>
 
+																													</div> -->
+																													<!-- Hidden Room Category Dropdown -->
+																													<input type="hidden" id="roomcat<?php echo $iti_id; ?>"
+																														name="additi[<?php echo $iti_id; ?>][roomcat]"
+																														data-id="<?php echo $iti_id; ?>"
+																														data-sid="1"
+																														value="<?php echo $room_cat_exist; ?>">
+
+																													<!-- New Room Count Display Field -->
+																													<div class="col-xl-2 col-sm-12 col-md-2">
+																														<div class="teams-rank"><label class="small-label">No Of Rooms</label></div>
+																														<?php
+																														// Calculate total rooms
+																														$total_rooms = $object_det[0]['no_of_double_room'] + $object_det[0]['no_of_single_room'];
+
+																														// Build display text
+																														$room_text_parts = array();
+																														if ($object_det[0]['no_of_double_room'] > 0) {
+																															$room_text_parts[] = $object_det[0]['no_of_double_room'] . ' D';
+																														}
+																														if ($object_det[0]['no_of_single_room'] > 0) {
+																															$room_text_parts[] = $object_det[0]['no_of_single_room'] . ' S';
+																														}
+																														$room_display_text = !empty($room_text_parts) ? implode(' + ', $room_text_parts) : '0';
+																														?>
+																														<input type="text"
+																															id="room_count_display<?php echo $iti_id; ?>"
+																															value="<?php echo $total_rooms; ?> (<?php echo $room_display_text; ?>)"
+																															class="form-control input-sm"
+																															readonly
+																															style="background-color: #f5f5f5; font-weight: bold;">
 																													</div>
 
 
