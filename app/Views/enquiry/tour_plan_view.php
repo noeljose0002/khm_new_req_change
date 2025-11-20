@@ -10761,77 +10761,108 @@ $is_edit = $edit_id ? $edit_id : 0;
         var index = $(this).data('index');
         editLocation(index);
     });
-    function editLocation(index) {
-        if (!Array.isArray(locations) || locations.length === 0) {
-            alert('Locations list not available. Please ensure $all_locations is defined in PHP.');
-            return;
+   function editLocation(index) {
+    if (!Array.isArray(locations) || locations.length === 0) {
+        alert('Locations list not available. Please ensure $all_locations is defined in PHP.');
+        return;
+    }
+
+    var currentId = parseInt($('#tour_location_id' + index).val()) || 0;
+    // find the card and the exact span that holds the location name (exclude .card-seq)
+    var $card = $('.location-card[data-index="' + index + '"]');
+    var $cardTitle = $card.find('.card-title');
+    // get the span that is NOT the card-seq (robust even if markup changes)
+    var $nameSpan = $cardTitle.find('span').not('.card-seq').first();
+    var currentName = $nameSpan.text().trim();
+
+    // build select
+    var selectId = 'temp-loc-select-' + index;
+    var selectHtml = '<select id="' + selectId + '" class="form-control edit-loc-select" style="min-width:220px;"><option value="">Select New Location</option></select>';
+    // replace the name span's inner HTML with the select (keep the span wrapper)
+    $nameSpan.html(selectHtml);
+
+    var $select = $('#' + selectId);
+    // populate options (use id/name or fallback keys)
+    $.each(locations, function(k, loc) {
+        var locId = loc.id || loc.tour_location_id || loc.location_id || 0;
+        var locName = loc.name || loc.geog_name || loc.location_name || ('Location ' + locId);
+        var selected = (parseInt(locId) === currentId) ? ' selected' : '';
+        $select.append('<option value="' + locId + '"' + selected + '>' + locName + '</option>');
+    });
+
+    // attach change handlers BEFORE opening select2
+    function onLocationSelected(ev) {
+        var newId = parseInt($select.val()) || 0;
+        var newName = $select.find('option:selected').text() || '';
+        // if actually changed
+        if (newId && newId !== currentId) {
+            // update hidden field
+            $('#tour_location_id' + index).val(newId);
+
+            // update the card-title span (restore formatting)
+            $nameSpan.html('<span style="color:#339966;">' + newName + '</span>');
+
+            // update breadcrumb - target only the name span inside breadcrumb
+            var $bcCard = $('.bc-card[data-index="' + index + '"]');
+            // the breadcrumb structure had two spans; update only the second span (name+night+total)
+            var $bcNameSpan = $bcCard.find('a > span').last();
+            var nights = $('#no_of_night' + index).val() || 0;
+            var totalText = $('#loc_total' + index).text() || '';
+            $bcNameSpan.html(newName + '(<span id="span_night_id' + index + '" style="color:#fff">' + nights + '</span>)' + totalText);
+
+            // Clear and reload hotels for new location
+            var $hotelSelect = $('#hotelid' + index);
+            $hotelSelect.empty().append('<option value="">Select Hotel</option>').prop('selectedIndex', 0);
+
+            // Load hotels via AJAX for the new location
+            loadHotelsForNewLocation(index, newId, $('#checkin' + index).val());
+
+            // Clear nightly details and reset totals for new location
+            $('#nightly-details' + index).empty();
+            $('#loc_total' + index).text(' - ₹0.00');
+
+            showAlert('info', 'Location updated to ' + newName + '. Please select a hotel and update nightly details.');
+        } else {
+            // revert to original name when cancelled or same selection
+            $nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
         }
-        var currentId = parseInt($('#tour_location_id' + index).val()) || 0;
-        var $cardTitle = $('.location-card[data-index="' + index + '"] .card-title');
-        var $nameSpan = $cardTitle.children().last(); // The span with location name
-        var currentName = $nameSpan.text().trim();
-        // Temporarily replace the name span with a select for editing
-        var selectHtml = '<select id="temp-loc-select-' + index + '" class="form-control edit-loc-select" style="width: 200px; display: inline-block;"><option value="">Select New Location</option></select>';
-        $nameSpan.html(selectHtml);
-        var $select = $('#temp-loc-select-' + index);
-        $.each(locations, function(k, loc) {
-            var selected = (parseInt(loc.id) === currentId) ? ' selected' : '';
-            $select.append('<option value="' + loc.id + '"' + selected + '>' + (loc.name || loc.geog_name || 'Unknown') + '</option>');
-        });
-        // FIXED: Safe Select2 init - check if already initialized (rare, but guards against re-init)
-        if (!$select.hasClass('select2-hidden-accessible')) {
-            $select.select2({
-                dropdownParent: $('.tour_plan_div'), // Ensure dropdown is appended to body or container
-                placeholder: 'Select Location'
-            });
-        }
-        // Focus on select
-        $select.select2('open');
-        // Handle change
-        $select.on('change', function() {
-            var newId = parseInt($(this).val());
-            if (newId && newId !== currentId) {
-                var newName = $(this).find('option:selected').text();
-                // Update hidden field
-                $('#tour_location_id' + index).val(newId);
-                // Update card title
-                $nameSpan.html('<span style="color:#339966;">' + newName + '</span>');
-                // Update breadcrumb
-                var $bcSpan = $('.bc-card[data-index="' + index + '"] a span');
-                var nights = $('#no_of_night' + index).val() || 0;
-                var totalText = $('#loc_total' + index).text() || '';
-                $bcSpan.html(newName + '(<span id="span_night_id' + index + '" style="color:#fff">' + nights + '</span>)' + totalText);
-                // Clear and reload hotels for new location
-                var $hotelSelect = $('#hotelid' + index);
-                $hotelSelect.empty().append('<option value="">Select Hotel</option>').prop('selectedIndex', 0);
-                // Load hotels via AJAX (adjust URL and response format as per your backend)
-                loadHotelsForNewLocation(index, newId, $('#checkin' + index).val());
-                // Clear nightly details and reset totals for new location
-                $('#nightly-details' + index).empty();
-                $('#loc_total' + index).text(' - ₹0.00');
-                // Optionally, regenerate nightly details with fresh tariffs after hotel selection
-                // You can trigger $('#hotelid' + index).on('change') handler if it exists
-                showAlert('info', 'Location updated to ' + newName + '. Please select a hotel and update nightly details.');
-            } else if (newId === currentId || !newId) {
-                // Revert to original
-                $nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
-            }
-            // FIXED: Safe cleanup - check for Select2 class before destroy, defer to avoid race conditions
-            setTimeout(function() {
-                var $tempSelect = $('#temp-loc-select-' + index);
-                if ($tempSelect.length > 0) {
-                    if ($tempSelect.hasClass('select2-hidden-accessible')) {
-                        try {
-                            $tempSelect.select2('destroy');
-                        } catch (e) {
-                            console.warn('Select2 destroy failed for temp select; proceeding with remove:', e);
-                        }
-                    }
-                    $tempSelect.off('change').remove(); // Unbind event first
+
+        // cleanup Select2 safely
+        setTimeout(function() {
+            try {
+                if ($select.hasClass('select2-hidden-accessible')) {
+                    $select.select2('destroy');
                 }
-            }, 100); // Short defer to let events settle
+            } catch (e) {
+                console.warn('Could not destroy temp select2:', e);
+            }
+            $select.off('change select2:select');
+            $select.remove();
+        }, 100);
+    }
+
+    // bind both normal change and select2:select (defensive)
+    $select.on('change', onLocationSelected);
+    $select.on('select2:select', onLocationSelected);
+
+    // init Select2 safely (dropdown attached to container to avoid z-index issues)
+    if (!$select.hasClass('select2-hidden-accessible') && $select.select2) {
+        $select.select2({
+            dropdownParent: $card, // attach to card to avoid clipping
+            placeholder: 'Select Location',
+            width: 'resolve'
         });
     }
+
+    // open the dropdown after all bindings are attached
+    try {
+        $select.select2('open');
+    } catch (e) {
+        // fallback: do nothing if open fails
+        console.warn('select2 open failed (fallback):', e);
+    }
+}
+
     // NEW: Function to load hotels for the new location (implement backend endpoint)
     function loadHotelsForNewLocation(index, locId, checkinDate) {
         // Placeholder AJAX - adjust URL, method, and response parsing to match your backend
