@@ -1570,7 +1570,8 @@ $cs_trans_total = 0;
 																												$tac_base = $expansion_hotel_total + $hot_fac_tariff + $daily_addon;
 
 																												// Calculate display TAC WITH special tariff for showing on screen
-																												$tac = $tac_base + $spcl_tariff;
+																												// $tac = $tac_base + $spcl_tariff;
+																												$tac = $tac_base;
 
 																												// CRITICAL FIX: Determine if we should use dynamic rows
 																												// Use dynamic ONLY if we have actual expansion data with valid room information
