@@ -2499,7 +2499,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 					onComplete();
 				}
 
-				alert('SUCCESS!\n\nAll ' + totalLocations + ' location(s) refreshed successfully!');
+				// alert('SUCCESS!\n\nAll ' + totalLocations + ' location(s) refreshed successfully!');
 				return;
 			}
 
@@ -7999,6 +7999,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 					// Build card HTML
 					var newCard = `
 	<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
+	
 		<div class="card">
 			<div class="card-header cardy">
 				<div id="eighteen_div_d${count}"></div>
@@ -8008,7 +8009,12 @@ $is_edit = $edit_id ? $edit_id : 0;
 				<input type="hidden" id="tour_location_id${count}" name="addloc[${count}][tour_location_id]" value="${main.geog_id}">
 				<input type="hidden" id="location_sequence${count}" name="addloc[${count}][location_sequence]" value="${count}">
 				<div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${main.geog_name}</span></div>
+				<a href="#" class="card-options-edit" data-index="${index}" style="margin-left:10px;">
+    <i class="fe fe-edit"></i>
+</a>
+
 				<div class="card-options">
+				
 					<a href="#" class="card-options-remove"><i class="fe fe-x"></i></a>
 				</div>
 			</div>
@@ -10880,337 +10886,337 @@ $is_edit = $edit_id ? $edit_id : 0;
 	// NEW: Edit location handler
 	// ================= FIXED: Edit location handler - Handles removed/reordered cards =================
 
-$(document).on('click', '.card-options-edit', function(e) {
-	e.preventDefault();
-	var $editBtn = $(this);
-	var $card = $editBtn.closest('.location-card');
-	
-	// CRITICAL FIX 1: Get index from the actual card, not hardcoded data-index
-	// This works even if cards are removed and indices are not sequential
-	var index = $card.data('index');
-	
-	console.log('=== EDIT BUTTON CLICKED ===');
-	console.log('Card found:', $card.length > 0);
-	console.log('Index from card:', index);
-	console.log('tour_location_id:', $card.find('#tour_location_id' + index).val());
-	
-	if ($card.length === 0) {
-		console.error('ERROR: Card element not found');
-		alert('Card element not found. Please try again.');
-		return;
-	}
-	
-	editLocation(index, $card);
-});
+	$(document).on('click', '.card-options-edit', function(e) {
+		e.preventDefault();
+		var $editBtn = $(this);
+		var $card = $editBtn.closest('.location-card');
 
-function editLocation(index, $card) {
-	console.log('=== EDIT LOCATION FUNCTION START ===');
-	console.log('Index:', index);
+		// CRITICAL FIX 1: Get index from the actual card, not hardcoded data-index
+		// This works even if cards are removed and indices are not sequential
+		var index = $card.data('index');
 
-	// CRITICAL FIX 2: Validate locations array exists
-	if (typeof locations === 'undefined' || !Array.isArray(locations) || locations.length === 0) {
-		console.error('ERROR: Locations not available', typeof locations);
-		alert('Locations list not available. Please refresh the page and try again.');
-		return;
-	}
+		console.log('=== EDIT BUTTON CLICKED ===');
+		console.log('Card found:', $card.length > 0);
+		console.log('Index from card:', index);
+		console.log('tour_location_id:', $card.find('#tour_location_id' + index).val());
 
-	// CRITICAL FIX 3: Use the passed $card parameter instead of searching
-	if (!$card || $card.length === 0) {
-		console.error('ERROR: Card not found for index:', index);
-		alert('Card not found in the page.');
-		return;
-	}
-
-	var currentId = parseInt($card.find('#tour_location_id' + index).val()) || 0;
-	console.log('Current location ID:', currentId);
-
-	var $cardTitle = $card.find('.card-title');
-	var $nameSpan = $cardTitle.find('span').not('.card-seq').first();
-	var currentName = $nameSpan.text().trim();
-
-	console.log('Current name:', currentName);
-
-	// CRITICAL FIX 4: Remove any existing select before creating new one
-	var existingSelect = $card.find('#temp-loc-select-' + index);
-	if (existingSelect.length > 0) {
-		console.log('Removing existing select...');
-		safeDestroySelect2(existingSelect);
-		existingSelect.remove();
-	}
-
-	// Build select
-	var selectId = 'temp-loc-select-' + index;
-	var selectHtml = '<select id="' + selectId + '" class="form-control edit-loc-select"><option value="">Select New Location</option></select>';
-	console.log('Injecting select HTML');
-	$nameSpan.html(selectHtml);
-
-	var $select = $card.find('#' + selectId);
-	if ($select.length === 0) {
-		console.error('ERROR: Select element not created');
-		$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
-		return;
-	}
-
-	// CRITICAL FIX 5: Populate with proper error handling and field detection
-	console.log('Populating location options...');
-	var optionsAdded = 0;
-
-	$.each(locations, function(k, loc) {
-		try {
-			// Try multiple possible ID field names with proper fallback
-			var locId = null;
-			if (loc.geog_id !== undefined && loc.geog_id !== null && loc.geog_id !== '') {
-				locId = loc.geog_id;
-			} else if (loc.id !== undefined && loc.id !== null && loc.id !== '') {
-				locId = loc.id;
-			} else if (loc.tour_location_id !== undefined && loc.tour_location_id !== null && loc.tour_location_id !== '') {
-				locId = loc.tour_location_id;
-			} else if (loc.location_id !== undefined && loc.location_id !== null && loc.location_id !== '') {
-				locId = loc.location_id;
-			}
-
-			// Get name similarly
-			var locName = loc.geog_name || loc.name || loc.location_name || ('Location ' + locId);
-
-			// Only add if we have a valid ID
-			if (locId) {
-				var selected = (parseInt(locId) === currentId) ? ' selected' : '';
-				$select.append('<option value="' + locId + '"' + selected + '>' + locName + '</option>');
-				optionsAdded++;
-			}
-		} catch (e) {
-			console.warn('Error processing location:', loc, e);
-		}
-	});
-
-	console.log('Total options added:', optionsAdded);
-
-	if (optionsAdded === 0) {
-		console.error('ERROR: No options added to select');
-		alert('No locations available to select from.');
-		$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
-		return;
-	}
-
-	// CRITICAL FIX 6: Proper event handling with cleanup flag
-	var isProcessing = false;
-	var cleanupFlag = false;
-
-	function onLocationSelected(ev) {
-		console.log('=== LOCATION SELECTED EVENT ===');
-
-		// Prevent duplicate processing
-		if (isProcessing || cleanupFlag) {
-			console.log('Already processing or cleaning up, ignoring event');
+		if ($card.length === 0) {
+			console.error('ERROR: Card element not found');
+			alert('Card element not found. Please try again.');
 			return;
 		}
 
-		var selectedValue = $select.val();
-		var newId = parseInt(selectedValue) || 0;
-		var newName = $select.find('option:selected').text() || '';
+		editLocation(index, $card);
+	});
 
-		console.log('Selected ID:', newId, 'Name:', newName, 'Current ID:', currentId);
+	function editLocation(index, $card) {
+		console.log('=== EDIT LOCATION FUNCTION START ===');
+		console.log('Index:', index);
 
-		if (newId && newId > 0 && newId !== currentId) {
-			console.log('Location changed - showing confirmation');
+		// CRITICAL FIX 2: Validate locations array exists
+		if (typeof locations === 'undefined' || !Array.isArray(locations) || locations.length === 0) {
+			console.error('ERROR: Locations not available', typeof locations);
+			alert('Locations list not available. Please refresh the page and try again.');
+			return;
+		}
 
-			if (!confirm('Are you sure you want to change the location? This will replace the current card with a fresh one for "' + newName + '".')) {
-				console.log('User cancelled confirmation');
-				$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
-				cleanupSelect();
+		// CRITICAL FIX 3: Use the passed $card parameter instead of searching
+		if (!$card || $card.length === 0) {
+			console.error('ERROR: Card not found for index:', index);
+			alert('Card not found in the page.');
+			return;
+		}
+
+		var currentId = parseInt($card.find('#tour_location_id' + index).val()) || 0;
+		console.log('Current location ID:', currentId);
+
+		var $cardTitle = $card.find('.card-title');
+		var $nameSpan = $cardTitle.find('span').not('.card-seq').first();
+		var currentName = $nameSpan.text().trim();
+
+		console.log('Current name:', currentName);
+
+		// CRITICAL FIX 4: Remove any existing select before creating new one
+		var existingSelect = $card.find('#temp-loc-select-' + index);
+		if (existingSelect.length > 0) {
+			console.log('Removing existing select...');
+			safeDestroySelect2(existingSelect);
+			existingSelect.remove();
+		}
+
+		// Build select
+		var selectId = 'temp-loc-select-' + index;
+		var selectHtml = '<select id="' + selectId + '" class="form-control edit-loc-select"><option value="">Select New Location</option></select>';
+		console.log('Injecting select HTML');
+		$nameSpan.html(selectHtml);
+
+		var $select = $card.find('#' + selectId);
+		if ($select.length === 0) {
+			console.error('ERROR: Select element not created');
+			$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
+			return;
+		}
+
+		// CRITICAL FIX 5: Populate with proper error handling and field detection
+		console.log('Populating location options...');
+		var optionsAdded = 0;
+
+		$.each(locations, function(k, loc) {
+			try {
+				// Try multiple possible ID field names with proper fallback
+				var locId = null;
+				if (loc.geog_id !== undefined && loc.geog_id !== null && loc.geog_id !== '') {
+					locId = loc.geog_id;
+				} else if (loc.id !== undefined && loc.id !== null && loc.id !== '') {
+					locId = loc.id;
+				} else if (loc.tour_location_id !== undefined && loc.tour_location_id !== null && loc.tour_location_id !== '') {
+					locId = loc.tour_location_id;
+				} else if (loc.location_id !== undefined && loc.location_id !== null && loc.location_id !== '') {
+					locId = loc.location_id;
+				}
+
+				// Get name similarly
+				var locName = loc.geog_name || loc.name || loc.location_name || ('Location ' + locId);
+
+				// Only add if we have a valid ID
+				if (locId) {
+					var selected = (parseInt(locId) === currentId) ? ' selected' : '';
+					$select.append('<option value="' + locId + '"' + selected + '>' + locName + '</option>');
+					optionsAdded++;
+				}
+			} catch (e) {
+				console.warn('Error processing location:', loc, e);
+			}
+		});
+
+		console.log('Total options added:', optionsAdded);
+
+		if (optionsAdded === 0) {
+			console.error('ERROR: No options added to select');
+			alert('No locations available to select from.');
+			$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
+			return;
+		}
+
+		// CRITICAL FIX 6: Proper event handling with cleanup flag
+		var isProcessing = false;
+		var cleanupFlag = false;
+
+		function onLocationSelected(ev) {
+			console.log('=== LOCATION SELECTED EVENT ===');
+
+			// Prevent duplicate processing
+			if (isProcessing || cleanupFlag) {
+				console.log('Already processing or cleaning up, ignoring event');
 				return;
 			}
 
-			isProcessing = true;
-			console.log('User confirmed - proceeding with location change');
+			var selectedValue = $select.val();
+			var newId = parseInt(selectedValue) || 0;
+			var newName = $select.find('option:selected').text() || '';
 
-			var $spinner = $('#csspinner');
-			if ($spinner.length > 0) {
-				$spinner.show();
+			console.log('Selected ID:', newId, 'Name:', newName, 'Current ID:', currentId);
+
+			if (newId && newId > 0 && newId !== currentId) {
+				console.log('Location changed - showing confirmation');
+
+				if (!confirm('Are you sure you want to change the location? This will replace the current card with a fresh one for "' + newName + '".')) {
+					console.log('User cancelled confirmation');
+					$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
+					cleanupSelect();
+					return;
+				}
+
+				isProcessing = true;
+				console.log('User confirmed - proceeding with location change');
+
+				var $spinner = $('#csspinner');
+				if ($spinner.length > 0) {
+					$spinner.show();
+				}
+
+				// Get location details from server
+				console.log('Fetching location details from server...');
+				$.ajax({
+					url: '<?= site_url('Enquiry/getLocationName'); ?>',
+					method: 'POST',
+					data: {
+						tour_location_id: newId,
+						hotel_category_exist: <?php echo isset($object_det[0]['hotel_category']) ? $object_det[0]['hotel_category'] : 0; ?>
+					},
+					dataType: 'json',
+					timeout: 30000,
+					success: function(response) {
+						console.log('=== AJAX SUCCESS ===');
+
+						if (response && Array.isArray(response) && response.length > 0) {
+							console.log('Location data received');
+							replaceCardWithNewLocation(index, response[0], newName, $card);
+						} else {
+							console.warn('Invalid response format');
+							showAlert('warning', 'No details available for this location.');
+							$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
+						}
+					},
+					error: function(xhr, status, error) {
+						console.error('=== AJAX ERROR ===');
+						console.error('Status:', status, 'Error:', error);
+						showAlert('danger', 'Error changing location. Please try again.');
+						$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
+					},
+					complete: function() {
+						console.log('AJAX complete - hiding spinner');
+						if ($spinner.length > 0) {
+							$spinner.hide();
+						}
+						isProcessing = false;
+						cleanupSelect();
+					}
+				});
+			} else {
+				console.log('Same location or invalid selection - reverting');
+				$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
+				cleanupSelect();
+			}
+		}
+
+		// Cleanup function with proper flag management
+		function cleanupSelect() {
+			console.log('Cleaning up select element');
+			cleanupFlag = true;
+
+			// Unbind all events first
+			try {
+				$select.off('change.editloc');
+				$select.off('select2:select.editloc');
+			} catch (e) {
+				console.warn('Error unbinding events:', e);
 			}
 
-			// Get location details from server
-			console.log('Fetching location details from server...');
-			$.ajax({
-				url: '<?= site_url('Enquiry/getLocationName'); ?>',
-				method: 'POST',
-				data: {
-					tour_location_id: newId,
-					hotel_category_exist: <?php echo isset($object_det[0]['hotel_category']) ? $object_det[0]['hotel_category'] : 0; ?>
-				},
-				dataType: 'json',
-				timeout: 30000,
-				success: function(response) {
-					console.log('=== AJAX SUCCESS ===');
-
-					if (response && Array.isArray(response) && response.length > 0) {
-						console.log('Location data received');
-						replaceCardWithNewLocation(index, response[0], newName, $card);
-					} else {
-						console.warn('Invalid response format');
-						showAlert('warning', 'No details available for this location.');
-						$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
-					}
-				},
-				error: function(xhr, status, error) {
-					console.error('=== AJAX ERROR ===');
-					console.error('Status:', status, 'Error:', error);
-					showAlert('danger', 'Error changing location. Please try again.');
-					$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
-				},
-				complete: function() {
-					console.log('AJAX complete - hiding spinner');
-					if ($spinner.length > 0) {
-						$spinner.hide();
-					}
-					isProcessing = false;
-					cleanupSelect();
+			// Destroy Select2
+			setTimeout(function() {
+				try {
+					safeDestroySelect2($select);
+				} catch (e) {
+					console.warn('Error destroying Select2:', e);
 				}
+
+				// Remove element
+				try {
+					$select.remove();
+				} catch (e) {
+					console.warn('Error removing select:', e);
+				}
+
+				console.log('Select element cleaned up');
+			}, 100);
+		}
+
+		// Use namespaced events to prevent conflicts
+		console.log('Binding change handlers with namespaced events');
+		$select.on('change.editloc', onLocationSelected);
+		$select.on('select2:select.editloc', onLocationSelected);
+
+		// Initialize Select2
+		console.log('Initializing Select2');
+		try {
+			safeInitSelect2($select, {
+				dropdownParent: $card,
+				placeholder: 'Select Location',
+				width: 'resolve',
+				allowClear: false
 			});
-		} else {
-			console.log('Same location or invalid selection - reverting');
+
+			// Open dropdown
+			setTimeout(function() {
+				try {
+					$select.select2('open');
+					console.log('Dropdown opened successfully');
+				} catch (e) {
+					console.warn('Failed to open dropdown:', e);
+				}
+			}, 100);
+		} catch (e) {
+			console.error('Error initializing Select2:', e);
 			$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
 			cleanupSelect();
 		}
+
+		console.log('=== EDIT LOCATION FUNCTION END ===');
 	}
 
-	// Cleanup function with proper flag management
-	function cleanupSelect() {
-		console.log('Cleaning up select element');
-		cleanupFlag = true;
+	// Function to replace card with new location
+	function replaceCardWithNewLocation(index, locationData, locationName, $oldCard) {
+		console.log('=== REPLACE CARD FUNCTION START ===');
+		console.log('Index:', index, 'Location:', locationData.geog_name);
 
-		// Unbind all events first
+		// CRITICAL FIX 7: Validate location data before proceeding
+		if (!locationData || !locationData.geog_id) {
+			console.error('ERROR: Invalid location data', locationData);
+			showAlert('danger', 'Invalid location data received. Please try again.');
+			return;
+		}
+
+		// CRITICAL FIX 8: Use the passed $oldCard parameter
+		if (!$oldCard || $oldCard.length === 0) {
+			console.error('ERROR: Old card not found');
+			showAlert('danger', 'Card not found. Please try again.');
+			return;
+		}
+
+		// Get PHP variables with proper defaults
 		try {
-			$select.off('change.editloc');
-			$select.off('select2:select.editloc');
+			var hotel_categories = <?php echo json_encode($hotel_categories ?? []); ?> || [];
+			var no_of_adult = <?php echo $object_det[0]['no_of_adult'] ?? 0; ?> || 0;
+			var no_of_child_with_bed = <?php echo $object_det[0]['no_of_child_with_bed'] ?? 0; ?> || 0;
+			var no_of_child_without_bed = <?php echo $object_det[0]['no_of_child_without_bed'] ?? 0; ?> || 0;
+			var no_of_extra_bed = <?php echo $object_det[0]['no_of_extra_bed'] ?? 0; ?> || 0;
+			var total_no_of_pax = <?php echo $object_det[0]['total_no_of_pax'] ?? 0; ?> || 0;
+			var no_of_double_room = <?php echo $object_det[0]['no_of_double_room'] ?? 0; ?> || 0;
+			var no_of_single_room = <?php echo $object_det[0]['no_of_single_room'] ?? 0; ?> || 0;
+			var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required'] ?? 0; ?> || 0;
+			var vehicle_models = <?php echo json_encode($vehicle_data ?? []); ?> || [];
+			var start_date = <?php echo json_encode($start_date ?? ''); ?> || '';
+			var meal_plan_exist = <?php echo $object_det[0]['meal_plan'] ?? 1; ?> || 1;
+
+			console.log('PHP Variables loaded successfully');
 		} catch (e) {
-			console.warn('Error unbinding events:', e);
+			console.error('ERROR: Failed to load PHP variables:', e);
+			showAlert('danger', 'Error loading configuration. Please refresh and try again.');
+			return;
 		}
 
-		// Destroy Select2
-		setTimeout(function() {
-			try {
-				safeDestroySelect2($select);
-			} catch (e) {
-				console.warn('Error destroying Select2:', e);
+		// Determine checkin date
+		var checkinDate = '';
+		if (index === 1 || index == 1) {
+			checkinDate = start_date;
+		} else {
+			// CRITICAL FIX 9: Find the previous card that actually exists in DOM
+			var $prevCard = $oldCard.prev('.location-card');
+			if ($prevCard.length > 0) {
+				var prevIndex = $prevCard.data('index');
+				checkinDate = $prevCard.find('#checkout' + prevIndex).val() || '';
 			}
-
-			// Remove element
-			try {
-				$select.remove();
-			} catch (e) {
-				console.warn('Error removing select:', e);
-			}
-
-			console.log('Select element cleaned up');
-		}, 100);
-	}
-
-	// Use namespaced events to prevent conflicts
-	console.log('Binding change handlers with namespaced events');
-	$select.on('change.editloc', onLocationSelected);
-	$select.on('select2:select.editloc', onLocationSelected);
-
-	// Initialize Select2
-	console.log('Initializing Select2');
-	try {
-		safeInitSelect2($select, {
-			dropdownParent: $card,
-			placeholder: 'Select Location',
-			width: 'resolve',
-			allowClear: false
-		});
-
-		// Open dropdown
-		setTimeout(function() {
-			try {
-				$select.select2('open');
-				console.log('Dropdown opened successfully');
-			} catch (e) {
-				console.warn('Failed to open dropdown:', e);
-			}
-		}, 100);
-	} catch (e) {
-		console.error('Error initializing Select2:', e);
-		$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
-		cleanupSelect();
-	}
-
-	console.log('=== EDIT LOCATION FUNCTION END ===');
-}
-
-// Function to replace card with new location
-function replaceCardWithNewLocation(index, locationData, locationName, $oldCard) {
-	console.log('=== REPLACE CARD FUNCTION START ===');
-	console.log('Index:', index, 'Location:', locationData.geog_name);
-
-	// CRITICAL FIX 7: Validate location data before proceeding
-	if (!locationData || !locationData.geog_id) {
-		console.error('ERROR: Invalid location data', locationData);
-		showAlert('danger', 'Invalid location data received. Please try again.');
-		return;
-	}
-
-	// CRITICAL FIX 8: Use the passed $oldCard parameter
-	if (!$oldCard || $oldCard.length === 0) {
-		console.error('ERROR: Old card not found');
-		showAlert('danger', 'Card not found. Please try again.');
-		return;
-	}
-
-	// Get PHP variables with proper defaults
-	try {
-		var hotel_categories = <?php echo json_encode($hotel_categories ?? []); ?> || [];
-		var no_of_adult = <?php echo $object_det[0]['no_of_adult'] ?? 0; ?> || 0;
-		var no_of_child_with_bed = <?php echo $object_det[0]['no_of_child_with_bed'] ?? 0; ?> || 0;
-		var no_of_child_without_bed = <?php echo $object_det[0]['no_of_child_without_bed'] ?? 0; ?> || 0;
-		var no_of_extra_bed = <?php echo $object_det[0]['no_of_extra_bed'] ?? 0; ?> || 0;
-		var total_no_of_pax = <?php echo $object_det[0]['total_no_of_pax'] ?? 0; ?> || 0;
-		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room'] ?? 0; ?> || 0;
-		var no_of_single_room = <?php echo $object_det[0]['no_of_single_room'] ?? 0; ?> || 0;
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required'] ?? 0; ?> || 0;
-		var vehicle_models = <?php echo json_encode($vehicle_data ?? []); ?> || [];
-		var start_date = <?php echo json_encode($start_date ?? ''); ?> || '';
-		var meal_plan_exist = <?php echo $object_det[0]['meal_plan'] ?? 1; ?> || 1;
-
-		console.log('PHP Variables loaded successfully');
-	} catch (e) {
-		console.error('ERROR: Failed to load PHP variables:', e);
-		showAlert('danger', 'Error loading configuration. Please refresh and try again.');
-		return;
-	}
-
-	// Determine checkin date
-	var checkinDate = '';
-	if (index === 1 || index == 1) {
-		checkinDate = start_date;
-	} else {
-		// CRITICAL FIX 9: Find the previous card that actually exists in DOM
-		var $prevCard = $oldCard.prev('.location-card');
-		if ($prevCard.length > 0) {
-			var prevIndex = $prevCard.data('index');
-			checkinDate = $prevCard.find('#checkout' + prevIndex).val() || '';
 		}
-	}
 
-	// CRITICAL FIX 10: Validate checkin date
-	if (!checkinDate) {
-		console.warn('WARNING: No checkin date found, using today');
-		var today = new Date().toISOString().split('T')[0];
-		checkinDate = today;
-	}
+		// CRITICAL FIX 10: Validate checkin date
+		if (!checkinDate) {
+			console.warn('WARNING: No checkin date found, using today');
+			var today = new Date().toISOString().split('T')[0];
+			checkinDate = today;
+		}
 
-	console.log('Checkin date:', checkinDate);
+		console.log('Checkin date:', checkinDate);
 
-	// Meal plan selections
-	var ep_sel = meal_plan_exist == 1 ? "selected" : "";
-	var cp_sel = meal_plan_exist == 2 ? "selected" : "";
-	var map_sel = meal_plan_exist == 3 ? "selected" : "";
-	var ap_sel = meal_plan_exist == 4 ? "selected" : "";
+		// Meal plan selections
+		var ep_sel = meal_plan_exist == 1 ? "selected" : "";
+		var cp_sel = meal_plan_exist == 2 ? "selected" : "";
+		var map_sel = meal_plan_exist == 3 ? "selected" : "";
+		var ap_sel = meal_plan_exist == 4 ? "selected" : "";
 
-	// Build new card HTML
-	console.log('Building new card HTML...');
-	var newCard = `
+		// Build new card HTML
+		console.log('Building new card HTML...');
+		var newCard = `
 		<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${index}">
 			<div class="card">
 				<div class="card-header cardy">
@@ -11221,8 +11227,12 @@ function replaceCardWithNewLocation(index, locationData, locationName, $oldCard)
 					<input type="hidden" id="tour_location_id${index}" name="addloc[${index}][tour_location_id]" value="${locationData.geog_id}">
 					<input type="hidden" id="location_sequence${index}" name="addloc[${index}][location_sequence]" value="${index}">
 					<div class="card-title"><span class="card-seq" style="color:#339966;">${index}</span>. <span style="color:#339966;">${locationData.geog_name}</span></div>
+					<a href="#" class="card-options-edit" data-index="${index}" style="margin-left:10px;">
+							<i class="fe fe-edit"></i>
+						</a>
+
 					<div class="card-options">
-						<a href="#" class="card-options-edit" data-index="${index}"><i class="fe fe-edit"></i></a>
+						
 						<a href="#" class="card-options-remove"><i class="fe fe-x"></i></a>
 					</div>
 				</div>
@@ -11312,103 +11322,103 @@ function replaceCardWithNewLocation(index, locationData, locationName, $oldCard)
 		</div>
 	`;
 
-	console.log('New card HTML built');
+		console.log('New card HTML built');
 
-	// Replace the old card
-	console.log('Replacing old card...');
-	$oldCard.replaceWith(newCard);
+		// Replace the old card
+		console.log('Replacing old card...');
+		$oldCard.replaceWith(newCard);
 
-	// Get reference to new card after replacement
-	var $newCard = $('.location-card[data-index="' + index + '"]');
-	if ($newCard.length === 0) {
-		console.error('ERROR: New card not found after replacement');
-		return;
-	}
-
-	console.log('New card inserted successfully');
-
-	// Update breadcrumb
-	var $bcCard = $('.bc-card[data-index="' + index + '"]');
-	if ($bcCard.length > 0) {
-		$bcCard.find('a > span').last().html(
-			`${locationData.geog_name}(<span id="span_night_id${index}" style="color:#fff"></span>)<span id="loc_total${index}" style="color:#fff"></span>`
-		);
-		console.log('Breadcrumb updated');
-	}
-
-	// Populate hotel categories
-	console.log('Populating hotel categories...');
-	try {
-		var hotelCat = $('#hotelcat' + index);
-		hotelCat.empty();
-		hotelCat.append('<option value="">Select</option>');
-
-		if (Array.isArray(hotel_categories) && hotel_categories.length > 0) {
-			$.each(hotel_categories, function(i, hotelcat) {
-				hotelCat.append('<option value="' + hotelcat.hotel_category_id + '">' + hotelcat.hotel_category_name + '</option>');
-			});
+		// Get reference to new card after replacement
+		var $newCard = $('.location-card[data-index="' + index + '"]');
+		if ($newCard.length === 0) {
+			console.error('ERROR: New card not found after replacement');
+			return;
 		}
 
-		hotelCat.trigger('change');
-		console.log('Hotel categories populated');
-	} catch (e) {
-		console.error('ERROR populating hotel categories:', e);
-	}
+		console.log('New card inserted successfully');
 
-	// Initialize Select2 on new card
-	console.log('Initializing Select2 on new card...');
-	try {
-		var $selects = $(`.location-card[data-index="${index}"] .select2-show-search`);
-		$selects.each(function() {
-			if (!$(this).hasClass('select2-hidden-accessible')) {
-				$(this).select2();
-			}
-		});
-		console.log('Select2 initialized on', $selects.length, 'elements');
-	} catch (e) {
-		console.error('ERROR initializing Select2:', e);
-	}
+		// Update breadcrumb
+		var $bcCard = $('.bc-card[data-index="' + index + '"]');
+		if ($bcCard.length > 0) {
+			$bcCard.find('a > span').last().html(
+				`${locationData.geog_name}(<span id="span_night_id${index}" style="color:#fff"></span>)<span id="loc_total${index}" style="color:#fff"></span>`
+			);
+			console.log('Breadcrumb updated');
+		}
 
-	// Clear nightly details
-	console.log('Clearing nightly details...');
-	$(`#nightly-details${index}`).empty();
-
-	// Update subsequent location checkouts if needed
-	console.log('Updating subsequent card dates if needed...');
-	var $nextCard = $newCard.next('.location-card');
-	if ($nextCard.length > 0) {
+		// Populate hotel categories
+		console.log('Populating hotel categories...');
 		try {
-			var nextIndex = $nextCard.data('index');
-			var nextCheckoutVal = $(`#checkout${index}`).val();
-			if (nextCheckoutVal) {
-				$(`#checkin${nextIndex}`).val(nextCheckoutVal);
-				console.log('Updated next card checkin date');
+			var hotelCat = $('#hotelcat' + index);
+			hotelCat.empty();
+			hotelCat.append('<option value="">Select</option>');
+
+			if (Array.isArray(hotel_categories) && hotel_categories.length > 0) {
+				$.each(hotel_categories, function(i, hotelcat) {
+					hotelCat.append('<option value="' + hotelcat.hotel_category_id + '">' + hotelcat.hotel_category_name + '</option>');
+				});
 			}
+
+			hotelCat.trigger('change');
+			console.log('Hotel categories populated');
 		} catch (e) {
-			console.warn('Error updating next card:', e);
+			console.error('ERROR populating hotel categories:', e);
 		}
+
+		// Initialize Select2 on new card
+		console.log('Initializing Select2 on new card...');
+		try {
+			var $selects = $(`.location-card[data-index="${index}"] .select2-show-search`);
+			$selects.each(function() {
+				if (!$(this).hasClass('select2-hidden-accessible')) {
+					$(this).select2();
+				}
+			});
+			console.log('Select2 initialized on', $selects.length, 'elements');
+		} catch (e) {
+			console.error('ERROR initializing Select2:', e);
+		}
+
+		// Clear nightly details
+		console.log('Clearing nightly details...');
+		$(`#nightly-details${index}`).empty();
+
+		// Update subsequent location checkouts if needed
+		console.log('Updating subsequent card dates if needed...');
+		var $nextCard = $newCard.next('.location-card');
+		if ($nextCard.length > 0) {
+			try {
+				var nextIndex = $nextCard.data('index');
+				var nextCheckoutVal = $(`#checkout${index}`).val();
+				if (nextCheckoutVal) {
+					$(`#checkin${nextIndex}`).val(nextCheckoutVal);
+					console.log('Updated next card checkin date');
+				}
+			} catch (e) {
+				console.warn('Error updating next card:', e);
+			}
+		}
+
+		// Update totals
+		try {
+			console.log('Updating all totals...');
+			updateAllTotals();
+			toggleNightsVisibility();
+		} catch (e) {
+			console.warn('Error updating totals:', e);
+		}
+
+		// Show success message
+		showAlert('success', 'Location changed to "' + locationData.geog_name + '" successfully! Please configure the nights, hotel, and room details.');
+
+		// Scroll to card
+		console.log('Scrolling to edited card...');
+		$('html, body').animate({
+			scrollTop: $newCard.offset().top - 100
+		}, 500);
+
+		console.log('=== REPLACE CARD FUNCTION END ===');
 	}
-
-	// Update totals
-	try {
-		console.log('Updating all totals...');
-		updateAllTotals();
-		toggleNightsVisibility();
-	} catch (e) {
-		console.warn('Error updating totals:', e);
-	}
-
-	// Show success message
-	showAlert('success', 'Location changed to "' + locationData.geog_name + '" successfully! Please configure the nights, hotel, and room details.');
-
-	// Scroll to card
-	console.log('Scrolling to edited card...');
-	$('html, body').animate({
-		scrollTop: $newCard.offset().top - 100
-	}, 500);
-
-	console.log('=== REPLACE CARD FUNCTION END ===');
-}
 	// ... (rest of your existing functions like getIsDynamic, generateNightHtml, updateRoomTotals, etc., remain unchanged)
 	// Note: Ensure functions like showAlert, validateNumericInput, calculateCheckout, updateNightlyDetails, get_veh_grand_total, toggleNightsVisibility, updateAllTotals, calculateVehicleExtraKmCharges, generateVehicleSummary, updateVehicleSummary, toggleGSTColumns, updateVehicleTotals, getIsDynamic are defined elsewhere in your code.
 </script>

@@ -1378,7 +1378,7 @@ $cs_trans_total = 0;
 
 																													<div class="col-xl-12 col-sm-12 col-md-12">
 																														<!-- <h4 style="font-weight:bold;font-size:20px;color:#004d00;text-align:center;">Day <?php echo $day_count; ?> - <?php echo $ttval['geog_name']; ?> (Meal Plan : <?php echo $ttval['meal_type_name']; ?>)</h4> -->
-																														 							<h4 style="font-weight:bold;font-size:20px;color:#004d00;text-align:center;">Day <?php echo $day_count; ?> - <?php echo $ttval['geog_name']; ?></h4>
+																														<h4 style="font-weight:bold;font-size:20px;color:#004d00;text-align:center;">Day <?php echo $day_count; ?> - <?php echo $ttval['geog_name']; ?></h4>
 																													</div>
 
 																												</div>
@@ -1923,10 +1923,13 @@ $cs_trans_total = 0;
 																													<!-- NO SINGLE ROOMS -->
 																													<input type="hidden" id="single<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][single]" value="0" readonly>
 																													<input type="hidden" id="s_adult_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_adult_rate]" value="0" readonly>
-																													<input type="hidden" id="s_child_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_child_rate]" value="0" readonly
-																														<input type="hidden" id="s_child_wb_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_child_wb_rate]" value="0" readonly>
+																													<input type="hidden" id="s_child_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_child_rate]" value="0" readonly>
+																													<input type="hidden" id="s_child_wb_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_child_wb_rate]" value="0" readonly>
 																													<input type="hidden" id="s_extra_bed_rate<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][s_extra_bed_rate]" value="0" readonly>
 																												<?php } ?>
+
+
+
 																										</div>
 																										<?php
 																												$cur_fac = $Enquiry_model->getHotelFacilitybyhotelid($hotel_exist);
@@ -2286,7 +2289,7 @@ $cs_trans_total = 0;
 
 																									<div class="row mt-2 single_row">
 
-																										<div class="col-xl-2 col-sm-12 col-md-2">
+																										<!-- <div class="col-xl-2 col-sm-12 col-md-2">
 																											<div class="teams-rank"><label class="small-label">Sight Seeing</label></div>
 																											<?php
 																											$default_ss_distance = 0;
@@ -2372,6 +2375,118 @@ $cs_trans_total = 0;
 																											} else { ?>
 																												<input type="text" id="ss_distance<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][ss_distance]" class="form-control input-sm cls_ss_distance" data-id="<?php echo $iti_id; ?>" maxlength="6" value="<?php echo $sight_tariff; ?>">
 																											<?php } ?>
+																										</div> -->
+
+																										<!-- //nj// -->
+
+																										<div class="row mt-2 single_row">
+																											<div class="col-xl-12">
+																												<div class="card" style="background-color: #d4edda; border: 1px solid #c3e6cb;">
+																													<div class="card-body">
+																														<!-- Header Row -->
+																														<div class="row align-items-end mb-3">
+																															<div class="col-xl-3 col-sm-12 col-md-3">
+																																<div class="teams-rank">
+																																	<label class="small-label" style="font-weight: bold; color: #155724;">
+																																		Sight Seeing Location
+																																	</label>
+																																</div>
+																																<select id="sight_selector<?php echo $iti_id; ?>"
+																																	class="form-control input-sm ss_selector"
+																																	data-id="<?php echo $iti_id; ?>"
+																																	style="width: 100%;"
+																																	<?php echo $dis_abled; ?>>
+																																	<option value="">Select Sightseeing</option>
+																																	<?php foreach ($ss_default_temp as $skey => $sval) { ?>
+																																		<option value="<?php echo $sval['sightseeing_id']; ?>"
+																																			data-name="<?php echo htmlspecialchars($sval['object_name']); ?>"
+																																			data-is-pax="<?php echo $sval['is_pax']; ?>"
+																																			data-tariff="<?php echo $sval['tariff']; ?>"
+																																			data-distance="<?php echo $sval['sightseeing_distance']; ?>">
+																																			<?php echo $sval['object_name']; ?>
+																																			<?php if ($sval['is_pax'] == 1) { ?>
+																																				(PAX: ₹<?php echo number_format($sval['tariff'], 2); ?>/person)
+																																			<?php } else { ?>
+																																				(<?php echo $sval['sightseeing_distance']; ?> km)
+																																			<?php } ?>
+																																		</option>
+																																	<?php } ?>
+																																</select>
+																															</div>
+
+																															<div class="col-xl-2 col-sm-12 col-md-2">
+																																<div class="teams-rank">
+																																	<label class="small-label" style="font-weight: bold; color: #155724;">
+																																		Total Distance (km)
+																																	</label>
+																																</div>
+																																<input type="text"
+																																	id="ss_total_distance<?php echo $iti_id; ?>"
+																																	name="additi[<?php echo $iti_id; ?>][ss_total_distance]"
+																																	class="form-control input-sm"
+																																	readonly
+																																	value="0"
+																																	style="background-color: #fff3cd; font-weight: bold; text-align: center;">
+																															</div>
+
+																															<div class="col-xl-2 col-sm-12 col-md-2" style="display: none;">
+																																<div class="teams-rank">
+																																	<label class="small-label" style="font-weight: bold; color: #155724;">
+																																		Remarks
+																																	</label>
+																																</div>
+																																<textarea id="ss_remarks<?php echo $iti_id; ?>"
+																																	name="additi[<?php echo $iti_id; ?>][ss_remarks]"
+																																	class="form-control input-sm"
+																																	rows="1"
+																																	placeholder="Optional remarks"
+																																	<?php echo $read_only; ?>></textarea>
+																															</div>
+
+																															<div class="col-xl-2 col-sm-12 col-md-2">
+																																<div class="teams-rank">
+																																	<label class="small-label" style="font-weight: bold; color: #155724;">
+																																		Total SS Cost (₹)
+																																	</label>
+																																</div>
+																																<input type="text"
+																																	id="ss_grand_total<?php echo $iti_id; ?>"
+																																	name="additi[<?php echo $iti_id; ?>][ss_grand_total]"
+																																	class="form-control input-sm"
+																																	readonly
+																																	value="0"
+																																	style="background-color: #004d00; color: white; font-weight: bold; font-size: 16px; text-align: center;">
+																															</div>
+
+																															<div class="col-xl-2 col-sm-12 col-md-2">
+																																<button type="button"
+																																	class="btn btn-success btn-sm add_sightseeing_btn"
+																																	data-id="<?php echo $iti_id; ?>"
+																																	style="width: 100%; padding: 8px; font-weight: bold;">
+																																	Add <i class="fa fa-plus ml-2"></i>
+																																</button>
+																															</div>
+
+																															<div class="col-xl-1 col-sm-12 col-md-1">
+																																<div class="teams-rank">
+																																	<label class="small-label" style="visibility: hidden;">Actions</label>
+																																</div>
+																															</div>
+																														</div>
+
+																														<!-- Dynamic Rows Container -->
+																														<div id="ss_dynamic_rows<?php echo $iti_id; ?>" class="ss-rows-container">
+																															<!-- Dynamic rows will be added here -->
+																														</div>
+
+																														<!-- Hidden field to store JSON data -->
+																														<input type="hidden"
+																															id="ss_data_json<?php echo $iti_id; ?>"
+																															name="additi[<?php echo $iti_id; ?>][ss_data_json]"
+																															value="">
+																													</div>
+																												</div>
+																											</div>
 																										</div>
 
 
@@ -6559,6 +6674,14 @@ $cs_trans_total = 0;
 	});
 </script>
 <script>
+	// Set saved values on page load
+	$(document).ready(function() {
+		<?php if (!empty($saved_ss_ids)) { ?>
+			$('#sight<?php echo $iti_id; ?>').val(<?php echo json_encode($saved_ss_ids); ?>).trigger('change');
+		<?php } ?>
+	});
+</script>
+<script>
 	$(document).on('click', '.draft_view', function() {
 		var enquiry_header_id = <?php echo $object_det[0]['enquiry_header_id']; ?>;
 		var enquiry_details_id = <?php echo $object_det[0]['enquiry_details_id']; ?>;
@@ -8832,6 +8955,352 @@ $cs_trans_total = 0;
 		});
 	});
 </script>
+<!-- nj -->
+<script>
+	$(document).ready(function() {
+		// Initialize Select2 for sightseeing dropdowns
+		$('.ss_selector').select2({
+			placeholder: 'Select Sightseeing Location',
+			allowClear: true,
+			width: '100%'
+		});
+
+		// Get total PAX count
+		function getTotalPax() {
+			return <?php echo $object_det[0]['no_of_adult'] +
+						$object_det[0]['no_of_child_with_bed'] +
+						$object_det[0]['no_of_child_without_bed'] +
+						$object_det[0]['no_of_extra_bed']; ?>;
+		}
+
+		// Counter for unique row IDs
+		var ssRowCounters = {};
+
+		// Function to create sightseeing row HTML
+		function createSSRowHTML(rowId, itiId, ssData) {
+			var displayValue = ssData.is_pax === 1 ?
+				'₹' + ssData.cost.toFixed(2) + ' (PAX-based)' :
+				ssData.distance_km.toFixed(2) + ' km';
+
+			return `
+            <div class="row align-items-center mb-2 ss-dynamic-row" 
+                 id="ss_row_${rowId}" 
+                 data-row-id="${rowId}"
+                 data-ss-id="${ssData.sightseeing_id}"
+                 data-is-pax="${ssData.is_pax}"
+                 data-tariff="${ssData.tariff}"
+                 data-distance="${ssData.distance}"
+                 data-calculated="${ssData.calculated_value}"
+                 style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; border: 1px solid #dee2e6;">
+                
+                <div class="col-xl-4 col-sm-12 col-md-4">
+                    <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Facility Name</label>
+                    <input type="text" 
+                           class="form-control input-sm" 
+                           value="${ssData.name}" 
+                           readonly
+                           style="background-color: white; border: 1px solid #ced4da;">
+                </div>
+
+                <div class="col-xl-2 col-sm-12 col-md-2">
+                    <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">
+                        ${ssData.is_pax === 1 ? 'Tariff' : 'Distance'}
+                    </label>
+                    <input type="text" 
+                           class="form-control input-sm" 
+                           value="${displayValue}" 
+                           readonly
+                           style="background-color: white; border: 1px solid #ced4da; text-align: center;">
+                </div>
+
+                <div class="col-xl-3 col-sm-12 col-md-3">
+                    <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Remarks</label>
+                    <textarea class="form-control input-sm ss-row-remarks" 
+                              rows="1"
+                              style="border: 1px solid #ced4da;">${ssData.remarks || ''}</textarea>
+                </div>
+
+                <div class="col-xl-2 col-sm-12 col-md-2">
+                    <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Total</label>
+                    <input type="text" 
+                           class="form-control input-sm ss-row-total" 
+                           value="${ssData.is_pax === 1 ? ssData.cost.toFixed(2) : '0.00'}" 
+                           readonly
+                           style="background-color: #d1ecf1; font-weight: bold; text-align: center; border: 1px solid #bee5eb;">
+                </div>
+
+                <div class="col-xl-1 col-sm-12 col-md-1" style="padding-top: 20px;">
+                    <button type="button" 
+                            class="btn btn-danger btn-sm remove_ss_row" 
+                            data-row-id="${rowId}"
+                            data-iti-id="${itiId}"
+                            style="width: 100%; padding: 6px;">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+		}
+
+		// Add sightseeing row
+		$(document).on('click', '.add_sightseeing_btn', function() {
+			var iti_id = $(this).data('id');
+			var $selector = $('#sight_selector' + iti_id);
+			var selectedOption = $selector.find('option:selected');
+
+			if (!selectedOption.val()) {
+				alert('Please select a sightseeing location first');
+				return;
+			}
+
+			// Initialize counter for this itinerary
+			if (!ssRowCounters[iti_id]) {
+				ssRowCounters[iti_id] = 0;
+			}
+			ssRowCounters[iti_id]++;
+
+			var rowId = iti_id + '_ss_' + ssRowCounters[iti_id];
+			var ssId = selectedOption.val();
+			var ssName = selectedOption.data('name');
+			var isPax = parseInt(selectedOption.data('is-pax'));
+			var tariff = parseFloat(selectedOption.data('tariff')) || 0;
+			var distance = parseFloat(selectedOption.data('distance')) || 0;
+			var totalPax = getTotalPax();
+
+			// Calculate cost or distance
+			var calculatedValue = 0;
+
+			if (isPax === 1) {
+				calculatedValue = tariff * totalPax;
+			} else {
+				calculatedValue = distance;
+			}
+
+			// Create sightseeing data object
+			var ssData = {
+				sightseeing_id: ssId,
+				name: ssName,
+				is_pax: isPax,
+				tariff: tariff,
+				distance: distance,
+				calculated_value: calculatedValue,
+				remarks: '',
+				cost: isPax === 1 ? calculatedValue : 0,
+				distance_km: isPax === 1 ? 0 : calculatedValue
+			};
+
+			// Create and append row
+			var rowHtml = createSSRowHTML(rowId, iti_id, ssData);
+			$('#ss_dynamic_rows' + iti_id).append(rowHtml);
+
+			// Reset selector
+			$selector.val(null).trigger('change');
+
+			// Update totals
+			updateSightseeingTotals(iti_id);
+		});
+
+		// Remove sightseeing row
+		$(document).on('click', '.remove_ss_row', function() {
+			var rowId = $(this).data('row-id');
+			var itiId = $(this).data('iti-id');
+
+			$('#ss_row_' + rowId).remove();
+			updateSightseeingTotals(itiId);
+		});
+
+		// Update remarks in real-time
+		$(document).on('input', '.ss-row-remarks', function() {
+			var itiId = $(this).closest('.ss-rows-container').attr('id').replace('ss_dynamic_rows', '');
+			updateSightseeingTotals(itiId);
+		});
+
+		// Update all sightseeing totals and related fields
+		function updateSightseeingTotals(iti_id) {
+			var totalDistance = 0;
+			var totalPaxCost = 0;
+			var sightseeingData = [];
+
+			// Collect data from all rows
+			$('#ss_dynamic_rows' + iti_id + ' .ss-dynamic-row').each(function() {
+				var $row = $(this);
+				var ssId = $row.data('ss-id');
+				var isPax = parseInt($row.data('is-pax'));
+				var tariff = parseFloat($row.data('tariff'));
+				var distance = parseFloat($row.data('distance'));
+				var calculated = parseFloat($row.data('calculated'));
+				var remarks = $row.find('.ss-row-remarks').val();
+				var ssName = $row.find('input').first().val();
+
+				var ssItem = {
+					sightseeing_id: ssId,
+					name: ssName,
+					is_pax: isPax,
+					tariff: tariff,
+					distance: distance,
+					calculated_value: calculated,
+					remarks: remarks,
+					cost: 0,
+					distance_km: 0
+				};
+
+				if (isPax === 1) {
+					totalPaxCost += calculated;
+					ssItem.cost = calculated;
+					ssItem.distance_km = 0;
+				} else {
+					totalDistance += calculated;
+					ssItem.cost = 0;
+					ssItem.distance_km = calculated;
+				}
+
+				sightseeingData.push(ssItem);
+			});
+
+			// Update UI fields
+			$('#ss_total_distance' + iti_id).val(totalDistance.toFixed(2));
+			$('#ss_grand_total' + iti_id).val(totalPaxCost.toFixed(2));
+
+			// Store JSON data
+			$('#ss_data_json' + iti_id).val(JSON.stringify(sightseeingData));
+
+			// Update vehicle distances
+			updateVehicleDistances(iti_id, totalDistance);
+
+			// Recalculate grand total
+			recalculateGrandTotal(iti_id, totalPaxCost);
+		}
+
+		// Update vehicle travel distances
+		function updateVehicleDistances(iti_id, ssDistance) {
+			$('[id^="travel_distance"][id*="' + iti_id + '"]').each(function() {
+				var $distInput = $(this);
+				var vid = $distInput.attr('v_id');
+				var baseDistance = parseFloat($distInput.data('base')) || 0;
+				var copyDistance = parseFloat($('#c_travel_distance_copy' + vid).val()) || 0;
+
+				// New distance = copy distance + sightseeing distance
+				var newDistance = copyDistance + ssDistance;
+				$distInput.val(newDistance.toFixed(2));
+
+				// Recalculate extra kilometers
+				var maxKm = parseFloat($('#max_km_day' + vid).val()) || 0;
+				var extraKm = newDistance > maxKm ? (newDistance - maxKm) : 0;
+				$('#extra_kilometer' + vid).val(extraKm.toFixed(2));
+
+				// Recalculate vehicle total
+				calculateVehicleTotal(vid);
+			});
+		}
+
+		// Calculate individual vehicle total
+		function calculateVehicleTotal(vid) {
+			var dayRent = parseFloat($('#day_rent' + vid).val()) || 0;
+			var extraKm = parseFloat($('#extra_kilometer' + vid).val()) || 0;
+			var extraKmRate = parseFloat($('#extra_km_rate_hidden' + vid).val()) || 0;
+			var adhocRate = parseFloat($('#adhoc_rate' + vid).val()) || 0;
+
+			var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate;
+			$('#veh_total' + vid).val(vehTotal.toFixed(2));
+		}
+
+		// Recalculate grand total
+		function recalculateGrandTotal(iti_id, paxCost) {
+			var accTotal = parseFloat($('#acc_total' + iti_id).val()) || 0;
+
+			var vehicleTotal = 0;
+			$('.chk_vehicle:checked').each(function() {
+				var vid = $(this).val();
+				if (vid.toString().startsWith(iti_id.toString())) {
+					vehicleTotal += parseFloat($('#veh_total' + vid).val()) || 0;
+				}
+			});
+
+			var dailyAddon = parseFloat($('#daily_addon' + iti_id).val()) || 0;
+			var permit = parseFloat($('#permit' + iti_id).val()) || 0;
+			var spclTariff = parseFloat($('#spcl_tariff' + iti_id).val()) || 0;
+			var facRate = parseFloat($('#fac_rate' + iti_id).val()) || 0;
+
+			var grandTotal = accTotal + vehicleTotal + paxCost + dailyAddon + permit + spclTariff + facRate;
+
+			$('#grand_total' + iti_id).val(grandTotal.toFixed(2));
+		}
+
+		// Load saved sightseeing data on page load
+		// FIXED: Pass saved data from PHP to JavaScript properly
+		var savedSightseeingData = <?php echo json_encode($saved_sightseeing_by_date ?? []); ?>;
+		
+		console.log('Saved Sightseeing Data:', savedSightseeingData);
+
+		// Loop through saved data and load rows
+		$.each(savedSightseeingData, function(tourDetailsId, dateData) {
+			$.each(dateData, function(tourDate, ssInfo) {
+				// Find the matching itinerary ID for this tour_details_id and date
+				var itiId = null;
+				
+				// Search for matching itinerary ID in the page
+				$('[id^="tour_date"]').each(function() {
+					var $this = $(this);
+					var thisItiId = $this.attr('id').replace('tour_date', '');
+					var thisTourDate = $this.val();
+					var thisTourDetailsId = $('#tour_details_id' + thisItiId).val();
+					
+					if (thisTourDetailsId == tourDetailsId && thisTourDate == tourDate) {
+						itiId = thisItiId;
+						return false; // Break loop
+					}
+				});
+
+				if (!itiId || !ssInfo.sightseeing || ssInfo.sightseeing.length === 0) {
+					console.log('No itinerary ID found or no sightseeing for tour', tourDetailsId, 'date', tourDate);
+					return; // Continue to next iteration
+				}
+
+				console.log('Loading sightseeing for itinerary:', itiId, 'Data:', ssInfo);
+
+				// Initialize counter if needed
+				if (!ssRowCounters[itiId]) {
+					ssRowCounters[itiId] = 0;
+				}
+
+				// Load each sightseeing row
+				ssInfo.sightseeing.forEach(function(ss) {
+					ssRowCounters[itiId]++;
+					var rowId = itiId + '_ss_' + ssRowCounters[itiId];
+					
+					var rowHtml = createSSRowHTML(rowId, itiId, ss);
+					$('#ss_dynamic_rows' + itiId).append(rowHtml);
+				});
+
+				// Update totals for this itinerary
+				updateSightseeingTotals(itiId);
+			});
+		});
+	});
+</script>
+
+<style>
+	.ss-rows-container {
+		min-height: 20px;
+	}
+
+	.ss-dynamic-row {
+		transition: all 0.3s ease;
+	}
+
+	.ss-dynamic-row:hover {
+		background-color: #e9ecef !important;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
+
+	.small-label {
+		font-size: 12px;
+		font-weight: 600;
+		color: #495057;
+		margin-bottom: 5px;
+		display: block;
+	}
+</style>
 <script>
 	$(document).on('input', '#no_of_pax_b', function() {
 		var pax = parseFloat($(this).val());

@@ -5475,6 +5475,7 @@ class Enquiry extends BaseController
     //         return redirect()->to('Login');
     //     }
     // }
+
     public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_edit_id = null, $extension_ref_id = null)
     {
         if (!empty(session()->get('user_id'))) {
@@ -5505,6 +5506,9 @@ class Enquiry extends BaseController
             $tour_expansion_details = []; // For Itinerary Form (old structure)
             $itinerary_expansion_details = []; // For Costing Sheet (new structure)
             $itinerary_details_ids = []; // Collect IDs for costing sheet
+
+            // NEW: Array to store saved sightseeing data by date
+            $saved_sightseeing_by_date = [];
 
             if ($edit_id > 0) {
                 $enq_ext_ids = $Enquiry_model->get_enquiry_extensions_byid($edit_id);
@@ -5547,6 +5551,7 @@ class Enquiry extends BaseController
                 $end1 = new DateTime($checkoutdate);
 
                 // CHECK IF TAX IS APPLICABLE
+
                 if ($vals['tax_status'] == 1) {
                     // TAX APPLICABLE - USE TAX TABLES DATA INSTEAD OF EXPANSION
 
@@ -5756,6 +5761,69 @@ class Enquiry extends BaseController
                 for ($date = clone $start1; $date < $end1; $date->modify('+1 day')) {
                     $tour_date = $date->format('Y-m-d');
                     $tariff_details_iti[] = $this->getTourTariffDetailsbyTourDetails($tour_date, $vals['hotel_id'], $vals['room_category_id'], $vals['meal_plan_id'], $object_det[0]['no_of_double_room'], $object_det[0]['no_of_single_room']);
+
+                    // IMPLEMENTED: Get saved sightseeing for each date
+                    $saved_sightseeing = [];
+                    $saved_ss_ids = [];
+                    $ss_total_distance = 0;
+                    $ss_pax_cost = 0;
+                    $ss_total_cost = 0;
+
+                    // Check draft itinerary first
+                    if (!empty($itinerary_details_draft)) {
+                        foreach ($itinerary_details_draft as $dkey => $dval) {
+                            if ($tour_date == $dval['tour_date'] && $vals['tour_details_id'] == $dval['tour_details_id']) {
+                                $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true);
+                                // Extract IDs for select2
+                                $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
+
+                                // FIXED: Calculate totals from JSON to ensure consistency
+                                foreach ($saved_sightseeing as $ss) {
+                                    if ($ss['is_pax'] == 1) {
+                                        $ss_pax_cost += $ss['calculated_value'] ?? 0;
+                                        $ss_total_cost += $ss['calculated_value'] ?? 0;
+                                    } else {
+                                        $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+                    // If not found in draft, check saved itinerary
+                    if (empty($saved_sightseeing) && !empty($itinerary_details_save)) {
+                        foreach ($itinerary_details_save as $dkey => $dval) {
+                            if ($tour_date == $dval['tour_date'] && $vals['tour_details_id'] == $dval['tour_details_id']) {
+                                $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true);
+                                // Extract IDs for select2
+                                $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
+
+                                // FIXED: Calculate totals from JSON to ensure consistency
+                                foreach ($saved_sightseeing as $ss) {
+                                    if ($ss['is_pax'] == 1) {
+                                        $ss_pax_cost += $ss['calculated_value'] ?? 0;
+                                        $ss_total_cost += $ss['calculated_value'] ?? 0;
+                                    } else {
+                                        $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+                    // Store the sightseeing data with totals
+                    if (!isset($saved_sightseeing_by_date[$vals['tour_details_id']])) {
+                        $saved_sightseeing_by_date[$vals['tour_details_id']] = [];
+                    }
+                    $saved_sightseeing_by_date[$vals['tour_details_id']][$tour_date] = [
+                        'sightseeing' => $saved_sightseeing,
+                        'saved_ss_ids' => $saved_ss_ids,
+                        'ss_total_distance' => $ss_total_distance,
+                        'ss_pax_cost' => $ss_pax_cost,
+                        'ss_total_cost' => $ss_total_cost
+                    ];
                 }
             }
 
@@ -5909,6 +5977,9 @@ class Enquiry extends BaseController
                 $data['tour_expansion_details'] = $tour_expansion_details; // For Itinerary Form
                 $data['itinerary_expansion_details'] = $itinerary_expansion_details; // For Costing Sheet
 
+                // PASS SAVED SIGHTSEEING DATA TO VIEW
+                $data['saved_sightseeing_by_date'] = $saved_sightseeing_by_date;
+
                 $data['itinerary_details_draft'] = $itinerary_details_draft;
                 $data['itinerary_details_save'] = $itinerary_details_save;
                 $data['tariff_details_iti'] = $tariff_details_iti;
@@ -5957,6 +6028,28 @@ class Enquiry extends BaseController
     }
 
 
+    // njsight
+    // Add this method to your Enquiry controller
+    public function getSightseeingDetails()
+    {
+        $Enquiry_model = new Enquiry_m();
+        $sightseeing_ids = $this->request->getPost('sightseeing_ids'); // Array of IDs
+
+        if (empty($sightseeing_ids)) {
+            echo json_encode([]);
+            return;
+        }
+
+        $sightseeing_data = [];
+        foreach ($sightseeing_ids as $id) {
+            $details = $Enquiry_model->getSightName($id);
+            if (!empty($details)) {
+                $sightseeing_data[] = $details[0];
+            }
+        }
+
+        echo json_encode($sightseeing_data);
+    }
     public function make_current_function($enquiry_header_id, $enquiry_ref_id, $tour_plan_ref_id, $extension_ref_id)
     {
         $Enquiry_model = new Enquiry_m();
@@ -7222,9 +7315,6 @@ class Enquiry extends BaseController
             $additi = $this->request->getPost('additi');
 
             if (!empty($additi)) {
-                $temp_rows = [];
-                $vehicle_totals = [];
-
                 if ($submit_type == "draft") {
                     if ($is_edit == 1) {
                         $sURL = site_url('Enquiry/itinerary/' . $object_id . '/' . $final_save_flag . '/' . $edit_id . '/' . $version_count);
@@ -7235,23 +7325,19 @@ class Enquiry extends BaseController
                     foreach ($additi as $key => $item) {
                         $hotel_facility_ids = "";
 
-                        // **NEW CODE: Check tax status and get GST-inclusive totals**
                         $tax_status = isset($item['tax_status']) ? (int)$item['tax_status'] : 0;
 
                         if ($tax_status == 1) {
-                            // Fetch GST-inclusive totals from eighteen tables
                             $gst_totals = $this->calculateGSTInclusiveTotals(
                                 $Enquiry_model,
                                 $item['tour_details_id'],
                                 $item['tour_date']
                             );
 
-                            // Override the accommodation total with GST-inclusive value
                             $item['tac_eighteen_total'] = $gst_totals['total_with_gst'];
                             $item['tac_eighteen_double'] = $gst_totals['double_with_gst'];
                             $item['tac_eighteen_single'] = $gst_totals['single_with_gst'];
 
-                            // Also override individual rate components if needed
                             if (!empty($gst_totals['adult_eighteen_double'])) {
                                 $item['adult_eighteen_double'] = $gst_totals['adult_eighteen_double'];
                             }
@@ -7270,6 +7356,24 @@ class Enquiry extends BaseController
                         }
 
                         $tour_exist = $Enquiry_model->check_tour_date_exist($enquiry_header_id, $enquiry_details_id, $item['tour_details_id'], $item['tour_date']);
+                        $ss_data_json = $item['ss_data_json'] ?: '[]';
+                        $sightseeing_details = json_decode($ss_data_json, true) ?: [];
+
+                        $ss_total_distance = 0;
+                        $ss_pax_cost = 0;
+                        $ss_total_cost = 0;
+
+                        foreach ($sightseeing_details as $ss) {
+                            if ($ss['is_pax'] == 1) {
+                                $ss_pax_cost += $ss['calculated_value'] ?? 0;
+                                $ss_total_cost += $ss['calculated_value'] ?? 0;
+                            } else {
+                                $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
+                            }
+                        }
+
+                        $temp_rows = [];
+                        $vehicle_totals = [];
 
                         if ($tour_exist > 0) {
                             $json_data = [];
@@ -7342,12 +7446,15 @@ class Enquiry extends BaseController
                             ];
                             $rt_json = json_encode($rt_data, JSON_PRETTY_PRINT);
 
-                            // Calculate total double and single rooms
                             $total_double_rooms = is_array($item['double']) ? array_sum($item['double']) : $item['double'];
                             $total_single_rooms = is_array($item['single']) ? array_sum($item['single']) : $item['single'];
 
                             $iti_data_update = array(
                                 'hotel_id' => $item['hotelid'],
+                                'ss_data_json' => $ss_data_json,
+                                'ss_total_distance' => $ss_total_distance,
+                                'ss_pax_cost' => $ss_pax_cost,
+                                'ss_total_cost' => $ss_total_cost,
                                 'room_category_id' => $item['roomcat'],
                                 'child_with_bed' => $item['no_of_ch'],
                                 'child_without_bed' => $item['no_of_cw'],
@@ -7381,15 +7488,11 @@ class Enquiry extends BaseController
                             $itinerary_details_id = $iti_details_ids[0]['itinerary_details_id'];
 
                             if ($iti_updated) {
-                                // Insert expansion data for double rooms
                                 $this->insertExpansionData($Enquiry_model, $itinerary_details_id, $item, 'double');
-                                // Insert expansion data for single rooms
                                 $this->insertExpansionData($Enquiry_model, $itinerary_details_id, $item, 'single');
-                                // Update cost details
                                 $this->updateCostDetails($Enquiry_model, $itinerary_details_id, $item);
                             }
                         } else {
-                            // Insert new itinerary
                             $json_data = [];
                             $rt_data = [];
 
@@ -7460,7 +7563,6 @@ class Enquiry extends BaseController
                             ];
                             $rt_json = json_encode($rt_data, JSON_PRETTY_PRINT);
 
-                            // Calculate total double and single rooms
                             $total_double_rooms = is_array($item['double']) ? array_sum($item['double']) : $item['double'];
                             $total_single_rooms = is_array($item['single']) ? array_sum($item['single']) : $item['single'];
 
@@ -7490,7 +7592,6 @@ class Enquiry extends BaseController
                                 'extension_ref_id' => 0,
                                 'permit' => $item['permit'],
                                 'transport_remarks' => $item['transport_remarks'],
-                                'hotel_facility_ids' => $hotel_facility_ids,
                                 'tax_status' => $item['tax_status'],
                                 'tac_eighteen_double' => $item['tac_eighteen_double'],
                                 'tac_eighteen_single' => $item['tac_eighteen_single'],
@@ -7500,17 +7601,19 @@ class Enquiry extends BaseController
                                 'child_wb_eighteen_double' => $item['child_wb_eighteen_double'],
                                 'extra_eighteen_double' => $item['extra_eighteen_double'],
                                 'adult_eighteen_single' => $item['adult_eighteen_single'],
-                                'enterprise_id' => 1
+                                'enterprise_id' => 1,
+                                'hotel_facility_ids' => $hotel_facility_ids,
+                                'ss_data_json' => $ss_data_json,
+                                'ss_total_distance' => $ss_total_distance,
+                                'ss_pax_cost' => $ss_pax_cost,
+                                'ss_total_cost' => $ss_total_cost
                             );
 
                             $itinerary_details_id = $Enquiry_model->insert_iti_details($iti_data_insert);
 
                             if ($itinerary_details_id) {
-                                // Insert expansion data for double rooms
                                 $this->insertExpansionData($Enquiry_model, $itinerary_details_id, $item, 'double');
-                                // Insert expansion data for single rooms
                                 $this->insertExpansionData($Enquiry_model, $itinerary_details_id, $item, 'single');
-                                // Insert cost details
                                 $this->insertCostDetails($Enquiry_model, $itinerary_details_id, $item);
                             }
                         }
@@ -7529,23 +7632,19 @@ class Enquiry extends BaseController
                     foreach ($additi as $key => $item) {
                         $hotel_facility_ids = "";
 
-                        // **NEW CODE: Check tax status and get GST-inclusive totals for final submit**
                         $tax_status = isset($item['tax_status']) ? (int)$item['tax_status'] : 0;
 
                         if ($tax_status == 1) {
-                            // Fetch GST-inclusive totals from eighteen tables
                             $gst_totals = $this->calculateGSTInclusiveTotals(
                                 $Enquiry_model,
                                 $item['tour_details_id'],
                                 $item['tour_date']
                             );
 
-                            // Override the accommodation total with GST-inclusive value
                             $item['tac_eighteen_total'] = $gst_totals['total_with_gst'];
                             $item['tac_eighteen_double'] = $gst_totals['double_with_gst'];
                             $item['tac_eighteen_single'] = $gst_totals['single_with_gst'];
 
-                            // Also override individual rate components if needed
                             if (!empty($gst_totals['adult_eighteen_double'])) {
                                 $item['adult_eighteen_double'] = $gst_totals['adult_eighteen_double'];
                             }
@@ -7565,8 +7664,26 @@ class Enquiry extends BaseController
 
                         $tour_exist = $Enquiry_model->check_tour_date_exist($enquiry_header_id, $enquiry_details_id, $item['tour_details_id'], $item['tour_date']);
 
+                        $ss_data_json = $item['ss_data_json'] ?: '[]';
+                        $sightseeing_details = json_decode($ss_data_json, true) ?: [];
+
+                        $ss_total_distance = 0;
+                        $ss_pax_cost = 0;
+                        $ss_total_cost = 0;
+
+                        foreach ($sightseeing_details as $ss) {
+                            if ($ss['is_pax'] == 1) {
+                                $ss_pax_cost += $ss['calculated_value'] ?? 0;
+                                $ss_total_cost += $ss['calculated_value'] ?? 0;
+                            } else {
+                                $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
+                            }
+                        }
+
                         if ($tour_exist > 0) {
-                            // Same vehicle processing as draft
+                            $temp_rows = [];
+                            $vehicle_totals = [];
+
                             $json_data = [];
                             $rt_data = [];
 
@@ -7637,7 +7754,6 @@ class Enquiry extends BaseController
                             ];
                             $rt_json = json_encode($rt_data, JSON_PRETTY_PRINT);
 
-                            // Calculate total double and single rooms
                             $total_double_rooms = is_array($item['double']) ? array_sum($item['double']) : $item['double'];
                             $total_single_rooms = is_array($item['single']) ? array_sum($item['single']) : $item['single'];
 
@@ -7669,7 +7785,11 @@ class Enquiry extends BaseController
                                 'child_wb_eighteen_double' => $item['child_wb_eighteen_double'],
                                 'extra_eighteen_double' => $item['extra_eighteen_double'],
                                 'adult_eighteen_single' => $item['adult_eighteen_single'],
-                                'is_draft' => 1
+                                'is_draft' => 1,
+                                'ss_data_json' => $ss_data_json,
+                                'ss_total_distance' => $ss_total_distance,
+                                'ss_pax_cost' => $ss_pax_cost,
+                                'ss_total_cost' => $ss_total_cost
                             );
 
                             $iti_updated = $Enquiry_model->update_iti_details($iti_data_update, $enquiry_header_id, $enquiry_details_id, $item['tour_details_id'], $item['tour_date']);
@@ -7678,17 +7798,15 @@ class Enquiry extends BaseController
                             $itinerary_details_id = $iti_details_ids[0]['itinerary_details_id'];
 
                             if ($iti_updated) {
-                                // Delete existing expansion data before inserting new
                                 $Enquiry_model->delete_expansion_data($itinerary_details_id);
-                                // Insert expansion data for double rooms
                                 $this->insertExpansionData($Enquiry_model, $itinerary_details_id, $item, 'double');
-                                // Insert expansion data for single rooms
                                 $this->insertExpansionData($Enquiry_model, $itinerary_details_id, $item, 'single');
-                                // Update cost details with is_draft = 1
                                 $this->updateCostDetailsFinal($Enquiry_model, $itinerary_details_id, $item);
                             }
                         } else {
-                            // Insert new itinerary for final submit
+                            $temp_rows = [];
+                            $vehicle_totals = [];
+
                             $json_data = [];
                             $rt_data = [];
 
@@ -7759,7 +7877,6 @@ class Enquiry extends BaseController
                             ];
                             $rt_json = json_encode($rt_data, JSON_PRETTY_PRINT);
 
-                            // Calculate total double and single rooms
                             $total_double_rooms = is_array($item['double']) ? array_sum($item['double']) : $item['double'];
                             $total_single_rooms = is_array($item['single']) ? array_sum($item['single']) : $item['single'];
 
@@ -7799,23 +7916,23 @@ class Enquiry extends BaseController
                                 'child_wb_eighteen_double' => $item['child_wb_eighteen_double'],
                                 'extra_eighteen_double' => $item['extra_eighteen_double'],
                                 'adult_eighteen_single' => $item['adult_eighteen_single'],
+                                'ss_data_json' => $ss_data_json,
+                                'ss_total_distance' => $ss_total_distance,
+                                'ss_pax_cost' => $ss_pax_cost,
+                                'ss_total_cost' => $ss_total_cost,
                                 'enterprise_id' => 1
                             );
 
                             $itinerary_details_id = $Enquiry_model->insert_iti_details($iti_data_insert);
 
                             if ($itinerary_details_id) {
-                                // Insert expansion data for double rooms
                                 $this->insertExpansionData($Enquiry_model, $itinerary_details_id, $item, 'double');
-                                // Insert expansion data for single rooms
                                 $this->insertExpansionData($Enquiry_model, $itinerary_details_id, $item, 'single');
-                                // Insert cost details with is_draft = 1
                                 $this->insertCostDetailsFinal($Enquiry_model, $itinerary_details_id, $item);
                             }
                         }
                     }
 
-                    // Update previous itinerary versions
                     $iti_data_pre = array(
                         'is_active' => 0,
                         'is_draft' => 0,
@@ -7829,7 +7946,6 @@ class Enquiry extends BaseController
             return redirect()->to('Login');
         }
     }
-
     /**
      * Calculate GST-inclusive totals from eighteen tables
      * 
