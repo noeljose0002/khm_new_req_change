@@ -9115,6 +9115,16 @@ $cs_trans_total = 0;
 			updateSightseeingTotals(itiId);
 		});
 
+		// Handle vehicle checkbox changes to redistribute PAX costs
+		$(document).on('change', '.chk_vehicle', function() {
+			var vid = $(this).val();
+			// Extract itinerary ID from vehicle ID (format: itiId + vehicle_type + index)
+			var itiId = vid.split(/[0-9]+_[0-9]+$/)[0]; // Remove trailing numbers
+			
+			// Recalculate sightseeing totals which will redistribute PAX costs
+			updateSightseeingTotals(itiId);
+		});
+
 		// Update all sightseeing totals and related fields
 		function updateSightseeingTotals(iti_id) {
 			var totalDistance = 0;
@@ -9164,8 +9174,11 @@ $cs_trans_total = 0;
 			// Store JSON data
 			$('#ss_data_json' + iti_id).val(JSON.stringify(sightseeingData));
 
-			// Update vehicle distances
+			// Update vehicle distances (for distance-based sightseeing)
 			updateVehicleDistances(iti_id, totalDistance);
+
+			// Update vehicle totals with PAX costs (for PAX-based sightseeing)
+			updateVehicleTotalsWithPaxCosts(iti_id, totalPaxCost);
 
 			// Recalculate grand total
 			recalculateGrandTotal(iti_id, totalPaxCost);
@@ -9204,6 +9217,38 @@ $cs_trans_total = 0;
 			$('#veh_total' + vid).val(vehTotal.toFixed(2));
 		}
 
+		// NEW: Update vehicle totals with PAX costs distributed across checked vehicles
+		function updateVehicleTotalsWithPaxCosts(iti_id, totalPaxCost) {
+			// Find all checked vehicles for this itinerary
+			var checkedVehicles = [];
+			$('.chk_vehicle:checked').each(function() {
+				var vid = $(this).val();
+				if (vid.toString().startsWith(iti_id.toString())) {
+					checkedVehicles.push(vid);
+				}
+			});
+
+			// If no vehicles checked, PAX cost stays in SS total only
+			if (checkedVehicles.length === 0) {
+				return;
+			}
+
+			// Distribute PAX cost equally across checked vehicles
+			var paxCostPerVehicle = totalPaxCost / checkedVehicles.length;
+
+			// Update each vehicle's total
+			checkedVehicles.forEach(function(vid) {
+				var dayRent = parseFloat($('#day_rent' + vid).val()) || 0;
+				var extraKm = parseFloat($('#extra_kilometer' + vid).val()) || 0;
+				var extraKmRate = parseFloat($('#extra_km_rate_hidden' + vid).val()) || 0;
+				var adhocRate = parseFloat($('#adhoc_rate' + vid).val()) || 0;
+
+				// Calculate vehicle base total + PAX cost share
+				var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate + paxCostPerVehicle;
+				$('#veh_total' + vid).val(vehTotal.toFixed(2));
+			});
+		}
+
 		// Recalculate grand total
 		function recalculateGrandTotal(iti_id, paxCost) {
 			var accTotal = parseFloat($('#acc_total' + iti_id).val()) || 0;
@@ -9221,7 +9266,8 @@ $cs_trans_total = 0;
 			var spclTariff = parseFloat($('#spcl_tariff' + iti_id).val()) || 0;
 			var facRate = parseFloat($('#fac_rate' + iti_id).val()) || 0;
 
-			var grandTotal = accTotal + vehicleTotal + paxCost + dailyAddon + permit + spclTariff + facRate;
+			// PAX cost is already included in vehicleTotal now, so don't add it again
+			var grandTotal = accTotal + vehicleTotal + dailyAddon + permit + spclTariff + facRate;
 
 			$('#grand_total' + iti_id).val(grandTotal.toFixed(2));
 		}
