@@ -2378,116 +2378,62 @@ $cs_trans_total = 0;
 																										</div> -->
 
 																										<!-- //nj// -->
+<!-- Sight Seeing Location -->
+<div class="col-xl-2 col-sm-12 col-md-2">
+	<div class="teams-rank"><label class="small-label">Sight Seeing Location</label></div>
+	<select id="sight_selector<?php echo $iti_id; ?>"
+		class="form-control input-sm"
+		data-id="<?php echo $iti_id; ?>"
+		style="width: 100%;"
+		<?php echo $dis_abled; ?>>
+		<option value="">Select Sightseeing</option>
+		<?php foreach ($ss_default_temp as $skey => $sval) { ?>
+			<option value="<?php echo $sval['sightseeing_id']; ?>"
+				data-name="<?php echo htmlspecialchars($sval['object_name']); ?>"
+				data-is-pax="<?php echo $sval['is_pax']; ?>"
+				data-tariff="<?php echo $sval['tariff']; ?>"
+				data-distance="<?php echo $sval['sightseeing_distance']; ?>">
+				<?php echo $sval['object_name']; ?>
+				<?php if ($sval['is_pax'] == 1) { ?>
+					(PAX: ₹<?php echo number_format($sval['tariff'], 2); ?>/person)
+				<?php } else { ?>
+					(<?php echo $sval['sightseeing_distance']; ?> km)
+				<?php } ?>
+			</option>
+		<?php } ?>
+	</select>
+</div>
 
-																										<div class="row mt-2 single_row">
-																											<div class="col-xl-12">
-																												<div class="card" style="background-color: #d4edda; border: 1px solid #c3e6cb;">
-																													<div class="card-body">
-																														<!-- Header Row -->
-																														<div class="row align-items-end mb-3">
-																															<div class="col-xl-3 col-sm-12 col-md-3">
-																																<div class="teams-rank">
-																																	<label class="small-label" style="font-weight: bold; color: #155724;">
-																																		Sight Seeing Location
-																																	</label>
-																																</div>
-																																<select id="sight_selector<?php echo $iti_id; ?>"
-																																	class="form-control input-sm ss_selector"
-																																	data-id="<?php echo $iti_id; ?>"
-																																	style="width: 100%;"
-																																	<?php echo $dis_abled; ?>>
-																																	<option value="">Select Sightseeing</option>
-																																	<?php foreach ($ss_default_temp as $skey => $sval) { ?>
-																																		<option value="<?php echo $sval['sightseeing_id']; ?>"
-																																			data-name="<?php echo htmlspecialchars($sval['object_name']); ?>"
-																																			data-is-pax="<?php echo $sval['is_pax']; ?>"
-																																			data-tariff="<?php echo $sval['tariff']; ?>"
-																																			data-distance="<?php echo $sval['sightseeing_distance']; ?>">
-																																			<?php echo $sval['object_name']; ?>
-																																			<?php if ($sval['is_pax'] == 1) { ?>
-																																				(PAX: ₹<?php echo number_format($sval['tariff'], 2); ?>/person)
-																																			<?php } else { ?>
-																																				(<?php echo $sval['sightseeing_distance']; ?> km)
-																																			<?php } ?>
-																																		</option>
-																																	<?php } ?>
-																																</select>
-																															</div>
+<!-- Actions -->
+<div class="col-xl-1 col-sm-12 col-md-1" >
+	<div class="teams-rank"><label class="small-label">Actions</label></div>
+	<button type="button"
+		class="btn btn-success btn-sm add_sightseeing_btn"
+		data-id="<?php echo $iti_id; ?>"
+		style="width: 100%;">
+		Add <i class="fa fa-plus ml-2"></i>
+	</button>
+</div>
 
-																															<div class="col-xl-2 col-sm-12 col-md-2">
-																																<div class="teams-rank">
-																																	<label class="small-label" style="font-weight: bold; color: #155724;">
-																																		Total Distance (km)
-																																	</label>
-																																</div>
-																																<input type="text"
-																																	id="ss_total_distance<?php echo $iti_id; ?>"
-																																	name="additi[<?php echo $iti_id; ?>][ss_total_distance]"
-																																	class="form-control input-sm"
-																																	readonly
-																																	value="0"
-																																	style="background-color: #fff3cd; font-weight: bold; text-align: center;">
-																															</div>
+<!-- Hidden fields -->
+<input type="hidden"
+	id="ss_total_distance<?php echo $iti_id; ?>"
+	name="additi[<?php echo $iti_id; ?>][ss_total_distance]"
+	value="0">
 
-																															<div class="col-xl-2 col-sm-12 col-md-2" style="display: none;">
-																																<div class="teams-rank">
-																																	<label class="small-label" style="font-weight: bold; color: #155724;">
-																																		Remarks
-																																	</label>
-																																</div>
-																																<textarea id="ss_remarks<?php echo $iti_id; ?>"
-																																	name="additi[<?php echo $iti_id; ?>][ss_remarks]"
-																																	class="form-control input-sm"
-																																	rows="1"
-																																	placeholder="Optional remarks"
-																																	<?php echo $read_only; ?>></textarea>
-																															</div>
+<input type="hidden"
+	id="ss_remarks<?php echo $iti_id; ?>"
+	name="additi[<?php echo $iti_id; ?>][ss_remarks]">
 
-																															<div class="col-xl-2 col-sm-12 col-md-2">
-																																<div class="teams-rank">
-																																	<label class="small-label" style="font-weight: bold; color: #155724;">
-																																		Total SS Cost (₹)
-																																	</label>
-																																</div>
-																																<input type="text"
-																																	id="ss_grand_total<?php echo $iti_id; ?>"
-																																	name="additi[<?php echo $iti_id; ?>][ss_grand_total]"
-																																	class="form-control input-sm"
-																																	readonly
-																																	value="0"
-																																	style="background-color: #004d00; color: white; font-weight: bold; font-size: 16px; text-align: center;">
-																															</div>
+<input type="hidden"
+	id="ss_grand_total<?php echo $iti_id; ?>"
+	name="additi[<?php echo $iti_id; ?>][ss_grand_total]"
+	value="0">
 
-																															<div class="col-xl-2 col-sm-12 col-md-2">
-																																<button type="button"
-																																	class="btn btn-success btn-sm add_sightseeing_btn"
-																																	data-id="<?php echo $iti_id; ?>"
-																																	style="width: 100%; padding: 8px; font-weight: bold;">
-																																	Add <i class="fa fa-plus ml-2"></i>
-																																</button>
-																															</div>
-
-																															<div class="col-xl-1 col-sm-12 col-md-1">
-																																<div class="teams-rank">
-																																	<label class="small-label" style="visibility: hidden;">Actions</label>
-																																</div>
-																															</div>
-																														</div>
-
-																														<!-- Dynamic Rows Container -->
-																														<div id="ss_dynamic_rows<?php echo $iti_id; ?>" class="ss-rows-container">
-																															<!-- Dynamic rows will be added here -->
-																														</div>
-
-																														<!-- Hidden field to store JSON data -->
-																														<input type="hidden"
-																															id="ss_data_json<?php echo $iti_id; ?>"
-																															name="additi[<?php echo $iti_id; ?>][ss_data_json]"
-																															value="">
-																													</div>
-																												</div>
-																											</div>
-																										</div>
+<input type="hidden"
+	id="ss_data_json<?php echo $iti_id; ?>"
+	name="additi[<?php echo $iti_id; ?>][ss_data_json]"
+	value="">
 
 
 																										<div class="col-xl-2 col-sm-12 col-md-2">
@@ -2535,7 +2481,10 @@ $cs_trans_total = 0;
 
 
 																									</div>
-
+																											<!-- Dynamic Rows Container -->
+																														<div id="ss_dynamic_rows<?php echo $iti_id; ?>" class="ss-rows-container">
+																															<!-- Dynamic rows will be added here -->
+																														</div>
 																									<div class="row">
 																										<div class="col-xl-12" id="spcl_add_dynamic<?php echo $iti_id; ?>">
 
@@ -3113,124 +3062,138 @@ $cs_trans_total = 0;
 								?>
 
 								<?php if ($object_det[0]['is_vehicle_required'] == 1) { ?>
-									<div class="costing-container">
-										<div class="table-responsive costing-box">
-											<table class="table table-bordered costing-table">
-												<tr>
-													<th>Day</th>
-													<th>Date</th>
-													<th>Description</th>
-													<th>Destination</th>
-													<th>KM Used</th>
-													<th>Vehicle Model</th>
-													<th>Rate</th>
-												</tr>
+	<div class="costing-container">
+		<div class="table-responsive costing-box">
+			<table class="table table-bordered costing-table">
+				<tr>
+					<th>Day</th>
+					<th>Date</th>
+					<th>Description</th>
+					<th>Destination</th>
+					<th>KM Used</th>
+					<th>Vehicle Model</th>
+					<th>Rate</th>
+				</tr>
 
-												<?php
-												$ss_name_temp = '';
-												$cs_trans_total = 0;
-												$total_extra_klm_cost = 0;
-												$total_permit = 0;
-												$dayNo = 1;
-												$itinerary_details_save_cnt = count($itinerary_details_save) - 1;
+				<?php
+				$cs_trans_total = 0;
+				$total_extra_klm_cost = 0;
+				$total_permit = 0;
+				$total_sightseeing_cost = 0;
+				$dayNo = 1;
+				$itinerary_details_save_cnt = count($itinerary_details_save) - 1;
 
-												foreach ($itinerary_details_save as $dkey => $day) {
-													$total_permit = $total_permit + $day['permit'];
+				foreach ($itinerary_details_save as $dkey => $day) {
+					$total_permit = $total_permit + $day['permit'];
 
-													foreach ($day['cost'] as $ckey => $cval) {
-														if ($cval['cost_component_id'] == "21" && $cval['room_type_id'] == "1") {
-															$sight_seeing_id = $cval['tariff'];
-															$ss_name = $Enquiry_model->getSightName($sight_seeing_id);
-															if (!empty($ss_name)) {
-																$ss_name_temp = $ss_name[0]['object_name'];
-															} else {
-																$trimmed = substr((string)$sight_seeing_id, 0, -3);
-																$ss_name = $Enquiry_model->getDefaultSightName($trimmed);
-																if (!empty($ss_name)) {
-																	$ss_name_temp = $ss_name[0]['geog_name'];
-																} else {
-																	$ss_name_temp = "";
-																}
-															}
-														}
-													}
+					// Get sightseeing data from ss_data_json
+					$ss_data = json_decode($day['ss_data_json'] ?? '[]', true);
+					$ss_names = [];
+					$day_ss_cost = 0;
+					
+					if (!empty($ss_data)) {
+						foreach ($ss_data as $ss) {
+							if (!empty($ss['name'])) {
+								$ss_names[] = $ss['name'];
+							}
+							// Add sightseeing cost if available
+							if (isset($ss['pax_cost'])) {
+								$day_ss_cost += floatval($ss['pax_cost']);
+							}
+						}
+					}
+					
+					$ss_name_display = !empty($ss_names) ? implode(', ', $ss_names) : '';
+					$total_sightseeing_cost += $day_ss_cost;
 
-													$tourDate = $day['tour_date'];
-													$vDetailsAll = json_decode($day['vehicle_details'] ?? '[]');
+					$tourDate = $day['tour_date'];
+					$vDetailsAll = json_decode($day['vehicle_details'] ?? '[]');
 
-													$vehicles = array_filter(
-														$vDetailsAll,
-														fn($v) => $v->tour_date == $tourDate
-													);
+					$vehicles = array_filter(
+						$vDetailsAll,
+						fn($v) => $v->tour_date == $tourDate
+					);
 
-													if (!$vehicles) {
-														continue;
-													}
+					if (!$vehicles) {
+						continue;
+					}
 
-													$rowspan = count($vehicles);
-													$first = true;
+					$rowspan = count($vehicles);
+					$first = true;
 
-													foreach ($vehicles as $v) {
-														echo '<tr>';
+					foreach ($vehicles as $v) {
+						echo '<tr>';
 
-														if ($first) {
-															echo '<td rowspan="' . $rowspan . '">' . $dayNo . '</td>';
-															echo '<td rowspan="' . $rowspan . '">' . date('d-m-Y', strtotime($tourDate)) . '</td>';
-															echo '<td rowspan="' . $rowspan . '">' . $day['transport_remarks'] . '</td>';
-															if (date("d-m-Y", strtotime($tourDate)) == date("d-m-Y", strtotime($object_det[0]['end_date']))) {
-																if (!empty($ss_name_temp)) {
-																	$final_ss_name = $ss_name_temp . " - " . $dep_name[0]['geog_name'];
-																} else {
-																	$final_ss_name = $dep_name[0]['geog_name'];
-																}
-																echo '<td rowspan="' . $rowspan . '">' . $final_ss_name . '</td>';
-															} else {
-																echo '<td rowspan="' . $rowspan . '">' . $ss_name_temp . '</td>';
-															}
-															$dayNo++;
-															$first = false;
-														}
+						if ($first) {
+							echo '<td rowspan="' . $rowspan . '">' . $dayNo . '</td>';
+							echo '<td rowspan="' . $rowspan . '">' . date('d-m-Y', strtotime($tourDate)) . '</td>';
+							echo '<td rowspan="' . $rowspan . '">' . $day['transport_remarks'] . '</td>';
+							
+							// Display destination with sightseeing names
+							if (date("d-m-Y", strtotime($tourDate)) == date("d-m-Y", strtotime($object_det[0]['end_date']))) {
+								if (!empty($ss_name_display)) {
+									$final_destination = $ss_name_display . " - " . $dep_name[0]['geog_name'];
+								} else {
+									$final_destination = $dep_name[0]['geog_name'];
+								}
+								echo '<td rowspan="' . $rowspan . '">' . $final_destination . '</td>';
+							} else {
+								$destination = !empty($ss_name_display) ? $ss_name_display : $day['geog_name'];
+								echo '<td rowspan="' . $rowspan . '">' . $destination . '</td>';
+							}
+							
+							$dayNo++;
+							$first = false;
+						}
 
-														echo '<td>' . $v->travel_distance . '</td>';
-														echo '<td>' . $v->vehicle_model . '</td>';
-														echo '<td>' . $v->day_rent . '</td>';
-														echo '</tr>';
-														$cs_trans_total = $cs_trans_total + $v->day_rent;
-													}
+						echo '<td>' . $v->travel_distance . '</td>';
+						echo '<td>' . $v->vehicle_model . '</td>';
+						echo '<td>' . number_format($v->day_rent, 2) . '</td>';
+						echo '</tr>';
+						$cs_trans_total = $cs_trans_total + $v->day_rent;
+					}
 
-													if ($dkey == $itinerary_details_save_cnt) {
-														$first1 = true;
-														foreach ($vehicles as $v) {
-															echo '<tr>';
+					// Extra kilometers (only on last day)
+					if ($dkey == $itinerary_details_save_cnt) {
+						$first1 = true;
+						foreach ($vehicles as $v) {
+							echo '<tr>';
 
-															if ($first1) {
-																echo '<td rowspan="' . $rowspan . '" colspan="4">Extra Kilometer(Rate : ' . $v->extra_km_rate . ')</td>';
-																$first1 = false;
-															}
+							if ($first1) {
+								echo '<td rowspan="' . $rowspan . '" colspan="4">Extra Kilometer (Rate: ' . $v->extra_km_rate . ')</td>';
+								$first1 = false;
+							}
 
-															echo '<td>' . $v->total_extra_kilometer . '</td>';
-															echo '<td>' . $v->vehicle_model . '</td>';
-															echo '<td>' . $v->total_extra_cost . '</td>';
-															echo '</tr>';
-															$cs_trans_total = $cs_trans_total + $v->total_extra_cost;
-															$total_extra_klm_cost = $total_extra_klm_cost + $v->total_extra_cost;
-														}
-													}
-												}
-												?>
-												<tr>
-													<th colspan="6">Other Charges / Permit</th>
-													<th><?php echo number_format($total_permit, 2); ?></th>
-												</tr>
-												<tr>
-													<th colspan="6">Total Transportation Cost</th>
-													<th><?php echo number_format($cs_trans_total + $total_permit, 2); ?></th>
-												</tr>
-											</table>
-										</div>
-									</div>
-							<?php }
-							} ?>
+							echo '<td>' . $v->total_extra_kilometer . '</td>';
+							echo '<td>' . $v->vehicle_model . '</td>';
+							echo '<td>' . number_format($v->total_extra_cost, 2) . '</td>';
+							echo '</tr>';
+							$cs_trans_total = $cs_trans_total + $v->total_extra_cost;
+							$total_extra_klm_cost = $total_extra_klm_cost + $v->total_extra_cost;
+						}
+					}
+				}
+				?>
+				
+				<?php if ($total_sightseeing_cost > 0) { ?>
+				<tr>
+					<th colspan="6">Total Sightseeing Cost</th>
+					<th><?php echo number_format($total_sightseeing_cost, 2); ?></th>
+				</tr>
+				<?php } ?>
+				
+				<tr>
+					<th colspan="6">Other Charges / Permit</th>
+					<th><?php echo number_format($total_permit, 2); ?></th>
+				</tr>
+				<tr>
+					<th colspan="6">Total Transportation Cost</th>
+					<th><?php echo number_format($cs_trans_total + $total_permit + $total_sightseeing_cost, 2); ?></th>
+				</tr>
+			</table>
+		</div>
+	</div>
+<?php }} ?>
 							<form id="myTourplanForm1" method="POST" action="<?= site_url('Enquiry/generateCostingSheet'); ?>">
 								<input type="hidden" id="no_of_night_hidden" name="no_of_night_hidden" value="<?php echo $object_det[0]['no_of_night']; ?>">
 								<input type="hidden" id="tac_hidden" name="tac_hidden" value="0">
@@ -8969,8 +8932,7 @@ $cs_trans_total = 0;
 		function getTotalPax() {
 			return <?php echo $object_det[0]['no_of_adult'] +
 						$object_det[0]['no_of_child_with_bed'] +
-						$object_det[0]['no_of_child_without_bed'] +
-						$object_det[0]['no_of_extra_bed']; ?>;
+						$object_det[0]['no_of_child_without_bed'] ?>;
 		}
 
 		// Counter for unique row IDs
@@ -8994,7 +8956,7 @@ $cs_trans_total = 0;
                  style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; border: 1px solid #dee2e6;">
                 
                 <div class="col-xl-4 col-sm-12 col-md-4">
-                    <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Facility Name</label>
+                    <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Sightseeing Name</label>
                     <input type="text" 
                            class="form-control input-sm" 
                            value="${ssData.name}" 
@@ -9002,7 +8964,7 @@ $cs_trans_total = 0;
                            style="background-color: white; border: 1px solid #ced4da;">
                 </div>
 
-                <div class="col-xl-2 col-sm-12 col-md-2">
+                <div class="col-xl-3 col-sm-12 col-md-2">
                     <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">
                         ${ssData.is_pax === 1 ? 'Tariff' : 'Distance'}
                     </label>
@@ -9013,14 +8975,14 @@ $cs_trans_total = 0;
                            style="background-color: white; border: 1px solid #ced4da; text-align: center;">
                 </div>
 
-                <div class="col-xl-3 col-sm-12 col-md-3">
+                <div class="col-xl-3 col-sm-12 col-md-3" style="display: none;">
                     <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Remarks</label>
                     <textarea class="form-control input-sm ss-row-remarks" 
                               rows="1"
                               style="border: 1px solid #ced4da;">${ssData.remarks || ''}</textarea>
                 </div>
 
-                <div class="col-xl-2 col-sm-12 col-md-2">
+                <div class="col-xl-3 col-sm-12 col-md-2">
                     <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Total</label>
                     <input type="text" 
                            class="form-control input-sm ss-row-total" 
@@ -9327,25 +9289,65 @@ $cs_trans_total = 0;
 
 <style>
 	.ss-rows-container {
-		min-height: 20px;
-	}
+	min-height: 20px;
+	margin-top: 15px;
+	padding: 0;
+}
 
-	.ss-dynamic-row {
-		transition: all 0.3s ease;
-	}
+.ss-dynamic-row {
+	background-color: #f8f9fa;
+	border: 1px solid #dee2e6;
+	border-radius: 4px;
+	padding: 15px;
+	margin-bottom: 10px;
+	transition: all 0.3s ease;
+}
 
-	.ss-dynamic-row:hover {
-		background-color: #e9ecef !important;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-	}
+.ss-dynamic-row:hover {
+	background-color: #e9ecef !important;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-	.small-label {
-		font-size: 12px;
-		font-weight: 600;
-		color: #495057;
-		margin-bottom: 5px;
-		display: block;
-	}
+/* PAX-based rows - light green */
+.ss-dynamic-row.pax-based {
+	background-color: #d4edda;
+	border-color: #c3e6cb;
+}
+
+.ss-dynamic-row.pax-based:hover {
+	background-color: #c3e6cb !important;
+}
+
+/* Distance-based rows - light blue */
+.ss-dynamic-row.distance-based {
+	background-color: #d1ecf1;
+	border-color: #bee5eb;
+}
+
+.ss-dynamic-row.distance-based:hover {
+	background-color: #bee5eb !important;
+}
+
+.small-label {
+	font-size: 12px;
+	font-weight: 600;
+	color: #495057;
+	margin-bottom: 5px;
+	display: block;
+}
+
+/* Remove any negative margins that might push content outside */
+.ss-rows-container .row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.ss-rows-container .col-xl-3,
+.ss-rows-container .col-xl-2,
+.ss-rows-container .col-xl-1 {
+	padding-left: 10px;
+	padding-right: 10px;
+}
 </style>
 <script>
 	$(document).on('input', '#no_of_pax_b', function() {
