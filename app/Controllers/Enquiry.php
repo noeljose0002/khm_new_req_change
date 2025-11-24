@@ -655,6 +655,7 @@ class Enquiry extends BaseController
                 $no_of_adult = $object_datas[0]['no_of_adult'];
                 $no_of_child_with_bed = $object_datas[0]['no_of_child_with_bed'];
                 $no_of_child_without_bed = $object_datas[0]['no_of_child_without_bed'];
+                $no_of_child_below_five=$object_datas[0]['no_of_child_below_five'];
                 $no_of_double_room = $object_datas[0]['no_of_double_room'];
                 $no_of_single_room = $object_datas[0]['no_of_single_room'];
                 $no_of_extra_bed = $object_datas[0]['no_of_extra_bed'];
@@ -696,6 +697,7 @@ class Enquiry extends BaseController
                 $no_of_adult = '';
                 $no_of_child_with_bed = '';
                 $no_of_child_without_bed = '';
+                $no_of_child_below_five = '';
                 $no_of_double_room = '';
                 $no_of_single_room = '';
                 $no_of_extra_bed = '';
@@ -766,6 +768,7 @@ class Enquiry extends BaseController
             $data['no_of_adult'] = $no_of_adult;
             $data['no_of_child_with_bed'] = $no_of_child_with_bed;
             $data['no_of_child_without_bed'] = $no_of_child_without_bed;
+            $data['no_of_child_below_five'] = $no_of_child_below_five;
             $data['no_of_double_room'] = $no_of_double_room;
             $data['no_of_single_room'] = $no_of_single_room;
             $data['no_of_extra_bed'] = $no_of_extra_bed;
@@ -2188,6 +2191,7 @@ class Enquiry extends BaseController
                         'no_of_adult' => $this->request->getPost('no_of_adult'),
                         'no_of_child_with_bed' => $this->request->getPost('no_of_child_with_bed') ? $this->request->getPost('no_of_child_with_bed') : 0,
                         'no_of_child_without_bed' => $this->request->getPost('no_of_child_without_bed') ? $this->request->getPost('no_of_child_without_bed') : 0,
+                        'no_of_child_below_five' => $this->request->getPost('no_of_child_below_five') ? $this->request->getPost('no_of_child_below_five') : 0,
                         'no_of_double_room' => $this->request->getPost('no_of_double_room'),
                         'no_of_single_room' => $this->request->getPost('no_of_single_room') ? $this->request->getPost('no_of_single_room') : 0,
                         'no_of_extra_bed' => $this->request->getPost('no_of_extra_bed') ? $this->request->getPost('no_of_extra_bed') : 0,
@@ -2283,6 +2287,7 @@ class Enquiry extends BaseController
                                 'no_of_adult' => $this->request->getPost('no_of_adult'),
                                 'no_of_child_with_bed' => $this->request->getPost('no_of_child_with_bed') ? $this->request->getPost('no_of_child_with_bed') : 0,
                                 'no_of_child_without_bed' => $this->request->getPost('no_of_child_without_bed') ? $this->request->getPost('no_of_child_without_bed') : 0,
+                                'no_of_child_below_five' => $this->request->getPost('no_of_child_below_five') ? $this->request->getPost('no_of_child_below_five') : 0,
                                 'no_of_double_room' => $this->request->getPost('no_of_double_room'),
                                 'no_of_single_room' => $this->request->getPost('no_of_single_room') ? $this->request->getPost('no_of_single_room') : 0,
                                 'no_of_extra_bed' => $this->request->getPost('no_of_extra_bed') ? $this->request->getPost('no_of_extra_bed') : 0,

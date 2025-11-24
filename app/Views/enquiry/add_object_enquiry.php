@@ -781,6 +781,11 @@ if(!empty($date_of_tour_completion)){
 																				<input type="text" class="form-control" id="no_of_child_without_bed" value="<?php echo $no_of_child_without_bed; ?>" name="no_of_child_without_bed" inputmode="numeric" pattern="[0-9]*" maxlength="2" oninput="this.value = this.value.replace(/\D/g, '')">
 																				<span id="nodays-alert"></span>
 																			</div>
+																				<div class="col-xl-3">
+																				<label class="form-label" style="color:#039623;">Child below five</label>
+																				<input type="text" class="form-control" id="no_of_child_below_five" value="<?php echo $no_of_child_below_five; ?>" name="no_of_child_below_five" inputmode="numeric" pattern="[0-9]*" maxlength="2" oninput="this.value = this.value.replace(/\D/g, '')">
+																				<span id="nodays-alert"></span>
+																			</div>
 																			<div class="col-xl-3">
 																				<label class="form-label" style="color:#039623;">Total No: Of Pax</label>
 																				<input type="text" class="form-control" id="total_no_of_pax" name="total_no_of_pax" value="<?php echo $total_no_of_pax; ?>" inputmode="numeric" pattern="[0-9]*" maxlength="2" oninput="this.value = this.value.replace(/\D/g, '')" readonly>
@@ -1796,6 +1801,7 @@ $(document).ready(function () {
         var noOfAdult = parseInt($('#no_of_adult').val()) || 0;
         var noOfChildWithBed = parseInt($('#no_of_child_with_bed').val()) || 0;
         var noOfChildWithoutBed = parseInt($('#no_of_child_without_bed').val()) || 0;
+		var noOfChildBelowFive = parseInt($('#no_of_child_without_bed').val()) || 0;
 
         var totalPax = noOfAdult + noOfChildWithBed + noOfChildWithoutBed;
         $('#total_no_of_pax').val(totalPax);

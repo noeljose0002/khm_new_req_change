@@ -1569,6 +1569,7 @@ $cs_trans_total = 0;
 																												// FIXED: Calculate base TAC WITHOUT special tariff
 																												$tac_base = $expansion_hotel_total + $hot_fac_tariff + $daily_addon;
 
+
 																												// Calculate display TAC WITH special tariff for showing on screen
 																												// $tac = $tac_base + $spcl_tariff;
 																												$tac = $tac_base;
@@ -2238,7 +2239,11 @@ $cs_trans_total = 0;
 																													<div class="col-xl-1 col-sm-12 col-md-1">
 																														<input type="text" id="extra_kilometer<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_kilometer][<?php echo $vid; ?>]" value="<?php echo $extra_kilometer_temp; ?>" class="form-control input-sm extra_kilometer<?php echo $vindex; ?>" maxlength="5" readonly>
 																													</div>
-																													<input type="hidden" id="extra_km_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate][<?php echo $vid; ?>]" value="0" class="form-control input-sm extra_km_rate<?php echo $vindex; ?>" maxlength="5" readonly>
+																													<input type="hidden" id="extra_km_rate<?php echo $vid; ?>"
+																														name="additi[<?php echo $iti_id; ?>][extra_km_rate][<?php echo $vid; ?>]"
+																														value="<?php echo $extra_km_rate; ?>"
+																														class="form-control input-sm extra_km_rate<?php echo $vindex; ?>"
+																														maxlength="5" readonly>
 																													<input type="hidden" id="extra_km_rate_hidden<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate_hidden][<?php echo $vid; ?>]" value="<?php echo $extra_km_rate; ?>">
 																													<div class="col-xl-1 col-sm-12 col-md-1">
 																														<?php
@@ -2378,62 +2383,62 @@ $cs_trans_total = 0;
 																										</div> -->
 
 																										<!-- //nj// -->
-<!-- Sight Seeing Location -->
-<div class="col-xl-2 col-sm-12 col-md-2">
-	<div class="teams-rank"><label class="small-label">Sight Seeing Location</label></div>
-	<select id="sight_selector<?php echo $iti_id; ?>"
-		class="form-control input-sm"
-		data-id="<?php echo $iti_id; ?>"
-		style="width: 100%;"
-		<?php echo $dis_abled; ?>>
-		<option value="">Select Sightseeing</option>
-		<?php foreach ($ss_default_temp as $skey => $sval) { ?>
-			<option value="<?php echo $sval['sightseeing_id']; ?>"
-				data-name="<?php echo htmlspecialchars($sval['object_name']); ?>"
-				data-is-pax="<?php echo $sval['is_pax']; ?>"
-				data-tariff="<?php echo $sval['tariff']; ?>"
-				data-distance="<?php echo $sval['sightseeing_distance']; ?>">
-				<?php echo $sval['object_name']; ?>
-				<?php if ($sval['is_pax'] == 1) { ?>
-					(PAX: ₹<?php echo number_format($sval['tariff'], 2); ?>/person)
-				<?php } else { ?>
-					(<?php echo $sval['sightseeing_distance']; ?> km)
-				<?php } ?>
-			</option>
-		<?php } ?>
-	</select>
-</div>
+																										<!-- Sight Seeing Location -->
+																										<div class="col-xl-2 col-sm-12 col-md-2">
+																											<div class="teams-rank"><label class="small-label">Sight Seeing Location</label></div>
+																											<select id="sight_selector<?php echo $iti_id; ?>"
+																												class="form-control input-sm"
+																												data-id="<?php echo $iti_id; ?>"
+																												style="width: 100%;"
+																												<?php echo $dis_abled; ?>>
+																												<option value="">Select Sightseeing</option>
+																												<?php foreach ($ss_default_temp as $skey => $sval) { ?>
+																													<option value="<?php echo $sval['sightseeing_id']; ?>"
+																														data-name="<?php echo htmlspecialchars($sval['object_name']); ?>"
+																														data-is-pax="<?php echo $sval['is_pax']; ?>"
+																														data-tariff="<?php echo $sval['tariff']; ?>"
+																														data-distance="<?php echo $sval['sightseeing_distance']; ?>">
+																														<?php echo $sval['object_name']; ?>
+																														<?php if ($sval['is_pax'] == 1) { ?>
+																															(PAX: ₹<?php echo number_format($sval['tariff'], 2); ?>/person)
+																														<?php } else { ?>
+																															(<?php echo $sval['sightseeing_distance']; ?> km)
+																														<?php } ?>
+																													</option>
+																												<?php } ?>
+																											</select>
+																										</div>
 
-<!-- Actions -->
-<div class="col-xl-1 col-sm-12 col-md-1" >
-	<div class="teams-rank"><label class="small-label">Actions</label></div>
-	<button type="button"
-		class="btn btn-success btn-sm add_sightseeing_btn"
-		data-id="<?php echo $iti_id; ?>"
-		style="width: 100%;">
-		Add <i class="fa fa-plus ml-2"></i>
-	</button>
-</div>
+																										<!-- Actions -->
+																										<div class="col-xl-1 col-sm-12 col-md-1">
+																											<div class="teams-rank"><label class="small-label">Actions</label></div>
+																											<button type="button"
+																												class="btn btn-success btn-sm add_sightseeing_btn"
+																												data-id="<?php echo $iti_id; ?>"
+																												style="width: 100%;">
+																												Add <i class="fa fa-plus ml-2"></i>
+																											</button>
+																										</div>
 
-<!-- Hidden fields -->
-<input type="hidden"
-	id="ss_total_distance<?php echo $iti_id; ?>"
-	name="additi[<?php echo $iti_id; ?>][ss_total_distance]"
-	value="0">
+																										<!-- Hidden fields -->
+																										<input type="hidden"
+																											id="ss_total_distance<?php echo $iti_id; ?>"
+																											name="additi[<?php echo $iti_id; ?>][ss_total_distance]"
+																											value="0">
 
-<input type="hidden"
-	id="ss_remarks<?php echo $iti_id; ?>"
-	name="additi[<?php echo $iti_id; ?>][ss_remarks]">
+																										<input type="hidden"
+																											id="ss_remarks<?php echo $iti_id; ?>"
+																											name="additi[<?php echo $iti_id; ?>][ss_remarks]">
 
-<input type="hidden"
-	id="ss_grand_total<?php echo $iti_id; ?>"
-	name="additi[<?php echo $iti_id; ?>][ss_grand_total]"
-	value="0">
+																										<input type="hidden"
+																											id="ss_grand_total<?php echo $iti_id; ?>"
+																											name="additi[<?php echo $iti_id; ?>][ss_grand_total]"
+																											value="0">
 
-<input type="hidden"
-	id="ss_data_json<?php echo $iti_id; ?>"
-	name="additi[<?php echo $iti_id; ?>][ss_data_json]"
-	value="">
+																										<input type="hidden"
+																											id="ss_data_json<?php echo $iti_id; ?>"
+																											name="additi[<?php echo $iti_id; ?>][ss_data_json]"
+																											value="">
 
 
 																										<div class="col-xl-2 col-sm-12 col-md-2">
@@ -2481,10 +2486,10 @@ $cs_trans_total = 0;
 
 
 																									</div>
-																											<!-- Dynamic Rows Container -->
-																														<div id="ss_dynamic_rows<?php echo $iti_id; ?>" class="ss-rows-container">
-																															<!-- Dynamic rows will be added here -->
-																														</div>
+																									<!-- Dynamic Rows Container -->
+																									<div id="ss_dynamic_rows<?php echo $iti_id; ?>" class="ss-rows-container">
+																										<!-- Dynamic rows will be added here -->
+																									</div>
 																									<div class="row">
 																										<div class="col-xl-12" id="spcl_add_dynamic<?php echo $iti_id; ?>">
 
@@ -2602,7 +2607,7 @@ $cs_trans_total = 0;
 												$bifur_child_total = 0;
 												$bifur_child_wb_total = 0;
 												$bifur_extra_total = 0;
-												$itinerary_details_save_count = count($itinerary_details_save) - 1;
+												$itinerary_details_save_count = count($itinerary_details_save);
 
 												// initialize counters
 												$json_addons = [];
@@ -3062,138 +3067,151 @@ $cs_trans_total = 0;
 								?>
 
 								<?php if ($object_det[0]['is_vehicle_required'] == 1) { ?>
-	<div class="costing-container">
-		<div class="table-responsive costing-box">
-			<table class="table table-bordered costing-table">
-				<tr>
-					<th>Day</th>
-					<th>Date</th>
-					<th>Description</th>
-					<th>Destination</th>
-					<th>KM Used</th>
-					<th>Vehicle Model</th>
-					<th>Rate</th>
-				</tr>
+									<div class="costing-container">
+										<div class="table-responsive costing-box">
+											<table class="table table-bordered costing-table">
+												<tr>
+													<th>Day</th>
+													<th>Date</th>
+													<th>Description</th>
+													<th>Destination</th>
+													<th>KM Used</th>
+													<th>Vehicle Model</th>
+													<th>Rate</th>
+												</tr>
 
-				<?php
-				$cs_trans_total = 0;
-				$total_extra_klm_cost = 0;
-				$total_permit = 0;
-				$total_sightseeing_cost = 0;
-				$dayNo = 1;
-				$itinerary_details_save_cnt = count($itinerary_details_save) - 1;
+												<?php
+												$cs_trans_total = 0;
+												$total_extra_klm_cost = 0;
+												$total_permit = 0;
+												$total_sightseeing_cost = 0;
+												$dayNo = 1;
+												$itinerary_details_save_cnt = count($itinerary_details_save);
 
-				foreach ($itinerary_details_save as $dkey => $day) {
-					$total_permit = $total_permit + $day['permit'];
+												// Initialize totals for extra km calculation across all days
+												$total_travel_distance_all = 0.0;
+												$total_max_km_day_all = 0.0;
+												$extra_km_rate = 0.0; // Will take the first available rate
 
-					// Get sightseeing data from ss_data_json
-					$ss_data = json_decode($day['ss_data_json'] ?? '[]', true);
-					$ss_names = [];
-					$day_ss_cost = 0;
-					
-					if (!empty($ss_data)) {
-						foreach ($ss_data as $ss) {
-							if (!empty($ss['name'])) {
-								$ss_names[] = $ss['name'];
-							}
-							// Add sightseeing cost if available
-							if (isset($ss['pax_cost'])) {
-								$day_ss_cost += floatval($ss['pax_cost']);
-							}
-						}
-					}
-					
-					$ss_name_display = !empty($ss_names) ? implode(', ', $ss_names) : '';
-					$total_sightseeing_cost += $day_ss_cost;
+												foreach ($itinerary_details_save as $dkey => $day) {
+													if ($dkey >= $itinerary_details_save_cnt) {
+														continue;
+													}
+													$total_permit = $total_permit + $day['permit'];
 
-					$tourDate = $day['tour_date'];
-					$vDetailsAll = json_decode($day['vehicle_details'] ?? '[]');
+													// Get sightseeing data from ss_data_json
+													$ss_data = json_decode($day['ss_data_json'] ?? '[]', true);
+													$ss_names = [];
+													$day_ss_cost = 0;
 
-					$vehicles = array_filter(
-						$vDetailsAll,
-						fn($v) => $v->tour_date == $tourDate
-					);
+													if (!empty($ss_data)) {
+														foreach ($ss_data as $ss) {
+															if (!empty($ss['name'])) {
+																$ss_names[] = $ss['name'];
+															}
+															// Add sightseeing cost if available
+															if (isset($ss['pax_cost'])) {
+																$day_ss_cost += floatval($ss['pax_cost']);
+															}
+														}
+													}
 
-					if (!$vehicles) {
-						continue;
-					}
+													$ss_name_display = !empty($ss_names) ? implode(', ', $ss_names) : '';
+													$total_sightseeing_cost += $day_ss_cost;
 
-					$rowspan = count($vehicles);
-					$first = true;
+													$tourDate = $day['tour_date'];
+													$vDetailsAll = json_decode($day['vehicle_details'] ?? '[]');
 
-					foreach ($vehicles as $v) {
-						echo '<tr>';
+													$vehicles = array_filter(
+														$vDetailsAll,
+														fn($v) => $v->tour_date == $tourDate
+													);
 
-						if ($first) {
-							echo '<td rowspan="' . $rowspan . '">' . $dayNo . '</td>';
-							echo '<td rowspan="' . $rowspan . '">' . date('d-m-Y', strtotime($tourDate)) . '</td>';
-							echo '<td rowspan="' . $rowspan . '">' . $day['transport_remarks'] . '</td>';
-							
-							// Display destination with sightseeing names
-							if (date("d-m-Y", strtotime($tourDate)) == date("d-m-Y", strtotime($object_det[0]['end_date']))) {
-								if (!empty($ss_name_display)) {
-									$final_destination = $ss_name_display . " - " . $dep_name[0]['geog_name'];
-								} else {
-									$final_destination = $dep_name[0]['geog_name'];
-								}
-								echo '<td rowspan="' . $rowspan . '">' . $final_destination . '</td>';
-							} else {
-								$destination = !empty($ss_name_display) ? $ss_name_display : $day['geog_name'];
-								echo '<td rowspan="' . $rowspan . '">' . $destination . '</td>';
-							}
-							
-							$dayNo++;
-							$first = false;
-						}
+													if (!$vehicles) {
+														continue;
+													}
 
-						echo '<td>' . $v->travel_distance . '</td>';
-						echo '<td>' . $v->vehicle_model . '</td>';
-						echo '<td>' . number_format($v->day_rent, 2) . '</td>';
-						echo '</tr>';
-						$cs_trans_total = $cs_trans_total + $v->day_rent;
-					}
+													// Accumulate totals for extra km
+													foreach ($vehicles as $v) {
+														$total_travel_distance_all += (float)($v->total_travel_distance ?? $v->travel_distance ?? 0);
+														$total_max_km_day_all += (float)($v->total_max_km_day ?? $v->max_km_day ?? 0);
+														if ($extra_km_rate == 0) {
+															$extra_km_rate = (float)($v->extra_km_rate ?? 0);
+														}
+													}
 
-					// Extra kilometers (only on last day)
-					if ($dkey == $itinerary_details_save_cnt) {
-						$first1 = true;
-						foreach ($vehicles as $v) {
-							echo '<tr>';
+													$rowspan = count($vehicles);
+													$first = true;
 
-							if ($first1) {
-								echo '<td rowspan="' . $rowspan . '" colspan="4">Extra Kilometer (Rate: ' . $v->extra_km_rate . ')</td>';
-								$first1 = false;
-							}
+													foreach ($vehicles as $v) {
+														echo '<tr>';
 
-							echo '<td>' . $v->total_extra_kilometer . '</td>';
-							echo '<td>' . $v->vehicle_model . '</td>';
-							echo '<td>' . number_format($v->total_extra_cost, 2) . '</td>';
-							echo '</tr>';
-							$cs_trans_total = $cs_trans_total + $v->total_extra_cost;
-							$total_extra_klm_cost = $total_extra_klm_cost + $v->total_extra_cost;
-						}
-					}
-				}
-				?>
-				
-				<?php if ($total_sightseeing_cost > 0) { ?>
-				<tr>
-					<th colspan="6">Total Sightseeing Cost</th>
-					<th><?php echo number_format($total_sightseeing_cost, 2); ?></th>
-				</tr>
-				<?php } ?>
-				
-				<tr>
-					<th colspan="6">Other Charges / Permit</th>
-					<th><?php echo number_format($total_permit, 2); ?></th>
-				</tr>
-				<tr>
-					<th colspan="6">Total Transportation Cost</th>
-					<th><?php echo number_format($cs_trans_total + $total_permit + $total_sightseeing_cost, 2); ?></th>
-				</tr>
-			</table>
-		</div>
-	</div>
-<?php }} ?>
+														if ($first) {
+															echo '<td rowspan="' . $rowspan . '">' . $dayNo . '</td>';
+															echo '<td rowspan="' . $rowspan . '">' . date('d-m-Y', strtotime($tourDate)) . '</td>';
+															echo '<td rowspan="' . $rowspan . '">' . $day['transport_remarks'] . '</td>';
+
+															// Display destination with sightseeing names
+															if (date("d-m-Y", strtotime($tourDate)) == date("d-m-Y", strtotime($object_det[0]['end_date']))) {
+																if (!empty($ss_name_display)) {
+																	$final_destination = $ss_name_display . " - " . $dep_name[0]['geog_name'];
+																} else {
+																	$final_destination = $dep_name[0]['geog_name'];
+																}
+																echo '<td rowspan="' . $rowspan . '">' . $final_destination . '</td>';
+															} else {
+																$destination = !empty($ss_name_display) ? $ss_name_display : $day['geog_name'];
+																echo '<td rowspan="' . $rowspan . '">' . $destination . '</td>';
+															}
+
+															$dayNo++;
+															$first = false;
+														}
+
+														echo '<td>' . $v->travel_distance . '</td>';
+														echo '<td>' . $v->vehicle_model . '</td>';
+														echo '<td>' . number_format($v->day_rent, 2) . '</td>';
+														echo '</tr>';
+														$cs_trans_total = $cs_trans_total + $v->day_rent;
+													}
+												}
+
+												// Calculate total extra kilometers across ALL days
+												$total_extra_kilometer = max(0, $total_travel_distance_all - $total_max_km_day_all);
+												$total_extra_klm_cost = $total_extra_kilometer * $extra_km_rate;
+												$cs_trans_total += $total_extra_klm_cost;
+
+												// Display single row for extra km
+												if ($total_extra_kilometer > 0) {
+													echo '<tr>';
+													echo '<td colspan="4">Extra Kilometer (Rate: ' . $extra_km_rate . ')</td>';
+													echo '<td>' . $total_extra_kilometer . '</td>';
+													echo '<td></td>';
+													echo '<td>' . number_format($total_extra_klm_cost, 2) . '</td>';
+													echo '</tr>';
+												}
+												?>
+
+												<?php if ($total_sightseeing_cost > 0) { ?>
+													<tr>
+														<th colspan="6">Total Sightseeing Cost</th>
+														<th><?php echo number_format($total_sightseeing_cost, 2); ?></th>
+													</tr>
+												<?php } ?>
+
+												<tr>
+													<th colspan="6">Other Charges / Permit</th>
+													<th><?php echo number_format($total_permit, 2); ?></th>
+												</tr>
+												<tr>
+													<th colspan="6">Total Transportation Cost</th>
+													<th><?php echo number_format($cs_trans_total + $total_permit + $total_sightseeing_cost, 2); ?></th>
+												</tr>
+											</table>
+										</div>
+									</div>
+							<?php }
+							} ?>
 							<form id="myTourplanForm1" method="POST" action="<?= site_url('Enquiry/generateCostingSheet'); ?>">
 								<input type="hidden" id="no_of_night_hidden" name="no_of_night_hidden" value="<?php echo $object_det[0]['no_of_night']; ?>">
 								<input type="hidden" id="tac_hidden" name="tac_hidden" value="0">
@@ -7438,7 +7456,8 @@ $cs_trans_total = 0;
 			$('#extra_kilometer' + vid).val(extraKm);
 
 			// Calculate total vehicle cost
-			var vehTotal = dayRent + (extraKm * extraKmRate);
+			// var vehTotal = dayRent + (extraKm * extraKmRate);
+			var vehTotal = dayRent;
 			$('#veh_total' + vid).val(vehTotal.toFixed(2));
 		});
 	});
@@ -7574,60 +7593,55 @@ $cs_trans_total = 0;
 
 
 	function calculateGrandTotal(vid) {
-    let total = 0;
-    
-    // Use vid as a prefix selector within that tab
-    const $scope = $(`[data-index="${vid}"]`);
-    
-    if ($scope.length) {
-        // 1. Checked vehicle totals within this vid
-        $scope.find('.chk_vehicle:checked').each(function() {
-            const v = $(this).val();
-            const vehTotal = parseFloat($('#veh_total' + v).val()) || 0;
-            console.log(`Vehicle ${v} total: ${vehTotal}`); // Debug log
-            total += vehTotal;
-        });
-        
-        // 2. fac_rate
-        $scope.find('input[id^="fac_rate"]').each(function() {
-            total += parseFloat($(this).val()) || 0;
-        });
-        
-        // 3. acc_total
-        $scope.find('input[id^="acc_total"]').each(function() {
-            total += parseFloat($(this).val()) || 0;
-        });
-        
-        // 4. spcl_tariff
-        $scope.find('input[id^="spcl_tariff"]').each(function() {
-            total += parseFloat($(this).val()) || 0;
-        });
-        
-        // 5. daily_addon
-        $scope.find('input[id^="daily_addon"]').each(function() {
-            total += parseFloat($(this).val()) || 0;
-        });
-        
-        // 6. permit
-        $scope.find('input[id^="permit"]').each(function() {
-            total += parseFloat($(this).val()) || 0;
-        });
-        
-        // Update grand total field
-        $scope.find('.grand_total').val(total.toFixed(2));
-        $('#span_bread_id' + vid).text(total.toFixed(2));
-        
-        console.log(`Grand total for ${vid}: ${total.toFixed(2)}`); // Debug log
-    }
-    
-    // Update overall totals
-    updateTotalAccommodationCost();
-    setTimeout(function() {
-        updateMarginTotal();
-        updateTourAddonTotal();
-        updateGSTandTotalPackageCost();
-    }, 300);
-}
+		let total = 0;
+
+		// Use vid as a prefix selector within that tab
+		const $scope = $(`[data-index="${vid}"]`);
+
+		if ($scope.length) {
+			// 1. Checked vehicle totals within this vid
+			$scope.find('.chk_vehicle:checked').each(function() {
+				const v = $(this).val();
+				const vehTotal = parseFloat($('#veh_total' + v).val()) || 0;
+				console.log(`Vehicle ${v} total: ${vehTotal}`); // Debug log
+				total += vehTotal;
+			});
+
+			// 2. acc_total (accommodation)
+			$scope.find('input[id^="acc_total"]').each(function() {
+				total += parseFloat($(this).val()) || 0;
+			});
+
+			// 3. PAX-based sightseeing grand total (THIS WAS MISSING!)
+			const ssGrandTotal = parseFloat($('#ss_grand_total' + vid).val()) || 0;
+			console.log(`Sightseeing grand total for ${vid}: ${ssGrandTotal}`); // Debug log
+			total += ssGrandTotal;
+
+			// 4. spcl_tariff (special tariff)
+			$scope.find('input[id^="spcl_tariff"]').each(function() {
+				total += parseFloat($(this).val()) || 0;
+			});
+
+			// 5. daily_addon
+			$scope.find('input[id^="daily_addon"]').each(function() {
+				total += parseFloat($(this).val()) || 0;
+			});
+
+			// Update grand total field
+			$scope.find('.grand_total').val(total.toFixed(2));
+			$('#span_bread_id' + vid).text(total.toFixed(2));
+
+			console.log(`Grand total for ${vid}: ${total.toFixed(2)}`); // Debug log
+		}
+
+		// Update overall totals
+		updateTotalAccommodationCost();
+		setTimeout(function() {
+			updateMarginTotal();
+			updateTourAddonTotal();
+			updateGSTandTotalPackageCost();
+		}, 300);
+	}
 	//NJ//
 	$(document).on('input change', 'input[id^="no_of_ch"], input[id^="no_of_cw"], input[id^="no_of_extra"]', function() {
 		var dataIndex = $(this).closest('[data-index]').data('index');
@@ -9014,109 +9028,110 @@ $cs_trans_total = 0;
 
 		// Add sightseeing row
 		$(document).on('click', '.add_sightseeing_btn', function() {
-    var iti_id = $(this).data('id');
-    var $selector = $('#sight_selector' + iti_id);
-    var selectedOption = $selector.find('option:selected');
-    
-    if (!selectedOption.val()) {
-        alert('Please select a sightseeing location first');
-        return;
-    }
-    
-    // Initialize counter for this itinerary
-    if (!window.ssRowCounters) {
-        window.ssRowCounters = {};
-    }
-    if (!window.ssRowCounters[iti_id]) {
-        window.ssRowCounters[iti_id] = 0;
-    }
-    window.ssRowCounters[iti_id]++;
-    
-    var rowId = iti_id + '_ss_' + window.ssRowCounters[iti_id];
-    var ssId = selectedOption.val();
-    var ssName = selectedOption.data('name');
-    var isPax = parseInt(selectedOption.data('is-pax'));
-    var tariff = parseFloat(selectedOption.data('tariff')) || 0;
-    var distance = parseFloat(selectedOption.data('distance')) || 0;
-    var totalPax = <?php echo $object_det[0]['no_of_adult'] + 
-                           $object_det[0]['no_of_child_with_bed'] + 
-                           $object_det[0]['no_of_child_without_bed']; ?>;
-    
-    // Calculate cost or distance
-    var calculatedValue = 0;
-    
-    if (isPax === 1) {
-        calculatedValue = tariff * totalPax;
-    } else {
-        calculatedValue = distance;
-    }
-    
-    // Create sightseeing data object
-    var ssData = {
-        sightseeing_id: ssId,
-        name: ssName,
-        is_pax: isPax,
-        tariff: tariff,
-        distance: distance,
-        calculated_value: calculatedValue,
-        remarks: '',
-        cost: isPax === 1 ? calculatedValue : 0,
-        distance_km: isPax === 1 ? 0 : calculatedValue
-    };
-    
-    // Create and append row (using your existing createSSRowHTML function)
-    var rowHtml = createSSRowHTML(rowId, iti_id, ssData);
-    $('#ss_dynamic_rows' + iti_id).append(rowHtml);
-    
-    // Reset selector
-    $selector.val(null).trigger('change');
-    
-    // Update totals with proper delay
-    setTimeout(function() {
-        updateSightseeingTotals(iti_id);
-    }, 300);
-});
+			var iti_id = $(this).data('id');
+			var $selector = $('#sight_selector' + iti_id);
+			var selectedOption = $selector.find('option:selected');
+
+			if (!selectedOption.val()) {
+				alert('Please select a sightseeing location first');
+				return;
+			}
+
+			// Initialize counter for this itinerary
+			if (!window.ssRowCounters) {
+				window.ssRowCounters = {};
+			}
+			if (!window.ssRowCounters[iti_id]) {
+				window.ssRowCounters[iti_id] = 0;
+			}
+			window.ssRowCounters[iti_id]++;
+
+			var rowId = iti_id + '_ss_' + window.ssRowCounters[iti_id];
+			var ssId = selectedOption.val();
+			var ssName = selectedOption.data('name');
+			var isPax = parseInt(selectedOption.data('is-pax'));
+			var tariff = parseFloat(selectedOption.data('tariff')) || 0;
+			var distance = parseFloat(selectedOption.data('distance')) || 0;
+			var totalPax = <?php echo $object_det[0]['no_of_adult'] +
+								$object_det[0]['no_of_child_with_bed'] +
+								$object_det[0]['no_of_child_without_bed'] + $object_det[0]['no_of_child_without_bed']; ?>;
+
+
+			// Calculate cost or distance
+			var calculatedValue = 0;
+
+			if (isPax === 1) {
+				calculatedValue = tariff * totalPax;
+			} else {
+				calculatedValue = distance;
+			}
+
+			// Create sightseeing data object
+			var ssData = {
+				sightseeing_id: ssId,
+				name: ssName,
+				is_pax: isPax,
+				tariff: tariff,
+				distance: distance,
+				calculated_value: calculatedValue,
+				remarks: '',
+				cost: isPax === 1 ? calculatedValue : 0,
+				distance_km: isPax === 1 ? 0 : calculatedValue
+			};
+
+			// Create and append row (using your existing createSSRowHTML function)
+			var rowHtml = createSSRowHTML(rowId, iti_id, ssData);
+			$('#ss_dynamic_rows' + iti_id).append(rowHtml);
+
+			// Reset selector
+			$selector.val(null).trigger('change');
+
+			// Update totals with proper delay
+			setTimeout(function() {
+				updateSightseeingTotals(iti_id);
+			}, 300);
+		});
 
 
 		// Remove sightseeing row
-	$(document).on('click', '.remove_ss_row', function() {
-    var rowId = $(this).data('row-id');
-    var itiId = $(this).data('iti-id');
-    
-    console.log('Removing sightseeing row:', rowId);
-    
-    $('#ss_row_' + rowId).remove();
-    
-    // Update totals with delay
-    setTimeout(function() {
-        updateSightseeingTotals(itiId);
-    }, 300);
-});
+		$(document).on('click', '.remove_ss_row', function() {
+			var rowId = $(this).data('row-id');
+			var itiId = $(this).data('iti-id');
 
-function debugVehicleTotals(iti_id) {
-    console.log('=== DEBUG: Vehicle Totals for Itinerary', iti_id, '===');
-    
-    var totalVehicleCost = 0;
-    
-    $('.chk_vehicle').each(function() {
-        var vid = $(this).val();
-        if (vid.toString().indexOf(iti_id.toString()) === 0) {
-            var isChecked = $(this).is(':checked');
-            var vehTotal = parseFloat($('#veh_total' + vid).val()) || 0;
-            
-            console.log(`Vehicle ${vid}: Checked=${isChecked}, Total=${vehTotal}`);
-            
-            if (isChecked) {
-                totalVehicleCost += vehTotal;
-            }
-        }
-    });
-    
-    console.log('Total Vehicle Cost:', totalVehicleCost);
-    console.log('===========================================');
-    
-    return totalVehicleCost;
-}
+			console.log('Removing sightseeing row:', rowId);
+
+			$('#ss_row_' + rowId).remove();
+
+			// Update totals with delay
+			setTimeout(function() {
+				updateSightseeingTotals(itiId);
+			}, 300);
+		});
+
+		function debugVehicleTotals(iti_id) {
+			console.log('=== DEBUG: Vehicle Totals for Itinerary', iti_id, '===');
+
+			var totalVehicleCost = 0;
+
+			$('.chk_vehicle').each(function() {
+				var vid = $(this).val();
+				if (vid.toString().indexOf(iti_id.toString()) === 0) {
+					var isChecked = $(this).is(':checked');
+					var vehTotal = parseFloat($('#veh_total' + vid).val()) || 0;
+
+					console.log(`Vehicle ${vid}: Checked=${isChecked}, Total=${vehTotal}`);
+
+					if (isChecked) {
+						totalVehicleCost += vehTotal;
+					}
+				}
+			});
+
+			console.log('Total Vehicle Cost:', totalVehicleCost);
+			console.log('===========================================');
+
+			return totalVehicleCost;
+		}
 
 		// Update remarks in real-time
 		$(document).on('input', '.ss-row-remarks', function() {
@@ -9125,162 +9140,163 @@ function debugVehicleTotals(iti_id) {
 		});
 
 		// Handle vehicle checkbox changes to redistribute PAX costs
-$(document).on('change', '.chk_vehicle', function() {
-    var vid = $(this).val();
-    
-    // Extract itinerary ID from vehicle ID
-    var match = vid.match(/^(\d+)/);
-    if (match) {
-        var itiId = match[1];
-        
-        console.log('Vehicle checkbox changed:', vid, 'Itinerary:', itiId);
-        
-        // Recalculate sightseeing totals (includes PAX redistribution)
-        setTimeout(function() {
-            updateSightseeingTotals(itiId);
-        }, 100);
-        
-        // Recalculate grand total
-        setTimeout(function() {
-            calculateGrandTotal(itiId);
-        }, 300);
-    }
-});
+		$(document).on('change', '.chk_vehicle', function() {
+			var vid = $(this).val();
+
+			// Extract itinerary ID from vehicle ID
+			var match = vid.match(/^(\d+)/);
+			if (match) {
+				var itiId = match[1];
+
+				console.log('Vehicle checkbox changed:', vid, 'Itinerary:', itiId);
+
+				// Recalculate sightseeing totals (includes PAX redistribution)
+				setTimeout(function() {
+					updateSightseeingTotals(itiId);
+				}, 100);
+
+				// Recalculate grand total
+				setTimeout(function() {
+					calculateGrandTotal(itiId);
+				}, 300);
+			}
+		});
 
 		// Update all sightseeing totals and related fields
-	function updateSightseeingTotals(iti_id) {
-    console.log('Updating sightseeing totals for:', iti_id);
-    
-    var totalDistance = 0;
-    var totalPaxCost = 0;
-    var sightseeingData = [];
-    
-    // Collect data from all rows
-    $('#ss_dynamic_rows' + iti_id + ' .ss-dynamic-row').each(function() {
-        var $row = $(this);
-        var ssId = $row.data('ss-id');
-        var isPax = parseInt($row.data('is-pax'));
-        var tariff = parseFloat($row.data('tariff'));
-        var distance = parseFloat($row.data('distance'));
-        var calculated = parseFloat($row.data('calculated'));
-        var remarks = $row.find('.ss-row-remarks').val();
-        var ssName = $row.find('input').first().val();
-        
-        var ssItem = {
-            sightseeing_id: ssId,
-            name: ssName,
-            is_pax: isPax,
-            tariff: tariff,
-            distance: distance,
-            calculated_value: calculated,
-            remarks: remarks,
-            cost: 0,
-            distance_km: 0
-        };
-        
-        if (isPax === 1) {
-            totalPaxCost += calculated;
-            ssItem.cost = calculated;
-            ssItem.distance_km = 0;
-        } else {
-            totalDistance += calculated;
-            ssItem.cost = 0;
-            ssItem.distance_km = calculated;
-        }
-        
-        sightseeingData.push(ssItem);
-    });
-    
-    console.log('Total Distance:', totalDistance, 'Total PAX Cost:', totalPaxCost);
-    
-    // Update UI fields
-    $('#ss_total_distance' + iti_id).val(totalDistance.toFixed(2));
-    $('#ss_grand_total' + iti_id).val(totalPaxCost.toFixed(2));
-    
-    // Store JSON data
-    $('#ss_data_json' + iti_id).val(JSON.stringify(sightseeingData));
-    
-    // Update vehicle distances (for distance-based sightseeing)
-    updateVehicleDistances(iti_id, totalDistance);
-    
-    // Update vehicle totals with PAX costs (for PAX-based sightseeing)
-    updateVehicleTotalsWithPaxCosts(iti_id, totalPaxCost);
-    
-    // Force recalculation of grand total after a delay
-    setTimeout(function() {
-        calculateGrandTotal(iti_id);
-    }, 500);
-}
+		function updateSightseeingTotals(iti_id) {
+			console.log('Updating sightseeing totals for:', iti_id);
+
+			var totalDistance = 0;
+			var totalPaxCost = 0;
+			var sightseeingData = [];
+
+			// Collect data from all rows
+			$('#ss_dynamic_rows' + iti_id + ' .ss-dynamic-row').each(function() {
+				var $row = $(this);
+				var ssId = $row.data('ss-id');
+				var isPax = parseInt($row.data('is-pax'));
+				var tariff = parseFloat($row.data('tariff'));
+				var distance = parseFloat($row.data('distance'));
+				var calculated = parseFloat($row.data('calculated'));
+				var remarks = $row.find('.ss-row-remarks').val();
+				var ssName = $row.find('input').first().val();
+
+				var ssItem = {
+					sightseeing_id: ssId,
+					name: ssName,
+					is_pax: isPax,
+					tariff: tariff,
+					distance: distance,
+					calculated_value: calculated,
+					remarks: remarks,
+					cost: 0,
+					distance_km: 0
+				};
+
+				if (isPax === 1) {
+					totalPaxCost += calculated;
+					ssItem.cost = calculated;
+					ssItem.distance_km = 0;
+				} else {
+					totalDistance += calculated;
+					ssItem.cost = 0;
+					ssItem.distance_km = calculated;
+				}
+
+				sightseeingData.push(ssItem);
+			});
+
+			console.log('Total Distance:', totalDistance, 'Total PAX Cost:', totalPaxCost);
+
+			// Update UI fields
+			$('#ss_total_distance' + iti_id).val(totalDistance.toFixed(2));
+			$('#ss_grand_total' + iti_id).val(totalPaxCost.toFixed(2));
+
+			// Store JSON data
+			$('#ss_data_json' + iti_id).val(JSON.stringify(sightseeingData));
+
+			// Update vehicle distances (for distance-based sightseeing)
+			updateVehicleDistances(iti_id, totalDistance);
+
+			// Don't add PAX costs to vehicle totals anymore - they go to grand total directly
+			// updateVehicleTotalsWithPaxCosts(iti_id, totalPaxCost); // REMOVE THIS LINE
+
+			// Force recalculation of grand total after all updates
+			setTimeout(function() {
+				calculateGrandTotal(iti_id);
+			}, 500);
+		}
 
 		// Update vehicle travel distances
-	function updateVehicleDistances(iti_id, ssDistance) {
-    console.log('Updating vehicle distances for:', iti_id, 'SS Distance:', ssDistance);
-    
-    $('[id^="travel_distance"][id*="' + iti_id + '"]').each(function() {
-        var $distInput = $(this);
-        var vid = $distInput.attr('v_id');
-        
-        // Get the base distance from copy field
-        var copyDistance = parseFloat($('#c_travel_distance_copy' + vid).val()) || 0;
-        
-        // Calculate new distance = copy distance + sightseeing distance
-        var newDistance = copyDistance + ssDistance;
-        $distInput.val(newDistance.toFixed(2));
-        
-        console.log(`Vehicle ${vid}: Base ${copyDistance} + SS ${ssDistance} = ${newDistance}`);
-        
-        // Recalculate extra kilometers
-        var maxKm = parseFloat($('#max_km_day' + vid).val()) || 0;
-        var extraKm = newDistance > maxKm ? (newDistance - maxKm) : 0;
-        $('#extra_kilometer' + vid).val(extraKm.toFixed(2));
-        
-        // Recalculate vehicle total
-        calculateVehicleTotalEnhanced(vid);
-    });
-}
+		function updateVehicleDistances(iti_id, ssDistance) {
+			console.log('Updating vehicle distances for:', iti_id, 'SS Distance:', ssDistance);
 
-function calculateVehicleTotalEnhanced(vid) {
-    var dayRent = parseFloat($('#day_rent' + vid).val()) || 0;
-    var extraKm = parseFloat($('#extra_kilometer' + vid).val()) || 0;
-    var extraKmRate = parseFloat($('#extra_km_rate_hidden' + vid).val()) || 0;
-    var adhocRate = parseFloat($('#adhoc_rate' + vid).val()) || 0;
-    
-    var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate;
-    
-    console.log(`Vehicle ${vid} calculation: Day Rent ${dayRent} + Extra KM (${extraKm} × ${extraKmRate}) + Adhoc ${adhocRate} = ${vehTotal.toFixed(2)}`);
-    
-    $('#veh_total' + vid).val(vehTotal.toFixed(2));
-    
-    return vehTotal;
-}
+			$('[id^="travel_distance"][id*="' + iti_id + '"]').each(function() {
+				var $distInput = $(this);
+				var vid = $distInput.attr('v_id');
 
-$(document).ready(function() {
-    // Trigger initial calculations for all itineraries
-    $('[id^="ss_data_json"]').each(function() {
-        var iti_id = $(this).attr('id').replace('ss_data_json', '');
-        
-        console.log('Initializing itinerary:', iti_id);
-        
-        // Load any saved sightseeing data
-        var savedData = $(this).val();
-        if (savedData && savedData !== '[]') {
-            setTimeout(function() {
-                updateSightseeingTotals(iti_id);
-            }, 500);
-        }
-        
-        // Calculate initial grand totals
-        setTimeout(function() {
-            calculateGrandTotal(iti_id);
-        }, 1000);
-    });
-    
-    // Recalculate everything after all data loads
-    setTimeout(function() {
-        console.log('Final recalculation starting...');
-        updateTotalAccommodationCost();
-    }, 2000);
-});
+				// Get the base distance from copy field
+				var copyDistance = parseFloat($('#c_travel_distance_copy' + vid).val()) || 0;
+
+				// Calculate new distance = copy distance + sightseeing distance
+				var newDistance = copyDistance + ssDistance;
+				$distInput.val(newDistance.toFixed(2));
+
+				console.log(`Vehicle ${vid}: Base ${copyDistance} + SS ${ssDistance} = ${newDistance}`);
+
+				// Recalculate extra kilometers
+				var maxKm = parseFloat($('#max_km_day' + vid).val()) || 0;
+				var extraKm = newDistance > maxKm ? (newDistance - maxKm) : 0;
+				$('#extra_kilometer' + vid).val(extraKm.toFixed(2));
+
+				// Recalculate vehicle total
+				calculateVehicleTotalEnhanced(vid);
+			});
+		}
+
+		function calculateVehicleTotalEnhanced(vid) {
+			var dayRent = parseFloat($('#day_rent' + vid).val()) || 0;
+			var extraKm = parseFloat($('#extra_kilometer' + vid).val()) || 0;
+			var extraKmRate = parseFloat($('#extra_km_rate_hidden' + vid).val()) || 0;
+			var adhocRate = parseFloat($('#adhoc_rate' + vid).val()) || 0;
+
+			// var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate;
+			var vehTotal = dayRent + adhocRate;
+
+			console.log(`Vehicle ${vid} calculation: Day Rent ${dayRent} + Extra KM (${extraKm} × ${extraKmRate}) + Adhoc ${adhocRate} = ${vehTotal.toFixed(2)}`);
+
+			$('#veh_total' + vid).val(vehTotal.toFixed(2));
+
+			return vehTotal;
+		}
+
+		$(document).ready(function() {
+			// Trigger initial calculations for all itineraries
+			$('[id^="ss_data_json"]').each(function() {
+				var iti_id = $(this).attr('id').replace('ss_data_json', '');
+
+				console.log('Initializing itinerary:', iti_id);
+
+				// Load any saved sightseeing data
+				var savedData = $(this).val();
+				if (savedData && savedData !== '[]') {
+					setTimeout(function() {
+						updateSightseeingTotals(iti_id);
+					}, 500);
+				}
+
+				// Calculate initial grand totals
+				setTimeout(function() {
+					calculateGrandTotal(iti_id);
+				}, 1000);
+			});
+
+			// Recalculate everything after all data loads
+			setTimeout(function() {
+				console.log('Final recalculation starting...');
+				updateTotalAccommodationCost();
+			}, 2000);
+		});
 
 
 		// Calculate individual vehicle total
@@ -9290,54 +9306,57 @@ $(document).ready(function() {
 			var extraKmRate = parseFloat($('#extra_km_rate_hidden' + vid).val()) || 0;
 			var adhocRate = parseFloat($('#adhoc_rate' + vid).val()) || 0;
 
-			var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate;
+			// var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate;
+			var vehTotal = dayRent + adhocRate;
 			$('#veh_total' + vid).val(vehTotal.toFixed(2));
 		}
 
 		// NEW: Update vehicle totals with PAX costs distributed across checked vehicles
-function updateVehicleTotalsWithPaxCosts(iti_id, totalPaxCost) {
-    console.log('Distributing PAX cost for:', iti_id, 'Amount:', totalPaxCost);
-    
-    // Find all checked vehicles for this itinerary
-    var checkedVehicles = [];
-    $('.chk_vehicle').each(function() {
-        if ($(this).is(':checked')) {
-            var vid = $(this).val();
-            // Check if vehicle belongs to this itinerary
-            if (vid.toString().indexOf(iti_id.toString()) === 0) {
-                checkedVehicles.push(vid);
-            }
-        }
-    });
-    
-    console.log('Checked vehicles:', checkedVehicles);
-    
-    // If no vehicles checked, PAX cost stays in SS total only
-    if (checkedVehicles.length === 0) {
-        console.log('No checked vehicles, PAX cost not distributed');
-        return;
-    }
-    
-    // Distribute PAX cost equally across checked vehicles
-    var paxCostPerVehicle = totalPaxCost / checkedVehicles.length;
-    
-    console.log('PAX cost per vehicle:', paxCostPerVehicle);
-    
-    // Update each vehicle's total
-    checkedVehicles.forEach(function(vid) {
-        var dayRent = parseFloat($('#day_rent' + vid).val()) || 0;
-        var extraKm = parseFloat($('#extra_kilometer' + vid).val()) || 0;
-        var extraKmRate = parseFloat($('#extra_km_rate_hidden' + vid).val()) || 0;
-        var adhocRate = parseFloat($('#adhoc_rate' + vid).val()) || 0;
-        
-        // Calculate vehicle base total + PAX cost share
-        var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate + paxCostPerVehicle;
-        
-        console.log(`Vehicle ${vid} with PAX: Base ${dayRent + (extraKm * extraKmRate) + adhocRate} + PAX ${paxCostPerVehicle} = ${vehTotal.toFixed(2)}`);
-        
-        $('#veh_total' + vid).val(vehTotal.toFixed(2));
-    });
-}
+		function updateVehicleTotalsWithPaxCosts(iti_id, totalPaxCost) {
+			console.log('Distributing PAX cost for:', iti_id, 'Amount:', totalPaxCost);
+
+			// Find all checked vehicles for this itinerary
+			var checkedVehicles = [];
+			$('.chk_vehicle').each(function() {
+				if ($(this).is(':checked')) {
+					var vid = $(this).val();
+					// Check if vehicle belongs to this itinerary
+					if (vid.toString().indexOf(iti_id.toString()) === 0) {
+						checkedVehicles.push(vid);
+					}
+				}
+			});
+
+			console.log('Checked vehicles:', checkedVehicles);
+
+			// If no vehicles checked, PAX cost stays in SS total only
+			if (checkedVehicles.length === 0) {
+				console.log('No checked vehicles, PAX cost not distributed');
+				return;
+			}
+
+			// Distribute PAX cost equally across checked vehicles
+			var paxCostPerVehicle = totalPaxCost / checkedVehicles.length;
+
+			console.log('PAX cost per vehicle:', paxCostPerVehicle);
+
+			// Update each vehicle's total
+			checkedVehicles.forEach(function(vid) {
+				var dayRent = parseFloat($('#day_rent' + vid).val()) || 0;
+				var extraKm = parseFloat($('#extra_kilometer' + vid).val()) || 0;
+				var extraKmRate = parseFloat($('#extra_km_rate_hidden' + vid).val()) || 0;
+				var adhocRate = parseFloat($('#adhoc_rate' + vid).val()) || 0;
+
+				// Calculate vehicle base total + PAX cost share
+				// var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate + paxCostPerVehicle;
+				// var vehTotal = dayRent + adhocRate + paxCostPerVehicle;
+				var vehTotal = dayRent + adhocRate;
+
+				console.log(`Vehicle ${vid} with PAX: Base ${dayRent + (extraKm * extraKmRate) + adhocRate} + PAX ${paxCostPerVehicle} = ${vehTotal.toFixed(2)}`);
+
+				$('#veh_total' + vid).val(vehTotal.toFixed(2));
+			});
+		}
 		// Recalculate grand total
 		function recalculateGrandTotal(iti_id, paxCost) {
 			var accTotal = parseFloat($('#acc_total' + iti_id).val()) || 0;
@@ -9354,9 +9373,13 @@ function updateVehicleTotalsWithPaxCosts(iti_id, totalPaxCost) {
 			var permit = parseFloat($('#permit' + iti_id).val()) || 0;
 			var spclTariff = parseFloat($('#spcl_tariff' + iti_id).val()) || 0;
 			var facRate = parseFloat($('#fac_rate' + iti_id).val()) || 0;
+			var ssGrandTotal = parseFloat($("#ss_grand_total" + iti_id).val()) || 0;
 
 			// PAX cost is already included in vehicleTotal now, so don't add it again
-			var grandTotal = accTotal + vehicleTotal + dailyAddon + permit + spclTariff + facRate;
+			//var grandTotal = accTotal + vehicleTotal + dailyAddon + permit + spclTariff + facRate;
+			// var grandTotal = accTotal + vehicleTotal + dailyAddon + permit + spclTariff;
+			var grandTotal = accTotal + vehicleTotal + ssGrandTotal + dailyAddon + spclTariff;
+
 
 			$('#grand_total' + iti_id).val(grandTotal.toFixed(2));
 		}
@@ -9364,7 +9387,7 @@ function updateVehicleTotalsWithPaxCosts(iti_id, totalPaxCost) {
 		// Load saved sightseeing data on page load
 		// FIXED: Pass saved data from PHP to JavaScript properly
 		var savedSightseeingData = <?php echo json_encode($saved_sightseeing_by_date ?? []); ?>;
-		
+
 		console.log('Saved Sightseeing Data:', savedSightseeingData);
 
 		// Loop through saved data and load rows
@@ -9372,14 +9395,14 @@ function updateVehicleTotalsWithPaxCosts(iti_id, totalPaxCost) {
 			$.each(dateData, function(tourDate, ssInfo) {
 				// Find the matching itinerary ID for this tour_details_id and date
 				var itiId = null;
-				
+
 				// Search for matching itinerary ID in the page
 				$('[id^="tour_date"]').each(function() {
 					var $this = $(this);
 					var thisItiId = $this.attr('id').replace('tour_date', '');
 					var thisTourDate = $this.val();
 					var thisTourDetailsId = $('#tour_details_id' + thisItiId).val();
-					
+
 					if (thisTourDetailsId == tourDetailsId && thisTourDate == tourDate) {
 						itiId = thisItiId;
 						return false; // Break loop
@@ -9402,7 +9425,7 @@ function updateVehicleTotalsWithPaxCosts(iti_id, totalPaxCost) {
 				ssInfo.sightseeing.forEach(function(ss) {
 					ssRowCounters[itiId]++;
 					var rowId = itiId + '_ss_' + ssRowCounters[itiId];
-					
+
 					var rowHtml = createSSRowHTML(rowId, itiId, ss);
 					$('#ss_dynamic_rows' + itiId).append(rowHtml);
 				});
@@ -9416,65 +9439,65 @@ function updateVehicleTotalsWithPaxCosts(iti_id, totalPaxCost) {
 
 <style>
 	.ss-rows-container {
-	min-height: 20px;
-	margin-top: 15px;
-	padding: 0;
-}
+		min-height: 20px;
+		margin-top: 15px;
+		padding: 0;
+	}
 
-.ss-dynamic-row {
-	background-color: #f8f9fa;
-	border: 1px solid #dee2e6;
-	border-radius: 4px;
-	padding: 15px;
-	margin-bottom: 10px;
-	transition: all 0.3s ease;
-}
+	.ss-dynamic-row {
+		background-color: #f8f9fa;
+		border: 1px solid #dee2e6;
+		border-radius: 4px;
+		padding: 15px;
+		margin-bottom: 10px;
+		transition: all 0.3s ease;
+	}
 
-.ss-dynamic-row:hover {
-	background-color: #e9ecef !important;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+	.ss-dynamic-row:hover {
+		background-color: #e9ecef !important;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	}
 
-/* PAX-based rows - light green */
-.ss-dynamic-row.pax-based {
-	background-color: #d4edda;
-	border-color: #c3e6cb;
-}
+	/* PAX-based rows - light green */
+	.ss-dynamic-row.pax-based {
+		background-color: #d4edda;
+		border-color: #c3e6cb;
+	}
 
-.ss-dynamic-row.pax-based:hover {
-	background-color: #c3e6cb !important;
-}
+	.ss-dynamic-row.pax-based:hover {
+		background-color: #c3e6cb !important;
+	}
 
-/* Distance-based rows - light blue */
-.ss-dynamic-row.distance-based {
-	background-color: #d1ecf1;
-	border-color: #bee5eb;
-}
+	/* Distance-based rows - light blue */
+	.ss-dynamic-row.distance-based {
+		background-color: #d1ecf1;
+		border-color: #bee5eb;
+	}
 
-.ss-dynamic-row.distance-based:hover {
-	background-color: #bee5eb !important;
-}
+	.ss-dynamic-row.distance-based:hover {
+		background-color: #bee5eb !important;
+	}
 
-.small-label {
-	font-size: 12px;
-	font-weight: 600;
-	color: #495057;
-	margin-bottom: 5px;
-	display: block;
-}
+	.small-label {
+		font-size: 12px;
+		font-weight: 600;
+		color: #495057;
+		margin-bottom: 5px;
+		display: block;
+	}
 
-/* Remove any negative margins that might push content outside */
-.ss-rows-container .row {
-	margin-left: 0;
-	margin-right: 0;
-}
+	/* Remove any negative margins that might push content outside */
+	.ss-rows-container .row {
+		margin-left: 0;
+		margin-right: 0;
+	}
 
-.ss-rows-container .col-xl-3,
-.ss-rows-container .col-xl-2,
-.ss-rows-container .col-xl-1 {
-	padding-left: 10px;
-	padding-right: 10px;
-}
+	.ss-rows-container .col-xl-3,
+	.ss-rows-container .col-xl-2,
+	.ss-rows-container .col-xl-1 {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
 </style>
 <script>
 	$(document).on('input', '#no_of_pax_b', function() {
