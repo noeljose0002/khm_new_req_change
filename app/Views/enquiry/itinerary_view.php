@@ -2607,7 +2607,7 @@ $cs_trans_total = 0;
 												$bifur_child_total = 0;
 												$bifur_child_wb_total = 0;
 												$bifur_extra_total = 0;
-												$itinerary_details_save_count = count($itinerary_details_save);
+												$itinerary_details_save_count = count($itinerary_details_save) - 1;
 
 												// initialize counters
 												$json_addons = [];
@@ -3058,6 +3058,87 @@ $cs_trans_total = 0;
 												<tr>
 													<th colspan="5">Total Hotel Facility Cost</th>
 													<th style="text-align:right;"><?php echo number_format($cs_addon_total, 2); ?></th>
+												</tr>
+											</table>
+										</div>
+									</div>
+								<?php
+								}
+
+								// Count sightseeing entries (with pax=1)
+								$sightseeing_count = 0;
+								foreach ($itinerary_details_save as $keyh => $valh) {
+									$ss_data = json_decode($valh['ss_data_json'] ?? '[]', true);
+									if (!empty($ss_data)) {
+										foreach ($ss_data as $ss) {
+											// Filter for pax=1 (assuming 'is_pax' field indicates per pax, or always 1)
+											if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
+												$sightseeing_count++;
+											} else {
+												// If no 'is_pax', assume all are with pax=1
+												$sightseeing_count++;
+											}
+										}
+									}
+								}
+
+								if ($sightseeing_count > 0) {
+								?>
+									<div class="costing-container">
+										<div class="table-responsive costing-box">
+											<table class="table table-bordered costing-table">
+												<tr>
+													<th>Si No</th>
+													<th>Date</th>
+													<th>Destination</th>
+													<th>Sightseeing</th>
+													<th>Tariff</th>
+												</tr>
+												<?php
+												$ss_count = 1;
+												$cs_sightseeing_total = 0;
+
+												foreach ($itinerary_details_save as $keyh => $valh) {
+													$ss_data = json_decode($valh['ss_data_json'] ?? '[]', true);
+													if (!empty($ss_data)) {
+														foreach ($ss_data as $ss) {
+															// Filter for pax=1
+															if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
+																$tariff = isset($ss['pax_cost']) ? floatval($ss['pax_cost']) : (isset($ss['cost']) ? floatval($ss['cost']) : 0);
+																if ($tariff > 0) {
+															?>
+																	<tr>
+																		<td><?php echo $ss_count++; ?></td>
+																		<td><?php echo date("d-m-Y", strtotime($valh['tour_date'])); ?></td>
+																		<td><?php echo $valh['geog_name']; ?></td>
+																		<td><?php echo $ss['name']; ?></td>
+																		<td style="text-align:right;"><?php echo number_format($tariff, 2); ?></td>
+																	</tr>
+															<?php
+																	$cs_sightseeing_total += $tariff;
+																}
+															} else {
+																// If no 'is_pax', assume pax=1 and include
+																$tariff = isset($ss['pax_cost']) ? floatval($ss['pax_cost']) : (isset($ss['cost']) ? floatval($ss['cost']) : 0);
+																if ($tariff > 0) {
+															?>
+																	<tr>
+																		<td><?php echo $ss_count++; ?></td>
+																		<td><?php echo date("d-m-Y", strtotime($valh['tour_date'])); ?></td>
+																		<td><?php echo $valh['geog_name']; ?></td>
+																		<td><?php echo $ss['name']; ?></td>
+																		<td style="text-align:right;"><?php echo number_format($tariff, 2); ?></td>
+																	</tr>
+															<?php
+																	$cs_sightseeing_total += $tariff;
+																}
+															}
+														}
+													}
+												} ?>
+												<tr>
+													<th colspan="4">Total Sightseeing Cost (with Pax)</th>
+													<th style="text-align:right;"><?php echo number_format($cs_sightseeing_total, 2); ?></th>
 												</tr>
 											</table>
 										</div>

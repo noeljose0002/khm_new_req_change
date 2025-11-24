@@ -73,6 +73,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
                             <?php 
 							$special_event_count = 0;
 							$addon_count = 0;
+							$sightseeing_count = 0;
                             $k = 1;
                             $sum = 0;
                             $gtot = 0;
@@ -86,7 +87,15 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 								}
 								$json_addons = json_decode($val['json_addons'],true);
 								if(!empty($json_addons)){
-									$addon_count = $addon_count + 1;
+									$addon_count = $addon_count + count($json_addons);
+								}
+								$ss_data_temp = json_decode($val['ss_data_json'] ?? '[]', true);
+								if(!empty($ss_data_temp)){
+									foreach($ss_data_temp as $ss){
+										if ((isset($ss['is_pax']) && $ss['is_pax'] == 1) || !isset($ss['is_pax'])) {
+											$sightseeing_count++;
+										}
+									}
 								}
 
                                 // NEW EXPANSION DATA LOGIC
@@ -554,6 +563,54 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 						<?php
 							}
 						?>
+						<?php 
+							if($sightseeing_count > 0){ 
+								$ss_count = 1;
+								?>
+								<table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
+						  			<tr>
+							 			<td colspan="5" style="text-align:center;background-color:#ffe680;color:black;"><b>Sightseeing Tariff (with Pax)</b></td>
+						 			</tr>
+									<tr>
+                                    	<td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Si No</b></td>
+                                    	<td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Date</b></td>
+										<td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Destination</b></td>
+										<td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Sightseeing</b></td>
+										<td style="background-color:#4baf58;color:#fff;border:1px solid black;text-align:right;"><b>Tariff</b></td>
+									</tr>
+									<?php
+									$cs_sightseeing_total = 0;
+									    foreach($iti_data as $keyh => $valh) { 
+											$ss_data = json_decode($valh['ss_data_json'] ?? '[]', true);
+											if (!empty($ss_data)) {
+												foreach ($ss_data as $ss) {
+													if ((isset($ss['is_pax']) && $ss['is_pax'] == 1) || !isset($ss['is_pax'])) {
+														$tariff = isset($ss['pax_cost']) ? floatval($ss['pax_cost']) : (isset($ss['cost']) ? floatval($ss['cost']) : 0);
+														if ($tariff > 0) {
+															?>
+															<tr>
+																<td style="border:1px solid black;"><?php echo $ss_count++; ?></td>
+																<td style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($valh['tour_date'])); ?></td>
+																<td style="border:1px solid black;"><?php echo $valh['geog_name']; ?></td>
+																<td style="border:1px solid black;"><?php echo $ss['name']; ?></td>
+																<td style="border:1px solid black;text-align:right;"><?php echo number_format($tariff, 2); ?></td>
+															</tr>
+															<?php
+															$cs_sightseeing_total += $tariff;
+														}
+													}
+												}
+											}
+										}
+									?>	
+									<tr>
+										<td colspan="4" style="border:1px solid black;"><b>Total Sightseeing Cost (with Pax)</b></td>
+										<td style="border:1px solid black;text-align:right;"><b><?php echo number_format($cs_sightseeing_total, 2); ?></b></td>
+									</tr>
+								</table>
+						<?php
+							}
+						?>
 						<table style="width:100%;border-collapse: collapse;">  
 							<tr>
 								<td><b>Total Accommodation Cost</b></td>
@@ -638,7 +695,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 					<table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
                           
 						  <tr>
-							 <td colspan="22" style="text-align:center;background-color:#4baf58;color:#fff;border:1px solid black;"><b>Transportation</b></td>
+							 <td colspan="7" style="text-align:center;background-color:#4baf58;color:#fff;border:1px solid black;"><b>Transportation</b></td>
 						 </tr>
 						 <tr>
 							 <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Day</b></td>
@@ -654,7 +711,10 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 						<?php
 						$cs_trans_total = 0;
 						$total_permit = 0;
-						$total_extra_klm_cost = 0;
+						$sum_travel = 0;
+						$sum_max_km = 0;
+						$extra_rate = 0;
+						$vehicle_models = array();
 						$dayNo = 1;                                      
                     	$itinerary_details_save_cnt = count($iti_data)-1;
 						$kv = 1;
@@ -669,7 +729,6 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 										$ss_name_temp = $ss_name[0]['object_name'];
 									}
 									else{
-										//$ss_name_temp = "";
 										$trimmed = substr((string)$sight_seeing_id, 0, -3);
 													
 										$ss_name = $Enquiry_model->getDefaultSightName($trimmed);
@@ -703,7 +762,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 													
 								if ($first) {
 									echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$dayNo.'</td>';
-									echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.date('d-m-Y', strtotime($tourDate)).'</td>';
+									echo '<td rowspan="'.$rowspan.'" style="text-align:center;border:1px solid black;">'.date('d-m-Y', strtotime($tourDate)).'</td>';
 									echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$day['transport_remarks'].'</td>';
 
 															if(date("d-m-Y", strtotime($tourDate)) == date("d-m-Y", strtotime($object_det[0]['date_of_tour_completion']))){
@@ -726,29 +785,35 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 														echo '<td style="border:1px solid black;">'.$v->vehicle_model.'</td>';
 														echo '<td style="border:1px solid black;text-align:right;">'.$v->day_rent.'</td>';
 														echo '</tr>';
-														$cs_trans_total = $cs_trans_total + $v->day_rent;
-													}
-													if($dkey == $itinerary_details_save_cnt){
-													
-														$first1   = true;   
-														foreach ($vehicles as $v) {
-															echo '<tr>';
+														$cs_trans_total += (float)($v->day_rent ?? 0);
 
-															if ($first1) {
-																echo '<td rowspan="'.$rowspan.'" colspan="4" style="border:1px solid black;">Extra Kilometer (Rate : '.$v->extra_km_rate.')</td>';               
-																$first1 = false;
-															}
-
-															echo '<td style="border:1px solid black;">'.$v->total_extra_kilometer.'</td>';
-															echo '<td style="border:1px solid black;">'.$v->vehicle_model.'</td>';
-															echo '<td style="border:1px solid black;text-align:right;">'.$v->total_extra_cost.'</td>';
-															echo '</tr">';
-															$cs_trans_total = $cs_trans_total + $v->total_extra_cost;
-															$total_extra_klm_cost = $total_extra_klm_cost + $v->total_extra_cost;
+														// Accumulate totals for extra KM calculation
+														$travel_this = (float)($v->travel_distance ?? 0);
+														$max_this = (float)($v->max_km_day ?? 0); // Assuming field name 'max_km_day'; adjust if different (e.g., 'included_km', 'day_limit_km')
+														$sum_travel += $travel_this;
+														$sum_max_km += $max_this;
+														if ($extra_rate == 0 && isset($v->extra_km_rate)) {
+															$extra_rate = (float)$v->extra_km_rate;
 														}
-															
+														$vehicle_models[] = $v->vehicle_model;
 													}
-						} ?>
+						} 
+						// Compute and add extra KM row based on formula
+						$total_extra_km = max(0, $sum_travel - $sum_max_km);
+						$total_extra_klm_cost = $total_extra_km * $extra_rate;
+						$cs_trans_total += $total_extra_klm_cost;
+						if ($total_extra_km > 0) {
+							$model_str = implode(', ', array_unique($vehicle_models));
+							?>
+							<tr>
+								<td colspan="4" style="border:1px solid black;">Extra Kilometer (Rate : <?php echo number_format($extra_rate, 2); ?>)</td>
+								<td style="border:1px solid black;"><?php echo number_format($total_extra_km, 2); ?></td>
+								<td style="border:1px solid black;"><?php echo $model_str; ?></td>
+								<td style="border:1px solid black;text-align:right;"><?php echo number_format($total_extra_klm_cost, 2); ?></td>
+							</tr>
+							<?php
+						}
+						?>
 						
 					</table>
                 <?php } ?>
@@ -756,11 +821,11 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 						<?php if($object_det[0]['is_vehicle_required'] == 1){ ?>
 							<tr>
 								<td><b>Total Transportaion Cost</b></td>
-								<td style="text-align:right;"><b><?php echo $cs_trans_total; ?></b></td>
+								<td style="text-align:right;"><b><?php echo number_format($cs_trans_total, 2); ?></b></td>
 							</tr>
 							<tr>
 								<td><b>Other Charges / Permit</b></td>
-								<td style="text-align:right;"><b><?php echo $total_permit; ?></b></td>
+								<td style="text-align:right;"><b><?php echo number_format($total_permit, 2); ?></b></td>
 							</tr>
 						<?php } ?>
 						<tr> 
