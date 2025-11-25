@@ -598,205 +598,207 @@ class Enquiry extends BaseController
             return redirect()->to('Login');
         }
     }
-   public function add_object_enquiry($object_class_id, $edit_id = null)
-{
-    if (!empty(session()->get('user_id'))) {
-        $Enquiry_model = new Enquiry_m();
-        $Dashboard_model = new Dashboard_m();
-        $entity_id = session('user_id');
-        $active_role = session('active_role');
-        $all_systems = $Dashboard_model->get_all_systems($entity_id);
-        $data['all_systems'] = $all_systems;
-        $all_roles = $Dashboard_model->get_all_entity_roles($entity_id);
-        $employees_all = [];
-        $employees_all = $Dashboard_model->get_all_employees_for_reassign();
-        if (!empty($all_roles)) {
-            $data['all_roles_assn'] = $all_roles;
-            $all_menus = $Dashboard_model->get_all_role_menus($active_role);
-            if (!empty($all_menus)) {
-                $data['all_menus'] = $all_menus;
-            } else {
-                $data['all_menus'] = [];
-            }
-            $all_permissions = $Dashboard_model->get_all_entity_permissions($active_role, 3);
-            if (!empty($all_permissions)) {
-                $data['all_permissions'] = $all_permissions;
-            } else {
-                $data['all_permissions'] = [];
-            }
-        } else {
-            $data['all_roles_assn'] = [];
-            $data['all_menus'] = [];
-            $data['all_permissions'] = [];
-        }
-        if ($edit_id) {
-            $object_datas = $Enquiry_model->load_object_enquiry_datas_foredit($edit_id);
-            $obj_name = $object_datas[0]['object_name'] ?? '';
-            $obj_loc = $object_datas[0]['object_location_id'] ?? '';
-            if (!empty($object_datas[0]['agentid'])) {
-                $agentid = $object_datas[0]['agentid'];
-                $agent_details = $Enquiry_model->getAgentDetailsforedit($agentid);
-                foreach ($agent_details as $keys => $vals) {
-                    if ($vals['entity_attribute_id'] == "15") {
-                        $agent_state_id = $vals['entity_attr_value'];
-                    }
+    public function add_object_enquiry($object_class_id, $edit_id = null)
+    {
+        if (!empty(session()->get('user_id'))) {
+            $Enquiry_model = new Enquiry_m();
+            $Dashboard_model = new Dashboard_m();
+            $entity_id = session('user_id');
+            $active_role = session('active_role');
+            $all_systems = $Dashboard_model->get_all_systems($entity_id);
+            $data['all_systems'] = $all_systems;
+            $all_roles = $Dashboard_model->get_all_entity_roles($entity_id);
+            $employees_all = [];
+            $employees_all = $Dashboard_model->get_all_employees_for_reassign();
+            if (!empty($all_roles)) {
+                $data['all_roles_assn'] = $all_roles;
+                $all_menus = $Dashboard_model->get_all_role_menus($active_role);
+                if (!empty($all_menus)) {
+                    $data['all_menus'] = $all_menus;
+                } else {
+                    $data['all_menus'] = [];
+                }
+                $all_permissions = $Dashboard_model->get_all_entity_permissions($active_role, 3);
+                if (!empty($all_permissions)) {
+                    $data['all_permissions'] = $all_permissions;
+                } else {
+                    $data['all_permissions'] = [];
                 }
             } else {
+                $data['all_roles_assn'] = [];
+                $data['all_menus'] = [];
+                $data['all_permissions'] = [];
+            }
+            if ($edit_id) {
+                $object_datas = $Enquiry_model->load_object_enquiry_datas_foredit($edit_id);
+                $obj_name = $object_datas[0]['object_name'];
+                $obj_loc = $object_datas[0]['object_location_id'];
+                if (!empty($object_datas[0]['agentid'])) {
+                    $agentid = $object_datas[0]['agentid'];
+                    $agent_details = $Enquiry_model->getAgentDetailsforedit($agentid);
+                    foreach ($agent_details as $keys => $vals) {
+                        if ($vals['entity_attribute_id'] == "15") {
+                            $agent_state_id = $vals['entity_attr_value'];
+                        }
+                    }
+                } else {
+                    $agentid = '';
+                    $agent_details = [];
+                    $agent_state_id = '';
+                }
+                $guestid = $object_datas[0]['guestid'];
+                $date_of_tour_start = $object_datas[0]['date_of_tour_start'];
+                $no_of_night = $object_datas[0]['no_of_night'];
+                $date_of_tour_completion = $object_datas[0]['date_of_tour_completion'];
+                $enquiry_source = $object_datas[0]['enquiry_source'];
+                $total_no_of_pax = $object_datas[0]['total_no_of_pax'];
+                $no_of_adult = $object_datas[0]['no_of_adult'];
+                $no_of_child_with_bed = $object_datas[0]['no_of_child_with_bed'];
+                $no_of_child_without_bed = $object_datas[0]['no_of_child_without_bed'];
+                $no_of_child_below_five=$object_datas[0]['no_of_child_below_five'];
+                $no_of_double_room = $object_datas[0]['no_of_double_room'];
+                $no_of_single_room = $object_datas[0]['no_of_single_room'];
+                $no_of_extra_bed = $object_datas[0]['no_of_extra_bed'];
+                $gstin = $object_datas[0]['gstin'];
+                $vehicle_from_location = $object_datas[0]['vehicle_from_location'];
+                $arrival_location = $object_datas[0]['arrival_location'];
+                $departure_location = $object_datas[0]['departure_location'];
+                $hotel_category = $object_datas[0]['hotel_category'];
+                $meal_plan = $object_datas[0]['meal_plan'];
+                $is_vehicle_required = $object_datas[0]['is_vehicle_required'];
+                $is_sight_seeing_required = $object_datas[0]['is_sight_seeing_required'];
+                $is_quick_quote = $object_datas[0]['is_quick_quote'];
+                $enq_description = $object_datas[0]['enq_description'];
+                $source_reference = $object_datas[0]['source_reference'];
+                $sales_support_assigned_to = $object_datas[0]['sales_support_assigned_to'];
+
+                $obj_mobiles = json_decode($object_datas[0]['object_ph_no'], true);
+                $obj_emails = json_decode($object_datas[0]['object_email'], true);
+                $obj_addresss = json_decode($object_datas[0]['object_address'], true);
+
+                $obj_mobile = $obj_mobiles[0];
+                $obj_email = $obj_emails[0];
+                $obj_address = $obj_addresss[0];
+
+                $agentaddress = json_decode($object_datas[0]['agentaddress'], true);
+                $vehicle_type_id = json_decode($object_datas[0]['vehicle_type_id'], true);
+            } else {
+
+                $obj_name = '';
+                $obj_loc = '';
+
                 $agentid = '';
+                $guestid = '';
+                $date_of_tour_start = '';
+                $no_of_night = '';
+                $date_of_tour_completion = '';
+                $enquiry_source = '';
+                $total_no_of_pax = '';
+                $no_of_adult = '';
+                $no_of_child_with_bed = '';
+                $no_of_child_without_bed = '';
+                $no_of_child_below_five = '';
+                $no_of_double_room = '';
+                $no_of_single_room = '';
+                $no_of_extra_bed = '';
+                $gstin = '';
+                $vehicle_from_location = '';
+                $arrival_location = '';
+                $departure_location = '';
+                $hotel_category = '';
+                $meal_plan = '';
+                $is_vehicle_required = '';
+                $is_sight_seeing_required = '';
+                $is_quick_quote = '';
+                $enq_description = '';
+
+                $obj_mobile = '';
+                $obj_email = '';
+                $obj_address = '';
+
+                $agentaddress = [];
+                $vehicle_type_id = [];
                 $agent_details = [];
                 $agent_state_id = '';
+                $source_reference = '';
+                $sales_support_assigned_to = '';
             }
-            $guestid = $object_datas[0]['guestid'] ?? '';
-            $date_of_tour_start = $object_datas[0]['date_of_tour_start'] ?? '';
-            $no_of_night = $object_datas[0]['no_of_night'] ?? '';
-            $date_of_tour_completion = $object_datas[0]['date_of_tour_completion'] ?? '';
-            $enquiry_source = $object_datas[0]['enquiry_source'] ?? '';
-            $total_no_of_pax = $object_datas[0]['total_no_of_pax'] ?? '';
-            $no_of_adult = $object_datas[0]['no_of_adult'] ?? '';
-            $no_of_child_with_bed = $object_datas[0]['no_of_child_with_bed'] ?? '';
-            $no_of_child_without_bed = $object_datas[0]['no_of_child_without_bed'] ?? '';
-            $no_of_child_below_five = $object_datas[0]['no_of_child_below_five'] ?? '';
-            $no_of_double_room = $object_datas[0]['no_of_double_room'] ?? '';
-            $no_of_single_room = $object_datas[0]['no_of_single_room'] ?? '';
-            $no_of_extra_bed = $object_datas[0]['no_of_extra_bed'] ?? '';
-            $gstin = $object_datas[0]['gstin'] ?? '';
-            $vehicle_from_location = $object_datas[0]['vehicle_from_location'] ?? '';
-            $arrival_location = $object_datas[0]['arrival_location'] ?? '';
-            $departure_location = $object_datas[0]['departure_location'] ?? '';
-            $hotel_category = $object_datas[0]['hotel_category'] ?? '';
-            $meal_plan = $object_datas[0]['meal_plan'] ?? '';
-            $is_vehicle_required = $object_datas[0]['is_vehicle_required'] ?? '';
-            $is_sight_seeing_required = $object_datas[0]['is_sight_seeing_required'] ?? '';
-            $is_quick_quote = $object_datas[0]['is_quick_quote'] ?? '';
-            $enq_description = $object_datas[0]['enq_description'] ?? '';
-            $source_reference = $object_datas[0]['source_reference'] ?? '';
-            $sales_support_assigned_to = $object_datas[0]['sales_support_assigned_to'] ?? '';
+            $all_locations = $Dashboard_model->get_all_locations();
+            $arrival_locations = $Dashboard_model->get_arrival_locations();
+            $departure_locations = $Dashboard_model->get_departure_locations();
+            $hotel_categories = $Dashboard_model->get_hotel_categories();
+            $meal_plans = $Dashboard_model->get_meal_plan();
+            $hub_loc = $Dashboard_model->get_hub_location();
+            $enterprise_id = 1;
+            //$attributes = $Dashboard_model->get_all_obj_attributes($object_class_id);
+            //$boolean_attributes = $Dashboard_model->get_obj_boolean_attributes($object_class_id);
+            $object_class_det = $Dashboard_model->get_object_class_details($object_class_id);
+            $object_type_id = 5;
+            $parent_menu = $Dashboard_model->get_parent_menus();
+            $sub_menu = $Dashboard_model->get_sub_menus();
+            $data['parent_menu'] = $parent_menu;
+            $data['sub_menu'] = $sub_menu;
+            $data['object_class_id'] = $object_class_id;
+            $data['object_type_id'] = $object_type_id;
+            if (!empty($object_class_det)) {
+                $data['object_class_name'] = $object_class_det[0]['object_class_name'];
+            } else {
+                $data['object_class_name'] = null;
+            }
+            $data['states'] = $Enquiry_model->indian_states();
+            $data['all_agents'] = $Enquiry_model->get_all_agents();
+            $data['all_locations'] = $all_locations;
+            $data['arrival_locations'] = $arrival_locations;
+            $data['departure_locations'] = $departure_locations;
+            $data['hotel_categories'] = $hotel_categories;
+            $data['meal_plans'] = $meal_plans;
+            $data['hub_loc'] = $hub_loc;
+            $data['enterprise_id'] = $enterprise_id;
+            $data['edit_id'] = $edit_id;
 
-            $obj_mobiles = json_decode($object_datas[0]['object_ph_no'] ?? '[]', true);
-            $obj_emails = json_decode($object_datas[0]['object_email'] ?? '[]', true);
-            $obj_addresss = json_decode($object_datas[0]['object_address'] ?? '[]', true);
+            $data['obj_name'] = $obj_name;
+            $data['obj_loc'] = $obj_loc;
+            $data['agentid'] = $agentid;
+            $data['guestid'] = $guestid;
+            $data['date_of_tour_start'] = $date_of_tour_start;
+            $data['no_of_night'] = $no_of_night;
+            $data['date_of_tour_completion'] = $date_of_tour_completion;
+            $data['enquiry_source'] = $enquiry_source;
+            $data['total_no_of_pax'] = $total_no_of_pax;
+            $data['no_of_adult'] = $no_of_adult;
+            $data['no_of_child_with_bed'] = $no_of_child_with_bed;
+            $data['no_of_child_without_bed'] = $no_of_child_without_bed;
+            $data['no_of_child_below_five'] = $no_of_child_below_five;
+            $data['no_of_double_room'] = $no_of_double_room;
+            $data['no_of_single_room'] = $no_of_single_room;
+            $data['no_of_extra_bed'] = $no_of_extra_bed;
+            $data['gstin'] = $gstin;
+            $data['vehicle_from_location'] = $vehicle_from_location;
+            $data['arrival_location'] = $arrival_location;
+            $data['departure_location'] = $departure_location;
+            $data['hotel_category'] = $hotel_category;
+            $data['meal_plan'] = $meal_plan;
+            $data['is_vehicle_required'] = $is_vehicle_required;
+            $data['is_sight_seeing_required'] = $is_sight_seeing_required;
+            $data['is_quick_quote'] = $is_quick_quote;
+            $data['enq_description'] = $enq_description;
 
-            $obj_mobile = $obj_mobiles[0] ?? '';
-            $obj_email = $obj_emails[0] ?? '';
-            $obj_address = $obj_addresss[0] ?? '';
-
-            $agentaddress = json_decode($object_datas[0]['agentaddress'] ?? '[]', true);
-            $vehicle_type_id = json_decode($object_datas[0]['vehicle_type_id'] ?? '[]', true);
+            $data['obj_mobile'] = $obj_mobile;
+            $data['obj_email'] = $obj_email;
+            $data['obj_address'] = $obj_address;
+            $data['agentaddress'] = $agentaddress;
+            $data['vehicle_type_id'] = $vehicle_type_id;
+            $data['agent_details'] = $agent_details;
+            $data['agent_state_id'] = $agent_state_id;
+            $data['source_reference'] = $source_reference;
+            $data['active_role'] = $active_role;
+            $data['employees_all'] = $employees_all;
+            $data['sales_support_assigned_to'] = $sales_support_assigned_to;
+            return view('enquiry/add_object_enquiry', $data);
         } else {
-
-            $obj_name = '';
-            $obj_loc = '';
-
-            $agentid = '';
-            $guestid = '';
-            $date_of_tour_start = '';
-            $no_of_night = '';
-            $date_of_tour_completion = '';
-            $enquiry_source = '';
-            $total_no_of_pax = '';
-            $no_of_adult = '';
-            $no_of_child_with_bed = '';
-            $no_of_child_without_bed = '';
-            $no_of_child_below_five = '';
-            $no_of_double_room = '';
-            $no_of_single_room = '';
-            $no_of_extra_bed = '';
-            $gstin = '';
-            $vehicle_from_location = '';
-            $arrival_location = '';
-            $departure_location = '';
-            $hotel_category = '';
-            $meal_plan = '';
-            $is_vehicle_required = '';
-            $is_sight_seeing_required = '';
-            $is_quick_quote = '';
-            $enq_description = '';
-
-            $obj_mobile = '';
-            $obj_email = '';
-            $obj_address = '';
-
-            $agentaddress = [];
-            $vehicle_type_id = [];
-            $agent_details = [];
-            $agent_state_id = '';
-            $source_reference = '';
-            $sales_support_assigned_to = '';
+            return redirect()->to('Login');
         }
-        $all_locations = $Dashboard_model->get_all_locations();
-        $arrival_locations = $Dashboard_model->get_arrival_locations();
-        $departure_locations = $Dashboard_model->get_departure_locations();
-        $hotel_categories = $Dashboard_model->get_hotel_categories();
-        $meal_plans = $Dashboard_model->get_meal_plan();
-        $hub_loc = $Dashboard_model->get_hub_location();
-        $enterprise_id = 1;
-        $object_class_det = $Dashboard_model->get_object_class_details($object_class_id);
-        $object_type_id = 5;
-        $parent_menu = $Dashboard_model->get_parent_menus();
-        $sub_menu = $Dashboard_model->get_sub_menus();
-        $data['parent_menu'] = $parent_menu;
-        $data['sub_menu'] = $sub_menu;
-        $data['object_class_id'] = $object_class_id;
-        $data['object_type_id'] = $object_type_id;
-        if (!empty($object_class_det)) {
-            $data['object_class_name'] = $object_class_det[0]['object_class_name'];
-        } else {
-            $data['object_class_name'] = null;
-        }
-        $data['states'] = $Enquiry_model->indian_states();
-        $data['all_agents'] = $Enquiry_model->get_all_agents();
-        $data['all_locations'] = $all_locations;
-        $data['arrival_locations'] = $arrival_locations;
-        $data['departure_locations'] = $departure_locations;
-        $data['hotel_categories'] = $hotel_categories;
-        $data['meal_plans'] = $meal_plans;
-        $data['hub_loc'] = $hub_loc;
-        $data['enterprise_id'] = $enterprise_id;
-        $data['edit_id'] = $edit_id;
-
-        $data['obj_name'] = $obj_name;
-        $data['obj_loc'] = $obj_loc;
-        $data['agentid'] = $agentid;
-        $data['guestid'] = $guestid;
-        $data['date_of_tour_start'] = $date_of_tour_start;
-        $data['no_of_night'] = $no_of_night;
-        $data['date_of_tour_completion'] = $date_of_tour_completion;
-        $data['enquiry_source'] = $enquiry_source;
-        $data['total_no_of_pax'] = $total_no_of_pax;
-        $data['no_of_adult'] = $no_of_adult;
-        $data['no_of_child_with_bed'] = $no_of_child_with_bed;
-        $data['no_of_child_without_bed'] = $no_of_child_without_bed;
-        $data['no_of_child_below_five'] = $no_of_child_below_five;
-        $data['no_of_double_room'] = $no_of_double_room;
-        $data['no_of_single_room'] = $no_of_single_room;
-        $data['no_of_extra_bed'] = $no_of_extra_bed;
-        $data['gstin'] = $gstin;
-        $data['vehicle_from_location'] = $vehicle_from_location;
-        $data['arrival_location'] = $arrival_location;
-        $data['departure_location'] = $departure_location;
-        $data['hotel_category'] = $hotel_category;
-        $data['meal_plan'] = $meal_plan;
-        $data['is_vehicle_required'] = $is_vehicle_required;
-        $data['is_sight_seeing_required'] = $is_sight_seeing_required;
-        $data['is_quick_quote'] = $is_quick_quote;
-        $data['enq_description'] = $enq_description;
-
-        $data['obj_mobile'] = $obj_mobile;
-        $data['obj_email'] = $obj_email;
-        $data['obj_address'] = $obj_address;
-        $data['agentaddress'] = $agentaddress;
-        $data['vehicle_type_id'] = $vehicle_type_id;
-        $data['agent_details'] = $agent_details;
-        $data['agent_state_id'] = $agent_state_id;
-        $data['source_reference'] = $source_reference;
-        $data['active_role'] = $active_role;
-        $data['employees_all'] = $employees_all;
-        $data['sales_support_assigned_to'] = $sales_support_assigned_to;
-        return view('enquiry/add_object_enquiry', $data);
-    } else {
-        return redirect()->to('Login');
     }
-}
     function getAgents()
     {
         $Enquiry_model = new Enquiry_m();

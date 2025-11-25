@@ -1724,7 +1724,7 @@ public function get_eighteen_datas_single_by_date($tour_details_id, $tour_date)
         $db = \Config\Database::connect();
         $entity_class_attr_id = 1976;
         $selected_table = $db->table('khm_obj_mst a');
-        $result = $selected_table->select('a.*,ag.entity_id as agentid,ag.entity_address as agentaddress,gs.entity_id as guestid,t.date_of_tour_start,t.no_of_night,t.date_of_tour_completion,t.enquiry_source,t.total_no_of_pax,t.no_of_adult,t.no_of_child_with_bed,t.no_of_child_without_bed,t.no_of_child_below_five,t.no_of_double_room,t.no_of_single_room,t.no_of_extra_bed,t.gstin,t.vehicle_from_location,t.arrival_location,t.departure_location,t.hotel_category,t.meal_plan,t.is_vehicle_required,t.is_sight_seeing_required,t.is_quick_quote,t.vehicle_type_id,t.enq_description,t.source_reference,t.sales_support_assigned_to')
+        $result = $selected_table->select('a.*,ag.entity_id as agentid,ag.entity_address as agentaddress,gs.entity_id as guestid,t.date_of_tour_start,t.no_of_night,t.date_of_tour_completion,t.enquiry_source,t.total_no_of_pax,t.no_of_adult,t.no_of_child_with_bed,t.no_of_child_without_bed,t.no_of_double_room,t.no_of_single_room,t.no_of_extra_bed,t.gstin,t.vehicle_from_location,t.arrival_location,t.departure_location,t.hotel_category,t.meal_plan,t.is_vehicle_required,t.is_sight_seeing_required,t.is_quick_quote,t.vehicle_type_id,t.enq_description,t.source_reference,t.sales_support_assigned_to')
             ->join('khm_loc_mst_geography g', 'g.geog_id = a.object_location_id', 'left')
             ->join('khm_obj_enquiry_header h', 'h.object_id = a.object_id', 'left')
             ->join('khm_obj_enquiry_details t', 't.enquiry_header_id = h.enquiry_header_id', 'left')
