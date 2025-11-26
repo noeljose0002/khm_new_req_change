@@ -598,205 +598,205 @@ class Enquiry extends BaseController
             return redirect()->to('Login');
         }
     }
-   public function add_object_enquiry($object_class_id, $edit_id = null)
-{
-    if (!empty(session()->get('user_id'))) {
-        $Enquiry_model = new Enquiry_m();
-        $Dashboard_model = new Dashboard_m();
-        $entity_id = session('user_id');
-        $active_role = session('active_role');
-        $all_systems = $Dashboard_model->get_all_systems($entity_id);
-        $data['all_systems'] = $all_systems;
-        $all_roles = $Dashboard_model->get_all_entity_roles($entity_id);
-        $employees_all = [];
-        $employees_all = $Dashboard_model->get_all_employees_for_reassign();
-        if (!empty($all_roles)) {
-            $data['all_roles_assn'] = $all_roles;
-            $all_menus = $Dashboard_model->get_all_role_menus($active_role);
-            if (!empty($all_menus)) {
-                $data['all_menus'] = $all_menus;
-            } else {
-                $data['all_menus'] = [];
-            }
-            $all_permissions = $Dashboard_model->get_all_entity_permissions($active_role, 3);
-            if (!empty($all_permissions)) {
-                $data['all_permissions'] = $all_permissions;
-            } else {
-                $data['all_permissions'] = [];
-            }
-        } else {
-            $data['all_roles_assn'] = [];
-            $data['all_menus'] = [];
-            $data['all_permissions'] = [];
-        }
-        if ($edit_id) {
-            $object_datas = $Enquiry_model->load_object_enquiry_datas_foredit($edit_id);
-            $obj_name = $object_datas[0]['object_name'] ?? '';
-            $obj_loc = $object_datas[0]['object_location_id'] ?? '';
-            if (!empty($object_datas[0]['agentid'])) {
-                $agentid = $object_datas[0]['agentid'];
-                $agent_details = $Enquiry_model->getAgentDetailsforedit($agentid);
-                foreach ($agent_details as $keys => $vals) {
-                    if ($vals['entity_attribute_id'] == "15") {
-                        $agent_state_id = $vals['entity_attr_value'];
-                    }
+    public function add_object_enquiry($object_class_id, $edit_id = null)
+    {
+        if (!empty(session()->get('user_id'))) {
+            $Enquiry_model = new Enquiry_m();
+            $Dashboard_model = new Dashboard_m();
+            $entity_id = session('user_id');
+            $active_role = session('active_role');
+            $all_systems = $Dashboard_model->get_all_systems($entity_id);
+            $data['all_systems'] = $all_systems;
+            $all_roles = $Dashboard_model->get_all_entity_roles($entity_id);
+            $employees_all = [];
+            $employees_all = $Dashboard_model->get_all_employees_for_reassign();
+            if (!empty($all_roles)) {
+                $data['all_roles_assn'] = $all_roles;
+                $all_menus = $Dashboard_model->get_all_role_menus($active_role);
+                if (!empty($all_menus)) {
+                    $data['all_menus'] = $all_menus;
+                } else {
+                    $data['all_menus'] = [];
+                }
+                $all_permissions = $Dashboard_model->get_all_entity_permissions($active_role, 3);
+                if (!empty($all_permissions)) {
+                    $data['all_permissions'] = $all_permissions;
+                } else {
+                    $data['all_permissions'] = [];
                 }
             } else {
+                $data['all_roles_assn'] = [];
+                $data['all_menus'] = [];
+                $data['all_permissions'] = [];
+            }
+            if ($edit_id) {
+                $object_datas = $Enquiry_model->load_object_enquiry_datas_foredit($edit_id);
+                $obj_name = $object_datas[0]['object_name'] ?? '';
+                $obj_loc = $object_datas[0]['object_location_id'] ?? '';
+                if (!empty($object_datas[0]['agentid'])) {
+                    $agentid = $object_datas[0]['agentid'];
+                    $agent_details = $Enquiry_model->getAgentDetailsforedit($agentid);
+                    foreach ($agent_details as $keys => $vals) {
+                        if ($vals['entity_attribute_id'] == "15") {
+                            $agent_state_id = $vals['entity_attr_value'];
+                        }
+                    }
+                } else {
+                    $agentid = '';
+                    $agent_details = [];
+                    $agent_state_id = '';
+                }
+                $guestid = $object_datas[0]['guestid'] ?? '';
+                $date_of_tour_start = $object_datas[0]['date_of_tour_start'] ?? '';
+                $no_of_night = $object_datas[0]['no_of_night'] ?? '';
+                $date_of_tour_completion = $object_datas[0]['date_of_tour_completion'] ?? '';
+                $enquiry_source = $object_datas[0]['enquiry_source'] ?? '';
+                $total_no_of_pax = $object_datas[0]['total_no_of_pax'] ?? '';
+                $no_of_adult = $object_datas[0]['no_of_adult'] ?? '';
+                $no_of_child_with_bed = $object_datas[0]['no_of_child_with_bed'] ?? '';
+                $no_of_child_without_bed = $object_datas[0]['no_of_child_without_bed'] ?? '';
+                $no_of_child_below_five = $object_datas[0]['no_of_child_below_five'] ?? '';
+                $no_of_double_room = $object_datas[0]['no_of_double_room'] ?? '';
+                $no_of_single_room = $object_datas[0]['no_of_single_room'] ?? '';
+                $no_of_extra_bed = $object_datas[0]['no_of_extra_bed'] ?? '';
+                $gstin = $object_datas[0]['gstin'] ?? '';
+                $vehicle_from_location = $object_datas[0]['vehicle_from_location'] ?? '';
+                $arrival_location = $object_datas[0]['arrival_location'] ?? '';
+                $departure_location = $object_datas[0]['departure_location'] ?? '';
+                $hotel_category = $object_datas[0]['hotel_category'] ?? '';
+                $meal_plan = $object_datas[0]['meal_plan'] ?? '';
+                $is_vehicle_required = $object_datas[0]['is_vehicle_required'] ?? '';
+                $is_sight_seeing_required = $object_datas[0]['is_sight_seeing_required'] ?? '';
+                $is_quick_quote = $object_datas[0]['is_quick_quote'] ?? '';
+                $enq_description = $object_datas[0]['enq_description'] ?? '';
+                $source_reference = $object_datas[0]['source_reference'] ?? '';
+                $sales_support_assigned_to = $object_datas[0]['sales_support_assigned_to'] ?? '';
+
+                $obj_mobiles = json_decode($object_datas[0]['object_ph_no'] ?? '[]', true);
+                $obj_emails = json_decode($object_datas[0]['object_email'] ?? '[]', true);
+                $obj_addresss = json_decode($object_datas[0]['object_address'] ?? '[]', true);
+
+                $obj_mobile = $obj_mobiles[0] ?? '';
+                $obj_email = $obj_emails[0] ?? '';
+                $obj_address = $obj_addresss[0] ?? '';
+
+                $agentaddress = json_decode($object_datas[0]['agentaddress'] ?? '[]', true);
+                $vehicle_type_id = json_decode($object_datas[0]['vehicle_type_id'] ?? '[]', true);
+            } else {
+
+                $obj_name = '';
+                $obj_loc = '';
+
                 $agentid = '';
+                $guestid = '';
+                $date_of_tour_start = '';
+                $no_of_night = '';
+                $date_of_tour_completion = '';
+                $enquiry_source = '';
+                $total_no_of_pax = '';
+                $no_of_adult = '';
+                $no_of_child_with_bed = '';
+                $no_of_child_without_bed = '';
+                $no_of_child_below_five = '';
+                $no_of_double_room = '';
+                $no_of_single_room = '';
+                $no_of_extra_bed = '';
+                $gstin = '';
+                $vehicle_from_location = '';
+                $arrival_location = '';
+                $departure_location = '';
+                $hotel_category = '';
+                $meal_plan = '';
+                $is_vehicle_required = '';
+                $is_sight_seeing_required = '';
+                $is_quick_quote = '';
+                $enq_description = '';
+
+                $obj_mobile = '';
+                $obj_email = '';
+                $obj_address = '';
+
+                $agentaddress = [];
+                $vehicle_type_id = [];
                 $agent_details = [];
                 $agent_state_id = '';
+                $source_reference = '';
+                $sales_support_assigned_to = '';
             }
-            $guestid = $object_datas[0]['guestid'] ?? '';
-            $date_of_tour_start = $object_datas[0]['date_of_tour_start'] ?? '';
-            $no_of_night = $object_datas[0]['no_of_night'] ?? '';
-            $date_of_tour_completion = $object_datas[0]['date_of_tour_completion'] ?? '';
-            $enquiry_source = $object_datas[0]['enquiry_source'] ?? '';
-            $total_no_of_pax = $object_datas[0]['total_no_of_pax'] ?? '';
-            $no_of_adult = $object_datas[0]['no_of_adult'] ?? '';
-            $no_of_child_with_bed = $object_datas[0]['no_of_child_with_bed'] ?? '';
-            $no_of_child_without_bed = $object_datas[0]['no_of_child_without_bed'] ?? '';
-            $no_of_child_below_five = $object_datas[0]['no_of_child_below_five'] ?? '';
-            $no_of_double_room = $object_datas[0]['no_of_double_room'] ?? '';
-            $no_of_single_room = $object_datas[0]['no_of_single_room'] ?? '';
-            $no_of_extra_bed = $object_datas[0]['no_of_extra_bed'] ?? '';
-            $gstin = $object_datas[0]['gstin'] ?? '';
-            $vehicle_from_location = $object_datas[0]['vehicle_from_location'] ?? '';
-            $arrival_location = $object_datas[0]['arrival_location'] ?? '';
-            $departure_location = $object_datas[0]['departure_location'] ?? '';
-            $hotel_category = $object_datas[0]['hotel_category'] ?? '';
-            $meal_plan = $object_datas[0]['meal_plan'] ?? '';
-            $is_vehicle_required = $object_datas[0]['is_vehicle_required'] ?? '';
-            $is_sight_seeing_required = $object_datas[0]['is_sight_seeing_required'] ?? '';
-            $is_quick_quote = $object_datas[0]['is_quick_quote'] ?? '';
-            $enq_description = $object_datas[0]['enq_description'] ?? '';
-            $source_reference = $object_datas[0]['source_reference'] ?? '';
-            $sales_support_assigned_to = $object_datas[0]['sales_support_assigned_to'] ?? '';
+            $all_locations = $Dashboard_model->get_all_locations();
+            $arrival_locations = $Dashboard_model->get_arrival_locations();
+            $departure_locations = $Dashboard_model->get_departure_locations();
+            $hotel_categories = $Dashboard_model->get_hotel_categories();
+            $meal_plans = $Dashboard_model->get_meal_plan();
+            $hub_loc = $Dashboard_model->get_hub_location();
+            $enterprise_id = 1;
+            $object_class_det = $Dashboard_model->get_object_class_details($object_class_id);
+            $object_type_id = 5;
+            $parent_menu = $Dashboard_model->get_parent_menus();
+            $sub_menu = $Dashboard_model->get_sub_menus();
+            $data['parent_menu'] = $parent_menu;
+            $data['sub_menu'] = $sub_menu;
+            $data['object_class_id'] = $object_class_id;
+            $data['object_type_id'] = $object_type_id;
+            if (!empty($object_class_det)) {
+                $data['object_class_name'] = $object_class_det[0]['object_class_name'];
+            } else {
+                $data['object_class_name'] = null;
+            }
+            $data['states'] = $Enquiry_model->indian_states();
+            $data['all_agents'] = $Enquiry_model->get_all_agents();
+            $data['all_locations'] = $all_locations;
+            $data['arrival_locations'] = $arrival_locations;
+            $data['departure_locations'] = $departure_locations;
+            $data['hotel_categories'] = $hotel_categories;
+            $data['meal_plans'] = $meal_plans;
+            $data['hub_loc'] = $hub_loc;
+            $data['enterprise_id'] = $enterprise_id;
+            $data['edit_id'] = $edit_id;
 
-            $obj_mobiles = json_decode($object_datas[0]['object_ph_no'] ?? '[]', true);
-            $obj_emails = json_decode($object_datas[0]['object_email'] ?? '[]', true);
-            $obj_addresss = json_decode($object_datas[0]['object_address'] ?? '[]', true);
+            $data['obj_name'] = $obj_name;
+            $data['obj_loc'] = $obj_loc;
+            $data['agentid'] = $agentid;
+            $data['guestid'] = $guestid;
+            $data['date_of_tour_start'] = $date_of_tour_start;
+            $data['no_of_night'] = $no_of_night;
+            $data['date_of_tour_completion'] = $date_of_tour_completion;
+            $data['enquiry_source'] = $enquiry_source;
+            $data['total_no_of_pax'] = $total_no_of_pax;
+            $data['no_of_adult'] = $no_of_adult;
+            $data['no_of_child_with_bed'] = $no_of_child_with_bed;
+            $data['no_of_child_without_bed'] = $no_of_child_without_bed;
+            $data['no_of_child_below_five'] = $no_of_child_below_five;
+            $data['no_of_double_room'] = $no_of_double_room;
+            $data['no_of_single_room'] = $no_of_single_room;
+            $data['no_of_extra_bed'] = $no_of_extra_bed;
+            $data['gstin'] = $gstin;
+            $data['vehicle_from_location'] = $vehicle_from_location;
+            $data['arrival_location'] = $arrival_location;
+            $data['departure_location'] = $departure_location;
+            $data['hotel_category'] = $hotel_category;
+            $data['meal_plan'] = $meal_plan;
+            $data['is_vehicle_required'] = $is_vehicle_required;
+            $data['is_sight_seeing_required'] = $is_sight_seeing_required;
+            $data['is_quick_quote'] = $is_quick_quote;
+            $data['enq_description'] = $enq_description;
 
-            $obj_mobile = $obj_mobiles[0] ?? '';
-            $obj_email = $obj_emails[0] ?? '';
-            $obj_address = $obj_addresss[0] ?? '';
-
-            $agentaddress = json_decode($object_datas[0]['agentaddress'] ?? '[]', true);
-            $vehicle_type_id = json_decode($object_datas[0]['vehicle_type_id'] ?? '[]', true);
+            $data['obj_mobile'] = $obj_mobile;
+            $data['obj_email'] = $obj_email;
+            $data['obj_address'] = $obj_address;
+            $data['agentaddress'] = $agentaddress;
+            $data['vehicle_type_id'] = $vehicle_type_id;
+            $data['agent_details'] = $agent_details;
+            $data['agent_state_id'] = $agent_state_id;
+            $data['source_reference'] = $source_reference;
+            $data['active_role'] = $active_role;
+            $data['employees_all'] = $employees_all;
+            $data['sales_support_assigned_to'] = $sales_support_assigned_to;
+            return view('enquiry/add_object_enquiry', $data);
         } else {
-
-            $obj_name = '';
-            $obj_loc = '';
-
-            $agentid = '';
-            $guestid = '';
-            $date_of_tour_start = '';
-            $no_of_night = '';
-            $date_of_tour_completion = '';
-            $enquiry_source = '';
-            $total_no_of_pax = '';
-            $no_of_adult = '';
-            $no_of_child_with_bed = '';
-            $no_of_child_without_bed = '';
-            $no_of_child_below_five = '';
-            $no_of_double_room = '';
-            $no_of_single_room = '';
-            $no_of_extra_bed = '';
-            $gstin = '';
-            $vehicle_from_location = '';
-            $arrival_location = '';
-            $departure_location = '';
-            $hotel_category = '';
-            $meal_plan = '';
-            $is_vehicle_required = '';
-            $is_sight_seeing_required = '';
-            $is_quick_quote = '';
-            $enq_description = '';
-
-            $obj_mobile = '';
-            $obj_email = '';
-            $obj_address = '';
-
-            $agentaddress = [];
-            $vehicle_type_id = [];
-            $agent_details = [];
-            $agent_state_id = '';
-            $source_reference = '';
-            $sales_support_assigned_to = '';
+            return redirect()->to('Login');
         }
-        $all_locations = $Dashboard_model->get_all_locations();
-        $arrival_locations = $Dashboard_model->get_arrival_locations();
-        $departure_locations = $Dashboard_model->get_departure_locations();
-        $hotel_categories = $Dashboard_model->get_hotel_categories();
-        $meal_plans = $Dashboard_model->get_meal_plan();
-        $hub_loc = $Dashboard_model->get_hub_location();
-        $enterprise_id = 1;
-        $object_class_det = $Dashboard_model->get_object_class_details($object_class_id);
-        $object_type_id = 5;
-        $parent_menu = $Dashboard_model->get_parent_menus();
-        $sub_menu = $Dashboard_model->get_sub_menus();
-        $data['parent_menu'] = $parent_menu;
-        $data['sub_menu'] = $sub_menu;
-        $data['object_class_id'] = $object_class_id;
-        $data['object_type_id'] = $object_type_id;
-        if (!empty($object_class_det)) {
-            $data['object_class_name'] = $object_class_det[0]['object_class_name'];
-        } else {
-            $data['object_class_name'] = null;
-        }
-        $data['states'] = $Enquiry_model->indian_states();
-        $data['all_agents'] = $Enquiry_model->get_all_agents();
-        $data['all_locations'] = $all_locations;
-        $data['arrival_locations'] = $arrival_locations;
-        $data['departure_locations'] = $departure_locations;
-        $data['hotel_categories'] = $hotel_categories;
-        $data['meal_plans'] = $meal_plans;
-        $data['hub_loc'] = $hub_loc;
-        $data['enterprise_id'] = $enterprise_id;
-        $data['edit_id'] = $edit_id;
-
-        $data['obj_name'] = $obj_name;
-        $data['obj_loc'] = $obj_loc;
-        $data['agentid'] = $agentid;
-        $data['guestid'] = $guestid;
-        $data['date_of_tour_start'] = $date_of_tour_start;
-        $data['no_of_night'] = $no_of_night;
-        $data['date_of_tour_completion'] = $date_of_tour_completion;
-        $data['enquiry_source'] = $enquiry_source;
-        $data['total_no_of_pax'] = $total_no_of_pax;
-        $data['no_of_adult'] = $no_of_adult;
-        $data['no_of_child_with_bed'] = $no_of_child_with_bed;
-        $data['no_of_child_without_bed'] = $no_of_child_without_bed;
-        $data['no_of_child_below_five'] = $no_of_child_below_five;
-        $data['no_of_double_room'] = $no_of_double_room;
-        $data['no_of_single_room'] = $no_of_single_room;
-        $data['no_of_extra_bed'] = $no_of_extra_bed;
-        $data['gstin'] = $gstin;
-        $data['vehicle_from_location'] = $vehicle_from_location;
-        $data['arrival_location'] = $arrival_location;
-        $data['departure_location'] = $departure_location;
-        $data['hotel_category'] = $hotel_category;
-        $data['meal_plan'] = $meal_plan;
-        $data['is_vehicle_required'] = $is_vehicle_required;
-        $data['is_sight_seeing_required'] = $is_sight_seeing_required;
-        $data['is_quick_quote'] = $is_quick_quote;
-        $data['enq_description'] = $enq_description;
-
-        $data['obj_mobile'] = $obj_mobile;
-        $data['obj_email'] = $obj_email;
-        $data['obj_address'] = $obj_address;
-        $data['agentaddress'] = $agentaddress;
-        $data['vehicle_type_id'] = $vehicle_type_id;
-        $data['agent_details'] = $agent_details;
-        $data['agent_state_id'] = $agent_state_id;
-        $data['source_reference'] = $source_reference;
-        $data['active_role'] = $active_role;
-        $data['employees_all'] = $employees_all;
-        $data['sales_support_assigned_to'] = $sales_support_assigned_to;
-        return view('enquiry/add_object_enquiry', $data);
-    } else {
-        return redirect()->to('Login');
     }
-}
     function getAgents()
     {
         $Enquiry_model = new Enquiry_m();
@@ -6029,525 +6029,532 @@ class Enquiry extends BaseController
     //         return redirect()->to('Login');
     //     }
     // }
-public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_edit_id = null, $extension_ref_id = null)
-{
-    if (!empty(session()->get('user_id'))) {
-        $Enquiry_model = new Enquiry_m();
-        $Dashboard_model = new Dashboard_m();
-        $system_name = session('system_name');
-        $markups = $Enquiry_model->get_markup_details($system_name);
-        if (!empty($markups)) {
-            $mark_up = $markups[0]['mark_up'];
-        } else {
-            $mark_up = 0;
-        }
-        $dep_ss = [];
-        $tariff_details_iti = [];
-        $tour_plan_tariff = [];
-        $tour_plan_det = [];
-        $itinerary_details = [];
-        $itinerary_details_draft = [];
-        $itinerary_details_save = [];
-        $previous_itinerary_details_save = [];
-        $edit_history = [];
-        $all_edit_history = [];
-        $eighteen_datas_double = [];
-        $eighteen_datas_single = [];
-        // TWO SEPARATE ARRAYS FOR DIFFERENT PURPOSES
-        $tour_expansion_details = []; // For Itinerary Form (old structure)
-        $itinerary_expansion_details = []; // For Costing Sheet (new structure)
-        $itinerary_details_ids = []; // Collect IDs for costing sheet
-        // NEW: Array to store saved sightseeing data by date
-        $saved_sightseeing_by_date = [];
-        if ($edit_id > 0) {
-            $enq_ext_ids = $Enquiry_model->get_enquiry_extensions_byid($edit_id);
-            $extension_ref_id_temp = $enq_ext_ids[0]['extension_ref_id'];
-        } else {
-            $extension_ref_id_temp = 0;
-        }
-        $object_det = $Enquiry_model->get_object_details($object_id);
-        $last_itinerary = $Enquiry_model->get_last_itinerary_saved($object_det[0]['enquiry_header_id']);
-        if (!empty($last_itinerary)) {
-            $previous_itinerary_details_save = $Enquiry_model->get_itinerary_previous_details($last_itinerary['extension_ref_id']);
-        }
-        if ($edit_id > 0 && $extension_ref_id !== null && (int)$extension_ref_id === 0) {
-            $enq_ext_ids = $Enquiry_model->get_enquiry_extensions_byid($edit_id);
-            if (!empty($enq_ext_ids)) {
-                $make_current = $this->make_current_function($object_det[0]['enquiry_header_id'], $enq_ext_ids[0]['enquiry_ref_id'], $enq_ext_ids[0]['tour_plan_ref_id'], $enq_ext_ids[0]['extension_ref_id']);
-                $enquiry_details_id_new = $enq_ext_ids[0]['enquiry_ref_id'];
+    public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_edit_id = null, $extension_ref_id = null)
+    {
+        if (!empty(session()->get('user_id'))) {
+            $Enquiry_model = new Enquiry_m();
+            $Dashboard_model = new Dashboard_m();
+            $system_name = session('system_name');
+            $markups = $Enquiry_model->get_markup_details($system_name);
+            if (!empty($markups)) {
+                $mark_up = $markups[0]['mark_up'];
+            } else {
+                $mark_up = 0;
+            }
+            $dep_ss = [];
+            $tariff_details_iti = [];
+            $tour_plan_tariff = [];
+            $tour_plan_det = [];
+            $itinerary_details = [];
+            $itinerary_details_draft = [];
+            $itinerary_details_save = [];
+            $previous_itinerary_details_save = [];
+            $edit_history = [];
+            $all_edit_history = [];
+            $eighteen_datas_double = [];
+            $eighteen_datas_single = [];
+            // TWO SEPARATE ARRAYS FOR DIFFERENT PURPOSES
+            $tour_expansion_details = []; // For Itinerary Form (old structure)
+            $itinerary_expansion_details = []; // For Costing Sheet (new structure)
+            $itinerary_details_ids = []; // Collect IDs for costing sheet
+            // NEW: Array to store saved sightseeing data by date
+            $saved_sightseeing_by_date = [];
+            if ($edit_id > 0) {
+                $enq_ext_ids = $Enquiry_model->get_enquiry_extensions_byid($edit_id);
                 $extension_ref_id_temp = $enq_ext_ids[0]['extension_ref_id'];
             } else {
-                $enquiry_details_id_new = $object_det[0]['enquiry_details_id'];
+                $extension_ref_id_temp = 0;
             }
-            $iti_cost_datas = $Enquiry_model->get_iti_cost_byid($edit_id);
-        } else {
-            $enquiry_details_id_new = $object_det[0]['enquiry_details_id'];
-            $iti_cost_datas = $Enquiry_model->get_iti_cost_active($object_det[0]['enquiry_header_id'], $object_det[0]['enquiry_details_id']);
-        }
-        $tour_plan_det = $Enquiry_model->get_tour_plan_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new);
-        $iti_cost_datas_all = $Enquiry_model->get_iti_cost_all($object_det[0]['enquiry_header_id'], $enquiry_details_id_new);
-        foreach ($tour_plan_det as $keys => $vals) {
-            $tid = $vals['tour_details_id'];
-            $checkindate = $vals['check_in_date'];
-            $checkoutdate = $vals['check_out_date'];
-            $start1 = new DateTime($checkindate);
-            $end1 = new DateTime($checkoutdate);
-            // CHECK IF TAX IS APPLICABLE
-            if ($vals['tax_status'] == 1) {
-                // TAX APPLICABLE - USE TAX TABLES DATA INSTEAD OF EXPANSION
-                $tac_eighteen = 0;
-                $tac_eighteen_double = 0;
-                $tac_eighteen_single = 0;
-                $adult_eighteen_double = 0;
-                $child_eighteen_double = 0;
-                $child_wb_eighteen_double = 0;
-                $extra_eighteen_double = 0;
-                $adult_eighteen_single = 0;
-                // Fetch from tax tables
-                $eighteen_datas_double = $Enquiry_model->get_eighteen_datas_double($vals['tour_details_id']);
-                $eighteen_datas_single = $Enquiry_model->get_eighteen_datas_single($vals['tour_details_id']);
-                // Fetch original tour expansion for vehicle details
-                $original_tour_expansion = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
-                $vehicle_details_json = '';
-                if (!empty($original_tour_expansion)) {
-                    $vehicle_details_json = $original_tour_expansion[0]['vehicle_details_json'] ?? '';
+            $object_det = $Enquiry_model->get_object_details($object_id);
+            $last_itinerary = $Enquiry_model->get_last_itinerary_saved($object_det[0]['enquiry_header_id']);
+            if (!empty($last_itinerary)) {
+                $previous_itinerary_details_save = $Enquiry_model->get_itinerary_previous_details($last_itinerary['extension_ref_id']);
+            }
+            if ($edit_id > 0 && $extension_ref_id !== null && (int)$extension_ref_id === 0) {
+                $enq_ext_ids = $Enquiry_model->get_enquiry_extensions_byid($edit_id);
+                if (!empty($enq_ext_ids)) {
+                    $make_current = $this->make_current_function($object_det[0]['enquiry_header_id'], $enq_ext_ids[0]['enquiry_ref_id'], $enq_ext_ids[0]['tour_plan_ref_id'], $enq_ext_ids[0]['extension_ref_id']);
+                    $enquiry_details_id_new = $enq_ext_ids[0]['enquiry_ref_id'];
+                    $extension_ref_id_temp = $enq_ext_ids[0]['extension_ref_id'];
+                } else {
+                    $enquiry_details_id_new = $object_det[0]['enquiry_details_id'];
                 }
-                // POPULATE TOUR EXPANSION DETAILS DYNAMICALLY FROM TAX TABLES
-                $tour_expansion_details[$tid] = [];
-                // Add rows from double tax data
-                if (!empty($eighteen_datas_double)) {
-                    foreach ($eighteen_datas_double as $geys => $gals) {
-                        // Calculate base total for this row
-                        $base_total = $gals['room_rate'] + ($gals['child_rate'] * $gals['no_of_child']) + ($gals['child_wb_rate'] * $gals['no_of_child_wb']) + ($gals['extra_rate'] * $gals['no_of_extra']);
-                        // GST is amount, not rate
-                        $tax_amount = $gals['gst'];
-                        $grand_total = $gals['grand_total'];
-                        $tac_eighteen += $grand_total;
-                        $tac_eighteen_double += $grand_total;
-                        // Apportion tax for adult (room_rate assumed for adults)
-                        $adult_base = $gals['room_rate'];
-                        $adult_tax = ($base_total > 0) ? ($adult_base / $base_total) * $tax_amount : 0;
-                        $adult_eighteen_double += $adult_base + $adult_tax;
-                        // Apportion for child
-                        $child_base = $gals['child_rate'] * $gals['no_of_child'];
-                        $child_tax = ($base_total > 0) ? ($child_base / $base_total) * $tax_amount : 0;
-                        $child_eighteen_double += $child_base + $child_tax;
-                        // Apportion for child_wb
-                        $child_wb_base = $gals['child_wb_rate'] * $gals['no_of_child_wb'];
-                        $child_wb_tax = ($base_total > 0) ? ($child_wb_base / $base_total) * $tax_amount : 0;
-                        $child_wb_eighteen_double += $child_wb_base + $child_wb_tax;
-                        // Apportion for extra
-                        $extra_base = $gals['extra_rate'] * $gals['no_of_extra'];
-                        $extra_tax = ($base_total > 0) ? ($extra_base / $base_total) * $tax_amount : 0;
-                        $extra_eighteen_double += $extra_base + $extra_tax;
-                        // Calculate date based on sequence_id
-                        $sequence_id = $gals['sequence_id'];
-                        $day_num = floor(($sequence_id % 100) / 10);
-                        $expansion_date = clone $start1;
-                        $expansion_date->modify('+' . ($day_num - 1) . ' days');
-                        $tour_expansion_date = $expansion_date->format('Y-m-d');
-                        // Populate expansion row with fields expected by view (base rates)
-                        $expansion_row = [
-                            'tour_details_id' => $vals['tour_details_id'],
-                            'sequence_id' => $gals['sequence_id'],
-                            'room_rate_double' => $gals['room_rate'],
-                            'child_with_bed_double' => $gals['child_rate'],
-                            'child_without_bed_double' => $gals['child_wb_rate'],
-                            'extra_bed_double' => $gals['extra_rate'],
-                            'double_total_rate' => $gals['grand_total'],
-                            'single_total_rate' => 0,
-                            'tour_expansion_date' => $tour_expansion_date,
-                            // Defaults if not in tax data
-                            'room_category_id' => $vals['room_category_id'],
-                            'meal_plan_id' => $vals['meal_plan_id'],
-                            'vehicle_details_json' => $vehicle_details_json
-                        ];
-                        $tour_expansion_details[$tid][] = $expansion_row;
-                    }
-                }
-                // Calculate from single occupancy tax table
-                if (!empty($eighteen_datas_single)) {
-                    foreach ($eighteen_datas_single as $sgeys => $sgals) {
-                        $tac_eighteen += $sgals['grand_total'];
-                        $tac_eighteen_single += $sgals['grand_total'];
-                        // For single: base is room_rate, full tax
-                        $adult_base_single = $sgals['room_rate'];
-                        $tax_amount_single = $sgals['gst'];
-                        $adult_eighteen_single += $adult_base_single + $tax_amount_single;
-                        // Calculate date based on sequence_id
-                        $sequence_id = $sgals['sequence_id'];
-                        $day_num = floor(($sequence_id % 100) / 10);
-                        $expansion_date = clone $start1;
-                        $expansion_date->modify('+' . ($day_num - 1) . ' days');
-                        $tour_expansion_date = $expansion_date->format('Y-m-d');
-                        // Populate expansion row for single with fields expected by view (base rates)
-                        $expansion_row = [
-                            'tour_details_id' => $vals['tour_details_id'],
-                            'sequence_id' => $sgals['sequence_id'],
-                            'room_rate_single' => $sgals['room_rate'],
-                            // Child/extra 0 for single
-                            'child_with_bed_double' => 0,
-                            'child_without_bed_double' => 0,
-                            'extra_bed_double' => 0,
-                            'double_total_rate' => 0,
-                            'single_total_rate' => $sgals['grand_total'],
-                            'tour_expansion_date' => $tour_expansion_date,
-                            // Defaults if not in tax data
-                            'room_category_id' => $vals['room_category_id'],
-                            'meal_plan_id' => $vals['meal_plan_id'],
-                            'vehicle_details_json' => $vehicle_details_json
-                        ];
-                        $tour_expansion_details[$tid][] = $expansion_row;
-                    }
-                }
-                // Safety check: Ensure vehicle_details_json is set if missing in any row
-                if (empty($vehicle_details_json)) {
-                    $original_tour_expansion = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
-                    $vehicle_details_json = !empty($original_tour_expansion) ? $original_tour_expansion[0]['vehicle_details_json'] ?? '' : '';
-                    // Update existing rows if needed
-                    if (!empty($tour_expansion_details[$tid])) {
-                        foreach ($tour_expansion_details[$tid] as &$row) {
-                            $row['vehicle_details_json'] = $vehicle_details_json;
-                        }
-                    }
-                }
-                // Store tax calculations
-                $tour_plan_det[$keys]['tac_eighteen'] = $tac_eighteen;
-                $tour_plan_det[$keys]['tac_eighteen_double'] = $tac_eighteen_double;
-                $tour_plan_det[$keys]['tac_eighteen_single'] = $tac_eighteen_single;
-                $tour_plan_det[$keys]['adult_eighteen_double'] = $adult_eighteen_double;
-                $tour_plan_det[$keys]['child_eighteen_double'] = $child_eighteen_double;
-                $tour_plan_det[$keys]['child_wb_eighteen_double'] = $child_wb_eighteen_double;
-                $tour_plan_det[$keys]['extra_eighteen_double'] = $extra_eighteen_double;
-                $tour_plan_det[$keys]['adult_eighteen_single'] = $adult_eighteen_single;
-                // DO NOT USE EXPANSION TABLES - But now populated dynamically from tax data
-                // FIXED: Now collect itinerary_details_ids for tax tours as well (post-save override)
+                $iti_cost_datas = $Enquiry_model->get_iti_cost_byid($edit_id);
             } else {
-                // NO TAX - USE EXPANSION TABLES AS NORMAL
-                $tac_eighteen = 0;
-                $tac_eighteen_double = 0;
-                $tac_eighteen_single = 0;
-                $adult_eighteen_double = 0;
-                $child_eighteen_double = 0;
-                $child_wb_eighteen_double = 0;
-                $extra_eighteen_double = 0;
-                $tax_eighteen_double = 0;
-                $adult_eighteen_single = 0;
-                $tour_plan_det[$keys]['tac_eighteen'] = $tac_eighteen;
-                $tour_plan_det[$keys]['tac_eighteen_double'] = $tac_eighteen_double;
-                $tour_plan_det[$keys]['tac_eighteen_single'] = $tac_eighteen_single;
-                $tour_plan_det[$keys]['adult_eighteen_double'] = $adult_eighteen_double;
-                $tour_plan_det[$keys]['child_eighteen_double'] = $child_eighteen_double;
-                $tour_plan_det[$keys]['child_wb_eighteen_double'] = $child_wb_eighteen_double;
-                $tour_plan_det[$keys]['extra_eighteen_double'] = $extra_eighteen_double;
-                $tour_plan_det[$keys]['adult_eighteen_single'] = $adult_eighteen_single;
-                // FOR ITINERARY FORM: Fetch tour expansion details (old structure)
-                $tour_expansion_details[$tid] = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
+                $enquiry_details_id_new = $object_det[0]['enquiry_details_id'];
+                $iti_cost_datas = $Enquiry_model->get_iti_cost_active($object_det[0]['enquiry_header_id'], $object_det[0]['enquiry_details_id']);
             }
-            // Common for both tax and non-tax
-            $tour_plan_tariff[$tid] = $Enquiry_model->get_tour_plan_tariff_bydate($vals['tour_details_id']);
-            // NEW: Set SS list per tour location for Select2 population (FIXED: Per-location SS)
-            $tour_plan_det[$keys]['ss'] = $Enquiry_model->get_sight_seeing($vals['tour_location']);
-            // Fetch itinerary details (draft and save)
-            $result1 = $Enquiry_model->get_itinerary_draft_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new, $vals['tour_details_id']);
-            $result2 = $Enquiry_model->get_itinerary_save_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new, $vals['tour_details_id']);
-            if (!empty($result1)) {
-                $itinerary_details_draft = [...$itinerary_details_draft, ...$result1];
-                // FIXED: Always collect IDs, regardless of tax_status (for post-save override)
-                foreach ($result1 as $r) {
-                    if (isset($r['itinerary_details_id'])) {
-                        $itinerary_details_ids[] = $r['itinerary_details_id'];
+            $tour_plan_det = $Enquiry_model->get_tour_plan_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new);
+            $iti_cost_datas_all = $Enquiry_model->get_iti_cost_all($object_det[0]['enquiry_header_id'], $enquiry_details_id_new);
+            foreach ($tour_plan_det as $keys => $vals) {
+                $tid = $vals['tour_details_id'];
+                $checkindate = $vals['check_in_date'];
+                $checkoutdate = $vals['check_out_date'];
+                $start1 = new DateTime($checkindate);
+                $end1 = new DateTime($checkoutdate);
+                // CHECK IF TAX IS APPLICABLE
+                if ($vals['tax_status'] == 1) {
+                    // TAX APPLICABLE - USE TAX TABLES DATA INSTEAD OF EXPANSION
+                    $tac_eighteen = 0;
+                    $tac_eighteen_double = 0;
+                    $tac_eighteen_single = 0;
+                    $adult_eighteen_double = 0;
+                    $child_eighteen_double = 0;
+                    $child_wb_eighteen_double = 0;
+                    $extra_eighteen_double = 0;
+                    $adult_eighteen_single = 0;
+                    // Fetch from tax tables
+                    $eighteen_datas_double = $Enquiry_model->get_eighteen_datas_double($vals['tour_details_id']);
+                    $eighteen_datas_single = $Enquiry_model->get_eighteen_datas_single($vals['tour_details_id']);
+                    // Fetch original tour expansion for vehicle details
+                    $original_tour_expansion = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
+                    $vehicle_details_json = '';
+                    if (!empty($original_tour_expansion)) {
+                        $vehicle_details_json = $original_tour_expansion[0]['vehicle_details_json'] ?? '';
                     }
-                }
-            }
-            if (!empty($result2)) {
-                $itinerary_details_save = [...$itinerary_details_save, ...$result2];
-                // FIXED: Always collect IDs, regardless of tax_status (for post-save override)
-                foreach ($result2 as $r) {
-                    if (isset($r['itinerary_details_id'])) {
-                        $itinerary_details_ids[] = $r['itinerary_details_id'];
+                    // POPULATE TOUR EXPANSION DETAILS DYNAMICALLY FROM TAX TABLES
+                    $tour_expansion_details[$tid] = [];
+                    // Add rows from double tax data
+                    if (!empty($eighteen_datas_double)) {
+                        foreach ($eighteen_datas_double as $geys => $gals) {
+                            // Calculate base total for this row
+                            $base_total = $gals['room_rate'] + ($gals['child_rate'] * $gals['no_of_child']) + ($gals['child_wb_rate'] * $gals['no_of_child_wb']) + ($gals['extra_rate'] * $gals['no_of_extra']);
+                            // GST is amount, not rate
+                            $tax_amount = $gals['gst'];
+                            $grand_total = $gals['grand_total'];
+                            $tac_eighteen += $grand_total;
+                            $tac_eighteen_double += $grand_total;
+                            // Apportion tax for adult (room_rate assumed for adults)
+                            $adult_base = $gals['room_rate'];
+                            $adult_tax = ($base_total > 0) ? ($adult_base / $base_total) * $tax_amount : 0;
+                            $adult_eighteen_double += $adult_base + $adult_tax;
+                            // Apportion for child
+                            $child_base = $gals['child_rate'] * $gals['no_of_child'];
+                            $child_tax = ($base_total > 0) ? ($child_base / $base_total) * $tax_amount : 0;
+                            $child_eighteen_double += $child_base + $child_tax;
+                            // Apportion for child_wb
+                            $child_wb_base = $gals['child_wb_rate'] * $gals['no_of_child_wb'];
+                            $child_wb_tax = ($base_total > 0) ? ($child_wb_base / $base_total) * $tax_amount : 0;
+                            $child_wb_eighteen_double += $child_wb_base + $child_wb_tax;
+                            // Apportion for extra
+                            $extra_base = $gals['extra_rate'] * $gals['no_of_extra'];
+                            $extra_tax = ($base_total > 0) ? ($extra_base / $base_total) * $tax_amount : 0;
+                            $extra_eighteen_double += $extra_base + $extra_tax;
+                            // Calculate date based on sequence_id
+                            $sequence_id = $gals['sequence_id'];
+                            $day_num = floor(($sequence_id % 100) / 10);
+                            $expansion_date = clone $start1;
+                            $expansion_date->modify('+' . ($day_num - 1) . ' days');
+                            $tour_expansion_date = $expansion_date->format('Y-m-d');
+                            // Populate expansion row with fields expected by view (base rates)
+                            $expansion_row = [
+                                'tour_details_id' => $vals['tour_details_id'],
+                                'sequence_id' => $gals['sequence_id'],
+                                'room_rate_double' => $gals['room_rate'],
+                                'child_with_bed_double' => $gals['child_rate'],
+                                'child_without_bed_double' => $gals['child_wb_rate'],
+                                'extra_bed_double' => $gals['extra_rate'],
+                                'double_total_rate' => $gals['grand_total'],
+                                'single_total_rate' => 0,
+                                'tour_expansion_date' => $tour_expansion_date,
+                                // Defaults if not in tax data
+                                'room_category_id' => $vals['room_category_id'],
+                                'meal_plan_id' => $vals['meal_plan_id'],
+                                'vehicle_details_json' => $vehicle_details_json
+                            ];
+                            $tour_expansion_details[$tid][] = $expansion_row;
+                        }
                     }
-                }
-            }
-            for ($date = clone $start1; $date < $end1; $date->modify('+1 day')) {
-                $tour_date = $date->format('Y-m-d');
-                $tariff_details_iti[] = $this->getTourTariffDetailsbyTourDetails($tour_date, $vals['hotel_id'], $vals['room_category_id'], $vals['meal_plan_id'], $object_det[0]['no_of_double_room'], $object_det[0]['no_of_single_room']);
-                // IMPLEMENTED: Get saved sightseeing for each date
-                $saved_sightseeing = [];
-                $saved_ss_ids = [];
-                $ss_total_distance = 0;
-                $ss_pax_cost = 0;
-                $ss_total_cost = 0;
-                // Check draft itinerary first
-                if (!empty($itinerary_details_draft)) {
-                    foreach ($itinerary_details_draft as $dkey => $dval) {
-                        if ($tour_date == $dval['tour_date'] && $vals['tour_details_id'] == $dval['tour_details_id']) {
-                            $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true);
-                            // Extract IDs for select2
-                            $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
-                            // FIXED: Calculate totals from JSON to ensure consistency
-                            foreach ($saved_sightseeing as $ss) {
-                                if ($ss['is_pax'] == 1) {
-                                    $ss_pax_cost += $ss['calculated_value'] ?? 0;
-                                    $ss_total_cost += $ss['calculated_value'] ?? 0;
-                                } else {
-                                    $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
-                                }
+                    // Calculate from single occupancy tax table
+                    if (!empty($eighteen_datas_single)) {
+                        foreach ($eighteen_datas_single as $sgeys => $sgals) {
+                            $tac_eighteen += $sgals['grand_total'];
+                            $tac_eighteen_single += $sgals['grand_total'];
+                            // For single: base is room_rate, full tax
+                            $adult_base_single = $sgals['room_rate'];
+                            $tax_amount_single = $sgals['gst'];
+                            $adult_eighteen_single += $adult_base_single + $tax_amount_single;
+                            // Calculate date based on sequence_id
+                            $sequence_id = $sgals['sequence_id'];
+                            $day_num = floor(($sequence_id % 100) / 10);
+                            $expansion_date = clone $start1;
+                            $expansion_date->modify('+' . ($day_num - 1) . ' days');
+                            $tour_expansion_date = $expansion_date->format('Y-m-d');
+                            // Populate expansion row for single with fields expected by view (base rates)
+                            $expansion_row = [
+                                'tour_details_id' => $vals['tour_details_id'],
+                                'sequence_id' => $sgals['sequence_id'],
+                                'room_rate_single' => $sgals['room_rate'],
+                                // Child/extra 0 for single
+                                'child_with_bed_double' => 0,
+                                'child_without_bed_double' => 0,
+                                'extra_bed_double' => 0,
+                                'double_total_rate' => 0,
+                                'single_total_rate' => $sgals['grand_total'],
+                                'tour_expansion_date' => $tour_expansion_date,
+                                // Defaults if not in tax data
+                                'room_category_id' => $vals['room_category_id'],
+                                'meal_plan_id' => $vals['meal_plan_id'],
+                                'vehicle_details_json' => $vehicle_details_json
+                            ];
+                            $tour_expansion_details[$tid][] = $expansion_row;
+                        }
+                    }
+                    // Safety check: Ensure vehicle_details_json is set if missing in any row
+                    if (empty($vehicle_details_json)) {
+                        $original_tour_expansion = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
+                        $vehicle_details_json = !empty($original_tour_expansion) ? $original_tour_expansion[0]['vehicle_details_json'] ?? '' : '';
+                        // Update existing rows if needed
+                        if (!empty($tour_expansion_details[$tid])) {
+                            foreach ($tour_expansion_details[$tid] as &$row) {
+                                $row['vehicle_details_json'] = $vehicle_details_json;
                             }
-                            break;
+                        }
+                    }
+                    // Store tax calculations
+                    $tour_plan_det[$keys]['tac_eighteen'] = $tac_eighteen;
+                    $tour_plan_det[$keys]['tac_eighteen_double'] = $tac_eighteen_double;
+                    $tour_plan_det[$keys]['tac_eighteen_single'] = $tac_eighteen_single;
+                    $tour_plan_det[$keys]['adult_eighteen_double'] = $adult_eighteen_double;
+                    $tour_plan_det[$keys]['child_eighteen_double'] = $child_eighteen_double;
+                    $tour_plan_det[$keys]['child_wb_eighteen_double'] = $child_wb_eighteen_double;
+                    $tour_plan_det[$keys]['extra_eighteen_double'] = $extra_eighteen_double;
+                    $tour_plan_det[$keys]['adult_eighteen_single'] = $adult_eighteen_single;
+                    // DO NOT USE EXPANSION TABLES - But now populated dynamically from tax data
+                    // FIXED: Now collect itinerary_details_ids for tax tours as well (post-save override)
+                } else {
+                    // NO TAX - USE EXPANSION TABLES AS NORMAL
+                    $tac_eighteen = 0;
+                    $tac_eighteen_double = 0;
+                    $tac_eighteen_single = 0;
+                    $adult_eighteen_double = 0;
+                    $child_eighteen_double = 0;
+                    $child_wb_eighteen_double = 0;
+                    $extra_eighteen_double = 0;
+                    $tax_eighteen_double = 0;
+                    $adult_eighteen_single = 0;
+                    $tour_plan_det[$keys]['tac_eighteen'] = $tac_eighteen;
+                    $tour_plan_det[$keys]['tac_eighteen_double'] = $tac_eighteen_double;
+                    $tour_plan_det[$keys]['tac_eighteen_single'] = $tac_eighteen_single;
+                    $tour_plan_det[$keys]['adult_eighteen_double'] = $adult_eighteen_double;
+                    $tour_plan_det[$keys]['child_eighteen_double'] = $child_eighteen_double;
+                    $tour_plan_det[$keys]['child_wb_eighteen_double'] = $child_wb_eighteen_double;
+                    $tour_plan_det[$keys]['extra_eighteen_double'] = $extra_eighteen_double;
+                    $tour_plan_det[$keys]['adult_eighteen_single'] = $adult_eighteen_single;
+                    // FOR ITINERARY FORM: Fetch tour expansion details (old structure)
+                    $tour_expansion_details[$tid] = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
+                }
+                // Common for both tax and non-tax
+                $tour_plan_tariff[$tid] = $Enquiry_model->get_tour_plan_tariff_bydate($vals['tour_details_id']);
+                // NEW: Set SS list per tour location for Select2 population (FIXED: Per-location SS)
+                $tour_plan_det[$keys]['ss'] = $Enquiry_model->get_sight_seeing($vals['tour_location']);
+                // Fetch itinerary details (draft and save)
+                $result1 = $Enquiry_model->get_itinerary_draft_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new, $vals['tour_details_id']);
+                $result2 = $Enquiry_model->get_itinerary_save_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new, $vals['tour_details_id']);
+                if (!empty($result1)) {
+                    $itinerary_details_draft = [...$itinerary_details_draft, ...$result1];
+                    // FIXED: Always collect IDs, regardless of tax_status (for post-save override)
+                    foreach ($result1 as $r) {
+                        if (isset($r['itinerary_details_id'])) {
+                            $itinerary_details_ids[] = $r['itinerary_details_id'];
                         }
                     }
                 }
-                // If not found in draft, check saved itinerary
-                if (empty($saved_sightseeing) && !empty($itinerary_details_save)) {
-                    foreach ($itinerary_details_save as $dkey => $dval) {
-                        if ($tour_date == $dval['tour_date'] && $vals['tour_details_id'] == $dval['tour_details_id']) {
-                            $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true);
-                            // Extract IDs for select2
-                            $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
-                            // FIXED: Calculate totals from JSON to ensure consistency
-                            foreach ($saved_sightseeing as $ss) {
-                                if ($ss['is_pax'] == 1) {
-                                    $ss_pax_cost += $ss['calculated_value'] ?? 0;
-                                    $ss_total_cost += $ss['calculated_value'] ?? 0;
-                                } else {
-                                    $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
-                                }
-                            }
-                            break;
+                if (!empty($result2)) {
+                    $itinerary_details_save = [...$itinerary_details_save, ...$result2];
+                    // FIXED: Always collect IDs, regardless of tax_status (for post-save override)
+                    foreach ($result2 as $r) {
+                        if (isset($r['itinerary_details_id'])) {
+                            $itinerary_details_ids[] = $r['itinerary_details_id'];
                         }
                     }
                 }
-
-                // NEW: If no saved data, load defaults (FIXED: Use per-tour location, correct field 'sightseeing_distance')
-                if (empty($saved_sightseeing)) {
-                    $default_ss = $Enquiry_model->get_default_sight_seeing($vals['tour_location']);  // FIXED: Per tour location
+                for ($date = clone $start1; $date < $end1; $date->modify('+1 day')) {
+                    $tour_date = $date->format('Y-m-d');
+                    $tariff_details_iti[] = $this->getTourTariffDetailsbyTourDetails($tour_date, $vals['hotel_id'], $vals['room_category_id'], $vals['meal_plan_id'], $object_det[0]['no_of_double_room'], $object_det[0]['no_of_single_room']);
+                    // IMPLEMENTED: Get saved sightseeing for each date
+                    $had_saved_record = false;
                     $saved_sightseeing = [];
                     $saved_ss_ids = [];
                     $ss_total_distance = 0;
                     $ss_pax_cost = 0;
                     $ss_total_cost = 0;
-                    $totalPax = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'];
-                    foreach ($default_ss as $ss) {
-                        $ssItem = [
-                            'sightseeing_id' => $ss['sightseeing_id'],
-                            'name' => $ss['object_name'],
-                            'is_pax' => (int)($ss['is_pax'] ?? 0),
-                            'tariff' => (float)($ss['tariff'] ?? 0),
-                            'distance' => (float)($ss['sightseeing_distance'] ?? 0),  // FIXED: Match view/model field
-                            'calculated_value' => 0,
-                            'remarks' => '',
-                            'cost' => 0,
-                            'distance_km' => 0
-                        ];
-                        if ($ssItem['is_pax'] == 1) {
-                            $ssItem['calculated_value'] = $ssItem['tariff'] * $totalPax;
-                            $ssItem['cost'] = $ssItem['calculated_value'];
-                            $ss_pax_cost += $ssItem['calculated_value'];
-                            $ss_total_cost += $ssItem['calculated_value'];
-                        } else {
-                            $ssItem['calculated_value'] = $ssItem['distance'];
-                            $ssItem['distance_km'] = $ssItem['calculated_value'];
-                            $ss_total_distance += $ssItem['calculated_value'];
-                        }
-                        $saved_sightseeing[] = $ssItem;
-                        $saved_ss_ids[] = $ss['sightseeing_id'];
-                    }
-                    // Log for debugging
-                    log_message('info', 'Loaded default SS for date ' . $tour_date . ': ' . count($saved_sightseeing) . ' items');
-                }
 
-                // Store the sightseeing data with totals
-                if (!isset($saved_sightseeing_by_date[$vals['tour_details_id']])) {
-                    $saved_sightseeing_by_date[$vals['tour_details_id']] = [];
-                }
-                $saved_sightseeing_by_date[$vals['tour_details_id']][$tour_date] = [
-                    'sightseeing' => $saved_sightseeing,
-                    'saved_ss_ids' => $saved_ss_ids,
-                    'ss_total_distance' => $ss_total_distance,
-                    'ss_pax_cost' => $ss_pax_cost,
-                    'ss_total_cost' => $ss_total_cost
-                ];
-            }
-        }
-        // FOR COSTING SHEET: Fetch itinerary expansion details (new structure) for all (including tax post-save)
-        if (!empty($itinerary_details_ids)) {
-            $itinerary_details_ids = array_unique($itinerary_details_ids);
-            // Get expansion data grouped by itinerary_details_id
-            $expansion_raw = $Enquiry_model->get_itinerary_expansion_grouped($itinerary_details_ids);
-            // Re-group by tour_details_id for easier access in the view
-            $itinerary_expansion_details = [];
-            // Build a mapping from itinerary_details_id to tour_details_id
-            $iti_to_tour_map = [];
-            foreach ($itinerary_details_draft as $draft) {
-                $iti_to_tour_map[$draft['itinerary_details_id']] = $draft['tour_details_id'];
-            }
-            foreach ($itinerary_details_save as $save) {
-                $iti_to_tour_map[$save['itinerary_details_id']] = $save['tour_details_id'];
-            }
-            // Group expansion data by tour_details_id
-            foreach ($expansion_raw as $iti_id => $expansions) {
-                if (isset($iti_to_tour_map[$iti_id])) {
-                    $tour_details_id = $iti_to_tour_map[$iti_id];
-                    if (!isset($itinerary_expansion_details[$tour_details_id])) {
-                        $itinerary_expansion_details[$tour_details_id] = [];
+                    // Check draft itinerary first (if any) and mark that a record existed even if empty
+                    if (!empty($itinerary_details_draft)) {
+                        foreach ($itinerary_details_draft as $dkey => $dval) {
+                            if ($tour_date == $dval['tour_date'] && $vals['tour_details_id'] == $dval['tour_details_id']) {
+                                // Mark that a saved/draft record exists for this date (even if it contains empty ss_data_json)
+                                $had_saved_record = true;
+
+                                // Decode JSON (may become empty array)
+                                $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true);
+                                $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
+
+                                // Calculate totals from JSON (if any)
+                                foreach ($saved_sightseeing as $ss) {
+                                    if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
+                                        $ss_pax_cost += $ss['calculated_value'] ?? 0;
+                                        $ss_total_cost += $ss['calculated_value'] ?? 0;
+                                    } else {
+                                        $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
+                                    }
+                                }
+                                break;
+                            }
+                        }
                     }
-                    foreach ($expansions as $exp) {
-                        $itinerary_expansion_details[$tour_details_id][] = $exp;
+
+                    // If not in draft, check saved itinerary (same behavior)
+                    if (!$had_saved_record && !empty($itinerary_details_save)) {
+                        foreach ($itinerary_details_save as $dkey => $dval) {
+                            if ($tour_date == $dval['tour_date'] && $vals['tour_details_id'] == $dval['tour_details_id']) {
+                                $had_saved_record = true;
+                                $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true);
+                                $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
+
+                                foreach ($saved_sightseeing as $ss) {
+                                    if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
+                                        $ss_pax_cost += $ss['calculated_value'] ?? 0;
+                                        $ss_total_cost += $ss['calculated_value'] ?? 0;
+                                    } else {
+                                        $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+
+                    // NEW: Only load defaults if there was NO saved/draft record at all.
+                    // This ensures that if the user removed defaults and saved an empty array, we respect that.
+                    if (!$had_saved_record) {
+                        $default_ss = $Enquiry_model->get_default_sight_seeing($vals['tour_location']);  // per-tour location
+                        $saved_sightseeing = [];
+                        $saved_ss_ids = [];
+                        $ss_total_distance = 0;
+                        $ss_pax_cost = 0;
+                        $ss_total_cost = 0;
+                        $totalPax = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'];
+                        foreach ($default_ss as $ss) {
+                            $ssItem = [
+                                'sightseeing_id' => $ss['sightseeing_id'],
+                                'name' => $ss['object_name'],
+                                'is_pax' => (int)($ss['is_pax'] ?? 0),
+                                'tariff' => (float)($ss['tariff'] ?? 0),
+                                'distance' => (float)($ss['sightseeing_distance'] ?? 0),
+                                'calculated_value' => 0,
+                                'remarks' => '',
+                                'cost' => 0,
+                                'distance_km' => 0
+                            ];
+                            if ($ssItem['is_pax'] == 1) {
+                                $ssItem['calculated_value'] = $ssItem['tariff'] * $totalPax;
+                                $ssItem['cost'] = $ssItem['calculated_value'];
+                                $ss_pax_cost += $ssItem['calculated_value'];
+                                $ss_total_cost += $ssItem['calculated_value'];
+                            } else {
+                                $ssItem['calculated_value'] = $ssItem['distance'];
+                                $ssItem['distance_km'] = $ssItem['calculated_value'];
+                                $ss_total_distance += $ssItem['calculated_value'];
+                            }
+                            $saved_sightseeing[] = $ssItem;
+                            $saved_ss_ids[] = $ss['sightseeing_id'];
+                        }
+                        log_message('info', 'Loaded default SS for date ' . $tour_date . ': ' . count($saved_sightseeing) . ' items');
+                    }
+
+                    // Store the sightseeing data with totals
+                    if (!isset($saved_sightseeing_by_date[$vals['tour_details_id']])) {
+                        $saved_sightseeing_by_date[$vals['tour_details_id']] = [];
+                    }
+                    $saved_sightseeing_by_date[$vals['tour_details_id']][$tour_date] = [
+                        'sightseeing' => $saved_sightseeing,
+                        'saved_ss_ids' => $saved_ss_ids,
+                        'ss_total_distance' => $ss_total_distance,
+                        'ss_pax_cost' => $ss_pax_cost,
+                        'ss_total_cost' => $ss_total_cost
+                    ];
+                }
+            }
+            // FOR COSTING SHEET: Fetch itinerary expansion details (new structure) for all (including tax post-save)
+            if (!empty($itinerary_details_ids)) {
+                $itinerary_details_ids = array_unique($itinerary_details_ids);
+                // Get expansion data grouped by itinerary_details_id
+                $expansion_raw = $Enquiry_model->get_itinerary_expansion_grouped($itinerary_details_ids);
+                // Re-group by tour_details_id for easier access in the view
+                $itinerary_expansion_details = [];
+                // Build a mapping from itinerary_details_id to tour_details_id
+                $iti_to_tour_map = [];
+                foreach ($itinerary_details_draft as $draft) {
+                    $iti_to_tour_map[$draft['itinerary_details_id']] = $draft['tour_details_id'];
+                }
+                foreach ($itinerary_details_save as $save) {
+                    $iti_to_tour_map[$save['itinerary_details_id']] = $save['tour_details_id'];
+                }
+                // Group expansion data by tour_details_id
+                foreach ($expansion_raw as $iti_id => $expansions) {
+                    if (isset($iti_to_tour_map[$iti_id])) {
+                        $tour_details_id = $iti_to_tour_map[$iti_id];
+                        if (!isset($itinerary_expansion_details[$tour_details_id])) {
+                            $itinerary_expansion_details[$tour_details_id] = [];
+                        }
+                        foreach ($expansions as $exp) {
+                            $itinerary_expansion_details[$tour_details_id][] = $exp;
+                        }
                     }
                 }
             }
-        }
-        $all_edit_history = $Enquiry_model->get_all_edit_history($object_det[0]['enquiry_header_id']);
-        $data['edit_history'] = $all_edit_history;
-        $tour_start_date = $object_det[0]['date_of_tour_start_temp'];
-        $today = date('Y-m-d');
-        if (empty($tour_plan_det)) {
-            session()->setFlashdata('error', 'Tour plan is not created!');
-            return redirect()->to('Enquiry/enquiry_list_view/10');
-        } else {
-            $quick_quote_det = [];
-            $object_class_id = 10;
-            $entity_id = session('user_id');
-            $active_role = session('active_role');
-            $all_systems = $Dashboard_model->get_all_systems($entity_id);
-            $data['all_systems'] = $all_systems;
-            $all_roles = $Dashboard_model->get_all_entity_roles($entity_id);
-            if (!empty($all_roles)) {
-                $data['all_roles_assn'] = $all_roles;
-                $all_menus = $Dashboard_model->get_all_role_menus($active_role);
-                if (!empty($all_menus)) {
-                    $data['all_menus'] = $all_menus;
+            $all_edit_history = $Enquiry_model->get_all_edit_history($object_det[0]['enquiry_header_id']);
+            $data['edit_history'] = $all_edit_history;
+            $tour_start_date = $object_det[0]['date_of_tour_start_temp'];
+            $today = date('Y-m-d');
+            if (empty($tour_plan_det)) {
+                session()->setFlashdata('error', 'Tour plan is not created!');
+                return redirect()->to('Enquiry/enquiry_list_view/10');
+            } else {
+                $quick_quote_det = [];
+                $object_class_id = 10;
+                $entity_id = session('user_id');
+                $active_role = session('active_role');
+                $all_systems = $Dashboard_model->get_all_systems($entity_id);
+                $data['all_systems'] = $all_systems;
+                $all_roles = $Dashboard_model->get_all_entity_roles($entity_id);
+                if (!empty($all_roles)) {
+                    $data['all_roles_assn'] = $all_roles;
+                    $all_menus = $Dashboard_model->get_all_role_menus($active_role);
+                    if (!empty($all_menus)) {
+                        $data['all_menus'] = $all_menus;
+                    } else {
+                        $data['all_menus'] = [];
+                    }
+                    $all_permissions = $Dashboard_model->get_all_entity_permissions($active_role, 3);
+                    if (!empty($all_permissions)) {
+                        $data['all_permissions'] = $all_permissions;
+                    } else {
+                        $data['all_permissions'] = [];
+                    }
                 } else {
+                    $data['all_roles_assn'] = [];
                     $data['all_menus'] = [];
-                }
-                $all_permissions = $Dashboard_model->get_all_entity_permissions($active_role, 3);
-                if (!empty($all_permissions)) {
-                    $data['all_permissions'] = $all_permissions;
-                } else {
                     $data['all_permissions'] = [];
                 }
-            } else {
-                $data['all_roles_assn'] = [];
-                $data['all_menus'] = [];
-                $data['all_permissions'] = [];
-            }
-            $object_transport_name = '';
-            $tour_travel_daily_rate_exist = '';
-            $tour_travel_max_km_exist = '';
-            $extra_km_rate_exist = '';
-            $local_travel_daily_rate_exist = '';
-            $local_travel_max_km_exist = '';
-            $registration_no_exist = '';
-            $is_tour_travel_exist = 1;
-            $is_local_travel_exist = 1;
-            $is_active_exist = 1;
-            $hub_exist = '';
-            $mod_exist = '';
-            $seat_exist = '';
-            $obj_name = '';
-            $obj_loc = '';
-            $obj_mobile = [];
-            $obj_email = [];
-            $obj_address = [];
-            $all_locations = $Enquiry_model->get_tour_locations();
-            $arrival_locations = $Dashboard_model->get_arrival_locations();
-            $departure_locations = $Dashboard_model->get_departure_locations();
-            $hotel_categories = $Dashboard_model->get_hotel_categories();
-            $all_hotels = $Enquiry_model->get_all_hotels();
-            $all_room_categories = $Enquiry_model->get_all_room_categories();
-            $meal_plans = $Dashboard_model->get_meal_plan();
-            $hub_loc = $Dashboard_model->get_hub_location();
-            $enterprise_id = 1;
-            $object_type_id = 5;
-            $parent_menu = $Dashboard_model->get_parent_menus();
-            $sub_menu = $Dashboard_model->get_sub_menus();
-            $data['parent_menu'] = $parent_menu;
-            $data['sub_menu'] = $sub_menu;
-            $data['object_class_id'] = $object_class_id;
-            $data['object_type_id'] = $object_type_id;
-            if (!empty($object_class_det)) {
-                $data['object_class_name'] = $object_class_det[0]['object_class_name'];
-            } else {
-                $data['object_class_name'] = null;
-            }
-            $data['states'] = $Enquiry_model->indian_states();
-            $data['all_agents'] = $Enquiry_model->get_all_agents();
-            $data['tour_plan_det'] = $tour_plan_det;
-            $tour_plan_draft_det = $Enquiry_model->get_tour_plan_draft_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new);
-            $data['tour_plan_draft_det'] = $tour_plan_draft_det;
-            if ($object_det[0]['is_quick_quote'] && !empty($tour_plan_det)) {
-                $quick_quote_det = $Enquiry_model->get_quick_quote_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new, $tour_plan_det[0]['tour_details_id']);
-            }
-            $dep_ss = $Enquiry_model->get_sight_seeing($object_det[0]['departure_location']);
-            $data['dep_ss'] = $dep_ss;
-            $data['quick_quote_det'] = $quick_quote_det;
-            $data['all_locations'] = $all_locations;
-            $data['arrival_locations'] = $arrival_locations;
-            $data['departure_locations'] = $departure_locations;
-            $data['hotel_categories'] = $hotel_categories;
-            $data['all_hotels'] = $all_hotels;
-            $data['all_room_categories'] = $all_room_categories;
-            $data['meal_plans'] = $meal_plans;
-            $data['hub_loc'] = $hub_loc;
-            $data['enterprise_id'] = $enterprise_id;
-            $data['object_det'] = $object_det;
-            $data['obj_name'] = $obj_name;
-            $data['obj_loc'] = $obj_loc;
-            $data['object_id'] = $object_id;
-            $data['tour_plan_tariff'] = $tour_plan_tariff;
-            // PASS BOTH EXPANSION ARRAYS TO VIEW
-            
-            $data['tour_expansion_details'] = $tour_expansion_details; // For Itinerary Form
-            $data['itinerary_expansion_details'] = $itinerary_expansion_details; // For Costing Sheet
-            // PASS SAVED SIGHTSEEING DATA TO VIEW
-            $data['saved_sightseeing_by_date'] = $saved_sightseeing_by_date;
-            $data['itinerary_details_draft'] = $itinerary_details_draft;
-            $data['itinerary_details_save'] = $itinerary_details_save;
-            $data['tariff_details_iti'] = $tariff_details_iti;
-            $data['iti_cost_datas'] = $iti_cost_datas;
-            $data['edit_id'] = $edit_id;
-            if (!empty($edit_id)) {
-                if ((int)$iti_edit_id === 0) {
-                    $iti_edit_id_temp = 1;
-                    $version_count = null;
+                $object_transport_name = '';
+                $tour_travel_daily_rate_exist = '';
+                $tour_travel_max_km_exist = '';
+                $extra_km_rate_exist = '';
+                $local_travel_daily_rate_exist = '';
+                $local_travel_max_km_exist = '';
+                $registration_no_exist = '';
+                $is_tour_travel_exist = 1;
+                $is_local_travel_exist = 1;
+                $is_active_exist = 1;
+                $hub_exist = '';
+                $mod_exist = '';
+                $seat_exist = '';
+                $obj_name = '';
+                $obj_loc = '';
+                $obj_mobile = [];
+                $obj_email = [];
+                $obj_address = [];
+                $all_locations = $Enquiry_model->get_tour_locations();
+                $arrival_locations = $Dashboard_model->get_arrival_locations();
+                $departure_locations = $Dashboard_model->get_departure_locations();
+                $hotel_categories = $Dashboard_model->get_hotel_categories();
+                $all_hotels = $Enquiry_model->get_all_hotels();
+                $all_room_categories = $Enquiry_model->get_all_room_categories();
+                $meal_plans = $Dashboard_model->get_meal_plan();
+                $hub_loc = $Dashboard_model->get_hub_location();
+                $enterprise_id = 1;
+                $object_type_id = 5;
+                $parent_menu = $Dashboard_model->get_parent_menus();
+                $sub_menu = $Dashboard_model->get_sub_menus();
+                $data['parent_menu'] = $parent_menu;
+                $data['sub_menu'] = $sub_menu;
+                $data['object_class_id'] = $object_class_id;
+                $data['object_type_id'] = $object_type_id;
+                if (!empty($object_class_det)) {
+                    $data['object_class_name'] = $object_class_det[0]['object_class_name'];
+                } else {
+                    $data['object_class_name'] = null;
+                }
+                $data['states'] = $Enquiry_model->indian_states();
+                $data['all_agents'] = $Enquiry_model->get_all_agents();
+                $data['tour_plan_det'] = $tour_plan_det;
+                $tour_plan_draft_det = $Enquiry_model->get_tour_plan_draft_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new);
+                $data['tour_plan_draft_det'] = $tour_plan_draft_det;
+                if ($object_det[0]['is_quick_quote'] && !empty($tour_plan_det)) {
+                    $quick_quote_det = $Enquiry_model->get_quick_quote_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new, $tour_plan_det[0]['tour_details_id']);
+                }
+                $dep_ss = $Enquiry_model->get_sight_seeing($object_det[0]['departure_location']);
+                $data['dep_ss'] = $dep_ss;
+                $data['quick_quote_det'] = $quick_quote_det;
+                $data['all_locations'] = $all_locations;
+                $data['arrival_locations'] = $arrival_locations;
+                $data['departure_locations'] = $departure_locations;
+                $data['hotel_categories'] = $hotel_categories;
+                $data['all_hotels'] = $all_hotels;
+                $data['all_room_categories'] = $all_room_categories;
+                $data['meal_plans'] = $meal_plans;
+                $data['hub_loc'] = $hub_loc;
+                $data['enterprise_id'] = $enterprise_id;
+                $data['object_det'] = $object_det;
+                $data['obj_name'] = $obj_name;
+                $data['obj_loc'] = $obj_loc;
+                $data['object_id'] = $object_id;
+                $data['tour_plan_tariff'] = $tour_plan_tariff;
+                // PASS BOTH EXPANSION ARRAYS TO VIEW
+
+                $data['tour_expansion_details'] = $tour_expansion_details; // For Itinerary Form
+                $data['itinerary_expansion_details'] = $itinerary_expansion_details; // For Costing Sheet
+                // PASS SAVED SIGHTSEEING DATA TO VIEW
+                $data['saved_sightseeing_by_date'] = $saved_sightseeing_by_date;
+                $data['itinerary_details_draft'] = $itinerary_details_draft;
+                $data['itinerary_details_save'] = $itinerary_details_save;
+                $data['tariff_details_iti'] = $tariff_details_iti;
+                $data['iti_cost_datas'] = $iti_cost_datas;
+                $data['edit_id'] = $edit_id;
+                if (!empty($edit_id)) {
+                    if ((int)$iti_edit_id === 0) {
+                        $iti_edit_id_temp = 1;
+                        $version_count = null;
+                    } else {
+                        $iti_edit_id_temp = null;
+                        $version_count = $iti_edit_id;
+                    }
                 } else {
                     $iti_edit_id_temp = null;
-                    $version_count = $iti_edit_id;
+                    $version_count = null;
                 }
-            } else {
-                $iti_edit_id_temp = null;
-                $version_count = null;
+                if (!empty($iti_cost_datas_all) && $edit_id == null) {
+                    $iti_edit_id_temp = 1;
+                    $extension_disable = 1;
+                } else {
+                    $extension_disable = 0;
+                }
+                $total_extra_klm_cost = 0;
+                $total_permit = 0;
+                $data['total_extra_klm_cost'] = $total_extra_klm_cost;
+                $data['total_permit'] = $total_permit;
+                $data['iti_edit_id'] = $iti_edit_id_temp;
+                $data['version_count'] = $version_count;
+                $data['mark_up'] = $mark_up;
+                $data['final_save_flag'] = $final_save_flag;
+                $data['extension_ref_id'] = $extension_ref_id;
+                $data['extension_disable'] = $extension_disable;
+                $data['extension_ref_id_temp'] = $extension_ref_id_temp;
+                $data['tour_plan_ref_id'] = $tour_plan_det[0]['extension_ref_id'];
+                $data['previous_itinerary_details_save'] = $previous_itinerary_details_save;
+                return view('enquiry/itinerary_view', $data);
             }
-            if (!empty($iti_cost_datas_all) && $edit_id == null) {
-                $iti_edit_id_temp = 1;
-                $extension_disable = 1;
-            } else {
-                $extension_disable = 0;
-            }
-            $total_extra_klm_cost = 0;
-            $total_permit = 0;
-            $data['total_extra_klm_cost'] = $total_extra_klm_cost;
-            $data['total_permit'] = $total_permit;
-            $data['iti_edit_id'] = $iti_edit_id_temp;
-            $data['version_count'] = $version_count;
-            $data['mark_up'] = $mark_up;
-            $data['final_save_flag'] = $final_save_flag;
-            $data['extension_ref_id'] = $extension_ref_id;
-            $data['extension_disable'] = $extension_disable;
-            $data['extension_ref_id_temp'] = $extension_ref_id_temp;
-            $data['tour_plan_ref_id'] = $tour_plan_det[0]['extension_ref_id'];
-            $data['previous_itinerary_details_save'] = $previous_itinerary_details_save;
-            return view('enquiry/itinerary_view', $data);
+        } else {
+            return redirect()->to('Login');
         }
-    } else {
-        return redirect()->to('Login');
     }
-}
 
     // njsight
     // Add this method to your Enquiry controller
-    
+
     public function getSightseeingDetails()
     {
         $Enquiry_model = new Enquiry_m();
