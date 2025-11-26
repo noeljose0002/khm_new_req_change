@@ -10641,9 +10641,9 @@ $is_edit = $edit_id ? $edit_id : 0;
                             <input type="hidden" id="tour_location_id${count}" name="addloc[${count}][tour_location_id]" value="${locationData.tour_location || ''}">
                             <input type="hidden" id="location_sequence${count}" name="addloc[${count}][location_sequence]" value="${count}">
                             <div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${locationData.geog_name || 'Unknown Location'}</span></div>
+							<a href="#" class="card-options-edit" data-index="${count}">   <i class="fe fe-edit"></i></a>
                             <div class="card-options">
                                 <!-- NEW: Edit button -->
-                                <a href="#" class="card-options-edit" data-index="${count}"><i class="fe fe-edit"></i></a>
                                 <a href="#" class="card-options-remove"><i class="fe fe-x"></i></a>
                             </div>
                         </div>
