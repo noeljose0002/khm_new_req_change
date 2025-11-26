@@ -8855,35 +8855,35 @@ $cs_trans_total = 0;
 			var calculated = isPax === 1 ? cost : distance_km;
 			var displayValue = isPax === 1 ? ('₹' + cost.toFixed(2) + ' (PAX-based)') : (distance_km.toFixed(2) + ' km');
 			return '\
-    <div class="row align-items-center mb-2 ss-dynamic-row" \
-    id="ss_row_' + rowId + '" \
-    data-row-id="' + rowId + '" \
-    data-ss-id="' + (ss.sightseeing_id || ss.id || '') + '" \
-    data-is-pax="' + isPax + '" \
-    data-tariff="' + tariff + '" \
-    data-distance="' + distance_km + '" \
-    data-calculated="' + calculated + '" \
-    style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; border: 1px solid #dee2e6;">\
-    <div class="col-xl-4 col-sm-12 col-md-4">\
-    <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Sightseeing Name</label>\
-    <input type="text" class="form-control input-sm" value="' + name + '" readonly style="background-color: white; border: 1px solid #ced4da;">\
-    </div>\
-    <div class="col-xl-3 col-sm-12 col-md-2">\
-    <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">' + (isPax === 1 ? 'Tariff' : 'Distance') + '</label>\
-    <input type="text" class="form-control input-sm" value="' + displayValue + '" readonly style="background-color: white; border: 1px solid #ced4da; text-align: center;">\
-    </div>\
-    <div class="col-xl-3 col-sm-12 col-md-3" style="display:none;">\
-    <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Remarks</label>\
-    <textarea class="form-control input-sm ss-row-remarks" rows="1" style="border: 1px solid #ced4da;">' + (ss.remarks || '') + '</textarea>\
-    </div>\
-    <div class="col-xl-3 col-sm-12 col-md-2">\
-    <label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Total</label>\
-    <input type="text" class="form-control input-sm ss-row-total" value="' + (isPax === 1 ? cost.toFixed(2) : '0.00') + '" readonly style="background-color: #d1ecf1; font-weight: bold; text-align: center; border: 1px solid #bee5eb;">\
-    </div>\
-    <div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">\
-    <button type="button" class="btn btn-danger btn-sm remove_ss_row" data-row-id="' + rowId + '" data-iti-id="' + itiId + '" style="width:100%; padding:6px;"><i class="fa fa-times"></i></button>\
-    </div>\
-    </div>';
+				<div class="row align-items-center mb-2 ss-dynamic-row" \
+				id="ss_row_' + rowId + '" \
+				data-row-id="' + rowId + '" \
+				data-ss-id="' + (ss.sightseeing_id || ss.id || '') + '" \
+				data-is-pax="' + isPax + '" \
+				data-tariff="' + tariff + '" \
+				data-distance="' + distance_km + '" \
+				data-calculated="' + calculated + '" \
+				style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; border: 1px solid #dee2e6;">\
+				<div class="col-xl-4 col-sm-12 col-md-4">\
+				<label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Sightseeing Name</label>\
+				<input type="text" class="form-control input-sm" value="' + name + '" readonly style="background-color: white; border: 1px solid #ced4da;">\
+				</div>\
+				<div class="col-xl-3 col-sm-12 col-md-2">\
+				<label class="small-label" style="font-weight: bold; margin-bottom: 5px;">' + (isPax === 1 ? 'Tariff' : 'Distance') + '</label>\
+				<input type="text" class="form-control input-sm" value="' + displayValue + '" readonly style="background-color: white; border: 1px solid #ced4da; text-align: center;">\
+				</div>\
+				<div class="col-xl-3 col-sm-12 col-md-3" style="display:none;">\
+				<label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Remarks</label>\
+				<textarea class="form-control input-sm ss-row-remarks" rows="1" style="border: 1px solid #ced4da;">' + (ss.remarks || '') + '</textarea>\
+				</div>\
+				<div class="col-xl-3 col-sm-12 col-md-2">\
+				<label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Total</label>\
+				<input type="text" class="form-control input-sm ss-row-total" value="' + (isPax === 1 ? cost.toFixed(2) : '0.00') + '" readonly style="background-color: #d1ecf1; font-weight: bold; text-align: center; border: 1px solid #bee5eb;">\
+				</div>\
+				<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">\
+				<button type="button" class="btn btn-danger btn-sm remove_ss_row" data-row-id="' + rowId + '" data-iti-id="' + itiId + '" style="width:100%; padding:6px;"><i class="fa fa-times"></i></button>\
+				</div>\
+				</div>';
 		}
 		// -------- Ensure base stored (FIXED - aware of expansion source) --------
 		function ensureBaseStored(vid, iti_id, tourDetailsId, shouldAddSS, savedSsTotalHint) {
@@ -9068,23 +9068,44 @@ $cs_trans_total = 0;
 		}
 		// ----------------- Grand total -----------------
 		function calculateGrandTotal(iti_id) {
-			var accTotal = pf($('#acc_total' + iti_id).val());
-			var vehicleTotal = 0;
-			$('.chk_vehicle:checked').each(function() {
-				var vid = $(this).val() || '';
-				if (vid.indexOf(iti_id) === 0 || vid.startsWith(iti_id)) {
-					vehicleTotal += pf($('#veh_total' + vid).val());
-				}
-			});
-			var dailyAddon = pf($('#daily_addon' + iti_id).val());
-			var permit = pf($('#permit' + iti_id).val());
-			var spclTariff = pf($('#spcl_tariff' + iti_id).val());
-			var facRate = pf($('#fac_rate' + iti_id).val());
-			var ssGrandTotal = pf($('#ss_grand_total' + iti_id).val());
-			var grandTotal = accTotal + vehicleTotal + ssGrandTotal + dailyAddon + permit + spclTariff + facRate;
-			$('#grand_total' + iti_id).val(grandTotal.toFixed(2));
-
-		}
+    console.log('Calculating grand total for:', iti_id);
+    
+    var accTotal = pf($('#acc_total' + iti_id).val());
+    var vehicleTotal = 0;
+    
+    // Sum all checked vehicles for this itinerary
+    $('.chk_vehicle:checked').each(function() {
+        var vid = $(this).val() || '';
+        if (vid.indexOf(iti_id) === 0 || vid.startsWith(iti_id)) {
+            var vehTotal = pf($('#veh_total' + vid).val());
+            console.log('Adding vehicle', vid, 'total:', vehTotal);
+            vehicleTotal += vehTotal;
+        }
+    });
+    
+    var dailyAddon = pf($('#daily_addon' + iti_id).val());
+    var permit = pf($('#permit' + iti_id).val());
+    var spclTariff = pf($('#spcl_tariff' + iti_id).val());
+    var facRate = pf($('#fac_rate' + iti_id).val());
+    var ssGrandTotal = pf($('#ss_grand_total' + iti_id).val());
+    
+    console.log('Components:', {
+        accTotal, vehicleTotal, ssGrandTotal, 
+        dailyAddon, permit, spclTariff, facRate
+    });
+    
+    var grandTotal = accTotal + vehicleTotal + ssGrandTotal + dailyAddon + permit + spclTariff + facRate;
+    
+    // Update the grand total field
+    $('#grand_total' + iti_id).val(grandTotal.toFixed(2));
+    
+    // Update breadcrumb display
+    $('#span_bread_id' + iti_id).text('₹' + grandTotal.toFixed(2));
+    
+    console.log('Grand total for', iti_id, ':', grandTotal.toFixed(2));
+    
+    return grandTotal;
+}
 		// ------------- Add / Remove SS rows -------------
 		$(document).on('click', '.add_sightseeing_btn', function() {
 			var iti_id = $(this).data('id');
