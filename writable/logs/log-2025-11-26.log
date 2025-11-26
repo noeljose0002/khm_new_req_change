@@ -83,3 +83,366 @@ in APPPATH\Controllers\Enquiry.php on line 10263.
  5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 07:29:04 --> ErrorException: Undefined array key "sequence_id"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6383.
+ 1 APPPATH\Controllers\Enquiry.php(6383): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "sequence_id"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 6383)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2813', '1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 07:29:06 --> ErrorException: Undefined array key "sequence_id"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6383.
+ 1 APPPATH\Controllers\Enquiry.php(6383): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "sequence_id"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 6383)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2813', '1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 07:29:35 --> ErrorException: Undefined array key "sequence_id"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6383.
+ 1 APPPATH\Controllers\Enquiry.php(6383): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "sequence_id"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 6383)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2813', '1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 07:35:04 --> ErrorException: Undefined array key "sequence_id"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6395.
+ 1 APPPATH\Controllers\Enquiry.php(6395): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "sequence_id"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 6395)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2813', '1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 07:35:05 --> ErrorException: Undefined array key "sequence_id"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6395.
+ 1 APPPATH\Controllers\Enquiry.php(6395): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "sequence_id"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 6395)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2813', '1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 07:42:31 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10263.
+ 1 APPPATH\Controllers\Enquiry.php(10263): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10263)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 07:46:41 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10263.
+ 1 APPPATH\Controllers\Enquiry.php(10263): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10263)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 07:55:03 --> ErrorException: Undefined array key "sequence_id"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6395.
+ 1 APPPATH\Controllers\Enquiry.php(6395): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "sequence_id"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 6395)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2813', '1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 07:55:17 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10263.
+ 1 APPPATH\Controllers\Enquiry.php(10263): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10263)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 07:56:45 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10263.
+ 1 APPPATH\Controllers\Enquiry.php(10263): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10263)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:22:34 --> ParseError: syntax error, unexpected token "else"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6615.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Enquiry/itinerary/2813/1', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Enquiry/itinerary/2813/1')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Enquiry/itinerary/2813/1')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:22:43 --> ErrorException: Undefined array key "sequence_id"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6398.
+ 1 APPPATH\Controllers\Enquiry.php(6398): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "sequence_id"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 6398)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2813', '1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:22:44 --> ErrorException: Undefined array key "sequence_id"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6398.
+ 1 APPPATH\Controllers\Enquiry.php(6398): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "sequence_id"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 6398)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2813', '1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:22:50 --> ParseError: syntax error, unexpected token "else", expecting "function" or "const"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6615.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Enquiry/itinerary/2813/1', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Enquiry/itinerary/2813/1')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Enquiry/itinerary/2813/1')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:23:45 --> ParseError: syntax error, unexpected token "else"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6610.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Enquiry/itinerary/2813/1', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Enquiry/itinerary/2813/1')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Enquiry/itinerary/2813/1')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:24:19 --> ErrorException: Undefined array key "sequence_id"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6395.
+ 1 APPPATH\Controllers\Enquiry.php(6395): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "sequence_id"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 6395)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2813', '1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:24:20 --> ErrorException: Undefined array key "sequence_id"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6395.
+ 1 APPPATH\Controllers\Enquiry.php(6395): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "sequence_id"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 6395)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2813', '1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:26:01 --> ErrorException: Undefined array key "sequence_id"
+[Method: GET, Route: Enquiry/itinerary/2813/1]
+in APPPATH\Controllers\Enquiry.php on line 6395.
+ 1 APPPATH\Controllers\Enquiry.php(6395): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "sequence_id"', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 6395)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2813', '1')
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:32:41 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:32:42 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:34:47 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:47:41 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 08:47:49 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 09:22:17 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 09:25:12 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 09:45:54 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 10:10:17 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 10:29:54 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10336.
+ 1 APPPATH\Controllers\Enquiry.php(10336): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10336)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 11:14:54 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 11:17:54 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 11:22:21 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 11:29:22 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10316.
+ 1 APPPATH\Controllers\Enquiry.php(10316): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10316)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 12:15:33 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10358.
+ 1 APPPATH\Controllers\Enquiry.php(10358): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10358)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 13:03:43 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10365.
+ 1 APPPATH\Controllers\Enquiry.php(10365): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10365)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 13:29:17 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10365.
+ 1 APPPATH\Controllers\Enquiry.php(10365): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10365)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-26 13:38:39 --> ErrorException: Undefined array key 0
+[Method: POST, Route: Enquiry/ajax_get_itineraries]
+in APPPATH\Controllers\Enquiry.php on line 10365.
+ 1 APPPATH\Controllers\Enquiry.php(10365): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 0', 'C:\\wamp64\\www\\khm\\app\\Controllers\\Enquiry.php', 10365)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->ajax_get_itineraries()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
