@@ -9499,66 +9499,74 @@ $cs_trans_total = 0;
 
 		// STEP 3: Initialize vehicle copy distances with PURE BASE
 		console.log('=== STEP 3: Initializing vehicle copy distances ===');
-		$('[id^="travel_distance"]').each(function() {
-			var $distInput = $(this);
-			var vid = $distInput.attr('v_id');
-			if (!vid) return;
-			
-			// Extract itinerary ID from vehicle ID
-			var match = vid.match(/^(\d+_\d{2}-\d{2}-\d{4})/);
-			var itiId = match ? match[1] : null;
-			
-			if (!itiId) {
-				console.log('  WARNING: Could not extract itinerary ID from vehicle:', vid);
-				return;
-			}
-			
-			var currentDist = parseFloat($distInput.val()) || 0;
-			
-			if (itinerariesWithSavedSS[itiId]) {
-				// **FIXED**: PHP sends ONLY base distance (vehicle travel without SS)
-				// Store as pure base
-				$('#c_travel_distance_copy' + vid).val(currentDist.toFixed(2));
-				
-				// Calculate total distance = base + saved SS
-				var savedSSDistance = itinerariesWithSavedSS[itiId].ssDistance;
-				var totalDistance = currentDist + savedSSDistance;
-				
-				// Update display to show total
-				$distInput.val(totalDistance.toFixed(2));
-				
-				console.log('  Vehicle', vid, '- Base from PHP:', currentDist, 'Saved SS:', savedSSDistance, 'Total:', totalDistance);
-				
-				// Recalculate extra kilometers based on TOTAL distance
-				var maxKm = parseFloat($('#max_km_day' + vid).val()) || 0;
-				var extraKm = totalDistance > maxKm ? (totalDistance - maxKm) : 0;
-				$('#extra_kilometer' + vid).val(extraKm.toFixed(2));
-				
-			} else {
-				// No saved SS - check for defaults
-				var hasDefaultSS = false;
-				var defaultSSDistance = 0;
-				
-				$('#ss_dynamic_rows' + itiId + ' .ss-dynamic-row').each(function() {
-					hasDefaultSS = true;
-					var isPax = parseInt($(this).data('is-pax'));
-					if (isPax !== 1) {
-						defaultSSDistance += parseFloat($(this).data('calculated')) || 0;
-					}
-				});
-				
-				if (hasDefaultSS) {
-					// Extract base from defaults
-					var baseDist = currentDist - defaultSSDistance;
-					$('#c_travel_distance_copy' + vid).val(baseDist.toFixed(2));
-					console.log('  Vehicle', vid, '(defaults) - Total:', currentDist, 'Default SS:', defaultSSDistance, 'Base:', baseDist);
-				} else {
-					// No SS - current IS the base
-					$('#c_travel_distance_copy' + vid).val(currentDist.toFixed(2));
-					console.log('  Vehicle', vid, '(no SS) - Base:', currentDist);
-				}
-			}
-		});
+$('[id^="travel_distance"]').each(function() {
+    var $distInput = $(this);
+    var vid = $distInput.attr('v_id');
+    if (!vid) return;
+
+    // Extract itinerary ID from vehicle ID
+    var match = vid.match(/^(\d+_\d{2}-\d{2}-\d{4})/);
+    var itiId = match ? match[1] : null;
+
+    if (!itiId) {
+        console.log('  WARNING: Could not extract itinerary ID from vehicle:', vid);
+        return;
+    }
+
+    var currentDist = parseFloat($distInput.val()) || 0;
+
+    if (itinerariesWithSavedSS[itiId]) {
+        // savedSSDistance = what's actually stored on server for this itinerary/date
+        var savedSSDistance = parseFloat(itinerariesWithSavedSS[itiId].ssDistance) || 0;
+
+        // Derive base distance from the current vehicle value:
+        // - If PHP already provided base (currentDist == base), baseFromCurrent ~= currentDist
+        // - If PHP provided base+defaults (currentDist == base + defaults), this subtracts defaults to get base
+        var baseFromCurrent = currentDist - savedSSDistance;
+
+        // Safety: clamp to zero (avoid negatives if something mismatched)
+        if (baseFromCurrent < 0) baseFromCurrent = 0;
+
+        // Store pure base in the hidden copy field
+        $('#c_travel_distance_copy' + vid).val(baseFromCurrent.toFixed(2));
+
+        // Ensure visible distance is base + saved SS (this will equal currentDist if currentDist already included savedSSDistance)
+        var totalDistance = baseFromCurrent + savedSSDistance;
+        $distInput.val(totalDistance.toFixed(2));
+
+        console.log('  Vehicle', vid, '- Derived Base:', baseFromCurrent, 'Saved SS:', savedSSDistance, 'Display Total:', totalDistance);
+
+        // Recalculate extra kilometers based on TOTAL distance
+        var maxKm = parseFloat($('#max_km_day' + vid).val()) || 0;
+        var extraKm = totalDistance > maxKm ? (totalDistance - maxKm) : 0;
+        $('#extra_kilometer' + vid).val(extraKm.toFixed(2));
+
+    } else {
+        // No saved SS - check for defaults
+        var hasDefaultSS = false;
+        var defaultSSDistance = 0;
+
+        $('#ss_dynamic_rows' + itiId + ' .ss-dynamic-row').each(function() {
+            hasDefaultSS = true;
+            var isPax = parseInt($(this).data('is-pax'));
+            if (isPax !== 1) {
+                defaultSSDistance += parseFloat($(this).data('calculated')) || 0;
+            }
+        });
+
+        if (hasDefaultSS) {
+            // Extract base from defaults (PHP has given total = base + defaultSS)
+            var baseDist = currentDist - defaultSSDistance;
+            if (baseDist < 0) baseDist = 0;
+            $('#c_travel_distance_copy' + vid).val(baseDist.toFixed(2));
+            console.log('  Vehicle', vid, '(defaults) - Total:', currentDist, 'Default SS:', defaultSSDistance, 'Base:', baseDist);
+        } else {
+            // No SS - current IS the base
+            $('#c_travel_distance_copy' + vid).val(currentDist.toFixed(2));
+            console.log('  Vehicle', vid, '(no SS) - Base:', currentDist);
+        }
+    }
+});
 
 		// STEP 4: Load saved sightseeing rows (after clearing defaults)
 		console.log('=== STEP 4: Loading saved sightseeing rows ===');
