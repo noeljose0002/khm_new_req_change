@@ -2388,7 +2388,7 @@ $cs_trans_total = 0;
 																										<div class="col-xl-2 col-sm-12 col-md-2">
 																											<div class="teams-rank"><label class="small-label">Sight Seeing Location</label></div>
 																											<select id="sight_selector<?php echo $iti_id; ?>"
-																												class="form-control input-sm " <!-- FIXED: Added ss_selector class for JS init -->
+																												class="form-control input-sm " 
 																												data-id="<?php echo $iti_id; ?>"
 																												style="width: 100%;"
 																												<?php echo $dis_abled; ?>>
@@ -9485,15 +9485,26 @@ $cs_trans_total = 0;
 
 		console.log('Total itineraries with saved SS:', Object.keys(itinerariesWithSavedSS).length);
 
-		// STEP 2: Initialize vehicle copy distances
-		console.log('=== STEP 2: Initializing vehicle copy distances ===');
+		// STEP 2: Clear default SS rows for itineraries that have saved SS
+		console.log('=== STEP 2: Clearing default SS for saved itineraries ===');
+		$.each(itinerariesWithSavedSS, function(itiId, data) {
+			var $container = $('#ss_dynamic_rows' + itiId);
+			var defaultRowCount = $container.find('.ss-dynamic-row').length;
+			
+			if (defaultRowCount > 0) {
+				console.log('  Clearing', defaultRowCount, 'default rows for itinerary:', itiId);
+				$container.empty();
+			}
+		});
+
+		// STEP 3: Initialize vehicle copy distances with PURE BASE
+		console.log('=== STEP 3: Initializing vehicle copy distances ===');
 		$('[id^="travel_distance"]').each(function() {
 			var $distInput = $(this);
 			var vid = $distInput.attr('v_id');
 			if (!vid) return;
 			
-			// Extract itinerary ID from vehicle ID (format: tourId_date_vehicleId_index)
-			// Example: 1570_01-01-2026127_0 -> extract 1570_01-01-2026
+			// Extract itinerary ID from vehicle ID
 			var match = vid.match(/^(\d+_\d{2}-\d{2}-\d{4})/);
 			var itiId = match ? match[1] : null;
 			
@@ -9505,27 +9516,24 @@ $cs_trans_total = 0;
 			var currentDist = parseFloat($distInput.val()) || 0;
 			
 			if (itinerariesWithSavedSS[itiId]) {
-				// This itinerary HAS saved sightseeing
-				// PHP distance is PURE BASE (without SS)
-				// So copy distance = current distance (no adjustment needed)
-				$('#c_travel_distance_copy' + vid).val(currentDist.toFixed(2));
-				console.log('  Vehicle', vid, '(HAS saved SS) - Base:', currentDist);
+				// **CRITICAL FIX**: PHP sends TOTAL distance (base + SS from previous save)
+				// We need to extract PURE BASE by subtracting saved SS distance
+				var savedSSDistance = itinerariesWithSavedSS[itiId].ssDistance;
+				var pureBase = currentDist - savedSSDistance;
 				
-				// Now ADD the saved SS distance to get the total
-				var ssDistance = itinerariesWithSavedSS[itiId].ssDistance;
-				var totalDistance = currentDist + ssDistance;
-				$distInput.val(totalDistance.toFixed(2));
-				console.log('    Updated total:', currentDist, '+', ssDistance, '=', totalDistance);
+				// Store pure base in copy field
+				$('#c_travel_distance_copy' + vid).val(pureBase.toFixed(2));
 				
-				// Recalculate extra kilometers
+				// Keep display as current total (no change needed - already correct from PHP)
+				console.log('  Vehicle', vid, '- Total from PHP:', currentDist, 'Saved SS:', savedSSDistance, 'Pure Base:', pureBase);
+				
+				// Recalculate extra kilometers based on CURRENT TOTAL
 				var maxKm = parseFloat($('#max_km_day' + vid).val()) || 0;
-				var extraKm = totalDistance > maxKm ? (totalDistance - maxKm) : 0;
+				var extraKm = currentDist > maxKm ? (currentDist - maxKm) : 0;
 				$('#extra_kilometer' + vid).val(extraKm.toFixed(2));
 				
 			} else {
-				// This itinerary has NO saved sightseeing
-				// PHP distance is already the total (might include default SS or just pure travel)
-				// Check if there are default SS rows loaded by PHP
+				// No saved SS - check for defaults
 				var hasDefaultSS = false;
 				var defaultSSDistance = 0;
 				
@@ -9538,20 +9546,20 @@ $cs_trans_total = 0;
 				});
 				
 				if (hasDefaultSS) {
-					// PHP loaded defaults - extract base
+					// Extract base from defaults
 					var baseDist = currentDist - defaultSSDistance;
 					$('#c_travel_distance_copy' + vid).val(baseDist.toFixed(2));
-					console.log('  Vehicle', vid, '(has DEFAULT SS) - Total:', currentDist, 'DefaultSS:', defaultSSDistance, 'Base:', baseDist);
+					console.log('  Vehicle', vid, '(defaults) - Total:', currentDist, 'Default SS:', defaultSSDistance, 'Base:', baseDist);
 				} else {
-					// No SS at all - current distance IS the base
+					// No SS - current IS the base
 					$('#c_travel_distance_copy' + vid).val(currentDist.toFixed(2));
-					console.log('  Vehicle', vid, '(NO SS) - Base:', currentDist);
+					console.log('  Vehicle', vid, '(no SS) - Base:', currentDist);
 				}
 			}
 		});
 
-		// STEP 3: Load saved sightseeing rows
-		console.log('=== STEP 3: Loading saved sightseeing rows ===');
+		// STEP 4: Load saved sightseeing rows (after clearing defaults)
+		console.log('=== STEP 4: Loading saved sightseeing rows ===');
 		$.each(itinerariesWithSavedSS, function(itiId, data) {
 			console.log('  Loading SS rows for itinerary:', itiId);
 			
@@ -9588,8 +9596,8 @@ $cs_trans_total = 0;
 			console.log('    ✓ Loaded', ssInfo.sightseeing.length, 'rows - Distance:', totalDistance, 'PAX Cost:', totalPaxCost);
 		});
 
-		// STEP 4: Initialize itineraries without saved SS
-		console.log('=== STEP 4: Initialize itineraries without saved SS ===');
+		// STEP 5: Initialize itineraries without saved SS
+		console.log('=== STEP 5: Initialize itineraries without saved SS ===');
 		$('[id^="ss_data_json"]').each(function() {
 			var iti_id = $(this).attr('id').replace('ss_data_json', '');
 			
@@ -9634,8 +9642,8 @@ $cs_trans_total = 0;
 			});
 		});
 
-		// STEP 5: Final grand total calculation
-		console.log('=== STEP 5: Final calculations ===');
+		// STEP 6: Final grand total calculation
+		console.log('=== STEP 6: Final calculations ===');
 		setTimeout(function() {
 			$('[id^="grand_total"]').each(function() {
 				var itiId = $(this).attr('id').replace('grand_total', '');
