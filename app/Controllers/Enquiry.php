@@ -6497,6 +6497,7 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
             $data['object_id'] = $object_id;
             $data['tour_plan_tariff'] = $tour_plan_tariff;
             // PASS BOTH EXPANSION ARRAYS TO VIEW
+            
             $data['tour_expansion_details'] = $tour_expansion_details; // For Itinerary Form
             $data['itinerary_expansion_details'] = $itinerary_expansion_details; // For Costing Sheet
             // PASS SAVED SIGHTSEEING DATA TO VIEW
