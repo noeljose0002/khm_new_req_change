@@ -849,6 +849,18 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
+    //nj//
+    public function get_default_sight_seeing($location_id)
+{
+    $db = \Config\Database::connect();
+    $table = $db->table('khm_obj_sightseeing a');
+    $result = $table->select('a.*,f.object_name')
+        ->join('khm_obj_mst f', 'f.object_id = a.object_id', 'left')
+        ->where('f.object_location_id', $location_id)
+        ->where('a.is_default_ss', 1)
+        ->get()->getResultArray();
+    return $result;
+}
     public function get_sight_seeing($location_id)
     {
         $db = \Config\Database::connect();
