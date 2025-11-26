@@ -9516,20 +9516,22 @@ $cs_trans_total = 0;
 			var currentDist = parseFloat($distInput.val()) || 0;
 			
 			if (itinerariesWithSavedSS[itiId]) {
-				// **CRITICAL FIX**: PHP sends TOTAL distance (base + SS from previous save)
-				// We need to extract PURE BASE by subtracting saved SS distance
+				// **FIXED**: PHP sends ONLY base distance (vehicle travel without SS)
+				// Store as pure base
+				$('#c_travel_distance_copy' + vid).val(currentDist.toFixed(2));
+				
+				// Calculate total distance = base + saved SS
 				var savedSSDistance = itinerariesWithSavedSS[itiId].ssDistance;
-				var pureBase = currentDist - savedSSDistance;
+				var totalDistance = currentDist + savedSSDistance;
 				
-				// Store pure base in copy field
-				$('#c_travel_distance_copy' + vid).val(pureBase.toFixed(2));
+				// Update display to show total
+				$distInput.val(totalDistance.toFixed(2));
 				
-				// Keep display as current total (no change needed - already correct from PHP)
-				console.log('  Vehicle', vid, '- Total from PHP:', currentDist, 'Saved SS:', savedSSDistance, 'Pure Base:', pureBase);
+				console.log('  Vehicle', vid, '- Base from PHP:', currentDist, 'Saved SS:', savedSSDistance, 'Total:', totalDistance);
 				
-				// Recalculate extra kilometers based on CURRENT TOTAL
+				// Recalculate extra kilometers based on TOTAL distance
 				var maxKm = parseFloat($('#max_km_day' + vid).val()) || 0;
-				var extraKm = currentDist > maxKm ? (currentDist - maxKm) : 0;
+				var extraKm = totalDistance > maxKm ? (totalDistance - maxKm) : 0;
 				$('#extra_kilometer' + vid).val(extraKm.toFixed(2));
 				
 			} else {
