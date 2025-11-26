@@ -7407,9 +7407,9 @@ $cs_trans_total = 0;
 
 			$('#btn_total_km').text("Total KM : " + travel_distanceCost);
 
-			$('#tac_span').text(totalAccommodationCost.toFixed(2));
-			$('#tac_hidden').val(totalAccommodationCost.toFixed(2));
-			$('#a_total').text(totalAccommodationCost.toFixed(2));
+			$('#tac_span').text(totalAccommodationCost);
+			$('#tac_hidden').val(totalAccommodationCost);
+			$('#a_total').text(totalAccommodationCost);
 
 			$('input.chk_vehicle:checked').each(function() {
 				const vid = $(this).val();
@@ -7419,21 +7419,21 @@ $cs_trans_total = 0;
 
 			totalTransportationCost += parseFloat($('#extraklm_hidden').val()) || 0;
 			totalTransportationCost += parseFloat($('#permit_hidden').val()) || 0;
-			$('#ttc_span').text(totalTransportationCost.toFixed(2));
-			$('#ttc_hidden').val(totalTransportationCost.toFixed(2));
-			$('#v_total').text(totalTransportationCost.toFixed(2));
+			$('#ttc_span').text(totalTransportationCost);
+			$('#ttc_hidden').val(totalTransportationCost);
+			$('#v_total').text(totalTransportationCost);
 
 			$('input[id^="spcl_tariff"]').each(function() {
 				specialEventTotal += parseFloat($(this).val()) || 0;
 			});
-			$('#spcl_span').text(specialEventTotal.toFixed(2));
-			$('#spcl_hidden').val(specialEventTotal.toFixed(2));
+			$('#spcl_span').text(specialEventTotal);
+			$('#spcl_hidden').val(specialEventTotal);
 
 			$('input[id^="daily_addon"]').each(function() {
 				dailyAddonTotal += parseFloat($(this).val()) || 0;
 			});
-			$('#daily_span').text(dailyAddonTotal.toFixed(2));
-			$('#daily_hidden').val(dailyAddonTotal.toFixed(2));
+			$('#daily_span').text(dailyAddonTotal);
+			$('#daily_hidden').val(dailyAddonTotal);
 
 			/*********************Bifur********************/
 			var no_of_adult_b = <?php echo $object_det[0]['no_of_adult']; ?>;
@@ -7442,15 +7442,15 @@ $cs_trans_total = 0;
 			var total_no_of_pax_bifur = parseInt(no_of_adult_b) + parseInt(no_of_child_with_bed_b) + parseInt(no_of_child_without_bed_b);
 			var round_off_bifur = parseFloat($('#tour_addon_value').val());
 			var bifur_ss = specialEventTotal + dailyAddonTotal;
-			$('#bifur_ss_span').text(bifur_ss.toFixed(2));
-			$('#bifur_ss_hidden').val(bifur_ss.toFixed(2));
-			$('#bifur_ss_span_pp').text((bifur_ss / total_no_of_pax_bifur).toFixed(2));
-			$('#bifur_ss_hidden_pp').val((bifur_ss / total_no_of_pax_bifur).toFixed(2));
+			$('#bifur_ss_span').text(bifur_ss);
+			$('#bifur_ss_hidden').val(bifur_ss);
+			$('#bifur_ss_span_pp').text((bifur_ss / total_no_of_pax_bifur));
+			$('#bifur_ss_hidden_pp').val((bifur_ss / total_no_of_pax_bifur));
 
-			$('#round_off_span').text(round_off_bifur.toFixed(2));
-			$('#round_off_hidden').val(round_off_bifur.toFixed(2));
-			$('#round_off_span_pp').text((round_off_bifur / total_no_of_pax_bifur).toFixed(2));
-			$('#round_off_hidden_pp').val((round_off_bifur / total_no_of_pax_bifur).toFixed(2));
+			$('#round_off_span').text(round_off_bifur);
+			$('#round_off_hidden').val(round_off_bifur);
+			$('#round_off_span_pp').text((round_off_bifur / total_no_of_pax_bifur));
+			$('#round_off_hidden_pp').val((round_off_bifur / total_no_of_pax_bifur));
 			/*********************Bifur********************/
 
 			$('input.grand_total').each(function() {
@@ -7458,9 +7458,9 @@ $cs_trans_total = 0;
 			});
 			totalNetRate += parseFloat($('#extraklm_hidden').val()) || 0;
 			totalNetRate += parseFloat($('#permit_hidden').val()) || 0;
-			$('#tnr_span').text(totalNetRate.toFixed(2));
-			$('#tnr_hidden').val(totalNetRate.toFixed(2));
-			$('#g_total').text(totalNetRate.toFixed(2));
+			$('#tnr_span').text(totalNetRate);
+			$('#tnr_hidden').val(totalNetRate);
+			$('#g_total').text(totalNetRate);
 		}, 300);
 	}
 
@@ -7501,10 +7501,10 @@ $cs_trans_total = 0;
 			});
 
 			// Update grand total field
-			$scope.find('.grand_total').val(total.toFixed(2));
-			$('#span_bread_id' + vid).text(total.toFixed(2));
+			$scope.find('.grand_total').val(total);
+			$('#span_bread_id' + vid).text(total);
 
-			console.log(`Grand total for ${vid}: ${total.toFixed(2)}`); // Debug log
+			console.log(`Grand total for ${vid}: ${total}`); // Debug log
 		}
 
 		// Update overall totals
@@ -7743,16 +7743,16 @@ $cs_trans_total = 0;
 		var margin_value = parseFloat($('#margin_value').val()) || 0;
 		var tour_addon_value = parseFloat($('#tour_addon_total').val()) || 0;
 		var marginPercent = (margin_value / 100) * tnr;
-		$('#margin_total').val(marginPercent.toFixed(2));
+		$('#margin_total').val(marginPercent);
 		var total_final = tnr + marginPercent + tour_addon_value;
-		$('#total_final').val(total_final.toFixed(2));
+		$('#total_final').val(total_final);
 
 		var gst_value = parseFloat($('#gst_value').val()) || 0;
 		var gst_final = (gst_value / 100) * total_final;
-		$('#gst_final').val(gst_final.toFixed(2));
+		$('#gst_final').val(gst_final);
 
 		var tpc = total_final + gst_final;
-		//$('#tpc').val(tpc.toFixed(2));
+		//$('#tpc').val(tpc);
 		$('#tpc').val(parseInt(tpc));
 	}
 
@@ -7773,21 +7773,21 @@ $cs_trans_total = 0;
 		var total_pax_px = tour_addon_value / total_pax;
 		$('#round_off_span').text(tour_addon_value);
 		$('#round_off_hidden').val(tour_addon_value);
-		$('#round_off_span_pp').text(total_pax_px.toFixed(2));
-		$('#round_off_hidden_pp').val(total_pax_px.toFixed(2));
+		$('#round_off_span_pp').text(total_pax_px);
+		$('#round_off_hidden_pp').val(total_pax_px);
 
 
 		var marginPercent = (margin_value / 100) * tnr;
-		$('#margin_total').val(marginPercent.toFixed(2));
+		$('#margin_total').val(marginPercent);
 		var total_final = tnr + marginPercent + tour_addon_value;
-		$('#total_final').val(total_final.toFixed(2));
+		$('#total_final').val(total_final);
 
 		var gst_value = parseFloat($('#gst_value').val()) || 0;
 		var gst_final = (gst_value / 100) * total_final;
-		$('#gst_final').val(gst_final.toFixed(2));
+		$('#gst_final').val(gst_final);
 
 		var tpc = total_final + gst_final;
-		//$('#tpc').val(tpc.toFixed(2));
+		//$('#tpc').val(tpc);
 		$('#tpc').val(parseInt(tpc));
 	}
 	$(document).on('input', '#tour_addon_value', function() {
@@ -7799,8 +7799,8 @@ $cs_trans_total = 0;
 		var gst_value = parseFloat($('#gst_value').val()) || 0;
 		var gstPercent = (gst_value / 100) * totalFinal;
 		var totalPackageCost = totalFinal + gstPercent;
-		$('#gst_final').val(gstPercent.toFixed(2));
-		//$('#tpc').val(totalPackageCost.toFixed(2));
+		$('#gst_final').val(gstPercent);
+		//$('#tpc').val(totalPackageCost);
 		$('#tpc').val(parseInt(totalPackageCost));
 	}
 	$(document).on('change', '#gst_value', function() {
@@ -8700,112 +8700,112 @@ $cs_trans_total = 0;
 			var total_bifur_child_wb = parseFloat(bifur_child_wb_pp) + parseFloat(ttc_bifur_child_wb) + parseFloat(bifur_ss_hidden_pp);
 			var total_bifur_extra = parseFloat(bifur_extra_pp) + parseFloat(ttc_bifur_extra) + parseFloat(bifur_ss_hidden_pp);
 
-			$('#total_bifur_double_span_pp').text(total_bifur_double.toFixed(2));
-			$('#total_bifur_double_hd_pp').val(total_bifur_double.toFixed(2));
+			$('#total_bifur_double_span_pp').text(total_bifur_double);
+			$('#total_bifur_double_hd_pp').val(total_bifur_double);
 			var margin_double = total_bifur_double * (margin_value / 100);
-			$('#margin_bifur_double_span_pp').text(margin_double.toFixed(2));
-			$('#margin_bifur_double_hd_pp').val(margin_double.toFixed(2));
+			$('#margin_bifur_double_span_pp').text(margin_double);
+			$('#margin_bifur_double_hd_pp').val(margin_double);
 			var net_double = total_bifur_double + margin_double;
-			$('#net_bifur_double_span_pp').text(net_double.toFixed(2));
-			$('#net_bifur_double_hd_pp').val(net_double.toFixed(2));
-			$('#round_bifur_double_span_pp').text(round_off_pp.toFixed(2));
-			$('#round_bifur_double_hd_pp').val(round_off_pp.toFixed(2));
+			$('#net_bifur_double_span_pp').text(net_double);
+			$('#net_bifur_double_hd_pp').val(net_double);
+			$('#round_bifur_double_span_pp').text(round_off_pp);
+			$('#round_bifur_double_hd_pp').val(round_off_pp);
 			if (gst_value > 0) {
 				var gst_double = (net_double + round_off_pp) * (gst_value / 100);
 			} else {
 				var gst_double = 0;
 			}
-			$('#gst_bifur_double_span_pp').text(gst_double.toFixed(2));
-			$('#gst_bifur_double_hd_pp').val(gst_double.toFixed(2));
+			$('#gst_bifur_double_span_pp').text(gst_double);
+			$('#gst_bifur_double_hd_pp').val(gst_double);
 			var grand_double = net_double + round_off_pp + gst_double;
 			$('#grand_bifur_double_span_pp').text(parseInt(grand_double));
 			$('#grand_bifur_double_hd_pp').val(parseInt(grand_double));
 
 			if (no_of_single_room > 0) {
-				$('#total_bifur_single_span_pp').text(total_bifur_single.toFixed(2));
-				$('#total_bifur_single_hd_pp').val(total_bifur_single.toFixed(2));
+				$('#total_bifur_single_span_pp').text(total_bifur_single);
+				$('#total_bifur_single_hd_pp').val(total_bifur_single);
 				var margin_single = total_bifur_single * (margin_value / 100);
-				$('#margin_bifur_single_span_pp').text(margin_single.toFixed(2));
-				$('#margin_bifur_single_hd_pp').val(margin_single.toFixed(2));
+				$('#margin_bifur_single_span_pp').text(margin_single);
+				$('#margin_bifur_single_hd_pp').val(margin_single);
 				var net_single = total_bifur_single + margin_single;
-				$('#net_bifur_single_span_pp').text(net_single.toFixed(2));
-				$('#net_bifur_single_hd_pp').val(net_single.toFixed(2));
-				$('#round_bifur_single_span_pp').text(round_off_pp.toFixed(2));
-				$('#round_bifur_single_hd_pp').val(round_off_pp.toFixed(2));
+				$('#net_bifur_single_span_pp').text(net_single);
+				$('#net_bifur_single_hd_pp').val(net_single);
+				$('#round_bifur_single_span_pp').text(round_off_pp);
+				$('#round_bifur_single_hd_pp').val(round_off_pp);
 				if (gst_value > 0) {
 					var gst_single = (net_single + round_off_pp) * (gst_value / 100);
 				} else {
 					var gst_single = 0;
 				}
-				$('#gst_bifur_single_span_pp').text(gst_single.toFixed(2));
-				$('#gst_bifur_single_hd_pp').val(gst_single.toFixed(2));
+				$('#gst_bifur_single_span_pp').text(gst_single);
+				$('#gst_bifur_single_hd_pp').val(gst_single);
 				var grand_single = net_single + round_off_pp + gst_single;
 				$('#grand_bifur_single_span_pp').text(parseInt(grand_single));
 				$('#grand_bifur_single_hd_pp').val(parseInt(grand_single));
 			}
 			if (no_of_child_with_bed > 0) {
-				$('#total_bifur_child_span_pp').text(total_bifur_child.toFixed(2));
-				$('#total_bifur_child_hd_pp').val(total_bifur_child.toFixed(2));
+				$('#total_bifur_child_span_pp').text(total_bifur_child);
+				$('#total_bifur_child_hd_pp').val(total_bifur_child);
 				var margin_child = total_bifur_child * (margin_value / 100);
-				$('#margin_bifur_child_span_pp').text(margin_child.toFixed(2));
-				$('#margin_bifur_child_hd_pp').val(margin_child.toFixed(2));
+				$('#margin_bifur_child_span_pp').text(margin_child);
+				$('#margin_bifur_child_hd_pp').val(margin_child);
 				var net_child = total_bifur_child + margin_child;
-				$('#net_bifur_child_span_pp').text(net_child.toFixed(2));
-				$('#net_bifur_child_hd_pp').val(net_child.toFixed(2));
-				$('#round_bifur_child_span_pp').text(round_off_pp.toFixed(2));
-				$('#round_bifur_child_hd_pp').val(round_off_pp.toFixed(2));
+				$('#net_bifur_child_span_pp').text(net_child);
+				$('#net_bifur_child_hd_pp').val(net_child);
+				$('#round_bifur_child_span_pp').text(round_off_pp);
+				$('#round_bifur_child_hd_pp').val(round_off_pp);
 				if (gst_value > 0) {
 					var gst_child = (net_child + round_off_pp) * (gst_value / 100);
 				} else {
 					var gst_child = 0;
 				}
-				$('#gst_bifur_child_span_pp').text(gst_child.toFixed(2));
-				$('#gst_bifur_child_hd_pp').val(gst_child.toFixed(2));
+				$('#gst_bifur_child_span_pp').text(gst_child);
+				$('#gst_bifur_child_hd_pp').val(gst_child);
 				var grand_child = net_child + round_off_pp + gst_child;
 				$('#grand_bifur_child_span_pp').text(parseInt(grand_child));
 				$('#grand_bifur_child_hd_pp').val(parseInt(grand_child));
 			}
 			if (no_of_child_without_bed > 0) {
-				$('#total_bifur_child_wb_span_pp').text(total_bifur_child_wb.toFixed(2));
-				$('#total_bifur_child_wb_hd_pp').val(total_bifur_child_wb.toFixed(2));
+				$('#total_bifur_child_wb_span_pp').text(total_bifur_child_wb);
+				$('#total_bifur_child_wb_hd_pp').val(total_bifur_child_wb);
 				var margin_child_wb = total_bifur_child_wb * (margin_value / 100);
-				$('#margin_bifur_child_wb_span_pp').text(margin_child_wb.toFixed(2));
-				$('#margin_bifur_child_wb_hd_pp').val(margin_child_wb.toFixed(2));
+				$('#margin_bifur_child_wb_span_pp').text(margin_child_wb);
+				$('#margin_bifur_child_wb_hd_pp').val(margin_child_wb);
 				var net_child_wb = total_bifur_child_wb + margin_child_wb;
-				$('#net_bifur_child_wb_span_pp').text(net_child_wb.toFixed(2));
-				$('#net_bifur_child_wb_hd_pp').val(net_child_wb.toFixed(2));
-				$('#round_bifur_child_wb_span_pp').text(round_off_pp.toFixed(2));
-				$('#round_bifur_child_wb_hd_pp').val(round_off_pp.toFixed(2));
+				$('#net_bifur_child_wb_span_pp').text(net_child_wb);
+				$('#net_bifur_child_wb_hd_pp').val(net_child_wb);
+				$('#round_bifur_child_wb_span_pp').text(round_off_pp);
+				$('#round_bifur_child_wb_hd_pp').val(round_off_pp);
 				if (gst_value > 0) {
 					var gst_child_wb = (net_child_wb + round_off_pp) * (gst_value / 100);
 				} else {
 					var gst_child_wb = 0;
 				}
-				$('#gst_bifur_child_wb_span_pp').text(gst_child_wb.toFixed(2));
-				$('#gst_bifur_child_wb_hd_pp').val(gst_child_wb.toFixed(2));
+				$('#gst_bifur_child_wb_span_pp').text(gst_child_wb);
+				$('#gst_bifur_child_wb_hd_pp').val(gst_child_wb);
 				var grand_child_wb = net_child_wb + round_off_pp + gst_child_wb;
 				$('#grand_bifur_child_wb_span_pp').text(parseInt(grand_child_wb));
 				$('#grand_bifur_child_wb_hd_pp').val(parseInt(grand_child_wb));
 			}
 
 			if (no_of_extra_bed > 0) {
-				$('#total_bifur_extra_span_pp').text(total_bifur_extra.toFixed(2));
-				$('#total_bifur_extra_hd_pp').val(total_bifur_extra.toFixed(2));
+				$('#total_bifur_extra_span_pp').text(total_bifur_extra);
+				$('#total_bifur_extra_hd_pp').val(total_bifur_extra);
 				var margin_extra = total_bifur_extra * (margin_value / 100);
-				$('#margin_bifur_extra_span_pp').text(margin_extra.toFixed(2));
-				$('#margin_bifur_extra_hd_pp').val(margin_extra.toFixed(2));
+				$('#margin_bifur_extra_span_pp').text(margin_extra);
+				$('#margin_bifur_extra_hd_pp').val(margin_extra);
 				var net_extra = total_bifur_extra + margin_extra;
-				$('#net_bifur_extra_span_pp').text(net_extra.toFixed(2));
-				$('#net_bifur_extra_hd_pp').val(net_extra.toFixed(2));
-				$('#round_bifur_extra_span_pp').text(round_off_pp.toFixed(2));
-				$('#round_bifur_extra_hd_pp').val(round_off_pp.toFixed(2));
+				$('#net_bifur_extra_span_pp').text(net_extra);
+				$('#net_bifur_extra_hd_pp').val(net_extra);
+				$('#round_bifur_extra_span_pp').text(round_off_pp);
+				$('#round_bifur_extra_hd_pp').val(round_off_pp);
 				if (gst_value > 0) {
 					var gst_extra = (net_extra + round_off_pp) * (gst_value / 100);
 				} else {
 					var gst_extra = 0;
 				}
-				$('#gst_bifur_extra_span_pp').text(gst_extra.toFixed(2));
-				$('#gst_bifur_extra_hd_pp').val(gst_extra.toFixed(2));
+				$('#gst_bifur_extra_span_pp').text(gst_extra);
+				$('#gst_bifur_extra_hd_pp').val(gst_extra);
 				var grand_extra = net_extra + round_off_pp + gst_extra;
 				$('#grand_bifur_extra_span_pp').text(parseInt(grand_extra));
 				$('#grand_bifur_extra_hd_pp').val(parseInt(grand_extra));
@@ -8850,10 +8850,12 @@ $cs_trans_total = 0;
 				(ss.type && ss.type.toString().toLowerCase().indexOf('pax') !== -1) ? 1 : 0;
 			var name = ss.name || ss.title || ss.sightseeing_name || ss.sightseeing || ('SS-' + (ss.sightseeing_id || ''));
 			var cost = pf(ss.cost || ss.calculated_value || ss.total_cost || 0);
+			var totalPax = <?php echo $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'] + $object_det[0]['no_of_child_below_five']; ?>;
 			var distance_km = pf(ss.distance_km || ss.distance || ss.km || 0);
 			var tariff = pf(ss.tariff || ss.rate || 0);
 			var calculated = isPax === 1 ? cost : distance_km;
-			var displayValue = isPax === 1 ? ('₹' + cost.toFixed(2) + ' (PAX-based)') : (distance_km.toFixed(2) + ' km');
+			// var displayValue = isPax === 1 ? (tariff+' * '+totalPax+' = '+'₹' + cost) : (distance_km + ' km');
+			var displayValue = isPax === 1 ? (tariff+' * '+totalPax) : (distance_km + ' km');
 			return '\
 				<div class="row align-items-center mb-2 ss-dynamic-row" \
 				id="ss_row_' + rowId + '" \
@@ -8878,7 +8880,7 @@ $cs_trans_total = 0;
 				</div>\
 				<div class="col-xl-3 col-sm-12 col-md-2">\
 				<label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Total</label>\
-				<input type="text" class="form-control input-sm ss-row-total" value="' + (isPax === 1 ? cost.toFixed(2) : '0.00') + '" readonly style="background-color: #d1ecf1; font-weight: bold; text-align: center; border: 1px solid #bee5eb;">\
+				<input type="text" class="form-control input-sm ss-row-total" value="' + (isPax === 1 ? cost : '0.00') + '" readonly style="background-color: #d1ecf1; font-weight: bold; text-align: center; border: 1px solid #bee5eb;">\
 				</div>\
 				<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">\
 				<button type="button" class="btn btn-danger btn-sm remove_ss_row" data-row-id="' + rowId + '" data-iti-id="' + itiId + '" style="width:100%; padding:6px;"><i class="fa fa-times"></i></button>\
@@ -8925,11 +8927,11 @@ $cs_trans_total = 0;
 				console.log('ensureBaseStored (tour_expansion): displayed is base:', displayed);
 			}
 			if (trueBase < 0) trueBase = 0;
-			$dist.data('true-base', +trueBase.toFixed(2));
+			$dist.data('true-base', +trueBase);
 			$dist.data('base-stored', true);
 			$dist.data('true-base-source', shouldAddSS ? 'tour_expansion_base' : 'itinerary_expansion_derived');
 			var $copy2 = $('#c_travel_distance_copy' + vid);
-			if ($copy2.length) $copy2.val(trueBase.toFixed(2));
+			if ($copy2.length) $copy2.val(trueBase);
 			console.log('ensureBaseStored DONE: vid=', vid, 'trueBase=', trueBase);
 		}
 		// -------- Update vehicle distances (FIXED: Always add current SS to base) + NEW: Show travel distance & rate --------
@@ -8955,11 +8957,11 @@ $cs_trans_total = 0;
 				// FIXED: Always add current SS to base (handles both expansion types correctly)
 				var newTotal = base + pf(selectedSsDistance);
 
-				$dist.val(newTotal.toFixed(2));
-				console.log(' Setting travel_distance to:', newTotal.toFixed(2), '(base:', base, '+ current SS:', selectedSsDistance, ')');
+				$dist.val(newTotal);
+				console.log(' Setting travel_distance to:', newTotal, '(base:', base, '+ current SS:', selectedSsDistance, ')');
 				var maxKm = pf($('#max_km_day' + vid).val());
 				var extra = Math.max(0, newTotal - maxKm);
-				$('#extra_kilometer' + vid).val(extra.toFixed(2));
+				$('#extra_kilometer' + vid).val(extra);
 				var vehTotal = 0;
 				if (typeof calculateVehicleTotalEnhanced === 'function') {
 					try {
@@ -8976,7 +8978,7 @@ $cs_trans_total = 0;
 					}
 				}
 				// NEW: Log travel distance + rate for visibility
-				console.log('TRAVEL DISTANCE RATE SUMMARY for VID ' + vid + ': Distance = ' + newTotal.toFixed(2) + ' km (incl. SS: ' + pf(selectedSsDistance).toFixed(2) + ' km), Vehicle Rate = ₹' + vehTotal.toFixed(2));
+				console.log('TRAVEL DISTANCE RATE SUMMARY for VID ' + vid + ': Distance = ' + newTotal + ' km (incl. SS: ' + pf(selectedSsDistance) + ' km), Vehicle Rate = ₹' + vehTotal);
 
 				// NEW: Optional UI display - Append a span next to the input if not exists
 				// var $container = $dist.closest('.form-group, .input-group, td, .col');  // Adapt to your HTML structure
@@ -8985,9 +8987,9 @@ $cs_trans_total = 0;
 				//     $rateSpan = $('<span class="travel-rate-display" style="margin-left: 10px; font-size: 0.9em; color: #28a745; font-weight: bold;"></span>');
 				//     $dist.after($rateSpan);
 				// }
-				// $rateSpan.text(newTotal.toFixed(2) + ' km | ₹' + vehTotal.toFixed(2));
+				// $rateSpan.text(newTotal + ' km | ₹' + vehTotal);
 
-				console.log('updateVehicleDistances: vid', vid, 'base', base, 'currentSS', selectedSsDistance, '=>', newTotal.toFixed(2));
+				console.log('updateVehicleDistances: vid', vid, 'base', base, 'currentSS', selectedSsDistance, '=>', newTotal);
 			});
 		}
 		// ----------------- Update sightseeing totals (always pass SS to vehicles; ensureBaseStored prevents doubling) -----------------
@@ -9027,8 +9029,8 @@ $cs_trans_total = 0;
 				sightseeingData.push(item);
 			});
 			console.log('Totals -> distance:', totalDistance, 'paxCost:', totalPaxCost);
-			$('#ss_total_distance' + iti_id).val(totalDistance.toFixed(2));
-			$('#ss_grand_total' + iti_id).val(totalPaxCost.toFixed(2));
+			$('#ss_total_distance' + iti_id).val(totalDistance);
+			$('#ss_grand_total' + iti_id).val(totalPaxCost);
 			$('#ss_data_json' + iti_id).val(JSON.stringify(sightseeingData));
 			var savedSsTotalHint = 0;
 			try {
@@ -9054,7 +9056,7 @@ $cs_trans_total = 0;
 			var extraKmRate = pf($('#extra_km_rate_hidden' + vid).val());
 			var adhocRate = pf($('#adhoc_rate' + vid).val());
 			var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate;
-			$('#veh_total' + vid).val(vehTotal.toFixed(2));
+			$('#veh_total' + vid).val(vehTotal);
 			return vehTotal;
 		}
 
@@ -9064,7 +9066,7 @@ $cs_trans_total = 0;
 			var extraKmRate = pf($('#extra_km_rate_hidden' + vid).val());
 			var adhocRate = pf($('#adhoc_rate' + vid).val());
 			var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate;
-			$('#veh_total' + vid).val(vehTotal.toFixed(2));
+			$('#veh_total' + vid).val(vehTotal);
 		}
 		// ----------------- Grand total -----------------
 		function calculateGrandTotal(iti_id) {
@@ -9097,12 +9099,12 @@ $cs_trans_total = 0;
     var grandTotal = accTotal + vehicleTotal + ssGrandTotal + dailyAddon + permit + spclTariff + facRate;
     
     // Update the grand total field
-    $('#grand_total' + iti_id).val(grandTotal.toFixed(2));
+    $('#grand_total' + iti_id).val(grandTotal);
     
     // Update breadcrumb display
-    $('#span_bread_id' + iti_id).text('₹' + grandTotal.toFixed(2));
+    $('#span_bread_id' + iti_id).text('₹' + grandTotal);
     
-    console.log('Grand total for', iti_id, ':', grandTotal.toFixed(2));
+    console.log('Grand total for', iti_id, ':', grandTotal);
     
     return grandTotal;
 }
@@ -9172,13 +9174,13 @@ $cs_trans_total = 0;
 			var base = currentDist - currentSS;
 			if (base < 0) base = 0;
 
-			$('#c_travel_distance_copy' + vid).val(base.toFixed(2));
+			$('#c_travel_distance_copy' + vid).val(base);
 			$this.data('base-distance', base);
 			$this.data('true-base', base);
 
 			var maxKm = pf($('#max_km_day' + vid).val());
 			var extraKm = Math.max(0, currentDist - maxKm);
-			$('#extra_kilometer' + vid).val(extraKm.toFixed(2));
+			$('#extra_kilometer' + vid).val(extraKm);
 
 			try {
 				if (typeof calculateVehicleTotalEnhanced === 'function') calculateVehicleTotalEnhanced(vid);
@@ -9364,7 +9366,7 @@ $cs_trans_total = 0;
 		var totalCost = parseFloat($('#ttc_bifur_hd').val());
 
 		if (!isNaN(pax) && pax > 0) {
-			var perPerson = (totalCost / pax).toFixed(2);
+			var perPerson = (totalCost / pax);
 
 			// Update span
 			$('#ttc_bifur_span_pp').text(perPerson);
@@ -9697,7 +9699,7 @@ $cs_trans_total = 0;
 
 			// Calculate extra kilometers
 			var extra_km = travel_distance > max_km_day ? (travel_distance - max_km_day) : 0;
-			$('#extra_kilometer' + vid).val(extra_km.toFixed(2));
+			$('#extra_kilometer' + vid).val(extra_km);
 
 			// Recalculate vehicle total
 			calculateVehicleTotal(vid);
@@ -9720,7 +9722,7 @@ $cs_trans_total = 0;
 		// 	var veh_total = day_rent + (extra_kilometer * extra_km_rate_hidden) + adhoc_rate;
 
 		// 	// Update the vehicle total field
-		// 	$('#veh_total' + vid).val(veh_total.toFixed(2));
+		// 	$('#veh_total' + vid).val(veh_total);
 		// }
 
 		// Recalculate grand total for all itineraries
@@ -9747,7 +9749,7 @@ $cs_trans_total = 0;
 			$.each(itinerary_totals, function(iti_id, veh_total) {
 				var acc_total = parseFloat($('#acc_total' + iti_id).val()) || 0;
 				var grand_total = acc_total + veh_total;
-				$('#grand_total' + iti_id).val(grand_total.toFixed(2));
+				$('#grand_total' + iti_id).val(grand_total);
 			});
 		}
 
@@ -9771,7 +9773,7 @@ $cs_trans_total = 0;
 			var tcsRate = 0.05; // 5%
 
 			var tcsAmount = tcsChecked ? Math.round((total + gst) * tcsRate * 100) / 100 : 0;
-			$('#tcs_final').val(tcsAmount.toFixed(2));
+			$('#tcs_final').val(tcsAmount);
 
 			var tpc = total + gst + tcsAmount;
 			$('#tpc').val(Math.round(tpc * 100) / 100); // Round to 2 decimals
