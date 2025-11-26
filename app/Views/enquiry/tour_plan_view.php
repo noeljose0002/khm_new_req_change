@@ -9674,7 +9674,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 				case 'NIGHTS_INCREASED':
 					return 'Nights increased - you can add more locations with fresh tariffs!';
 				case 'ROOMS_CHANGED':
-					return 'Room configuration changed - fresh tariffs applied!';
+					return 'Room configuration changed - totals recalculated with previous rates!';
 				case 'VEHICLE_CHANGED':
 					return 'Vehicle types changed - fresh vehicle tariffs applied!';
 				case 'PAX_ONLY_CHANGED':
@@ -9736,7 +9736,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			var cp_sel = locationData.meal_plan_id == 2 ? "selected" : "";
 			var map_sel = locationData.meal_plan_id == 3 ? "selected" : "";
 			var ap_sel = locationData.meal_plan_id == 4 ? "selected" : "";
-			var usePreTariffs = (mode === 'NO_CHANGES' || mode === 'NIGHTS_DECREASED_ONLY' || mode === 'PAX_ONLY_CHANGED');
+			var usePreTariffs = (mode === 'NO_CHANGES' || mode === 'NIGHTS_DECREASED_ONLY' || mode === 'PAX_ONLY_CHANGED' || mode === 'ROOMS_CHANGED');
 			var usePreVehicle = (mode !== 'VEHICLE_CHANGED'); // FIXED: Allow pre-vehicle data even on date change
 			console.log(`Use Pre-Tariffs: ${usePreTariffs}, Use Pre-Vehicle: ${usePreVehicle}`);
 			var newCard = buildLocationCardHtml(count, locationData, ep_sel, cp_sel, map_sel, ap_sel, no_of_adult, no_of_child_with_bed, no_of_child_without_bed, no_of_extra_bed, total_no_of_pax);
@@ -9865,7 +9865,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 							console.error('Error parsing vehicle details for header:', e);
 						}
 					}
-					// CRITICAL FIX: Set room data for double rooms with proper room category handling
+					// CRITICAL FIX: Set room data for double rooms with proper room category handling (NO TRIGGER)
 					for (let i = 1; i <= numDoubles; i++) {
 						var rid = `${count}${night}${i}`;
 						var exp = doubleExpansions[i - 1] || null;
@@ -9885,7 +9885,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 								roomCatId = locationData.room_category_id;
 								console.log(`Using main room_category_id: ${roomCatId}`);
 							}
-							// Set room category with proper delay using closure
+							// Set room category WITHOUT trigger (prevents fetch)
 							(function(targetRid, targetRoomCatId) {
 								setTimeout(function() {
 									var $roomCatSelect = $(`#roomcat${targetRid}`);
@@ -9894,18 +9894,18 @@ $is_edit = $edit_id ? $edit_id : 0;
 									var optionExists = $roomCatSelect.find(`option[value="${targetRoomCatId}"]`).length > 0;
 									console.log(`Option ${targetRoomCatId} exists: ${optionExists}`);
 									if (optionExists && targetRoomCatId) {
-										$roomCatSelect.val(targetRoomCatId).trigger('change');
+										$roomCatSelect.val(targetRoomCatId); // NO .trigger('change') - silent set for pre-data
 										console.log(`Successfully set roomcat${targetRid} to: ${$roomCatSelect.val()}`);
 									} else {
 										console.warn(`Room category ${targetRoomCatId} not found in options for ${targetRid}`);
 									}
-								}, 700); // Increased delay for better Select2 initialization
+								}, 700);
 							})(rid, roomCatId);
-							// Set meal plan with fallback
+							// Set meal plan with fallback (NO TRIGGER if it fetches)
 							var mealPlanId = exp.meal_plan_id || locationData.meal_plan_id || '';
 							(function(targetRid, targetMealPlanId) {
 								setTimeout(function() {
-									$(`#mealplan${targetRid}`).val(targetMealPlanId).trigger('change');
+									$(`#mealplan${targetRid}`).val(targetMealPlanId); // NO .trigger('change') - silent
 								}, 750);
 							})(rid, mealPlanId);
 							// Set rate fields
@@ -9933,18 +9933,18 @@ $is_edit = $edit_id ? $edit_id : 0;
 								$(`#d_child_wb_gst${rid}`).val(0);
 								$(`#d_extra_bed_gst${rid}`).val(0);
 							}
-							// Set default room category and meal plan if no expansion
+							// Set default room category and meal plan if no expansion (NO TRIGGER)
 							if (locationData.room_category_id) {
 								(function(targetRid, targetRoomCatId) {
 									setTimeout(function() {
-										$(`#roomcat${targetRid}`).val(targetRoomCatId).trigger('change');
+										$(`#roomcat${targetRid}`).val(targetRoomCatId); // NO .trigger('change')
 									}, 700);
 								})(rid, locationData.room_category_id);
 							}
 							if (locationData.meal_plan_id) {
 								(function(targetRid, targetMealPlanId) {
 									setTimeout(function() {
-										$(`#mealplan${targetRid}`).val(targetMealPlanId).trigger('change');
+										$(`#mealplan${targetRid}`).val(targetMealPlanId); // NO .trigger('change')
 									}, 750);
 								})(rid, locationData.meal_plan_id);
 							}
@@ -9956,7 +9956,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 							}, 900);
 						})(count, night, i);
 					}
-					// CRITICAL FIX: Set room data for single rooms with proper room category handling
+					// CRITICAL FIX: Set room data for single rooms (similar updates, NO TRIGGER)
 					for (let i = 1; i <= numSingles; i++) {
 						var seq = numDoubles + i;
 						var sid = `${count}${night}${seq}`;
@@ -9976,7 +9976,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 								roomCatId = locationData.room_category_id;
 								console.log(`Using main room_category_id: ${roomCatId}`);
 							}
-							// Set room category with proper delay using closure
+							// Set room category WITHOUT trigger
 							(function(targetSid, targetRoomCatId) {
 								setTimeout(function() {
 									var $roomCatSelect = $(`#roomcat${targetSid}`);
@@ -9985,18 +9985,18 @@ $is_edit = $edit_id ? $edit_id : 0;
 									var optionExists = $roomCatSelect.find(`option[value="${targetRoomCatId}"]`).length > 0;
 									console.log(`Option ${targetRoomCatId} exists: ${optionExists}`);
 									if (optionExists && targetRoomCatId) {
-										$roomCatSelect.val(targetRoomCatId).trigger('change');
+										$roomCatSelect.val(targetRoomCatId); // NO .trigger('change')
 										console.log(`Successfully set roomcat${targetSid} to: ${$roomCatSelect.val()}`);
 									} else {
 										console.warn(`Room category ${targetRoomCatId} not found in options for ${targetSid}`);
 									}
 								}, 700);
 							})(sid, roomCatId);
-							// Set meal plan with fallback
+							// Set meal plan with fallback (NO TRIGGER)
 							var mealPlanId = exp.meal_plan_id || locationData.meal_plan_id || '';
 							(function(targetSid, targetMealPlanId) {
 								setTimeout(function() {
-									$(`#mealplan${targetSid}`).val(targetMealPlanId).trigger('change');
+									$(`#mealplan${targetSid}`).val(targetMealPlanId); // NO .trigger('change')
 								}, 750);
 							})(sid, mealPlanId);
 							// Set rate fields
@@ -10024,18 +10024,18 @@ $is_edit = $edit_id ? $edit_id : 0;
 								$(`#s_child_wb_gst${sid}`).val(0);
 								$(`#s_extra_bed_gst${sid}`).val(0);
 							}
-							// Set default room category and meal plan if no expansion
+							// Set default room category and meal plan if no expansion (NO TRIGGER)
 							if (locationData.room_category_id) {
 								(function(targetSid, targetRoomCatId) {
 									setTimeout(function() {
-										$(`#roomcat${targetSid}`).val(targetRoomCatId).trigger('change');
+										$(`#roomcat${targetSid}`).val(targetRoomCatId); // NO .trigger('change')
 									}, 700);
 								})(sid, locationData.room_category_id);
 							}
 							if (locationData.meal_plan_id) {
 								(function(targetSid, targetMealPlanId) {
 									setTimeout(function() {
-										$(`#mealplan${targetSid}`).val(targetMealPlanId).trigger('change');
+										$(`#mealplan${targetSid}`).val(targetMealPlanId); // NO .trigger('change')
 									}, 750);
 								})(sid, locationData.meal_plan_id);
 							}
@@ -10098,18 +10098,18 @@ $is_edit = $edit_id ? $edit_id : 0;
 							$(`#d_child_wb_gst${rid}`).val(0);
 							$(`#d_extra_bed_gst${rid}`).val(0);
 						}
-						// Set default room category and meal plan
+						// Set default room category and meal plan (NO TRIGGER)
 						if (locationData.room_category_id) {
 							(function(targetRid, targetRoomCatId) {
 								setTimeout(function() {
-									$(`#roomcat${targetRid}`).val(targetRoomCatId).trigger('change');
+									$(`#roomcat${targetRid}`).val(targetRoomCatId); // NO .trigger('change')
 								}, 700);
 							})(rid, locationData.room_category_id);
 						}
 						if (locationData.meal_plan_id) {
 							(function(targetRid, targetMealPlanId) {
 								setTimeout(function() {
-									$(`#mealplan${targetRid}`).val(targetMealPlanId).trigger('change');
+									$(`#mealplan${targetRid}`).val(targetMealPlanId); // NO .trigger('change')
 								}, 750);
 							})(rid, locationData.meal_plan_id);
 						}
@@ -10135,18 +10135,18 @@ $is_edit = $edit_id ? $edit_id : 0;
 							$(`#s_child_wb_gst${sid}`).val(0);
 							$(`#s_extra_bed_gst${sid}`).val(0);
 						}
-						// Set default room category and meal plan
+						// Set default room category and meal plan (NO TRIGGER)
 						if (locationData.room_category_id) {
 							(function(targetSid, targetRoomCatId) {
 								setTimeout(function() {
-									$(`#roomcat${targetSid}`).val(targetRoomCatId).trigger('change');
+									$(`#roomcat${targetSid}`).val(targetRoomCatId); // NO .trigger('change')
 								}, 700);
 							})(sid, locationData.room_category_id);
 						}
 						if (locationData.meal_plan_id) {
 							(function(targetSid, targetMealPlanId) {
 								setTimeout(function() {
-									$(`#mealplan${targetSid}`).val(targetMealPlanId).trigger('change');
+									$(`#mealplan${targetSid}`).val(targetMealPlanId); // NO .trigger('change')
 								}, 750);
 							})(sid, locationData.meal_plan_id);
 						}
@@ -10170,49 +10170,49 @@ $is_edit = $edit_id ? $edit_id : 0;
 						updateVehicleTotals(count, night, vindex);
 					});
 				}
-			}
-			// FIXED: Distribute vehicle totals only if main has data AND truly no expansion vehicle data (refined check excludes '[]')
-			if (locationData.vehicle_details && !hasExpansionVehicleData) {
-				try {
-					var mainVehicleDetails = typeof locationData.vehicle_details === 'string' ? JSON.parse(locationData.vehicle_details) : locationData.vehicle_details;
-					$.each(mainVehicleDetails, function(vindex, vdata) {
-						var matchedVehicleIndex = -1;
-						$.each(vehicle_models, function(modelIndex, model) {
-							if (model.vehicle_type_id == vdata.veh_type_id) {
-								matchedVehicleIndex = modelIndex;
-								return false;
+				// FIXED: Distribute vehicle totals only if main has data AND truly no expansion vehicle data (refined check excludes '[]')
+				if (locationData.vehicle_details && !hasExpansionVehicleData) {
+					try {
+						var mainVehicleDetails = typeof locationData.vehicle_details === 'string' ? JSON.parse(locationData.vehicle_details) : locationData.vehicle_details;
+						$.each(mainVehicleDetails, function(vindex, vdata) {
+							var matchedVehicleIndex = -1;
+							$.each(vehicle_models, function(modelIndex, model) {
+								if (model.vehicle_type_id == vdata.veh_type_id) {
+									matchedVehicleIndex = modelIndex;
+									return false;
+								}
+							});
+							if (matchedVehicleIndex !== -1) {
+								var totalDays = no_of_days;
+								var totalRent = parseFloat(vdata.veh_total) || 0;
+								var storedDayRent = parseFloat(vdata.day_rent) || 0;
+								var totalDistance = parseFloat(vdata.travel_distance) || 0;
+								var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
+								var kmRate = parseFloat(vdata.extra_km_rate) || 0;
+								var maxKmDay = parseFloat(vdata.max_km_day) || 0;
+								var headerText = vdata.veh_header || '';
+								var perNightRent = totalDays > 0 ? (storedDayRent || (totalRent / totalDays)) : 0;
+								var perNightDistance = totalDays > 0 ? (totalDistance / totalDays) : 0;
+								var perNightExtraKm = totalDays > 0 ? (totalExtraKm / totalDays) : 0;
+								var perNightVehTotal = totalDays > 0 ? (totalRent / totalDays) : 0;
+								for (let night = 1; night <= totalDays; night++) {
+									var vid = `${count}${night}${vdata.veh_type_id}`;
+									$(`#day_rent${vid}`).val(Math.round(perNightRent));
+									$(`#travel_distance${vid}`).val(Math.round(perNightDistance));
+									$(`#max_km_day${vid}`).val(maxKmDay);
+									$(`#extra_km_rate${vid}`).val(kmRate);
+									$(`#extra_kilometer${vid}`).val(Math.round(perNightExtraKm));
+									$(`#veh_total${vid}`).val(Math.round(perNightVehTotal));
+									if (!$(`#v_from_to${count}${night}`).text().trim()) {
+										setVehicleHeader(count, night, headerText);
+									}
+									updateVehicleTotals(count, night, matchedVehicleIndex);
+								}
 							}
 						});
-						if (matchedVehicleIndex !== -1) {
-							var totalDays = no_of_days;
-							var totalRent = parseFloat(vdata.veh_total) || 0;
-							var storedDayRent = parseFloat(vdata.day_rent) || 0;
-							var totalDistance = parseFloat(vdata.travel_distance) || 0;
-							var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
-							var kmRate = parseFloat(vdata.extra_km_rate) || 0;
-							var maxKmDay = parseFloat(vdata.max_km_day) || 0;
-							var headerText = vdata.veh_header || '';
-							var perNightRent = totalDays > 0 ? (storedDayRent || (totalRent / totalDays)) : 0;
-							var perNightDistance = totalDays > 0 ? (totalDistance / totalDays) : 0;
-							var perNightExtraKm = totalDays > 0 ? (totalExtraKm / totalDays) : 0;
-							var perNightVehTotal = totalDays > 0 ? (totalRent / totalDays) : 0;
-							for (let night = 1; night <= totalDays; night++) {
-								var vid = `${count}${night}${vdata.veh_type_id}`;
-								$(`#day_rent${vid}`).val(Math.round(perNightRent));
-								$(`#travel_distance${vid}`).val(Math.round(perNightDistance));
-								$(`#max_km_day${vid}`).val(maxKmDay);
-								$(`#extra_km_rate${vid}`).val(kmRate);
-								$(`#extra_kilometer${vid}`).val(Math.round(perNightExtraKm));
-								$(`#veh_total${vid}`).val(Math.round(perNightVehTotal));
-								if (!$(`#v_from_to${count}${night}`).text().trim()) {
-									setVehicleHeader(count, night, headerText);
-								}
-								updateVehicleTotals(count, night, matchedVehicleIndex);
-							}
-						}
-					});
-				} catch (e) {
-					console.error(`Error distributing vehicle data:`, e);
+					} catch (e) {
+						console.error(`Error distributing vehicle data:`, e);
+					}
 				}
 			}
 			// Force GST column visibility
@@ -10419,13 +10419,20 @@ $is_edit = $edit_id ? $edit_id : 0;
 			console.log(`Vehicle summary header set: ${combinedHeaders.length} unique headers`);
 		}
 		async function generateNightlyDetailsWithFreshTariffs(count, locationData, mode, changes) {
-			console.log(`\n=== FETCHING FRESH TARIFFS - Location ${count} ===`);
+			console.log(`\n=== FETCHING FRESH TARIFFS - Location ${count} (Mode: ${mode}) ===`);
+
+			// NEW: Route PAX_ONLY_CHANGED and ROOMS_CHANGED to pre-data path
+			if (mode === 'PAX_ONLY_CHANGED' || mode === 'ROOMS_CHANGED') {
+				console.log(`Routing ${mode} to pre-data path (no fresh fetch)`);
+				return await generateNightlyDetailsFromPreData(count, locationData, mode, changes);
+			}
+
 			var nightlyDetails = $(`#nightly-details${count}`);
 			nightlyDetails.empty();
 			var no_of_days = parseInt(locationData.no_of_days) || 0;
 			var vehicleDetails = parseVehicleDetails(locationData.vehicle_details);
 			var usePreVehicleHeaders = (mode !== 'DATE_CHANGED' && mode !== 'VEHICLE_CHANGED');
-			var usePreVehicle = (mode !== 'VEHICLE_CHANGED'); // FIXED: Consistent with above
+			var usePreVehicle = (mode !== 'VEHICLE_CHANGED');
 			var expansionData = locationData.expansion || [];
 			var hasExpansionVehicleData = expansionData.some(function(exp) {
 				return exp.vehicle_details_json && exp.vehicle_details_json.trim() !== '' && exp.vehicle_details_json !== '{}' && exp.vehicle_details_json !== '[]';
@@ -10885,57 +10892,46 @@ $is_edit = $edit_id ? $edit_id : 0;
 	// NEW: Edit location handler
 	// NEW: Edit location handler
 	// ================= FIXED: Edit location handler - Handles removed/reordered cards =================
-
 	$(document).on('click', '.card-options-edit', function(e) {
 		e.preventDefault();
 		var $editBtn = $(this);
 		var $card = $editBtn.closest('.location-card');
-
 		// CRITICAL FIX 1: Get index from the actual card, not hardcoded data-index
 		// This works even if cards are removed and indices are not sequential
 		var index = $card.data('index');
-
 		console.log('=== EDIT BUTTON CLICKED ===');
 		console.log('Card found:', $card.length > 0);
 		console.log('Index from card:', index);
 		console.log('tour_location_id:', $card.find('#tour_location_id' + index).val());
-
 		if ($card.length === 0) {
 			console.error('ERROR: Card element not found');
 			alert('Card element not found. Please try again.');
 			return;
 		}
-
 		editLocation(index, $card);
 	});
 
 	function editLocation(index, $card) {
 		console.log('=== EDIT LOCATION FUNCTION START ===');
 		console.log('Index:', index);
-
 		// CRITICAL FIX 2: Validate locations array exists
 		if (typeof locations === 'undefined' || !Array.isArray(locations) || locations.length === 0) {
 			console.error('ERROR: Locations not available', typeof locations);
 			alert('Locations list not available. Please refresh the page and try again.');
 			return;
 		}
-
 		// CRITICAL FIX 3: Use the passed $card parameter instead of searching
 		if (!$card || $card.length === 0) {
 			console.error('ERROR: Card not found for index:', index);
 			alert('Card not found in the page.');
 			return;
 		}
-
 		var currentId = parseInt($card.find('#tour_location_id' + index).val()) || 0;
 		console.log('Current location ID:', currentId);
-
 		var $cardTitle = $card.find('.card-title');
 		var $nameSpan = $cardTitle.find('span').not('.card-seq').first();
 		var currentName = $nameSpan.text().trim();
-
 		console.log('Current name:', currentName);
-
 		// CRITICAL FIX 4: Remove any existing select before creating new one
 		var existingSelect = $card.find('#temp-loc-select-' + index);
 		if (existingSelect.length > 0) {
@@ -10943,24 +10939,20 @@ $is_edit = $edit_id ? $edit_id : 0;
 			safeDestroySelect2(existingSelect);
 			existingSelect.remove();
 		}
-
 		// Build select
 		var selectId = 'temp-loc-select-' + index;
 		var selectHtml = '<select id="' + selectId + '" class="form-control edit-loc-select"><option value="">Select New Location</option></select>';
 		console.log('Injecting select HTML');
 		$nameSpan.html(selectHtml);
-
 		var $select = $card.find('#' + selectId);
 		if ($select.length === 0) {
 			console.error('ERROR: Select element not created');
 			$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
 			return;
 		}
-
 		// CRITICAL FIX 5: Populate with proper error handling and field detection
 		console.log('Populating location options...');
 		var optionsAdded = 0;
-
 		$.each(locations, function(k, loc) {
 			try {
 				// Try multiple possible ID field names with proper fallback
@@ -10974,10 +10966,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 				} else if (loc.location_id !== undefined && loc.location_id !== null && loc.location_id !== '') {
 					locId = loc.location_id;
 				}
-
 				// Get name similarly
 				var locName = loc.geog_name || loc.name || loc.location_name || ('Location ' + locId);
-
 				// Only add if we have a valid ID
 				if (locId) {
 					var selected = (parseInt(locId) === currentId) ? ' selected' : '';
@@ -10988,53 +10978,42 @@ $is_edit = $edit_id ? $edit_id : 0;
 				console.warn('Error processing location:', loc, e);
 			}
 		});
-
 		console.log('Total options added:', optionsAdded);
-
 		if (optionsAdded === 0) {
 			console.error('ERROR: No options added to select');
 			alert('No locations available to select from.');
 			$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
 			return;
 		}
-
 		// CRITICAL FIX 6: Proper event handling with cleanup flag
 		var isProcessing = false;
 		var cleanupFlag = false;
 
 		function onLocationSelected(ev) {
 			console.log('=== LOCATION SELECTED EVENT ===');
-
 			// Prevent duplicate processing
 			if (isProcessing || cleanupFlag) {
 				console.log('Already processing or cleaning up, ignoring event');
 				return;
 			}
-
 			var selectedValue = $select.val();
 			var newId = parseInt(selectedValue) || 0;
 			var newName = $select.find('option:selected').text() || '';
-
 			console.log('Selected ID:', newId, 'Name:', newName, 'Current ID:', currentId);
-
 			if (newId && newId > 0 && newId !== currentId) {
 				console.log('Location changed - showing confirmation');
-
 				if (!confirm('Are you sure you want to change the location? This will replace the current card with a fresh one for "' + newName + '".')) {
 					console.log('User cancelled confirmation');
 					$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
 					cleanupSelect();
 					return;
 				}
-
 				isProcessing = true;
 				console.log('User confirmed - proceeding with location change');
-
 				var $spinner = $('#csspinner');
 				if ($spinner.length > 0) {
 					$spinner.show();
 				}
-
 				// Get location details from server
 				console.log('Fetching location details from server...');
 				$.ajax({
@@ -11048,7 +11027,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 					timeout: 30000,
 					success: function(response) {
 						console.log('=== AJAX SUCCESS ===');
-
 						if (response && Array.isArray(response) && response.length > 0) {
 							console.log('Location data received');
 							replaceCardWithNewLocation(index, response[0], newName, $card);
@@ -11079,12 +11057,10 @@ $is_edit = $edit_id ? $edit_id : 0;
 				cleanupSelect();
 			}
 		}
-
 		// Cleanup function with proper flag management
 		function cleanupSelect() {
 			console.log('Cleaning up select element');
 			cleanupFlag = true;
-
 			// Unbind all events first
 			try {
 				$select.off('change.editloc');
@@ -11092,7 +11068,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 			} catch (e) {
 				console.warn('Error unbinding events:', e);
 			}
-
 			// Destroy Select2
 			setTimeout(function() {
 				try {
@@ -11100,23 +11075,19 @@ $is_edit = $edit_id ? $edit_id : 0;
 				} catch (e) {
 					console.warn('Error destroying Select2:', e);
 				}
-
 				// Remove element
 				try {
 					$select.remove();
 				} catch (e) {
 					console.warn('Error removing select:', e);
 				}
-
 				console.log('Select element cleaned up');
 			}, 100);
 		}
-
 		// Use namespaced events to prevent conflicts
 		console.log('Binding change handlers with namespaced events');
 		$select.on('change.editloc', onLocationSelected);
 		$select.on('select2:select.editloc', onLocationSelected);
-
 		// Initialize Select2
 		console.log('Initializing Select2');
 		try {
@@ -11126,7 +11097,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 				width: 'resolve',
 				allowClear: false
 			});
-
 			// Open dropdown
 			setTimeout(function() {
 				try {
@@ -11141,29 +11111,24 @@ $is_edit = $edit_id ? $edit_id : 0;
 			$nameSpan.html('<span style="color:#339966;">' + currentName + '</span>');
 			cleanupSelect();
 		}
-
 		console.log('=== EDIT LOCATION FUNCTION END ===');
 	}
-
 	// Function to replace card with new location
 	function replaceCardWithNewLocation(index, locationData, locationName, $oldCard) {
 		console.log('=== REPLACE CARD FUNCTION START ===');
 		console.log('Index:', index, 'Location:', locationData.geog_name);
-
 		// CRITICAL FIX 7: Validate location data before proceeding
 		if (!locationData || !locationData.geog_id) {
 			console.error('ERROR: Invalid location data', locationData);
 			showAlert('danger', 'Invalid location data received. Please try again.');
 			return;
 		}
-
 		// CRITICAL FIX 8: Use the passed $oldCard parameter
 		if (!$oldCard || $oldCard.length === 0) {
 			console.error('ERROR: Old card not found');
 			showAlert('danger', 'Card not found. Please try again.');
 			return;
 		}
-
 		// Get PHP variables with proper defaults
 		try {
 			var hotel_categories = <?php echo json_encode($hotel_categories ?? []); ?> || [];
@@ -11178,14 +11143,12 @@ $is_edit = $edit_id ? $edit_id : 0;
 			var vehicle_models = <?php echo json_encode($vehicle_data ?? []); ?> || [];
 			var start_date = <?php echo json_encode($start_date ?? ''); ?> || '';
 			var meal_plan_exist = <?php echo $object_det[0]['meal_plan'] ?? 1; ?> || 1;
-
 			console.log('PHP Variables loaded successfully');
 		} catch (e) {
 			console.error('ERROR: Failed to load PHP variables:', e);
 			showAlert('danger', 'Error loading configuration. Please refresh and try again.');
 			return;
 		}
-
 		// Determine checkin date
 		var checkinDate = '';
 		if (index === 1 || index == 1) {
@@ -11198,28 +11161,24 @@ $is_edit = $edit_id ? $edit_id : 0;
 				checkinDate = $prevCard.find('#checkout' + prevIndex).val() || '';
 			}
 		}
-
 		// CRITICAL FIX 10: Validate checkin date
 		if (!checkinDate) {
 			console.warn('WARNING: No checkin date found, using today');
 			var today = new Date().toISOString().split('T')[0];
 			checkinDate = today;
 		}
-
 		console.log('Checkin date:', checkinDate);
-
 		// Meal plan selections
 		var ep_sel = meal_plan_exist == 1 ? "selected" : "";
 		var cp_sel = meal_plan_exist == 2 ? "selected" : "";
 		var map_sel = meal_plan_exist == 3 ? "selected" : "";
 		var ap_sel = meal_plan_exist == 4 ? "selected" : "";
-
 		// Build new card HTML
 		console.log('Building new card HTML...');
 		var newCard = `
-		<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${index}">
-			<div class="card">
-				<div class="card-header cardy">
+					<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${index}">
+					<div class="card">
+					<div class="card-header cardy">
 					<div id="eighteen_div_d${index}"></div>
 					<div id="eighteen_div_s${index}"></div>
 					<input type="hidden" id="tax_status${index}" name="addloc[${index}][tax_status]" value="0">
@@ -11228,115 +11187,108 @@ $is_edit = $edit_id ? $edit_id : 0;
 					<input type="hidden" id="location_sequence${index}" name="addloc[${index}][location_sequence]" value="${index}">
 					<div class="card-title"><span class="card-seq" style="color:#339966;">${index}</span>. <span style="color:#339966;">${locationData.geog_name}</span></div>
 					<a href="#" class="card-options-edit" data-index="${index}" style="margin-left:10px;">
-							<i class="fe fe-edit"></i>
-						</a>
-
+					<i class="fe fe-edit"></i>
+					</a>
 					<div class="card-options">
-						
-						<a href="#" class="card-options-remove"><i class="fe fe-x"></i></a>
+					<a href="#" class="card-options-remove"><i class="fe fe-x"></i></a>
 					</div>
-				</div>
-				<div class="card-body">
+					</div>
+					<div class="card-body">
 					<div class="ibox teams mb-30 bg-boxshadow">
-						<div class="ibox-content teams">
-							<div class="row mt-2">
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Hotel Category</b></div>
-									<select id="hotelcat${index}" name="addloc[${index}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${index}" required>
-										<option value="">Select</option>
-									</select>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Hotel</b></div>
-									<span class="text-muted">
-										<select id="hotelid${index}" name="addloc[${index}][hotelid]" class="form-control select2-show-search input-sm hotel_change" data-id="${index}" required>
-											<option value="">Select</option>
-										</select>
-									</span>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Room Category</b></div>
-									<select id="roomcat_common${index}" name="addloc[${index}][roomcat_common]" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${index}">
-										<option value="">Select</option>
-									</select>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Checkin</b></div>
-									<span class="text-muted">
-										<input type="date" value="${checkinDate}" id="checkin${index}" name="addloc[${index}][checkin]" class="form-control input-sm" required readonly>
-									</span>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Nights</b></div>
-									<span class="text-muted">
-										<input type="text" id="no_of_night${index}" name="addloc[${index}][no_of_night]" class="form-control input-sm no_of_night" count-id="${index}" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${index}); updateNightlyDetails(${index});" required>
-									</span>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Checkout</b></div>
-									<span class="text-muted">
-										<input type="date" id="checkout${index}" name="addloc[${index}][checkout]" class="form-control input-sm" required readonly>
-									</span>
-								</div>
-							</div>
-							<div class="row mt-2">
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Meal Plan</b></div>
-									<span class="text-muted">
-										<select id="mealplan${index}" name="addloc[${index}][mealplan]" class="form-control select2-show-search input-sm mp_change" data-id="${index}" required>
-											<option value="">Select</option>
-											<option value="1" ${ep_sel}>EP</option>
-											<option value="2" ${cp_sel}>CP</option>
-											<option value="3" ${map_sel}>MAP</option>
-											<option value="4" ${ap_sel}>AP</option>
-										</select>
-									</span>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>No Of Adult</b></div>
-									<input type="text" id="no_of_adult${index}" name="addloc[${index}][no_of_adult]" value="${no_of_adult}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>C.With Bed Qty</b></div>
-									<input type="text" id="no_of_ch${index}" name="addloc[${index}][no_of_ch]" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>C.Without Bed Qty</b></div>
-									<input type="text" id="no_of_cw${index}" name="addloc[${index}][no_of_cw]" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Extra Bed Qty</b></div>
-									<input type="text" id="no_of_extra${index}" name="addloc[${index}][no_of_extra]" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-								</div>
-								<div class="col-xl col-sm-12 col-md-2">
-									<div class="teams-rank"><b>Total Pax</b></div>
-									<input type="text" id="no_of_pax${index}" name="addloc[${index}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly>
-									<br>
-								</div>
-							</div>
-							<div class="nightly-details" id="nightly-details${index}"></div>
-						</div>
+					<div class="ibox-content teams">
+					<div class="row mt-2">
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Hotel Category</b></div>
+					<select id="hotelcat${index}" name="addloc[${index}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${index}" required>
+					<option value="">Select</option>
+					</select>
 					</div>
-				</div>
-			</div>
-		</div>
-	`;
-
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Hotel</b></div>
+					<span class="text-muted">
+					<select id="hotelid${index}" name="addloc[${index}][hotelid]" class="form-control select2-show-search input-sm hotel_change" data-id="${index}" required>
+					<option value="">Select</option>
+					</select>
+					</span>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Room Category</b></div>
+					<select id="roomcat_common${index}" name="addloc[${index}][roomcat_common]" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${index}">
+					<option value="">Select</option>
+					</select>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Checkin</b></div>
+					<span class="text-muted">
+					<input type="date" value="${checkinDate}" id="checkin${index}" name="addloc[${index}][checkin]" class="form-control input-sm" required readonly>
+					</span>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Nights</b></div>
+					<span class="text-muted">
+					<input type="text" id="no_of_night${index}" name="addloc[${index}][no_of_night]" class="form-control input-sm no_of_night" count-id="${index}" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${index}); updateNightlyDetails(${index});" required>
+					</span>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Checkout</b></div>
+					<span class="text-muted">
+					<input type="date" id="checkout${index}" name="addloc[${index}][checkout]" class="form-control input-sm" required readonly>
+					</span>
+					</div>
+					</div>
+					<div class="row mt-2">
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Meal Plan</b></div>
+					<span class="text-muted">
+					<select id="mealplan${index}" name="addloc[${index}][mealplan]" class="form-control select2-show-search input-sm mp_change" data-id="${index}" required>
+					<option value="">Select</option>
+					<option value="1" ${ep_sel}>EP</option>
+					<option value="2" ${cp_sel}>CP</option>
+					<option value="3" ${map_sel}>MAP</option>
+					<option value="4" ${ap_sel}>AP</option>
+					</select>
+					</span>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>No Of Adult</b></div>
+					<input type="text" id="no_of_adult${index}" name="addloc[${index}][no_of_adult]" value="${no_of_adult}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>C.With Bed Qty</b></div>
+					<input type="text" id="no_of_ch${index}" name="addloc[${index}][no_of_ch]" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>C.Without Bed Qty</b></div>
+					<input type="text" id="no_of_cw${index}" name="addloc[${index}][no_of_cw]" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Extra Bed Qty</b></div>
+					<input type="text" id="no_of_extra${index}" name="addloc[${index}][no_of_extra]" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+					</div>
+					<div class="col-xl col-sm-12 col-md-2">
+					<div class="teams-rank"><b>Total Pax</b></div>
+					<input type="text" id="no_of_pax${index}" name="addloc[${index}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly>
+					<br>
+					</div>
+					</div>
+					<div class="nightly-details" id="nightly-details${index}"></div>
+					</div>
+					</div>
+					</div>
+					</div>
+					</div>
+					`;
 		console.log('New card HTML built');
-
 		// Replace the old card
 		console.log('Replacing old card...');
 		$oldCard.replaceWith(newCard);
-
 		// Get reference to new card after replacement
 		var $newCard = $('.location-card[data-index="' + index + '"]');
 		if ($newCard.length === 0) {
 			console.error('ERROR: New card not found after replacement');
 			return;
 		}
-
 		console.log('New card inserted successfully');
-
 		// Update breadcrumb
 		var $bcCard = $('.bc-card[data-index="' + index + '"]');
 		if ($bcCard.length > 0) {
@@ -11345,26 +11297,22 @@ $is_edit = $edit_id ? $edit_id : 0;
 			);
 			console.log('Breadcrumb updated');
 		}
-
 		// Populate hotel categories
 		console.log('Populating hotel categories...');
 		try {
 			var hotelCat = $('#hotelcat' + index);
 			hotelCat.empty();
 			hotelCat.append('<option value="">Select</option>');
-
 			if (Array.isArray(hotel_categories) && hotel_categories.length > 0) {
 				$.each(hotel_categories, function(i, hotelcat) {
 					hotelCat.append('<option value="' + hotelcat.hotel_category_id + '">' + hotelcat.hotel_category_name + '</option>');
 				});
 			}
-
 			hotelCat.trigger('change');
 			console.log('Hotel categories populated');
 		} catch (e) {
 			console.error('ERROR populating hotel categories:', e);
 		}
-
 		// Initialize Select2 on new card
 		console.log('Initializing Select2 on new card...');
 		try {
@@ -11378,11 +11326,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 		} catch (e) {
 			console.error('ERROR initializing Select2:', e);
 		}
-
 		// Clear nightly details
 		console.log('Clearing nightly details...');
 		$(`#nightly-details${index}`).empty();
-
 		// Update subsequent location checkouts if needed
 		console.log('Updating subsequent card dates if needed...');
 		var $nextCard = $newCard.next('.location-card');
@@ -11398,7 +11344,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 				console.warn('Error updating next card:', e);
 			}
 		}
-
 		// Update totals
 		try {
 			console.log('Updating all totals...');
@@ -11407,16 +11352,13 @@ $is_edit = $edit_id ? $edit_id : 0;
 		} catch (e) {
 			console.warn('Error updating totals:', e);
 		}
-
 		// Show success message
 		showAlert('success', 'Location changed to "' + locationData.geog_name + '" successfully! Please configure the nights, hotel, and room details.');
-
 		// Scroll to card
 		console.log('Scrolling to edited card...');
 		$('html, body').animate({
 			scrollTop: $newCard.offset().top - 100
 		}, 500);
-
 		console.log('=== REPLACE CARD FUNCTION END ===');
 	}
 	// ... (rest of your existing functions like getIsDynamic, generateNightHtml, updateRoomTotals, etc., remain unchanged)
