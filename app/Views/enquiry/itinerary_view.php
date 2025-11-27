@@ -1567,7 +1567,8 @@ $cs_trans_total = 0;
 																												}
 
 																												// FIXED: Calculate base TAC WITHOUT special tariff
-																												$tac_base = $expansion_hotel_total + $hot_fac_tariff + $daily_addon;
+																												// $tac_base = $expansion_hotel_total + $hot_fac_tariff + $daily_addon;
+																												$tac_base = $expansion_hotel_total + $hot_fac_tariff;
 
 
 																												// Calculate display TAC WITH special tariff for showing on screen
