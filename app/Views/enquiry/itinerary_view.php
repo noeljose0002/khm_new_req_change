@@ -7396,9 +7396,9 @@ $cs_trans_total = 0;
 				travel_distanceCost += parseInt($(this).val()) || 0;
 			});
 
-			$('input[id^="fac_rate"]').each(function() {
-				totalAccommodationCost += parseFloat($(this).val()) || 0;
-			});
+			// $('input[id^="fac_rate"]').each(function() {
+			// 	totalAccommodationCost += parseFloat($(this).val()) || 0;
+			// });
 
 			// Sum all visible and hidden total inputs
 			$('input[id^="acc_total"]').each(function() {
@@ -7424,9 +7424,9 @@ $cs_trans_total = 0;
 			$('#ttc_hidden').val(totalTransportationCost);
 			$('#v_total').text(totalTransportationCost);
 
-			// $('input[id^="spcl_tariff"]').each(function() {
-			// 	specialEventTotal += parseFloat($(this).val()) || 0;
-			// });
+			$('input[id^="spcl_tariff"]').each(function() {
+				specialEventTotal += parseFloat($(this).val()) || 0;
+			});
 			$('#spcl_span').text(specialEventTotal);
 			$('#spcl_hidden').val(specialEventTotal);
 
@@ -7656,10 +7656,10 @@ $cs_trans_total = 0;
 		setTimeout(() => calculateGrandTotal(vid), 300);
 	});
 
-	/*$(document).on('input', 'input[id^="spcl_tariff"]', function () {
+	$(document).on('input', 'input[id^="spcl_tariff"]', function () {
 		var vid = $(this).attr('id').replace('spcl_tariff', '');
 		setTimeout(() => calculateGrandTotal(vid), 300);
-	});*/
+	});
 
 	$(document).on('input', 'input[id^="spcl_tariff"]', function() {
 		$('input[id^="spcl_tariff"]').each(function() {
