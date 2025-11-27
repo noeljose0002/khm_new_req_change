@@ -6333,110 +6333,108 @@ class Enquiry extends BaseController
                     // Around line 270 in your original code
 
                     // Calculate which day number this is (1-indexed)
-                   // Replace the section starting from "NEW: Only load defaults if there was NO saved/draft record at all."
-// Around line 270 in your original code
+                    // Replace the section starting from "NEW: Only load defaults if there was NO saved/draft record at all."
+                    // Around line 270 in your original code
 
-// Calculate which day number this is (1-indexed)
-$interval = $start1->diff($date);
-$day_number = $interval->days + 1; // Day 1, 2, 3, etc.
+                    // Calculate which day number this is (1-indexed)
+                    $interval = $start1->diff($date);
+                    $day_number = $interval->days + 1; // Day 1, 2, 3, etc.
 
-// Calculate total number of days (nights + 1)
-$total_interval = $start1->diff($end1);
-$total_days = $total_interval->days + 1; // Total days including departure day
+                    // Calculate total number of days (nights + 1)
+                    $total_interval = $start1->diff($end1);
+                    $total_days = $total_interval->days + 1; // Total days including departure day
 
-// Check if this is the last day (departure day)
-$is_last_day = ($day_number === $total_days);
+                    // Check if this is the last day (departure day)
+                    $is_last_day = ($day_number === $total_days);
 
-// NEW: Load defaults based on day number:
-// - Day 1: Empty
-// - Day 2: Load default sightseeing for the location
-// - Days 3 onwards (including last day): Hardcoded "Leisure" entry
-if (!$had_saved_record) {
-    $saved_sightseeing = [];
-    $saved_ss_ids = [];
-    $ss_total_distance = 0;
-    $ss_pax_cost = 0;
-    $ss_total_cost = 0;
-    $totalPax = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'] + $object_det[0]['no_of_child_below_five'];
-    
-    if ($day_number === 2) {
-        // Day 2: Load default sightseeing for the location
-        $default_ss = $Enquiry_model->get_default_sight_seeing($vals['tour_location']);
-        
-        foreach ($default_ss as $ss) {
-            $ssItem = [
-                'sightseeing_id' => $ss['sightseeing_id'],
-                'name' => $ss['object_name'],
-                'is_pax' => (int)($ss['is_pax'] ?? 0),
-                'tariff' => (float)($ss['tariff'] ?? 0),
-                'distance' => (float)($ss['sightseeing_distance'] ?? 0),
-                'calculated_value' => 0,
-                'remarks' => '',
-                'cost' => 0,
-                'distance_km' => 0
-            ];
-            if ($ssItem['is_pax'] == 1) {
-                $ssItem['calculated_value'] = $ssItem['tariff'] * $totalPax;
-                $ssItem['cost'] = $ssItem['calculated_value'];
-                $ss_pax_cost += $ssItem['calculated_value'];
-                $ss_total_cost += $ssItem['calculated_value'];
-            } else {
-                $ssItem['calculated_value'] = $ssItem['distance'];
-                $ssItem['distance_km'] = $ssItem['calculated_value'];
-                $ss_total_distance += $ssItem['calculated_value'];
-            }
-            $saved_sightseeing[] = $ssItem;
-            $saved_ss_ids[] = $ss['sightseeing_id'];
-        }
-        log_message('info', 'Loaded default SS for Day 2 (date ' . $tour_date . '): ' . count($saved_sightseeing) . ' items');
-        
-    } elseif ($day_number > 2) {
-        // Days 3 onwards (including last day): Create hardcoded "Leisure" entry
-        // Using a special negative ID to indicate this is a hardcoded entry
-        $leisure_id = -999; // Special ID for hardcoded Leisure
-        
-        $ssItem = [
-            'sightseeing_id' => $leisure_id,
-            'name' => 'Leisure',
-            'is_pax' => 0, // Distance-based (not per-pax)
-            'tariff' => 0,
-            'distance' => 0, // 0 km for Leisure
-            'calculated_value' => 0,
-            'remarks' => '',
-            'cost' => 0,
-            'distance_km' => 0,
-            'is_auto_selected' => true,  // Flag to indicate this was auto-selected
-            'is_hardcoded' => true  // Flag to indicate this is hardcoded, not from DB
-        ];
-        
-        // Since Leisure has 0 distance and 0 tariff, all calculations remain 0
-        $ssItem['calculated_value'] = 0;
-        $ssItem['distance_km'] = 0;
-        
-        $saved_sightseeing[] = $ssItem;
-        $saved_ss_ids[] = $leisure_id;
-        
-        $day_type = $is_last_day ? 'Last day/Departure' : 'Day ' . $day_number;
-        log_message('info', 'Hardcoded Leisure SS auto-selected for ' . $day_type . ' (date ' . $tour_date . ', location ' . $vals['tour_location'] . ')');
-        
-    } else {
-        // Day 1: No defaults
-        log_message('info', 'Day 1 (date ' . $tour_date . '): No defaults loaded');
-    }
-}
+                    // NEW: Load defaults based on day number:
+                    // - Day 1: Empty
+                    // - Day 2: Load default sightseeing for the location
+                    // - Days 3 onwards (including last day): Hardcoded "Leisure" entry
+                    if (!$had_saved_record) {
+                        $saved_sightseeing = [];
+                        $saved_ss_ids = [];
+                        $ss_total_distance = 0;
+                        $ss_pax_cost = 0;
+                        $ss_total_cost = 0;
+                        $totalPax = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'] + $object_det[0]['no_of_child_below_five'];
 
-// Store the sightseeing data with totals
-if (!isset($saved_sightseeing_by_date[$vals['tour_details_id']])) {
-    $saved_sightseeing_by_date[$vals['tour_details_id']] = [];
-}
-$saved_sightseeing_by_date[$vals['tour_details_id']][$tour_date] = [
-    'sightseeing' => $saved_sightseeing,
-    'saved_ss_ids' => $saved_ss_ids,
-    'ss_total_distance' => $ss_total_distance,
-    'ss_pax_cost' => $ss_pax_cost,
-    'ss_total_cost' => $ss_total_cost,
-    'is_saved' => $had_saved_record  // Flag for base derivation in adjustment
-];
+                        if ($day_number === 2) {
+                            // Day 2: Load default sightseeing for the location
+                            $default_ss = $Enquiry_model->get_default_sight_seeing($vals['tour_location']);
+
+                            foreach ($default_ss as $ss) {
+                                $ssItem = [
+                                    'sightseeing_id' => $ss['sightseeing_id'],
+                                    'name' => $ss['object_name'],
+                                    'is_pax' => (int)($ss['is_pax'] ?? 0),
+                                    'tariff' => (float)($ss['tariff'] ?? 0),
+                                    'distance' => (float)($ss['sightseeing_distance'] ?? 0),
+                                    'calculated_value' => 0,
+                                    'remarks' => '',
+                                    'cost' => 0,
+                                    'distance_km' => 0
+                                ];
+                                if ($ssItem['is_pax'] == 1) {
+                                    $ssItem['calculated_value'] = $ssItem['tariff'] * $totalPax;
+                                    $ssItem['cost'] = $ssItem['calculated_value'];
+                                    $ss_pax_cost += $ssItem['calculated_value'];
+                                    $ss_total_cost += $ssItem['calculated_value'];
+                                } else {
+                                    $ssItem['calculated_value'] = $ssItem['distance'];
+                                    $ssItem['distance_km'] = $ssItem['calculated_value'];
+                                    $ss_total_distance += $ssItem['calculated_value'];
+                                }
+                                $saved_sightseeing[] = $ssItem;
+                                $saved_ss_ids[] = $ss['sightseeing_id'];
+                            }
+                            log_message('info', 'Loaded default SS for Day 2 (date ' . $tour_date . '): ' . count($saved_sightseeing) . ' items');
+                        } elseif ($day_number > 2) {
+                            // Days 3 onwards (including last day): Create hardcoded "Leisure" entry
+                            // Using a special negative ID to indicate this is a hardcoded entry
+                            $leisure_id = -999; // Special ID for hardcoded Leisure
+
+                            $ssItem = [
+                                'sightseeing_id' => $leisure_id,
+                                'name' => 'Leisure',
+                                'is_pax' => 0, // Distance-based (not per-pax)
+                                'tariff' => 0,
+                                'distance' => 0, // 0 km for Leisure
+                                'calculated_value' => 0,
+                                'remarks' => '',
+                                'cost' => 0,
+                                'distance_km' => 0,
+                                'is_auto_selected' => true,  // Flag to indicate this was auto-selected
+                                'is_hardcoded' => true  // Flag to indicate this is hardcoded, not from DB
+                            ];
+
+                            // Since Leisure has 0 distance and 0 tariff, all calculations remain 0
+                            $ssItem['calculated_value'] = 0;
+                            $ssItem['distance_km'] = 0;
+
+                            $saved_sightseeing[] = $ssItem;
+                            $saved_ss_ids[] = $leisure_id;
+
+                            $day_type = $is_last_day ? 'Last day/Departure' : 'Day ' . $day_number;
+                            log_message('info', 'Hardcoded Leisure SS auto-selected for ' . $day_type . ' (date ' . $tour_date . ', location ' . $vals['tour_location'] . ')');
+                        } else {
+                            // Day 1: No defaults
+                            log_message('info', 'Day 1 (date ' . $tour_date . '): No defaults loaded');
+                        }
+                    }
+
+                    // Store the sightseeing data with totals
+                    if (!isset($saved_sightseeing_by_date[$vals['tour_details_id']])) {
+                        $saved_sightseeing_by_date[$vals['tour_details_id']] = [];
+                    }
+                    $saved_sightseeing_by_date[$vals['tour_details_id']][$tour_date] = [
+                        'sightseeing' => $saved_sightseeing,
+                        'saved_ss_ids' => $saved_ss_ids,
+                        'ss_total_distance' => $ss_total_distance,
+                        'ss_pax_cost' => $ss_pax_cost,
+                        'ss_total_cost' => $ss_total_cost,
+                        'is_saved' => $had_saved_record  // Flag for base derivation in adjustment
+                    ];
                 }
                 // NEW: Adjust vehicle distances to base-only model (derive base, no SS addition; JS adds dynamically)
                 if (isset($tour_expansion_details[$tid])) {

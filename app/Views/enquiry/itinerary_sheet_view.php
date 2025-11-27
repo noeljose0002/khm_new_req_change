@@ -61,6 +61,7 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
                     $map = 0;
                     $ap = 0;
                     foreach ($tour_plan_det as $key => $val) {
+                        $meal_name = "";
                         if($val['meal_plan_id'] == 1){
                             $ep = 1;
 							$meal_name = "EP";
@@ -81,17 +82,16 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
                             <tr>
                                 <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo date("d-m-Y", strtotime($val['check_in_date'])); ?></td>
                                 <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo date("d-m-Y", strtotime($val['check_out_date'])); ?></td>
-                                <td style="border:1px solid black;text-align: center;word-wrap: break-word;">Own Arrangements</td>
-                                <td></td><td></td><td></td><td></td><td></td><td></td>
+                                <td style="border:1px solid black;text-align: center;word-wrap: break-word;" colspan="7">Own Arrangements</td>
                             </tr>
                             <?php } else {
                             $sdate = $val['check_in_date'];
                             $hname = $val['object_name'];
                             $cat = $val['room_category_name'];
                            ?>
-                            <tr><td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo date("d-m-Y", strtotime($val['check_in_date'])); ?></td>
+                            <tr>
+                            <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo date("d-m-Y", strtotime($val['check_in_date'])); ?></td>
                             <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo date("d-m-Y", strtotime($val['check_out_date'])); ?></td>
-
                             <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo $val['no_of_days']; ?></td>
                             <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo $val['geog_name']; ?></td>
                             <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo $hname; ?></td>
@@ -163,60 +163,59 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
     $k = 1;
     $ssdet = [];
     foreach ($iti_data as $keys => $vals) {
-        $loc_name = $vals['geog_name'];
-        /*if(!empty($val['departure'])){
-            $dep_name = $Enquiry_model->getLocationName($val['departure']);
-        }
-        else{
-            $dep_name = '';
-        }*/
-		//$dep_name = $dep_name[0]['geog_name'];
-		$ss_id = 0;
-        foreach ($vals['cost'] as $key1 => $val1) {
-            if($val1['cost_component_id'] == "21") {
-				$ss_id = $val1['tariff'];
-			}
-		}
-			$ss_details = $Enquiry_model->getSightName($ss_id);
-
-            if(!empty($ss_details)){
-                $ss_name = $ss_details[0]['object_name'];
-                $description = $ss_details[0]['sightseeing_description'];
-            }
-            else{
-                //$ss_name = "Liesure";
-                //$description = "Liesure";
-                $trimmed = substr((string)$ss_id, 0, -3);
-													
-			    $ss_details = $Enquiry_model->getDefaultSightName($trimmed);
-																
-				if(!empty($ss_details)){
-                    $ss_name = $ss_details[0]['geog_name'];
-					$description = $ss_details[0]['geog_description'];
-				}
-				else{
-					$description = "";
-                    $ss_name = "Liesure";
-				}
-            }
-           if(date("d-m-Y", strtotime($vals['tour_date'])) == date("d-m-Y", strtotime($object_det[0]['end_date']))){
-        ?>
-            <p><b>Day <?php echo $k++; ?> (<?php echo date("d-m-Y", strtotime($vals['tour_date'])); ?>) - Departure Transfer</b></p>
-            <p>Transfer to <?php echo $vals['departure_location_name']; ?>. Back to home with sweet memories your tour</p>
-           <?php } else { 
-            if($ss_name == "" || $ss_name == "Liesure" || $ss_name == null){
-            ?>
-                <p><b>Day <?php echo $k++; ?> (<?php echo date("d-m-Y", strtotime($vals['tour_date'])); ?>) - <?php echo $loc_name; ?></b></p>
-            <?php } else { ?>
-                <p><b>Day <?php echo $k++; ?> (<?php echo date("d-m-Y", strtotime($vals['tour_date'])); ?>) - <?php echo $ss_name; ?></b></p>
-            <?php } ?>
-            <p><?php echo $description; ?></p>
-            <?php } ?>
-
-
-            <?php 
+        $loc_name = isset($vals['geog_name']) ? $vals['geog_name'] : '';
+        $ss_id = 0;
+        $ss_name = "";
+        $description = "";
         
-    	} ?>
+        // Check if cost array exists and has data
+        if(isset($vals['cost']) && !empty($vals['cost']) && is_array($vals['cost'])) {
+            foreach ($vals['cost'] as $key1 => $val1) {
+                if(isset($val1['cost_component_id']) && $val1['cost_component_id'] == "21") {
+                    $ss_id = isset($val1['tariff']) ? $val1['tariff'] : 0;
+                    break; // Exit loop once found
+                }
+            }
+        }
+        
+        // Try to get sightseeing details if ss_id exists
+        if($ss_id > 0) {
+            $ss_details = $Enquiry_model->getSightName($ss_id);
+            
+            if(!empty($ss_details) && isset($ss_details[0])) {
+                $ss_name = isset($ss_details[0]['object_name']) ? $ss_details[0]['object_name'] : "";
+                $description = isset($ss_details[0]['sightseeing_description']) ? $ss_details[0]['sightseeing_description'] : "";
+            } else {
+                // Try to get default sight name
+                $trimmed = substr((string)$ss_id, 0, -3);
+                $ss_details = $Enquiry_model->getDefaultSightName($trimmed);
+                
+                if(!empty($ss_details) && isset($ss_details[0])) {
+                    $ss_name = isset($ss_details[0]['geog_name']) ? $ss_details[0]['geog_name'] : "";
+                    $description = isset($ss_details[0]['geog_description']) ? $ss_details[0]['geog_description'] : "";
+                }
+            }
+        }
+        
+        // Set default if still empty
+        if(empty($ss_name)) {
+            $ss_name = "Leisure";
+        }
+        if(empty($description)) {
+            $description = "Day at leisure to explore " . $loc_name . " at your own pace.";
+        }
+        
+        // Check if this is the departure day
+        if(isset($vals['tour_date']) && date("d-m-Y", strtotime($vals['tour_date'])) == date("d-m-Y", strtotime($object_det[0]['end_date']))) {
+            $departure_location = isset($vals['departure_location_name']) ? $vals['departure_location_name'] : $dep_name[0]['geog_name'];
+            ?>
+            <p><b>Day <?php echo $k++; ?> (<?php echo date("d-m-Y", strtotime($vals['tour_date'])); ?>) - Departure Transfer</b></p>
+            <p>Transfer to <?php echo $departure_location; ?>. Back to home with sweet memories of your tour</p>
+        <?php } else { ?>
+            <p><b>Day <?php echo $k++; ?> (<?php echo isset($vals['tour_date']) ? date("d-m-Y", strtotime($vals['tour_date'])) : ''; ?>) - <?php echo ($ss_name == "Leisure" || $ss_name == "") ? $loc_name : $ss_name; ?></b></p>
+            <p><?php echo $description; ?></p>
+        <?php } ?>
+    <?php } ?>
 		
 	<?php
 	}
@@ -228,15 +227,16 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
                 $v_listt = $v_listt.$veh.", ";
                 
             }
-            $v_lists = rtrim($v_listt, ",");
-            //$newv_lists = substr($v_lists, 0, -2);
+            $v_lists = rtrim($v_listt, ", ");
+        } else {
+            $v_lists = "Vehicle as per requirement";
         }
     ?>
     <p><b>Package Includes:</b></p>
     <div><ul>
             <li>Accommodation on twin/double sharing basis on food plan stated above.</li>
             <?php if($object_det[0]['is_vehicle_required'] == 1) { ?>
-                <li>All transfers and sightseeing arrangements by<b><?php echo $v_lists; ?></b> as per itinerary.</li>
+                <li>All transfers and sightseeing arrangements by<b> <?php echo $v_lists; ?></b> as per itinerary.</li>
             <?php } ?>
             <li>Vehicle at your disposal as per the itinerary.</li>
             <li>Services of well experienced driver.</li>
@@ -254,7 +254,7 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
             <li>Do not compare Houseboat rooms with the hotel rooms, as they are compact & smaller in size.</li>
             <li>Houseboat shall be sailing through small streams & canals through villages and by the sunset shall be anchored near shore / jetty till morning.</li>
             <li>Because of the water body, just to avoid flying insects / mosquito; lights shall be operational only in the room after sunset.</li>
-            <li>There won’t be anything for the entertainment in the houseboat like TV / Indoor games. Houseboats are just to experience the back waters of Kerala.</li>
+            <li>There won't be anything for the entertainment in the houseboat like TV / Indoor games. Houseboats are just to experience the back waters of Kerala.</li>
             <li>Houseboat crew members are not hospitality professionals. Majority are local villagers and could not expect fluent Hindi / English.</li>
             </ul>
     </li></ul></div>
@@ -298,8 +298,8 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
         else{
             $no_of_single = '';
         }   
-        if($object_det[0]['no_of_single_room'] > 0){
-            $noextras = ", ".$object_det[0]['no_of_single_room']." Extra Bed"; 
+        if($object_det[0]['no_of_extra_bed'] > 0){
+            $noextras = ", ".$object_det[0]['no_of_extra_bed']." Extra Bed"; 
         }
         else{
             $noextras = '';
@@ -344,4 +344,3 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
         <td style="padding:5px;"><button type="button" id="save_iti_btn" class="btn btn-success btn-sm" style="float:right;margin-right:20px;">Save</button></td>
     </tr>
 </table>
-
