@@ -7423,9 +7423,9 @@ $cs_trans_total = 0;
 			$('#ttc_hidden').val(totalTransportationCost);
 			$('#v_total').text(totalTransportationCost);
 
-			$('input[id^="spcl_tariff"]').each(function() {
-				specialEventTotal += parseFloat($(this).val()) || 0;
-			});
+			// $('input[id^="spcl_tariff"]').each(function() {
+			// 	specialEventTotal += parseFloat($(this).val()) || 0;
+			// });
 			$('#spcl_span').text(specialEventTotal);
 			$('#spcl_hidden').val(specialEventTotal);
 
