@@ -9098,7 +9098,8 @@ $cs_trans_total = 0;
         dailyAddon, permit, spclTariff, facRate
     });
     
-    var grandTotal = accTotal + vehicleTotal + ssGrandTotal + dailyAddon + permit + spclTariff + facRate;
+    // var grandTotal = accTotal + vehicleTotal + ssGrandTotal + dailyAddon + permit + spclTariff + facRate;
+	var grandTotal = accTotal + vehicleTotal + ssGrandTotal + dailyAddon + spclTariff;
     
     // Update the grand total field
     $('#grand_total' + iti_id).val(grandTotal);
