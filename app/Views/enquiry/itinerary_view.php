@@ -9055,7 +9055,8 @@ $cs_trans_total = 0;
 			var extraKm = pf($('#extra_kilometer' + vid).val());
 			var extraKmRate = pf($('#extra_km_rate_hidden' + vid).val());
 			var adhocRate = pf($('#adhoc_rate' + vid).val());
-			var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate;
+			// var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate;
+			var vehTotal = dayRent + adhocRate;
 			$('#veh_total' + vid).val(vehTotal);
 			return vehTotal;
 		}
@@ -9065,7 +9066,8 @@ $cs_trans_total = 0;
 			var extraKm = pf($('#extra_kilometer' + vid).val());
 			var extraKmRate = pf($('#extra_km_rate_hidden' + vid).val());
 			var adhocRate = pf($('#adhoc_rate' + vid).val());
-			var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate;
+			// var vehTotal = dayRent + (extraKm * extraKmRate) + adhocRate;
+			var vehTotal = dayRent + adhocRate;
 			$('#veh_total' + vid).val(vehTotal);
 		}
 		// ----------------- Grand total -----------------
