@@ -1360,15 +1360,6 @@ class Enquiry_m extends Model
     //     $query = $builder->get();
     //     return $query->getResultArray();
     // }
-public function get_leisure_sight_seeing($tour_location)
-{
-    return $this->db->table('khm_obj_sightseeing')
-        ->where('object_id', $tour_location)
-        ->like('sightseeing_name', 'Leisure') // Generates: WHERE sightseeing_name LIKE '%Leisure%'
-        ->get()
-        ->getResultArray();
-}
-
     public function get_itinerary_expansion_by_itinerary_id($itinerary_details_id)
     {
         $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion as itie');
