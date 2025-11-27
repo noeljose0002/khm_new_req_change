@@ -58,3 +58,15 @@ hello: 250-smtp.gmail.com at your service, [2409:40f3:7:3aca:a09e:56f7:f1f0:1899
 Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
 535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-29b5b2809b6sm205540935ad.76 - gsmtp
 
+CRITICAL - 2025-11-27 06:25:36 --> ParseError: Unmatched '}'
+[Method: GET, Route: Enquiry/itinerary/2812/1]
+in APPPATH\Views\enquiry\itinerary_view.php on line 3296.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(6652): view('enquiry/itinerary_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2812', '1')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

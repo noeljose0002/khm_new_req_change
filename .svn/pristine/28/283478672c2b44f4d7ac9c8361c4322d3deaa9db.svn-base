@@ -6029,7 +6029,6 @@ class Enquiry extends BaseController
     //         return redirect()->to('Login');
     //     }
     // }
-    //nj//
     public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_edit_id = null, $extension_ref_id = null)
     {
         if (!empty(session()->get('user_id'))) {

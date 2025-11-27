@@ -851,16 +851,16 @@ class Enquiry_m extends Model
     }
     //nj//
     public function get_default_sight_seeing($location_id)
-    {
-        $db = \Config\Database::connect();
-        $table = $db->table('khm_obj_sightseeing a');
-        $result = $table->select('a.*,f.object_name')
-            ->join('khm_obj_mst f', 'f.object_id = a.object_id', 'left')
-            ->where('f.object_location_id', $location_id)
-            ->where('a.is_default_ss', 1)
-            ->get()->getResultArray();
-        return $result;
-    }
+{
+    $db = \Config\Database::connect();
+    $table = $db->table('khm_obj_sightseeing a');
+    $result = $table->select('a.*,f.object_name')
+        ->join('khm_obj_mst f', 'f.object_id = a.object_id', 'left')
+        ->where('f.object_location_id', $location_id)
+        ->where('a.is_default_ss', 1)
+        ->get()->getResultArray();
+    return $result;
+}
     public function get_sight_seeing($location_id)
     {
         $db = \Config\Database::connect();
@@ -1224,30 +1224,30 @@ class Enquiry_m extends Model
      */
 
     public function get_eighteen_datas_double_by_date($tour_details_id, $tour_date)
-    {
-        return $this->db->table('khm_eighteen_percentage_double')
-            ->where('tour_details_id', $tour_details_id)
-            // Note: You may need to add a tour_date column or use sequence_id logic
-            // If using sequence_id, you'll need custom logic to match dates
-            ->get()
-            ->getResultArray();
-    }
+{
+    return $this->db->table('khm_eighteen_percentage_double')
+        ->where('tour_details_id', $tour_details_id)
+        // Note: You may need to add a tour_date column or use sequence_id logic
+        // If using sequence_id, you'll need custom logic to match dates
+        ->get()
+        ->getResultArray();
+}
 
-    /**
-     * Get eighteen single data by tour_details_id and tour_date
-     * 
-     * @param int $tour_details_id
-     * @param string $tour_date Format: Y-m-d
-     * @return array
-     */
-    public function get_eighteen_datas_single_by_date($tour_details_id, $tour_date)
-    {
-        return $this->db->table('khm_eighteen_percentage_single')
-            ->where('tour_details_id', $tour_details_id)
-            // Note: You may need to add a tour_date column or use sequence_id logic
-            ->get()
-            ->getResultArray();
-    }
+/**
+ * Get eighteen single data by tour_details_id and tour_date
+ * 
+ * @param int $tour_details_id
+ * @param string $tour_date Format: Y-m-d
+ * @return array
+ */
+public function get_eighteen_datas_single_by_date($tour_details_id, $tour_date)
+{
+    return $this->db->table('khm_eighteen_percentage_single')
+        ->where('tour_details_id', $tour_details_id)
+        // Note: You may need to add a tour_date column or use sequence_id logic
+        ->get()
+        ->getResultArray();
+}
     public function insert_expansion_data($data)
     {
         $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion');
@@ -1349,82 +1349,19 @@ class Enquiry_m extends Model
     //end//
     // Add this method to your Enquiry_m model
 
-    // public function get_itinerary_expansion_by_itinerary_id($itinerary_details_id)
-    // {
-    //     $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion as itie');
-    //     $builder->select('itie.*, rc.room_category_name, mp.meal_plan_name');
-    //     $builder->join('khm_obj_mst_hotel_room_category as rc', 'rc.room_category_id = itie.room_category_id', 'left');
-    //     $builder->join('khm_obj_meal_plan as mp', 'mp.meal_plan_id = itie.meal_plan_id', 'left');
-    //     $builder->where('itie.itinerary_details_id', $itinerary_details_id);
-    //     $builder->orderBy('itie.tour_expansion_date', 'ASC');
-    //     $query = $builder->get();
-    //     return $query->getResultArray();
-    // }
     public function get_itinerary_expansion_by_itinerary_id($itinerary_details_id)
     {
         $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion as itie');
-        $builder->select('itie.*, 
-                      rc.room_category_name, 
-                      mt.meal_type_name as meal_plan_name');  // ← CHANGED
-        $builder->join(
-            'khm_obj_mst_hotel_room_category as rc',
-            'rc.room_category_id = itie.room_category_id',
-            'left'
-        );
-        $builder->join(
-            'khm_obj_mst_meal_type as mt',  // ← CHANGED: Correct table name
-            'mt.meal_type_id = itie.meal_plan_id',  // ← CHANGED: Join on meal_type_id
-            'left'
-        );
+        $builder->select('itie.*, rc.room_category_name, mp.meal_plan_name');
+        $builder->join('khm_obj_mst_hotel_room_category as rc', 'rc.room_category_id = itie.room_category_id', 'left');
+        $builder->join('khm_obj_meal_plan as mp', 'mp.meal_plan_id = itie.meal_plan_id', 'left');
         $builder->where('itie.itinerary_details_id', $itinerary_details_id);
         $builder->orderBy('itie.tour_expansion_date', 'ASC');
         $query = $builder->get();
         return $query->getResultArray();
     }
+
     // Alternative: Get by tour_details_id and group by itinerary_details_id
-    //nj//
-    // public function get_itinerary_expansion_grouped($itinerary_details_ids)
-    // {
-    //     if (empty($itinerary_details_ids)) {
-    //         return [];
-    //     }
-
-    //     $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion as itie');
-    //     $builder->select('itie.*, 
-    //                   itid.tour_details_id, 
-    //                   itid.tour_date,
-    //                   rc.room_category_name, 
-    //                   mp.meal_plan_name');
-    //     $builder->join(
-    //         'khm_obj_enquiry_itinerary_details as itid',
-    //         'itid.itinerary_details_id = itie.itinerary_details_id',
-    //         'left'
-    //     );
-    //     $builder->join(
-    //         'khm_obj_mst_hotel_room_category as rc',
-    //         'rc.room_category_id = itie.room_category_id',
-    //         'left'
-    //     );
-    //     $builder->join(
-    //         'khm_obj_meal_plan as mp',
-    //         'mp.meal_plan_id = itie.meal_plan_id',
-    //         'left'
-    //     );
-    //     $builder->whereIn('itie.itinerary_details_id', $itinerary_details_ids);
-    //     $builder->orderBy('itie.tour_expansion_date', 'ASC');
-    //     $builder->orderBy('itie.tour_itinerary_expansion_id', 'ASC');
-
-    //     $query = $builder->get();
-    //     $result = $query->getResultArray();
-
-    //     // Group by itinerary_details_id
-    //     $grouped = [];
-    //     foreach ($result as $row) {
-    //         $grouped[$row['itinerary_details_id']][] = $row;
-    //     }
-
-    //     return $grouped;
-    // }
     public function get_itinerary_expansion_grouped($itinerary_details_ids)
     {
         if (empty($itinerary_details_ids)) {
@@ -1433,10 +1370,10 @@ class Enquiry_m extends Model
 
         $builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion as itie');
         $builder->select('itie.*, 
-                  itid.tour_details_id, 
-                  itid.tour_date,
-                  rc.room_category_name, 
-                  mt.meal_type_name as meal_plan_name');  // ← CHANGED: Use meal_type_name and alias it
+                      itid.tour_details_id, 
+                      itid.tour_date,
+                      rc.room_category_name, 
+                      mp.meal_plan_name');
         $builder->join(
             'khm_obj_enquiry_itinerary_details as itid',
             'itid.itinerary_details_id = itie.itinerary_details_id',
@@ -1448,8 +1385,8 @@ class Enquiry_m extends Model
             'left'
         );
         $builder->join(
-            'khm_obj_mst_meal_type as mt',  // ← CHANGED: Correct table name
-            'mt.meal_type_id = itie.meal_plan_id',  // ← CHANGED: Join on meal_type_id
+            'khm_obj_meal_plan as mp',
+            'mp.meal_plan_id = itie.meal_plan_id',
             'left'
         );
         $builder->whereIn('itie.itinerary_details_id', $itinerary_details_ids);
@@ -1468,15 +1405,15 @@ class Enquiry_m extends Model
         return $grouped;
     }
     //nj//
-    public function get_gst_rate_by_tour_and_sequence($tour_details_id, $sequence_id, $room_type = 'double')
-    {
-        // Query appropriate table based on room_type: double or single
-        $table_name = ($room_type === 'single') ? 'khm_eighteen_percentage_single' : 'khm_eighteen_percentage_double';
-
-        $query = $this->db->query("SELECT gst FROM " . $table_name . " WHERE tour_details_id = ? AND sequence_id = ?", [$tour_details_id, $sequence_id]);
-        $result = $query->getRowArray();
-        return !empty($result) ? (float) $result['gst'] : 0;
-    }
+    public function get_gst_rate_by_tour_and_sequence($tour_details_id, $sequence_id, $room_type = 'double') 
+{
+    // Query appropriate table based on room_type: double or single
+    $table_name = ($room_type === 'single') ? 'khm_eighteen_percentage_single' : 'khm_eighteen_percentage_double';
+    
+    $query = $this->db->query("SELECT gst FROM " . $table_name . " WHERE tour_details_id = ? AND sequence_id = ?", [$tour_details_id, $sequence_id]);
+    $result = $query->getRowArray();
+    return !empty($result) ? (float) $result['gst'] : 0;
+}
     public function update_tour_expansion($data, $tour_details_id, $date)
     {
         $db = \Config\Database::connect();
