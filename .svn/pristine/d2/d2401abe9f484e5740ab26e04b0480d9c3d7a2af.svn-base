@@ -168,58 +168,32 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
         // Initialize all sightseeing array
         $all_sightseeing = [];
         
-        // Parse ss_data_json to extract sightseeing items
+        // Collect sightseeing IDs and handle non-ID entries from ss_data_json (assuming $vals['cost'] is the parsed array)
         $sightseeing_ids = [];
-        $ss_data_json_str = isset($vals['ss_data_json']) ? $vals['ss_data_json'] : '[]';
-        $ss_parsed = json_decode($ss_data_json_str, true);
-        $sightseeing_items = [];
-        if (is_array($ss_parsed)) {
-            foreach ($ss_parsed as $item) {
-                if (isset($item['ss_data']) && is_array($item['ss_data'])) {
-                    $sightseeing_items = array_merge($sightseeing_items, $item['ss_data']);
-                } elseif (is_array($item)) {
-                    // Fallback if direct array of ss items
-                    $sightseeing_items[] = $item;
-                }
-            }
-        }
-        
-        // Process sightseeing items
-        foreach ($sightseeing_items as $val1) {
-            $ss_id = isset($val1['sightseeing_id']) ? intval($val1['sightseeing_id']) : 0;
-            $ss_name = isset($val1['name']) ? trim($val1['name']) : '';
-            
-            if ($ss_id > 0) {
-                $sightseeing_ids[] = $ss_id;
-            } else {
-                // For ID=0 or negative (e.g., Leisure or custom), add directly with generic description
-                if (!empty($ss_name)) {
-                    $all_sightseeing[] = [
-                        'name' => $ss_name,
-                        'description' => ($ss_name !== 'Leisure' ? 'Explore ' . $ss_name . ' at your own pace in ' . $loc_name . '.' : 'Day at leisure to explore ' . $loc_name . ' at your own pace.')
-                    ];
+        if(isset($vals['cost']) && !empty($vals['cost']) && is_array($vals['cost'])) {
+            foreach ($vals['cost'] as $key1 => $val1) {
+                $ss_id = isset($val1['tariff']) ? intval($val1['tariff']) : 0;
+                $ss_name = isset($val1['name']) ? trim($val1['name']) : '';
+                
+                if($ss_id > 0) {
+                    $sightseeing_ids[] = $ss_id;
+                } else {
+                    // For ID=0 (e.g., Leisure), add directly with generic description
+                    if(!empty($ss_name)) {
+                        $all_sightseeing[] = [
+                            'name' => $ss_name,
+                            'description' => !empty($ss_name) && $ss_name !== 'Leisure' ? 'Explore ' . $ss_name . ' at your own pace in ' . $loc_name . '.' : 'Day at leisure to explore ' . $loc_name . ' at your own pace.'
+                        ];
+                    }
                 }
             }
         }
         
         // Fetch specific sightseeing details if IDs present
-        if (!empty($sightseeing_ids)) {
+        if(!empty($sightseeing_ids)) {
             $ss_details = $Enquiry_model->getMultipleSightseeing($sightseeing_ids);
-            if (!empty($ss_details)) {
-                foreach ($ss_details as $ss) {
-                    $all_sightseeing[] = [
-                        'name' => isset($ss['sightseeing_name']) ? trim($ss['sightseeing_name']) : '',
-                        'description' => isset($ss['sightseeing_description']) ? trim($ss['sightseeing_description']) : ''
-                    ];
-                }
-            }
-        }
-        
-        // Fallback: If no sightseeing at all, get defaults for location
-        if (empty($all_sightseeing) && $location_id > 0) {
-            $default_sightseeing = $Enquiry_model->getAllSightseeingByLocation($location_id);
-            if (!empty($default_sightseeing)) {
-                foreach ($default_sightseeing as $ss) {
+            if(!empty($ss_details)) {
+                foreach($ss_details as $ss) {
                     $all_sightseeing[] = [
                         'name' => isset($ss['sightseeing_name']) ? trim($ss['sightseeing_name']) : '',
                         'description' => isset($ss['sightseeing_description']) ? trim($ss['sightseeing_description']) : ''
@@ -229,7 +203,7 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
         }
         
         // Final fallback: Generic leisure if still empty
-        if (empty($all_sightseeing)) {
+        if(empty($all_sightseeing)) {
             $all_sightseeing[] = [
                 'name' => 'Leisure',
                 'description' => 'Day at leisure to explore ' . $loc_name . ' at your own pace.'
@@ -237,7 +211,7 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
         }
         
         // Check if this is the departure day
-        if (isset($vals['tour_date']) && date("d-m-Y", strtotime($vals['tour_date'])) == date("d-m-Y", strtotime($object_det[0]['end_date']))) {
+        if(isset($vals['tour_date']) && date("d-m-Y", strtotime($vals['tour_date'])) == date("d-m-Y", strtotime($object_det[0]['end_date']))) {
             $departure_location = isset($vals['departure_location_name']) ? $vals['departure_location_name'] : $dep_name[0]['geog_name'];
             ?>
             <p><b>Day <?php echo $k++; ?> (<?php echo date("d-m-Y", strtotime($vals['tour_date'])); ?>) - Departure Transfer</b></p>
@@ -245,7 +219,7 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
         <?php } else { 
             // Display the day header
             $day_title = '';
-            if (count($all_sightseeing) == 1 && $all_sightseeing[0]['name'] == 'Leisure') {
+            if(count($all_sightseeing) == 1 && $all_sightseeing[0]['name'] == 'Leisure') {
                 $day_title = $loc_name;
             } else {
                 // Collect all sightseeing names for the title
@@ -256,10 +230,10 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
             <p><b>Day <?php echo $k++; ?> (<?php echo isset($vals['tour_date']) ? date("d-m-Y", strtotime($vals['tour_date'])) : ''; ?>) - <?php echo $day_title; ?></b></p>
             <?php
             // Display all sightseeing descriptions
-            foreach ($all_sightseeing as $idx => $ss) {
-                if (!empty($ss['description'])) {
+            foreach($all_sightseeing as $idx => $ss) {
+                if(!empty($ss['description'])) {
                     // If multiple sightseeing, show the name as a sub-heading
-                    if (count($all_sightseeing) > 1 && $ss['name'] != 'Leisure') {
+                    if(count($all_sightseeing) > 1 && $ss['name'] != 'Leisure') {
                         echo '<p><b>' . htmlspecialchars($ss['name']) . ':</b> ' . htmlspecialchars($ss['description']) . '</p>';
                     } else {
                         echo '<p>' . htmlspecialchars($ss['description']) . '</p>';

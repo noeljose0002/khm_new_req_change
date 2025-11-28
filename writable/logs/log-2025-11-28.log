@@ -564,3 +564,237 @@ AND `is_active` = :is_active:', [...], false)
 14 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
 15 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 16 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 05:35:43 --> ParseError: syntax error, unexpected token "public"
+[Method: GET, Route: Enquiry/enquiry_list_view/10]
+in APPPATH\Models\Enquiry_m.php on line 959.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Enquiry_m')
+ 3 APPPATH\Controllers\Enquiry.php(18): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Enquiry_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_view('10')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 05:35:47 --> ParseError: syntax error, unexpected token "public"
+[Method: GET, Route: Enquiry/enquiry_list_view/10]
+in APPPATH\Models\Enquiry_m.php on line 959.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Enquiry_m')
+ 3 APPPATH\Controllers\Enquiry.php(18): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Enquiry_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_view('10')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 05:35:48 --> ParseError: syntax error, unexpected token "public"
+[Method: GET, Route: Enquiry/itinerary/2815/0]
+in APPPATH\Models\Enquiry_m.php on line 959.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Enquiry_m')
+ 3 APPPATH\Controllers\Enquiry.php(6036): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Enquiry_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2815', '0')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 05:35:49 --> ParseError: syntax error, unexpected token "public"
+[Method: GET, Route: Enquiry/tour_plan/2815]
+in APPPATH\Models\Enquiry_m.php on line 959.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Enquiry_m')
+ 3 APPPATH\Controllers\Enquiry.php(2433): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Enquiry_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->tour_plan('2815')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 05:35:50 --> ParseError: syntax error, unexpected token "public"
+[Method: GET, Route: Enquiry/tour_plan/2815/439]
+in APPPATH\Models\Enquiry_m.php on line 959.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Enquiry_m')
+ 3 APPPATH\Controllers\Enquiry.php(2433): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Enquiry_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->tour_plan('2815', '439')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 05:35:51 --> ParseError: syntax error, unexpected token "public"
+[Method: GET, Route: Enquiry/enquiry_list_view/10]
+in APPPATH\Models\Enquiry_m.php on line 959.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Enquiry_m')
+ 3 APPPATH\Controllers\Enquiry.php(18): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Enquiry_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_view('10')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 05:35:54 --> ParseError: syntax error, unexpected token "public"
+[Method: GET, Route: Enquiry/enquiry_list_view/10]
+in APPPATH\Models\Enquiry_m.php on line 959.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Enquiry_m')
+ 3 APPPATH\Controllers\Enquiry.php(18): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Enquiry_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_view('10')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 05:36:07 --> ParseError: syntax error, unexpected token "public"
+[Method: GET, Route: Enquiry/enquiry_list_view/10]
+in APPPATH\Models\Enquiry_m.php on line 959.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Enquiry_m')
+ 3 APPPATH\Controllers\Enquiry.php(18): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Enquiry_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->enquiry_list_view('10')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 05:40:32 --> ParseError: syntax error, unexpected token "public"
+[Method: GET, Route: Enquiry/itinerary/2815/0]
+in APPPATH\Models\Enquiry_m.php on line 959.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\wamp64\\www\\khm\\app\\Models\\Enquiry_m.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\Enquiry_m')
+ 3 APPPATH\Controllers\Enquiry.php(6036): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\Enquiry_m')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2815', '0')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 07:12:03 --> ErrorException: Undefined variable $sightseeing_ids
+[Method: POST, Route: Enquiry/viewItinerarySheet]
+in APPPATH\Views\enquiry\itinerary_sheet_view.php on line 172.
+ 1 APPPATH\Views\enquiry\itinerary_sheet_view.php(172): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $sightseeing_ids', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php', 172)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_sheet_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(9888): view('enquiry/itinerary_sheet_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewItinerarySheet()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 07:12:04 --> ErrorException: Undefined variable $sightseeing_ids
+[Method: POST, Route: Enquiry/viewItinerarySheet]
+in APPPATH\Views\enquiry\itinerary_sheet_view.php on line 172.
+ 1 APPPATH\Views\enquiry\itinerary_sheet_view.php(172): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $sightseeing_ids', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php', 172)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_sheet_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(9888): view('enquiry/itinerary_sheet_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewItinerarySheet()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 07:12:05 --> ErrorException: Undefined variable $sightseeing_ids
+[Method: POST, Route: Enquiry/viewItinerarySheet]
+in APPPATH\Views\enquiry\itinerary_sheet_view.php on line 172.
+ 1 APPPATH\Views\enquiry\itinerary_sheet_view.php(172): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $sightseeing_ids', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php', 172)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_sheet_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(9888): view('enquiry/itinerary_sheet_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewItinerarySheet()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 07:12:05 --> ErrorException: Undefined variable $sightseeing_ids
+[Method: POST, Route: Enquiry/viewItinerarySheet]
+in APPPATH\Views\enquiry\itinerary_sheet_view.php on line 172.
+ 1 APPPATH\Views\enquiry\itinerary_sheet_view.php(172): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $sightseeing_ids', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php', 172)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_sheet_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(9888): view('enquiry/itinerary_sheet_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewItinerarySheet()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 07:12:05 --> ErrorException: Undefined variable $sightseeing_ids
+[Method: POST, Route: Enquiry/viewItinerarySheet]
+in APPPATH\Views\enquiry\itinerary_sheet_view.php on line 172.
+ 1 APPPATH\Views\enquiry\itinerary_sheet_view.php(172): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $sightseeing_ids', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php', 172)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_sheet_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(9888): view('enquiry/itinerary_sheet_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewItinerarySheet()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 07:12:06 --> ErrorException: Undefined variable $sightseeing_ids
+[Method: POST, Route: Enquiry/viewItinerarySheet]
+in APPPATH\Views\enquiry\itinerary_sheet_view.php on line 172.
+ 1 APPPATH\Views\enquiry\itinerary_sheet_view.php(172): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $sightseeing_ids', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php', 172)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_sheet_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(9888): view('enquiry/itinerary_sheet_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewItinerarySheet()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 07:12:06 --> ErrorException: Undefined variable $sightseeing_ids
+[Method: POST, Route: Enquiry/viewItinerarySheet]
+in APPPATH\Views\enquiry\itinerary_sheet_view.php on line 172.
+ 1 APPPATH\Views\enquiry\itinerary_sheet_view.php(172): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $sightseeing_ids', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php', 172)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_sheet_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(9888): view('enquiry/itinerary_sheet_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewItinerarySheet()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 07:12:08 --> ErrorException: Undefined variable $sightseeing_ids
+[Method: POST, Route: Enquiry/viewItinerarySheet]
+in APPPATH\Views\enquiry\itinerary_sheet_view.php on line 172.
+ 1 APPPATH\Views\enquiry\itinerary_sheet_view.php(172): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $sightseeing_ids', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php', 172)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_sheet_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(9888): view('enquiry/itinerary_sheet_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewItinerarySheet()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-28 07:12:08 --> ErrorException: Undefined variable $sightseeing_ids
+[Method: POST, Route: Enquiry/viewItinerarySheet]
+in APPPATH\Views\enquiry\itinerary_sheet_view.php on line 172.
+ 1 APPPATH\Views\enquiry\itinerary_sheet_view.php(172): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $sightseeing_ids', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php', 172)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\itinerary_sheet_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/itinerary_sheet_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(9888): view('enquiry/itinerary_sheet_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewItinerarySheet()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
