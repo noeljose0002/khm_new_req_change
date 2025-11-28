@@ -31,166 +31,330 @@ class Enquiry_m extends Model
     protected $khm_entity_mst = 'khm_entity_mst';
     protected $khm_obj_mst = 'khm_obj_mst';
 
+    // public function enquiry_list_data($params)
+    // {
+    //     $system_id = session('system_id');
+    //     $user_id = session('user_id');
+    //     $parent_id = session('parent_id');
+    //     $hierarchy_id = session('hierarchy_id');
+    //     $draw = $params['draw'];
+    //     $start = $params['start'];
+    //     $rowperpage = $params['length'];
+    //     $columnIndex = $params['order'][0]['column'];
+    //     $columnName = $params['columns'][$columnIndex]['data'];
+    //     $columnSortOrder = $params['order'][0]['dir'];
+    //     $searchValue = $params['search']['value'];
+    //     $object_class_id = $params['object_class_id'];
+    //     $db = \Config\Database::connect();
+
+    //     $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+    //         ->select('s.enquiry_status_id,s.enquiry_header_id, s.current_status_id, s.updated_time')
+    //         ->join(
+    //             '(SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+    //           FROM khm_obj_enquiry_status 
+    //           GROUP BY enquiry_header_id) latest',
+    //             's.enquiry_header_id = latest.enquiry_header_id AND s.enquiry_status_id = latest.max_status_id',
+    //             'inner'
+    //         );
+    //     $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+
+    //     $stSub = "
+    //         (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+    //         FROM khm_obj_enquiry_status
+    //         WHERE current_status_id = 1
+    //         GROUP BY enquiry_header_id) st1
+    //     ";
+    //     $stsSub = "
+    //         (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+    //         FROM khm_obj_enquiry_status
+    //         WHERE current_status_id = 13
+    //         GROUP BY enquiry_header_id) sts1
+    //     ";
+    //     $acSub = "
+    //         (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+    //         FROM khm_obj_enquiry_status
+    //         WHERE current_status_id = 8 AND assigned_status = 1
+    //         GROUP BY enquiry_header_id) ac1
+    //     ";
+    //     $sttSub = "
+    //         (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+    //         FROM khm_obj_enquiry_status
+    //         WHERE current_status_id = 14
+    //         GROUP BY enquiry_header_id) stt1
+    //     ";
+    //     $attSub = "
+    //         (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+    //         FROM khm_obj_enquiry_status
+    //         WHERE current_status_id = 17
+    //         GROUP BY enquiry_header_id) att1
+    //     ";
+
+    //     $query = $db->table('khm_obj_mst a');
+    //     $query->select('SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request,ex.availability_check', false);
+    //     $query->join('khm_obj_enquiry_header h', 'h.object_id = a.object_id', 'left');
+    //     $query->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = h.enquiry_header_id AND er.is_active = 1', 'inner');
+    //     $query->join('khm_entity_mst ag', 'ag.entity_id = h.agent_entity_id', 'left');
+    //     $query->join('khm_entity_mst gs', 'gs.entity_id = h.employee_entity_id', 'left');
+    //     $query->join('khm_obj_enquiry_details t', 't.enquiry_header_id = h.enquiry_header_id', 'left');
+    //     $query->join('khm_loc_mst_geography m', 'm.geog_id = a.object_location_id', 'left');
+    //     $query->join('khm_loc_mst_geography arr', 'arr.geog_id = t.arrival_location', 'left');
+    //     $query->join('khm_loc_mst_geography dep', 'dep.geog_id = t.departure_location', 'left');
+    //     $query->join('khm_obj_mst_hotel_category hc', 'hc.hotel_category_id = t.hotel_category', 'left');
+    //     $query->join('khm_obj_enquiry_detail_extensions ex', 'ex.enquiry_header_id = h.enquiry_header_id AND ex.is_active = 1', 'left');
+
+    //     $query->join($stSub, 'st1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+    //     $query->join('khm_obj_enquiry_status st', 'st.enquiry_status_id = st1.enquiry_status_id', 'left');
+    //     //$query->join('khm_obj_enquiry_status st', 'st.enquiry_header_id = er.enquiry_header_id AND st.edit_request_id = er.enquiry_edit_request_id AND st.current_status_id = 1', 'left');
+    //     $query->join('khm_entity_mst exe', 'exe.entity_id =st.assigned_to', 'left');
+    //     $query->join('khm_sys_usg_mst_entity_role tl', 'tl.entity_id = st.assigned_to AND tl.role_id = 5', 'left');
+
+    //     $query->join($stsSub, 'sts1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+    //     $query->join('khm_obj_enquiry_status sts', 'sts.enquiry_status_id = sts1.enquiry_status_id', 'left');
+    //     //$query->join('khm_obj_enquiry_status sts', 'sts.enquiry_header_id = er.enquiry_header_id AND sts.edit_request_id = er.enquiry_edit_request_id AND sts.current_status_id = 13', 'left');
+    //     $query->join('khm_entity_mst sop', 'sop.entity_id =sts.assigned_to', 'left');
+    //     $query->join('khm_sys_usg_mst_entity_role stl', 'stl.entity_id = sts.assigned_to AND stl.role_id = 8', 'left');
+
+    //     $query->join($acSub, 'ac1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+    //     $query->join('khm_obj_enquiry_status ac', 'ac.enquiry_status_id = ac1.enquiry_status_id', 'left');
+    //     //$query->join('khm_obj_enquiry_status ac', 'ac.enquiry_header_id = er.enquiry_header_id AND ac.edit_request_id = er.enquiry_edit_request_id AND ac.current_status_id = 8 AND ac.assigned_status = 1', 'left');
+    //     $query->join('khm_entity_mst acp', 'acp.entity_id =ac.assigned_to', 'left');
+    //     $query->join('khm_sys_usg_mst_entity_role stlac', 'stlac.entity_id = ac.assigned_to AND stlac.role_id = 8', 'left');
+
+    //     $query->join($sttSub, 'stt1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+    //     $query->join('khm_obj_enquiry_status stt', 'stt.enquiry_status_id = stt1.enquiry_status_id', 'left');
+    //     //$query->join('khm_obj_enquiry_status stt', 'stt.enquiry_header_id = er.enquiry_header_id AND stt.edit_request_id = er.enquiry_edit_request_id AND stt.current_status_id = 14', 'left');
+    //     $query->join('khm_entity_mst top', 'top.entity_id =stt.assigned_to', 'left');
+    //     $query->join('khm_sys_usg_mst_entity_role ttl', 'ttl.entity_id = stt.assigned_to AND ttl.role_id = 10', 'left');
+
+    //     $query->join($attSub, 'att1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+    //     $query->join('khm_obj_enquiry_status att', 'att.enquiry_status_id = att1.enquiry_status_id', 'left');
+    //     //$query->join('khm_obj_enquiry_status att', 'att.enquiry_header_id = er.enquiry_header_id AND att.edit_request_id = er.enquiry_edit_request_id AND att.current_status_id = 17', 'left');
+    //     $query->join('khm_entity_mst acc', 'acc.entity_id =att.assigned_to', 'left');
+    //     $query->join('khm_sys_usg_mst_entity_role atl', 'atl.entity_id = att.assigned_to AND atl.role_id = 11', 'left');
+
+    //     $query->join('(' . $latestStatusSql . ') est', 'est.enquiry_header_id = h.enquiry_header_id', 'left');
+    //     $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id = est.current_status_id', 'left');
+    //     $query->where('a.object_class_id', $object_class_id);
+    //     $query->where('h.is_active', 1);
+    //     $query->where('t.is_active', 1);
+    //     $query->where('h.enq_type_id', $system_id);
+    //     if ($parent_id == 4 || $parent_id == 1) {
+    //         $query->where('st.assigned_to', $user_id);
+    //     }
+    //     if ($parent_id == 7 || $parent_id == 2) {
+    //         $query->groupStart()
+    //             ->where('sts.assigned_to', $user_id)
+    //             ->orWhere('ac.assigned_to', $user_id)
+    //             ->groupEnd();
+    //     }
+    //     if ($parent_id == 9 || $parent_id == 3) {
+    //         $query->where('stt.assigned_to', $user_id);
+    //     }
+    //     if ($parent_id == 11) {
+    //         $query->where('er.cs_confirmed_id >', 0);
+    //     }
+
+    //     /*if($parent_id == 1){
+    //         $query->where('tl.team_lead_id', $user_id);
+    //     }
+    //     if($parent_id == 2){
+    //         $query->where('stl.team_lead_id', $user_id);
+    //     }
+    //     if($parent_id == 3){
+    //         $query->where('ttl.team_lead_id', $user_id);
+    //     }*/
+    //     /*if($parent_id == 11){
+    //         $query->where('atl.team_lead_id', $user_id);
+    //     }*/
+    //     $query->orderBy('h.enquiry_header_id', 'DESC');
+
+    //     if (!empty($searchValue)) {
+    //         $query->groupStart()
+    //             ->like('a.object_name', $searchValue)
+    //             ->orLike('m.geog_name', $searchValue)
+    //             ->orLike('h.ref_no', $searchValue)
+    //             ->groupEnd();
+    //     }
+    //     $query->orderBy($columnName, $columnSortOrder);
+    //     $query->limit($rowperpage, $start);
+
+    //     $records = $query->get()->getResultArray();
+
+    //     $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+    //     $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+    //     $response = array(
+    //         "draw" => intval($draw),
+    //         "iTotalRecords" => $totalRecords,
+    //         "iTotalDisplayRecords" => $totalRecords,
+    //         "aaData" => $records
+    //     );
+    //     return $response;
+    // }
+
+    ////////////////nj//////////
     public function enquiry_list_data($params)
-    {
-        $system_id = session('system_id');
-        $user_id = session('user_id');
-        $parent_id = session('parent_id');
-        $hierarchy_id = session('hierarchy_id');
-        $draw = $params['draw'];
-        $start = $params['start'];
-        $rowperpage = $params['length'];
-        $columnIndex = $params['order'][0]['column'];
-        $columnName = $params['columns'][$columnIndex]['data'];
-        $columnSortOrder = $params['order'][0]['dir'];
-        $searchValue = $params['search']['value'];
-        $object_class_id = $params['object_class_id'];
-        $db = \Config\Database::connect();
+{
+    $system_id = session('system_id');
+    $user_id = session('user_id');
+    $parent_id = session('parent_id');
+    $hierarchy_id = session('hierarchy_id');
+    $draw = $params['draw'];
+    $start = $params['start'];
+    $rowperpage = $params['length'];
+    $columnIndex = $params['order'][0]['column'];
+    $columnName = $params['columns'][$columnIndex]['data'];
+    $columnSortOrder = $params['order'][0]['dir'];
+    $searchValue = $params['search']['value'];
+    $object_class_id = $params['object_class_id'];
+    $db = \Config\Database::connect();
 
-        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
-            ->select('s.enquiry_status_id,s.enquiry_header_id, s.current_status_id, s.updated_time')
-            ->join(
-                '(SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
-              FROM khm_obj_enquiry_status 
-              GROUP BY enquiry_header_id) latest',
-                's.enquiry_header_id = latest.enquiry_header_id AND s.enquiry_status_id = latest.max_status_id',
-                'inner'
-            );
-        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
-
-        $stSub = "
-            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
-            FROM khm_obj_enquiry_status
-            WHERE current_status_id = 1
-            GROUP BY enquiry_header_id) st1
-        ";
-        $stsSub = "
-            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
-            FROM khm_obj_enquiry_status
-            WHERE current_status_id = 13
-            GROUP BY enquiry_header_id) sts1
-        ";
-        $acSub = "
-            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
-            FROM khm_obj_enquiry_status
-            WHERE current_status_id = 8 AND assigned_status = 1
-            GROUP BY enquiry_header_id) ac1
-        ";
-        $sttSub = "
-            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
-            FROM khm_obj_enquiry_status
-            WHERE current_status_id = 14
-            GROUP BY enquiry_header_id) stt1
-        ";
-        $attSub = "
-            (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
-            FROM khm_obj_enquiry_status
-            WHERE current_status_id = 17
-            GROUP BY enquiry_header_id) att1
-        ";
-
-        $query = $db->table('khm_obj_mst a');
-        $query->select('SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request,ex.availability_check', false);
-        $query->join('khm_obj_enquiry_header h', 'h.object_id = a.object_id', 'left');
-        $query->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = h.enquiry_header_id AND er.is_active = 1', 'inner');
-        $query->join('khm_entity_mst ag', 'ag.entity_id = h.agent_entity_id', 'left');
-        $query->join('khm_entity_mst gs', 'gs.entity_id = h.employee_entity_id', 'left');
-        $query->join('khm_obj_enquiry_details t', 't.enquiry_header_id = h.enquiry_header_id', 'left');
-        $query->join('khm_loc_mst_geography m', 'm.geog_id = a.object_location_id', 'left');
-        $query->join('khm_loc_mst_geography arr', 'arr.geog_id = t.arrival_location', 'left');
-        $query->join('khm_loc_mst_geography dep', 'dep.geog_id = t.departure_location', 'left');
-        $query->join('khm_obj_mst_hotel_category hc', 'hc.hotel_category_id = t.hotel_category', 'left');
-        $query->join('khm_obj_enquiry_detail_extensions ex', 'ex.enquiry_header_id = h.enquiry_header_id AND ex.is_active = 1', 'left');
-
-        $query->join($stSub, 'st1.enquiry_header_id = h.enquiry_header_id', 'left', false);
-        $query->join('khm_obj_enquiry_status st', 'st.enquiry_status_id = st1.enquiry_status_id', 'left');
-        //$query->join('khm_obj_enquiry_status st', 'st.enquiry_header_id = er.enquiry_header_id AND st.edit_request_id = er.enquiry_edit_request_id AND st.current_status_id = 1', 'left');
-        $query->join('khm_entity_mst exe', 'exe.entity_id =st.assigned_to', 'left');
-        $query->join('khm_sys_usg_mst_entity_role tl', 'tl.entity_id = st.assigned_to AND tl.role_id = 5', 'left');
-
-        $query->join($stsSub, 'sts1.enquiry_header_id = h.enquiry_header_id', 'left', false);
-        $query->join('khm_obj_enquiry_status sts', 'sts.enquiry_status_id = sts1.enquiry_status_id', 'left');
-        //$query->join('khm_obj_enquiry_status sts', 'sts.enquiry_header_id = er.enquiry_header_id AND sts.edit_request_id = er.enquiry_edit_request_id AND sts.current_status_id = 13', 'left');
-        $query->join('khm_entity_mst sop', 'sop.entity_id =sts.assigned_to', 'left');
-        $query->join('khm_sys_usg_mst_entity_role stl', 'stl.entity_id = sts.assigned_to AND stl.role_id = 8', 'left');
-
-        $query->join($acSub, 'ac1.enquiry_header_id = h.enquiry_header_id', 'left', false);
-        $query->join('khm_obj_enquiry_status ac', 'ac.enquiry_status_id = ac1.enquiry_status_id', 'left');
-        //$query->join('khm_obj_enquiry_status ac', 'ac.enquiry_header_id = er.enquiry_header_id AND ac.edit_request_id = er.enquiry_edit_request_id AND ac.current_status_id = 8 AND ac.assigned_status = 1', 'left');
-        $query->join('khm_entity_mst acp', 'acp.entity_id =ac.assigned_to', 'left');
-        $query->join('khm_sys_usg_mst_entity_role stlac', 'stlac.entity_id = ac.assigned_to AND stlac.role_id = 8', 'left');
-
-        $query->join($sttSub, 'stt1.enquiry_header_id = h.enquiry_header_id', 'left', false);
-        $query->join('khm_obj_enquiry_status stt', 'stt.enquiry_status_id = stt1.enquiry_status_id', 'left');
-        //$query->join('khm_obj_enquiry_status stt', 'stt.enquiry_header_id = er.enquiry_header_id AND stt.edit_request_id = er.enquiry_edit_request_id AND stt.current_status_id = 14', 'left');
-        $query->join('khm_entity_mst top', 'top.entity_id =stt.assigned_to', 'left');
-        $query->join('khm_sys_usg_mst_entity_role ttl', 'ttl.entity_id = stt.assigned_to AND ttl.role_id = 10', 'left');
-
-        $query->join($attSub, 'att1.enquiry_header_id = h.enquiry_header_id', 'left', false);
-        $query->join('khm_obj_enquiry_status att', 'att.enquiry_status_id = att1.enquiry_status_id', 'left');
-        //$query->join('khm_obj_enquiry_status att', 'att.enquiry_header_id = er.enquiry_header_id AND att.edit_request_id = er.enquiry_edit_request_id AND att.current_status_id = 17', 'left');
-        $query->join('khm_entity_mst acc', 'acc.entity_id =att.assigned_to', 'left');
-        $query->join('khm_sys_usg_mst_entity_role atl', 'atl.entity_id = att.assigned_to AND atl.role_id = 11', 'left');
-
-        $query->join('(' . $latestStatusSql . ') est', 'est.enquiry_header_id = h.enquiry_header_id', 'left');
-        $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id = est.current_status_id', 'left');
-        $query->where('a.object_class_id', $object_class_id);
-        $query->where('h.is_active', 1);
-        $query->where('t.is_active', 1);
-        $query->where('h.enq_type_id', $system_id);
-        if ($parent_id == 4 || $parent_id == 1) {
-            $query->where('st.assigned_to', $user_id);
-        }
-        if ($parent_id == 7 || $parent_id == 2) {
-            $query->groupStart()
-                ->where('sts.assigned_to', $user_id)
-                ->orWhere('ac.assigned_to', $user_id)
-                ->groupEnd();
-        }
-        if ($parent_id == 9 || $parent_id == 3) {
-            $query->where('stt.assigned_to', $user_id);
-        }
-        if ($parent_id == 11) {
-            $query->where('er.cs_confirmed_id >', 0);
-        }
-
-        /*if($parent_id == 1){
-            $query->where('tl.team_lead_id', $user_id);
-        }
-        if($parent_id == 2){
-            $query->where('stl.team_lead_id', $user_id);
-        }
-        if($parent_id == 3){
-            $query->where('ttl.team_lead_id', $user_id);
-        }*/
-        /*if($parent_id == 11){
-            $query->where('atl.team_lead_id', $user_id);
-        }*/
-        $query->orderBy('h.enquiry_header_id', 'DESC');
-
-        if (!empty($searchValue)) {
-            $query->groupStart()
-                ->like('a.object_name', $searchValue)
-                ->orLike('m.geog_name', $searchValue)
-                ->orLike('h.ref_no', $searchValue)
-                ->groupEnd();
-        }
-        $query->orderBy($columnName, $columnSortOrder);
-        $query->limit($rowperpage, $start);
-
-        $records = $query->get()->getResultArray();
-
-        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
-        $totalRecords = $queryTot->getResultArray()[0]['count'];
-
-        $response = array(
-            "draw" => intval($draw),
-            "iTotalRecords" => $totalRecords,
-            "iTotalDisplayRecords" => $totalRecords,
-            "aaData" => $records
+    $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+        ->select('s.enquiry_status_id,s.enquiry_header_id, s.current_status_id, s.updated_time')
+        ->join(
+            '(SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+          FROM khm_obj_enquiry_status 
+          GROUP BY enquiry_header_id) latest',
+            's.enquiry_header_id = latest.enquiry_header_id AND s.enquiry_status_id = latest.max_status_id',
+            'inner'
         );
-        return $response;
+    $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+
+    $stSub = "
+        (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+        FROM khm_obj_enquiry_status
+        WHERE current_status_id = 1
+        GROUP BY enquiry_header_id) st1
+    ";
+    $stsSub = "
+        (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+        FROM khm_obj_enquiry_status
+        WHERE current_status_id = 13
+        GROUP BY enquiry_header_id) sts1
+    ";
+    $acSub = "
+        (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+        FROM khm_obj_enquiry_status
+        WHERE current_status_id = 8 AND assigned_status = 1
+        GROUP BY enquiry_header_id) ac1
+    ";
+    $sttSub = "
+        (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+        FROM khm_obj_enquiry_status
+        WHERE current_status_id = 14
+        GROUP BY enquiry_header_id) stt1
+    ";
+    $attSub = "
+        (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
+        FROM khm_obj_enquiry_status
+        WHERE current_status_id = 17
+        GROUP BY enquiry_header_id) att1
+    ";
+
+    $query = $db->table('khm_obj_mst a');
+    $query->select('SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request,ex.availability_check', false);
+    $query->join('khm_obj_enquiry_header h', 'h.object_id = a.object_id', 'left');
+    $query->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = h.enquiry_header_id AND er.is_active = 1', 'inner');
+    $query->join('khm_entity_mst ag', 'ag.entity_id = h.agent_entity_id', 'left');
+    $query->join('khm_entity_mst gs', 'gs.entity_id = h.employee_entity_id', 'left');
+    $query->join('khm_obj_enquiry_details t', 't.enquiry_header_id = h.enquiry_header_id', 'left');
+    $query->join('khm_loc_mst_geography m', 'm.geog_id = a.object_location_id', 'left');
+    $query->join('khm_loc_mst_geography arr', 'arr.geog_id = t.arrival_location', 'left');
+    $query->join('khm_loc_mst_geography dep', 'dep.geog_id = t.departure_location', 'left');
+    $query->join('khm_obj_mst_hotel_category hc', 'hc.hotel_category_id = t.hotel_category', 'left');
+    $query->join('khm_obj_enquiry_detail_extensions ex', 'ex.enquiry_header_id = h.enquiry_header_id AND ex.is_active = 1', 'left');
+
+    $query->join($stSub, 'st1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+    $query->join('khm_obj_enquiry_status st', 'st.enquiry_status_id = st1.enquiry_status_id', 'left');
+    $query->join('khm_entity_mst exe', 'exe.entity_id =st.assigned_to', 'left');
+    $query->join('khm_sys_usg_mst_entity_role tl', 'tl.entity_id = st.assigned_to AND tl.role_id = 5', 'left');
+
+    $query->join($stsSub, 'sts1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+    $query->join('khm_obj_enquiry_status sts', 'sts.enquiry_status_id = sts1.enquiry_status_id', 'left');
+    $query->join('khm_entity_mst sop', 'sop.entity_id =sts.assigned_to', 'left');
+    $query->join('khm_sys_usg_mst_entity_role stl', 'stl.entity_id = sts.assigned_to AND stl.role_id = 8', 'left');
+
+    $query->join($acSub, 'ac1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+    $query->join('khm_obj_enquiry_status ac', 'ac.enquiry_status_id = ac1.enquiry_status_id', 'left');
+    $query->join('khm_entity_mst acp', 'acp.entity_id =ac.assigned_to', 'left');
+    $query->join('khm_sys_usg_mst_entity_role stlac', 'stlac.entity_id = ac.assigned_to AND stlac.role_id = 8', 'left');
+
+    $query->join($sttSub, 'stt1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+    $query->join('khm_obj_enquiry_status stt', 'stt.enquiry_status_id = stt1.enquiry_status_id', 'left');
+    $query->join('khm_entity_mst top', 'top.entity_id =stt.assigned_to', 'left');
+    $query->join('khm_sys_usg_mst_entity_role ttl', 'ttl.entity_id = stt.assigned_to AND ttl.role_id = 10', 'left');
+
+    $query->join($attSub, 'att1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+    $query->join('khm_obj_enquiry_status att', 'att.enquiry_status_id = att1.enquiry_status_id', 'left');
+    $query->join('khm_entity_mst acc', 'acc.entity_id =att.assigned_to', 'left');
+    $query->join('khm_sys_usg_mst_entity_role atl', 'atl.entity_id = att.assigned_to AND atl.role_id = 11', 'left');
+
+    $query->join('(' . $latestStatusSql . ') est', 'est.enquiry_header_id = h.enquiry_header_id', 'left');
+    $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id = est.current_status_id', 'left');
+    $query->where('a.object_class_id', $object_class_id);
+    $query->where('h.is_active', 1);
+    $query->where('t.is_active', 1);
+    $query->where('h.enq_type_id', $system_id);
+    
+    // FIXED: Executive / Executive Team Lead logic
+    if ($parent_id == 4 || $parent_id == 1) {
+        $query->groupStart()
+            ->where('st.assigned_to', $user_id)  // Direct assignment
+            ->orWhere('tl.team_lead_id', $user_id)  // Team member assignment
+            ->groupEnd();
     }
+    
+    // FIXED: Sales Support / Sales Support Team Lead logic
+    if ($parent_id == 7 || $parent_id == 2) {
+        $query->groupStart()
+            ->groupStart()
+                ->where('sts.assigned_to', $user_id)  // Direct assignment to user
+                ->orWhere('ac.assigned_to', $user_id)
+            ->groupEnd()
+            ->orGroupStart()
+                ->where('stl.team_lead_id', $user_id)  // Team member assignment
+                ->orWhere('stlac.team_lead_id', $user_id)
+            ->groupEnd()
+            ->groupEnd();
+    }
+    
+    // FIXED: Tour Operator / Tour Operator Team Lead logic
+    if ($parent_id == 9 || $parent_id == 3) {
+        $query->groupStart()
+            ->where('stt.assigned_to', $user_id)  // Direct assignment
+            ->orWhere('ttl.team_lead_id', $user_id)  // Team member assignment
+            ->groupEnd();
+    }
+    
+    if ($parent_id == 11) {
+        $query->where('er.cs_confirmed_id >', 0);
+    }
+
+    $query->orderBy('h.enquiry_header_id', 'DESC');
+
+    if (!empty($searchValue)) {
+        $query->groupStart()
+            ->like('a.object_name', $searchValue)
+            ->orLike('m.geog_name', $searchValue)
+            ->orLike('h.ref_no', $searchValue)
+            ->groupEnd();
+    }
+    $query->orderBy($columnName, $columnSortOrder);
+    $query->limit($rowperpage, $start);
+
+    $records = $query->get()->getResultArray();
+
+    $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+    $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+    $response = array(
+        "draw" => intval($draw),
+        "iTotalRecords" => $totalRecords,
+        "iTotalDisplayRecords" => $totalRecords,
+        "aaData" => $records
+    );
+    return $response;
+}
 
     public function fetchEnquiryDetails($object_id)
     {

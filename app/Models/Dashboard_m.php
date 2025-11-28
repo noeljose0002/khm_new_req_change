@@ -1093,6 +1093,67 @@ class Dashboard_m extends Model
             ->get()->getResultArray();
         return $result;
     }
+    //nj team lead//
+    public function get_employees_by_role($role_id, $current_assigned_to = null)
+{
+    $db = \Config\Database::connect();
+    $user_id = session('user_id');
+    $parent_id = session('parent_id');
+    $hierarchy_id = session('hierarchy_id');
+    
+    $selected_table = $db->table('khm_entity_mst a');
+    $query = $selected_table->select('a.entity_id, a.entity_name, m.role_id, m.team_lead_id') 
+        ->join('khm_sys_usg_mst_entity_role m', 'm.entity_id = a.entity_id', 'inner')
+        ->where('a.entity_class_id', 3)
+       
+        ->where('m.role_id', $role_id);
+    
+    // Apply team lead filter ONLY for team leads (hierarchy_id = 4)
+    // Admin (hierarchy_id = 1, 2, 3) and other roles see all
+    if($hierarchy_id == 4) {
+        // This covers:
+        // - Team Lead (parent_id = 4, role_id = 4) filtering Executives (role_id = 5)
+        // - Sales Operation Lead (parent_id = 7, role_id = 7) filtering SOP Executives (role_id = 8)
+        // - Transport Lead (parent_id = 9, role_id = 9) filtering TOP Executives (role_id = 10)
+        // - GM Accountant (parent_id = 11, role_id = 11) filtering Accountants (role_id = 12)
+        $query->where('m.team_lead_id', $user_id);
+    }
+    // For Admin roles (parent_id = 1, 2, 3 with hierarchy_id = 1, 2, 3), no filter - show all
+    
+    $result = $query->get()->getResultArray();
+    
+    // If current_assigned_to is provided and not in the result, add them
+    // This handles edge cases where assignment exists but user moved teams
+    if($current_assigned_to && !empty($result)) {
+        $found = false;
+        foreach($result as $user) {
+            if($user['entity_id'] == $current_assigned_to) {
+                $found = true;
+                break;
+            }
+        }
+        
+        // If currently assigned user is not in the list, fetch and add them
+        if(!$found) {
+            $current_user = $db->table('khm_entity_mst')
+                ->select('entity_id, entity_name')
+                ->where('entity_id', $current_assigned_to)
+               
+                ->get()
+                ->getRowArray();
+            
+            if($current_user) {
+                // Add to beginning with a note
+                $current_user['entity_name'] = $current_user['entity_name'] . ' (Current)';
+                array_unshift($result, $current_user);
+            }
+        }
+    }
+    
+    $query->orderBy('a.entity_name', 'ASC');
+    
+    return $result;
+}
     public function get_assigned_roles($entity_id)
     {
         $db = \Config\Database::connect();
