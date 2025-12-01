@@ -831,9 +831,9 @@ public function getAllSightseeingByLocation($location_id)
 {
     try {
         $builder = $this->db->table('khm_obj_sightseeing');
-        $builder->select('sightseeing_id, object_id, sightseeing_name, sightseeing_description');
+        $builder->select('sightseeing_id, object_id, sightseeing_name, sightseeing_description, is_pax');
         $builder->where('object_id', $location_id);
-        $builder->where('is_default_ss', 1); // Get default sightseeing
+        $builder->where('is_default_ss', 1);
         $builder->orderBy('sightseeing_id', 'ASC');
         $query = $builder->get();
         
@@ -847,7 +847,49 @@ public function getAllSightseeingByLocation($location_id)
         return [];
     }
 }
-
+public function getLocationDescription($location_id)
+{
+    try {
+        $db = \Config\Database::connect();
+        $builder = $db->table('khm_loc_mst_geography');
+        $builder->select('geog_id, geog_name, geog_description');
+        $builder->where('geog_id', $location_id);
+        $builder->where('deleted', 0); // Assuming soft delete
+        $query = $builder->get();
+        
+        $result = $query->getResultArray();
+        
+        log_message('info', "getLocationDescription($location_id) returned: " . count($result) . " rows");
+        
+        return $result;
+    } catch (\Exception $e) {
+        log_message('error', 'Error in getLocationDescription: ' . $e->getMessage());
+        return [];
+    }
+}
+public function getMultipleSightseeingWithPax($sightseeing_ids)
+{
+    try {
+        if(empty($sightseeing_ids) || !is_array($sightseeing_ids)) {
+            return [];
+        }
+        
+        $builder = $this->db->table('khm_obj_sightseeing');
+        $builder->select('sightseeing_id, object_id, sightseeing_name, sightseeing_description, is_pax');
+        $builder->whereIn('sightseeing_id', $sightseeing_ids);
+        $builder->orderBy('sightseeing_id', 'ASC');
+        $query = $builder->get();
+        
+        $result = $query->getResultArray();
+        
+        log_message('info', "getMultipleSightseeingWithPax returned: " . count($result) . " rows for IDs: " . implode(',', $sightseeing_ids));
+        
+        return $result;
+    } catch (\Exception $e) {
+        log_message('error', 'Error in getMultipleSightseeingWithPax: ' . $e->getMessage());
+        return [];
+    }
+}
 public function getMultipleSightseeing($sightseeing_ids)
 {
     try {
@@ -2420,7 +2462,7 @@ public function get_leisure_sight_seeing($tour_location)
         $db = \Config\Database::connect();
         $response = [];
         $selected_table = $db->table('khm_obj_enquiry_itinerary_details a');
-        $result = $selected_table->select('a.*,gd.geog_name as departure_location_name,g.geog_name,o.object_name,r.room_category_name,m.meal_plan_name')
+        $result = $selected_table->select('a.*,g.geog_id as location_id,gd.geog_name as departure_location_name,g.geog_name,o.object_name,r.room_category_name,m.meal_plan_name')
             ->join('khm_obj_enquiry_detail_extensions ext', 'ext.enquiry_detail_details_id = a.extension_ref_id', 'left')
             ->join('khm_obj_enquiry_details d', 'd.enquiry_details_id = ext.enquiry_ref_id', 'left')
             ->join('khm_obj_enquiry_tour_details t', 't.tour_details_id = a.tour_details_id', 'left')

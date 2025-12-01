@@ -165,14 +165,26 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
         $loc_name = isset($vals['geog_name']) ? $vals['geog_name'] : '';
         $location_id = isset($vals['location_id']) ? intval($vals['location_id']) : 0;
         
-        // Initialize all sightseeing array
+        
+        // DEBUG LOG
+        error_log("=== DAY $k Processing START ===");
+        error_log("Location: $loc_name (ID: $location_id)");
+        error_log("Raw ss_data_json: " . (isset($vals['ss_data_json']) ? $vals['ss_data_json'] : 'NOT SET'));
+        
+        // Initialize arrays to track sightseeing types
         $all_sightseeing = [];
+        $has_pax_sightseeing = false;
+        $has_non_pax_sightseeing = false;
         
         // Parse ss_data_json to extract sightseeing items
         $sightseeing_ids = [];
         $ss_data_json_str = isset($vals['ss_data_json']) ? $vals['ss_data_json'] : '[]';
         $ss_parsed = json_decode($ss_data_json_str, true);
         $sightseeing_items = [];
+        
+        error_log("JSON parsed successfully: " . (is_array($ss_parsed) ? 'YES' : 'NO'));
+        error_log("Parsed data: " . print_r($ss_parsed, true));
+        
         if (is_array($ss_parsed)) {
             foreach ($ss_parsed as $item) {
                 if (isset($item['ss_data']) && is_array($item['ss_data'])) {
@@ -184,57 +196,163 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
             }
         }
         
-        // Process sightseeing items
+        error_log("Total sightseeing items extracted: " . count($sightseeing_items));
+        error_log("Sightseeing items: " . print_r($sightseeing_items, true));
+        
+        // Process sightseeing items and collect IDs
         foreach ($sightseeing_items as $val1) {
             $ss_id = isset($val1['sightseeing_id']) ? intval($val1['sightseeing_id']) : 0;
             $ss_name = isset($val1['name']) ? trim($val1['name']) : '';
             
+            error_log("Processing item - ID: $ss_id, Name: $ss_name");
+            
             if ($ss_id > 0) {
                 $sightseeing_ids[] = $ss_id;
+                error_log("Added to sightseeing_ids array: $ss_id");
             } else {
                 // For ID=0 or negative (e.g., Leisure or custom), add directly with generic description
                 if (!empty($ss_name)) {
+                    error_log("Adding custom/leisure sightseeing: $ss_name");
                     $all_sightseeing[] = [
                         'name' => $ss_name,
-                        'description' => ($ss_name !== 'Leisure' ? 'Explore ' . $ss_name . ' at your own pace in ' . $loc_name . '.' : 'Day at leisure to explore ' . $loc_name . ' at your own pace.')
+                        'description' => ($ss_name !== 'Leisure' ? 'Explore ' . $ss_name . ' at your own pace in ' . $loc_name . '.' : 'Day at leisure to explore ' . $loc_name . ' at your own pace.'),
+                        'is_pax' => 0  // Treat custom/leisure as non-pax
                     ];
+                    $has_non_pax_sightseeing = true;
                 }
             }
         }
         
-        // Fetch specific sightseeing details if IDs present
+        error_log("Sightseeing IDs to fetch: " . print_r($sightseeing_ids, true));
+        
+        // Fetch specific sightseeing details if IDs present (with is_pax field)
         if (!empty($sightseeing_ids)) {
-            $ss_details = $Enquiry_model->getMultipleSightseeing($sightseeing_ids);
+            error_log("Fetching sightseeing details from database...");
+            $ss_details = $Enquiry_model->getMultipleSightseeingWithPax($sightseeing_ids);
+            error_log("Fetched " . count($ss_details) . " sightseeing records");
+            error_log("Fetched details: " . print_r($ss_details, true));
+            
             if (!empty($ss_details)) {
                 foreach ($ss_details as $ss) {
+                    $is_pax = isset($ss['is_pax']) ? intval($ss['is_pax']) : 0;
+                    
+                    error_log("Sightseeing: " . $ss['sightseeing_name'] . " - is_pax: $is_pax");
+                    
+                    // Track if we have pax or non-pax sightseeing
+                    if ($is_pax == 1) {
+                        $has_pax_sightseeing = true;
+                        error_log("Found PAX sightseeing");
+                    } else {
+                        $has_non_pax_sightseeing = true;
+                        error_log("Found NON-PAX sightseeing");
+                    }
+                    
                     $all_sightseeing[] = [
                         'name' => isset($ss['sightseeing_name']) ? trim($ss['sightseeing_name']) : '',
-                        'description' => isset($ss['sightseeing_description']) ? trim($ss['sightseeing_description']) : ''
+                        'description' => isset($ss['sightseeing_description']) ? trim($ss['sightseeing_description']) : '',
+                        'is_pax' => $is_pax
                     ];
                 }
             }
         }
         
-        // Fallback: If no sightseeing at all, get defaults for location
-        if (empty($all_sightseeing) && $location_id > 0) {
-            $default_sightseeing = $Enquiry_model->getAllSightseeingByLocation($location_id);
-            if (!empty($default_sightseeing)) {
-                foreach ($default_sightseeing as $ss) {
-                    $all_sightseeing[] = [
-                        'name' => isset($ss['sightseeing_name']) ? trim($ss['sightseeing_name']) : '',
-                        'description' => isset($ss['sightseeing_description']) ? trim($ss['sightseeing_description']) : ''
-                    ];
+        error_log("has_pax_sightseeing: " . ($has_pax_sightseeing ? 'TRUE' : 'FALSE'));
+        error_log("has_non_pax_sightseeing: " . ($has_non_pax_sightseeing ? 'TRUE' : 'FALSE'));
+        error_log("all_sightseeing count: " . count($all_sightseeing));
+        
+        // Determine what to display based on is_pax conditions
+        $final_sightseeing = [];
+        
+        if ($has_pax_sightseeing && !$has_non_pax_sightseeing) {
+            error_log("CASE 1: Only PAX sightseeing - fetching location description from geography table");
+            // Case 1: ONLY pax sightseeing exists - use location description from geography table (NOT sightseeing descriptions)
+            $location_desc = $Enquiry_model->getLocationDescription($location_id);
+            error_log("Location description result: " . print_r($location_desc, true));
+            
+            if (!empty($location_desc) && !empty($location_desc[0]['geog_description'])) {
+                error_log("Using geography description: " . $location_desc[0]['geog_description']);
+                $final_sightseeing[] = [
+                    'name' => $loc_name,
+                    'description' => $location_desc[0]['geog_description']
+                ];
+            } else {
+                error_log("No geography description found, using fallback");
+                // Fallback to generic description if geography description is empty
+                $final_sightseeing[] = [
+                    'name' => $loc_name,
+                    'description' => 'Explore ' . $loc_name . ' at your own pace.'
+                ];
+            }
+        } elseif (!$has_pax_sightseeing && $has_non_pax_sightseeing) {
+            error_log("CASE 2: Only NON-PAX sightseeing - using non-pax descriptions");
+            // Case 2: ONLY non-pax sightseeing exists - use their descriptions
+            foreach ($all_sightseeing as $ss) {
+                if ($ss['is_pax'] == 0) {
+                    error_log("Adding non-pax: " . $ss['name']);
+                    $final_sightseeing[] = $ss;
                 }
+            }
+        } elseif ($has_pax_sightseeing && $has_non_pax_sightseeing) {
+            error_log("CASE 3: Both PAX and NON-PAX exist - using only non-pax");
+            // Case 3: BOTH pax and non-pax exist - use ONLY non-pax descriptions
+            foreach ($all_sightseeing as $ss) {
+                if ($ss['is_pax'] == 0) {
+                    error_log("Adding non-pax: " . $ss['name']);
+                    $final_sightseeing[] = $ss;
+                }
+            }
+        } else {
+            error_log("CASE 4: NO sightseeing at all - checking geography description first");
+            // Case 4: NO sightseeing at all from ss_data_json
+            // First priority: Use location description from geography table
+            if ($location_id > 0) {
+                error_log("Fetching location description for location_id: $location_id");
+                $location_desc = $Enquiry_model->getLocationDescription($location_id);
+                error_log("Location description result: " . print_r($location_desc, true));
+                
+                if (!empty($location_desc) && !empty($location_desc[0]['geog_description'])) {
+                    error_log("Using geography description: " . $location_desc[0]['geog_description']);
+                    $final_sightseeing[] = [
+                        'name' => $loc_name,
+                        'description' => $location_desc[0]['geog_description']
+                    ];
+                } else {
+                    error_log("No geography description, trying default sightseeing");
+                    // If no geography description, try default sightseeing
+                    $default_sightseeing = $Enquiry_model->getAllSightseeingByLocation($location_id);
+                    error_log("Default sightseeing result: " . print_r($default_sightseeing, true));
+                    
+                    if (!empty($default_sightseeing)) {
+                        foreach ($default_sightseeing as $ss) {
+                            $is_pax = isset($ss['is_pax']) ? intval($ss['is_pax']) : 0;
+                            
+                            // Only include non-pax default sightseeing
+                            if ($is_pax == 0) {
+                                error_log("Adding default non-pax: " . $ss['sightseeing_name']);
+                                $final_sightseeing[] = [
+                                    'name' => isset($ss['sightseeing_name']) ? trim($ss['sightseeing_name']) : '',
+                                    'description' => isset($ss['sightseeing_description']) ? trim($ss['sightseeing_description']) : '',
+                                    'is_pax' => $is_pax
+                                ];
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Final fallback: Generic leisure if still empty
+            if (empty($final_sightseeing)) {
+                error_log("No data found anywhere, using generic leisure");
+                $final_sightseeing[] = [
+                    'name' => 'Leisure',
+                    'description' => 'Day at leisure to explore ' . $loc_name . ' at your own pace.'
+                ];
             }
         }
         
-        // Final fallback: Generic leisure if still empty
-        if (empty($all_sightseeing)) {
-            $all_sightseeing[] = [
-                'name' => 'Leisure',
-                'description' => 'Day at leisure to explore ' . $loc_name . ' at your own pace.'
-            ];
-        }
+        error_log("Final sightseeing count: " . count($final_sightseeing));
+        error_log("Final sightseeing data: " . print_r($final_sightseeing, true));
+        error_log("=== DAY $k Processing END ===\n");
         
         // Check if this is the departure day
         if (isset($vals['tour_date']) && date("d-m-Y", strtotime($vals['tour_date'])) == date("d-m-Y", strtotime($object_det[0]['end_date']))) {
@@ -245,21 +363,21 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
         <?php } else { 
             // Display the day header
             $day_title = '';
-            if (count($all_sightseeing) == 1 && $all_sightseeing[0]['name'] == 'Leisure') {
+            if (count($final_sightseeing) == 1 && $final_sightseeing[0]['name'] == 'Leisure') {
                 $day_title = $loc_name;
             } else {
                 // Collect all sightseeing names for the title
-                $ss_names = array_filter(array_column($all_sightseeing, 'name'));
+                $ss_names = array_filter(array_column($final_sightseeing, 'name'));
                 $day_title = !empty($ss_names) ? implode(' & ', $ss_names) : $loc_name;
             }
             ?>
             <p><b>Day <?php echo $k++; ?> (<?php echo isset($vals['tour_date']) ? date("d-m-Y", strtotime($vals['tour_date'])) : ''; ?>) - <?php echo $day_title; ?></b></p>
             <?php
             // Display all sightseeing descriptions
-            foreach ($all_sightseeing as $idx => $ss) {
+            foreach ($final_sightseeing as $idx => $ss) {
                 if (!empty($ss['description'])) {
                     // If multiple sightseeing, show the name as a sub-heading
-                    if (count($all_sightseeing) > 1 && $ss['name'] != 'Leisure') {
+                    if (count($final_sightseeing) > 1 && $ss['name'] != 'Leisure') {
                         echo '<p><b>' . htmlspecialchars($ss['name']) . ':</b> ' . htmlspecialchars($ss['description']) . '</p>';
                     } else {
                         echo '<p>' . htmlspecialchars($ss['description']) . '</p>';
