@@ -2864,80 +2864,85 @@ $cs_trans_total = 0;
 																													</div>
 																												</div>
 																											</div>
-																											<?php
-																											$grand_veh_total = 0;
-																											foreach ($vehicle_details as $vindex => $vmodel) {
-																												// Safety checks for all properties
-																												$vehicle_count = isset($vmodel->vehicle_count) ? (int) $vmodel->vehicle_count : 1;
-																												$travel_distance = isset($vmodel->travel_distance) ? (float) $vmodel->travel_distance : 0;
-																												$extra_kilometer = isset($vmodel->extra_kilometer) ? (float) $vmodel->extra_kilometer : 0;
-																												$day_rent = isset($vmodel->day_rent) ? (float) $vmodel->day_rent : 0;
-																												$extra_km_rate = isset($vmodel->extra_km_rate) ? (float) $vmodel->extra_km_rate : 0;
-																												$max_km_day = isset($vmodel->max_km_day) ? (int) $vmodel->max_km_day : 0;
-																												$pre_to_cur = isset($vmodel->pre_to_cur) ? (float) $vmodel->pre_to_cur : 0;
-																												$cur_to_dep = isset($vmodel->cur_to_dep) ? (float) $vmodel->cur_to_dep : 0;
-																												$dep_to_arr = isset($vmodel->dep_to_arr) ? (float) $vmodel->dep_to_arr : 0;
-																												$hub_to_arr = isset($vmodel->hub_to_arr) ? (float) $vmodel->hub_to_arr : 0;
-																												$arr_to_loc = isset($vmodel->arr_to_loc) ? (float) $vmodel->arr_to_loc : 0;
-																												$adhoc_rate_temp = isset($adhoc_rate_temp) ? (float) $adhoc_rate_temp : (isset($vmodel->adhoc_rate) ? (float) $vmodel->adhoc_rate : 0);
+																										<?php
+$grand_veh_total = 0;
+foreach ($vehicle_details as $vindex => $vmodel) {
+    // Safety checks for all properties
+    $vehicle_count = isset($vmodel->vehicle_count) ? (int)$vmodel->vehicle_count : 1;
+    $travel_distance = isset($vmodel->travel_distance) ? (float)$vmodel->travel_distance : 0;
+    $extra_kilometer = isset($vmodel->extra_kilometer) ? (float)$vmodel->extra_kilometer : 0;
+    $day_rent = isset($vmodel->day_rent) ? (float)$vmodel->day_rent : 0;
+    $extra_km_rate = isset($vmodel->extra_km_rate) ? (float)$vmodel->extra_km_rate : 0;
+    $max_km_day = isset($vmodel->max_km_day) ? (int)$vmodel->max_km_day : 0;
+    $pre_to_cur = isset($vmodel->pre_to_cur) ? (float)$vmodel->pre_to_cur : 0;
+    $cur_to_dep = isset($vmodel->cur_to_dep) ? (float)$vmodel->cur_to_dep : 0;
+    $dep_to_arr = isset($vmodel->dep_to_arr) ? (float)$vmodel->dep_to_arr : 0;
+    $hub_to_arr = isset($vmodel->hub_to_arr) ? (float)$vmodel->hub_to_arr : 0;
+    $arr_to_loc = isset($vmodel->arr_to_loc) ? (float)$vmodel->arr_to_loc : 0;
+    $adhoc_rate_temp = isset($adhoc_rate_temp) ? (float)$adhoc_rate_temp : (isset($vmodel->adhoc_rate) ? (float)$vmodel->adhoc_rate : 0);
 
-																												// FIXED: Determine if this is the last day or second-last day
-																												$is_last_day = ($startDate1->format('d-m-Y') == $object_det[0]['end_date']);
-																												$is_second_last_day = false;
+    // FIXED: Determine if this is the last day or second-last day
+    $is_last_day = ($startDate1->format('d-m-Y') == $object_det[0]['end_date']);
+    $is_second_last_day = false;
+    
+    // Check if this is second last day
+    if (!$is_last_day) {
+        $next_date = clone $startDate1;
+        $next_date->modify('+1 day');
+        $is_second_last_day = ($next_date->format('d-m-Y') == $object_det[0]['end_date']);
+    }
+    
+    // FIXED: Split travel_distance based on day
+    // Last day segment = location to departure + departure to hub
+    $last_day_distance = $cur_to_dep + $dep_to_arr;
+    
+    if ($is_last_day) {
+        // Last day: Location to departure + departure to hub
+        $travel_distance_temp = $last_day_distance;
+    } elseif ($is_second_last_day) {
+        // Second last day: Full travel_distance minus last day segment
+        $travel_distance_temp = $travel_distance - $last_day_distance;
+    } else {
+        // Other days: Use the full travel_distance as-is
+        $travel_distance_temp = $travel_distance;
+    }
+    
+    $travel_distance_copy = $travel_distance_temp;
 
-																												// Check if this is second last day
-																												if (!$is_last_day) {
-																													$next_date = clone $startDate1;
-																													$next_date->modify('+1 day');
-																													$is_second_last_day = ($next_date->format('d-m-Y') == $object_det[0]['end_date']);
-																												}
+    // FIXED: Compute extra based on adjusted travel_distance_temp
+    $max_km_day_temp = $max_km_day;
+    $extra_kilometer_temp = ($travel_distance_temp > $max_km_day_temp) ? $travel_distance_temp - $max_km_day_temp : 0;
 
-																												// FIXED: Split travel_distance based on day
-																												if ($is_last_day) {
-																													// Last day: Only departure to hub distance
-																													$travel_distance_temp = $dep_to_arr;
-																												} elseif ($is_second_last_day) {
-																													// Second last day: Full travel_distance minus departure to hub (travel_distance - dep_to_arr)
-																													$travel_distance_temp = $travel_distance - $dep_to_arr;
-																												} else {
-																													// Other days: Use the full travel_distance as-is
-																													$travel_distance_temp = $travel_distance;
-																												}
+    // FIXED: Use temp extra for total calculation
+    $veh_total_temp = $day_rent + ($extra_kilometer_temp * $extra_km_rate) + $adhoc_rate_temp;
+    $grand_veh_total += ($veh_total_temp * $vehicle_count);
 
-																												$travel_distance_copy = $travel_distance_temp;
+    $si_nos = $vindex + 1;
+    for ($j = 0; $j < $vehicle_count; $j++) {
+        $checked = "checked";  // Default checked, override below if needed
+        $vid = $iti_id . $vmodel->veh_type_id . "_" . $j;
 
-																												// FIXED: Compute extra based on adjusted travel_distance_temp
-																												$max_km_day_temp = $max_km_day;
-																												$extra_kilometer_temp = ($travel_distance_temp > $max_km_day_temp) ? $travel_distance_temp - $max_km_day_temp : 0;
-
-																												// FIXED: Use temp extra for total calculation
-																												$veh_total_temp = $day_rent + ($extra_kilometer_temp * $extra_km_rate) + $adhoc_rate_temp;
-																												$grand_veh_total += ($veh_total_temp * $vehicle_count);
-
-																												$si_nos = $vindex + 1;
-																												for ($j = 0; $j < $vehicle_count; $j++) {
-																													$checked = "checked";  // Default checked, override below if needed
-																													$vid = $iti_id . $vmodel->veh_type_id . "_" . $j;
-
-																													// Existing draft/save logic for checked and overrides (keep as-is)
-																													if (!empty($itinerary_details_draft)) {
-																														$checked = "";
-																														if (!empty($d_vehicles)) {
-																															foreach ($d_vehicles as $drkey => $drval) {
-																																if ($drval->chk_vehicle_status == 1) {
-																																	$checked = "checked";
-																																}
-																																if ($vid == $drval->chk_vehicle) {
-																																	$travel_distance_temp = (float) $drval->travel_distance;  // Override temp if draft has custom
-																																	$adhoc_rate_temp = isset($drval->adhoc_rate) ? (float) $drval->adhoc_rate : $adhoc_rate_temp;
-																																	// Recompute extra_temp based on overridden temp
-																																	$extra_kilometer_temp = ($travel_distance_temp > $max_km_day_temp) ? $travel_distance_temp - $max_km_day_temp : 0;
-																																	$veh_total_temp = $day_rent + ($extra_kilometer_temp * $extra_km_rate) + $adhoc_rate_temp;
-																																}
-																															}
-																														}
-																													} elseif (!empty($previous_itinerary_details_save)) {
-																														$checked = "";
+        // Existing draft/save logic for checked and overrides (keep as-is)
+        if (!empty($itinerary_details_draft)) {
+            $checked = "";
+            if (!empty($d_vehicles)) {
+                foreach ($d_vehicles as $drkey => $drval) {
+                    if ($drval->chk_vehicle_status == 1) {
+                        $checked = "checked";
+                    }
+                    if ($vid == $drval->chk_vehicle) {
+                        $travel_distance_temp = (float)$drval->travel_distance;  // Override temp if draft has custom
+                        $adhoc_rate_temp = isset($drval->adhoc_rate) ? (float)$drval->adhoc_rate : $adhoc_rate_temp;
+                        // Recompute extra_temp based on overridden temp
+                        $extra_kilometer_temp = ($travel_distance_temp > $max_km_day_temp) ? $travel_distance_temp - $max_km_day_temp : 0;
+                        $veh_total_temp = $day_rent + ($extra_kilometer_temp * $extra_km_rate) + $adhoc_rate_temp;
+                    }
+                }
+            }
+        } elseif (!empty($previous_itinerary_details_save)) {
+            // Similar override logic for saved (keep as-is, with recompute)
+            // ... (existing code)
+			$checked = "";
 																														foreach ($previous_itinerary_details_save as $p_key => $p_val) {
 																															$iti_id_new = $p_val['tour_details_id'] . "_" . $startDate1->format('d-m-Y');
 																															$vid = $iti_id_new . $vmodel->veh_type_id . "_" . $j;
@@ -2957,205 +2962,68 @@ $cs_trans_total = 0;
 																																$checked = "";
 																															}
 																														}
-																													}
+        }
 
-																													// FORCE CHECKED FOR TAX STATUS 1 (keep as-is)
-																													if ($ttval['tax_status'] == 1) {
-																														$checked = "checked";
-																													}
+        // FORCE CHECKED FOR TAX STATUS 1 (keep as-is)
+        if ($ttval['tax_status'] == 1) {
+            $checked = "checked";
+        }
 
-																													// Update grand total if overridden
-																													$grand_veh_total = $grand_veh_total + ($veh_total_temp * $vehicle_count);  // Adjust if per-instance, but since loop per j, careful
-																													?>
-																													<div
-																														class="row mt-2 single_row">
-																														<div
-																															class="col-xl-1 col-sm-12 col-md-1">
-																															<input
-																																type="hidden"
-																																name="additi[<?php echo $iti_id; ?>][chk_vehicle_value][<?php echo $vid; ?>]"
-																																value="<?php echo $vid; ?>">
-																															<input
-																																type="hidden"
-																																name="additi[<?php echo $iti_id; ?>][chk_vehicle_hidden][<?php echo $vid; ?>]"
-																																value="1">
-																															<input
-																																type="checkbox"
-																																id="chk_vehicle<?php echo $vid; ?>"
-																																name="additi[<?php echo $iti_id; ?>][chk_vehicle][<?php echo $vid; ?>]"
-																																class="chk_vehicle"
-																																value="<?php echo $vid; ?>"
-																																data-id="<?php echo $iti_id; ?>"
-																																<?php echo $checked; ?>
-																																<?php echo $dis_abled; ?>>
-																														</div>
-																														<div
-																															class="col-xl-3 col-sm-12 col-md-3">
-																															<input
-																																type="text"
-																																id="veh_model<?php echo $vid; ?>"
-																																name="additi[<?php echo $iti_id; ?>][veh_model][<?php echo $vid; ?>]"
-																																value="<?php echo isset($vmodel->vehicle_model) ? htmlspecialchars($vmodel->vehicle_model) : ''; ?>"
-																																class="form-control input-sm veh_model<?php echo $vindex; ?>"
-																																readonly>
-																															<input
-																																type="hidden"
-																																id="veh_type_id<?php echo $vid; ?>"
-																																name="additi[<?php echo $iti_id; ?>][veh_type_id][<?php echo $vid; ?>]"
-																																value="<?php echo isset($vmodel->veh_type_id) ? $vmodel->veh_type_id : ''; ?>"
-																																class="form-control input-sm veh_type_id<?php echo $vindex; ?>">
-																															<input
-																																type="hidden"
-																																id="v_tour_date<?php echo $vid; ?>"
-																																name="additi[<?php echo $iti_id; ?>][v_tour_date][<?php echo $vid; ?>]"
-																																value="<?php echo $startDate1->format('Y-m-d'); ?>">
-																														</div>
-																														<div
-																															class="col-xl-2 col-sm-12 col-md-2">
-																															<input
-																																type="text"
-																																id="day_rent<?php echo $vid; ?>"
-																																name="additi[<?php echo $iti_id; ?>][day_rent][<?php echo $vid; ?>]"
-																																value="<?php echo $day_rent; ?>"
-																																class="form-control input-sm cls_daily day_rent<?php echo $vindex; ?>"
-																																data-id=""
-																																data-cid=""
-																																maxlength="5"
-																																readonly>
-																														</div>
-																														<div
-																															class="col-xl-1 col-sm-12 col-md-1">
-																															<input
-																																type="text"
-																																id="max_km_day<?php echo $vid; ?>"
-																																name="additi[<?php echo $iti_id; ?>][max_km_day][<?php echo $vid; ?>]"
-																																value="<?php echo $max_km_day; ?>"
-																																class="form-control input-sm max_km_day<?php echo $vindex; ?>"
-																																maxlength="5"
-																																readonly>
-																														</div>
-																														<div
-																															class="col-xl-1 col-sm-12 col-md-1">
-																															<input
-																																type="text"
-																																id="travel_distance<?php echo $vid; ?>"
-																																v_id="<?php echo $vid; ?>"
-																																name="additi[<?php echo $iti_id; ?>][travel_distance][<?php echo $vid; ?>]"
-																																value="<?php echo $travel_distance_temp; ?>"
-																																class="form-control input-sm"
-																																data-base="<?php echo $travel_distance_temp; ?>"
-																																maxlength="5">
-																															<input
-																																type="hidden"
-																																id="c_travel_distance_copy<?php echo $vid; ?>"
-																																v_id="<?php echo $vid; ?>"
-																																name="additi[<?php echo $iti_id; ?>][c_travel_distance_copy][<?php echo $vid; ?>]"
-																																value="<?php echo $travel_distance_copy; ?>"
-																																class="form-control input-sm"
-																																data-base="<?php echo $travel_distance_copy; ?>"
-																																maxlength="5">
-																														</div>
-																														<div
-																															class="col-xl-1 col-sm-12 col-md-1">
-																															<input
-																																type="text"
-																																id="extra_kilometer<?php echo $vid; ?>"
-																																name="additi[<?php echo $iti_id; ?>][extra_kilometer][<?php echo $vid; ?>]"
-																																value="<?php echo $extra_kilometer_temp; ?>"
-																																class="form-control input-sm extra_kilometer<?php echo $vindex; ?>"
-																																maxlength="5"
-																																readonly>
-																														</div>
-																														<input type="hidden"
-																															id="extra_km_rate<?php echo $vid; ?>"
-																															name="additi[<?php echo $iti_id; ?>][extra_km_rate][<?php echo $vid; ?>]"
-																															value="<?php echo $extra_km_rate; ?>"
-																															class="form-control input-sm extra_km_rate<?php echo $vindex; ?>"
-																															maxlength="5"
-																															readonly>
-																														<input type="hidden"
-																															id="extra_km_rate_hidden<?php echo $vid; ?>"
-																															name="additi[<?php echo $iti_id; ?>][extra_km_rate_hidden][<?php echo $vid; ?>]"
-																															value="<?php echo $extra_km_rate; ?>">
-																														<div
-																															class="col-xl-1 col-sm-12 col-md-1">
-																															<?php if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) { ?>
-																																<input
-																																	type="text"
-																																	id="adhoc_rate<?php echo $vid; ?>"
-																																	name="additi[<?php echo $iti_id; ?>][adhoc_rate][<?php echo $vid; ?>]"
-																																	data-vid="<?php echo $vid; ?>"
-																																	value="<?php echo $adhoc_rate_temp; ?>"
-																																	class="form-control input-sm adhoc_rate_input"
-																																	maxlength="5"
-																																	<?php echo $read_only; ?>>
-																															<?php } else { ?>
-																																<input
-																																	type="text"
-																																	id="adhoc_rate<?php echo $vid; ?>"
-																																	name="additi[<?php echo $iti_id; ?>][adhoc_rate][<?php echo $vid; ?>]"
-																																	data-vid="<?php echo $vid; ?>"
-																																	value="0"
-																																	class="form-control input-sm"
-																																	maxlength="5"
-																																	readonly
-																																	style="background-color: #f5f5f5;">
-																															<?php } ?>
-																														</div>
-																														<div
-																															class="col-xl-2 col-sm-12 col-md-2">
-																															<input
-																																type="text"
-																																id="veh_total<?php echo $vid; ?>"
-																																name="additi[<?php echo $iti_id; ?>][veh_total][<?php echo $vid; ?>]"
-																																value="<?php echo $veh_total_temp; ?>"
-																																class="form-control input-sm veh_total<?php echo $vindex; ?>"
-																																maxlength="5"
-																																readonly>
-																														</div>
-																													</div>
-																													<?php
-																												}
-																											}
-																										} else {
-																											?>
-																											<input type="hidden"
-																												id="veh_model<?php echo $iti_id; ?>0"
-																												name="additi[<?php echo $iti_id; ?>][veh_model][0]"
-																												value="">
-																											<input type="hidden"
-																												id="veh_type_id<?php echo $iti_id; ?>0"
-																												name="additi[<?php echo $iti_id; ?>][veh_type_id][0]"
-																												value="">
-																											<input type="hidden"
-																												id="v_tour_date<?php echo $iti_id; ?>"
-																												name="additi[<?php echo $iti_id; ?>][v_tour_date][0]"
-																												value="">
-																											<input type="hidden"
-																												id="veh_count<?php echo $iti_id; ?>0"
-																												name="additi[<?php echo $iti_id; ?>][veh_count][0]"
-																												value="0">
-																											<input type="hidden"
-																												id="day_rent<?php echo $iti_id; ?>0"
-																												name="additi[<?php echo $iti_id; ?>][day_rent][0]"
-																												value="0">
-																											<input type="hidden"
-																												id="max_km_day<?php echo $iti_id; ?>0"
-																												name="additi[<?php echo $iti_id; ?>][max_km_day][0]"
-																												value="0">
-																											<input type="hidden"
-																												id="extra_km_rate<?php echo $iti_id; ?>0"
-																												name="additi[<?php echo $iti_id; ?>][extra_km_rate][0]"
-																												value="0">
-																											<input type="hidden"
-																												id="adhoc_rate<?php echo $iti_id; ?>0"
-																												name="additi[<?php echo $iti_id; ?>][adhoc_rate][0]"
-																												value="0">
-																											<input type="hidden"
-																												id="veh_total<?php echo $iti_id; ?>0"
-																												name="additi[<?php echo $iti_id; ?>][veh_total][0]"
-																												value="0">
-																										<?php } ?>
+        // Update grand total if overridden
+        $grand_veh_total = $grand_veh_total + ($veh_total_temp * $vehicle_count);  // Adjust if per-instance, but since loop per j, careful
+?>
+        <div class="row mt-2 single_row">
+            <div class="col-xl-1 col-sm-12 col-md-1">
+                <input type="hidden" name="additi[<?php echo $iti_id; ?>][chk_vehicle_value][<?php echo $vid; ?>]" value="<?php echo $vid; ?>">
+                <input type="hidden" name="additi[<?php echo $iti_id; ?>][chk_vehicle_hidden][<?php echo $vid; ?>]" value="1">
+                <input type="checkbox" id="chk_vehicle<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][chk_vehicle][<?php echo $vid; ?>]" class="chk_vehicle" value="<?php echo $vid; ?>" data-id="<?php echo $iti_id; ?>" <?php echo $checked; ?> <?php echo $dis_abled; ?>>
+            </div>
+            <div class="col-xl-3 col-sm-12 col-md-3">
+                <input type="text" id="veh_model<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_model][<?php echo $vid; ?>]" value="<?php echo isset($vmodel->vehicle_model) ? htmlspecialchars($vmodel->vehicle_model) : ''; ?>" class="form-control input-sm veh_model<?php echo $vindex; ?>" readonly>
+                <input type="hidden" id="veh_type_id<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_type_id][<?php echo $vid; ?>]" value="<?php echo isset($vmodel->veh_type_id) ? $vmodel->veh_type_id : ''; ?>" class="form-control input-sm veh_type_id<?php echo $vindex; ?>">
+                <input type="hidden" id="v_tour_date<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][v_tour_date][<?php echo $vid; ?>]" value="<?php echo $startDate1->format('Y-m-d'); ?>">
+            </div>
+            <div class="col-xl-2 col-sm-12 col-md-2">
+                <input type="text" id="day_rent<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][day_rent][<?php echo $vid; ?>]" value="<?php echo $day_rent; ?>" class="form-control input-sm cls_daily day_rent<?php echo $vindex; ?>" data-id="" data-cid="" maxlength="5" readonly>
+            </div>
+            <div class="col-xl-1 col-sm-12 col-md-1">
+                <input type="text" id="max_km_day<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][max_km_day][<?php echo $vid; ?>]" value="<?php echo $max_km_day; ?>" class="form-control input-sm max_km_day<?php echo $vindex; ?>" maxlength="5" readonly>
+            </div>
+            <div class="col-xl-1 col-sm-12 col-md-1">
+                <input type="text" id="travel_distance<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][travel_distance][<?php echo $vid; ?>]" value="<?php echo $travel_distance_temp; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_temp; ?>" maxlength="5">
+                <input type="hidden" id="c_travel_distance_copy<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][c_travel_distance_copy][<?php echo $vid; ?>]" value="<?php echo $travel_distance_copy; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_copy; ?>" maxlength="5">
+            </div>
+            <div class="col-xl-1 col-sm-12 col-md-1">
+                <input type="text" id="extra_kilometer<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_kilometer][<?php echo $vid; ?>]" value="<?php echo $extra_kilometer_temp; ?>" class="form-control input-sm extra_kilometer<?php echo $vindex; ?>" maxlength="5" readonly>
+            </div>
+            <input type="hidden" id="extra_km_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate][<?php echo $vid; ?>]" value="<?php echo $extra_km_rate; ?>" class="form-control input-sm extra_km_rate<?php echo $vindex; ?>" maxlength="5" readonly>
+            <input type="hidden" id="extra_km_rate_hidden<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate_hidden][<?php echo $vid; ?>]" value="<?php echo $extra_km_rate; ?>">
+            <div class="col-xl-1 col-sm-12 col-md-1">
+                <?php if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) { ?>
+                    <input type="text" id="adhoc_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][adhoc_rate][<?php echo $vid; ?>]" data-vid="<?php echo $vid; ?>" value="<?php echo $adhoc_rate_temp; ?>" class="form-control input-sm adhoc_rate_input" maxlength="5" <?php echo $read_only; ?>>
+                <?php } else { ?>
+                    <input type="text" id="adhoc_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][adhoc_rate][<?php echo $vid; ?>]" data-vid="<?php echo $vid; ?>" value="0" class="form-control input-sm" maxlength="5" readonly style="background-color: #f5f5f5;">
+                <?php } ?>
+            </div>
+            <div class="col-xl-2 col-sm-12 col-md-2">
+                <input type="text" id="veh_total<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_total][<?php echo $vid; ?>]" value="<?php echo $veh_total_temp; ?>" class="form-control input-sm veh_total<?php echo $vindex; ?>" maxlength="5" readonly>
+            </div>
+        </div>
+<?php
+    }
+}
+} else {
+?>
+<input type="hidden" id="veh_model<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_model][0]" value="">
+<input type="hidden" id="veh_type_id<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_type_id][0]" value="">
+<input type="hidden" id="v_tour_date<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][v_tour_date][0]" value="">
+<input type="hidden" id="veh_count<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_count][0]" value="0">
+<input type="hidden" id="day_rent<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][day_rent][0]" value="0">
+<input type="hidden" id="max_km_day<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][max_km_day][0]" value="0">
+<input type="hidden" id="extra_km_rate<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][extra_km_rate][0]" value="0">
+<input type="hidden" id="adhoc_rate<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][adhoc_rate][0]" value="0">
+<input type="hidden" id="veh_total<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_total][0]" value="0">
+<?php } ?>
 
 
 																										<div
