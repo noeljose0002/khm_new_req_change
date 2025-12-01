@@ -837,7 +837,7 @@ $cs_trans_total = 0;
 											while ($startDates < $endDates) {
 												$iti_id = $ttval['tour_details_id'] . "_" . $startDates->format('d-m-Y');
 												$iti_id_temp = $ttval['tour_details_id'];
-												?>
+										?>
 
 												<li class="bc-card" data-index="<?php echo $iti_id; ?>">
 													<a>
@@ -849,7 +849,7 @@ $cs_trans_total = 0;
 																style="color:#fff"></span></span>
 													</a>
 												</li>
-												<?php
+										<?php
 												$startDates->modify('+1 day');
 												$bcount++;
 											}
@@ -896,7 +896,7 @@ $cs_trans_total = 0;
 				<ul class="side-menu toggle-menu">
 					<?php foreach ($parent_menu as $key1 => $val1) {
 						$img_tmp = $val1['entity_trans_id'] . ".svg";
-						?>
+					?>
 						<li class="slide">
 							<a class="side-menu__item" data-toggle="slide" href=""><span class="icon-menu-img"><img
 										src="<?php echo base_url('assets/images/svgs/' . $img_tmp); ?>"
@@ -908,11 +908,11 @@ $cs_trans_total = 0;
 									if ($val1['entity_trans_id'] == $val2['prs_parent_id']) {
 										foreach ($all_menus as $key3 => $val3) {
 											if ($val3['entity_trans_id'] == $val2['entity_trans_id']) {
-												?>
+								?>
 												<li><a class="slide-item"
 														href="<?= site_url($val2['menu_link']); ?>"><span><?php echo $val2['entity_trans_name']; ?></span></a>
 												</li>
-											<?php }
+								<?php }
 										}
 									}
 								} ?>
@@ -960,7 +960,7 @@ $cs_trans_total = 0;
 
 											<?php foreach ($tour_plan_det as $tkey => $tval) {
 												if ($tkey == 0) {
-													?>
+											?>
 													<li class=""><a href="#tab-<?php echo $tval['tour_details_id']; ?>"
 															class="nav-link <?php echo $tval['tour_details_id']; ?> active"
 															data-toggle="tab"><b><?php echo $tval['geog_name']; ?></b></a></li>
@@ -969,7 +969,7 @@ $cs_trans_total = 0;
 													<li><a href="#tab-<?php echo $tval['tour_details_id']; ?>" data-toggle="tab"
 															class="nav-link <?php echo $tval['tour_details_id']; ?>"><b><?php echo $tval['geog_name']; ?></b></a>
 													</li>
-													<?php
+											<?php
 												}
 											} ?>
 
@@ -1014,7 +1014,7 @@ $cs_trans_total = 0;
 												foreach ($tour_plan_det as $ttkey => $ttval) {
 													$vehicle_details = json_decode($ttval['vehicle_details']);
 													$cnt = 0;
-													?>
+												?>
 													<div class="tab-pane <?php echo ($ttkey == 0) ? 'show active' : ''; ?>"
 														id="tab-<?php echo $ttval['tour_details_id']; ?>">
 														<div class="row">
@@ -1034,7 +1034,7 @@ $cs_trans_total = 0;
 																				while ($startDate < $endDate) {
 																					$iti_id = $ttval['tour_details_id'] . "_" . $startDate->format('d-m-Y');
 																					$iti_id_last = $ttval['tour_details_id'];
-																					?>
+																				?>
 																					<li class="nav-item">
 																						<a href="#tabi-<?php echo $iti_id; ?>"
 																							class="nav-link <?php echo ($cnt == 0) ? 'active' : ''; ?>"
@@ -1042,7 +1042,7 @@ $cs_trans_total = 0;
 																							<b><?php echo $startDate->format('d-m-Y'); ?></b>
 																						</a>
 																					</li>
-																					<?php
+																				<?php
 																					$startDate->modify('+1 day');
 																					$cnt++;
 																				}
@@ -1168,7 +1168,7 @@ $cs_trans_total = 0;
 
 																			//$tac_double = ($object_det[0]['no_of_double_room']*$d_room_tariff) + ($object_det[0]['no_of_child_with_bed']*$d_child_tariff) + ($object_det[0]['no_of_child_without_bed']*$d_child_wb_tariff) + ($object_det[0]['no_of_extra_bed']*$d_extra_tariff);
 																			//$tac_single = ($object_det[0]['no_of_single_room']*$s_room_tariff);
-																	
+
 																			if ($ttval['tax_status'] == 1) {
 																				$tot_d = $d_room_tariff + ($object_det[0]['no_of_child_with_bed'] * $d_child_tariff) + ($object_det[0]['no_of_child_without_bed'] * $d_child_wb_tariff) + ($object_det[0]['no_of_extra_bed'] * $d_extra_tariff);
 																				if ($tot_d >= 7500) {
@@ -1364,7 +1364,7 @@ $cs_trans_total = 0;
 																			}
 
 
-																			?>
+																		?>
 																			<div class="tab-pane fade <?php echo ($cnt1 == 0) ? 'show active' : ''; ?>"
 																				id="tabi-<?php echo $iti_id; ?>">
 																				<div class="p-3">
@@ -1660,7 +1660,7 @@ $cs_trans_total = 0;
 																																</option>
 																																<?php foreach ($ttval['hotel_list'] as $key => $val) {
 																																	if ($val['hotel_id'] == $hotel_exist) {
-																																		?>
+																																?>
 																																		<option
 																																			value="<?php echo $val['hotel_id']; ?>"
 																																			selected>
@@ -1671,7 +1671,7 @@ $cs_trans_total = 0;
 																																			value="<?php echo $val['hotel_id']; ?>">
 																																			<?php echo $val['object_name']; ?>
 																																		</option>
-																																	<?php }
+																																<?php }
 																																} ?>
 
 																																<?php if ($hotel_exist == 0) { ?>
@@ -1700,7 +1700,7 @@ $cs_trans_total = 0;
 																															<option value="">Select</option>
 																															<?php foreach ($room_cat_list_draft as $key => $val) {
 																																if ($val['room_category_id'] == $room_cat_exist) {
-																																	?>
+																															?>
 																																	<option value="<?php echo $val['room_category_id']; ?>" selected><?php echo $val['room_category_name']; ?></option>
 																																<?php } else { ?>
 																																	<option value="<?php echo $val['room_category_id']; ?>"><?php echo $val['room_category_name']; ?></option>
@@ -1935,7 +1935,7 @@ $cs_trans_total = 0;
 																												<?php
 																												$day_expansions = array();
 																												$data_source = ''; // Track which source we're using for debugging
-																									
+
 																												// PRIORITY 1: Check itinerary_expansion_details first (saved/draft itinerary data from khm_obj_enquiry_tour_itinerary_expansion)
 																												if (!empty($itinerary_expansion_details) && isset($itinerary_expansion_details[$ttval['tour_details_id']])) {
 																													foreach ($itinerary_expansion_details[$ttval['tour_details_id']] as $exp) {
@@ -2056,7 +2056,7 @@ $cs_trans_total = 0;
 																														}
 
 																														$d_meal_plan_name = $ttval['meal_type_name'];
-																														?>
+																													?>
 																														<div
 																															class="row mt-2 double_row">
 																															<input
@@ -2344,7 +2344,7 @@ $cs_trans_total = 0;
 																														}
 
 																														$s_meal_plan_name = $ttval['meal_type_name'];
-																														?>
+																													?>
 																														<div
 																															class="row mt-2 single_row">
 																															<input
@@ -2604,432 +2604,432 @@ $cs_trans_total = 0;
 
 
 
-																											</div>
-																											<?php
-																											$cur_fac = $Enquiry_model->getHotelFacilitybyhotelid($hotel_exist);
-																											?>
-																											<div
-																												class="row mt-2 single_row">
-
-																												<div
-																													class="col-xl-4 col-sm-12 col-md-4">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Hotel
-																															Facility</label>
-																													</div>
-																													<select
-																														id="hotfac<?php echo $iti_id; ?>"
-																														name="additi[<?php echo $iti_id; ?>][hotfac]"
-																														class="form-control input-sm hotel_fac_change_new"
-																														data-id="<?php echo $iti_id; ?>"
-																														data-std="<?php echo $startDate1->format('Y-m-d'); ?>"
-																														<?php echo $dis_abled; ?>>
-																														<option
-																															value="">
-																															Select
-																														</option>
-																														<?php foreach ($cur_fac as $ckey => $cval): ?>
-																															<option
-																																value="<?php echo $cval['hotel_facility_id']; ?>">
-																																<?php echo $cval['facility_name']; ?>
-																															</option>
-																														<?php endforeach; ?>
-																													</select>
-																												</div>
-
-
-																												<div
-																													class="col-xl-2 col-sm-12 col-md-2">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Total
-																															Facility
-																															Rate</label>
-																													</div>
-																													<input
-																														type="text"
-																														id="fac_rate<?php echo $iti_id; ?>"
-																														name="additi[<?php echo $iti_id; ?>][fac_rate]"
-																														class="form-control input-sm"
-																														maxlength="6"
-																														value="<?php echo $hot_fac_tariff; ?>"
-																														readonly>
-																												</div>
-
-																												<div
-																													class="col-xl-4 col-sm-12 col-md-4">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Remarks</label>
-																													</div>
-																													<textarea
-																														id="remarks<?php echo $iti_id; ?>"
-																														name="additi[<?php echo $iti_id; ?>][remarks]"
-																														class="form-control"
-																														rows="1"
-																														<?php echo $read_only; ?>><?php echo $remarks; ?></textarea>
-																												</div>
-
-																												<div
-																													class="col-xl-1 col-sm-12 col-md-1">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Total</label>
-																													</div>
-																													<input
-																														type="text"
-																														id="acc_total<?php echo $iti_id; ?>"
-																														name="additi[<?php echo $iti_id; ?>][acc_total]"
-																														class="form-control input-sm"
-																														value="<?php echo $tac; ?>"
-																														readonly>
-																												</div>
-																												<div class="col-xl-1 col-sm-12 col-md-1"
-																													style="padding-top:20px;">
-																													<button
-																														type="button"
-																														class="btn btn-success btn-sm add_hotel"
-																														data-mp="<?php echo $ttval['meal_plan_id']; ?>"
-																														data-tl="<?php echo $ttval['tour_location']; ?>"
-																														data-td="<?php echo $startDate1->format('Y-m-d'); ?>"
-																														data-id="<?php echo $iti_id; ?>"
-																														data-oid="<?php echo $iti_id; ?>"
-																														data-hid="<?= htmlspecialchars(json_encode($ttval['hotel_list']), ENT_QUOTES, 'UTF-8') ?>"
-																														<?php echo $dis_abled; ?>>Add <i
-																															class="fa fa-plus ml-2"></i></button>
-																												</div>
-																											</div>
-
-																											<div class="row">
-																												<div class="col-xl-12"
-																													id="addon_add_dynamic<?php echo $iti_id; ?>">
-
-
-
-																												</div>
-																											</div>
-
-																											<div class="row">
-																												<div class="col-xl-12"
-																													id="hotel_dynamic_fields<?php echo $iti_id; ?>">
-
-
-
-																												</div>
-																											</div>
-																										<?php } ?>
+																										</div>
 																										<?php
-																										if ($use_dynamic && !empty($day_expansions)) {
-																											$first_exp = $day_expansions[0];
-																											$vehicle_details = json_decode($first_exp['vehicle_details_json']);
-
-																											// Add safety check
-																											if (!is_array($vehicle_details) && !is_object($vehicle_details)) {
-																												$vehicle_details = [];
-																											}
-																										}
+																												$cur_fac = $Enquiry_model->getHotelFacilitybyhotelid($hotel_exist);
 																										?>
-
-																										<?php if ($object_det[0]['is_vehicle_required'] == 1) { ?>
-																											<?php
-																											$newdateObj = DateTime::createFromFormat('d-m-Y', $object_det[0]['end_date']);
-																											$newdateObj->modify('-1 day');
-																											$newendDate = $newdateObj->format('d-m-Y');
-																											$newdateObj1 = DateTime::createFromFormat('d-m-Y', $object_det[0]['start_date']);
-																											$newendDate1 = $newdateObj1->format('d-m-Y');
-																											foreach ($vehicle_details as $vindex => $vmodel) {
-																												if ($vindex == 0) {
-																													if ($ttkey == $tpd_count) {
-																														if ($cnt1 == 0) {
-																															if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
-																																$pre_to_cur = isset($vmodel->pre_to_cur) ? $vmodel->pre_to_cur : 0;
-																																$cur_to_dep = isset($vmodel->cur_to_dep) ? $vmodel->cur_to_dep : 0;
-																																$dep_to_arr = isset($vmodel->dep_to_arr) ? $vmodel->dep_to_arr : 0;
-																																$header_temp = " (Previous Location to Current Location - " . $pre_to_cur . "KM, Location to Departure - " . $cur_to_dep . "KM, Departure to Hub Location - " . $dep_to_arr . "KM)";
-																																echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
-																																echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
-																															} else if ($startDate1->format('d-m-Y') == $newendDate1) {
-																																$hub_to_arr = isset($vmodel->hub_to_arr) ? $vmodel->hub_to_arr : 0;
-																																$arr_to_loc = isset($vmodel->arr_to_loc) ? $vmodel->arr_to_loc : 0;
-																																$header_temp = " (Hub Location to Arrival - " . $hub_to_arr . "KM, Arrival to Location - " . $arr_to_loc . "KM)";
-																																echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
-																																echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
-																															} else {
-																																$pre_to_cur = isset($vmodel->pre_to_cur) ? $vmodel->pre_to_cur : 0;
-																																$header_temp = " (Previous Location to Current Location - " . $pre_to_cur . "KM)";
-																																echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
-																																echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
-																															}
-																														} else {
-																															if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
-																																$cur_to_dep = isset($vmodel->cur_to_dep) ? $vmodel->cur_to_dep : 0;
-																																$dep_to_arr = isset($vmodel->dep_to_arr) ? $vmodel->dep_to_arr : 0;
-																																$header_temp = " (Location to Departure - " . $cur_to_dep . "KM, Departure to Hub Location - " . $dep_to_arr . "KM)";
-																																echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
-																																echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
-																															} else {
-																																$header_temp = " (Current location is same as previous location, Tour travel = 0 KM)";
-																																echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
-																																echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
-																															}
-																														}
-																													} else {
-																														if ($cnt1 == 0) {
-																															// Check if veh_header exists in the object, otherwise use default
-																															$veh_header_value = isset($vmodel->veh_header) ? $vmodel->veh_header : '';
-																															echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $veh_header_value . '</h5></center>';
-																															echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $veh_header_value . '">';
-																														} else {
-																															echo '<center><h5 style="padding-top:10px;">Vehicle Details : Current location is same as previous location, Tour travel = 0 KM</h5></center>';
-																															echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="Current location is same as previous location, Tour travel = 0 KM">';
-																														}
-																													}
-																												}
-																											}
-																											?>
-																											<input type="hidden"
-																												id="veh_header<?php echo $iti_id; ?>"
-																												name="addloc[<?php echo $iti_id; ?>][veh_header]"
-																												value="">
-																											<div
-																												class="row mt-2 single_row">
-																												<div
-																													class="col-xl-1 col-sm-12 col-md-1">
-																												</div>
-																												<div
-																													class="col-xl-3 col-sm-12 col-md-3">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Vehicle
-																															Model</label>
-																													</div>
-																												</div>
-																												<div
-																													class="col-xl-2 col-sm-12 col-md-2">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Daily
-																															Rent</label>
-																													</div>
-																												</div>
-																												<div
-																													class="col-xl-1 col-sm-12 col-md-1">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Max
-																															KM/Day</label>
-																													</div>
-																												</div>
-																												<div
-																													class="col-xl-1 col-sm-12 col-md-1">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Distance</label>
-																													</div>
-																												</div>
-																												<div
-																													class="col-xl-1 col-sm-12 col-md-1">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Extra
-																															KM</label>
-																													</div>
-																												</div>
-																												<div
-																													class="col-xl-1 col-sm-12 col-md-1">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Ad
-																															Hoc
-																															Rate</label>
-																													</div>
-																												</div>
-																												<div
-																													class="col-xl-2 col-sm-12 col-md-2">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Total</label>
-																													</div>
-																												</div>
-																											</div>
-																										<?php
-$grand_veh_total = 0;
-foreach ($vehicle_details as $vindex => $vmodel) {
-    // Safety checks for all properties
-    $vehicle_count = isset($vmodel->vehicle_count) ? (int)$vmodel->vehicle_count : 1;
-    $travel_distance = isset($vmodel->travel_distance) ? (float)$vmodel->travel_distance : 0;
-    $extra_kilometer = isset($vmodel->extra_kilometer) ? (float)$vmodel->extra_kilometer : 0;
-    $day_rent = isset($vmodel->day_rent) ? (float)$vmodel->day_rent : 0;
-    $extra_km_rate = isset($vmodel->extra_km_rate) ? (float)$vmodel->extra_km_rate : 0;
-    $max_km_day = isset($vmodel->max_km_day) ? (int)$vmodel->max_km_day : 0;
-    $pre_to_cur = isset($vmodel->pre_to_cur) ? (float)$vmodel->pre_to_cur : 0;
-    $cur_to_dep = isset($vmodel->cur_to_dep) ? (float)$vmodel->cur_to_dep : 0;
-    $dep_to_arr = isset($vmodel->dep_to_arr) ? (float)$vmodel->dep_to_arr : 0;
-    $hub_to_arr = isset($vmodel->hub_to_arr) ? (float)$vmodel->hub_to_arr : 0;
-    $arr_to_loc = isset($vmodel->arr_to_loc) ? (float)$vmodel->arr_to_loc : 0;
-    $adhoc_rate_temp = isset($adhoc_rate_temp) ? (float)$adhoc_rate_temp : (isset($vmodel->adhoc_rate) ? (float)$vmodel->adhoc_rate : 0);
-
-    // FIXED: Determine if this is the last day or second-last day
-    $is_last_day = ($startDate1->format('d-m-Y') == $object_det[0]['end_date']);
-    $is_second_last_day = false;
-    
-    // Check if this is second last day
-    if (!$is_last_day) {
-        $next_date = clone $startDate1;
-        $next_date->modify('+1 day');
-        $is_second_last_day = ($next_date->format('d-m-Y') == $object_det[0]['end_date']);
-    }
-    
-    // FIXED: Split travel_distance based on day
-    // Last day segment = location to departure + departure to hub
-    $last_day_distance = $cur_to_dep + $dep_to_arr;
-    
-    if ($is_last_day) {
-        // Last day: Location to departure + departure to hub
-        $travel_distance_temp = $last_day_distance;
-    } elseif ($is_second_last_day) {
-        // Second last day: Full travel_distance minus last day segment
-        $travel_distance_temp = $travel_distance - $last_day_distance;
-    } else {
-        // Other days: Use the full travel_distance as-is
-        $travel_distance_temp = $travel_distance;
-    }
-    
-    $travel_distance_copy = $travel_distance_temp;
-
-    // FIXED: Compute extra based on adjusted travel_distance_temp
-    $max_km_day_temp = $max_km_day;
-    $extra_kilometer_temp = ($travel_distance_temp > $max_km_day_temp) ? $travel_distance_temp - $max_km_day_temp : 0;
-
-    // FIXED: Use temp extra for total calculation
-    $veh_total_temp = $day_rent + ($extra_kilometer_temp * $extra_km_rate) + $adhoc_rate_temp;
-    $grand_veh_total += ($veh_total_temp * $vehicle_count);
-
-    $si_nos = $vindex + 1;
-    for ($j = 0; $j < $vehicle_count; $j++) {
-        $checked = "checked";  // Default checked, override below if needed
-        $vid = $iti_id . $vmodel->veh_type_id . "_" . $j;
-
-        // Existing draft/save logic for checked and overrides (keep as-is)
-        if (!empty($itinerary_details_draft)) {
-            $checked = "";
-            if (!empty($d_vehicles)) {
-                foreach ($d_vehicles as $drkey => $drval) {
-                    if ($drval->chk_vehicle_status == 1) {
-                        $checked = "checked";
-                    }
-                    if ($vid == $drval->chk_vehicle) {
-                        $travel_distance_temp = (float)$drval->travel_distance;  // Override temp if draft has custom
-                        $adhoc_rate_temp = isset($drval->adhoc_rate) ? (float)$drval->adhoc_rate : $adhoc_rate_temp;
-                        // Recompute extra_temp based on overridden temp
-                        $extra_kilometer_temp = ($travel_distance_temp > $max_km_day_temp) ? $travel_distance_temp - $max_km_day_temp : 0;
-                        $veh_total_temp = $day_rent + ($extra_kilometer_temp * $extra_km_rate) + $adhoc_rate_temp;
-                    }
-                }
-            }
-        } elseif (!empty($previous_itinerary_details_save)) {
-            // Similar override logic for saved (keep as-is, with recompute)
-            // ... (existing code)
-			$checked = "";
-																														foreach ($previous_itinerary_details_save as $p_key => $p_val) {
-																															$iti_id_new = $p_val['tour_details_id'] . "_" . $startDate1->format('d-m-Y');
-																															$vid = $iti_id_new . $vmodel->veh_type_id . "_" . $j;
-																															$d_vehicle_details_pre = $p_val['vehicle_details'];
-																															$d_vehicles_pre = json_decode($d_vehicle_details_pre);
-																															if (!empty($d_vehicles_pre)) {
-																																foreach ($d_vehicles_pre as $drk => $drv) {
-																																	if ($drv->chk_vehicle_status == 1) {
-																																		$checked = "checked";
-																																	}
-																																	if ($vid == $drv->chk_vehicle) {
-																																		$travel_distance_temp = $drv->travel_distance;
-																																		$adhoc_rate_temp = isset($drv->adhoc_rate) ? $drv->adhoc_rate : 0; // Load from saved if exists
-																																	}
-																																}
-																															} else {
-																																$checked = "";
-																															}
-																														}
-        }
-
-        // FORCE CHECKED FOR TAX STATUS 1 (keep as-is)
-        if ($ttval['tax_status'] == 1) {
-            $checked = "checked";
-        }
-
-        // Update grand total if overridden
-        $grand_veh_total = $grand_veh_total + ($veh_total_temp * $vehicle_count);  // Adjust if per-instance, but since loop per j, careful
-?>
-        <div class="row mt-2 single_row">
-            <div class="col-xl-1 col-sm-12 col-md-1">
-                <input type="hidden" name="additi[<?php echo $iti_id; ?>][chk_vehicle_value][<?php echo $vid; ?>]" value="<?php echo $vid; ?>">
-                <input type="hidden" name="additi[<?php echo $iti_id; ?>][chk_vehicle_hidden][<?php echo $vid; ?>]" value="1">
-                <input type="checkbox" id="chk_vehicle<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][chk_vehicle][<?php echo $vid; ?>]" class="chk_vehicle" value="<?php echo $vid; ?>" data-id="<?php echo $iti_id; ?>" <?php echo $checked; ?> <?php echo $dis_abled; ?>>
-            </div>
-            <div class="col-xl-3 col-sm-12 col-md-3">
-                <input type="text" id="veh_model<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_model][<?php echo $vid; ?>]" value="<?php echo isset($vmodel->vehicle_model) ? htmlspecialchars($vmodel->vehicle_model) : ''; ?>" class="form-control input-sm veh_model<?php echo $vindex; ?>" readonly>
-                <input type="hidden" id="veh_type_id<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_type_id][<?php echo $vid; ?>]" value="<?php echo isset($vmodel->veh_type_id) ? $vmodel->veh_type_id : ''; ?>" class="form-control input-sm veh_type_id<?php echo $vindex; ?>">
-                <input type="hidden" id="v_tour_date<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][v_tour_date][<?php echo $vid; ?>]" value="<?php echo $startDate1->format('Y-m-d'); ?>">
-            </div>
-            <div class="col-xl-2 col-sm-12 col-md-2">
-                <input type="text" id="day_rent<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][day_rent][<?php echo $vid; ?>]" value="<?php echo $day_rent; ?>" class="form-control input-sm cls_daily day_rent<?php echo $vindex; ?>" data-id="" data-cid="" maxlength="5" readonly>
-            </div>
-            <div class="col-xl-1 col-sm-12 col-md-1">
-                <input type="text" id="max_km_day<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][max_km_day][<?php echo $vid; ?>]" value="<?php echo $max_km_day; ?>" class="form-control input-sm max_km_day<?php echo $vindex; ?>" maxlength="5" readonly>
-            </div>
-            <div class="col-xl-1 col-sm-12 col-md-1">
-                <input type="text" id="travel_distance<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][travel_distance][<?php echo $vid; ?>]" value="<?php echo $travel_distance_temp; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_temp; ?>" maxlength="5">
-                <input type="hidden" id="c_travel_distance_copy<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][c_travel_distance_copy][<?php echo $vid; ?>]" value="<?php echo $travel_distance_copy; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_copy; ?>" maxlength="5">
-            </div>
-            <div class="col-xl-1 col-sm-12 col-md-1">
-                <input type="text" id="extra_kilometer<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_kilometer][<?php echo $vid; ?>]" value="<?php echo $extra_kilometer_temp; ?>" class="form-control input-sm extra_kilometer<?php echo $vindex; ?>" maxlength="5" readonly>
-            </div>
-            <input type="hidden" id="extra_km_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate][<?php echo $vid; ?>]" value="<?php echo $extra_km_rate; ?>" class="form-control input-sm extra_km_rate<?php echo $vindex; ?>" maxlength="5" readonly>
-            <input type="hidden" id="extra_km_rate_hidden<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate_hidden][<?php echo $vid; ?>]" value="<?php echo $extra_km_rate; ?>">
-            <div class="col-xl-1 col-sm-12 col-md-1">
-                <?php if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) { ?>
-                    <input type="text" id="adhoc_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][adhoc_rate][<?php echo $vid; ?>]" data-vid="<?php echo $vid; ?>" value="<?php echo $adhoc_rate_temp; ?>" class="form-control input-sm adhoc_rate_input" maxlength="5" <?php echo $read_only; ?>>
-                <?php } else { ?>
-                    <input type="text" id="adhoc_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][adhoc_rate][<?php echo $vid; ?>]" data-vid="<?php echo $vid; ?>" value="0" class="form-control input-sm" maxlength="5" readonly style="background-color: #f5f5f5;">
-                <?php } ?>
-            </div>
-            <div class="col-xl-2 col-sm-12 col-md-2">
-                <input type="text" id="veh_total<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_total][<?php echo $vid; ?>]" value="<?php echo $veh_total_temp; ?>" class="form-control input-sm veh_total<?php echo $vindex; ?>" maxlength="5" readonly>
-            </div>
-        </div>
-<?php
-    }
-}
-} else {
-?>
-<input type="hidden" id="veh_model<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_model][0]" value="">
-<input type="hidden" id="veh_type_id<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_type_id][0]" value="">
-<input type="hidden" id="v_tour_date<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][v_tour_date][0]" value="">
-<input type="hidden" id="veh_count<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_count][0]" value="0">
-<input type="hidden" id="day_rent<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][day_rent][0]" value="0">
-<input type="hidden" id="max_km_day<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][max_km_day][0]" value="0">
-<input type="hidden" id="extra_km_rate<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][extra_km_rate][0]" value="0">
-<input type="hidden" id="adhoc_rate<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][adhoc_rate][0]" value="0">
-<input type="hidden" id="veh_total<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_total][0]" value="0">
-<?php } ?>
-
-
 																										<div
 																											class="row mt-2 single_row">
 
-																											<!-- <div class="col-xl-2 col-sm-12 col-md-2">
+																											<div
+																												class="col-xl-4 col-sm-12 col-md-4">
+																												<div
+																													class="teams-rank">
+																													<label
+																														class="small-label">Hotel
+																														Facility</label>
+																												</div>
+																												<select
+																													id="hotfac<?php echo $iti_id; ?>"
+																													name="additi[<?php echo $iti_id; ?>][hotfac]"
+																													class="form-control input-sm hotel_fac_change_new"
+																													data-id="<?php echo $iti_id; ?>"
+																													data-std="<?php echo $startDate1->format('Y-m-d'); ?>"
+																													<?php echo $dis_abled; ?>>
+																													<option
+																														value="">
+																														Select
+																													</option>
+																													<?php foreach ($cur_fac as $ckey => $cval): ?>
+																														<option
+																															value="<?php echo $cval['hotel_facility_id']; ?>">
+																															<?php echo $cval['facility_name']; ?>
+																														</option>
+																													<?php endforeach; ?>
+																												</select>
+																											</div>
+
+
+																											<div
+																												class="col-xl-2 col-sm-12 col-md-2">
+																												<div
+																													class="teams-rank">
+																													<label
+																														class="small-label">Total
+																														Facility
+																														Rate</label>
+																												</div>
+																												<input
+																													type="text"
+																													id="fac_rate<?php echo $iti_id; ?>"
+																													name="additi[<?php echo $iti_id; ?>][fac_rate]"
+																													class="form-control input-sm"
+																													maxlength="6"
+																													value="<?php echo $hot_fac_tariff; ?>"
+																													readonly>
+																											</div>
+
+																											<div
+																												class="col-xl-4 col-sm-12 col-md-4">
+																												<div
+																													class="teams-rank">
+																													<label
+																														class="small-label">Remarks</label>
+																												</div>
+																												<textarea
+																													id="remarks<?php echo $iti_id; ?>"
+																													name="additi[<?php echo $iti_id; ?>][remarks]"
+																													class="form-control"
+																													rows="1"
+																													<?php echo $read_only; ?>><?php echo $remarks; ?></textarea>
+																											</div>
+
+																											<div
+																												class="col-xl-1 col-sm-12 col-md-1">
+																												<div
+																													class="teams-rank">
+																													<label
+																														class="small-label">Total</label>
+																												</div>
+																												<input
+																													type="text"
+																													id="acc_total<?php echo $iti_id; ?>"
+																													name="additi[<?php echo $iti_id; ?>][acc_total]"
+																													class="form-control input-sm"
+																													value="<?php echo $tac; ?>"
+																													readonly>
+																											</div>
+																											<div class="col-xl-1 col-sm-12 col-md-1"
+																												style="padding-top:20px;">
+																												<button
+																													type="button"
+																													class="btn btn-success btn-sm add_hotel"
+																													data-mp="<?php echo $ttval['meal_plan_id']; ?>"
+																													data-tl="<?php echo $ttval['tour_location']; ?>"
+																													data-td="<?php echo $startDate1->format('Y-m-d'); ?>"
+																													data-id="<?php echo $iti_id; ?>"
+																													data-oid="<?php echo $iti_id; ?>"
+																													data-hid="<?= htmlspecialchars(json_encode($ttval['hotel_list']), ENT_QUOTES, 'UTF-8') ?>"
+																													<?php echo $dis_abled; ?>>Add <i
+																														class="fa fa-plus ml-2"></i></button>
+																											</div>
+																										</div>
+
+																										<div class="row">
+																											<div class="col-xl-12"
+																												id="addon_add_dynamic<?php echo $iti_id; ?>">
+
+
+
+																											</div>
+																										</div>
+
+																										<div class="row">
+																											<div class="col-xl-12"
+																												id="hotel_dynamic_fields<?php echo $iti_id; ?>">
+
+
+
+																											</div>
+																										</div>
+																									<?php } ?>
+																									<?php
+																									if ($use_dynamic && !empty($day_expansions)) {
+																										$first_exp = $day_expansions[0];
+																										$vehicle_details = json_decode($first_exp['vehicle_details_json']);
+
+																										// Add safety check
+																										if (!is_array($vehicle_details) && !is_object($vehicle_details)) {
+																											$vehicle_details = [];
+																										}
+																									}
+																									?>
+
+																									<?php if ($object_det[0]['is_vehicle_required'] == 1) { ?>
+																										<?php
+																										$newdateObj = DateTime::createFromFormat('d-m-Y', $object_det[0]['end_date']);
+																										$newdateObj->modify('-1 day');
+																										$newendDate = $newdateObj->format('d-m-Y');
+																										$newdateObj1 = DateTime::createFromFormat('d-m-Y', $object_det[0]['start_date']);
+																										$newendDate1 = $newdateObj1->format('d-m-Y');
+																										foreach ($vehicle_details as $vindex => $vmodel) {
+																											if ($vindex == 0) {
+																												if ($ttkey == $tpd_count) {
+																													if ($cnt1 == 0) {
+																														if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
+																															$pre_to_cur = isset($vmodel->pre_to_cur) ? $vmodel->pre_to_cur : 0;
+																															$cur_to_dep = isset($vmodel->cur_to_dep) ? $vmodel->cur_to_dep : 0;
+																															$dep_to_arr = isset($vmodel->dep_to_arr) ? $vmodel->dep_to_arr : 0;
+																															$header_temp = " (Previous Location to Current Location - " . $pre_to_cur . "KM, Location to Departure - " . $cur_to_dep . "KM, Departure to Hub Location - " . $dep_to_arr . "KM)";
+																															echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
+																															echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
+																														} else if ($startDate1->format('d-m-Y') == $newendDate1) {
+																															$hub_to_arr = isset($vmodel->hub_to_arr) ? $vmodel->hub_to_arr : 0;
+																															$arr_to_loc = isset($vmodel->arr_to_loc) ? $vmodel->arr_to_loc : 0;
+																															$header_temp = " (Hub Location to Arrival - " . $hub_to_arr . "KM, Arrival to Location - " . $arr_to_loc . "KM)";
+																															echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
+																															echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
+																														} else {
+																															$pre_to_cur = isset($vmodel->pre_to_cur) ? $vmodel->pre_to_cur : 0;
+																															$header_temp = " (Previous Location to Current Location - " . $pre_to_cur . "KM)";
+																															echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
+																															echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
+																														}
+																													} else {
+																														if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) {
+																															$cur_to_dep = isset($vmodel->cur_to_dep) ? $vmodel->cur_to_dep : 0;
+																															$dep_to_arr = isset($vmodel->dep_to_arr) ? $vmodel->dep_to_arr : 0;
+																															$header_temp = " (Location to Departure - " . $cur_to_dep . "KM, Departure to Hub Location - " . $dep_to_arr . "KM)";
+																															echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
+																															echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
+																														} else {
+																															$header_temp = " (Current location is same as previous location, Tour travel = 0 KM)";
+																															echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $header_temp . '</h5></center>';
+																															echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $header_temp . '">';
+																														}
+																													}
+																												} else {
+																													if ($cnt1 == 0) {
+																														// Check if veh_header exists in the object, otherwise use default
+																														$veh_header_value = isset($vmodel->veh_header) ? $vmodel->veh_header : '';
+																														echo '<center><h5 style="padding-top:10px;">Vehicle Details' . $veh_header_value . '</h5></center>';
+																														echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="' . $veh_header_value . '">';
+																													} else {
+																														echo '<center><h5 style="padding-top:10px;">Vehicle Details : Current location is same as previous location, Tour travel = 0 KM</h5></center>';
+																														echo '<input type="hidden" id="veh_header' . $iti_id . '" name="additi[' . $iti_id . '][veh_header]" value="Current location is same as previous location, Tour travel = 0 KM">';
+																													}
+																												}
+																											}
+																										}
+																										?>
+																										<input type="hidden"
+																											id="veh_header<?php echo $iti_id; ?>"
+																											name="addloc[<?php echo $iti_id; ?>][veh_header]"
+																											value="">
+																										<div
+																											class="row mt-2 single_row">
+																											<div
+																												class="col-xl-1 col-sm-12 col-md-1">
+																											</div>
+																											<div
+																												class="col-xl-3 col-sm-12 col-md-3">
+																												<div
+																													class="teams-rank">
+																													<label
+																														class="small-label">Vehicle
+																														Model</label>
+																												</div>
+																											</div>
+																											<div
+																												class="col-xl-2 col-sm-12 col-md-2">
+																												<div
+																													class="teams-rank">
+																													<label
+																														class="small-label">Daily
+																														Rent</label>
+																												</div>
+																											</div>
+																											<div
+																												class="col-xl-1 col-sm-12 col-md-1">
+																												<div
+																													class="teams-rank">
+																													<label
+																														class="small-label">Max
+																														KM/Day</label>
+																												</div>
+																											</div>
+																											<div
+																												class="col-xl-1 col-sm-12 col-md-1">
+																												<div
+																													class="teams-rank">
+																													<label
+																														class="small-label">Distance</label>
+																												</div>
+																											</div>
+																											<div
+																												class="col-xl-1 col-sm-12 col-md-1">
+																												<div
+																													class="teams-rank">
+																													<label
+																														class="small-label">Extra
+																														KM</label>
+																												</div>
+																											</div>
+																											<div
+																												class="col-xl-1 col-sm-12 col-md-1">
+																												<div
+																													class="teams-rank">
+																													<label
+																														class="small-label">Ad
+																														Hoc
+																														Rate</label>
+																												</div>
+																											</div>
+																											<div
+																												class="col-xl-2 col-sm-12 col-md-2">
+																												<div
+																													class="teams-rank">
+																													<label
+																														class="small-label">Total</label>
+																												</div>
+																											</div>
+																										</div>
+																										<?php
+																										$grand_veh_total = 0;
+																										foreach ($vehicle_details as $vindex => $vmodel) {
+																											// Safety checks for all properties
+																											$vehicle_count = isset($vmodel->vehicle_count) ? (int)$vmodel->vehicle_count : 1;
+																											$travel_distance = isset($vmodel->travel_distance) ? (float)$vmodel->travel_distance : 0;
+																											$extra_kilometer = isset($vmodel->extra_kilometer) ? (float)$vmodel->extra_kilometer : 0;
+																											$day_rent = isset($vmodel->day_rent) ? (float)$vmodel->day_rent : 0;
+																											$extra_km_rate = isset($vmodel->extra_km_rate) ? (float)$vmodel->extra_km_rate : 0;
+																											$max_km_day = isset($vmodel->max_km_day) ? (int)$vmodel->max_km_day : 0;
+																											$pre_to_cur = isset($vmodel->pre_to_cur) ? (float)$vmodel->pre_to_cur : 0;
+																											$cur_to_dep = isset($vmodel->cur_to_dep) ? (float)$vmodel->cur_to_dep : 0;
+																											$dep_to_arr = isset($vmodel->dep_to_arr) ? (float)$vmodel->dep_to_arr : 0;
+																											$hub_to_arr = isset($vmodel->hub_to_arr) ? (float)$vmodel->hub_to_arr : 0;
+																											$arr_to_loc = isset($vmodel->arr_to_loc) ? (float)$vmodel->arr_to_loc : 0;
+																											$adhoc_rate_temp = isset($adhoc_rate_temp) ? (float)$adhoc_rate_temp : (isset($vmodel->adhoc_rate) ? (float)$vmodel->adhoc_rate : 0);
+
+																											// FIXED: Determine if this is the last day or second-last day
+																											$is_last_day = ($startDate1->format('d-m-Y') == $object_det[0]['end_date']);
+																											$is_second_last_day = false;
+
+																											// Check if this is second last day
+																											if (!$is_last_day) {
+																												$next_date = clone $startDate1;
+																												$next_date->modify('+1 day');
+																												$is_second_last_day = ($next_date->format('d-m-Y') == $object_det[0]['end_date']);
+																											}
+
+																											// FIXED: Split travel_distance based on day
+																											// Last day segment = location to departure + departure to hub
+																											$last_day_distance = $cur_to_dep + $dep_to_arr;
+
+																											if ($is_last_day) {
+																												// Last day: Location to departure + departure to hub
+																												$travel_distance_temp = $last_day_distance;
+																											} elseif ($is_second_last_day) {
+																												// Second last day: Full travel_distance minus last day segment
+																												$travel_distance_temp = $travel_distance - $last_day_distance;
+																											} else {
+																												// Other days: Use the full travel_distance as-is
+																												$travel_distance_temp = $travel_distance;
+																											}
+
+																											$travel_distance_copy = $travel_distance_temp;
+
+																											// FIXED: Compute extra based on adjusted travel_distance_temp
+																											$max_km_day_temp = $max_km_day;
+																											$extra_kilometer_temp = ($travel_distance_temp > $max_km_day_temp) ? $travel_distance_temp - $max_km_day_temp : 0;
+
+																											// FIXED: Use temp extra for total calculation
+																											$veh_total_temp = $day_rent + ($extra_kilometer_temp * $extra_km_rate) + $adhoc_rate_temp;
+																											$grand_veh_total += ($veh_total_temp * $vehicle_count);
+
+																											$si_nos = $vindex + 1;
+																											for ($j = 0; $j < $vehicle_count; $j++) {
+																												$checked = "checked";  // Default checked, override below if needed
+																												$vid = $iti_id . $vmodel->veh_type_id . "_" . $j;
+
+																												// Existing draft/save logic for checked and overrides (keep as-is)
+																												if (!empty($itinerary_details_draft)) {
+																													$checked = "";
+																													if (!empty($d_vehicles)) {
+																														foreach ($d_vehicles as $drkey => $drval) {
+																															if ($drval->chk_vehicle_status == 1) {
+																																$checked = "checked";
+																															}
+																															if ($vid == $drval->chk_vehicle) {
+																																$travel_distance_temp = (float)$drval->travel_distance;  // Override temp if draft has custom
+																																$adhoc_rate_temp = isset($drval->adhoc_rate) ? (float)$drval->adhoc_rate : $adhoc_rate_temp;
+																																// Recompute extra_temp based on overridden temp
+																																$extra_kilometer_temp = ($travel_distance_temp > $max_km_day_temp) ? $travel_distance_temp - $max_km_day_temp : 0;
+																																$veh_total_temp = $day_rent + ($extra_kilometer_temp * $extra_km_rate) + $adhoc_rate_temp;
+																															}
+																														}
+																													}
+																												} elseif (!empty($previous_itinerary_details_save)) {
+																													// Similar override logic for saved (keep as-is, with recompute)
+																													// ... (existing code)
+																													$checked = "";
+																													foreach ($previous_itinerary_details_save as $p_key => $p_val) {
+																														$iti_id_new = $p_val['tour_details_id'] . "_" . $startDate1->format('d-m-Y');
+																														$vid = $iti_id_new . $vmodel->veh_type_id . "_" . $j;
+																														$d_vehicle_details_pre = $p_val['vehicle_details'];
+																														$d_vehicles_pre = json_decode($d_vehicle_details_pre);
+																														if (!empty($d_vehicles_pre)) {
+																															foreach ($d_vehicles_pre as $drk => $drv) {
+																																if ($drv->chk_vehicle_status == 1) {
+																																	$checked = "checked";
+																																}
+																																if ($vid == $drv->chk_vehicle) {
+																																	$travel_distance_temp = $drv->travel_distance;
+																																	$adhoc_rate_temp = isset($drv->adhoc_rate) ? $drv->adhoc_rate : 0; // Load from saved if exists
+																																}
+																															}
+																														} else {
+																															$checked = "";
+																														}
+																													}
+																												}
+
+																												// FORCE CHECKED FOR TAX STATUS 1 (keep as-is)
+																												if ($ttval['tax_status'] == 1) {
+																													$checked = "checked";
+																												}
+
+																												// Update grand total if overridden
+																												$grand_veh_total = $grand_veh_total + ($veh_total_temp * $vehicle_count);  // Adjust if per-instance, but since loop per j, careful
+																										?>
+																												<div class="row mt-2 single_row">
+																													<div class="col-xl-1 col-sm-12 col-md-1">
+																														<input type="hidden" name="additi[<?php echo $iti_id; ?>][chk_vehicle_value][<?php echo $vid; ?>]" value="<?php echo $vid; ?>">
+																														<input type="hidden" name="additi[<?php echo $iti_id; ?>][chk_vehicle_hidden][<?php echo $vid; ?>]" value="1">
+																														<input type="checkbox" id="chk_vehicle<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][chk_vehicle][<?php echo $vid; ?>]" class="chk_vehicle" value="<?php echo $vid; ?>" data-id="<?php echo $iti_id; ?>" <?php echo $checked; ?> <?php echo $dis_abled; ?>>
+																													</div>
+																													<div class="col-xl-3 col-sm-12 col-md-3">
+																														<input type="text" id="veh_model<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_model][<?php echo $vid; ?>]" value="<?php echo isset($vmodel->vehicle_model) ? htmlspecialchars($vmodel->vehicle_model) : ''; ?>" class="form-control input-sm veh_model<?php echo $vindex; ?>" readonly>
+																														<input type="hidden" id="veh_type_id<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_type_id][<?php echo $vid; ?>]" value="<?php echo isset($vmodel->veh_type_id) ? $vmodel->veh_type_id : ''; ?>" class="form-control input-sm veh_type_id<?php echo $vindex; ?>">
+																														<input type="hidden" id="v_tour_date<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][v_tour_date][<?php echo $vid; ?>]" value="<?php echo $startDate1->format('Y-m-d'); ?>">
+																													</div>
+																													<div class="col-xl-2 col-sm-12 col-md-2">
+																														<input type="text" id="day_rent<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][day_rent][<?php echo $vid; ?>]" value="<?php echo $day_rent; ?>" class="form-control input-sm cls_daily day_rent<?php echo $vindex; ?>" data-id="" data-cid="" maxlength="5" readonly>
+																													</div>
+																													<div class="col-xl-1 col-sm-12 col-md-1">
+																														<input type="text" id="max_km_day<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][max_km_day][<?php echo $vid; ?>]" value="<?php echo $max_km_day; ?>" class="form-control input-sm max_km_day<?php echo $vindex; ?>" maxlength="5" readonly>
+																													</div>
+																													<div class="col-xl-1 col-sm-12 col-md-1">
+																														<input type="text" id="travel_distance<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][travel_distance][<?php echo $vid; ?>]" value="<?php echo $travel_distance_temp; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_temp; ?>" maxlength="5">
+																														<input type="hidden" id="c_travel_distance_copy<?php echo $vid; ?>" v_id="<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][c_travel_distance_copy][<?php echo $vid; ?>]" value="<?php echo $travel_distance_copy; ?>" class="form-control input-sm" data-base="<?php echo $travel_distance_copy; ?>" maxlength="5">
+																													</div>
+																													<div class="col-xl-1 col-sm-12 col-md-1">
+																														<input type="text" id="extra_kilometer<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_kilometer][<?php echo $vid; ?>]" value="<?php echo $extra_kilometer_temp; ?>" class="form-control input-sm extra_kilometer<?php echo $vindex; ?>" maxlength="5" readonly>
+																													</div>
+																													<input type="hidden" id="extra_km_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate][<?php echo $vid; ?>]" value="<?php echo $extra_km_rate; ?>" class="form-control input-sm extra_km_rate<?php echo $vindex; ?>" maxlength="5" readonly>
+																													<input type="hidden" id="extra_km_rate_hidden<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][extra_km_rate_hidden][<?php echo $vid; ?>]" value="<?php echo $extra_km_rate; ?>">
+																													<div class="col-xl-1 col-sm-12 col-md-1">
+																														<?php if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) { ?>
+																															<input type="text" id="adhoc_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][adhoc_rate][<?php echo $vid; ?>]" data-vid="<?php echo $vid; ?>" value="<?php echo $adhoc_rate_temp; ?>" class="form-control input-sm adhoc_rate_input" maxlength="5" <?php echo $read_only; ?>>
+																														<?php } else { ?>
+																															<input type="text" id="adhoc_rate<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][adhoc_rate][<?php echo $vid; ?>]" data-vid="<?php echo $vid; ?>" value="0" class="form-control input-sm" maxlength="5" readonly style="background-color: #f5f5f5;">
+																														<?php } ?>
+																													</div>
+																													<div class="col-xl-2 col-sm-12 col-md-2">
+																														<input type="text" id="veh_total<?php echo $vid; ?>" name="additi[<?php echo $iti_id; ?>][veh_total][<?php echo $vid; ?>]" value="<?php echo $veh_total_temp; ?>" class="form-control input-sm veh_total<?php echo $vindex; ?>" maxlength="5" readonly>
+																													</div>
+																												</div>
+																										<?php
+																											}
+																										}
+																									} else {
+																										?>
+																										<input type="hidden" id="veh_model<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_model][0]" value="">
+																										<input type="hidden" id="veh_type_id<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_type_id][0]" value="">
+																										<input type="hidden" id="v_tour_date<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][v_tour_date][0]" value="">
+																										<input type="hidden" id="veh_count<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_count][0]" value="0">
+																										<input type="hidden" id="day_rent<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][day_rent][0]" value="0">
+																										<input type="hidden" id="max_km_day<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][max_km_day][0]" value="0">
+																										<input type="hidden" id="extra_km_rate<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][extra_km_rate][0]" value="0">
+																										<input type="hidden" id="adhoc_rate<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][adhoc_rate][0]" value="0">
+																										<input type="hidden" id="veh_total<?php echo $iti_id; ?>0" name="additi[<?php echo $iti_id; ?>][veh_total][0]" value="0">
+																									<?php } ?>
+
+
+																									<div
+																										class="row mt-2 single_row">
+
+																										<!-- <div class="col-xl-2 col-sm-12 col-md-2">
 																											<div class="teams-rank"><label class="small-label">Sight Seeing</label></div>
 																											<?php
 																											$default_ss_distance = 0;
@@ -3040,12 +3040,12 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																											}
 																											if ($cnt1 == 0) {
 																												$first_tour_location = $ttval['tour_location'] . "111";
-																												?>
+																											?>
 																												<select id="sight<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][sight]" class="form-control input-sm ss_change" data-id="<?php echo $iti_id; ?>" <?php echo $dis_abled; ?>>
 																													<option value="<?php echo $first_tour_location; ?>"><?php echo $ttval['geog_name']; ?></option>
 																													<?php foreach ($ss_default_temp as $skey => $sval) {
 																														if ($sval['sightseeing_id'] == $sight_id) {
-																															?>
+																													?>
 																															<option value="<?php echo $sval['sightseeing_id']; ?>" selected><?php echo $sval['object_name']; ?></option>
 																														<?php } else { ?>
 																															<option value="<?php echo $sval['sightseeing_id']; ?>"><?php echo $sval['object_name']; ?></option>
@@ -3059,13 +3059,13 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																												} else {
 																													$selected_last = "selected";
 																												}
-																												?>
+																											?>
 																												<select id="sight<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][sight]" class="form-control input-sm ss_change" data-id="<?php echo $iti_id; ?>" <?php echo $dis_abled; ?>>
 																													<option value="">Select</option>
 																													<?php foreach ($ss_default_temp as $skey => $sval) {
 																														if ($sight_id > 0) {
 																															if ($sval['sightseeing_id'] == $sight_id) {
-																																?>
+																													?>
 																																<option value="<?php echo $sval['sightseeing_id']; ?>" <?php echo $selected_last; ?>><?php echo $sval['object_name']; ?></option>
 																															<?php } else { ?>
 																																<option value="<?php echo $sval['sightseeing_id']; ?>"><?php echo $sval['object_name']; ?></option>
@@ -3073,7 +3073,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																														} else {
 																															if ($sval['is_default_ss'] == 1) {
 																																$default_ss_distance = $sval['sightseeing_distance'];
-																																?>
+																															?>
 																																<option value="<?php echo $sval['sightseeing_id']; ?>" <?php echo $selected_last; ?>><?php echo $sval['object_name']; ?></option>
 																															<?php } else { ?>
 																																<option value="<?php echo $sval['sightseeing_id']; ?>"><?php echo $sval['object_name']; ?></option>
@@ -3087,7 +3087,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																													<option value="">Select</option>
 																													<?php foreach ($ss_default_temp as $skey => $sval) {
 																														if ($sval['sightseeing_id'] == $sight_id) {
-																															?>
+																													?>
 																															<option value="<?php echo $sval['sightseeing_id']; ?>" selected><?php echo $sval['object_name']; ?></option>
 																														<?php } else { ?>
 																															<option value="<?php echo $sval['sightseeing_id']; ?>"><?php echo $sval['object_name']; ?></option>
@@ -3102,11 +3102,11 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																										<div class="col-xl-2 col-sm-12 col-md-2">
 																											<div class="teams-rank"><label class="small-label">Distance</label></div>
 																											<?php if ($cnt1 == 0) {
-																												?>
+																											?>
 																												<input type="text" id="ss_distance<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][ss_distance]" class="form-control input-sm cls_ss_distance" data-id="<?php echo $iti_id; ?>" maxlength="6" value="<?php echo $sight_tariff ? $sight_tariff : 0; ?>">
 																												<?php } else if ($cnt1 == 1) {
 																												if ($sight_id > 0) {
-																													?>
+																												?>
 
 																													<input type="text" id="ss_distance<?php echo $iti_id; ?>" name="additi[<?php echo $iti_id; ?>][ss_distance]" class="form-control input-sm cls_ss_distance" data-id="<?php echo $iti_id; ?>" maxlength="6" value="<?php echo $sight_tariff; ?>">
 																												<?php } else { ?>
@@ -3117,242 +3117,242 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																											<?php } ?>
 																										</div> -->
 
-																											<!-- //nj// -->
-																											<!-- Sight Seeing Location -->
+																										<!-- //nj// -->
+																										<!-- Sight Seeing Location -->
+																										<div
+																											class="col-xl-2 col-sm-12 col-md-2">
 																											<div
-																												class="col-xl-2 col-sm-12 col-md-2">
-																												<div
-																													class="teams-rank">
-																													<label
-																														class="small-label">Sight
-																														Seeing
-																														Location</label>
-																												</div>
-																												<select
-																													id="sight_selector<?php echo $iti_id; ?>"
-																													class="form-control input-sm"
-																													data-id="<?php echo $iti_id; ?>"
-																													style="width: 100%;"
-																													<?php echo $dis_abled; ?>>
+																												class="teams-rank">
+																												<label
+																													class="small-label">Sight
+																													Seeing
+																													Location</label>
+																											</div>
+																											<select
+																												id="sight_selector<?php echo $iti_id; ?>"
+																												class="form-control input-sm"
+																												data-id="<?php echo $iti_id; ?>"
+																												style="width: 100%;"
+																												<?php echo $dis_abled; ?>>
+																												<option
+																													value="">
+																													Select
+																													Sightseeing
+																												</option>
+																												<?php foreach ($ss_default_temp as $skey => $sval) { ?>
 																													<option
-																														value="">
-																														Select
-																														Sightseeing
+																														value="<?php echo $sval['sightseeing_id']; ?>"
+																														data-name="<?php echo htmlspecialchars($sval['object_name']); ?>"
+																														data-is-pax="<?php echo $sval['is_pax']; ?>"
+																														data-tariff="<?php echo $sval['tariff']; ?>"
+																														data-distance="<?php echo $sval['sightseeing_distance']; ?>">
+																														<?php echo $sval['object_name']; ?>
+																														<?php if ($sval['is_pax'] == 1) { ?>
+																															(PAX:
+																															₹<?php echo ($sval['tariff']); ?>/person)
+																														<?php } else { ?>
+																															(<?php echo $sval['sightseeing_distance']; ?>
+																															km)
+																														<?php } ?>
 																													</option>
-																													<?php foreach ($ss_default_temp as $skey => $sval) { ?>
-																														<option
-																															value="<?php echo $sval['sightseeing_id']; ?>"
-																															data-name="<?php echo htmlspecialchars($sval['object_name']); ?>"
-																															data-is-pax="<?php echo $sval['is_pax']; ?>"
-																															data-tariff="<?php echo $sval['tariff']; ?>"
-																															data-distance="<?php echo $sval['sightseeing_distance']; ?>">
-																															<?php echo $sval['object_name']; ?>
-																															<?php if ($sval['is_pax'] == 1) { ?>
-																																(PAX:
-																																₹<?php echo ($sval['tariff']); ?>/person)
-																															<?php } else { ?>
-																																(<?php echo $sval['sightseeing_distance']; ?>
-																																km)
-																															<?php } ?>
-																														</option>
-																													<?php } ?>
-																												</select>
-																											</div>
-
-																											<!-- Actions -->
-																											<div
-																												class="col-xl-1 col-sm-12 col-md-1">
-																												<div
-																													class="teams-rank">
-																													<label
-																														class="small-label">Actions</label>
-																												</div>
-																												<button
-																													type="button"
-																													class="btn btn-success btn-sm add_sightseeing_btn"
-																													data-id="<?php echo $iti_id; ?>"
-																													style="width: 100%;">
-																													Add <i
-																														class="fa fa-plus ml-2"></i>
-																												</button>
-																											</div>
-
-																											<!-- Hidden fields -->
-																											<input type="hidden"
-																												id="ss_total_distance<?php echo $iti_id; ?>"
-																												name="additi[<?php echo $iti_id; ?>][ss_total_distance]"
-																												value="0">
-
-																											<input type="hidden"
-																												id="ss_remarks<?php echo $iti_id; ?>"
-																												name="additi[<?php echo $iti_id; ?>][ss_remarks]">
-
-																											<input type="hidden"
-																												id="ss_grand_total<?php echo $iti_id; ?>"
-																												name="additi[<?php echo $iti_id; ?>][ss_grand_total]"
-																												value="0">
-
-																											<input type="hidden"
-																												id="ss_data_json<?php echo $iti_id; ?>"
-																												name="additi[<?php echo $iti_id; ?>][ss_data_json]"
-																												value="">
-
-
-																											<div
-																												class="col-xl-2 col-sm-12 col-md-2">
-																												<div
-																													class="teams-rank">
-																													<label
-																														class="small-label">Special
-																														Event
-																														Name</label>
-																												</div>
-																												<input
-																													type="text"
-																													id="spcl_event<?php echo $iti_id; ?>"
-																													name="additi[<?php echo $iti_id; ?>][spcl_event]"
-																													class="form-control input-sm"
-																													maxlength="30"
-																													value="<?php echo $special_event_name; ?>"
-																													<?php echo $read_only; ?>>
-																											</div>
-																											<div
-																												class="col-xl-1 col-sm-12 col-md-1">
-																												<div
-																													class="teams-rank">
-																													<label
-																														class="small-label">Tariff</label>
-																												</div>
-																												<input
-																													type="text"
-																													id="spcl_tariff<?php echo $iti_id; ?>"
-																													name="additi[<?php echo $iti_id; ?>][spcl_tariff]"
-																													class="form-control input-sm"
-																													value="<?php echo $spcl_tariff; ?>"
-																													<?php echo $read_only; ?>>
-																											</div>
-																											<div class="col-xl-1 col-sm-12 col-md-1"
-																												style="padding-top:20px;">
-																												<button
-																													type="button"
-																													class="btn btn-success btn-sm add_spcl"
-																													data-std="<?php echo $startDate1->format('Y-m-d'); ?>"
-																													data-oid="<?php echo $iti_id; ?>"
-																													data-id="<?php echo $iti_id; ?>">Add
-																													<i
-																														class="fa fa-plus ml-2"></i></button>
-																											</div>
-
-																											<?php
-
-																											if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) { ?>
-
-																												<div
-																													class="col-xl-2 col-sm-12 col-md-2">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Other
-																															Charges</label>
-																													</div>
-																													<input
-																														type="hidden"
-																														id="daily_addon<?php echo $iti_id; ?>"
-																														name="additi[<?php echo $iti_id; ?>][daily_addon]"
-																														class="form-control input-sm"
-																														maxlength="6"
-																														value="<?php echo $daily_addon; ?>"
-																														<?php echo $read_only; ?>>
-																													<input
-																														type="text"
-																														id="permit<?php echo $iti_id; ?>"
-																														name="additi[<?php echo $iti_id; ?>][permit]"
-																														class="form-control input-sm"
-																														maxlength="6"
-																														value="<?php echo $permit; ?>">
-																												</div>
-																											<?php } else { ?>
-																												<div
-																													class="col-xl-2 col-sm-12 col-md-2">
-																													<div
-																														class="teams-rank">
-																														<label
-																															class="small-label">Extra
-																															Charges</label>
-																													</div>
-																													<input
-																														type="text"
-																														id="daily_addon<?php echo $iti_id; ?>"
-																														name="additi[<?php echo $iti_id; ?>][daily_addon]"
-																														class="form-control input-sm"
-																														maxlength="6"
-																														value="<?php echo $daily_addon; ?>"
-																														<?php echo $read_only; ?>>
-																													<input
-																														type="hidden"
-																														id="permit<?php echo $iti_id; ?>"
-																														name="additi[<?php echo $iti_id; ?>][permit]"
-																														value="0">
-																												</div>
-																											<?php } ?>
-
-																											<div
-																												class="col-xl-2 col-sm-12 col-md-2">
-																												<div
-																													class="teams-rank">
-																													<label
-																														class="small-label">Grand
-																														Total</label>
-																												</div>
-																												<?php
-																												if ($object_det[0]['is_vehicle_required'] == 0) {
-																													$grand_veh_total = 0;
-																												}
-																												?>
-																												<input
-																													type="text"
-																													id="grand_total<?php echo $iti_id; ?>"
-																													name="additi[<?php echo $iti_id; ?>][grand_total]"
-																													class="form-control input-sm grand_total"
-																													value="<?php echo $tac + $grand_veh_total; ?>"
-																													readonly
-																													style="background-color: #004d00; color: white; font-weight: bold; font-style: italic;font-size: 20px;">
-																											</div>
-
-
+																												<?php } ?>
+																											</select>
 																										</div>
-																										<!-- Dynamic Rows Container -->
-																										<div id="ss_dynamic_rows<?php echo $iti_id; ?>"
-																											class="ss-rows-container">
-																											<!-- Dynamic rows will be added here -->
-																										</div>
-																										<div class="row">
-																											<div class="col-xl-12"
-																												id="spcl_add_dynamic<?php echo $iti_id; ?>">
 
-
-
+																										<!-- Actions -->
+																										<div
+																											class="col-xl-1 col-sm-12 col-md-1">
+																											<div
+																												class="teams-rank">
+																												<label
+																													class="small-label">Actions</label>
 																											</div>
+																											<button
+																												type="button"
+																												class="btn btn-success btn-sm add_sightseeing_btn"
+																												data-id="<?php echo $iti_id; ?>"
+																												style="width: 100%;">
+																												Add <i
+																													class="fa fa-plus ml-2"></i>
+																											</button>
 																										</div>
+
+																										<!-- Hidden fields -->
+																										<input type="hidden"
+																											id="ss_total_distance<?php echo $iti_id; ?>"
+																											name="additi[<?php echo $iti_id; ?>][ss_total_distance]"
+																											value="0">
+
+																										<input type="hidden"
+																											id="ss_remarks<?php echo $iti_id; ?>"
+																											name="additi[<?php echo $iti_id; ?>][ss_remarks]">
+
+																										<input type="hidden"
+																											id="ss_grand_total<?php echo $iti_id; ?>"
+																											name="additi[<?php echo $iti_id; ?>][ss_grand_total]"
+																											value="0">
+
+																										<input type="hidden"
+																											id="ss_data_json<?php echo $iti_id; ?>"
+																											name="additi[<?php echo $iti_id; ?>][ss_data_json]"
+																											value="">
+
 
 																										<div
-																											class="row mt-2 single_row">
+																											class="col-xl-2 col-sm-12 col-md-2">
 																											<div
-																												class="col-xl-12 col-sm-12 col-md-12">
+																												class="teams-rank">
+																												<label
+																													class="small-label">Special
+																													Event
+																													Name</label>
+																											</div>
+																											<input
+																												type="text"
+																												id="spcl_event<?php echo $iti_id; ?>"
+																												name="additi[<?php echo $iti_id; ?>][spcl_event]"
+																												class="form-control input-sm"
+																												maxlength="30"
+																												value="<?php echo $special_event_name; ?>"
+																												<?php echo $read_only; ?>>
+																										</div>
+																										<div
+																											class="col-xl-1 col-sm-12 col-md-1">
+																											<div
+																												class="teams-rank">
+																												<label
+																													class="small-label">Tariff</label>
+																											</div>
+																											<input
+																												type="text"
+																												id="spcl_tariff<?php echo $iti_id; ?>"
+																												name="additi[<?php echo $iti_id; ?>][spcl_tariff]"
+																												class="form-control input-sm"
+																												value="<?php echo $spcl_tariff; ?>"
+																												<?php echo $read_only; ?>>
+																										</div>
+																										<div class="col-xl-1 col-sm-12 col-md-1"
+																											style="padding-top:20px;">
+																											<button
+																												type="button"
+																												class="btn btn-success btn-sm add_spcl"
+																												data-std="<?php echo $startDate1->format('Y-m-d'); ?>"
+																												data-oid="<?php echo $iti_id; ?>"
+																												data-id="<?php echo $iti_id; ?>">Add
+																												<i
+																													class="fa fa-plus ml-2"></i></button>
+																										</div>
+
+																										<?php
+
+																										if ($startDate1->format('d-m-Y') == $object_det[0]['end_date']) { ?>
+
+																											<div
+																												class="col-xl-2 col-sm-12 col-md-2">
 																												<div
 																													class="teams-rank">
 																													<label
-																														class="small-label">Transport
-																														Description</label>
+																														class="small-label">Other
+																														Charges</label>
 																												</div>
-																												<textarea
-																													id="transport_remarks<?php echo $iti_id; ?>"
-																													name="additi[<?php echo $iti_id; ?>][transport_remarks]"
-																													class="form-control"
-																													rows="1"
-																													<?php echo $read_only; ?>><?php echo $transport_remarks; ?></textarea>
+																												<input
+																													type="hidden"
+																													id="daily_addon<?php echo $iti_id; ?>"
+																													name="additi[<?php echo $iti_id; ?>][daily_addon]"
+																													class="form-control input-sm"
+																													maxlength="6"
+																													value="<?php echo $daily_addon; ?>"
+																													<?php echo $read_only; ?>>
+																												<input
+																													type="text"
+																													id="permit<?php echo $iti_id; ?>"
+																													name="additi[<?php echo $iti_id; ?>][permit]"
+																													class="form-control input-sm"
+																													maxlength="6"
+																													value="<?php echo $permit; ?>">
 																											</div>
+																										<?php } else { ?>
+																											<div
+																												class="col-xl-2 col-sm-12 col-md-2">
+																												<div
+																													class="teams-rank">
+																													<label
+																														class="small-label">Extra
+																														Charges</label>
+																												</div>
+																												<input
+																													type="text"
+																													id="daily_addon<?php echo $iti_id; ?>"
+																													name="additi[<?php echo $iti_id; ?>][daily_addon]"
+																													class="form-control input-sm"
+																													maxlength="6"
+																													value="<?php echo $daily_addon; ?>"
+																													<?php echo $read_only; ?>>
+																												<input
+																													type="hidden"
+																													id="permit<?php echo $iti_id; ?>"
+																													name="additi[<?php echo $iti_id; ?>][permit]"
+																													value="0">
+																											</div>
+																										<?php } ?>
+
+																										<div
+																											class="col-xl-2 col-sm-12 col-md-2">
+																											<div
+																												class="teams-rank">
+																												<label
+																													class="small-label">Grand
+																													Total</label>
+																											</div>
+																											<?php
+																											if ($object_det[0]['is_vehicle_required'] == 0) {
+																												$grand_veh_total = 0;
+																											}
+																											?>
+																											<input
+																												type="text"
+																												id="grand_total<?php echo $iti_id; ?>"
+																												name="additi[<?php echo $iti_id; ?>][grand_total]"
+																												class="form-control input-sm grand_total"
+																												value="<?php echo $tac + $grand_veh_total; ?>"
+																												readonly
+																												style="background-color: #004d00; color: white; font-weight: bold; font-style: italic;font-size: 20px;">
 																										</div>
+
+
+																									</div>
+																									<!-- Dynamic Rows Container -->
+																									<div id="ss_dynamic_rows<?php echo $iti_id; ?>"
+																										class="ss-rows-container">
+																										<!-- Dynamic rows will be added here -->
+																									</div>
+																									<div class="row">
+																										<div class="col-xl-12"
+																											id="spcl_add_dynamic<?php echo $iti_id; ?>">
+
+
+
+																										</div>
+																									</div>
+
+																									<div
+																										class="row mt-2 single_row">
+																										<div
+																											class="col-xl-12 col-sm-12 col-md-12">
+																											<div
+																												class="teams-rank">
+																												<label
+																													class="small-label">Transport
+																													Description</label>
+																											</div>
+																											<textarea
+																												id="transport_remarks<?php echo $iti_id; ?>"
+																												name="additi[<?php echo $iti_id; ?>][transport_remarks]"
+																												class="form-control"
+																												rows="1"
+																												<?php echo $read_only; ?>><?php echo $transport_remarks; ?></textarea>
+																										</div>
+																									</div>
 
 
 																									</div>
@@ -3365,7 +3365,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																				</div>
 																			</div>
 
-																			<?php
+																		<?php
 																			$startDate1->modify('+1 day');
 																			$cnt1++;
 																			$day_count++;
@@ -3413,7 +3413,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 								if ($object_det[0]['no_of_single_room'] > 0) {
 									$rt_count++;
 								}
-								?>
+							?>
 								<div class="costing-container">
 									<h4
 										style="text-align:center; color: #004d00; font-weight: bold; font-style: italic;font-size: 20px;">
@@ -3530,7 +3530,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 													}
 
 													$row_counter = 0; // Track which row we're on for this day
-											
+
 													// Debug comment (remove in production)
 													echo "<!-- Day $k: Data Source=$data_source, Expansion Data=" . count($expansion_data) . ", Double Rows=$double_row_count, Single Rows=$single_row_count -->";
 
@@ -3574,7 +3574,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																$bifur_child_total += $d_child_rate;
 																$bifur_child_wb_total += $d_child_wb_rate;
 																$bifur_extra_total += $d_extra_rate;
-																?>
+												?>
 																<tr>
 																	<?php if ($row_counter === 0) { ?>
 																		<td rowspan="<?php echo $total_rows; ?>"><?php echo $k; ?></td>
@@ -3616,7 +3616,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 																	<td><?php echo ($dtotal); ?></td>
 																</tr>
-																<?php
+															<?php
 																$cs_acc_total += $dtotal;
 																$row_counter++;
 															}
@@ -3735,7 +3735,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 																$stotal = $s_exp['single_total_rate'] ?? ($s_adult_rate_display + $s_child_rate_display + $s_child_wb_rate_display + $s_extra_rate_display);
 																$bifur_single_total += $s_adult_rate;
-																?>
+															?>
 																<tr>
 																	<?php if ($row_counter === 0) { ?>
 																		<td rowspan="<?php echo $total_rows; ?>"><?php echo $k; ?></td>
@@ -3774,7 +3774,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 																	<td><?php echo ($stotal); ?></td>
 																</tr>
-																<?php
+															<?php
 																$cs_acc_total += $stotal;
 																$row_counter++;
 															}
@@ -3842,7 +3842,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 																<td><?php echo ($stotal); ?></td>
 															</tr>
-															<?php
+												<?php
 															$cs_acc_total += $stotal;
 															$row_counter++;
 														}
@@ -3886,7 +3886,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 								if ($addon_count > 0) {
 									$fac_count = 1;
-									?>
+								?>
 									<div class="costing-container">
 										<div class="table-responsive costing-box">
 											<table class="table table-bordered costing-table">
@@ -3943,7 +3943,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																	if (!empty($fac_name)) {
 																		$fac_name_temp = $fac_name[0]['facility_name'];
 																	}
-																	?>
+															?>
 																	<tr>
 																		<td><?php echo $fac_count++; ?></td>
 																		<td><?php echo date("d-m-Y", strtotime($vald->tour_date)); ?></td>
@@ -3952,7 +3952,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																		<td><?php echo $fac_name_temp; ?></td>
 																		<td><?php echo $vald->fac_rate; ?></td>
 																	</tr>
-																	<?php
+												<?php
 																}
 															}
 															$cs_addon_total = $cs_addon_total + $vald->fac_rate;
@@ -3966,7 +3966,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 											</table>
 										</div>
 									</div>
-									<?php
+								<?php
 								}
 								// Count sightseeing entries (with pax=1)
 								$sightseeing_count = 0;
@@ -3986,7 +3986,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 								}
 
 								if ($sightseeing_count > 0) {
-									?>
+								?>
 									<div class="costing-container">
 										<div class="table-responsive costing-box">
 											<table class="table table-bordered costing-table">
@@ -4011,7 +4011,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																$tariff = isset($ss['pax_cost']) ? intval($ss['pax_cost']) : (isset($ss['cost']) ? intval($ss['cost']) : 0);
 
 																if ($tariff > 0) {
-																	?>
+												?>
 																	<tr>
 																		<td><?php echo $ss_count++; ?></td>
 																		<td><?php echo date("d-m-Y", strtotime($valh['tour_date'])); ?></td>
@@ -4020,14 +4020,14 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																		<!-- <td style="text-align:right;"><?php echo ($tariff); ?></td> -->
 																		<td style="text-align:right;"><?php echo ($tariff); ?></td>
 																	</tr>
-																	<?php
+																<?php
 																	$cs_sightseeing_total += $tariff;
 																}
 															} else {
 																// If no 'is_pax', assume pax=1 and include
 																$tariff = isset($ss['pax_cost']) ? floatval($ss['pax_cost']) : (isset($ss['cost']) ? floatval($ss['cost']) : 0);
 																if ($tariff > 0) {
-																	?>
+																?>
 																	<tr>
 																		<td><?php echo $ss_count++; ?></td>
 																		<td><?php echo date("d-m-Y", strtotime($valh['tour_date'])); ?></td>
@@ -4036,7 +4036,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																		<!-- <td style="text-align:right;"><?php echo ($tariff); ?></td> -->
 																		<td style="text-align:right;"><?php echo ($tariff); ?></td>
 																	</tr>
-																	<?php
+												<?php
 																	$cs_sightseeing_total += $tariff;
 																}
 															}
@@ -4051,7 +4051,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 											</table>
 										</div>
 									</div>
-									<?php
+								<?php
 								}
 								?>
 
@@ -4082,7 +4082,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 												$total_travel_distance_all = 0.0;
 												$total_max_km_day_all = 0.0;
 												$extra_km_rate = 0.0; // Will take the first available rate
-										
+
 												foreach ($itinerary_details_save as $dkey => $day) {
 													if ($dkey >= $itinerary_details_save_cnt) {
 														continue;
@@ -4204,7 +4204,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 											</table>
 										</div>
 									</div>
-								<?php }
+							<?php }
 							} ?>
 							<form id="myTourplanForm1" method="POST"
 								action="<?= site_url('Enquiry/generateCostingSheet'); ?>">
@@ -4232,7 +4232,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 								<?php if (!empty($itinerary_details_save)) {
 									if (empty($iti_cost_datas)) {
-										?>
+								?>
 										<div class="costing-container" style="background-color:#003300;">
 											<div class="table-responsive costing-box">
 												<table class="table">
@@ -4330,7 +4330,8 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 															<tr>
 																<th>
 																	<h5 style="font-weight:bold;color:#003300;">Total Acc Cost :
-																		<span id="tac_span"></span></h5>
+																		<span id="tac_span"></span>
+																	</h5>
 																</th>
 																<th>
 																	<h5 style="font-weight:bold;color:#003300;">Total Trans Cost
@@ -4338,15 +4339,18 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																</th>
 																<th>
 																	<h5 style="font-weight:bold;color:#003300;">Special Event :
-																		<span id="spcl_span"></span></h5>
+																		<span id="spcl_span"></span>
+																	</h5>
 																</th>
 																<th>
 																	<h5 style="font-weight:bold;color:#003300;">Extra Charge :
-																		<span id="daily_span"></span></h5>
+																		<span id="daily_span"></span>
+																	</h5>
 																</th>
 																<th>
 																	<h5 style="font-weight:bold;color:#003300;">Total Net Rate :
-																		<span id="tnr_span"></span></h5>
+																		<span id="tnr_span"></span>
+																	</h5>
 																</th>
 															</tr>
 														</table>
@@ -4416,7 +4420,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 																</td>
 																<td>
 																	<input type="checkbox" id="tcs_checkbox" name="tcs_checkbox"
-																		value="1" <?php echo ($iti_cost_datas[0]['tcs_applied'] ?? 0) ? 'checked' : ''; ?> 		<?php echo $dis_abled_ext; ?>> 5%
+																		value="1" <?php echo ($iti_cost_datas[0]['tcs_applied'] ?? 0) ? 'checked' : ''; ?> <?php echo $dis_abled_ext; ?>> 5%
 																</td>
 																<td><input type="text" id="tcs_final" name="tcs_final"
 																		class="form-control input-sm" maxlength="6"
@@ -4436,552 +4440,552 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 															</tr>
 														</table>
 
-														<?php
-									}
-								} ?>
-											</div>
-										</div>
+												<?php
+											}
+										} ?>
+													</div>
+												</div>
 
-										<!---------------------------------------Bifurcation----------------------------------------------------------------------->
-										<?php
-										if (!empty($itinerary_details_save)) {
-											$ttc_bifur = $cs_trans_total + $total_permit;
-											$no_of_pax_bifur = $object_det[0]['no_of_adult'];
-											$total_no_of_pax_bifur = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'];
-											?>
-										<div class="costing-container" style="display:none;" id="bifur_div">
-											<h4
-												style="text-align:center; color: #004d00; font-weight: bold; font-style: italic;font-size: 20px;">
-												Bifurcation</h4>
-											<div class="table-responsive costing-box">
-												<table class="table table-bordered costing-table">
-													<tr>
-														<th>Si No</th>
-														<th>No Of Pax</th>
-														<th>Total Cost</th>
-														<th>Per Person</th>
-													</tr>
-													<tr>
-														<td>Transportation cost</td>
-														<td>
-															<input type="text" id="no_of_pax_b" name="no_of_pax_b"
-																value="<?php echo $no_of_pax_bifur; ?>"
-																style="width:50px;">
-														</td>
-														<td>
-															<span id="ttc_bifur_span">
-																<?php echo $ttc_bifur; ?>
-															</span>
-															<input type="hidden" id="ttc_bifur_hd" name="ttc_bifur_hd"
-																value="<?php echo $ttc_bifur; ?>">
-														</td>
-														<td>
-															<span id="ttc_bifur_span_pp">
-																<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>
-															</span>
-															<input type="hidden" id="ttc_bifur_hd_pp"
-																name="ttc_bifur_hd_pp"
-																value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
-														</td>
-													</tr>
-													<tr>
-														<td>Sight Seeing cost</td>
-														<td>
-															<input type="text" id="no_of_pax_bs" name="no_of_pax_bs"
-																value="<?php echo $total_no_of_pax_bifur; ?>"
-																style="width:50px;">
-														</td>
-														<td>
-															<span id="bifur_ss_span"></span>
-															<input type="hidden" id="bifur_ss_hidden"
-																name="bifur_ss_hidden" value="0">
-														</td>
-														<td>
-															<span id="bifur_ss_span_pp"></span>
-															<input type="hidden" id="bifur_ss_hidden_pp"
-																name="bifur_ss_hidden_pp" value="0">
-														</td>
-													</tr>
-													<tr>
-														<td>Round Off</td>
-														<td>
-															<input type="text" id="no_of_pax_br" name="no_of_pax_br"
-																value="<?php echo $total_no_of_pax_bifur; ?>"
-																style="width:50px;">
-														</td>
-														<td>
-															<span id="round_off_span"></span>
-															<input type="hidden" id="round_off_hidden"
-																name="round_off_hidden" value="0">
-														</td>
-														<td>
-															<span id="round_off_span_pp"></span>
-															<input type="hidden" id="round_off_hidden_pp"
-																name="round_off_hidden_pp" value="0">
-														</td>
-													</tr>
-												</table>
-											</div>
+												<!---------------------------------------Bifurcation----------------------------------------------------------------------->
+												<?php
+												if (!empty($itinerary_details_save)) {
+													$ttc_bifur = $cs_trans_total + $total_permit;
+													$no_of_pax_bifur = $object_det[0]['no_of_adult'];
+													$total_no_of_pax_bifur = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'];
+												?>
+													<div class="costing-container" style="display:none;" id="bifur_div">
+														<h4
+															style="text-align:center; color: #004d00; font-weight: bold; font-style: italic;font-size: 20px;">
+															Bifurcation</h4>
+														<div class="table-responsive costing-box">
+															<table class="table table-bordered costing-table">
+																<tr>
+																	<th>Si No</th>
+																	<th>No Of Pax</th>
+																	<th>Total Cost</th>
+																	<th>Per Person</th>
+																</tr>
+																<tr>
+																	<td>Transportation cost</td>
+																	<td>
+																		<input type="text" id="no_of_pax_b" name="no_of_pax_b"
+																			value="<?php echo $no_of_pax_bifur; ?>"
+																			style="width:50px;">
+																	</td>
+																	<td>
+																		<span id="ttc_bifur_span">
+																			<?php echo $ttc_bifur; ?>
+																		</span>
+																		<input type="hidden" id="ttc_bifur_hd" name="ttc_bifur_hd"
+																			value="<?php echo $ttc_bifur; ?>">
+																	</td>
+																	<td>
+																		<span id="ttc_bifur_span_pp">
+																			<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>
+																		</span>
+																		<input type="hidden" id="ttc_bifur_hd_pp"
+																			name="ttc_bifur_hd_pp"
+																			value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
+																	</td>
+																</tr>
+																<tr>
+																	<td>Sight Seeing cost</td>
+																	<td>
+																		<input type="text" id="no_of_pax_bs" name="no_of_pax_bs"
+																			value="<?php echo $total_no_of_pax_bifur; ?>"
+																			style="width:50px;">
+																	</td>
+																	<td>
+																		<span id="bifur_ss_span"></span>
+																		<input type="hidden" id="bifur_ss_hidden"
+																			name="bifur_ss_hidden" value="0">
+																	</td>
+																	<td>
+																		<span id="bifur_ss_span_pp"></span>
+																		<input type="hidden" id="bifur_ss_hidden_pp"
+																			name="bifur_ss_hidden_pp" value="0">
+																	</td>
+																</tr>
+																<tr>
+																	<td>Round Off</td>
+																	<td>
+																		<input type="text" id="no_of_pax_br" name="no_of_pax_br"
+																			value="<?php echo $total_no_of_pax_bifur; ?>"
+																			style="width:50px;">
+																	</td>
+																	<td>
+																		<span id="round_off_span"></span>
+																		<input type="hidden" id="round_off_hidden"
+																			name="round_off_hidden" value="0">
+																	</td>
+																	<td>
+																		<span id="round_off_span_pp"></span>
+																		<input type="hidden" id="round_off_hidden_pp"
+																			name="round_off_hidden_pp" value="0">
+																	</td>
+																</tr>
+															</table>
+														</div>
 
-											<div class="table-responsive costing-box">
-												<table class="table table-bordered costing-table">
-													<tr>
-														<th>Si No</th>
-														<th>No Of Pax</th>
-														<th>Cost</th>
-														<th>Per Person</th>
-														<th>Vehicle</th>
-														<th>sight Seeing</th>
-														<th>Total</th>
-														<th>Margin</th>
-														<th>Net Total</th>
-														<th>Round Off</th>
-														<th>GSTIN</th>
-														<th>Grand Total</th>
-													</tr>
-													<tr>
-														<td>Double</td>
-														<td>
-															<span id="by_double_pax_span">
-																<?php echo $object_det[0]['no_of_double_room'] * 2; ?>
-															</span>
-															<input type="hidden" id="by_double_pax_hidden"
-																name="by_double_pax_hidden"
-																value="<?php echo $object_det[0]['no_of_double_room'] * 2; ?>">
-														</td>
-														<td>
-															<span id="bifur_double_total_span">
-																<?php echo $bifur_double_total; ?>
-															</span>
-															<input type="hidden" id="bifur_double_total_hidden"
-																name="bifur_double_total_hidden"
-																value="<?php echo $bifur_double_total; ?>">
-														</td>
-														<td>
-															<span id="bifur_double_pp_span">
-																<?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?>
-															</span>
-															<input type="hidden" id="bifur_double_pp_hidden"
-																name="bifur_double_pp_hidden"
-																value="<?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?>">
-														</td>
-														<td>
-															<span id="ttc_bifur_span_double_span">
-																<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>
-															</span>
-															<input type="hidden" id="ttc_bifur_double_hd"
-																name="ttc_bifur_double_hd"
-																value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
-														</td>
-														<td>
-															<span id="ss_bifur_double_span_pp">0</span>
-															<input type="hidden" id="ss_bifur_double_hd_pp"
-																name="ss_bifur_double_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="total_bifur_double_span_pp">0</span>
-															<input type="hidden" id="total_bifur_double_hd_pp"
-																name="total_bifur_double_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="margin_bifur_double_span_pp">0</span>
-															<input type="hidden" id="margin_bifur_double_hd_pp"
-																name="margin_bifur_double_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="net_bifur_double_span_pp">0</span>
-															<input type="hidden" id="net_bifur_double_hd_pp"
-																name="net_bifur_double_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="round_bifur_double_span_pp">0</span>
-															<input type="hidden" id="round_bifur_double_hd_pp"
-																name="round_bifur_double_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="gst_bifur_double_span_pp">0</span>
-															<input type="hidden" id="gst_bifur_double_hd_pp"
-																name="gst_bifur_double_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="grand_bifur_double_span_pp">0</span>
-															<input type="hidden" id="grand_bifur_double_hd_pp"
-																name="grand_bifur_double_hd_pp" value="0">
-														</td>
-													</tr>
-													<tr>
-														<td>Single</td>
-														<td>
-															<span id="by_single_pax_span">
-																<?php echo $object_det[0]['no_of_single_room']; ?>
-															</span>
-															<input type="hidden" id="by_single_pax_hidden"
-																name="by_single_pax_hidden"
-																value="<?php echo $object_det[0]['no_of_single_room']; ?>">
-														</td>
-														<td>
-															<?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
-															<span id="bifur_single_total_span">
-																<?php echo $bifur_single_total; ?>
-															</span>
-															<input type="hidden" id="bifur_single_total_hidden"
-																name="bifur_single_total_hidden"
-																value="<?php echo $bifur_single_total; ?>">
-															<?php } else { ?>
-															<span id="bifur_single_total_span">0</span>
-															<input type="hidden" id="bifur_single_total_hidden"
-																name="bifur_single_total_hidden" value="0">
-															<?php } ?>
-														</td>
-														<td>
-															<?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
-															<span id="bifur_single_pp_span">
-																<?php echo round($bifur_single_total / ($object_det[0]['no_of_single_room']), 2); ?>
-															</span>
-															<input type="hidden" id="bifur_single_pp_hidden"
-																name="bifur_single_pp_hidden"
-																value="<?php echo round($bifur_single_total / ($object_det[0]['no_of_single_room']), 2); ?>">
-															<?php } else { ?>
-															<span id="bifur_single_pp_span">0</span>
-															<input type="hidden" id="bifur_single_pp_hidden"
-																name="bifur_single_pp_hidden" value="0">
-															<?php } ?>
-														</td>
-														<td>
-															<?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
-															<span id="ttc_bifur_span_single_span">
-																<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>
-															</span>
-															<input type="hidden" id="ttc_bifur_single_hd"
-																name="ttc_bifur_single_hd"
-																value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
-															<?php } else { ?>
-															<span id="ttc_bifur_span_single_span">0</span>
-															<input type="hidden" id="ttc_bifur_single_hd"
-																name="ttc_bifur_single_hd" value="0">
-															<?php } ?>
-														</td>
-														<td>
-															<span id="ss_bifur_single_span_pp">0</span>
-															<input type="hidden" id="ss_bifur_single_hd_pp"
-																name="ss_bifur_single_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="total_bifur_single_span_pp">0</span>
-															<input type="hidden" id="total_bifur_single_hd_pp"
-																name="total_bifur_single_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="margin_bifur_single_span_pp">0</span>
-															<input type="hidden" id="margin_bifur_single_hd_pp"
-																name="margin_bifur_single_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="net_bifur_single_span_pp">0</span>
-															<input type="hidden" id="net_bifur_single_hd_pp"
-																name="net_bifur_single_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="round_bifur_single_span_pp">0</span>
-															<input type="hidden" id="round_bifur_single_hd_pp"
-																name="round_bifur_single_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="gst_bifur_single_span_pp">0</span>
-															<input type="hidden" id="gst_bifur_single_hd_pp"
-																name="gst_bifur_single_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="grand_bifur_single_span_pp">0</span>
-															<input type="hidden" id="grand_bifur_single_hd_pp"
-																name="grand_bifur_single_hd_pp" value="0">
-														</td>
-													</tr>
-													<tr>
-														<td>Child</td>
-														<td>
-															<span id="by_child_pax_span">
-																<?php echo $object_det[0]['no_of_child_with_bed']; ?>
-															</span>
-															<input type="hidden" id="by_child_pax_hidden"
-																name="by_child_pax_hidden"
-																value="<?php echo $object_det[0]['no_of_child_with_bed']; ?>">
-														</td>
-														<td>
-															<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
-															<span id="bifur_child_total_span">
-																<?php echo $bifur_child_total; ?>
-															</span>
-															<input type="hidden" id="bifur_child_total_hidden"
-																name="bifur_child_total_hidden"
-																value="<?php echo $bifur_child_total; ?>">
-															<?php } else { ?>
-															<span id="bifur_child_total_span">0</span>
-															<input type="hidden" id="bifur_child_total_hidden"
-																name="bifur_child_total_hidden" value="0">
-															<?php } ?>
-														</td>
-														<td>
-															<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
-															<span id="bifur_child_pp_span">
-																<?php echo round($bifur_child_total / ($object_det[0]['no_of_child_with_bed']), 2); ?>
-															</span>
-															<input type="hidden" id="bifur_child_pp_hidden"
-																name="bifur_child_pp_hidden"
-																value="<?php echo round($bifur_child_total / ($object_det[0]['no_of_child_with_bed']), 2); ?>">
-															<?php } else { ?>
-															<span id="bifur_child_pp_span">0</span>
-															<input type="hidden" id="bifur_child_pp_hidden"
-																name="bifur_child_pp_hidden" value="0">
-															<?php } ?>
-														</td>
-														<td>
-															<span id="ttc_bifur_span_child_span">0</span>
-															<input type="hidden" id="ttc_bifur_child_hd"
-																name="ttc_bifur_child_hd" value="0">
-														</td>
-														<td>
-															<span id="ss_bifur_child_span_pp">0</span>
-															<input type="hidden" id="ss_bifur_child_hd_pp"
-																name="ss_bifur_child_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="total_bifur_child_span_pp">0</span>
-															<input type="hidden" id="total_bifur_child_hd_pp"
-																name="total_bifur_child_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="margin_bifur_child_span_pp">0</span>
-															<input type="hidden" id="margin_bifur_child_hd_pp"
-																name="margin_bifur_child_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="net_bifur_child_span_pp">0</span>
-															<input type="hidden" id="net_bifur_child_hd_pp"
-																name="net_bifur_child_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="round_bifur_child_span_pp">0</span>
-															<input type="hidden" id="round_bifur_child_hd_pp"
-																name="round_bifur_child_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="gst_bifur_child_span_pp">0</span>
-															<input type="hidden" id="gst_bifur_child_hd_pp"
-																name="gst_bifur_child_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="grand_bifur_child_span_pp">0</span>
-															<input type="hidden" id="grand_bifur_child_hd_pp"
-																name="grand_bifur_child_hd_pp" value="0">
-														</td>
-													</tr>
-													<tr>
-														<td>Child WB</td>
-														<td>
-															<span id="by_child_wb_pax_span">
-																<?php echo $object_det[0]['no_of_child_without_bed']; ?>
-															</span>
-															<input type="hidden" id="by_child_wb_pax_hidden"
-																name="by_child_wb_pax_hidden"
-																value="<?php echo $object_det[0]['no_of_child_without_bed']; ?>">
-														</td>
-														<td>
-															<?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
-															<span id="bifur_child_wb_total_span">
-																<?php echo $bifur_child_wb_total; ?>
-															</span>
-															<input type="hidden" id="bifur_child_wb_total_hidden"
-																name="bifur_child_wb_total_hidden"
-																value="<?php echo $bifur_child_wb_total; ?>">
-															<?php } else { ?>
-															<span id="bifur_child_wb_total_span">0</span>
-															<input type="hidden" id="bifur_child_wb_total_hidden"
-																name="bifur_child_wb_total_hidden" value="0">
-															<?php } ?>
-														</td>
-														<td>
-															<?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
-															<span id="bifur_child_wb_pp_span">
-																<?php echo round($bifur_child_wb_total / ($object_det[0]['no_of_child_without_bed']), 2); ?>
-															</span>
-															<input type="hidden" id="bifur_child_wb_pp_hidden"
-																name="bifur_child_wb_pp_hidden"
-																value="<?php echo round($bifur_child_wb_total / ($object_det[0]['no_of_child_without_bed']), 2); ?>">
-															<?php } else { ?>
-															<span id="bifur_child_wb_pp_span">0</span>
-															<input type="hidden" id="bifur_child_wb_pp_hidden"
-																name="bifur_child_wb_pp_hidden" value="0">
-															<?php } ?>
-														</td>
-														<td>
-															<span id="ttc_bifur_span_child_wb_span">0</span>
-															<input type="hidden" id="ttc_bifur_child_wb_hd"
-																name="ttc_bifur_child_wb_hd" value="0">
-														</td>
-														<td>
-															<span id="ss_bifur_child_wb_span_pp">0</span>
-															<input type="hidden" id="ss_bifur_child_wb_hd_pp"
-																name="ss_bifur_child_wb_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="total_bifur_child_wb_span_pp">0</span>
-															<input type="hidden" id="total_bifur_child_wb_hd_pp"
-																name="total_bifur_child_wb_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="margin_bifur_child_wb_span_pp">0</span>
-															<input type="hidden" id="margin_bifur_child_wb_hd_pp"
-																name="margin_bifur_child_wb_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="net_bifur_child_wb_span_pp">0</span>
-															<input type="hidden" id="net_bifur_child_wb_hd_pp"
-																name="net_bifur_child_wb_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="round_bifur_child_wb_span_pp">0</span>
-															<input type="hidden" id="round_bifur_child_wb_hd_pp"
-																name="round_bifur_child_wb_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="gst_bifur_child_wb_span_pp">0</span>
-															<input type="hidden" id="gst_bifur_child_wb_hd_pp"
-																name="gst_bifur_child_wb_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="grand_bifur_child_wb_span_pp">0</span>
-															<input type="hidden" id="grand_bifur_child_wb_hd_pp"
-																name="grand_bifur_child_wb_hd_pp" value="0">
-														</td>
-													</tr>
-													<tr>
-														<td>Extra</td>
-														<td>
-															<span id="by_extra_pax_span">
-																<?php echo $object_det[0]['no_of_extra_bed']; ?>
-															</span>
-															<input type="hidden" id="by_extra_pax_hidden"
-																name="by_extra_pax_hidden"
-																value="<?php echo $object_det[0]['no_of_extra_bed']; ?>">
-														</td>
-														<td>
-															<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
-															<span id="bifur_extra_total_span">
-																<?php echo $bifur_extra_total; ?>
-															</span>
-															<input type="hidden" id="bifur_extra_total_hidden"
-																name="bifur_extra_total_hidden"
-																value="<?php echo $bifur_extra_total; ?>">
-															<?php } else { ?>
-															<span id="bifur_extra_total_span">0</span>
-															<input type="hidden" id="bifur_extra_total_hidden"
-																name="bifur_extra_total_hidden" value="0">
-															<?php } ?>
-														</td>
-														<td>
-															<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
-															<span id="bifur_extra_pp_span">
-																<?php echo round($bifur_extra_total / ($object_det[0]['no_of_extra_bed']), 2); ?>
-															</span>
-															<input type="hidden" id="bifur_extra_pp_hidden"
-																name="bifur_extra_pp_hidden"
-																value="<?php echo round($bifur_extra_total / ($object_det[0]['no_of_extra_bed']), 2); ?>">
-															<?php } else { ?>
-															<span id="bifur_extra_pp_span">0</span>
-															<input type="hidden" id="bifur_extra_pp_hidden"
-																name="bifur_extra_pp_hidden" value="0">
-															<?php } ?>
-														</td>
-														<td>
-															<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
-															<span id="ttc_bifur_span_extra_span">
-																<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>
-															</span>
-															<input type="hidden" id="ttc_bifur_extra_hd"
-																name="ttc_bifur_extra_hd"
-																value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
-															<?php } else { ?>
-															<span id="ttc_bifur_span_extra_span">0</span>
-															<input type="hidden" id="ttc_bifur_extra_hd"
-																name="ttc_bifur_extra_hd" value="0">
-															<?php } ?>
-														</td>
-														<td>
-															<span id="ss_bifur_extra_span_pp">0</span>
-															<input type="hidden" id="ss_bifur_extra_hd_pp"
-																name="ss_bifur_extra_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="total_bifur_extra_span_pp">0</span>
-															<input type="hidden" id="total_bifur_extra_hd_pp"
-																name="total_bifur_extra_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="margin_bifur_extra_span_pp">0</span>
-															<input type="hidden" id="margin_bifur_extra_hd_pp"
-																name="margin_bifur_extra_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="net_bifur_extra_span_pp">0</span>
-															<input type="hidden" id="net_bifur_extra_hd_pp"
-																name="net_bifur_extra_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="round_bifur_extra_span_pp">0</span>
-															<input type="hidden" id="round_bifur_extra_hd_pp"
-																name="round_bifur_extra_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="gst_bifur_extra_span_pp">0</span>
-															<input type="hidden" id="gst_bifur_extra_hd_pp"
-																name="gst_bifur_extra_hd_pp" value="0">
-														</td>
-														<td>
-															<span id="grand_bifur_extra_span_pp">0</span>
-															<input type="hidden" id="grand_bifur_extra_hd_pp"
-																name="grand_bifur_extra_hd_pp" value="0">
-														</td>
-													</tr>
-												</table>
-											</div>
-										</div>
+														<div class="table-responsive costing-box">
+															<table class="table table-bordered costing-table">
+																<tr>
+																	<th>Si No</th>
+																	<th>No Of Pax</th>
+																	<th>Cost</th>
+																	<th>Per Person</th>
+																	<th>Vehicle</th>
+																	<th>sight Seeing</th>
+																	<th>Total</th>
+																	<th>Margin</th>
+																	<th>Net Total</th>
+																	<th>Round Off</th>
+																	<th>GSTIN</th>
+																	<th>Grand Total</th>
+																</tr>
+																<tr>
+																	<td>Double</td>
+																	<td>
+																		<span id="by_double_pax_span">
+																			<?php echo $object_det[0]['no_of_double_room'] * 2; ?>
+																		</span>
+																		<input type="hidden" id="by_double_pax_hidden"
+																			name="by_double_pax_hidden"
+																			value="<?php echo $object_det[0]['no_of_double_room'] * 2; ?>">
+																	</td>
+																	<td>
+																		<span id="bifur_double_total_span">
+																			<?php echo $bifur_double_total; ?>
+																		</span>
+																		<input type="hidden" id="bifur_double_total_hidden"
+																			name="bifur_double_total_hidden"
+																			value="<?php echo $bifur_double_total; ?>">
+																	</td>
+																	<td>
+																		<span id="bifur_double_pp_span">
+																			<?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?>
+																		</span>
+																		<input type="hidden" id="bifur_double_pp_hidden"
+																			name="bifur_double_pp_hidden"
+																			value="<?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?>">
+																	</td>
+																	<td>
+																		<span id="ttc_bifur_span_double_span">
+																			<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>
+																		</span>
+																		<input type="hidden" id="ttc_bifur_double_hd"
+																			name="ttc_bifur_double_hd"
+																			value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
+																	</td>
+																	<td>
+																		<span id="ss_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="ss_bifur_double_hd_pp"
+																			name="ss_bifur_double_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="total_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="total_bifur_double_hd_pp"
+																			name="total_bifur_double_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="margin_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="margin_bifur_double_hd_pp"
+																			name="margin_bifur_double_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="net_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="net_bifur_double_hd_pp"
+																			name="net_bifur_double_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="round_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="round_bifur_double_hd_pp"
+																			name="round_bifur_double_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="gst_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="gst_bifur_double_hd_pp"
+																			name="gst_bifur_double_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="grand_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="grand_bifur_double_hd_pp"
+																			name="grand_bifur_double_hd_pp" value="0">
+																	</td>
+																</tr>
+																<tr>
+																	<td>Single</td>
+																	<td>
+																		<span id="by_single_pax_span">
+																			<?php echo $object_det[0]['no_of_single_room']; ?>
+																		</span>
+																		<input type="hidden" id="by_single_pax_hidden"
+																			name="by_single_pax_hidden"
+																			value="<?php echo $object_det[0]['no_of_single_room']; ?>">
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
+																			<span id="bifur_single_total_span">
+																				<?php echo $bifur_single_total; ?>
+																			</span>
+																			<input type="hidden" id="bifur_single_total_hidden"
+																				name="bifur_single_total_hidden"
+																				value="<?php echo $bifur_single_total; ?>">
+																		<?php } else { ?>
+																			<span id="bifur_single_total_span">0</span>
+																			<input type="hidden" id="bifur_single_total_hidden"
+																				name="bifur_single_total_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
+																			<span id="bifur_single_pp_span">
+																				<?php echo round($bifur_single_total / ($object_det[0]['no_of_single_room']), 2); ?>
+																			</span>
+																			<input type="hidden" id="bifur_single_pp_hidden"
+																				name="bifur_single_pp_hidden"
+																				value="<?php echo round($bifur_single_total / ($object_det[0]['no_of_single_room']), 2); ?>">
+																		<?php } else { ?>
+																			<span id="bifur_single_pp_span">0</span>
+																			<input type="hidden" id="bifur_single_pp_hidden"
+																				name="bifur_single_pp_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
+																			<span id="ttc_bifur_span_single_span">
+																				<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>
+																			</span>
+																			<input type="hidden" id="ttc_bifur_single_hd"
+																				name="ttc_bifur_single_hd"
+																				value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
+																		<?php } else { ?>
+																			<span id="ttc_bifur_span_single_span">0</span>
+																			<input type="hidden" id="ttc_bifur_single_hd"
+																				name="ttc_bifur_single_hd" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<span id="ss_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="ss_bifur_single_hd_pp"
+																			name="ss_bifur_single_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="total_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="total_bifur_single_hd_pp"
+																			name="total_bifur_single_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="margin_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="margin_bifur_single_hd_pp"
+																			name="margin_bifur_single_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="net_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="net_bifur_single_hd_pp"
+																			name="net_bifur_single_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="round_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="round_bifur_single_hd_pp"
+																			name="round_bifur_single_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="gst_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="gst_bifur_single_hd_pp"
+																			name="gst_bifur_single_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="grand_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="grand_bifur_single_hd_pp"
+																			name="grand_bifur_single_hd_pp" value="0">
+																	</td>
+																</tr>
+																<tr>
+																	<td>Child</td>
+																	<td>
+																		<span id="by_child_pax_span">
+																			<?php echo $object_det[0]['no_of_child_with_bed']; ?>
+																		</span>
+																		<input type="hidden" id="by_child_pax_hidden"
+																			name="by_child_pax_hidden"
+																			value="<?php echo $object_det[0]['no_of_child_with_bed']; ?>">
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
+																			<span id="bifur_child_total_span">
+																				<?php echo $bifur_child_total; ?>
+																			</span>
+																			<input type="hidden" id="bifur_child_total_hidden"
+																				name="bifur_child_total_hidden"
+																				value="<?php echo $bifur_child_total; ?>">
+																		<?php } else { ?>
+																			<span id="bifur_child_total_span">0</span>
+																			<input type="hidden" id="bifur_child_total_hidden"
+																				name="bifur_child_total_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
+																			<span id="bifur_child_pp_span">
+																				<?php echo round($bifur_child_total / ($object_det[0]['no_of_child_with_bed']), 2); ?>
+																			</span>
+																			<input type="hidden" id="bifur_child_pp_hidden"
+																				name="bifur_child_pp_hidden"
+																				value="<?php echo round($bifur_child_total / ($object_det[0]['no_of_child_with_bed']), 2); ?>">
+																		<?php } else { ?>
+																			<span id="bifur_child_pp_span">0</span>
+																			<input type="hidden" id="bifur_child_pp_hidden"
+																				name="bifur_child_pp_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<span id="ttc_bifur_span_child_span">0</span>
+																		<input type="hidden" id="ttc_bifur_child_hd"
+																			name="ttc_bifur_child_hd" value="0">
+																	</td>
+																	<td>
+																		<span id="ss_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="ss_bifur_child_hd_pp"
+																			name="ss_bifur_child_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="total_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="total_bifur_child_hd_pp"
+																			name="total_bifur_child_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="margin_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="margin_bifur_child_hd_pp"
+																			name="margin_bifur_child_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="net_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="net_bifur_child_hd_pp"
+																			name="net_bifur_child_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="round_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="round_bifur_child_hd_pp"
+																			name="round_bifur_child_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="gst_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="gst_bifur_child_hd_pp"
+																			name="gst_bifur_child_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="grand_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="grand_bifur_child_hd_pp"
+																			name="grand_bifur_child_hd_pp" value="0">
+																	</td>
+																</tr>
+																<tr>
+																	<td>Child WB</td>
+																	<td>
+																		<span id="by_child_wb_pax_span">
+																			<?php echo $object_det[0]['no_of_child_without_bed']; ?>
+																		</span>
+																		<input type="hidden" id="by_child_wb_pax_hidden"
+																			name="by_child_wb_pax_hidden"
+																			value="<?php echo $object_det[0]['no_of_child_without_bed']; ?>">
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
+																			<span id="bifur_child_wb_total_span">
+																				<?php echo $bifur_child_wb_total; ?>
+																			</span>
+																			<input type="hidden" id="bifur_child_wb_total_hidden"
+																				name="bifur_child_wb_total_hidden"
+																				value="<?php echo $bifur_child_wb_total; ?>">
+																		<?php } else { ?>
+																			<span id="bifur_child_wb_total_span">0</span>
+																			<input type="hidden" id="bifur_child_wb_total_hidden"
+																				name="bifur_child_wb_total_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
+																			<span id="bifur_child_wb_pp_span">
+																				<?php echo round($bifur_child_wb_total / ($object_det[0]['no_of_child_without_bed']), 2); ?>
+																			</span>
+																			<input type="hidden" id="bifur_child_wb_pp_hidden"
+																				name="bifur_child_wb_pp_hidden"
+																				value="<?php echo round($bifur_child_wb_total / ($object_det[0]['no_of_child_without_bed']), 2); ?>">
+																		<?php } else { ?>
+																			<span id="bifur_child_wb_pp_span">0</span>
+																			<input type="hidden" id="bifur_child_wb_pp_hidden"
+																				name="bifur_child_wb_pp_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<span id="ttc_bifur_span_child_wb_span">0</span>
+																		<input type="hidden" id="ttc_bifur_child_wb_hd"
+																			name="ttc_bifur_child_wb_hd" value="0">
+																	</td>
+																	<td>
+																		<span id="ss_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="ss_bifur_child_wb_hd_pp"
+																			name="ss_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="total_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="total_bifur_child_wb_hd_pp"
+																			name="total_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="margin_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="margin_bifur_child_wb_hd_pp"
+																			name="margin_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="net_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="net_bifur_child_wb_hd_pp"
+																			name="net_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="round_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="round_bifur_child_wb_hd_pp"
+																			name="round_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="gst_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="gst_bifur_child_wb_hd_pp"
+																			name="gst_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="grand_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="grand_bifur_child_wb_hd_pp"
+																			name="grand_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																</tr>
+																<tr>
+																	<td>Extra</td>
+																	<td>
+																		<span id="by_extra_pax_span">
+																			<?php echo $object_det[0]['no_of_extra_bed']; ?>
+																		</span>
+																		<input type="hidden" id="by_extra_pax_hidden"
+																			name="by_extra_pax_hidden"
+																			value="<?php echo $object_det[0]['no_of_extra_bed']; ?>">
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
+																			<span id="bifur_extra_total_span">
+																				<?php echo $bifur_extra_total; ?>
+																			</span>
+																			<input type="hidden" id="bifur_extra_total_hidden"
+																				name="bifur_extra_total_hidden"
+																				value="<?php echo $bifur_extra_total; ?>">
+																		<?php } else { ?>
+																			<span id="bifur_extra_total_span">0</span>
+																			<input type="hidden" id="bifur_extra_total_hidden"
+																				name="bifur_extra_total_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
+																			<span id="bifur_extra_pp_span">
+																				<?php echo round($bifur_extra_total / ($object_det[0]['no_of_extra_bed']), 2); ?>
+																			</span>
+																			<input type="hidden" id="bifur_extra_pp_hidden"
+																				name="bifur_extra_pp_hidden"
+																				value="<?php echo round($bifur_extra_total / ($object_det[0]['no_of_extra_bed']), 2); ?>">
+																		<?php } else { ?>
+																			<span id="bifur_extra_pp_span">0</span>
+																			<input type="hidden" id="bifur_extra_pp_hidden"
+																				name="bifur_extra_pp_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
+																			<span id="ttc_bifur_span_extra_span">
+																				<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>
+																			</span>
+																			<input type="hidden" id="ttc_bifur_extra_hd"
+																				name="ttc_bifur_extra_hd"
+																				value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
+																		<?php } else { ?>
+																			<span id="ttc_bifur_span_extra_span">0</span>
+																			<input type="hidden" id="ttc_bifur_extra_hd"
+																				name="ttc_bifur_extra_hd" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<span id="ss_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="ss_bifur_extra_hd_pp"
+																			name="ss_bifur_extra_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="total_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="total_bifur_extra_hd_pp"
+																			name="total_bifur_extra_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="margin_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="margin_bifur_extra_hd_pp"
+																			name="margin_bifur_extra_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="net_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="net_bifur_extra_hd_pp"
+																			name="net_bifur_extra_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="round_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="round_bifur_extra_hd_pp"
+																			name="round_bifur_extra_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="gst_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="gst_bifur_extra_hd_pp"
+																			name="gst_bifur_extra_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="grand_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="grand_bifur_extra_hd_pp"
+																			name="grand_bifur_extra_hd_pp" value="0">
+																	</td>
+																</tr>
+															</table>
+														</div>
+													</div>
 
-										<!------------------------------------------------------------------------------------->
-										<table class="table">
-											<tr>
-												<th>
-													<button type="button" id="calculate_bifur"
-														class="btn btn-dark btn-sm">Show Bifurcation</button>
-												</th>
-												<th>
-													<button type="button" id="recalculate_bifur"
-														class="btn btn-primary btn-sm" style="display:none">Calculate
-														Bifurcation</button>
-												</th>
-												<th>
-													<input type="text" id="cs_name" name="cs_name"
-														class="form-control input-sm" maxlength="50"
-														placeholder="Enter Costing Sheet Name">
-												</th>
-												<th>
-													<?php if ($final_save_flag == 0) { ?>
-													<a href="<?= site_url('Enquiry/enquiry_list_view/10'); ?>"
-														id="cancel_cost_sheet_id" data-toggle="tooltip"
-														data-original-title="Itinerary Details"
-														style="float:left;">Cancel</a>
-													<?php } ?>
-													<?php if ($final_save_flag == 1 || $iti_edit_id == 1) {
-														if ($extension_disable == 0) {
-															?>
-													<button type="" id="view_cost_sheet_id" class="btn btn-success"
-														style="float:right;">Save Costing Sheet</button>
-													<?php }
-													} ?>
-												</th>
-											</tr>
-										</table>
-										<?php } ?>
+													<!------------------------------------------------------------------------------------->
+													<table class="table">
+														<tr>
+															<th>
+																<button type="button" id="calculate_bifur"
+																	class="btn btn-dark btn-sm">Show Bifurcation</button>
+															</th>
+															<th>
+																<button type="button" id="recalculate_bifur"
+																	class="btn btn-primary btn-sm" style="display:none">Calculate
+																	Bifurcation</button>
+															</th>
+															<th>
+																<input type="text" id="cs_name" name="cs_name"
+																	class="form-control input-sm" maxlength="50"
+																	placeholder="Enter Costing Sheet Name">
+															</th>
+															<th>
+																<?php if ($final_save_flag == 0) { ?>
+																	<a href="<?= site_url('Enquiry/enquiry_list_view/10'); ?>"
+																		id="cancel_cost_sheet_id" data-toggle="tooltip"
+																		data-original-title="Itinerary Details"
+																		style="float:left;">Cancel</a>
+																<?php } ?>
+																<?php if ($final_save_flag == 1 || $iti_edit_id == 1) {
+																	if ($extension_disable == 0) {
+																?>
+																		<button type="" id="view_cost_sheet_id" class="btn btn-success"
+																			style="float:right;">Save Costing Sheet</button>
+																<?php }
+																} ?>
+															</th>
+														</tr>
+													</table>
+												<?php } ?>
 							</form>
 						</div>
 					</div>
@@ -5085,7 +5089,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				data: {
 					location_id: change_value
 				},
-				success: function (data) {
+				success: function(data) {
 					$('#agent_id').html(data);
 				}
 			});
@@ -5105,7 +5109,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				data: {
 					location_id: change_value
 				},
-				success: function (data) {
+				success: function(data) {
 					$('#vehicle_type').html(data);
 				}
 			});
@@ -5126,11 +5130,11 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					agent_id: agent_id
 				},
 				dataType: 'json',
-				success: function (data) {
+				success: function(data) {
 					var address_temp = data[0].entity_address;
 					$('#agent_address').text(address_temp);
 				},
-				error: function (xhr, status, error) {
+				error: function(xhr, status, error) {
 					console.error(error);
 				}
 			});
@@ -5147,11 +5151,11 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				role_id: role_id,
 				role_name: role_name
 			},
-			success: function (response) {
+			success: function(response) {
 				location.reload();
 
 			},
-			error: function (xhr, status, error) {
+			error: function(xhr, status, error) {
 				// Handle any errors
 				console.error(error);
 			}
@@ -5168,11 +5172,11 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				system_id: system_id,
 				system_name: system_name
 			},
-			success: function (response) {
+			success: function(response) {
 				location.reload();
 
 			},
-			error: function (xhr, status, error) {
+			error: function(xhr, status, error) {
 				// Handle any errors
 				console.error(error);
 			}
@@ -5181,7 +5185,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		function calculateTotalPax() {
 			var noOfAdult = parseInt($('#no_of_adult').val()) || 0;
 			var noOfChildWithBed = parseInt($('#no_of_child_with_bed').val()) || 0;
@@ -5195,9 +5199,9 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 		var i = 0;
-		$('#vehicle_type').on('change', function () {
+		$('#vehicle_type').on('change', function() {
 			var v_id = $("#vehicle_type").val();
 			$('#vehicle_dynamic_head').html('<tr><th>Vehicle Type</th><th>Count</th><th>Remove</th></tr>');
 			$.ajax({
@@ -5207,27 +5211,27 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					v_id: v_id
 				},
 				dataType: 'json',
-				success: function (response) {
+				success: function(response) {
 					i++;
 					$('#vehicle_dynamic_field').append('<tr id="row' + i + '" class="dynamic-added"><td><input type="hidden" name="addmore[' + i + '][v_id]" value="' + response[0].vehicle_type_id + '"/><input type="text" name="addmore[' + i + '][v_name]" value="' + response[0].vehicle_model_name + '" class="form-control form-control-sm"></td><td><select class="form-control select2 custom-select" name="addmore[' + i + '][v_count]" aria-label="Default select example"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_agency_remove">X</button></td></tr>');
 				}
 			});
 		});
-		$(document).on('click', '.btn_agency_remove', function () {
+		$(document).on('click', '.btn_agency_remove', function() {
 			var button_id = $(this).attr("id");
 			$('#row' + button_id + '').remove();
 		});
 	});
 </script>
 <script>
-	$(document).ready(function () {
-		$("#btn_back").click(function () {
+	$(document).ready(function() {
+		$("#btn_back").click(function() {
 			$('.nav a[href="#tab-5"]').tab('show');
 		});
 	});
 </script>
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		function toggleVehicleFields() {
 			var isVehicleRequired = $("#is_vehicle_req").val();
 			if (isVehicleRequired === "1") {
@@ -5242,14 +5246,14 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		toggleVehicleFields();
 
 		// Attach change event
-		$("#is_vehicle_req").change(function () {
+		$("#is_vehicle_req").change(function() {
 			toggleVehicleFields();
 		});
 	});
 </script>
 <script>
-	$(document).ready(function () {
-		$('#no_of_days, #tour_start_date').on('input change', function () {
+	$(document).ready(function() {
+		$('#no_of_days, #tour_start_date').on('input change', function() {
 			var startDate = $('#tour_start_date').val();
 			var noOfDays = parseInt($('#no_of_days').val());
 
@@ -5274,8 +5278,8 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				</div>`;
 
 					$('#startdate-alert').html(alerttHTML);
-					setTimeout(function () {
-						$(".alert").fadeOut("slow", function () {
+					setTimeout(function() {
+						$(".alert").fadeOut("slow", function() {
 							$(this).remove();
 						});
 					}, 2000);
@@ -5286,10 +5290,10 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z]+(\.[a-zA-Z]+)+$/;
 
-		$("#guest_email").on("input keyup", function () {
+		$("#guest_email").on("input keyup", function() {
 			var email = $(this).val();
 
 			if (emailPattern.test(email)) {
@@ -5302,7 +5306,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		});
 
 		// Clear field when clicking outside if invalid
-		$("#guest_email").on("blur", function () {
+		$("#guest_email").on("blur", function() {
 			var email = $(this).val();
 
 			if (!emailPattern.test(email)) {
@@ -5315,8 +5319,8 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script>
-	$(document).ready(function () {
-		$("#guest_mobile").on("keyup", function () {
+	$(document).ready(function() {
+		$("#guest_mobile").on("keyup", function() {
 			var mobile = $(this).val();
 
 			// Remove non-numeric characters
@@ -5334,7 +5338,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		});
 
 		// Clear field if invalid when clicking outside
-		$("#guest_mobile").on("blur", function () {
+		$("#guest_mobile").on("blur", function() {
 			var mobile = $(this).val();
 
 			if (mobile.length !== 10) {
@@ -5346,7 +5350,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script>
-	$(document).on('click', '#btn_add_bt', function (e) {
+	$(document).on('click', '#btn_add_bt', function(e) {
 		e.preventDefault();
 		var tour_plan_div = $('.tour_plan_div').val();
 		var hotel_categories = <?php echo json_encode($hotel_categories); ?>;
@@ -5398,7 +5402,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					hotel_category_exist: hotel_category_exist
 				},
 				dataType: 'json',
-				success: function (response) {
+				success: function(response) {
 					if (response.length > 0) {
 						var count = $('.tour_plan_div .location-card').length + 1;
 
@@ -5636,7 +5640,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 													</div>
 												</div>
 														`;
-							$.each(vehicle_models, function (vindex, vmodel) {
+							$.each(vehicle_models, function(vindex, vmodel) {
 								si_nos = vindex + 1;
 								vid = count + vmodel.vehicle_type_id;
 								newCard += `
@@ -5724,7 +5728,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 						hotelCat.empty();
 
 						if (hotel_categories.length > 1) {
-							$.each(hotel_categories, function (index, hotelcat) {
+							$.each(hotel_categories, function(index, hotelcat) {
 								if (hotelcat.hotel_category_id == hotel_category_exist) {
 									hotelCat.append('<option value="' + hotelcat.hotel_category_id + '" selected>' + hotelcat.hotel_category_name + '</option>');
 								} else {
@@ -5746,18 +5750,18 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					</div>`;
 
 						$('#hotel_alert').html(halert);
-						setTimeout(function () {
-							$(".alert").fadeOut("slow", function () {
+						setTimeout(function() {
+							$(".alert").fadeOut("slow", function() {
 								$(this).remove();
 							});
 						}, 2000);
 					}
 				},
-				complete: function () {
+				complete: function() {
 					$('#btn_add_bt').attr('disabled', false);
 					$spinner.hide();
 				},
-				error: function (xhr, status, error) {
+				error: function(xhr, status, error) {
 					console.error('Error adding node:', error);
 				}
 			});
@@ -5766,20 +5770,20 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 	function calculateTotalNights() {
 		var totalNights = 0;
-		$('.no_of_night').each(function () {
+		$('.no_of_night').each(function() {
 			var nights = parseInt($(this).val()) || 0;
 			totalNights += nights;
 		});
 		return totalNights;
 	}
 	// Remove location card and update sequence numbers
-	$(document).on("click", ".card-options-remove", function (e) {
+	$(document).on("click", ".card-options-remove", function(e) {
 		e.preventDefault();
 		var card = $(this).closest(".location-card");
 		var removedIndex = card.index(); // Get index before removing
 		var bcid = card.attr("data-index");
 		card.remove();
-		$('.dyn_list li').each(function () {
+		$('.dyn_list li').each(function() {
 			if ($(this).text().trim().startsWith(bcid + ".")) {
 				$(this).remove();
 			}
@@ -5789,7 +5793,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		if (remainingCards.length === 0) {
 			$("#btn_save_tour_plan").hide();
 		} else {
-			remainingCards.each(function (index) {
+			remainingCards.each(function(index) {
 				if (index >= removedIndex) {
 					calculateCheckout(index);
 				}
@@ -5802,7 +5806,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		if ($('.tour_plan_div .location-card').length === 0) {
 			location.reload();
 		}
-		$('.tour_plan_div .location-card').each(function (index) {
+		$('.tour_plan_div .location-card').each(function(index) {
 			let newIndex = index + 1;
 			$(this).attr("data-index", newIndex);
 			$(this).find('.card-seq').text(newIndex);
@@ -5849,7 +5853,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			if (is_vehicle_required == 1) {
 				let cardElement = $(this);
 
-				$.each(vehicle_models, function (vindex, vmodel) {
+				$.each(vehicle_models, function(vindex, vmodel) {
 					let vid = `${newIndex}${vmodel.vehicle_type_id}`;
 					cardElement.find(`.veh_model${vindex}`).attr("id", `veh_model${vid}`).attr("name", `addloc[${newIndex}][veh_model][${vindex}]`);
 					cardElement.find(`.veh_type_id${vindex}`).attr("id", `veh_type_id${vid}`).attr("name", `addloc[${newIndex}][veh_type_id][${vindex}]`);
@@ -5895,7 +5899,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			$('#loc_total'+newIndex).text(dvalue + svalue);*/
 		});
 
-		$('.dyn_list .bc-card').each(function (index1) {
+		$('.dyn_list .bc-card').each(function(index1) {
 			let bcIndex = index1 + 1;
 			$(this).attr("data-index", bcIndex);
 			$(this).find('.bc-card-seq').text(bcIndex);
@@ -5933,7 +5937,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	function calculateCheckout(count) {
 		var totalDuration = <?php echo $object_det[0]['no_of_night']; ?>;
 		var sum = 0;
-		$(".no_of_night").each(function () {
+		$(".no_of_night").each(function() {
 			let nights = parseInt($(this).val()) || 0; // Ensure numeric value
 			sum += nights;
 		});
@@ -5952,7 +5956,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			checkoutField.value = checkoutDate;
 
 			// Update checkin for all locations after the current one
-			$('.tour_plan_div .location-card').each(function (index) {
+			$('.tour_plan_div .location-card').each(function(index) {
 				if (index >= count) {
 					var nextIndex = index + 1;
 					var nextCheckinField = document.getElementById(`checkin${nextIndex}`);
@@ -5966,7 +5970,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	}
 </script>
 <script>
-	$(document).on('change', '.hotel_change', function () {
+	$(document).on('change', '.hotel_change', function() {
 		var hotel_id = $(this).val();
 		var id = $(this).attr('data-id');
 		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
@@ -5980,7 +5984,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				no_of_double_room: no_of_double_room,
 				no_of_single_room: no_of_single_room
 			},
-			success: function (data) {
+			success: function(data) {
 				// Extract the HTML output from the JSON response
 				$('#roomcat' + id).html(data.output);
 
@@ -5996,7 +6000,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			data: {
 				hotel_id: hotel_id,
 			},
-			success: function (data) {
+			success: function(data) {
 				$('#hotfac' + id).html(data);
 				$('#hotfac' + id).trigger('change');
 			}
@@ -6005,7 +6009,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script>
-	$(document).on('change', '.hotel_change_draft', function () {
+	$(document).on('change', '.hotel_change_draft', function() {
 		var hotel_id = $(this).val();
 		var id = $(this).attr('data-id');
 		var rid = $(this).attr('data-rid');
@@ -6020,7 +6024,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				no_of_double_room: no_of_double_room,
 				no_of_single_room: no_of_single_room
 			},
-			success: function (data) {
+			success: function(data) {
 				$('#roomcat' + id).html(data);
 			}
 		});
@@ -6031,7 +6035,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			data: {
 				hotel_id: hotel_id,
 			},
-			success: function (data) {
+			success: function(data) {
 				$('#hotfac' + id).html(data);
 				$('#hotfac' + id).trigger('change');
 			}
@@ -6040,7 +6044,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script>
-	$(document).on('change', '.hotel_cat_change', function () {
+	$(document).on('change', '.hotel_cat_change', function() {
 		var hotel_cat_id = $(this).val();
 		var id = $(this).attr('data-id');
 		var tour_location_id = $('#tour_location_id' + id).val();
@@ -6053,7 +6057,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				is_quick_quote: is_quick_quote,
 				tour_location_id: tour_location_id
 			},
-			success: function (data) {
+			success: function(data) {
 				$('#hotelid' + id).html(data);
 				$('#roomcat' + id).empty().append('<option value="">Select</option>');
 				$('#hotelid' + id).trigger('change');
@@ -6062,7 +6066,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script>
-	$(document).on('change', '.hotel_cat_change_draft', function () {
+	$(document).on('change', '.hotel_cat_change_draft', function() {
 		var hotel_cat_id = $(this).val();
 		var id = $(this).attr('data-id');
 		var hid = $(this).attr('data-hid');
@@ -6077,7 +6081,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				tour_location_id: tour_location_id,
 				hid: hid
 			},
-			success: function (data) {
+			success: function(data) {
 				$('#hotelid' + id).html(data);
 				$('#roomcat' + id).empty().append('<option value="">Select</option>');
 				$('#hotelid' + id).trigger('change');
@@ -6342,7 +6346,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script> -->
 <script>
-	$(document).on('change', '.room_cat_change', function () {
+	$(document).on('change', '.room_cat_change', function() {
 		var iti_edit_id = <?php echo isset($iti_edit_id) && $iti_edit_id !== '' ? $iti_edit_id : 0; ?>;
 		var id = $(this).attr('data-id');
 		var sid = $(this).attr('data-sid');
@@ -6360,7 +6364,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			var selectedRoomCat = $row.find('.room_cat').val();
 			var isDuplicate = false;
 
-			$('[data-index="' + dataIndex + '"] .dynamic-added').each(function () {
+			$('[data-index="' + dataIndex + '"] .dynamic-added').each(function() {
 				var rowId = $(this).attr('id');
 				if (rowId !== currentId) {
 					var hotel = $(this).find('.hotel').val();
@@ -6432,7 +6436,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 							tour_date: tour_date
 						},
 						dataType: 'json',
-						success: function (data) {
+						success: function(data) {
 							var ndouble = parseInt(double);
 							var nsingle = parseInt(single);
 							var room_r = parseInt(data.d_room_tariff || 0);
@@ -6536,14 +6540,14 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				// Get all double room inputs
 				var doubleInputs = $locationCard.find('input[id^="double_' + dataIndex + '_"], #double' + dataIndex);
 				var totalDoubleRooms = 0;
-				doubleInputs.each(function () {
+				doubleInputs.each(function() {
 					totalDoubleRooms += parseInt($(this).val() || 0);
 				});
 
 				// Get all single room inputs
 				var singleInputs = $locationCard.find('input[id^="single_' + dataIndex + '_"], #single' + dataIndex);
 				var totalSingleRooms = 0;
-				singleInputs.each(function () {
+				singleInputs.each(function() {
 					totalSingleRooms += parseInt($(this).val() || 0);
 				});
 
@@ -6561,7 +6565,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 						tour_date: tour_date
 					},
 					dataType: 'json',
-					success: function (data) {
+					success: function(data) {
 						var room_r = parseInt(data.d_room_tariff || 0);
 						var child_r = parseInt(data.d_child_tariff || 0);
 						var child_wb_r = parseInt(data.d_child_wb_tariff || 0);
@@ -6577,7 +6581,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 							var remaining_cw = no_of_cw;
 							var remaining_extra = no_of_extra;
 
-							doubleInputs.each(function (index) {
+							doubleInputs.each(function(index) {
 								var $currentRow = $(this).closest('.row');
 								var roomCount = parseInt($(this).val() || 0);
 
@@ -6721,7 +6725,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	$('#modal_tour').modal('show');
 	});*/
 
-	$(document).on('click', '.tour_view', function () {
+	$(document).on('click', '.tour_view', function() {
 		var enquiry_header_id = <?php echo $object_det[0]['enquiry_header_id']; ?>;
 		var enquiry_details_id = <?php echo $object_det[0]['enquiry_details_id']; ?>;
 		var hotel_categories = <?php echo json_encode($hotel_categories); ?>;
@@ -6772,11 +6776,11 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				enquiry_details_id: enquiry_details_id
 			},
 			dataType: 'json',
-			success: function (response) {
+			success: function(response) {
 				// Clear existing location cards if necessary
 
 				var newCard = ``;
-				$.each(response, function (index, item) {
+				$.each(response, function(index, item) {
 					// Create a new location card element
 					var vehicleDetails = JSON.parse(item.vehicle_details);
 					var count = index + 1;
@@ -6800,7 +6804,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					if (item.meal_plan_id == 4) {
 						ap_sel = "selected";
 					}
-					$.each(item.cost, function (index1, item3) {
+					$.each(item.cost, function(index1, item3) {
 						if ((item3.cost_component_id == "6" || item3.cost_component_id == "7") && item3.room_type_id == "2") {
 							room_t_d = item3.quick_quote_tariff;
 						}
@@ -7023,8 +7027,8 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					}
 					if (is_vehicle_required == 1) {
 
-						$.each(vehicle_models, function (vindex, vmodel) {
-							$.each(vehicleDetails, function (v_index, v_item) {
+						$.each(vehicle_models, function(vindex, vmodel) {
+							$.each(vehicleDetails, function(v_index, v_item) {
 								if (vmodel.vehicle_type_id == v_item.veh_type_id) {
 									vid_t = count + vmodel.vehicle_type_id;
 									v_day_rent = v_item.day_rent;
@@ -7124,7 +7128,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 						</div>
 						
 					`;
-					setTimeout(function () {
+					setTimeout(function() {
 						var hotelCat = $('#hotelcat' + count);
 						console.log("Dropdown found?", hotelCat.length);
 
@@ -7132,7 +7136,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 							hotelCat.empty();
 							hotelCat.append('<option value="">Select</option>');
 
-							$.each(hotel_categories, function (hIndex, hotelcat) {
+							$.each(hotel_categories, function(hIndex, hotelcat) {
 								var selected = (hotelcat.hotel_category_id == item.hot_cat_id) ? "selected" : "";
 								hotelCat.append('<option value="' + hotelcat.hotel_category_id + '" ' + selected + '>' + hotelcat.hotel_category_name + '</option>');
 							});
@@ -7148,7 +7152,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				$('.tab_con').html(newCard);
 				$('#modal_tour').modal('show');
 			},
-			error: function (xhr, status, error) {
+			error: function(xhr, status, error) {
 				console.error(error);
 			}
 		});
@@ -7156,7 +7160,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script type="text/javascript">
-	$(document).on('click', '.qq_view', function (e) {
+	$(document).on('click', '.qq_view', function(e) {
 		e.preventDefault();
 		var tourPlanDet = <?php echo json_encode($tour_plan_det); ?>;
 		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
@@ -7192,7 +7196,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		var veh_totals;
 		var extra_cost;
 		var ttc = 0;
-		$.each(room_types, function (index1, item1) {
+		$.each(room_types, function(index1, item1) {
 			if (parseInt(item1.double) > 0) {
 				rt_count += 1;
 				no_of_double = item1.double;
@@ -7237,7 +7241,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 		html += '<th> Total </th>';
 		html += '</tr>';
-		$.each(quick_quote_det, function (index, item) {
+		$.each(quick_quote_det, function(index, item) {
 			sino = index + 1;
 			rts = JSON.parse(item.room_type);
 			html += '<tr>';
@@ -7282,10 +7286,10 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				html += '<td rowspan="' + rt_count + '">' + item.no_of_child_with_bed + '</td>';
 				html += '<td rowspan="' + rt_count + '">' + item.no_of_child_without_bed + '</td>';
 				html += '<td rowspan="' + rt_count + '">' + item.no_of_extra_bed + '</td>';
-				$.each(rts, function (index2, item2) {
+				$.each(rts, function(index2, item2) {
 					if (item2.double > 0) {
 						html += '<td>Double</td>';
-						$.each(item.cost, function (index3, item3) {
+						$.each(item.cost, function(index3, item3) {
 							if (item3.cost_component_id == "6" && item3.room_type_id == "2") {
 								room_t_d = item3.quick_quote_tariff;
 							}
@@ -7316,7 +7320,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					html += '<tr>';
 					if (item2.single > 0) {
 						html += '<td>Single</td>';
-						$.each(item.cost, function (index3, item3) {
+						$.each(item.cost, function(index3, item3) {
 							if (item3.cost_component_id == "6" && item3.room_type_id == "1") {
 								room_t_s = item3.quick_quote_tariff;
 							}
@@ -7367,7 +7371,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			html += '<th> Total </th>';
 			html += '</tr>';
 			var vehicleDetails;
-			$.each(quick_quote_det, function (index5, item5) {
+			$.each(quick_quote_det, function(index5, item5) {
 				sino = index5 + 1;
 				vehicleDetails = JSON.parse(item5.vehicle_details);
 				html += '<tr>';
@@ -7376,7 +7380,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				html += '<td rowspan="' + vehicle_details.length + '">' + item5.check_in_date + '</td>';
 				html += '<td rowspan="' + vehicle_details.length + '">' + item5.no_of_days + '</td>';
 				html += '<td rowspan="' + vehicle_details.length + '">' + item5.check_out_date + '</td>';
-				$.each(vehicleDetails, function (indexv, itemv) {
+				$.each(vehicleDetails, function(indexv, itemv) {
 					extra_cost = parseInt(itemv.extra_kilometer) * parseInt(itemv.extra_km_rate);
 					veh_totals = (parseInt(itemv.vehicle_count) * parseInt(itemv.day_rent)) * parseInt(item5.no_of_days);
 					veh_total = veh_totals + extra_cost;
@@ -7427,7 +7431,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		/***********child */
 		let currentChildVal = parseInt($('#no_of_ch' + id).val()) || 0;
 		let totalChildUsed = 0;
-		$('[data-index="' + dataIndex + '"] input[id^="no_of_ch"]').each(function () {
+		$('[data-index="' + dataIndex + '"] input[id^="no_of_ch"]').each(function() {
 			let rowIdch = $(this).attr('id').replace('no_of_ch', '');
 			let valch = parseInt($(this).val()) || 0;
 			if (rowIdch !== id) {
@@ -7445,7 +7449,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		/***********child Without bed*/
 		let currentChildwbVal = parseInt($('#no_of_cw' + id).val()) || 0;
 		let totalChildwbUsed = 0;
-		$('[data-index="' + dataIndex + '"] input[id^="no_of_cw"]').each(function () {
+		$('[data-index="' + dataIndex + '"] input[id^="no_of_cw"]').each(function() {
 			let rowIdchw = $(this).attr('id').replace('no_of_cw', '');
 			let valchw = parseInt($(this).val()) || 0;
 			if (rowIdchw !== id) {
@@ -7463,7 +7467,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		/***********Extra bed*/
 		let currentExtraVal = parseInt($('#no_of_extra' + id).val()) || 0;
 		let totalExtraUsed = 0;
-		$('[data-index="' + dataIndex + '"] input[id^="no_of_extra"]').each(function () {
+		$('[data-index="' + dataIndex + '"] input[id^="no_of_extra"]').each(function() {
 			let rowIde = $(this).attr('id').replace('no_of_extra', '');
 			let vale = parseInt($(this).val()) || 0;
 			if (rowIde !== id) {
@@ -7481,7 +7485,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		let currentDoubleVal = parseInt($('#double' + id).val()) || 0;
 		let currentSingleVal = parseInt($('#single' + id).val()) || 0;
 		let totalDoubleUsed = 0;
-		$('[data-index="' + dataIndex + '"] input[id^="double"]').each(function () {
+		$('[data-index="' + dataIndex + '"] input[id^="double"]').each(function() {
 			let rowIdd = $(this).attr('id').replace('double', '');
 			let vald = parseInt($(this).val()) || 0;
 			if (rowIdd !== id) {
@@ -7496,7 +7500,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		}
 
 		let totalSingleUsed = 0;
-		$('[data-index="' + dataIndex + '"] input[id^="single"]').each(function () {
+		$('[data-index="' + dataIndex + '"] input[id^="single"]').each(function() {
 			let rowIds = $(this).attr('id').replace('single', '');
 			let vals = parseInt($(this).val()) || 0;
 			if (rowIds !== id) {
@@ -7550,7 +7554,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		setTimeout(() => calculateGrandTotal(dataIndex), 300);
 
 	}
-	$(document).on('input', '[id^="double"],[id^="single"],[id^="no_of_ch"],[id^="no_of_cw"],[id^="no_of_extra"],[id^="d_adult_rate"], [id^="d_child_rate"], [id^="d_child_wb_rate"], [id^="d_extra_bed_rate"], [id^="s_adult_rate"], [id^="s_child_rate"], [id^="s_child_wb_rate"], [id^="s_extra_bed_rate"]', function () {
+	$(document).on('input', '[id^="double"],[id^="single"],[id^="no_of_ch"],[id^="no_of_cw"],[id^="no_of_extra"],[id^="d_adult_rate"], [id^="d_child_rate"], [id^="d_child_wb_rate"], [id^="d_extra_bed_rate"], [id^="s_adult_rate"], [id^="s_child_rate"], [id^="s_child_wb_rate"], [id^="s_extra_bed_rate"]', function() {
 		//var id = this.id.replace(/^[a-z_]+/, '');
 		if ($(this).val() === '' || $(this).val() === null) {
 			$(this).val(0);
@@ -7585,7 +7589,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
 		$('#g_total').text(g_total);
 	}
-	$(document).on('input', '[id^="no_of_night"]', function () {
+	$(document).on('input', '[id^="no_of_night"]', function() {
 		var id = this.id.match(/\d+/)[0];
 		var no_of_nights = <?php echo $object_det[0]['no_of_night']; ?>;
 		var totalNights = calculateTotalNights();
@@ -7602,7 +7606,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script type="text/javascript">
-	$(document).on('keyup', '.cls_daily', function (e) {
+	$(document).on('keyup', '.cls_daily', function(e) {
 		var id = $(this).attr('data-id');
 		var cid = $(this).attr('data-cid');
 
@@ -7632,7 +7636,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script type="text/javascript">
-	$(document).on('keyup', '.cls_dist', function (e) {
+	$(document).on('keyup', '.cls_dist', function(e) {
 		var id = $(this).attr('data-id');
 		var cid = $(this).attr('data-cid');
 		var extra_klm = 0;
@@ -7670,7 +7674,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script>
-	$(document).on('change', '.mp_change', function () {
+	$(document).on('change', '.mp_change', function() {
 		var id = $(this).attr('data-id');
 		var no_of_night = $('#no_of_night' + id)
 		var room_cat_id = $('#roomcat' + id).val();
@@ -7711,7 +7715,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					vehicle_models: vehicle_models
 				},
 				dataType: 'json',
-				success: function (data) {
+				success: function(data) {
 					//if(data.length > 0){
 					var no_of_ch = parseInt($('#no_of_ch' + id).val()) || 0;
 					var no_of_cw = parseInt($('#no_of_cw' + id).val()) || 0;
@@ -7742,7 +7746,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 					var veh_grand_tot = 0;
 					if (data.vehicles.length > 0) {
-						$.each(data.vehicles, function (index, item) {
+						$.each(data.vehicles, function(index, item) {
 							vid = id + item.vehicle_type_id;
 							veh_total = (parseInt(item.vehicle_count) * parseInt(item.rate_per_day)) * parseInt(no_of_night);
 							$('#day_rent' + vid).val(item.rate_per_day);
@@ -7771,7 +7775,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script>
-	$(document).on('click', '.save_location', function () {
+	$(document).on('click', '.save_location', function() {
 		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
 		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
 		var is_quick_quote = <?php echo $object_det[0]['is_quick_quote'] ? $object_det[0]['is_quick_quote'] : 0; ?>;
@@ -7801,7 +7805,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			"single": no_of_single_room
 		}];
 		var pre_vehicle_details = [];
-		$.each(vehicle_models, function (veh_index, veh_model) {
+		$.each(vehicle_models, function(veh_index, veh_model) {
 			var vid = id + veh_model.vehicle_type_id;
 			var pre_veh_model = $('#veh_model' + vid).val();
 			var pre_veh_count = $('#veh_count' + vid).val();
@@ -7848,10 +7852,10 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				enterprise_id: 1
 			},
 			dataType: 'json',
-			success: function (data) {
+			success: function(data) {
 				alert("updated");
 			},
-			error: function (xhr, status, error) {
+			error: function(xhr, status, error) {
 				console.error(error);
 			}
 		});
@@ -7860,14 +7864,14 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 <script>
 	// Set saved values on page load
-	$(document).ready(function () {
+	$(document).ready(function() {
 		<?php if (!empty($saved_ss_ids)) { ?>
 			$('#sight<?php echo $iti_id; ?>').val(<?php echo json_encode($saved_ss_ids); ?>).trigger('change');
 		<?php } ?>
 	});
 </script>
 <script>
-	$(document).on('click', '.draft_view', function () {
+	$(document).on('click', '.draft_view', function() {
 		var enquiry_header_id = <?php echo $object_det[0]['enquiry_header_id']; ?>;
 		var enquiry_details_id = <?php echo $object_det[0]['enquiry_details_id']; ?>;
 		var hotel_categories = <?php echo json_encode($hotel_categories); ?>;
@@ -7918,12 +7922,12 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				enquiry_details_id: enquiry_details_id
 			},
 			dataType: 'json',
-			success: function (response) {
+			success: function(response) {
 				// Clear existing location cards if necessary
 				$('.tour_plan_div').empty();
 				var newCard = ``;
 				var breadcrumb = ``;
-				$.each(response, function (index, item) {
+				$.each(response, function(index, item) {
 					// Create a new location card element
 					var vehicleDetails = JSON.parse(item.vehicle_details);
 					var count = index + 1;
@@ -7954,7 +7958,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 						ap_sel = "selected";
 					}
 
-					$.each(item.cost, function (index1, item3) {
+					$.each(item.cost, function(index1, item3) {
 						var vtots = 0;
 						if ((item3.cost_component_id == "6" || item3.cost_component_id == "7") && item3.room_type_id == "2") {
 							room_t_d = item3.quick_quote_tariff;
@@ -8157,9 +8161,9 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					}
 					if (is_vehicle_required == 1) {
 						vtots = 0;
-						$.each(vehicle_models, function (vindex, vmodel) {
+						$.each(vehicle_models, function(vindex, vmodel) {
 
-							$.each(vehicleDetails, function (v_index, v_item) {
+							$.each(vehicleDetails, function(v_index, v_item) {
 								if (vmodel.vehicle_type_id == v_item.veh_type_id) {
 									vid_t = count + vmodel.vehicle_type_id;
 									v_day_rent = v_item.day_rent;
@@ -8280,7 +8284,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 					$('.dyn_list').html(breadcrumb);
 
-					setTimeout(function () {
+					setTimeout(function() {
 						var hotelCat = $('#hotelcat' + count);
 						console.log("Dropdown found?", hotelCat.length);
 
@@ -8288,7 +8292,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 							hotelCat.empty();
 							hotelCat.append('<option value="">Select</option>');
 
-							$.each(hotel_categories, function (hIndex, hotelcat) {
+							$.each(hotel_categories, function(hIndex, hotelcat) {
 								var selected = (hotelcat.hotel_category_id == item.hot_cat_id) ? "selected" : "";
 								hotelCat.append('<option value="' + hotelcat.hotel_category_id + '" ' + selected + '>' + hotelcat.hotel_category_name + '</option>');
 							});
@@ -8312,7 +8316,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 				updateSequenceNumbers();
 			},
-			error: function (xhr, status, error) {
+			error: function(xhr, status, error) {
 				console.error(error);
 			}
 		});
@@ -8322,7 +8326,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 <script>
 	function get_accom_grand_total() {
 		var grand_tot = 0;
-		$('.tour_plan_div .location-card').each(function (index) {
+		$('.tour_plan_div .location-card').each(function(index) {
 			let id = index + 1;
 
 			var double_value = parseInt($('#d_total_rate' + id).val());
@@ -8341,10 +8345,10 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		var id;
 		var grand_tot = 0;
 		var vsum;
-		$('.tour_plan_div .location-card').each(function (index) {
+		$('.tour_plan_div .location-card').each(function(index) {
 			id = index + 1;
 			vsum = 0;
-			$.each(vehicle_models, function (veh_index, veh_model) {
+			$.each(vehicle_models, function(veh_index, veh_model) {
 				vid = id + veh_model.vehicle_type_id;
 				vsum = vsum + parseInt($('#veh_total' + vid).val());
 			});
@@ -8360,11 +8364,11 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		var id;
 		var grand_tot = 0;
 		var vsum;
-		$('.tour_plan_div .location-card').each(function (index) {
+		$('.tour_plan_div .location-card').each(function(index) {
 			id = index + 1;
 			if (id == idt) {
 				vsum = 0;
-				$.each(vehicle_models, function (veh_index, veh_model) {
+				$.each(vehicle_models, function(veh_index, veh_model) {
 					vid = id + veh_model.vehicle_type_id;
 					vsum = vsum + parseInt($('#veh_total' + vid).val());
 				});
@@ -8376,7 +8380,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 	function get_accom_grand_total_byloc(idt) {
 		var grand_tot = 0;
-		$('.tour_plan_div .location-card').each(function (index) {
+		$('.tour_plan_div .location-card').each(function(index) {
 			let id = index + 1;
 			if (id == idt) {
 				var double_value = parseInt($('#d_total_rate' + id).val());
@@ -8390,7 +8394,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script>
-	$(document).on('click', '.load_vehs_click', function () {
+	$(document).on('click', '.load_vehs_click', function() {
 		var id = $(this).attr('data-id');
 		var no_of_night = $('#no_of_night' + id).val();
 		var checkin = $('#checkin' + id).val();
@@ -8443,7 +8447,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					previous_location_id: previous_location_id
 				},
 				dataType: 'json',
-				success: function (data) {
+				success: function(data) {
 					console.log(data);
 					//if(data.length > 0){
 					var total_double = parseInt($('#d_total_rate' + id).val());
@@ -8469,7 +8473,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					var veh_grand_tot = 0;
 					if (data.vehicles.length > 0) {
 
-						$.each(data.vehicles, function (index, item) {
+						$.each(data.vehicles, function(index, item) {
 							if (parseInt(data.total_distance, 10) > parseInt(item.max_km_day, 10)) {
 								extra_klm = parseInt(data.total_distance) - parseInt(item.max_km_day);
 							} else {
@@ -8506,7 +8510,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script>
-	$(document).on('change', '.hotel_fac_change', function () {
+	$(document).on('change', '.hotel_fac_change', function() {
 		var facility_ids = $(this).val(); // array of selected facility ids
 		var id = $(this).attr('data-id');
 
@@ -8518,7 +8522,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					facility_ids: facility_ids
 				},
 				dataType: 'json',
-				success: function (data) {
+				success: function(data) {
 					var total = 0;
 					if (data.length > 0) {
 						for (var i = 0; i < data.length; i++) {
@@ -8527,7 +8531,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 					}
 					$('#fac_rate' + id).val(total);
 				},
-				error: function (xhr, status, error) {
+				error: function(xhr, status, error) {
 					console.error("Tariff fetch error:", error);
 					$('#fac_rate' + id).val(0);
 				}
@@ -8540,7 +8544,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		// Define a reusable function
 		function toggleVehicleFields(checkbox) {
 			var isChecked = $(checkbox).is(':checked');
@@ -8556,7 +8560,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				'#veh_total' + vid
 			];
 
-			fields.forEach(function (selector) {
+			fields.forEach(function(selector) {
 				$(selector).prop('disabled', !isChecked);
 				$(selector).css('background-color', isChecked ? '#ffffff' : '#669999');
 			});
@@ -8565,14 +8569,14 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		}
 
 		// Trigger on checkbox change
-		$(document).on('change', '.chk_vehicle', function () {
+		$(document).on('change', '.chk_vehicle', function() {
 			toggleVehicleFields(this);
 		});
 
 		// Call once on document ready for all .chk_vehicle checkboxes
 		var itinerary_details_draft = <?php echo json_encode($itinerary_details_draft); ?>;
 		if (Array.isArray(itinerary_details_draft) && itinerary_details_draft.length > 0) {
-			$('.chk_vehicle').each(function () {
+			$('.chk_vehicle').each(function() {
 				toggleVehicleFields(this);
 				var vid = $(this).attr('data-id');
 				setTimeout(() => calculateGrandTotal(vid), 300);
@@ -8584,7 +8588,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 <script>
 	function updateTotalAccommodationCost() {
-		setTimeout(function () {
+		setTimeout(function() {
 			let totalAccommodationCost = 0;
 			let totalTransportationCost = 0;
 			let specialEventTotal = 0;
@@ -8595,7 +8599,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			// Sum all visible and hidden fac_rate inputs
 
 
-			$('input[id^="travel_distance"]').each(function () {
+			$('input[id^="travel_distance"]').each(function() {
 				travel_distanceCost += parseInt($(this).val()) || 0;
 			});
 
@@ -8604,7 +8608,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			// });
 			//NJ//
 			// Sum all visible and hidden total inputs
-			$('input[id^="acc_total"]').each(function () {
+			$('input[id^="acc_total"]').each(function() {
 				totalAccommodationCost += parseFloat($(this).val()) || 0;
 			});
 			// Update the span
@@ -8615,7 +8619,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			$('#tac_hidden').val(totalAccommodationCost);
 			$('#a_total').text(totalAccommodationCost);
 
-			$('input.chk_vehicle:checked').each(function () {
+			$('input.chk_vehicle:checked').each(function() {
 				const vid = $(this).val();
 				const vehTotal = parseFloat($('#veh_total' + vid).val()) || 0;
 				totalTransportationCost += vehTotal;
@@ -8627,13 +8631,13 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			$('#ttc_hidden').val(totalTransportationCost);
 			$('#v_total').text(totalTransportationCost);
 
-			$('input[id^="spcl_tariff"]').each(function () {
+			$('input[id^="spcl_tariff"]').each(function() {
 				specialEventTotal += parseFloat($(this).val()) || 0;
 			});
 			$('#spcl_span').text(specialEventTotal);
 			$('#spcl_hidden').val(specialEventTotal);
 
-			$('input[id^="daily_addon"]').each(function () {
+			$('input[id^="daily_addon"]').each(function() {
 				dailyAddonTotal += parseFloat($(this).val()) || 0;
 			});
 			$('#daily_span').text(dailyAddonTotal);
@@ -8657,7 +8661,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			$('#round_off_hidden_pp').val((round_off_bifur / total_no_of_pax_bifur));
 			/*********************Bifur********************/
 
-			$('input.grand_total').each(function () {
+			$('input.grand_total').each(function() {
 				totalNetRate += parseFloat($(this).val()) || 0;
 			});
 			totalNetRate += parseFloat($('#extraklm_hidden').val()) || 0;
@@ -8677,7 +8681,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 		if ($scope.length) {
 			// 1. Checked vehicle totals within this vid
-			$scope.find('.chk_vehicle:checked').each(function () {
+			$scope.find('.chk_vehicle:checked').each(function() {
 				const v = $(this).val();
 				const vehTotal = parseFloat($('#veh_total' + v).val()) || 0;
 				console.log(`Vehicle ${v} total: ${vehTotal}`); // Debug log
@@ -8685,7 +8689,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			});
 
 			// 2. acc_total (accommodation)
-			$scope.find('input[id^="acc_total"]').each(function () {
+			$scope.find('input[id^="acc_total"]').each(function() {
 				total += parseFloat($(this).val()) || 0;
 			});
 
@@ -8695,12 +8699,12 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			total += ssGrandTotal;
 
 			// 4. spcl_tariff (special tariff)
-			$scope.find('input[id^="spcl_tariff"]').each(function () {
+			$scope.find('input[id^="spcl_tariff"]').each(function() {
 				total += parseFloat($(this).val()) || 0;
 			});
 
 			// 5. daily_addon
-			$scope.find('input[id^="daily_addon"]').each(function () {
+			$scope.find('input[id^="daily_addon"]').each(function() {
 				total += parseFloat($(this).val()) || 0;
 			});
 
@@ -8713,14 +8717,14 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 		// Update overall totals
 		updateTotalAccommodationCost();
-		setTimeout(function () {
+		setTimeout(function() {
 			updateMarginTotal();
 			updateTourAddonTotal();
 			updateGSTandTotalPackageCost();
 		}, 300);
 	}
 	//NJ//
-	$(document).on('input change', 'input[id^="no_of_ch"], input[id^="no_of_cw"], input[id^="no_of_extra"]', function () {
+	$(document).on('input change', 'input[id^="no_of_ch"], input[id^="no_of_cw"], input[id^="no_of_extra"]', function() {
 		var dataIndex = $(this).closest('[data-index]').data('index');
 		var $locationCard = $('.location-card[data-index="' + dataIndex + '"]');
 
@@ -8734,7 +8738,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 
 	// Recalculate when room rates change manually
-	$(document).on('input change', 'input[id^="d_adult_rate"], input[id^="d_child_rate"], input[id^="d_child_wb_rate"], input[id^="d_extra_bed_rate"], input[id^="s_adult_rate"]', function () {
+	$(document).on('input change', 'input[id^="d_adult_rate"], input[id^="d_child_rate"], input[id^="d_child_wb_rate"], input[id^="d_extra_bed_rate"], input[id^="s_adult_rate"]', function() {
 		var dataIndex = $(this).closest('[data-index]').data('index');
 		var $locationCard = $('.location-card[data-index="' + dataIndex + '"]');
 
@@ -8749,7 +8753,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 		// Get all double room rows
 		var doubleRows = $locationCard.find('.double_row');
-		doubleRows.each(function () {
+		doubleRows.each(function() {
 			var $row = $(this);
 			var roomInput = $row.find('input[id^="double"]');
 
@@ -8784,7 +8788,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 		// Calculate single room total
 		var singleRows = $locationCard.find('.single_row');
-		singleRows.each(function () {
+		singleRows.each(function() {
 			var $row = $(this);
 			var roomInput = $row.find('input[id^="single"]');
 
@@ -8812,7 +8816,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 
 	// Recalculate when facility rate changes
-	$(document).on('input change', 'input[id^="fac_rate"]', function () {
+	$(document).on('input change', 'input[id^="fac_rate"]', function() {
 		var dataIndex = $(this).closest('[data-index]').data('index');
 		setTimeout(() => {
 			calculateGrandTotal(dataIndex);
@@ -8821,7 +8825,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 
 	// Recalculate when special tariff changes
-	$(document).on('input change', 'input[id^="spcl_tariff"]', function () {
+	$(document).on('input change', 'input[id^="spcl_tariff"]', function() {
 		var dataIndex = $(this).closest('[data-index]').data('index');
 		setTimeout(() => {
 			calculateGrandTotal(dataIndex);
@@ -8830,7 +8834,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 
 	// Recalculate when daily addon changes
-	$(document).on('input change', 'input[id^="daily_addon"], input[id^="permit"]', function () {
+	$(document).on('input change', 'input[id^="daily_addon"], input[id^="permit"]', function() {
 		var dataIndex = $(this).closest('[data-index]').data('index');
 		setTimeout(() => {
 			calculateGrandTotal(dataIndex);
@@ -8838,65 +8842,65 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		}, 300);
 	});
 	//////
-	$(document).on('change', '.hotel_fac_change', function () {
+	$(document).on('change', '.hotel_fac_change', function() {
 		var vid = $(this).attr('data-id');
 		var dataIndex = $(this).closest('[data-index]').data('index');
 		setTimeout(() => calculateGrandTotal(dataIndex), 300);
 	});
 
-	$(document).on('click', '.chk_vehicle', function () {
+	$(document).on('click', '.chk_vehicle', function() {
 		var vid = $(this).attr('data-id');
 		setTimeout(() => calculateGrandTotal(vid), 300);
 	});
 
-	$(document).on('change', '.ss_change', function () {
+	$(document).on('change', '.ss_change', function() {
 		var vid = $(this).data('id');
 		setTimeout(() => calculateGrandTotal(vid), 300);
 	});
 
-	$(document).on('input', 'input[id^="ss_distance"]', function () {
+	$(document).on('input', 'input[id^="ss_distance"]', function() {
 		var vid = $(this).attr('id').replace('ss_distance', '');
 		setTimeout(() => calculateGrandTotal(vid), 300);
 	});
 
-	$(document).on('input', 'input[id^="spcl_tariff"]', function () {
+	$(document).on('input', 'input[id^="spcl_tariff"]', function() {
 		var vid = $(this).attr('id').replace('spcl_tariff', '');
 		setTimeout(() => calculateGrandTotal(vid), 300);
 	});
 
-	$(document).on('input', 'input[id^="spcl_tariff"]', function () {
-		$('input[id^="spcl_tariff"]').each(function () {
+	$(document).on('input', 'input[id^="spcl_tariff"]', function() {
+		$('input[id^="spcl_tariff"]').each(function() {
 			var vid = $(this).attr('id').replace('spcl_tariff', '');
 			setTimeout(() => calculateGrandTotal(vid), 300);
 		});
 	});
 
-	$(document).on('input', 'input[id^="daily_addon"]', function () {
+	$(document).on('input', 'input[id^="daily_addon"]', function() {
 		var vid = $(this).attr('id').replace('daily_addon', '');
 		setTimeout(() => calculateGrandTotal(vid), 300);
 	});
 
-	$(document).on('input', 'input[id^="travel_distance"]', function () {
+	$(document).on('input', 'input[id^="travel_distance"]', function() {
 		var vid = $(this).attr('id').replace('travel_distance', '');
 		setTimeout(() => calculateGrandTotal(vid), 300);
 	});
 </script>
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 
-		$("#btn_savedraft_iti_plan").click(function () {
+		$("#btn_savedraft_iti_plan").click(function() {
 			$("#submit_type").val("draft");
 		});
 
-		$("#btn_save_iti_plan").click(function () {
+		$("#btn_save_iti_plan").click(function() {
 			$("#submit_type").val("final");
 		});
 
 	});
 </script>
 <script>
-	$(document).ready(function () {
-		$(document).on('change', '.chk_vehicle', function () {
+	$(document).ready(function() {
+		$(document).on('change', '.chk_vehicle', function() {
 			let isChecked = $(this).is(':checked');
 			let checkboxName = $(this).attr('name');
 			let hiddenName = checkboxName.replace('chk_vehicle', 'chk_vehicle_hidden');
@@ -8908,21 +8912,21 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		var lastTourDetailsId = "<?= end($tour_plan_det)['tour_details_id']; ?>";
 
 		var lastInnerTabId = "<?php
-		$last = end($tour_plan_det);
-		$start = new DateTime($last['check_in_date']);
-		$end = new DateTime($last['check_out_date']);
-		$end->modify('+1 day');
-		$lastInner = '';
-		while ($start < $end) {
-			$lastInner = $last['tour_details_id'] . '_' . $start->format('d-m-Y');
-			$start->modify('+1 day');
-		}
-		echo $lastInner;
-		?>";
+								$last = end($tour_plan_det);
+								$start = new DateTime($last['check_in_date']);
+								$end = new DateTime($last['check_out_date']);
+								$end->modify('+1 day');
+								$lastInner = '';
+								while ($start < $end) {
+									$lastInner = $last['tour_details_id'] . '_' . $start->format('d-m-Y');
+									$start->modify('+1 day');
+								}
+								echo $lastInner;
+								?>";
 
 		function toggleFinalSaveButton() {
 			const activeOuter = $('.tabs-menu1 .nav a.active').attr('href');
@@ -8960,7 +8964,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		$('#tpc').val(parseInt(tpc));
 	}
 
-	$(document).on('input', '#margin_value', function () {
+	$(document).on('input', '#margin_value', function() {
 		updateMarginTotal();
 	});
 
@@ -8994,7 +8998,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		//$('#tpc').val(tpc);
 		$('#tpc').val(parseInt(tpc));
 	}
-	$(document).on('input', '#tour_addon_value', function () {
+	$(document).on('input', '#tour_addon_value', function() {
 		updateTourAddonTotal();
 	});
 
@@ -9007,13 +9011,13 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		//$('#tpc').val(totalPackageCost);
 		$('#tpc').val(parseInt(totalPackageCost));
 	}
-	$(document).on('change', '#gst_value', function () {
+	$(document).on('change', '#gst_value', function() {
 		updateGSTandTotalPackageCost();
 	});
 </script>
 
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 		var i = 0;
 		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
 		var no_of_adult = <?php echo $object_det[0]['no_of_adult']; ?>;
@@ -9030,7 +9034,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			var read_only = "";
 			var dis_abled = "";
 		}
-		$('.add_hotel').on('click', function () {
+		$('.add_hotel').on('click', function() {
 
 			var $btn = $(this);
 			var sequenceAttr = $btn.attr('data-sequence');
@@ -9069,7 +9073,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			html += '<div class="teams-rank"><b>Hotel</b></div>';
 			html += '<select id="hotelid' + id + '" name="hotel_additi[' + i + '][hotelid]" data-id="' + id + '" class="form-control input-sm hotel_change hotel" required ' + dis_abled + '>';
 			html += '<option value="">Select</option>';
-			$.each(hlist, function (index, item) {
+			$.each(hlist, function(index, item) {
 				html += '<option value="' + item.hotel_id + '">' + item.object_name + '</option>';
 			});
 			html += '</select>';
@@ -9208,7 +9212,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			$('#hotel_dynamic_fields' + id_t).append(html);
 
 		});
-		$(document).on('click', '.btn_agency_remove', function () {
+		$(document).on('click', '.btn_agency_remove', function() {
 			var button_id = $(this).attr("id");
 			var old_id = $(this).attr('data-oid');
 			var id = $(this).attr('data-nid');
@@ -9227,7 +9231,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	function waitForElement(selector, callback) {
 		let attempts = 0;
 		const maxAttempts = 20;
-		const interval = setInterval(function () {
+		const interval = setInterval(function() {
 			if ($(selector).length) {
 				clearInterval(interval);
 				callback($(selector));
@@ -9239,13 +9243,13 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		}, 200);
 	}
 
-	$(document).ready(function () {
+	$(document).ready(function() {
 		const d_hotels = <?php echo json_encode($d_hotels); ?>;
 		console.log(d_hotels);
 
 		if (Array.isArray(d_hotels) && d_hotels.length > 0) {
 			setTimeout(() => {
-				$.each(d_hotels, function (index, item) {
+				$.each(d_hotels, function(index, item) {
 					const selector =
 						'.add_hotel' +
 						'[data-mp="' + item.meal_plan_id + '"]' +
@@ -9262,7 +9266,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 						$btn.trigger("click");
 						$btn.removeAttr('data-sequence');
 						// Wait for dynamic block to render
-						waitForElement('#hotelid' + item.idvalue, function () {
+						waitForElement('#hotelid' + item.idvalue, function() {
 							const id = item.idvalue;
 
 							$('#hotelid' + id).val(item.hotelid).trigger('change');
@@ -9309,8 +9313,8 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script>
-	$(document).ready(function () {
-		$('#myTourplanForm').on('submit', function (e) {
+	$(document).ready(function() {
+		$('#myTourplanForm').on('submit', function(e) {
 			var $saveDraft = $('#btn_savedraft_iti_plan');
 			var $finalSave = $('#btn_save_iti_plan');
 			$saveDraft.prop('disabled', true);
@@ -9323,7 +9327,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			}
 
 			let isValid = true;
-			$('.location-card').each(function () {
+			$('.location-card').each(function() {
 				const $card = $(this);
 				const dataIndex = $card.data('index');
 				var dates_new = dataIndex.split("_");
@@ -9340,23 +9344,23 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				let maxCW = <?php echo $object_det[0]['no_of_child_without_bed']; ?>;
 				let maxExtra = <?php echo $object_det[0]['no_of_extra_bed']; ?>;
 
-				$card.find('input[id^="double"]').each(function () {
+				$card.find('input[id^="double"]').each(function() {
 					sumDouble += parseInt($(this).val()) || 0;
 				});
 
-				$card.find('input[id^="single"]').each(function () {
+				$card.find('input[id^="single"]').each(function() {
 					sumSingle += parseInt($(this).val()) || 0;
 				});
 
-				$card.find('input[id^="no_of_ch"]').each(function () {
+				$card.find('input[id^="no_of_ch"]').each(function() {
 					sumCH += parseInt($(this).val()) || 0;
 				});
 
-				$card.find('input[id^="no_of_cw"]').each(function () {
+				$card.find('input[id^="no_of_cw"]').each(function() {
 					sumCW += parseInt($(this).val()) || 0;
 				});
 
-				$card.find('input[id^="no_of_extra"]').each(function () {
+				$card.find('input[id^="no_of_extra"]').each(function() {
 					sumExtra += parseInt($(this).val()) || 0;
 				});
 
@@ -9424,25 +9428,25 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
 
-	$(document).ready(function () {
+	$(document).ready(function() {
 		initDynamicHotels();
 	});
 </script>
 
 <script>
-	document.addEventListener("DOMContentLoaded", function () {
+	document.addEventListener("DOMContentLoaded", function() {
 		const cursor = document.createElement("div");
 		cursor.classList.add("stylish-cursor");
 		document.body.appendChild(cursor);
 
-		document.addEventListener("mousemove", function (e) {
+		document.addEventListener("mousemove", function(e) {
 			cursor.style.top = `${e.clientY}px`;
 			cursor.style.left = `${e.clientX}px`;
 		});
 	});
 </script>
 <script>
-	$('form').on('submit', function (e) {
+	$('form').on('submit', function(e) {
 		// Find the first invalid element
 		let $firstInvalid = $(this).find(':invalid').first();
 
@@ -9468,7 +9472,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		$('#loading-spinner').show(); // Show spinner
 
 		initDynamicHotels().then(() => {
@@ -9524,8 +9528,8 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 });*/
 </script>
 <script type="text/javascript">
-	$(document).ready(function () {
-		$('.select_make_current').on('change', function () {
+	$(document).ready(function() {
+		$('.select_make_current').on('change', function() {
 			var d_adult_rate = 0;
 			var d_child_rate = 0;
 			var d_child_wb_rate = 0;
@@ -9558,9 +9562,9 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 						itinerary_id: itinerary_id
 					},
 					dataType: 'json',
-					success: function (data) {
+					success: function(data) {
 						$('#hotelid' + id).val(data[0].hotel_id).trigger('change');
-						setTimeout(function () {
+						setTimeout(function() {
 							$('#roomcat' + id).val(data[0].room_category_id).trigger('change');
 						}, 300);
 
@@ -9568,7 +9572,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 						$('#no_of_cw' + id).val(data[0].child_without_bed);
 						$('#no_of_extra' + id).val(data[0].extra_bed);
 
-						$.each(data[0].cost, function (index, val) {
+						$.each(data[0].cost, function(index, val) {
 							if (val.cost_component_id == 6 && val.room_type_id == 2) {
 								d_adult_rate = val.tariff;
 							}
@@ -9635,7 +9639,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 						}
 
 						if (hotel_fac_id > 0) {
-							setTimeout(function () {
+							setTimeout(function() {
 								$('#hotfac' + id).val(hotel_fac_id).trigger('change');
 							}, 300);
 
@@ -9644,7 +9648,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 						$('#remarks' + id).val(data[0].remarks);
 						$('#spcl_event' + id).val(data[0].special_event_name);
 						if (ss_id > 0) {
-							setTimeout(function () {
+							setTimeout(function() {
 								$('#sight' + id).val(ss_id).trigger('change');
 							}, 300);
 							$('#ss_distance' + id).val(ss_distance);
@@ -9655,11 +9659,11 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 						var vehicleDetails = JSON.parse(data[0].vehicle_details);
 						var v_flag;
 						var chkbox;
-						$.each(vehicle_models, function (vindex, vmodel) {
+						$.each(vehicle_models, function(vindex, vmodel) {
 							chkbox = $('#chk_vehicle' + id + vmodel.vehicle_type_id + '_0');
 							chkbox.prop('checked', true).trigger('change');
 							v_flag = 0;
-							$.each(vehicleDetails, function (v_index, v_item) {
+							$.each(vehicleDetails, function(v_index, v_item) {
 								if (vmodel.vehicle_type_id == v_item.veh_type_id) {
 									v_flag = 1;
 								}
@@ -9680,7 +9684,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 						const container = $('#hotel_dynamic_fields' + id);
 						if (container.children().length > 0) {
-							container.find('.btn_agency_remove').each(function () {
+							container.find('.btn_agency_remove').each(function() {
 								var button_id = $(this).attr("id");
 								$('#row' + button_id + '').remove();
 							});
@@ -9692,7 +9696,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 									console.warn("Add buttons not rendered yet. Retrying...");
 									return;
 								}
-								$.each(hotelDetails, function (index, item) {
+								$.each(hotelDetails, function(index, item) {
 									const selector =
 										'.add_hotel' +
 										'[data-mp="' + item.meal_plan_id + '"]' +
@@ -9709,7 +9713,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 										$btn.trigger("click");
 										$btn.removeAttr('data-sequence');
 										// Wait for dynamic block to render
-										waitForElement('#hotelid' + item.idvalue, function () {
+										waitForElement('#hotelid' + item.idvalue, function() {
 											const id = item.idvalue;
 
 											$('#hotelid' + id).val(item.hotelid).trigger('change');
@@ -9763,8 +9767,8 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script>
-	$(document).ready(function () {
-		$('#myTourplanForm1').on('submit', function () {
+	$(document).ready(function() {
+		$('#myTourplanForm1').on('submit', function() {
 			$('#gen_cost_sheet_id, #view_cost_sheet_id').prop('disabled', true);
 			if ($('#gen_cost_sheet_id').is(':visible')) {
 				$('#gen_cost_sheet_id').html('<i class="fa fa-spinner fa-spin"></i> Saving...');
@@ -9777,8 +9781,8 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script>
-	$(document).ready(function () {
-		$('#btn_savedraft_iti_plan').click(function () {
+	$(document).ready(function() {
+		$('#btn_savedraft_iti_plan').click(function() {
 			console.log("👉 Clicked Next >>");
 
 			// ✅ Step 1: Get outer location tabs (e.g., Cochin, Munnar, Cherai)
@@ -9813,7 +9817,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				$nextOuterNav.tab('show');
 
 				// Activate the first date tab of the new outer location
-				setTimeout(function () {
+				setTimeout(function() {
 					var $newOuterPane = $(nextOuterTabId);
 					var $firstInnerTab = $newOuterPane.find('ul.nav-tabs .nav-link').first();
 					if ($firstInnerTab.length) {
@@ -9832,8 +9836,8 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script>
-	$(document).ready(function () {
-		$('#calculate_bifur').click(function () {
+	$(document).ready(function() {
+		$('#calculate_bifur').click(function() {
 
 			let status = $("#bifurcation_status").val();
 
@@ -9856,8 +9860,8 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script>
-	$(document).ready(function () {
-		$('#recalculate_bifur').click(function () {
+	$(document).ready(function() {
+		$('#recalculate_bifur').click(function() {
 
 			var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
 			var no_of_child_with_bed = <?php echo $object_det[0]['no_of_child_with_bed']; ?>;
@@ -10019,7 +10023,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 <!-- nj -->
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		// Track expansion source per tour
 		var expansionSource = <?php echo json_encode($expansion_source ?? []); ?>;
 		console.log('Expansion Source:', expansionSource);
@@ -10051,7 +10055,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		function createSSRowHTML(rowId, itiId, ss) {
 			var isPax = (typeof ss.is_pax !== 'undefined') ? Number(ss.is_pax) :
 				(typeof ss.is_pax_flag !== 'undefined') ? Number(ss.is_pax_flag) :
-					(ss.type && ss.type.toString().toLowerCase().indexOf('pax') !== -1) ? 1 : 0;
+				(ss.type && ss.type.toString().toLowerCase().indexOf('pax') !== -1) ? 1 : 0;
 			var name = ss.name || ss.title || ss.sightseeing_name || ss.sightseeing || ('SS-' + (ss.sightseeing_id || ''));
 			var cost = pf(ss.cost || ss.calculated_value || ss.total_cost || 0);
 			var totalPax = <?php echo $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'] + $object_det[0]['no_of_child_below_five']; ?>;
@@ -10144,7 +10148,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 			var shouldAddSS = shouldAddSSToVehicle(tourDetailsId);
 			console.log('shouldAddSS for this tour:', shouldAddSS);
-			$('[id^="travel_distance"]').each(function () {
+			$('[id^="travel_distance"]').each(function() {
 				var $dist = $(this);
 				var id = $dist.attr('id') || '';
 				var vid = $dist.attr('v_id') || id;
@@ -10203,7 +10207,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			var totalDistance = 0;
 			var totalPaxCost = 0;
 			var sightseeingData = [];
-			$('#ss_dynamic_rows' + iti_id + ' .ss-dynamic-row').each(function () {
+			$('#ss_dynamic_rows' + iti_id + ' .ss-dynamic-row').each(function() {
 				var $row = $(this);
 				var ssId = $row.attr('data-ss-id') || $row.data('ss-id') || '';
 				var isPax = parseInt($row.attr('data-is-pax') || $row.data('is-pax') || 0) || 0;
@@ -10249,7 +10253,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 			// FIXED: Pass tourDetailsId so updateVehicleDistances knows the expansion source
 			updateVehicleDistances(iti_id, tourDetailsId, totalDistance, savedSsTotalHint);
-			setTimeout(function () {
+			setTimeout(function() {
 				calculateGrandTotal(iti_id);
 			}, 300);
 		}
@@ -10282,7 +10286,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			var vehicleTotal = 0;
 
 			// Sum all checked vehicles for this itinerary
-			$('.chk_vehicle:checked').each(function () {
+			$('.chk_vehicle:checked').each(function() {
 				var vid = $(this).val() || '';
 				if (vid.indexOf(iti_id) === 0 || vid.startsWith(iti_id)) {
 					var vehTotal = pf($('#veh_total' + vid).val());
@@ -10321,7 +10325,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			return grandTotal;
 		}
 		// ------------- Add / Remove SS rows -------------
-		$(document).on('click', '.add_sightseeing_btn', function () {
+		$(document).on('click', '.add_sightseeing_btn', function() {
 			var iti_id = $(this).data('id');
 			var tourDetailsId = $('#tour_details_id' + iti_id).val();
 
@@ -10357,22 +10361,22 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			};
 			$('#ss_dynamic_rows' + iti_id).append(createSSRowHTML(rowId, iti_id, ssData));
 			$selector.val(null).trigger('change');
-			setTimeout(function () {
+			setTimeout(function() {
 				updateSightseeingTotals(iti_id, tourDetailsId);
 			}, 200);
 		});
-		$(document).on('click', '.remove_ss_row', function () {
+		$(document).on('click', '.remove_ss_row', function() {
 			var rowId = $(this).data('row-id');
 			var itiId = $(this).data('iti-id');
 			var tourDetailsId = $('#tour_details_id' + itiId).val();
 
 			$('#ss_row_' + rowId).remove();
-			setTimeout(function () {
+			setTimeout(function() {
 				updateSightseeingTotals(itiId, tourDetailsId);
 			}, 200);
 		});
 		// Manual travel_distance edits should update hidden copy and recalc
-		$(document).on('input change', '[id^="travel_distance"]', function () {
+		$(document).on('input change', '[id^="travel_distance"]', function() {
 			var $this = $(this);
 			var vid = $this.attr('v_id') || $this.attr('id');
 			if (!vid) return;
@@ -10402,17 +10406,17 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			}
 		});
 		// Vehicle checkbox change
-		$(document).on('change', '.chk_vehicle', function () {
+		$(document).on('change', '.chk_vehicle', function() {
 			var vid = $(this).val() || '';
 			var match = vid.toString().match(/^(\d+)/);
 			if (!match) return;
 			var itiId = match[1];
 			var tourDetailsId = $('#tour_details_id' + itiId).val();
 
-			setTimeout(function () {
+			setTimeout(function() {
 				updateSightseeingTotals(itiId, tourDetailsId);
 			}, 120);
-			setTimeout(function () {
+			setTimeout(function() {
 				calculateGrandTotal(itiId);
 			}, 300);
 		});
@@ -10420,14 +10424,14 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		window.savedSightseeing = window.savedSightseeing || {};
 		var savedSightseeingData = <?php echo json_encode($saved_sightseeing_by_date ?? []); ?>;
 		console.log('SavedSightseeingData raw:', savedSightseeingData);
-		$.each(savedSightseeingData, function (tourDetailsId, dateData) {
+		$.each(savedSightseeingData, function(tourDetailsId, dateData) {
 			console.log('Processing tourDetailsId:', tourDetailsId, 'with dates:', Object.keys(dateData));
 
-			$.each(dateData, function (tourDate, ssInfo) {
+			$.each(dateData, function(tourDate, ssInfo) {
 				var itiId = null;
 
 				// Find matching itinerary ID by tour_details_id and tour_date
-				$('[id^="tour_date"]').each(function () {
+				$('[id^="tour_date"]').each(function() {
 					var $this = $(this);
 					var thisItiId = $this.attr('id').replace('tour_date', '');
 					var thisTourDate = $this.val();
@@ -10452,22 +10456,22 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				// append rows
 				if (!window.ssRowCounters) window.ssRowCounters = {};
 				if (!window.ssRowCounters[itiId]) window.ssRowCounters[itiId] = 0;
-				ssInfo.sightseeing.forEach(function (ss) {
+				ssInfo.sightseeing.forEach(function(ss) {
 					window.ssRowCounters[itiId]++;
 					var rowId = itiId + '_ss_' + window.ssRowCounters[itiId];
 					$('#ss_dynamic_rows' + itiId).append(createSSRowHTML(rowId, itiId, ss));
 				});
 				// After append: call updateSightseeingTotals which will pass selectedSS and ensureBaseStored will derive base using saved hint
-				setTimeout(function () {
+				setTimeout(function() {
 					updateSightseeingTotals(itiId, tourDetailsId);
 				}, 150);
 			});
 		});
 		// After load, ensure base stored for travel inputs present on page
-		$('[id^="ss_dynamic_rows"]').each(function () {
+		$('[id^="ss_dynamic_rows"]').each(function() {
 			var containerId = $(this).attr('id');
 			var iti_id = containerId.replace('ss_dynamic_rows', '');
-			$('[id^="travel_distance"]').each(function () {
+			$('[id^="travel_distance"]').each(function() {
 				var $dist = $(this);
 				var id = $dist.attr('id') || '';
 				var vid = $dist.attr('v_id') || id;
@@ -10488,20 +10492,20 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			});
 		});
 		// Initialization for fresh vs saved
-		$('[id^="ss_data_json"]').each(function () {
+		$('[id^="ss_data_json"]').each(function() {
 			var iti_id = $(this).attr('id').replace('ss_data_json', '');
 			var savedData = $(this).val();
 			var tourDetailsId = $('#tour_details_id' + iti_id).val();
 			// Always call updateSightseeingTotals to handle base + currentSS consistently
 			// If savedData, assume rows already loaded or parse/append if needed; here we assume load saved handles append
-			setTimeout(function () {
+			setTimeout(function() {
 				updateSightseeingTotals(iti_id, tourDetailsId);
 			}, 300);
-			setTimeout(function () {
+			setTimeout(function() {
 				calculateGrandTotal(iti_id);
 			}, 1000);
 		});
-		setTimeout(function () {
+		setTimeout(function() {
 			updateTotalAccommodationCost && updateTotalAccommodationCost();
 		}, 2000);
 	}); // document.ready
@@ -10573,7 +10577,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	}
 </style>
 <script>
-	$(document).on('input', '#no_of_pax_b', function () {
+	$(document).on('input', '#no_of_pax_b', function() {
 		var pax = parseFloat($(this).val());
 		var totalCost = parseFloat($('#ttc_bifur_hd').val());
 
@@ -10596,7 +10600,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).ready(function() {
 		var i = 0;
 
 		var iti_edit_id = <?php echo isset($iti_edit_id) && $iti_edit_id !== '' ? $iti_edit_id : 0; ?>;
@@ -10607,7 +10611,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			var read_only = "";
 			var dis_abled = "";
 		}
-		$('.add_spcl').on('click', function () {
+		$('.add_spcl').on('click', function() {
 
 			var $btn = $(this);
 			var sequenceAttr = $btn.attr('data-sequence');
@@ -10657,7 +10661,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			$('#spcl_add_dynamic' + id_t).append(html);
 
 		});
-		$(document).on('click', '.btn_spcl_remove', function () {
+		$(document).on('click', '.btn_spcl_remove', function() {
 			var button_id = $(this).attr("id");
 			var old_id = $(this).attr('data-oid');
 			var id = $(this).attr('data-nid');
@@ -10670,7 +10674,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				i = current_i;
 			}
 
-			$('input[id^="spcl_tariff"]').each(function () {
+			$('input[id^="spcl_tariff"]').each(function() {
 				var vid = $(this).attr('id').replace('spcl_tariff', '');
 				setTimeout(() => calculateGrandTotal(vid), 300);
 			});
@@ -10679,13 +10683,13 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		const d_spcl_events = <?php echo json_encode($d_spcl_events); ?>;
 		console.log(d_spcl_events);
 
 		if (Array.isArray(d_spcl_events) && d_spcl_events.length > 0) {
 			setTimeout(() => {
-				$.each(d_spcl_events, function (index, item) {
+				$.each(d_spcl_events, function(index, item) {
 					const selector =
 						'.add_spcl' +
 						'[data-id="' + item.spcl_id + '"]' +
@@ -10710,7 +10714,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		var i = 0;
 
 		var iti_edit_id = <?php echo isset($iti_edit_id) && $iti_edit_id !== '' ? $iti_edit_id : 0; ?>;
@@ -10721,7 +10725,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			var read_only = "";
 			var dis_abled = "";
 		}
-		$('.hotel_fac_change_new').on('change', function () {
+		$('.hotel_fac_change_new').on('change', function() {
 			var addonTotal = 0;
 			var $btn = $(this);
 			var sequenceAttr = $btn.attr('data-sequence');
@@ -10782,17 +10786,17 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 						facility_id: facility_id
 					},
 					dataType: 'json',
-					success: function (data) {
+					success: function(data) {
 
 						$('#addon_event' + id).val(data[0].facility_name);
 						$('#addon_tariff' + id).val(data[0].tariff);
 
-						$('.addon_class' + id_t).each(function () {
+						$('.addon_class' + id_t).each(function() {
 							addonTotal += parseInt($(this).val()) || 0;
 						});
 						$('#fac_rate' + id_t).val(addonTotal);
 					},
-					error: function (xhr, status, error) {
+					error: function(xhr, status, error) {
 						console.error("Tariff fetch error:", error);
 						$('#fac_rate' + id_t).val(0);
 					}
@@ -10801,7 +10805,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 				$('#fac_rate' + id_t).val(0);
 			}
 		});
-		$(document).on('click', '.btn_addon_remove', function () {
+		$(document).on('click', '.btn_addon_remove', function() {
 			var addonTotal_t = 0;
 			var button_id = $(this).attr("id");
 			var old_id = $(this).attr('data-oid');
@@ -10815,17 +10819,17 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			}
 			$('#total_addon_count').val(i);
 			$('#rowaddon' + button_id + '').remove();
-			$('.addon_class' + id).each(function () {
+			$('.addon_class' + id).each(function() {
 				addonTotal_t += parseInt($(this).val()) || 0;
 			});
 			$('#fac_rate' + id).val(addonTotal_t);
 		});
 
-		$(document).on('input', 'input[id^="addon_tariff"]', function () {
+		$(document).on('input', 'input[id^="addon_tariff"]', function() {
 			var addonTotalnew = 0;
 			var vid = $(this).attr('id').replace('addon_tariff', '');
 			vid = vid.replace(/_\d+$/, '');
-			$('.addon_class' + vid).each(function () {
+			$('.addon_class' + vid).each(function() {
 				addonTotalnew += parseInt($(this).val()) || 0;
 			});
 			$('#fac_rate' + vid).val(addonTotalnew);
@@ -10835,11 +10839,11 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		const d_addon_events = <?php echo json_encode($d_addon_events); ?>;
 		if (Array.isArray(d_addon_events) && d_addon_events.length > 0) {
 			setTimeout(() => {
-				$.each(d_addon_events, function (index, item) {
+				$.each(d_addon_events, function(index, item) {
 					const selector =
 						'.hotel_fac_change_new' +
 						'[data-id="' + item.addon_id + '"]' +
@@ -10866,7 +10870,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			if (Array.isArray(d_addon_events_pre) && d_addon_events_pre.length > 0) {
 
 				setTimeout(() => {
-					$.each(d_addon_events_pre, function (index, item) {
+					$.each(d_addon_events_pre, function(index, item) {
 						const selector =
 							'.hotel_fac_change_new' +
 							'[data-id="' + item.addon_id + '"]' +
@@ -10894,17 +10898,17 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 	});
 </script>
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 
 		// Handle Ad Hoc Rate input changes
-		$(document).on('input', '.adhoc_rate_input', function () {
+		$(document).on('input', '.adhoc_rate_input', function() {
 			var vid = $(this).data('vid');
 			calculateVehicleTotal(vid);
 			recalculateGrandTotal();
 		});
 
 		// Handle travel distance changes
-		$(document).on('input', '[id^="travel_distance"]', function () {
+		$(document).on('input', '[id^="travel_distance"]', function() {
 			var vid = $(this).attr('v_id');
 			var travel_distance = parseFloat($(this).val()) || 0;
 			var max_km_day = parseFloat($('#max_km_day' + vid).val()) || 0;
@@ -10919,7 +10923,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		});
 
 		// Handle vehicle checkbox changes
-		$(document).on('change', '.chk_vehicle', function () {
+		$(document).on('change', '.chk_vehicle', function() {
 			recalculateGrandTotal();
 		});
 
@@ -10942,7 +10946,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			// Group by itinerary ID
 			var itinerary_totals = {};
 
-			$('.chk_vehicle:checked').each(function () {
+			$('.chk_vehicle:checked').each(function() {
 				var vid = $(this).val();
 				var veh_total = parseFloat($('#veh_total' + vid).val()) || 0;
 
@@ -10958,7 +10962,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 			});
 
 			// Update grand totals for each itinerary
-			$.each(itinerary_totals, function (iti_id, veh_total) {
+			$.each(itinerary_totals, function(iti_id, veh_total) {
 				var acc_total = parseFloat($('#acc_total' + iti_id).val()) || 0;
 				var grand_total = acc_total + veh_total;
 				$('#grand_total' + iti_id).val(grand_total);
@@ -10966,7 +10970,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 		}
 
 		// Initial calculation on page load
-		$('[id^="veh_total"]').each(function () {
+		$('[id^="veh_total"]').each(function() {
 			var vid = $(this).attr('id').replace('veh_total', '');
 			calculateVehicleTotal(vid);
 		});
@@ -10976,7 +10980,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 </script>
 
 <script>
-	$(document).ready(function () {
+	$(document).ready(function() {
 		// Existing calculation logic assumed here; add TCS handling
 		function calculateTCS() {
 			var total = parseFloat($('#total_final').val()) || 0;
@@ -10993,7 +10997,7 @@ foreach ($vehicle_details as $vindex => $vmodel) {
 
 		// Trigger on changes to total, gst, or tcs checkbox
 		$('#total_final, #gst_final, #tcs_checkbox').on('change input', calculateTCS);
-		$('#gst_value').on('change', function () {
+		$('#gst_value').on('change', function() {
 			// Assuming existing GST calc triggers this
 			setTimeout(calculateTCS, 100); // Delay if GST calc is async
 		});
