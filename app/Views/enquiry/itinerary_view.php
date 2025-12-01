@@ -10063,7 +10063,7 @@ $cs_trans_total = 0;
 			var tariff = pf(ss.tariff || ss.rate || 0);
 			var calculated = isPax === 1 ? cost : distance_km;
 			// var displayValue = isPax === 1 ? (tariff+' * '+totalPax+' = '+'₹' + cost) : (distance_km + ' km');
-			var displayValue = isPax === 1 ? (tariff + ' * ' + totalPax) : (distance_km + ' km');
+			var displayValue = isPax === 1 ? (tariff + ' x ' + totalPax) : (distance_km);
 			return '\
 				<div class="row align-items-center mb-2 ss-dynamic-row" \
 				id="ss_row_' + rowId + '" \
@@ -10079,7 +10079,7 @@ $cs_trans_total = 0;
 				<input type="text" class="form-control input-sm" value="' + name + '" readonly style="background-color: white; border: 1px solid #ced4da;">\
 				</div>\
 				<div class="col-xl-3 col-sm-12 col-md-2">\
-				<label class="small-label" style="font-weight: bold; margin-bottom: 5px;">' + (isPax === 1 ? 'Tariff' : 'Distance') + '</label>\
+				<label class="small-label" style="font-weight: bold; margin-bottom: 5px;">' + (isPax === 1 ? 'Tariff' : 'Distance(km)') + '</label>\
 				<input type="text" class="form-control input-sm" value="' + displayValue + '" readonly style="background-color: white; border: 1px solid #ced4da; text-align: center;">\
 				</div>\
 				<div class="col-xl-3 col-sm-12 col-md-3" style="display:none;">\
@@ -10087,7 +10087,7 @@ $cs_trans_total = 0;
 				<textarea class="form-control input-sm ss-row-remarks" rows="1" style="border: 1px solid #ced4da;">' + (ss.remarks || '') + '</textarea>\
 				</div>\
 				<div class="col-xl-3 col-sm-12 col-md-2">\
-				<label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Total</label>\
+				<label class="small-label" style="font-weight: bold; margin-bottom: 5px;">Total Pax Rate</label>\
 				<input type="text" class="form-control input-sm ss-row-total" value="' + (isPax === 1 ? cost : '0.00') + '" readonly style="background-color: #d1ecf1; font-weight: bold; text-align: center; border: 1px solid #bee5eb;">\
 				</div>\
 				<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">\
