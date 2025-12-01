@@ -254,7 +254,7 @@ class Enquiry_m extends Model
     $query = $db->table('khm_obj_mst a');
     $query->select('SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request,ex.availability_check', false);
     $query->join('khm_obj_enquiry_header h', 'h.object_id = a.object_id', 'left');
-    $query->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = h.enquiry_header_id AND er.is_active = 1', 'inner');
+    $query->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = h.enquiry_header_id AND er.is_active = 1', 'left');
     $query->join('khm_entity_mst ag', 'ag.entity_id = h.agent_entity_id', 'left');
     $query->join('khm_entity_mst gs', 'gs.entity_id = h.employee_entity_id', 'left');
     $query->join('khm_obj_enquiry_details t', 't.enquiry_header_id = h.enquiry_header_id', 'left');

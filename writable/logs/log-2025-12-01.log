@@ -405,3 +405,592 @@ DEBUG - 2025-12-01 07:01:37 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2025-12-01 07:01:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-12-01 07:01:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-12-01 07:01:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:15:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:15:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:16:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:16:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:16:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:16:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:16:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:16:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:16:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:16:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-01 08:17:53 --> Day 1 (date 2026-02-06): No defaults loaded
+INFO - 2025-12-01 08:17:53 --> Loaded default SS for Day 2 (date 2026-02-07): 1 items
+INFO - 2025-12-01 08:17:53 --> Hardcoded Leisure SS auto-selected for Day 3 (date 2026-02-08, location 9)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:53 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+DEBUG - 2025-12-01 08:17:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:17:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-06: Derived Base=210km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-06: Derived Base=210km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-06: Derived Base=210km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-06: Derived Base=210km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-06: Derived Base=210km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-06: Derived Base=210km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-08: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-08: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-08: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-08: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-08: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:17:58 --> Itinerary expansion date 2026-02-08: Derived Base=0km (no SS added)
+DEBUG - 2025-12-01 08:18:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-12-01 13:48:18 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-12-01 13:48:18 --> 220 smtp.gmail.com ESMTP d9443c01a7336-29bceb58fecsm116170785ad.95 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-29bceb58fecsm116170785ad.95 - gsmtp
+
+DEBUG - 2025-12-01 08:18:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-01 08:18:21 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:18:21 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:18:21 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:18:21 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:18:21 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:18:21 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:18:21 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:18:21 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:18:21 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:18:21 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:18:21 --> getDefaultSightName() returned: 0 rows
+DEBUG - 2025-12-01 08:18:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-01 08:18:28 --> getMultipleSightseeing returned: 1 rows for IDs: 95
+DEBUG - 2025-12-01 08:18:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-12-01 13:48:34 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-12-01 13:48:34 --> 220 smtp.gmail.com ESMTP d9443c01a7336-29bceb4028csm114101025ad.75 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-29bceb4028csm114101025ad.75 - gsmtp
+
+ERROR - 2025-12-01 13:48:35 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-12-01 13:48:35 --> Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-29bceb4028csm114101025ad.75 - gsmtp
+
+DEBUG - 2025-12-01 08:18:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:18:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:19:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:19:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:19:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:19:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:19:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:19:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:19:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:19:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:19:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:19:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:23:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:23:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:23:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:23:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:23:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:23:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:23:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:23:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:23:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:23:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-06: DB Total=210km, Saved SS=0km, Derived Base=210km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-07: DB Total=0km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Expansion date 2026-02-08: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-06: Derived Base=210km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-06: Derived Base=210km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-06: Derived Base=210km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-06: Derived Base=210km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-06: Derived Base=210km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-06: Derived Base=210km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-08: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-08: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-08: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-08: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-08: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:23:53 --> Itinerary expansion date 2026-02-08: Derived Base=0km (no SS added)
+DEBUG - 2025-12-01 08:23:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:23:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:23:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:25:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:25:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:25:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:25:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:25:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:25:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:25:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:25:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:25:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:26:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:29:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:29:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:29:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:29:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:30:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-12-01 14:01:22 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-12-01 14:01:22 --> 220 smtp.gmail.com ESMTP d2e1a72fcca58-7d15e6e6df9sm12623511b3a.39 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d2e1a72fcca58-7d15e6e6df9sm12623511b3a.39 - gsmtp
+
+DEBUG - 2025-12-01 08:31:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:31:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-01 08:32:20 --> Day 1 (date 2025-12-06): No defaults loaded
+INFO - 2025-12-01 08:32:20 --> Loaded default SS for Day 2 (date 2025-12-07): 1 items
+INFO - 2025-12-01 08:32:20 --> Expansion date 2025-12-06: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:20 --> Expansion date 2025-12-06: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:20 --> Expansion date 2025-12-06: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:20 --> Expansion date 2025-12-07: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:20 --> Expansion date 2025-12-07: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:20 --> Expansion date 2025-12-07: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:20 --> Day 1 (date 2025-12-08): No defaults loaded
+INFO - 2025-12-01 08:32:20 --> Expansion date 2025-12-08: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:20 --> Expansion date 2025-12-08: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:20 --> Expansion date 2025-12-08: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+DEBUG - 2025-12-01 08:32:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-01 08:32:38 --> Expansion date 2025-12-06: DB Total=176km, Saved SS=90km, Derived Base=86km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:38 --> Expansion date 2025-12-06: DB Total=176km, Saved SS=90km, Derived Base=86km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:38 --> Expansion date 2025-12-06: DB Total=176km, Saved SS=90km, Derived Base=86km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:38 --> Expansion date 2025-12-07: DB Total=0km, Saved SS=340km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:38 --> Expansion date 2025-12-07: DB Total=0km, Saved SS=340km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:38 --> Expansion date 2025-12-07: DB Total=0km, Saved SS=340km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:38 --> Expansion date 2025-12-08: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:38 --> Expansion date 2025-12-08: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:38 --> Expansion date 2025-12-08: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-01 08:32:38 --> Itinerary expansion date 2025-12-06: Derived Base=176km (no SS added)
+INFO - 2025-12-01 08:32:38 --> Itinerary expansion date 2025-12-06: Derived Base=176km (no SS added)
+INFO - 2025-12-01 08:32:38 --> Itinerary expansion date 2025-12-06: Derived Base=176km (no SS added)
+INFO - 2025-12-01 08:32:38 --> Itinerary expansion date 2025-12-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:32:38 --> Itinerary expansion date 2025-12-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:32:38 --> Itinerary expansion date 2025-12-07: Derived Base=0km (no SS added)
+INFO - 2025-12-01 08:32:38 --> Itinerary expansion date 2025-12-08: Derived Base=175km (no SS added)
+INFO - 2025-12-01 08:32:38 --> Itinerary expansion date 2025-12-08: Derived Base=175km (no SS added)
+INFO - 2025-12-01 08:32:38 --> Itinerary expansion date 2025-12-08: Derived Base=175km (no SS added)
+DEBUG - 2025-12-01 08:32:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:32:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-01 08:32:51 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:32:51 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:32:51 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:32:51 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:32:51 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:32:51 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:32:51 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:32:51 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:32:51 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:32:51 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:32:51 --> getDefaultSightName() returned: 0 rows
+DEBUG - 2025-12-01 08:34:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-01 08:34:02 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:34:02 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:34:02 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:34:02 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:34:02 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:34:02 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:34:02 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:34:02 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:34:02 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:34:02 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:34:02 --> getDefaultSightName() returned: 0 rows
+DEBUG - 2025-12-01 08:34:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-01 08:34:08 --> getMultipleSightseeing returned: 1 rows for IDs: 91
+INFO - 2025-12-01 08:34:08 --> getMultipleSightseeing returned: 2 rows for IDs: 91,164
+INFO - 2025-12-01 08:34:08 --> getMultipleSightseeing returned: 1 rows for IDs: 96
+DEBUG - 2025-12-01 08:34:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-12-01 14:04:18 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-12-01 14:04:18 --> 220 smtp.gmail.com ESMTP 98e67ed59e1d1-3477b74c83esm12403967a91.15 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-3477b74c83esm12403967a91.15 - gsmtp
+
+DEBUG - 2025-12-01 08:34:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-12-01 14:04:48 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-12-01 14:04:48 --> 220 smtp.gmail.com ESMTP d9443c01a7336-29bceb277d0sm117396045ad.53 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-29bceb277d0sm117396045ad.53 - gsmtp
+
+ERROR - 2025-12-01 14:04:49 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-12-01 14:04:49 --> Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-29bceb277d0sm117396045ad.53 - gsmtp
+
+DEBUG - 2025-12-01 08:34:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:34:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:35:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:35:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:35:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:35:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:35:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:36:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:36:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:36:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:36:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:36:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:36:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:36:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:36:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:37:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:37:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:39:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:39:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:39:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:39:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:40:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:40:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:42:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:42:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:42:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:42:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:43:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:43:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:43:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:43:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:45:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:45:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:45:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:45:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:45:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:46:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:46:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-01 08:46:08 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getDefaultSightName() returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-01 08:46:08 --> getDefaultSightName() returned: 0 rows
+DEBUG - 2025-12-01 08:46:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:46:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:46:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-01 08:46:14 --> getMultipleSightseeing returned: 1 rows for IDs: 96,96
+INFO - 2025-12-01 08:46:14 --> getMultipleSightseeing returned: 1 rows for IDs: 95,95
+INFO - 2025-12-01 08:46:14 --> getMultipleSightseeing returned: 3 rows for IDs: 161,96,95
+DEBUG - 2025-12-01 08:46:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:46:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:46:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:46:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:47:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-12-01 14:17:05 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-12-01 14:17:05 --> 220 smtp.gmail.com ESMTP d9443c01a7336-29bceb277d0sm117779705ad.53 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [103.38.15.23]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-29bceb277d0sm117779705ad.53 - gsmtp
+
+DEBUG - 2025-12-01 08:47:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:47:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:47:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:47:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:47:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:47:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-12-01 14:18:48 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-12-01 14:18:48 --> 220 smtp.gmail.com ESMTP 41be03b00d2f7-be508b06606sm11291478a12.18 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [122.167.184.116]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-be508b06606sm11291478a12.18 - gsmtp
+
+ERROR - 2025-12-01 14:18:48 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-12-01 14:18:48 --> Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-be508b06606sm11291478a12.18 - gsmtp
+
+DEBUG - 2025-12-01 08:48:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:48:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:49:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:49:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:49:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:49:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:50:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:50:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:50:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:50:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:50:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:50:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:50:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:50:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:50:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-01 08:50:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
