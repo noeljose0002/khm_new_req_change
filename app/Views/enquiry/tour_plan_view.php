@@ -5046,228 +5046,501 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 
 	// **COMPLETE FIXED toggleNightsVisibility FUNCTION**
+	// function toggleNightsVisibility() {
+	// 	var showAll = getIsDynamic();
+	// 	console.log('Toggling nights visibility: dynamic=', showAll);
+	// 	$('.location-card').each(function() {
+	// 		var $locationCard = $(this);
+	// 		var count = $locationCard.attr('data-index');
+	// 		var taxStatus = parseInt($(`#tax_status${count}`).val()) || 0;
+	// 		if (taxStatus == 1) {
+	// 			toggleGSTColumns(true, count);
+	// 		} else {
+	// 			toggleGSTColumns(false, count);
+	// 		}
+	// 		$locationCard.show().css('display', 'block');
+	// 		$(`#nightly-details${count}`).show().css('display', 'block');
+	// 		var noOfNight = parseInt($(`#no_of_night${count}`).val()) || 0;
+	// 		if (noOfNight === 0) {
+	// 			$locationCard.show().css('display', 'block');
+	// 			$(`#nightly-details${count}`).show().css('display', 'block');
+	// 			for (let n = 1; n <= 10; n++) {
+	// 				$(`#double${count}${n}`).val(0);
+	// 				$(`#single${count}${n}`).val(0);
+	// 			}
+	// 			return;
+	// 		}
+	// 		$(`#nightly-details${count} .night-section`).each(function() {
+	// 			var $nightSection = $(this);
+	// 			var night = parseInt($nightSection.attr('data-night'));
+	// 			if (night > noOfNight) {
+	// 				$nightSection.hide();
+	// 				$(`#double${count}${night}`).val(0).trigger('change');
+	// 				$(`#single${count}${night}`).val(0).trigger('change');
+	// 				$nightSection.find('input[id^="d_total_rate"], input[id^="s_total_rate"], input[id^="dd_total_rate"], input[id^="ss_total_rate"]').val(0);
+	// 				$nightSection.find('.mp_row_change').val('');
+	// 				return;
+	// 			}
+	// 			if (night > 1) {
+	// 				if (showAll) {
+	// 					$nightSection.show();
+	// 				} else {
+	// 					$nightSection.hide();
+	// 					console.log(`Static mode: Night ${night} hidden (but totals preserved for calculation), count ${count}`);
+	// 				}
+	// 			} else {
+	// 				$nightSection.show();
+	// 				if (!showAll) {
+	// 					// STATIC MODE PROCESSING
+	// 					let totalDouble = 0;
+	// 					let totalSingle = 0;
+	// 					for (let n = 1; n <= noOfNight; n++) {
+	// 						totalDouble += parseInt($(`#double${count}${n}`).val() || 0);
+	// 						totalSingle += parseInt($(`#single${count}${n}`).val() || 0);
+	// 					}
+	// 					const avgDouble = noOfNight > 0 ? Math.round(totalDouble / noOfNight) : 0;
+	// 					const avgSingle = noOfNight > 0 ? Math.round(totalSingle / noOfNight) : 0;
+	// 					for (let n = 1; n <= noOfNight; n++) {
+	// 						$(`#double${count}${n}`).val(avgDouble).trigger('change');
+	// 						$(`#single${count}${n}`).val(avgSingle).trigger('change');
+	// 					}
+	// 					$nightSection.find('> h3').hide();
+	// 					$nightSection.find('.double_row, .single_row').hide();
+	// 					$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').hide();
+	// 					var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+	// 						return $(this).find('[id^="roomcat"]').length > 0 && $(this).find('[id^="d_adult_rate"]').length > 0;
+	// 					});
+	// 					$doubleRoomRows.each(function(index) {
+	// 						if (index > 0) {
+	// 							$(this).hide();
+	// 							console.log(`Static mode: Hidden extra double room ${index + 1} for night 1, count ${count}`);
+	// 						}
+	// 					});
+	// 					var $singleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+	// 						return $(this).find('[id^="roomcat"]').length > 0 && $(this).find('[id^="s_adult_rate"]').length > 0;
+	// 					});
+	// 					$singleRoomRows.each(function(index) {
+	// 						if (index > 0) {
+	// 							$(this).hide();
+	// 							console.log(`Static mode: Hidden extra single room ${index + 1} for night 1, count ${count}`);
+	// 						}
+	// 					});
+	// 					var firstDoubleRoomId = `${count}11`;
+	// 					var $firstDoubleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+	// 						return $(this).find('input[id^="d_adult_rate"]').length > 0;
+	// 					}).first();
+	// 					if ($firstDoubleRow.length) {
+	// 						var $roomTypeColDouble = $firstDoubleRow.find('.room-type-col');
+	// 						$roomTypeColDouble.show();
+	// 						var doubleQtyInput = $roomTypeColDouble.find('input');
+	// 						doubleQtyInput.val(avgDouble);
+	// 						var $extraBedRateField = $(`#d_extra_bed_rate${firstDoubleRoomId}`);
+	// 						$extraBedRateField.prop("readonly", false);
+	// 						$extraBedRateField.closest('.col-md-1').show();
+	// 						var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+	// 						if (no_of_extra > 0) {
+	// 							var currentExtraRate = parseFloat($extraBedRateField.val()) || 0;
+	// 							if (currentExtraRate === 0) {
+	// 								var extraRate = 0;
+	// 								var found = false;
+	// 								for (let searchNight = 1; !found && searchNight <= 10; searchNight++) {
+	// 									for (let searchRoom = 1; !found && searchRoom <= 10; searchRoom++) {
+	// 										var searchRid = `${count}${searchNight}${searchRoom}`;
+	// 										if ($(`#d_extra_bed_rate${searchRid}`).length > 0) {
+	// 											var searchRate = parseFloat($(`#d_extra_bed_rate${searchRid}`).val()) || 0;
+	// 											if (searchRate > 0) {
+	// 												extraRate = searchRate;
+	// 												found = true;
+	// 												console.log('Static mode: Forced extra bed rate from broad search:', {
+	// 													field: firstDoubleRoomId,
+	// 													setValue: extraRate,
+	// 													sourceNight: searchNight,
+	// 													sourceRoom: searchRoom
+	// 												});
+	// 											}
+	// 										}
+	// 									}
+	// 								}
+	// 								if (extraRate > 0) {
+	// 									$extraBedRateField.val(extraRate);
+	// 								} else {
+	// 									console.warn('Static mode: No extra bed rate found across all double rooms/nights for', firstDoubleRoomId);
+	// 								}
+	// 							} else {
+	// 								console.log('Static mode: Extra bed rate already set:', {
+	// 									field: firstDoubleRoomId,
+	// 									value: currentExtraRate
+	// 								});
+	// 							}
+	// 						}
+	// 						console.log('Static mode: Extra bed rate field enabled:', {
+	// 							field: firstDoubleRoomId,
+	// 							currentValue: $extraBedRateField.val(),
+	// 							readonly: $extraBedRateField.prop("readonly")
+	// 						});
+	// 					}
+	// 					var $firstSingleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+	// 						return $(this).find('input[id^="s_adult_rate"]').length > 0;
+	// 					}).first();
+	// 					if ($firstSingleRow.length) {
+	// 						var $roomTypeColSingle = $firstSingleRow.find('.room-type-col');
+	// 						$roomTypeColSingle.show();
+	// 						var singleQtyInput = $roomTypeColSingle.find('input');
+	// 						singleQtyInput.val(avgSingle);
+	// 						console.log('Static mode: Single room quantity set, total will be calculated by updateStaticModeDisplayTotal');
+	// 					}
+	// 				}
+	// 			}
+	// 		});
+
+	// 		if (showAll) {
+	// 			// DYNAMIC MODE: full details
+	// 			for (let n = 1; n <= noOfNight; n++) {
+	// 				var $nightSec = $(`#nightly-details${count} .night-section[data-night="${n}"]`);
+	// 				$nightSec.find('> h3').show();
+	// 				$nightSec.find('.double_row, .single_row').show();
+	// 				$nightSec.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show();
+	// 				$nightSec.find('.row.mt-2.align-items-center').show();
+	// 				$nightSec.find('.room-type-col').hide();
+	// 				$nightSec.find('input[id^="double"], input[id^="single"]').not(`#double${count}${n}, #single${count}${n}`).val(1);
+	// 			}
+	// 			syncRatesFromNight1(count);
+	// 			// Now calculate totals with synced/zeroed rates
+	// 			for (let n = 1; n <= noOfNight; n++) {
+	// 				var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
+	// 				for (let i = 1; i <= numDouble; i++) {
+	// 					updateRoomTotals(count, n, i);
+	// 				}
+	// 				var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
+	// 				var doubleCount = numDouble;
+	// 				for (let i = 1; i <= numSingle; i++) {
+	// 					updateRoomTotals(count, n, doubleCount + i);
+	// 				}
+	// 			}
+	// 		} else {
+	// 			// **FIXED STATIC MODE CALCULATION**
+	// 			console.log(`Static mode: Recalculating all nights for count ${count}`);
+
+	// 			// First, update all room totals for all nights
+	// 			for (let n = 1; n <= noOfNight; n++) {
+	// 				var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
+	// 				for (let roomIdx = 1; roomIdx <= numDouble; roomIdx++) {
+	// 					updateRoomTotals(count, n, roomIdx);
+	// 				}
+	// 				var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
+	// 				for (let roomIdx = 1; roomIdx <= numSingle; roomIdx++) {
+	// 					updateRoomTotals(count, n, numDouble + roomIdx);
+	// 				}
+
+	// 				// **FIX: Force recalculation of grand totals for each night**
+	// 				calculateDoubleGrandTotalStatic(count, n);
+	// 				calculateSingleGrandTotalStatic(count, n);
+	// 			}
+
+	// 			// **FIX: Then update the static display with aggregated totals**
+	// 			updateStaticModeDisplayTotal(count);
+	// 		}
+
+	// 		// Vehicle visibility
+	// 		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+	// 		if (is_vehicle_required == 1) {
+	// 			if (!showAll) {
+	// 				$(`#nightly-details${count} .vehicle-details-section`).hide();
+	// 				$(`#nightly-details${count} .vehicle-rows`).hide();
+	// 				$(`#nightly-details${count} .vehicle-row`).hide();
+	// 				$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+	// 				$(`#vehicle-summary-${count}`).show();
+	// 			} else {
+	// 				$(`#nightly-details${count} .vehicle-details-section`).show();
+	// 				$(`#nightly-details${count} .vehicle-rows`).show();
+	// 				$(`#nightly-details${count} .vehicle-row`).show();
+	// 				$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+	// 				$(`#vehicle-summary-${count}`).hide();
+	// 			}
+	// 		}
+	// 		$locationCard.show().css('display', 'block');
+	// 		$locationCard.parent().show().css('display', 'block');
+	// 		$(`#nightly-details${count}`).show().css('display', 'block');
+	// 		$locationCard.find('.card-body').show().css('display', 'block');
+	// 		$locationCard.find('.ibox').show().css('display', 'block');
+	// 	});
+
+	// 	updateAllTotals();
+	// 	console.log('Nights visibility toggle complete (using dynamic calculations for totals)');
+	// }
 	function toggleNightsVisibility() {
-		var showAll = getIsDynamic();
-		console.log('Toggling nights visibility: dynamic=', showAll);
-		$('.location-card').each(function() {
-			var $locationCard = $(this);
-			var count = $locationCard.attr('data-index');
-			var taxStatus = parseInt($(`#tax_status${count}`).val()) || 0;
-			if (taxStatus == 1) {
-				toggleGSTColumns(true, count);
-			} else {
-				toggleGSTColumns(false, count);
-			}
-			$locationCard.show().css('display', 'block');
-			$(`#nightly-details${count}`).show().css('display', 'block');
-			var noOfNight = parseInt($(`#no_of_night${count}`).val()) || 0;
-			if (noOfNight === 0) {
-				$locationCard.show().css('display', 'block');
-				$(`#nightly-details${count}`).show().css('display', 'block');
-				for (let n = 1; n <= 10; n++) {
-					$(`#double${count}${n}`).val(0);
-					$(`#single${count}${n}`).val(0);
-				}
-				return;
-			}
-			$(`#nightly-details${count} .night-section`).each(function() {
-				var $nightSection = $(this);
-				var night = parseInt($nightSection.attr('data-night'));
-				if (night > noOfNight) {
-					$nightSection.hide();
-					$(`#double${count}${night}`).val(0).trigger('change');
-					$(`#single${count}${night}`).val(0).trigger('change');
-					$nightSection.find('input[id^="d_total_rate"], input[id^="s_total_rate"], input[id^="dd_total_rate"], input[id^="ss_total_rate"]').val(0);
-					$nightSection.find('.mp_row_change').val('');
-					return;
-				}
-				if (night > 1) {
-					if (showAll) {
-						$nightSection.show();
-					} else {
-						$nightSection.hide();
-						console.log(`Static mode: Night ${night} hidden (but totals preserved for calculation), count ${count}`);
-					}
-				} else {
-					$nightSection.show();
-					if (!showAll) {
-						// STATIC MODE PROCESSING
-						let totalDouble = 0;
-						let totalSingle = 0;
-						for (let n = 1; n <= noOfNight; n++) {
-							totalDouble += parseInt($(`#double${count}${n}`).val() || 0);
-							totalSingle += parseInt($(`#single${count}${n}`).val() || 0);
-						}
-						const avgDouble = noOfNight > 0 ? Math.round(totalDouble / noOfNight) : 0;
-						const avgSingle = noOfNight > 0 ? Math.round(totalSingle / noOfNight) : 0;
-						for (let n = 1; n <= noOfNight; n++) {
-							$(`#double${count}${n}`).val(avgDouble).trigger('change');
-							$(`#single${count}${n}`).val(avgSingle).trigger('change');
-						}
-						$nightSection.find('> h3').hide();
-						$nightSection.find('.double_row, .single_row').hide();
-						$nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').hide();
-						var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-							return $(this).find('[id^="roomcat"]').length > 0 && $(this).find('[id^="d_adult_rate"]').length > 0;
-						});
-						$doubleRoomRows.each(function(index) {
-							if (index > 0) {
-								$(this).hide();
-								console.log(`Static mode: Hidden extra double room ${index + 1} for night 1, count ${count}`);
-							}
-						});
-						var $singleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-							return $(this).find('[id^="roomcat"]').length > 0 && $(this).find('[id^="s_adult_rate"]').length > 0;
-						});
-						$singleRoomRows.each(function(index) {
-							if (index > 0) {
-								$(this).hide();
-								console.log(`Static mode: Hidden extra single room ${index + 1} for night 1, count ${count}`);
-							}
-						});
-						var firstDoubleRoomId = `${count}11`;
-						var $firstDoubleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-							return $(this).find('input[id^="d_adult_rate"]').length > 0;
-						}).first();
-						if ($firstDoubleRow.length) {
-							var $roomTypeColDouble = $firstDoubleRow.find('.room-type-col');
-							$roomTypeColDouble.show();
-							var doubleQtyInput = $roomTypeColDouble.find('input');
-							doubleQtyInput.val(avgDouble);
-							var $extraBedRateField = $(`#d_extra_bed_rate${firstDoubleRoomId}`);
-							$extraBedRateField.prop("readonly", false);
-							$extraBedRateField.closest('.col-md-1').show();
-							var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
-							if (no_of_extra > 0) {
-								var currentExtraRate = parseFloat($extraBedRateField.val()) || 0;
-								if (currentExtraRate === 0) {
-									var extraRate = 0;
-									var found = false;
-									for (let searchNight = 1; !found && searchNight <= 10; searchNight++) {
-										for (let searchRoom = 1; !found && searchRoom <= 10; searchRoom++) {
-											var searchRid = `${count}${searchNight}${searchRoom}`;
-											if ($(`#d_extra_bed_rate${searchRid}`).length > 0) {
-												var searchRate = parseFloat($(`#d_extra_bed_rate${searchRid}`).val()) || 0;
-												if (searchRate > 0) {
-													extraRate = searchRate;
-													found = true;
-													console.log('Static mode: Forced extra bed rate from broad search:', {
-														field: firstDoubleRoomId,
-														setValue: extraRate,
-														sourceNight: searchNight,
-														sourceRoom: searchRoom
-													});
-												}
-											}
-										}
-									}
-									if (extraRate > 0) {
-										$extraBedRateField.val(extraRate);
-									} else {
-										console.warn('Static mode: No extra bed rate found across all double rooms/nights for', firstDoubleRoomId);
-									}
-								} else {
-									console.log('Static mode: Extra bed rate already set:', {
-										field: firstDoubleRoomId,
-										value: currentExtraRate
-									});
-								}
-							}
-							console.log('Static mode: Extra bed rate field enabled:', {
-								field: firstDoubleRoomId,
-								currentValue: $extraBedRateField.val(),
-								readonly: $extraBedRateField.prop("readonly")
-							});
-						}
-						var $firstSingleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
-							return $(this).find('input[id^="s_adult_rate"]').length > 0;
-						}).first();
-						if ($firstSingleRow.length) {
-							var $roomTypeColSingle = $firstSingleRow.find('.room-type-col');
-							$roomTypeColSingle.show();
-							var singleQtyInput = $roomTypeColSingle.find('input');
-							singleQtyInput.val(avgSingle);
-							console.log('Static mode: Single room quantity set, total will be calculated by updateStaticModeDisplayTotal');
-						}
-					}
-				}
-			});
-
-			if (showAll) {
-				// DYNAMIC MODE: full details
-				for (let n = 1; n <= noOfNight; n++) {
-					var $nightSec = $(`#nightly-details${count} .night-section[data-night="${n}"]`);
-					$nightSec.find('> h3').show();
-					$nightSec.find('.double_row, .single_row').show();
-					$nightSec.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show();
-					$nightSec.find('.row.mt-2.align-items-center').show();
-					$nightSec.find('.room-type-col').hide();
-					$nightSec.find('input[id^="double"], input[id^="single"]').not(`#double${count}${n}, #single${count}${n}`).val(1);
-				}
-				syncRatesFromNight1(count);
-				// Now calculate totals with synced/zeroed rates
-				for (let n = 1; n <= noOfNight; n++) {
-					var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
-					for (let i = 1; i <= numDouble; i++) {
-						updateRoomTotals(count, n, i);
-					}
-					var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
-					var doubleCount = numDouble;
-					for (let i = 1; i <= numSingle; i++) {
-						updateRoomTotals(count, n, doubleCount + i);
-					}
-				}
-			} else {
-				// **FIXED STATIC MODE CALCULATION**
-				console.log(`Static mode: Recalculating all nights for count ${count}`);
-
-				// First, update all room totals for all nights
-				for (let n = 1; n <= noOfNight; n++) {
-					var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
-					for (let roomIdx = 1; roomIdx <= numDouble; roomIdx++) {
-						updateRoomTotals(count, n, roomIdx);
-					}
-					var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
-					for (let roomIdx = 1; roomIdx <= numSingle; roomIdx++) {
-						updateRoomTotals(count, n, numDouble + roomIdx);
-					}
-
-					// **FIX: Force recalculation of grand totals for each night**
-					calculateDoubleGrandTotalStatic(count, n);
-					calculateSingleGrandTotalStatic(count, n);
-				}
-
-				// **FIX: Then update the static display with aggregated totals**
-				updateStaticModeDisplayTotal(count);
-			}
-
-			// Vehicle visibility
-			var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-			if (is_vehicle_required == 1) {
-				if (!showAll) {
-					$(`#nightly-details${count} .vehicle-details-section`).hide();
-					$(`#nightly-details${count} .vehicle-rows`).hide();
-					$(`#nightly-details${count} .vehicle-row`).hide();
-					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
-					$(`#vehicle-summary-${count}`).show();
-				} else {
-					$(`#nightly-details${count} .vehicle-details-section`).show();
-					$(`#nightly-details${count} .vehicle-rows`).show();
-					$(`#nightly-details${count} .vehicle-row`).show();
-					$(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
-					$(`#vehicle-summary-${count}`).hide();
-				}
-			}
-			$locationCard.show().css('display', 'block');
-			$locationCard.parent().show().css('display', 'block');
-			$(`#nightly-details${count}`).show().css('display', 'block');
-			$locationCard.find('.card-body').show().css('display', 'block');
-			$locationCard.find('.ibox').show().css('display', 'block');
-		});
-
-		updateAllTotals();
-		console.log('Nights visibility toggle complete (using dynamic calculations for totals)');
-	}
+    var showAll = getIsDynamic();
+    console.log('Toggling nights visibility: dynamic=', showAll);
+    
+    $('.location-card').each(function() {
+        var $locationCard = $(this);
+        var count = $locationCard.attr('data-index');
+        var taxStatus = parseInt($(`#tax_status${count}`).val()) || 0;
+        
+        if (taxStatus == 1) {
+            toggleGSTColumns(true, count);
+        } else {
+            toggleGSTColumns(false, count);
+        }
+        
+        $locationCard.show().css('display', 'block');
+        $(`#nightly-details${count}`).show().css('display', 'block');
+        
+        var noOfNight = parseInt($(`#no_of_night${count}`).val()) || 0;
+        
+        if (noOfNight === 0) {
+            $locationCard.show().css('display', 'block');
+            $(`#nightly-details${count}`).show().css('display', 'block');
+            for (let n = 1; n <= 10; n++) {
+                $(`#double${count}${n}`).val(0);
+                $(`#single${count}${n}`).val(0);
+            }
+            return;
+        }
+        
+        $(`#nightly-details${count} .night-section`).each(function() {
+            var $nightSection = $(this);
+            var night = parseInt($nightSection.attr('data-night'));
+            
+            if (night > noOfNight) {
+                $nightSection.hide();
+                $(`#double${count}${night}`).val(0).trigger('change');
+                $(`#single${count}${night}`).val(0).trigger('change');
+                $nightSection.find('input[id^="d_total_rate"], input[id^="s_total_rate"], input[id^="dd_total_rate"], input[id^="ss_total_rate"]').val(0);
+                $nightSection.find('.mp_row_change').val('');
+                return;
+            }
+            
+            if (night > 1) {
+                if (showAll) {
+                    $nightSection.show();
+                } else {
+                    $nightSection.hide();
+                    console.log(`Static mode: Night ${night} hidden (but totals preserved for calculation), count ${count}`);
+                }
+            } else {
+                $nightSection.show();
+                
+                if (!showAll) {
+                    // STATIC MODE PROCESSING
+                    let totalDouble = 0;
+                    let totalSingle = 0;
+                    
+                    for (let n = 1; n <= noOfNight; n++) {
+                        totalDouble += parseInt($(`#double${count}${n}`).val() || 0);
+                        totalSingle += parseInt($(`#single${count}${n}`).val() || 0);
+                    }
+                    
+                    const avgDouble = noOfNight > 0 ? Math.round(totalDouble / noOfNight) : 0;
+                    const avgSingle = noOfNight > 0 ? Math.round(totalSingle / noOfNight) : 0;
+                    
+                    for (let n = 1; n <= noOfNight; n++) {
+                        $(`#double${count}${n}`).val(avgDouble).trigger('change');
+                        $(`#single${count}${n}`).val(avgSingle).trigger('change');
+                    }
+                    
+                    $nightSection.find('> h3').hide();
+                    $nightSection.find('.double_row, .single_row').hide();
+                    $nightSection.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').hide();
+                    
+                    // Hide extra room rows for double rooms
+                    var $doubleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+                        return $(this).find('[id^="roomcat"]').length > 0 && $(this).find('[id^="d_adult_rate"]').length > 0;
+                    });
+                    
+                    $doubleRoomRows.each(function(index) {
+                        if (index > 0) {
+                            $(this).hide();
+                            console.log(`Static mode: Hidden extra double room ${index + 1} for night 1, count ${count}`);
+                        }
+                    });
+                    
+                    // Hide extra room rows for single rooms
+                    var $singleRoomRows = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+                        return $(this).find('[id^="roomcat"]').length > 0 && $(this).find('[id^="s_adult_rate"]').length > 0;
+                    });
+                    
+                    $singleRoomRows.each(function(index) {
+                        if (index > 0) {
+                            $(this).hide();
+                            console.log(`Static mode: Hidden extra single room ${index + 1} for night 1, count ${count}`);
+                        }
+                    });
+                    
+                    // **NEW: DISABLE ROOM CATEGORY AND MEAL PLAN SELECTS IN STATIC MODE**
+                    // Disable room category dropdowns
+                    $nightSection.find('select[id^="roomcat"]').prop('disabled', true).addClass('static-disabled');
+                    
+                    // Disable meal plan dropdowns
+                    $nightSection.find('select.mp_row_change').prop('disabled', true).addClass('static-disabled');
+                    
+                    console.log(`Static mode: Disabled room category and meal plan selects for count ${count}`);
+                    
+                    // Handle first double room
+                    var firstDoubleRoomId = `${count}11`;
+                    var $firstDoubleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+                        return $(this).find('input[id^="d_adult_rate"]').length > 0;
+                    }).first();
+                    
+                    if ($firstDoubleRow.length) {
+                        var $roomTypeColDouble = $firstDoubleRow.find('.room-type-col');
+                        $roomTypeColDouble.show();
+                        var doubleQtyInput = $roomTypeColDouble.find('input');
+                        doubleQtyInput.val(avgDouble);
+                        
+                        var $extraBedRateField = $(`#d_extra_bed_rate${firstDoubleRoomId}`);
+                        $extraBedRateField.prop("readonly", false);
+                        $extraBedRateField.closest('.col-md-1').show();
+                        
+                        var no_of_extra = parseFloat($(`#no_of_extra${count}`).val()) || 0;
+                        if (no_of_extra > 0) {
+                            var currentExtraRate = parseFloat($extraBedRateField.val()) || 0;
+                            if (currentExtraRate === 0) {
+                                var extraRate = 0;
+                                var found = false;
+                                
+                                for (let searchNight = 1; !found && searchNight <= 10; searchNight++) {
+                                    for (let searchRoom = 1; !found && searchRoom <= 10; searchRoom++) {
+                                        var searchRid = `${count}${searchNight}${searchRoom}`;
+                                        if ($(`#d_extra_bed_rate${searchRid}`).length > 0) {
+                                            var searchRate = parseFloat($(`#d_extra_bed_rate${searchRid}`).val()) || 0;
+                                            if (searchRate > 0) {
+                                                extraRate = searchRate;
+                                                found = true;
+                                                console.log('Static mode: Forced extra bed rate from broad search:', {
+                                                    field: firstDoubleRoomId,
+                                                    setValue: extraRate,
+                                                    sourceNight: searchNight,
+                                                    sourceRoom: searchRoom
+                                                });
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                if (extraRate > 0) {
+                                    $extraBedRateField.val(extraRate);
+                                } else {
+                                    console.warn('Static mode: No extra bed rate found across all double rooms/nights for', firstDoubleRoomId);
+                                }
+                            } else {
+                                console.log('Static mode: Extra bed rate already set:', {
+                                    field: firstDoubleRoomId,
+                                    value: currentExtraRate
+                                });
+                            }
+                        }
+                        
+                        console.log('Static mode: Extra bed rate field enabled:', {
+                            field: firstDoubleRoomId,
+                            currentValue: $extraBedRateField.val(),
+                            readonly: $extraBedRateField.prop("readonly")
+                        });
+                    }
+                    
+                    // Handle first single room
+                    var $firstSingleRow = $nightSection.find('.row.mt-2.align-items-center').filter(function() {
+                        return $(this).find('input[id^="s_adult_rate"]').length > 0;
+                    }).first();
+                    
+                    if ($firstSingleRow.length) {
+                        var $roomTypeColSingle = $firstSingleRow.find('.room-type-col');
+                        $roomTypeColSingle.show();
+                        var singleQtyInput = $roomTypeColSingle.find('input');
+                        singleQtyInput.val(avgSingle);
+                        console.log('Static mode: Single room quantity set, total will be calculated by updateStaticModeDisplayTotal');
+                    }
+                }
+            }
+        });
+        
+        if (showAll) {
+            // DYNAMIC MODE: full details
+            // **NEW: RE-ENABLE ROOM CATEGORY AND MEAL PLAN SELECTS IN DYNAMIC MODE**
+            $(`#nightly-details${count}`).find('select[id^="roomcat"]').prop('disabled', false).removeClass('static-disabled');
+            $(`#nightly-details${count}`).find('select.mp_row_change').prop('disabled', false).removeClass('static-disabled');
+            
+            console.log(`Dynamic mode: Re-enabled room category and meal plan selects for count ${count}`);
+            
+            for (let n = 1; n <= noOfNight; n++) {
+                var $nightSec = $(`#nightly-details${count} .night-section[data-night="${n}"]`);
+                $nightSec.find('> h3').show();
+                $nightSec.find('.double_row, .single_row').show();
+                $nightSec.find('input[id^="dd_total_rate"], input[id^="ss_total_rate"]').closest('.row').show();
+                $nightSec.find('.row.mt-2.align-items-center').show();
+                $nightSec.find('.room-type-col').hide();
+                $nightSec.find('input[id^="double"], input[id^="single"]').not(`#double${count}${n}, #single${count}${n}`).val(1);
+            }
+            
+            syncRatesFromNight1(count);
+            
+            // Calculate totals with synced/zeroed rates
+            for (let n = 1; n <= noOfNight; n++) {
+                var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
+                for (let i = 1; i <= numDouble; i++) {
+                    updateRoomTotals(count, n, i);
+                }
+                
+                var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
+                var doubleCount = numDouble;
+                for (let i = 1; i <= numSingle; i++) {
+                    updateRoomTotals(count, n, doubleCount + i);
+                }
+            }
+        } else {
+            // STATIC MODE CALCULATION
+            console.log(`Static mode: Recalculating all nights for count ${count}`);
+            
+            // First, update all room totals for all nights
+            for (let n = 1; n <= noOfNight; n++) {
+                var numDouble = parseInt($(`#double${count}${n}`).val()) || 0;
+                for (let roomIdx = 1; roomIdx <= numDouble; roomIdx++) {
+                    updateRoomTotals(count, n, roomIdx);
+                }
+                
+                var numSingle = parseInt($(`#single${count}${n}`).val()) || 0;
+                for (let roomIdx = 1; roomIdx <= numSingle; roomIdx++) {
+                    updateRoomTotals(count, n, numDouble + roomIdx);
+                }
+                
+                // Force recalculation of grand totals for each night
+                calculateDoubleGrandTotalStatic(count, n);
+                calculateSingleGrandTotalStatic(count, n);
+            }
+            
+            // Then update the static display with aggregated totals
+            updateStaticModeDisplayTotal(count);
+        }
+        
+        // Vehicle visibility
+        var is_vehicle_required = 1; // Your actual value here
+        if (is_vehicle_required == 1) {
+            if (!showAll) {
+                $(`#nightly-details${count} .vehicle-details-section`).hide();
+                $(`#nightly-details${count} .vehicle-rows`).hide();
+                $(`#nightly-details${count} .vehicle-row`).hide();
+                $(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+                $(`#vehicle-summary-${count}`).show();
+            } else {
+                $(`#nightly-details${count} .vehicle-details-section`).show();
+                $(`#nightly-details${count} .vehicle-rows`).show();
+                $(`#nightly-details${count} .vehicle-row`).show();
+                $(`#nightly-details${count} .night-section [id^="veh_grand_total"]`).closest('.row').hide();
+                $(`#vehicle-summary-${count}`).hide();
+            }
+        }
+        
+        $locationCard.show().css('display', 'block');
+        $locationCard.parent().show().css('display', 'block');
+        $(`#nightly-details${count}`).show().css('display', 'block');
+        $locationCard.find('.card-body').show().css('display', 'block');
+        $locationCard.find('.ibox').show().css('display', 'block');
+    });
+    
+    updateAllTotals();
+    console.log('Nights visibility toggle complete (using dynamic calculations for totals)');
+}
+	
 	// NEW: Sync rates from Night 1 to other nights in dynamic mode (if configs match & rates missing)
 	// UPDATED: Sync rates from Night 1 to other nights in dynamic mode (if configs match & extra missing)
 	// FIXED: Sync rates from Night 1 to other nights in dynamic mode (only if configs match & ANY rate missing)
