@@ -692,148 +692,139 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 					</table>	
 					<br/>
 					<?php if($object_det[0]['is_vehicle_required'] == 1){ ?>
-					<table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
-                          
-						  <tr>
-							 <td colspan="7" style="text-align:center;background-color:#4baf58;color:#fff;border:1px solid black;"><b>Transportation</b></td>
-						 </tr>
-						 <tr>
-							 <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Day</b></td>
-							 <td style="text-align:center;background-color:#4baf58;color:#fff;border:1px solid black;"><b>Date</b></td>
-							 <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Description</b></td>
-							 <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Destination</b></td>
-							 <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>KM Used</b></td>
-							 <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Vehicle Model</b></td>
-							 <td style="background-color:#4baf58;color:#fff;border:1px solid black;text-align:right;"><b>Rate</b></td>
-							
-	
-						</tr>
-						<?php
-						$cs_trans_total = 0;
-						$total_permit = 0;
-						$sum_travel = 0;
-						$sum_max_km = 0;
-						$extra_rate = 0;
-						$vehicle_models = array();
-						$dayNo = 1;                                      
-                    	$itinerary_details_save_cnt = count($iti_data)-1;
-						$kv = 1;
-						foreach($iti_data as $dkey => $day) { 
-							$total_permit = $total_permit + $day['permit'];
-							foreach($day['cost'] as $ckey => $cval) { 
-														
-								if($cval['cost_component_id'] == "21" && $cval['room_type_id'] == "1"){
-									$sight_seeing_id = $cval['tariff'];
-									$ss_name = $Enquiry_model->getSightName($sight_seeing_id);
-									if(!empty($ss_name)){
-										$ss_name_temp = $ss_name[0]['object_name'];
-									}
-									else{
-										$trimmed = substr((string)$sight_seeing_id, 0, -3);
-													
-										$ss_name = $Enquiry_model->getDefaultSightName($trimmed);
-																
-										if(!empty($ss_name)){
-											$ss_name_temp = $ss_name[0]['geog_name'];
-										}
-										else{
-											$ss_name_temp = "";
-										}
-									}
-								}
-							}
-						$tourDate    = $day['tour_date'];
-						$vDetailsAll = json_decode($day['vehicle_details'] ?? '[]');
+<table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
+      
+  <tr>
+     <td colspan="7" style="text-align:center;background-color:#4baf58;color:#fff;border:1px solid black;"><b>Transportation</b></td>
+ </tr>
+ <tr>
+     <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Day</b></td>
+     <td style="text-align:center;background-color:#4baf58;color:#fff;border:1px solid black;"><b>Date</b></td>
+     <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Description</b></td>
+     <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Destination</b></td>
+     <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>KM Used</b></td>
+     <td style="background-color:#4baf58;color:#fff;border:1px solid black;"><b>Vehicle Model</b></td>
+     <td style="background-color:#4baf58;color:#fff;border:1px solid black;text-align:right;"><b>Rate</b></td>
 
-													
-						$vehicles = array_filter(
-							$vDetailsAll,
-							fn($v) => $v->tour_date == $tourDate
-						);
+</tr>
+<?php
+$cs_trans_total = 0;
+$total_permit = 0;
+$sum_travel = 0;
+$sum_max_km = 0;
+$extra_rate = 0;
+$vehicle_models = array();
+$dayNo = 1;                                      
+$itinerary_details_save_cnt = count($iti_data)-1;
+foreach($iti_data as $dkey => $day) { 
+    if($dkey > $itinerary_details_save_cnt) { continue; }
+    $total_permit = $total_permit + $day['permit'];
+    
+    // NEW: Collect ALL sightseeing names from ss_data_json (replaces old $ss_name_temp cost loop)
+    $ss_data = json_decode($day['ss_data_json'] ?? '[]', true);
+    $ss_names = [];
+    if (!empty($ss_data)) {
+        foreach ($ss_data as $ss) {
+            if (!empty($ss['name'])) {
+                $ss_names[] = $ss['name'];
+            }
+        }
+    }
+    $ss_name_display = !empty($ss_names) ? implode(', ', $ss_names) : '';
+    
+    $tourDate    = $day['tour_date'];
+    $vDetailsAll = json_decode($day['vehicle_details'] ?? '[]');
 
-						if (!$vehicles) { continue; }
+                                                
+    $vehicles = array_filter(
+        $vDetailsAll,
+        fn($v) => $v->tour_date == $tourDate
+    );
 
-							$rowspan = count($vehicles);                
-							$first   = true;                              
+    if (!$vehicles) { continue; }
 
-							foreach ($vehicles as $v) {
-								echo '<tr>';
+        $rowspan = count($vehicles);                
+        $first   = true;                              
 
-													
-								if ($first) {
-									echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$dayNo.'</td>';
-									echo '<td rowspan="'.$rowspan.'" style="text-align:center;border:1px solid black;">'.date('d-m-Y', strtotime($tourDate)).'</td>';
-									echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$day['transport_remarks'].'</td>';
+        foreach ($vehicles as $v) {
+            echo '<tr>';
+                                        
+            if ($first) {
+                echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$dayNo.'</td>';
+                echo '<td rowspan="'.$rowspan.'" style="text-align:center;border:1px solid black;">'.date('d-m-Y', strtotime($tourDate)).'</td>';
+                echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$day['transport_remarks'].'</td>';
 
-															if(date("d-m-Y", strtotime($tourDate)) == date("d-m-Y", strtotime($object_det[0]['date_of_tour_completion']))){
-																if(!empty($ss_name_temp)){
-																	$final_ss_name = $ss_name_temp." - ".$dep_name[0]['geog_name'];
-																}
-																else{
-																	$final_ss_name = $dep_name[0]['geog_name'];
-																}
-																echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$final_ss_name.'</td>';
-															}
-															else{
-																echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$ss_name_temp.'</td>';
-															}
-									$dayNo++;                          
-									$first = false;
-								}
+                // UPDATED: Use $ss_name_display for Destination (shows all sightseeings)
+                if(date("d-m-Y", strtotime($tourDate)) == date("d-m-Y", strtotime($object_det[0]['date_of_tour_completion']))){
+                    if(!empty($ss_name_display)){
+                        $final_destination = $ss_name_display." - ".$dep_name[0]['geog_name'];
+                    }
+                    else{
+                        $final_destination = $dep_name[0]['geog_name'];
+                    }
+                    echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$final_destination.'</td>';
+                }
+                else{
+                    $destination = !empty($ss_name_display) ? $ss_name_display : $day['geog_name'];
+                    echo '<td rowspan="'.$rowspan.'" style="border:1px solid black;">'.$destination.'</td>';
+                }
+                $dayNo++;                          
+                $first = false;
+            }
 
-														echo '<td style="border:1px solid black;">'.$v->travel_distance.'</td>';
-														echo '<td style="border:1px solid black;">'.$v->vehicle_model.'</td>';
-														echo '<td style="border:1px solid black;text-align:right;">'.$v->day_rent.'</td>';
-														echo '</tr>';
-														$cs_trans_total += (float)($v->day_rent ?? 0);
+                            echo '<td style="border:1px solid black;">'.$v->travel_distance.'</td>';
+                            echo '<td style="border:1px solid black;">'.$v->vehicle_model.'</td>';
+                            echo '<td style="border:1px solid black;text-align:right;">'.$v->day_rent.'</td>';
+                            echo '</tr>';
+                            $cs_trans_total += (float)($v->day_rent ?? 0);
 
-														// Accumulate totals for extra KM calculation
-														$travel_this = (float)($v->travel_distance ?? 0);
-														$max_this = (float)($v->max_km_day ?? 0); // Assuming field name 'max_km_day'; adjust if different (e.g., 'included_km', 'day_limit_km')
-														$sum_travel += $travel_this;
-														$sum_max_km += $max_this;
-														if ($extra_rate == 0 && isset($v->extra_km_rate)) {
-															$extra_rate = (float)$v->extra_km_rate;
-														}
-														$vehicle_models[] = $v->vehicle_model;
-													}
-						} 
-						// Compute and add extra KM row based on formula
-						$total_extra_km = max(0, $sum_travel - $sum_max_km);
-						$total_extra_klm_cost = $total_extra_km * $extra_rate;
-						$cs_trans_total += $total_extra_klm_cost;
-						if ($total_extra_km > 0) {
-							$model_str = implode(', ', array_unique($vehicle_models));
-							?>
-							<tr>
-								<td colspan="4" style="border:1px solid black;">Extra Kilometer (Rate : <?php echo number_format($extra_rate, 2); ?>)</td>
-								<td style="border:1px solid black;"><?php echo number_format($total_extra_km, 2); ?></td>
-								<td style="border:1px solid black;"><?php echo $model_str; ?></td>
-								<td style="border:1px solid black;text-align:right;"><?php echo number_format($total_extra_klm_cost, 2); ?></td>
-							</tr>
-							<?php
-						}
-						?>
-						
-					</table>
-                <?php } ?>
-				<table style="width:100%;border-collapse: collapse;">  
-						<?php if($object_det[0]['is_vehicle_required'] == 1){ ?>
-							<tr>
-								<td><b>Total Transportaion Cost</b></td>
-								<td style="text-align:right;"><b><?php echo number_format($cs_trans_total, 2); ?></b></td>
-							</tr>
-							<tr>
-								<td><b>Other Charges / Permit</b></td>
-								<td style="text-align:right;"><b><?php echo number_format($total_permit, 2); ?></b></td>
-							</tr>
-						<?php } ?>
-						<tr> 
-							<td><b>Total Net Rate</b></td>
-							<td style="text-align:right;"><b><?php echo $tnr_hidden; ?></b></td>
-							
-						</tr>
-				</table>	
+                            // Accumulate totals for extra KM calculation
+                            $travel_this = (float)($v->travel_distance ?? 0);
+                            $max_this = (float)($v->max_km_day ?? 0);
+                            $sum_travel += $travel_this;
+                            $sum_max_km += $max_this;
+                            if ($extra_rate == 0 && isset($v->extra_km_rate)) {
+                                $extra_rate = (float)$v->extra_km_rate;
+                            }
+                            $vehicle_models[] = $v->vehicle_model;
+        }
+} 
+// Compute and add extra KM row based on formula
+$total_extra_km = max(0, $sum_travel - $sum_max_km);
+$total_extra_klm_cost = $total_extra_km * $extra_rate;
+$cs_trans_total += $total_extra_klm_cost;
+if ($total_extra_km > 0) {
+    $model_str = implode(', ', array_unique($vehicle_models));
+    ?>
+    <tr>
+        <td colspan="4" style="border:1px solid black;">Extra Kilometer (Rate : <?php echo number_format($extra_rate, 2); ?>)</td>
+        <td style="border:1px solid black;"><?php echo number_format($total_extra_km, 2); ?></td>
+        <td style="border:1px solid black;"><?php echo $model_str; ?></td>
+        <td style="border:1px solid black;text-align:right;"><?php echo number_format($total_extra_klm_cost, 2); ?></td>
+    </tr>
+    <?php
+}
+?>
+
+</table>
+<?php } ?>
+<table style="width:100%;border-collapse: collapse;">  
+    <?php if($object_det[0]['is_vehicle_required'] == 1){ ?>
+        <tr>
+            <td><b>Total Transportaion Cost</b></td>
+            <td style="text-align:right;"><b><?php echo number_format($cs_trans_total, 2); ?></b></td>
+        </tr>
+        <tr>
+            <td><b>Other Charges / Permit</b></td>
+            <td style="text-align:right;"><b><?php echo number_format($total_permit, 2); ?></b></td>
+        </tr>
+    <?php } ?>
+    <tr> 
+        <td><b>Total Net Rate</b></td>
+        <td style="text-align:right;"><b><?php echo $tnr_hidden; ?></b></td>
+        
+    </tr>
+</table>	
 
 
 				<?php if(!empty($iti_cost_datas)){ ?>

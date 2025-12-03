@@ -9923,15 +9923,14 @@ $is_edit = $edit_id ? $edit_id : 0;
 			if (changes.nightsIncreased) {
 				return 'NIGHTS_INCREASED';
 			}
-			// NEW: Detect room number changes (not just room configuration)
-			if (changes.roomsChanged) {
-				return 'ROOMS_CHANGED'; // This will now trigger fresh fetch
-			}
 			if (changes.paxChanged && !changes.dateChanged && !changes.roomsChanged && !changes.nightsIncreased && !changes.nightsDecreased) {
 				return 'PAX_ONLY_CHANGED';
 			}
 			if (changes.dateChanged) {
 				return 'DATE_CHANGED';
+			}
+			if (changes.roomsChanged) {
+				return 'ROOMS_CHANGED';
 			}
 			if (changes.vehicleModelsChanged) {
 				return 'VEHICLE_CHANGED';
@@ -9947,10 +9946,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 					return `Nights reduced - using previous tariff rates!`;
 				case 'NIGHTS_INCREASED':
 					return 'Nights increased - you can add more locations with fresh tariffs!';
-					// case 'ROOMS_CHANGED':
-					// 	return 'Room configuration changed - totals recalculated with previous rates!';
 				case 'ROOMS_CHANGED':
-					return 'Room count changed - fresh tariffs fetched for new room configuration!';
+					return 'Room configuration changed - totals recalculated with previous rates!';
 				case 'VEHICLE_CHANGED':
 					return 'Vehicle types changed - fresh vehicle tariffs applied!';
 				case 'PAX_ONLY_CHANGED':
@@ -10012,8 +10009,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			var cp_sel = locationData.meal_plan_id == 2 ? "selected" : "";
 			var map_sel = locationData.meal_plan_id == 3 ? "selected" : "";
 			var ap_sel = locationData.meal_plan_id == 4 ? "selected" : "";
-			// var usePreTariffs = (mode === 'NO_CHANGES' || mode === 'NIGHTS_DECREASED_ONLY' || mode === 'PAX_ONLY_CHANGED' || mode === 'ROOMS_CHANGED');
-			var usePreTariffs = (mode === 'NO_CHANGES' || mode === 'NIGHTS_DECREASED_ONLY' || mode === 'PAX_ONLY_CHANGED');
+			var usePreTariffs = (mode === 'NO_CHANGES' || mode === 'NIGHTS_DECREASED_ONLY' || mode === 'PAX_ONLY_CHANGED' || mode === 'ROOMS_CHANGED');
 			var usePreVehicle = (mode !== 'VEHICLE_CHANGED'); // FIXED: Allow pre-vehicle data even on date change
 			console.log(`Use Pre-Tariffs: ${usePreTariffs}, Use Pre-Vehicle: ${usePreVehicle}`);
 			var newCard = buildLocationCardHtml(count, locationData, ep_sel, cp_sel, map_sel, ap_sel, no_of_adult, no_of_child_with_bed, no_of_child_without_bed, no_of_extra_bed, total_no_of_pax);
@@ -10750,13 +10746,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			console.log(`\n=== FETCHING FRESH TARIFFS - Location ${count} (Mode: ${mode}) ===`);
 
 			// NEW: Route PAX_ONLY_CHANGED and ROOMS_CHANGED to pre-data path
-			// if (mode === 'PAX_ONLY_CHANGED' || mode === 'ROOMS_CHANGED') {
-			// 	console.log(`Routing ${mode} to pre-data path (no fresh fetch)`);
-			// 	return await generateNightlyDetailsFromPreData(count, locationData, mode, changes);
-			// }
-
-			// NEW: Route only PAX_ONLY_CHANGED to pre-data path (rooms changed needs fresh fetch)
-			if (mode === 'PAX_ONLY_CHANGED') {
+			if (mode === 'PAX_ONLY_CHANGED' || mode === 'ROOMS_CHANGED') {
 				console.log(`Routing ${mode} to pre-data path (no fresh fetch)`);
 				return await generateNightlyDetailsFromPreData(count, locationData, mode, changes);
 			}
