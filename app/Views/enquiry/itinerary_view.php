@@ -4563,11 +4563,21 @@ $cs_trans_total = 0;
 																	</td>
 																	<td>
 																		<span id="bifur_double_pp_span">
-																			<?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?>
+																			<?php
+																			$doubleRoomCount = isset($object_det[0]['no_of_double_room']) ? (int)$object_det[0]['no_of_double_room'] : 0;
+																			$denominator = $doubleRoomCount * 2;
+
+																			$doublePP = ($denominator > 0)
+																				? round($bifur_double_total / $denominator, 2)
+																				: 0; // valid fallback when rooms = 0
+																			?>
+
+																			<?= number_format($doublePP, 2) ?>
 																		</span>
+
 																		<input type="hidden" id="bifur_double_pp_hidden"
 																			name="bifur_double_pp_hidden"
-																			value="<?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?>">
+																			value="<?= $doublePP ?>">
 																	</td>
 																	<td>
 																		<span id="ttc_bifur_span_double_span">
