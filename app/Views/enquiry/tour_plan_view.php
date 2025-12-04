@@ -1937,59 +1937,124 @@ $is_edit = $edit_id ? $edit_id : 0;
 </script>
 <script>
 	$(document).ready(function() {
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-		if (is_vehicle_required == 1) {
-			$('#btn_savedraft_tour_plan').on('click', function(e) {
-				let isValid = true;
-				$('.load_vehs_click').each(function() {
-					if ($(this).attr('data-loaded') !== 'true') {
-						alert('Please refresh vehicle details (click refresh icon) for all locations before saving.');
-						isValid = false;
-						return false; // break loop
-					}
-				});
+    var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+    
+    if (is_vehicle_required == 1) {
+        // Helper function to check if last card's vehicle details are loaded
+        function isLastCardVehicleLoaded() {
+            var $lastCard = $('.tour_plan_div .location-card').last();
+            if (!$lastCard.length) return true;
+            
+            var lastCount = $lastCard.attr('data-index');
+            var noOfNight = parseInt($(`#no_of_night${lastCount}`).val()) || 0;
+            
+            if (noOfNight === 0) return true;
+            
+            var isDynamic = getIsDynamic();
+            
+            if (isDynamic) {
+                var lastNight = noOfNight;
+                var $lastNightVehicleBtn = $(`#loadvehs${lastCount}${lastNight}`);
+                
+                if ($lastNightVehicleBtn.length && $lastNightVehicleBtn.attr('data-loaded') === 'true') {
+                    return true;
+                }
+                
+                console.log('Dynamic mode: Last night vehicle details not loaded for last card');
+                return false;
+                
+            } else {
+                var $vehicleSummary = $(`#vehicle-summary-${lastCount}`);
+                
+                if (!$vehicleSummary.length || $vehicleSummary.is(':hidden')) {
+                    console.log('Static mode: Vehicle summary not found or hidden for last card');
+                    return false;
+                }
+                
+                var hasData = false;
+                $vehicleSummary.find('[id^="summary_total_"]').each(function() {
+                    var total = parseFloat($(this).val()) || 0;
+                    if (total > 0) {
+                        hasData = true;
+                        return false;
+                    }
+                });
+                
+                if (!hasData) {
+                    console.log('Static mode: Vehicle summary has no data for last card');
+                    return false;
+                }
+                
+                return true;
+            }
+        }
 
-				if (!isValid) {
-					e.preventDefault();
-				} else {
-					$("#submit_type").val("draft");
-				}
-			});
+        // CONSOLIDATED HANDLER - handles both validation AND submission
+        $('#btn_save_tour_plan').on('click', function(e) {
+            e.preventDefault(); // Always prevent default first
+            
+            // Validate
+            if (!isLastCardVehicleLoaded()) {
+                var isDynamic = getIsDynamic();
+                var message = isDynamic 
+                    ? 'Please refresh vehicle details (click refresh icon) for the last night of the last location before saving.'
+                    : 'Please refresh vehicle summary (click refresh icon) for the last location before saving.';
+                alert(message);
+                return false; // Stop here - don't submit
+            }
+            
+            // Validation passed - proceed with save
+            $('#submit_type').val('final');
+            
+            // Disable buttons and show loading UI
+            $('#btn_savedraft_tour_plan, #btn_save_tour_plan').prop('disabled', true);
+            $('#btn_save_tour_plan').html('<span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>Saving... Please wait');
+            
+            // Animate UI
+            $('.tour_plan_div').fadeTo(300, 0.5);
+            $('#csspinner').show().text('Finalizing tour plan...');
+            
+            // Submit form after visual effect
+            setTimeout(function() {
+                document.getElementById('myTourplanForm').submit();
+            }, 500);
+        });
 
-			$('#btn_save_tour_plan').on('click', function(e) {
-				let isValid = true;
-				// $('.load_vehs_click').each(function() {
-				// 	if ($(this).attr('data-loaded') !== 'true') {
-				// 		alert('Please refresh vehicle details (click refresh icon) for all locations before saving.');
-				// 		isValid = false;
-				// 		return false; // break loop
-				// 	}
-				// });
+        // Draft save handler
+        $('#btn_savedraft_tour_plan').on('click', function(e) {
+            e.preventDefault(); // Prevent default
+            
+            if (!isLastCardVehicleLoaded()) {
+                var isDynamic = getIsDynamic();
+                var message = isDynamic 
+                    ? 'Please refresh vehicle details (click refresh icon) for the last night of the last location before saving.'
+                    : 'Please refresh vehicle summary (click refresh icon) for the last location before saving.';
+                alert(message);
+                return false;
+            }
+            
+            $("#submit_type").val("draft");
+            
+            // Disable buttons and show loading
+            $('#btn_savedraft_tour_plan, #btn_save_tour_plan').prop('disabled', true);
+            $('#btn_savedraft_tour_plan').html('<i class="fa fa-spinner fa-spin"></i> Saving...');
+            $('#csspinner').show();
+            
+            // Submit form
+            document.getElementById('myTourplanForm').submit();
+        });
+        
+    } else {
+        // No vehicle validation required
+        $("#btn_savedraft_tour_plan").click(function() {
+            $("#submit_type").val("draft");
+        });
 
-				if (!isValid) {
-					e.preventDefault();
-				} else {
-					$('#submit_type').val('final');
-				}
-			});
-		} else {
-			$("#btn_savedraft_tour_plan").click(function() {
-				$("#submit_type").val("draft");
-			});
-
-			$("#btn_save_tour_plan").click(function() {
-				$("#submit_type").val("final");
-			});
-		}
-
-		var tour_plan_draft_det = <?php echo json_encode($tour_plan_draft_det); ?>;
-		var tour_plan_div = $('.tour_plan_div .location-card').val();
-		if (Array.isArray(tour_plan_draft_det) && tour_plan_draft_det.length > 0) {
-			$('#btn_add_bt').prop('disabled', true);
-		} else {
-			$('#btn_add_bt').prop('disabled', false);
-		}
-	});
+        $("#btn_save_tour_plan").click(function() {
+            $("#submit_type").val("final");
+        });
+    }
+});
 </script>
 
 <script>
@@ -2037,27 +2102,27 @@ $is_edit = $edit_id ? $edit_id : 0;
 	}
 	// Example export
 	window.getIsDynamic = getIsDynamic;
-
+//NJ  CONFLICT IN SAVE 
 	// Event handler for Final Save button: Show dynamic wait UI, then process save
-	document.getElementById('btn_save_tour_plan').addEventListener('click', function(e) {
-		e.preventDefault(); // Prevent immediate form submission
+	// document.getElementById('btn_save_tour_plan').addEventListener('click', function(e) {
+	// 	e.preventDefault(); // Prevent immediate form submission
 
-		// Set submit type for backend processing
-		document.getElementById('submit_type').value = 'final_save';
+	// 	// Set submit type for backend processing
+	// 	document.getElementById('submit_type').value = 'final_save';
 
-		// Disable save buttons and show dynamic wait UI
-		$('#btn_savedraft_tour_plan, #btn_save_tour_plan').prop('disabled', true);
-		$('#btn_save_tour_plan').html('<span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>Saving... Please wait');
+	// 	// Disable save buttons and show dynamic wait UI
+	// 	$('#btn_savedraft_tour_plan, #btn_save_tour_plan').prop('disabled', true);
+	// 	$('#btn_save_tour_plan').html('<span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>Saving... Please wait');
 
-		// Animate UI for dynamic feel (e.g., fade out form content)
-		$('.tour_plan_div').fadeTo(300, 0.5); // Semi-transparent overlay effect
-		$('#csspinner').show().text('Finalizing tour plan...'); // Update spinner text
+	// 	// Animate UI for dynamic feel (e.g., fade out form content)
+	// 	$('.tour_plan_div').fadeTo(300, 0.5); // Semi-transparent overlay effect
+	// 	$('#csspinner').show().text('Finalizing tour plan...'); // Update spinner text
 
-		// After a short delay for visual effect, submit the form to process final save
-		setTimeout(function() {
-			document.getElementById('myTourplanForm').submit();
-		}, 500); // 500ms delay for smooth transition
-	});
+	// 	// After a short delay for visual effect, submit the form to process final save
+	// 	setTimeout(function() {
+	// 		document.getElementById('myTourplanForm').submit();
+	// 	}, 500); // 500ms delay for smooth transition
+	// });
 
 
 	// Add event handler for day_rent input to synchronize across all nights
@@ -2440,7 +2505,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			updateVehicleSummary(count);
 			updateAllTotals();
 			$spinner.hide();
-			alert('Vehicle data refreshed successfully for Location ' + count);
+			// alert('Vehicle data refreshed successfully for Location ' + count);
 			if (typeof callback === 'function') callback();
 		});
 	}
@@ -2471,7 +2536,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			updateVehicleSummary(count);
 			updateAllTotals();
 			$spinner.hide();
-			alert('Vehicle data refreshed successfully for Location ' + count);
+			// alert('Vehicle data refreshed successfully for Location ' + count);
 			if (typeof callback === 'function') callback();
 		});
 	}
@@ -2708,44 +2773,44 @@ $is_edit = $edit_id ? $edit_id : 0;
 	}
 
 	// **REFRESH NIGHTS SEQUENTIALLY WITH PROGRESS**
-	function refreshNightsSequentiallyWithProgress(count, nights, onComplete) {
-		var $spinner = $('#csspinner');
-		$spinner.show();
+	// function refreshNightsSequentiallyWithProgress(count, nights, onComplete) {
+	// 	var $spinner = $('#csspinner');
+	// 	$spinner.show();
 
-		var totalNights = nights.length;
-		var completedNights = 0;
+	// 	var totalNights = nights.length;
+	// 	var completedNights = 0;
 
-		console.log('Refreshing ' + totalNights + ' nights in chronological order for Location ' + count + ':', nights);
+	// 	console.log('Refreshing ' + totalNights + ' nights in chronological order for Location ' + count + ':', nights);
 
-		function refreshNextNight(index) {
-			if (index >= nights.length) {
-				// All nights refreshed
-				$spinner.hide();
-				alert('SUCCESS!\n\nAll ' + totalNights + ' night(s) refreshed successfully for Location ' + count + '!');
+	// 	function refreshNextNight(index) {
+	// 		if (index >= nights.length) {
+	// 			// All nights refreshed
+	// 			$spinner.hide();
+	// 			// alert('SUCCESS!\n\nAll ' + totalNights + ' night(s) refreshed successfully for Location ' + count + '!');
 
-				if (typeof onComplete === 'function') {
-					onComplete();
-				}
-				return;
-			}
+	// 			if (typeof onComplete === 'function') {
+	// 				onComplete();
+	// 			}
+	// 			return;
+	// 		}
 
-			var currentNight = nights[index];
-			var progress = Math.round(((index + 1) / totalNights) * 100);
+	// 		var currentNight = nights[index];
+	// 		var progress = Math.round(((index + 1) / totalNights) * 100);
 
-			console.log('Refreshing Night ' + currentNight + ' (' + (index + 1) + '/' + totalNights + ') - ' + progress + '% for Location ' + count);
+	// 		console.log('Refreshing Night ' + currentNight + ' (' + (index + 1) + '/' + totalNights + ') - ' + progress + '% for Location ' + count);
 
-			loadVehicleDataForNight(count, currentNight, function() {
-				completedNights++;
-				// Move to next night after 300ms delay
-				setTimeout(function() {
-					refreshNextNight(index + 1);
-				}, 300);
-			});
-		}
+	// 		loadVehicleDataForNight(count, currentNight, function() {
+	// 			completedNights++;
+	// 			// Move to next night after 300ms delay
+	// 			setTimeout(function() {
+	// 				refreshNextNight(index + 1);
+	// 			}, 300);
+	// 		});
+	// 	}
 
-		// Start refreshing from first night
-		refreshNextNight(0);
-	}
+	// 	// Start refreshing from first night
+	// 	refreshNextNight(0);
+	// }
 
 	// **LOAD VEHICLE DATA FOR A SPECIFIC NIGHT**
 	function loadVehicleDataForNight(count, night, callback) {
@@ -2944,7 +3009,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			if (index >= nights.length) {
 				// All nights refreshed
 				$spinner.hide();
-				alert('SUCCESS!\n\nAll ' + totalNights + ' night(s) refreshed successfully for Location ' + count + '!');
+				// alert('SUCCESS!\n\nAll ' + totalNights + ' night(s) refreshed successfully for Location ' + count + '!');
 
 				if (typeof onComplete === 'function') {
 					onComplete();
@@ -8119,7 +8184,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 	});
 </script>
 <!-- //nj// -->
-<script>
+<!-- <script>
 	var isDraftLoading = false; // Global flag to skip handlers during draft load
 
 	$(document).on('click', '.draft_view', function() {
@@ -8284,7 +8349,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 				<div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${main.geog_name}</span></div>
 				<a href="#" class="card-options-edit" data-index="${index}" style="margin-left:10px;">
     <i class="fe fe-edit"></i>
-</a>
+	</a>
 
 				<div class="card-options">
 				
@@ -8937,6 +9002,939 @@ $is_edit = $edit_id ? $edit_id : 0;
 		get_veh_grand_total();
 		updateAllTotals();
 		console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
+	}
+</script> -->
+<script>
+	var isDraftLoading = false; // Global flag to skip handlers during draft load
+
+	// Helper function to wait for dropdown options to populate (polling for async AJAX)
+	function waitForOptions(selector, minOptions, callback, maxAttempts = 50, attempt = 0) {
+		if (attempt >= maxAttempts) {
+			console.error(`Timeout waiting for options in ${selector} after ${maxAttempts * 100}ms`);
+			callback(); // Proceed anyway to avoid blocking
+			return;
+		}
+		var currentOptions = $(selector + ' option').length;
+		if (currentOptions >= minOptions) {
+			console.log(`Options populated for ${selector}: ${currentOptions} options`);
+			callback();
+		} else {
+			console.log(`Waiting for options in ${selector}... current: ${currentOptions}`);
+			setTimeout(function() {
+				waitForOptions(selector, minOptions, callback, maxAttempts, attempt + 1);
+			}, 100);
+		}
+	}
+
+	$(document).on('click', '.draft_view', function() {
+		checkTotalNights();
+		var $this = $(this);
+		if ($this.prop('disabled')) return;
+		$this.prop('disabled', true);
+		$('#spinner_draft').show();
+
+		// Safe PHP variable initialization
+		var enquiry_header_id = <?php echo isset($object_det[0]['enquiry_header_id']) ? $object_det[0]['enquiry_header_id'] : 'null'; ?>;
+		var enquiry_details_id = <?php echo isset($object_det[0]['enquiry_details_id']) ? $object_det[0]['enquiry_details_id'] : 'null'; ?>;
+		var hotel_categories = <?php echo isset($hotel_categories) ? json_encode($hotel_categories) : '[]'; ?>;
+		var no_of_night = <?php echo isset($object_det[0]['no_of_night']) ? $object_det[0]['no_of_night'] : '0'; ?>;
+		var total_no_of_pax = <?php echo isset($object_det[0]['total_no_of_pax']) ? $object_det[0]['total_no_of_pax'] : '0'; ?>;
+		var no_of_adult = <?php echo isset($object_det[0]['no_of_adult']) ? $object_det[0]['no_of_adult'] : '0'; ?>;
+		var no_of_child_with_bed = <?php echo isset($object_det[0]['no_of_child_with_bed']) ? $object_det[0]['no_of_child_with_bed'] : '0'; ?>;
+		var no_of_child_without_bed = <?php echo isset($object_det[0]['no_of_child_without_bed']) ? $object_det[0]['no_of_child_without_bed'] : '0'; ?>;
+		var no_of_double_room = <?php echo isset($object_det[0]['no_of_double_room']) ? $object_det[0]['no_of_double_room'] : '0'; ?>;
+		var no_of_single_room = <?php echo isset($object_det[0]['no_of_single_room']) ? $object_det[0]['no_of_single_room'] : '0'; ?>;
+		var no_of_extra_bed = <?php echo isset($object_det[0]['no_of_extra_bed']) ? $object_det[0]['no_of_extra_bed'] : '0'; ?>;
+		var is_vehicle_required = <?php echo isset($object_det[0]['is_vehicle_required']) ? $object_det[0]['is_vehicle_required'] : '0'; ?>;
+		var vehicle_models = <?php echo isset($vehicle_data) ? json_encode($vehicle_data) : '[]'; ?>;
+
+		// Validate critical inputs
+		if (!enquiry_header_id || !enquiry_details_id) {
+			console.error('Missing enquiry_header_id or enquiry_details_id');
+			$('#spinner_draft').hide();
+			$this.prop('disabled', false);
+			alert('Error: Invalid enquiry data.');
+			return;
+		}
+
+		$('#btn_add_bt').prop('disabled', false);
+		$.ajax({
+			url: '<?php echo site_url('Enquiry/loadTourLocation'); ?>',
+			type: 'POST',
+			data: {
+				enquiry_header_id,
+				enquiry_details_id
+			},
+			dataType: 'json',
+			success: function(response) {
+				console.log('=== DRAFT LOAD RESPONSE ===');
+				console.log('Full Response:', response);
+				if (!response || response.length === 0) {
+					showAlert('warning', 'No draft data found.');
+					$('#spinner_draft').hide();
+					return;
+				}
+
+				// Clear existing tour plan
+				$('.tour_plan_div').empty();
+				$('.dyn_list').empty();
+
+				// Group data by tour_details_id
+				var groupedData = {};
+				$.each(response, function(index, item) {
+					var tourDetailsId = item.tour_details_id;
+					console.log(`Processing item ${index}, tour_details_id: ${tourDetailsId}`);
+					console.log('Item room_category_id:', item.room_category_id);
+					console.log('Item room_category_name:', item.room_category_name);
+
+					if (!groupedData[tourDetailsId]) {
+						groupedData[tourDetailsId] = {
+							main: {
+								tour_details_id: item.tour_details_id,
+								geog_name: item.geog_name || 'Unknown Location',
+								geog_id: item.tour_location || '',
+								check_in_date: item.check_in_date || '',
+								check_out_date: item.check_out_date || '',
+								no_of_days: item.no_of_days || 0,
+								hotel_id: item.hotel_id || '',
+								hot_cat_id: item.hot_cat_id || '',
+								room_category_id: item.room_category_id || '',
+								tax_status: item.tax_status || 0,
+								is_own_arrangement: item.is_own_arrangement || 0,
+								tour_location: item.tour_location || '',
+								meal_plan_id: item.meal_plan_id || '',
+								vehicle_details: item.vehicle_details || ''
+							},
+							expansions: [] // Collect all expansions here
+						};
+						console.log(`Created main data for tour ${tourDetailsId}:`, groupedData[tourDetailsId].main);
+					}
+
+					// Handle nested expansions
+					if (item.expansion && Array.isArray(item.expansion)) {
+						console.log(`Processing ${item.expansion.length} expansions for tour ${tourDetailsId}`);
+						$.each(item.expansion, function(eIndex, exp) {
+							console.log(`Expansion ${eIndex}:`, exp);
+							console.log(`Expansion room_category_id: ${exp.room_category_id}`);
+							groupedData[tourDetailsId].expansions.push({
+								tour_expansion_id: exp.tour_expansion_id,
+								tour_expansion_date: exp.tour_expansion_date,
+								expansion_room_category_id: exp.room_category_id || item.room_category_id || '',
+								meal_plan_id: exp.meal_plan_id || item.meal_plan_id || '',
+								room_rate_double: exp.room_rate_double || 0,
+								child_with_bed_double: exp.child_with_bed_double || 0,
+								child_without_bed_double: exp.child_without_bed_double || 0,
+								extra_bed_double: exp.extra_bed_double || 0,
+								double_total_rate: exp.double_total_rate || 0,
+								room_rate_single: exp.room_rate_single || 0,
+								child_with_bed_single: exp.child_with_bed_single || 0,
+								child_without_bed_single: exp.child_without_bed_single || 0,
+								extra_bed_single: exp.extra_bed_single || 0,
+								single_total_rate: exp.single_total_rate || 0,
+								vehicle_details_json: exp.vehicle_details_json || '',
+								// Added GST field mappings
+								room_rate_double_gst: exp.room_rate_double_gst || 0,
+								child_with_bed_double_gst: exp.child_with_bed_double_gst || 0,
+								child_without_bed_double_gst: exp.child_without_bed_double_gst || 0,
+								extra_bed_double_gst: exp.extra_bed_double_gst || 0,
+								room_rate_single_gst: exp.room_rate_single_gst || 0,
+								child_with_bed_single_gst: exp.child_with_bed_single_gst || 0,
+								child_without_bed_single_gst: exp.child_without_bed_single_gst || 0,
+								extra_bed_single_gst: exp.extra_bed_single_gst || 0
+							});
+							console.log(`Added expansion with room_category_id: ${exp.room_category_id || item.room_category_id}`);
+						});
+					}
+				});
+
+				console.log('=== GROUPED DATA ===');
+				console.log(groupedData);
+
+				// Convert to array
+				var tourDetailsArray = Object.keys(groupedData).map(function(key) {
+					return groupedData[key];
+				});
+
+				// Set loading flag ON
+				isDraftLoading = true;
+
+				// STEP 1: Build all HTML strings synchronously
+				var allCardsHtml = '';
+				var allBreadcrumbsHtml = '';
+				$.each(tourDetailsArray, function(index, locationData) {
+					var count = index + 1;
+					var main = locationData.main;
+					var expansions = locationData.expansions; // Raw expansions for grouping in function
+					console.log(`\n=== BUILDING CARD ${count} ===`);
+					console.log('Main data:', main);
+					console.log('Common room_category_id:', main.room_category_id);
+					console.log('Number of expansions:', expansions.length);
+
+					var ep_sel = main.meal_plan_id == 1 ? "selected" : "";
+					var cp_sel = main.meal_plan_id == 2 ? "selected" : "";
+					var map_sel = main.meal_plan_id == 3 ? "selected" : "";
+					var ap_sel = main.meal_plan_id == 4 ? "selected" : "";
+
+					// Build card HTML
+					var newCard = `
+	<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
+	
+		<div class="card">
+			<div class="card-header cardy">
+				<div id="eighteen_div_d${count}"></div>
+				<div id="eighteen_div_s${count}"></div>
+				<input type="hidden" id="tax_status${count}" name="addloc[${count}][tax_status]" value="${main.tax_status}">
+				<input type="hidden" id="own_arrange${count}" name="addloc[${count}][own_arrange]" value="${main.is_own_arrangement}">
+				<input type="hidden" id="tour_location_id${count}" name="addloc[${count}][tour_location_id]" value="${main.geog_id}">
+				<input type="hidden" id="location_sequence${count}" name="addloc[${count}][location_sequence]" value="${count}">
+				<div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${main.geog_name}</span></div>
+				<a href="#" class="card-options-edit" data-index="${index}" style="margin-left:10px;">
+    <i class="fe fe-edit"></i>
+	</a>
+
+				<div class="card-options">
+				
+					<a href="#" class="card-options-remove"><i class="fe fe-x"></i></a>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="ibox teams mb-30 bg-boxshadow">
+					<div class="ibox-content teams">
+						<div class="row mt-2">
+						<div class="col-xl col-sm-12 col-md-2">
+						<div class="teams-rank"><b>Hotel Category</b></div>
+						<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" required>
+						<option value="">Select</option>
+						</select>
+						</div>
+						<div class="col-xl col-sm-12 col-md-2">
+						<div class="teams-rank"><b>Hotel</b></div>
+						<span class="text-muted">
+						<select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm hotel_change" data-id="${count}" required>
+						<option value="">Select</option>
+						</select>
+						</span>
+						</div>
+						<div class="col-xl col-sm-12 col-md-2">
+						<div class="teams-rank"><b>Room Category</b></div>
+						<select id="roomcat_common${count}" name="addloc[${count}][roomcat_common]" class="form-control select2-show-search input-sm room_cat_common_change" data-id="${count}">
+						<option value="">Select</option>
+						</select>
+						</div>
+						<div class="col-xl col-sm-12 col-md-2">
+						<div class="teams-rank"><b>Checkin</b></div>
+						<span class="text-muted">
+						<input type="date" value="${main.check_in_date}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
+						</span>
+						</div>
+						
+						<div class="col-xl col-sm-12 col-md-2">
+						<div class="teams-rank"><b>Nights</b></div>
+						<span class="text-muted">
+						<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" value="${main.no_of_days}" class="form-control input-sm no_of_night" count-id="${count}" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count}); updateNightlyDetails(${count});" required>
+						</span>
+						</div>
+						<div class="col-xl col-sm-12 col-md-2">
+							<div class="teams-rank"><b>Checkout</b></div>
+							<span class="text-muted">
+								<input type="date" id="checkout${count}" name="addloc[${count}][checkout]" value="${main.check_out_date}" class="form-control input-sm" required readonly>
+							</span>
+						</div>
+						</div>
+						<div class="row mt-2">
+							<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>Meal Plan</b></div>
+								<span class="text-muted">
+									<select id="mealplan${count}" name="addloc[${count}][mealplan]" class="form-control select2-show-search input-sm mp_change" data-id="${count}" required>
+										<option value="">Select</option>
+										<option value="1" ${ep_sel}>EP</option>
+										<option value="2" ${cp_sel}>CP</option>
+										<option value="3" ${map_sel}>MAP</option>
+										<option value="4" ${ap_sel}>AP</option>
+									</select>
+								</span>
+							</div>
+							<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>No Of Adult</b></div>
+								<input type="text" id="no_of_adult${count}" name="addloc[${count}][no_of_adult]" value="${no_of_adult}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+							</div>
+							<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>C.With Bed Qty</b></div>
+								<input type="text" id="no_of_ch${count}" name="addloc[${count}][no_of_ch]" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+							</div>
+							<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>C.Without Bed Qty</b></div>
+								<input type="text" id="no_of_cw${count}" name="addloc[${count}][no_of_cw]" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+							</div>
+							<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>Extra Bed Qty</b></div>
+								<input type="text" id="no_of_extra${count}" name="addloc[${count}][no_of_extra]" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
+							</div>
+							<div class="col-xl col-sm-12 col-md-2">
+								<div class="teams-rank"><b>Total Pax</b></div>
+								<input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly>
+							</div>
+						</div>
+						<div class="nightly-details" id="nightly-details${count}"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	`;
+					allCardsHtml += newCard;
+
+					// Build breadcrumb
+					var breadcrumb = `
+	<li class="bc-card" data-index="${count}">
+		<a>
+			<span class="bc-card-seq" style="color:#fff">${count}</span>.<span style="color:#fff">${main.geog_name}(<span id="span_night_id${count}" style="color:#fff">${main.no_of_days}</span>)<span id="loc_total${count}" style="color:#fff"></span></span>
+		</a>
+	</li>
+	`;
+					allBreadcrumbsHtml += breadcrumb;
+				});
+
+				// STEP 2: Append ALL cards and breadcrumbs to DOM at once
+				$(".tour_plan_div").append(allCardsHtml);
+				$('.dyn_list').append(allBreadcrumbsHtml);
+
+				// STEP 3: Populate and configure all elements sequentially with async handling
+				function processLocation(index) {
+					if (index >= tourDetailsArray.length) {
+						// All locations processed, now generate nightly details
+						$.each(tourDetailsArray, function(locIndex, locationData) {
+							var count = locIndex + 1;
+							var main = locationData.main;
+							var expansions = locationData.expansions;
+							generateNightlyDetailsFromDraft(count, main, expansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models);
+						});
+						// Then update UI
+						updateUIAfterLoad(no_of_night);
+						return;
+					}
+
+					var count = index + 1;
+					var main = tourDetailsArray[index].main;
+					console.log(`\n=== POPULATING LOCATION ${count} ===`);
+
+					// Check if hotel category select exists
+					var hotelCat = $('#hotelcat' + count);
+					if (hotelCat.length === 0) {
+						console.error(`Hotel category select #hotelcat${count} not found!`);
+						processLocation(index + 1); // Skip to next
+						return;
+					}
+
+					// Populate hotel categories (sync, from PHP var)
+					hotelCat.empty();
+					hotelCat.append('<option value="">Select</option>');
+					if (hotel_categories.length > 0) {
+						$.each(hotel_categories, function(hcIndex, hotelcat) {
+							var selected = hotelcat.hotel_category_id == main.hot_cat_id ? ' selected' : '';
+							hotelCat.append('<option value="' + hotelcat.hotel_category_id + '"' + selected + '>' + hotelcat.hotel_category_name + '</option>');
+						});
+					}
+					console.log(`Hotel category ${main.hot_cat_id} selected for location ${count}`);
+
+					// Initialize Select2 for this card
+					$(`.location-card[data-index="${count}"] .select2-show-search`).select2();
+
+					// Set hotel category value and trigger change (async load hotels)
+					hotelCat.val(main.hot_cat_id).trigger('change');
+
+					// Wait for hotels to load (poll for >1 options)
+					waitForOptions('#hotelid' + count, 2, function() {
+						console.log(`\n=== SETTING HOTEL ${main.hotel_id} for location ${count} ===`);
+						var hotelSelect = $('#hotelid' + count);
+						if (hotelSelect.length > 0) {
+							hotelSelect.val(main.hotel_id).trigger('change');
+							// Wait for room categories to load after hotel change
+							waitForOptions('#roomcat_common' + count, 2, function() {
+								console.log(`\n=== SETTING ROOM CATEGORY for location ${count} ===`);
+								console.log(`Room category ID to set: ${main.room_category_id}`);
+
+								var roomCatCommon = $('#roomcat_common' + count);
+								if (roomCatCommon.length === 0) {
+									console.error(`Room category common select #roomcat_common${count} not found!`);
+									processLocation(index + 1); // Skip to next
+									return;
+								}
+
+								// Log options for debugging
+								var roomCatOptions = roomCatCommon.find('option');
+								console.log(`Number of room category options loaded: ${roomCatOptions.length}`);
+								roomCatOptions.each(function() {
+									console.log(`Option: value="${$(this).val()}", text="${$(this).text()}"`);
+								});
+
+								// Set and trigger room category
+								roomCatCommon.val(main.room_category_id).trigger('change');
+								console.log(`Set roomcat_common${count} to: ${main.room_category_id}`);
+								console.log(`Current value of roomcat_common${count}: ${roomCatCommon.val()}`);
+
+								// Proceed to next location
+								processLocation(index + 1);
+							});
+						} else {
+							console.error(`Hotel select #hotelid${count} not found!`);
+							processLocation(index + 1); // Skip to next
+						}
+					});
+				}
+
+				// Start processing locations sequentially
+				processLocation(0);
+			},
+			error: function(xhr, status, error) {
+				console.error('Error loading draft:', error);
+				showAlert('danger', 'Error loading draft data. Please try again.');
+				$('#spinner_draft').hide();
+			}
+		});
+	});
+
+	// Helper to update UI after all locations are processed
+	function updateUIAfterLoad(no_of_night) {
+		var totalNights = calculateTotalNights();
+		$('#planned_night').text(totalNights + " / ");
+		if (totalNights == no_of_night) {
+			$("#btn_save_tour_plan").show();
+			$("#btn_savedraft_tour_plan").show();
+			$('#btn_add_bt').prop('disabled', true);
+		} else {
+			$("#btn_save_tour_plan").hide();
+			$("#btn_savedraft_tour_plan").show();
+			$('#btn_add_bt').prop('disabled', false);
+		}
+		get_veh_grand_total();
+		toggleNightsVisibility();
+		updateAllTotals();
+		calculateVehicleExtraKmCharges();
+		// Set loading flag OFF
+		isDraftLoading = false;
+		$('#spinner_draft').hide();
+		showAlert('success', 'Draft loaded successfully!');
+		$('.draft_view').prop('disabled', false); // Re-enable the button after loading
+	}
+
+	// Updated generateNightlyDetailsFromDraft function - Enhanced with polling for room cat in nights
+	function generateNightlyDetailsFromDraft(count, main, allExpansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models) {
+		console.log(`\n=== GENERATING NIGHTLY DETAILS for location ${count} ===`);
+		console.log('Main room_category_id:', main.room_category_id);
+		console.log('Main tax_status:', main.tax_status);
+		console.log('Number of expansions:', allExpansions.length);
+
+		var nightlyDetails = $(`#nightly-details${count}`);
+		if (nightlyDetails.length === 0) {
+			console.error(`Nightly details container #nightly-details${count} not found!`);
+			return;
+		}
+		nightlyDetails.empty();
+		var no_of_days = parseInt(main.no_of_days) || 0;
+		var checkInDate = new Date(main.check_in_date);
+		var isDynamic = getIsDynamic();
+
+		// Group expansions by date
+		var expansionsByDate = {};
+		allExpansions.forEach(function(exp) {
+			var expDate = new Date(exp.tour_expansion_date).toDateString();
+			if (!expansionsByDate[expDate]) {
+				expansionsByDate[expDate] = [];
+			}
+			expansionsByDate[expDate].push(exp);
+		});
+		console.log('Expansions grouped by date:', expansionsByDate);
+
+		// Check if expansions contain vehicle data (to decide whether to distribute or not)
+		var hasExpansionVehicleData = allExpansions.some(function(exp) {
+			return exp.vehicle_details_json && exp.vehicle_details_json.trim() !== '' && exp.vehicle_details_json !== '{}';
+		});
+
+		// Build all nightly HTML synchronously
+		var allNightlyHtml = '';
+		for (let night = 1; night <= no_of_days; night++) {
+			var nightDate = new Date(checkInDate);
+			nightDate.setDate(checkInDate.getDate() + (night - 1));
+			var nightDateStr = nightDate.toDateString();
+			var nightExpansions = expansionsByDate[nightDateStr] || [];
+			console.log(`\n--- Night ${night} (Date: ${nightDateStr}) ---`);
+			console.log('Night expansions count:', nightExpansions.length);
+
+			var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, main.check_in_date);
+			allNightlyHtml += nightlyHtml;
+		}
+
+		// Append all nightly HTML at once
+		nightlyDetails.append(allNightlyHtml);
+
+		// Populate room categories from common dropdown for ALL nights at once (wait for common to be ready)
+		waitForOptions('#roomcat_common' + count, 2, function() {
+			var commonOptions = $(`#roomcat_common${count}`).html();
+			$(`#nightly-details${count} .room_cat_change`).html(commonOptions);
+
+			// Initialize Select2 for ALL nights at once
+			$(`#nightly-details${count} .select2-show-search`).select2();
+
+			// Set vehicle headers for all nights (synchronous)
+			if (!isDynamic && main.vehicle_details) {
+				try {
+					var mainVehicleDetails = typeof main.vehicle_details === 'string' ? JSON.parse(main.vehicle_details) : main.vehicle_details;
+					var mainHeaders = [];
+					if (Array.isArray(mainVehicleDetails)) {
+						mainVehicleDetails.forEach(function(md) {
+							if (md && md.veh_header) {
+								var cleaned = md.veh_header.toString().trim().replace(/^\s*-\s*/, '');
+								if (mainHeaders.indexOf(cleaned) === -1) mainHeaders.push(cleaned);
+							}
+						});
+					}
+					if (mainHeaders.length > 0) {
+						for (let night = 1; night <= no_of_days; night++) {
+							$(`#v_from_to${count}${night}`).text(mainHeaders.join(' + '));
+						}
+					}
+				} catch (e) {
+					console.error('Error parsing main vehicle details for header:', e);
+				}
+			}
+
+			// Process all nights sequentially with async room cat setting
+			function processNight(nightIndex) {
+				if (nightIndex > no_of_days) {
+					// All nights processed, now handle vehicle distribution, GST, summary, etc.
+					handlePostNightProcessing();
+					return;
+				}
+
+				var night = nightIndex;
+				var nightDateStr = new Date(new Date(checkInDate).setDate(checkInDate.getDate() + (night - 1))).toDateString();
+				var nightExpansions = expansionsByDate[nightDateStr] || [];
+
+				// Dynamic mode: Set vehicle header from expansion (first available)
+				if (isDynamic && nightExpansions.length > 0) {
+					var vehicleExpansion = nightExpansions[0];
+					if (vehicleExpansion && vehicleExpansion.vehicle_details_json) {
+						try {
+							var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
+							var headersForNight = [];
+							if (Array.isArray(vehicleDetails)) {
+								vehicleDetails.forEach(function(vd) {
+									if (vd && vd.veh_header) {
+										var cleaned = vd.veh_header.toString().trim().replace(/^\s*-\s*/, '');
+										if (headersForNight.indexOf(cleaned) === -1) headersForNight.push(cleaned);
+									}
+								});
+							}
+							if (headersForNight.length > 0) {
+								$(`#v_from_to${count}${night}`).text(headersForNight.join(' + '));
+							}
+						} catch (e) {
+							console.error('Error parsing vehicle details for header:', e);
+						}
+					}
+				}
+
+				// Populate expansion data per room
+				if (nightExpansions.length > 0) {
+					console.log(`Populating expansion data for night ${night}`);
+					var numDoubles = parseInt(no_of_double_room);
+					var numSingles = parseInt(no_of_single_room);
+					var doubleExpansions = nightExpansions.slice(0, numDoubles);
+					var singleExpansions = nightExpansions.slice(numDoubles, numDoubles + numSingles);
+					var vehicleExpansion = nightExpansions[0];
+
+					// Process doubles
+					function processDouble(i) {
+						if (i > numDoubles) {
+							// Process singles after doubles
+							processSingle(1);
+							return;
+						}
+
+						var rid = `${count}${night}${i}`;
+						var exp = doubleExpansions[i - 1] || null;
+						console.log(`Setting double room ${i} (ID: ${rid})`);
+						var $roomCatSelect = $(`#roomcat${rid}`);
+						if ($roomCatSelect.length === 0) {
+							console.error(`Room cat select #roomcat${rid} not found!`);
+							processDouble(i + 1);
+							return;
+						}
+						if (exp) {
+							console.log(`Using expansion for double room ${i}:`, exp);
+							console.log(`Expansion room_category_id: ${exp.expansion_room_category_id}`);
+
+							// Set room category - prioritize expansion
+							var roomCatId = exp.expansion_room_category_id;
+							if (!roomCatId || roomCatId === '' || roomCatId === '0' || roomCatId === 0) {
+								roomCatId = main.room_category_id;
+								console.log(`Using fallback main room_category_id: ${roomCatId}`);
+							}
+							console.log(`Final room category to set: ${roomCatId}`);
+
+							// Wait for options in this specific room cat dropdown (if async load)
+							waitForOptions('#roomcat' + rid, 2, function() {
+								// Log available options
+								console.log(`Available options for #roomcat${rid}:`, $roomCatSelect.find('option').map(function() {
+									return $(this).val();
+								}).get());
+
+								// Set and trigger immediately
+								$roomCatSelect.val(roomCatId).trigger('change');
+								console.log(`After set, value is: ${$roomCatSelect.val()}`);
+
+								// Set meal plan
+								var mealPlanId = exp.meal_plan_id;
+								if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
+									mealPlanId = main.meal_plan_id;
+								}
+								$(`#mealplan${rid}`).val(mealPlanId).trigger('change');
+
+								// Set rate fields
+								$(`#d_adult_rate${rid}`).val(exp.room_rate_double || 0);
+								$(`#d_child_rate${rid}`).val(exp.child_with_bed_double || 0);
+								$(`#d_child_wb_rate${rid}`).val(exp.child_without_bed_double || 0);
+								$(`#d_extra_bed_rate${rid}`).val(exp.extra_bed_double || 0);
+
+								// Set GST fields for double rooms
+								if (main.tax_status == 1) {
+									$(`#d_adult_gst${rid}`).val(exp.room_rate_double_gst || 0);
+									$(`#d_child_gst${rid}`).val(exp.child_with_bed_double_gst || 0);
+									$(`#d_child_wb_gst${rid}`).val(exp.child_without_bed_double_gst || 0);
+									$(`#d_extra_bed_gst${rid}`).val(exp.extra_bed_double_gst || 0);
+								}
+
+								// Update totals immediately (or wait if needed)
+								updateRoomTotals(count, night, i);
+
+								// Next double
+								processDouble(i + 1);
+							});
+						} else {
+							// No exp, skip to next
+							processDouble(i + 1);
+						}
+					}
+
+					// Process singles
+					function processSingle(i) {
+						if (i > numSingles) {
+							// Populate vehicle data after rooms
+							if (vehicleExpansion && vehicleExpansion.vehicle_details_json) {
+								try {
+									var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
+									console.log(`Night ${night}: Loading vehicle data from expansion:`, vehicleDetails);
+									$.each(vehicleDetails, function(vindex, vdata) {
+										var vid = `${count}${night}${vdata.veh_type_id}`;
+										// Use the exact values from expansion - these are already per-night values
+										$(`#day_rent${vid}`).val(vdata.day_rent || 0);
+										$(`#travel_distance${vid}`).val(vdata.travel_distance || 0);
+										$(`#max_km_day${vid}`).val(vdata.max_km_day || 0);
+										$(`#extra_km_rate${vid}`).val(vdata.extra_km_rate || 0);
+										$(`#extra_kilometer${vid}`).val(vdata.extra_kilometer || 0);
+										$(`#veh_total${vid}`).val(vdata.veh_total || 0);
+										console.log(`Set vehicle ${vdata.veh_type_id} for night ${night}: distance=${vdata.travel_distance}, total=${vdata.veh_total}`);
+										updateVehicleTotals(count, night, vindex);
+									});
+								} catch (e) {
+									console.error('Error parsing vehicle details:', e);
+								}
+							}
+							// Next night
+							processNight(nightIndex + 1);
+							return;
+						}
+
+						var seq = numDoubles + i;
+						var sid = `${count}${night}${seq}`;
+						var exp = singleExpansions[i - 1] || null;
+						console.log(`Setting single room ${i} (ID: ${sid})`);
+						var $roomCatSelect = $(`#roomcat${sid}`);
+						if ($roomCatSelect.length === 0) {
+							console.error(`Room cat select #roomcat${sid} not found!`);
+							processSingle(i + 1);
+							return;
+						}
+						if (exp) {
+							console.log(`Using expansion for single room ${i}:`, exp);
+							console.log(`Expansion room_category_id: ${exp.expansion_room_category_id}`);
+
+							// Set room category - prioritize expansion
+							var roomCatId = exp.expansion_room_category_id;
+							if (!roomCatId || roomCatId === '' || roomCatId === '0' || roomCatId === 0) {
+								roomCatId = main.room_category_id;
+								console.log(`Using fallback main room_category_id: ${roomCatId}`);
+							}
+							console.log(`Final room category to set: ${roomCatId}`);
+
+							// Wait for options in this specific room cat dropdown
+							waitForOptions('#roomcat' + sid, 2, function() {
+								// Log available options
+								console.log(`Available options for #roomcat${sid}:`, $roomCatSelect.find('option').map(function() {
+									return $(this).val();
+								}).get());
+
+								// Set and trigger immediately
+								$roomCatSelect.val(roomCatId).trigger('change');
+								console.log(`After set, value is: ${$roomCatSelect.val()}`);
+
+								// Set meal plan
+								var mealPlanId = exp.meal_plan_id;
+								if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
+									mealPlanId = main.meal_plan_id;
+								}
+								$(`#mealplan${sid}`).val(mealPlanId).trigger('change');
+
+								// Set rate fields
+								$(`#s_adult_rate${sid}`).val(exp.room_rate_single || 0);
+								$(`#s_child_rate${sid}`).val(exp.child_with_bed_single || 0);
+								$(`#s_child_wb_rate${sid}`).val(exp.child_without_bed_single || 0);
+								$(`#s_extra_bed_rate${sid}`).val(exp.extra_bed_single || 0);
+
+								// Set GST fields for single rooms
+								if (main.tax_status == 1) {
+									$(`#s_adult_gst${sid}`).val(exp.room_rate_single_gst || 0);
+									$(`#s_child_gst${sid}`).val(exp.child_with_bed_single_gst || 0);
+									$(`#s_child_wb_gst${sid}`).val(exp.child_without_bed_single_gst || 0);
+									$(`#s_extra_bed_gst${sid}`).val(exp.extra_bed_single_gst || 0);
+								}
+
+								// Update totals immediately
+								updateRoomTotals(count, night, seq);
+
+								// Next single
+								processSingle(i + 1);
+							});
+						} else {
+							// No exp, skip to next
+							processSingle(i + 1);
+						}
+					}
+
+					// Start doubles
+					processDouble(1);
+				} else {
+					// No expansions, just next night
+					processNight(nightIndex + 1);
+				}
+			}
+
+			// Start nights
+			processNight(1);
+
+			function handlePostNightProcessing() {
+				// Distribute vehicle totals only if main has data AND no expansion vehicle data
+				if (main.vehicle_details && !hasExpansionVehicleData) {
+					try {
+						var mainVehicleDetails = typeof main.vehicle_details === 'string' ? JSON.parse(main.vehicle_details) : main.vehicle_details;
+						console.log(`Distributing vehicle totals across ${no_of_days} nights for location ${count} (no expansion vehicle data):`, mainVehicleDetails);
+
+						$.each(mainVehicleDetails, function(vindex, vdata) {
+							// Find matching vehicle model index
+							var matchedVehicleIndex = -1;
+							$.each(vehicle_models, function(modelIndex, model) {
+								if (model.vehicle_type_id == vdata.veh_type_id) {
+									matchedVehicleIndex = modelIndex;
+									return false;
+								}
+							});
+
+							if (matchedVehicleIndex !== -1) {
+								var totalDays = no_of_days;
+
+								// These are TOTAL values stored in static mode - need to DISTRIBUTE per night
+								var totalRent = parseFloat(vdata.veh_total) || 0;
+								var storedDayRent = parseFloat(vdata.day_rent) || 0;
+								var totalDistance = parseFloat(vdata.travel_distance) || 0;
+								var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
+								var kmRate = parseFloat(vdata.extra_km_rate) || 0;
+								var maxKmDay = parseFloat(vdata.max_km_day) || 0;
+								var headerText = vdata.veh_header || '';
+
+								// Calculate per-night values by dividing totals
+								var perNightRent = totalDays > 0 ? (storedDayRent || (totalRent / totalDays)) : 0;
+								var perNightDistance = totalDays > 0 ? (totalDistance / totalDays) : 0;
+								var perNightExtraKm = totalDays > 0 ? (totalExtraKm / totalDays) : 0;
+								var perNightVehTotal = totalDays > 0 ? (totalRent / totalDays) : 0;
+
+								console.log(`Vehicle ${vdata.veh_type_id}: Total Rent=${totalRent}, Per Night=${perNightVehTotal}, Total Distance=${totalDistance}, Per Night Distance=${perNightDistance}`);
+
+								// Distribute values equally across all nights (synchronous)
+								for (let night = 1; night <= totalDays; night++) {
+									var vid = `${count}${night}${vdata.veh_type_id}`;
+									$(`#day_rent${vid}`).val(Math.round(perNightRent));
+									$(`#travel_distance${vid}`).val(Math.round(perNightDistance));
+									$(`#max_km_day${vid}`).val(maxKmDay);
+									$(`#extra_km_rate${vid}`).val(kmRate);
+									$(`#extra_kilometer${vid}`).val(Math.round(perNightExtraKm));
+									$(`#veh_total${vid}`).val(Math.round(perNightVehTotal));
+
+									// Set header if empty
+									if (!$(`#v_from_to${count}${night}`).text().trim()) {
+										$(`#v_from_to${count}${night}`).text(headerText);
+									}
+
+									updateVehicleTotals(count, night, matchedVehicleIndex);
+								}
+							}
+						});
+						console.log(`Vehicle fields distributed for location ${count}`);
+					} catch (e) {
+						console.error(`Error distributing vehicle data for location ${count}:`, e);
+					}
+				}
+
+				// Force GST column visibility (synchronous)
+				console.log(`Forcing GST column visibility for location ${count}, tax_status: ${main.tax_status}`);
+				if (main.tax_status == 1) {
+					toggleGSTColumns(true, count);
+				} else {
+					toggleGSTColumns(false, count);
+				}
+				toggleNightsVisibility();
+
+				// Add vehicle summary if required
+				if (is_vehicle_required == 1) {
+					console.log(`\n=== GENERATING VEHICLE SUMMARY for location ${count} ===`);
+
+					var summaryHtml = generateVehicleSummary(count, no_of_days, vehicle_models);
+					nightlyDetails.append(summaryHtml);
+
+					console.log('Is Dynamic Mode:', isDynamic);
+
+					if (!isDynamic) {
+						// STATIC MODE: Use main.vehicle_details directly
+						console.log('Static Mode - Using main.vehicle_details for summary');
+
+						if (main.vehicle_details) {
+							try {
+								var mainVehicleDetails = typeof main.vehicle_details === 'string' ? JSON.parse(main.vehicle_details) : main.vehicle_details;
+								console.log('Main vehicle details:', mainVehicleDetails);
+
+								$.each(mainVehicleDetails, function(vindex, vdata) {
+									var matchedVehicleIndex = -1;
+									$.each(vehicle_models, function(modelIndex, model) {
+										if (model.vehicle_type_id == vdata.veh_type_id) {
+											matchedVehicleIndex = modelIndex;
+											return false;
+										}
+									});
+
+									if (matchedVehicleIndex !== -1) {
+										var totalDays = no_of_days;
+										// FIX: Use stored values directly - these are already totals
+										var totalRent = parseFloat(vdata.veh_total) || 0;
+										var dailyRent = parseFloat(vdata.day_rent) || 0;
+										var totalDistance = parseFloat(vdata.travel_distance) || 0;
+										var maxKmDay = parseFloat(vdata.max_km_day) || 0;
+										var extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
+										var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
+
+										$(`#summary_days_${count}_${matchedVehicleIndex}`).val(totalDays);
+										$(`#summary_rent_${count}_${matchedVehicleIndex}`).val(dailyRent);
+										$(`#summary_distance_${count}_${matchedVehicleIndex}`).val(totalDistance);
+										$(`#summary_extra_km_rate_${count}_${matchedVehicleIndex}`).val(extraKmRate);
+										$(`#summary_extra_km_${count}_${matchedVehicleIndex}`).val(totalExtraKm);
+										$(`#summary_total_${count}_${matchedVehicleIndex}`).val(totalRent);
+									}
+								});
+							} catch (e) {
+								console.error('Error parsing main vehicle details:', e);
+							}
+						}
+					} else {
+						// DYNAMIC MODE: Aggregate from expansions
+						console.log('Dynamic Mode - Aggregating from expansions');
+
+						var vehicleAggregates = {};
+						$.each(vehicle_models, function(vindex, vmodel) {
+							vehicleAggregates[vmodel.vehicle_type_id] = {
+								modelIndex: vindex,
+								totalDays: 0,
+								totalRent: 0,
+								totalDistance: 0,
+								totalExtraKm: 0,
+								extraKmRate: 0
+							};
+						});
+
+						$.each(allExpansions, function(expIndex, exp) {
+							if (exp.vehicle_details_json) {
+								try {
+									var expVehicleDetails = JSON.parse(exp.vehicle_details_json);
+									$.each(expVehicleDetails, function(vindex, vdata) {
+										var vehTypeId = vdata.veh_type_id;
+										if (vehicleAggregates[vehTypeId]) {
+											vehicleAggregates[vehTypeId].totalDays++;
+											vehicleAggregates[vehTypeId].totalRent += parseFloat(vdata.veh_total) || 0;
+											vehicleAggregates[vehTypeId].totalDistance += parseFloat(vdata.travel_distance) || 0;
+											vehicleAggregates[vehTypeId].totalExtraKm += parseFloat(vdata.extra_kilometer) || 0;
+											if (vehicleAggregates[vehTypeId].extraKmRate === 0) {
+												vehicleAggregates[vehTypeId].extraKmRate = parseFloat(vdata.extra_km_rate) || 0;
+											}
+										}
+									});
+								} catch (e) {
+									console.error('Error parsing expansion vehicle details:', e);
+								}
+							}
+						});
+
+						$.each(vehicleAggregates, function(vehTypeId, agg) {
+							if (agg.totalDays > 0) {
+								var dailyRent = agg.totalRent / agg.totalDays;
+								$(`#summary_days_${count}_${agg.modelIndex}`).val(agg.totalDays);
+								$(`#summary_rent_${count}_${agg.modelIndex}`).val(dailyRent.toFixed(0));
+								$(`#summary_distance_${count}_${agg.modelIndex}`).val(agg.totalDistance);
+								$(`#summary_extra_km_rate_${count}_${agg.modelIndex}`).val(agg.extraKmRate);
+								$(`#summary_extra_km_${count}_${agg.modelIndex}`).val(agg.totalExtraKm);
+								$(`#summary_total_${count}_${agg.modelIndex}`).val(agg.totalRent);
+							}
+						});
+					}
+
+					// Build and set the vehicle header (synchronous)
+					var headerMap = new Map();
+					for (let night = 1; night <= no_of_days; night++) {
+						var nightHeader = $(`#v_from_to${count}${night}`).text().trim();
+						var cleaned = nightHeader.replace(/^(?:\s*[\+\-]\s*)+/, '').replace(/\s+/g, ' ').trim();
+						var effective = cleaned || `N${night}`;
+						var normalized = effective.toLowerCase()
+							.replace(/[^\w\s-]/g, '')
+							.replace(/\s+/g, ' ')
+							.trim();
+
+						if (!headerMap.has(normalized)) {
+							headerMap.set(normalized, effective);
+						}
+					}
+					var combinedHeaders = Array.from(headerMap.values());
+					var summaryHeaderText = combinedHeaders.length > 0 ? ' (' + combinedHeaders.join(' + ') + ')' : '';
+					var $summaryHeader = $(`#vehicle-summary-header-${count}`);
+					$summaryHeader.html(`
+						<span style="display: flex; align-items: center; justify-content: center; width: 100%;">
+							<a href="#" class="refresh-vehicle-summary" data-count="${count}" style="font-size: 16px; color: #003300; margin-right: 10px;" title="Refresh Vehicle Data">
+								<i class="fa fa-refresh"></i>
+							</a>
+							<span>Vehicle Summary${summaryHeaderText}</span>
+						</span>
+					`);
+					$summaryHeader.css({
+						'text-align': 'center',
+						'display': 'flex',
+						'align-items': 'center',
+						'justify-content': 'center'
+					});
+					updateVehicleSummary(count);
+				}
+
+				// Update totals (synchronous)
+				get_veh_grand_total();
+				updateAllTotals();
+				console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
+			}
+		});
 	}
 </script>
 
@@ -10037,522 +11035,624 @@ $is_edit = $edit_id ? $edit_id : 0;
 			await copyTourPlanWithChangeHandling(planData, index + 1, mode, changes, no_of_adult, no_of_child_with_bed, no_of_child_without_bed, no_of_extra_bed, total_no_of_pax);
 		}
 		async function generateNightlyDetailsFromPreData(count, locationData, mode, changes) {
-			console.log(`\n=== USING PRE-DATA TARIFFS - Location ${count} ===`);
-			var nightlyDetails = $(`#nightly-details${count}`);
-			nightlyDetails.empty();
-			var no_of_days = parseInt(locationData.no_of_days) || 0;
-			var checkInDate = new Date(locationData.check_in_date);
-			var isDynamic = getIsDynamic();
-			var allExpansions = locationData.expansion || [];
-			// Group expansions by date
-			var expansionsByDate = {};
-			allExpansions.forEach(function(exp) {
-				var expDate = new Date(exp.tour_expansion_date).toDateString();
-				if (!expansionsByDate[expDate]) {
-					expansionsByDate[expDate] = [];
-				}
-				expansionsByDate[expDate].push(exp);
-			});
-			console.log('Expansions grouped by date:', expansionsByDate);
-			// FIXED: Refine check for expansion vehicle data (exclude empty arrays '[]')
-			var hasExpansionVehicleData = allExpansions.some(function(exp) {
-				return exp.vehicle_details_json && exp.vehicle_details_json.trim() !== '' && exp.vehicle_details_json !== '{}' && exp.vehicle_details_json !== '[]';
-			});
-			console.log('Has Expansion Vehicle Data:', hasExpansionVehicleData);
-			// Generate night sections
-			for (let night = 1; night <= no_of_days; night++) {
-				var nightDate = new Date(checkInDate);
-				nightDate.setDate(checkInDate.getDate() + (night - 1));
-				var nightDateStr = nightDate.toDateString();
-				var nightExpansions = expansionsByDate[nightDateStr] || [];
-				console.log(`\n--- Night ${night} (Date: ${nightDateStr}) ---`);
-				console.log('Night expansions count:', nightExpansions.length);
-				var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, locationData.check_in_date);
-				nightlyDetails.append(nightlyHtml);
-				// Populate room categories from common dropdown
-				var commonOptions = $(`#roomcat_common${count}`).html();
-				$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
-					$(this).html(commonOptions);
-				});
-				// FIXED: Safe Select2 init for nightly selects
-				var $nightlySelects = $(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`);
-				$nightlySelects.each(function() {
-					if (!$(this).hasClass('select2-hidden-accessible')) {
-						$(this).select2();
-					}
-				});
-				// Set vehicle header based on mode
-				if (!isDynamic && locationData.vehicle_details) {
-					try {
-						var mainVehicleDetails = typeof locationData.vehicle_details === 'string' ? JSON.parse(locationData.vehicle_details) : locationData.vehicle_details;
-						var mainHeaders = [];
-						if (Array.isArray(mainVehicleDetails)) {
-							mainVehicleDetails.forEach(function(md) {
-								if (md && md.veh_header) {
-									var cleaned = md.veh_header.toString().trim().replace(/^\s*-\s*/, '');
-									if (mainHeaders.indexOf(cleaned) === -1) mainHeaders.push(cleaned);
-								}
-							});
-						}
-						if (mainHeaders.length > 0) {
-							setVehicleHeader(count, night, mainHeaders.join(' + '));
-						}
-					} catch (e) {
-						console.error('Error parsing main vehicle details for header:', e);
-					}
-				}
-				// Populate expansion data per room
-				var numDoubles = parseInt(no_of_double_room);
-				var numSingles = parseInt(no_of_single_room);
-				if (nightExpansions.length > 0) {
-					console.log(`Populating expansion data for night ${night}`);
-					var doubleExpansions = nightExpansions.slice(0, numDoubles);
-					var singleExpansions = nightExpansions.slice(numDoubles, numDoubles + numSingles);
-					var vehicleExpansion = nightExpansions[0];
-					// Debug log
-					console.log(`Night ${night} expansion data:`, {
-						nightDateStr: nightDateStr,
-						totalExpansions: nightExpansions.length,
-						doubleExpansions: doubleExpansions.length,
-						singleExpansions: singleExpansions.length,
-						expectedDoubles: numDoubles,
-						expectedSingles: numSingles
-					});
-					// Dynamic mode: Set vehicle header from expansion
-					if (isDynamic && vehicleExpansion && vehicleExpansion.vehicle_details_json) {
-						try {
-							var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
-							var headersForNight = [];
-							if (Array.isArray(vehicleDetails)) {
-								vehicleDetails.forEach(function(vd) {
-									if (vd && vd.veh_header) {
-										var cleaned = vd.veh_header.toString().trim().replace(/^\s*-\s*/, '');
-										if (headersForNight.indexOf(cleaned) === -1) headersForNight.push(cleaned);
-									}
-								});
-							}
-							if (headersForNight.length > 0) {
-								setVehicleHeader(count, night, headersForNight.join(' + '));
-							}
-						} catch (e) {
-							console.error('Error parsing vehicle details for header:', e);
-						}
-					}
-					// CRITICAL FIX: Set room data for double rooms with proper room category handling (NO TRIGGER)
-					for (let i = 1; i <= numDoubles; i++) {
-						var rid = `${count}${night}${i}`;
-						var exp = doubleExpansions[i - 1] || null;
-						console.log(`Setting double room ${i} (ID: ${rid}), Has expansion: ${exp !== null}`);
-						if (exp) {
-							console.log(`Expansion data for double room ${i}:`, exp);
-							// CRITICAL: Determine room category with proper precedence
-							// Priority: 1. Expansion room_category_id, 2. Main room_category_id
-							var roomCatId = null;
-							// Check expansion room category first
-							if (exp.expansion_room_category_id && exp.expansion_room_category_id !== '' && exp.expansion_room_category_id !== '0' && exp.expansion_room_category_id != 0) {
-								roomCatId = exp.expansion_room_category_id;
-								console.log(`Using expansion room_category_id: ${roomCatId}`);
-							}
-							// Fallback to main room category only if expansion is truly empty
-							else if (locationData.room_category_id && locationData.room_category_id !== '' && locationData.room_category_id !== '0' && locationData.room_category_id != 0) {
-								roomCatId = locationData.room_category_id;
-								console.log(`Using main room_category_id: ${roomCatId}`);
-							}
-							// Set room category WITHOUT trigger (prevents fetch)
-							// Set room category WITHOUT trigger (prevents fetch) + Update Select2 display
-							(function(targetRid, targetRoomCatId) {
-								setTimeout(function() {
-									var $roomCatSelect = $(`#roomcat${targetRid}`);
-									console.log(`Setting roomcat${targetRid} to ${targetRoomCatId}`);
-									// Verify option exists
-									var optionExists = $roomCatSelect.find(`option[value="${targetRoomCatId}"]`).length > 0;
-									console.log(`Option ${targetRoomCatId} exists: ${optionExists}`);
-									if (optionExists && targetRoomCatId) {
-										$roomCatSelect.val(targetRoomCatId); // NO .trigger('change') - silent set for pre-data
-										// CRITICAL FIX: Update Select2 display without triggering change event
-										if ($roomCatSelect.hasClass('select2-hidden-accessible')) {
-											$roomCatSelect.select2().trigger('change.select2');
-										}
-										console.log(`Successfully set roomcat${targetRid} to: ${$roomCatSelect.val()}`);
-									} else {
-										console.warn(`Room category ${targetRoomCatId} not found in options for ${targetRid}`);
-									}
-								}, 700);
-							})(rid, roomCatId);
-							// Set meal plan with fallback (NO TRIGGER if it fetches) + Update Select2 display
-							var mealPlanId = exp.meal_plan_id || locationData.meal_plan_id || '';
-							(function(targetRid, targetMealPlanId) {
-								setTimeout(function() {
-									var $mealPlanSelect = $(`#mealplan${targetRid}`);
-									$mealPlanSelect.val(targetMealPlanId); // NO .trigger('change') - silent
-									// CRITICAL FIX: Update Select2 display without triggering change event
-									if ($mealPlanSelect.hasClass('select2-hidden-accessible')) {
-										$mealPlanSelect.select2().trigger('change.select2');
-									}
-								}, 750);
-							})(rid, mealPlanId);
-							// Set rate fields
-							$(`#d_adult_rate${rid}`).val(exp.room_rate_double || 0);
-							$(`#d_child_rate${rid}`).val(exp.child_with_bed_double || 0);
-							$(`#d_child_wb_rate${rid}`).val(exp.child_without_bed_double || 0);
-							$(`#d_extra_bed_rate${rid}`).val(exp.extra_bed_double || 0);
-							// Set GST fields for double rooms if applicable
-							if (locationData.tax_status == 1) {
-								$(`#d_adult_gst${rid}`).val(exp.room_rate_double_gst || 0);
-								$(`#d_child_gst${rid}`).val(exp.child_with_bed_double_gst || 0);
-								$(`#d_child_wb_gst${rid}`).val(exp.child_without_bed_double_gst || 0);
-								$(`#d_extra_bed_gst${rid}`).val(exp.extra_bed_double_gst || 0);
-							}
-						} else {
-							// CRITICAL: Explicitly set to 0 when no expansion data
-							console.log(`No expansion data for double room ${i} - setting rates to 0`);
-							$(`#d_adult_rate${rid}`).val(0);
-							$(`#d_child_rate${rid}`).val(0);
-							$(`#d_child_wb_rate${rid}`).val(0);
-							$(`#d_extra_bed_rate${rid}`).val(0);
-							if (locationData.tax_status == 1) {
-								$(`#d_adult_gst${rid}`).val(0);
-								$(`#d_child_gst${rid}`).val(0);
-								$(`#d_child_wb_gst${rid}`).val(0);
-								$(`#d_extra_bed_gst${rid}`).val(0);
-							}
-							// Set default room category and meal plan if no expansion (NO TRIGGER)
-							// Set default room category and meal plan if no expansion (NO TRIGGER) + Update Select2 display
-							if (locationData.room_category_id) {
-								(function(targetRid, targetRoomCatId) {
-									setTimeout(function() {
-										var $roomCatSelect = $(`#roomcat${targetRid}`);
-										$roomCatSelect.val(targetRoomCatId); // NO .trigger('change')
-										// CRITICAL FIX: Update Select2 display
-										if ($roomCatSelect.hasClass('select2-hidden-accessible')) {
-											$roomCatSelect.select2().trigger('change.select2');
-										}
-									}, 700);
-								})(rid, locationData.room_category_id);
-							}
-							if (locationData.meal_plan_id) {
-								(function(targetRid, targetMealPlanId) {
-									setTimeout(function() {
-										var $mealPlanSelect = $(`#mealplan${targetRid}`);
-										$mealPlanSelect.val(targetMealPlanId); // NO .trigger('change')
-										// CRITICAL FIX: Update Select2 display
-										if ($mealPlanSelect.hasClass('select2-hidden-accessible')) {
-											$mealPlanSelect.select2().trigger('change.select2');
-										}
-									}, 750);
-								})(rid, locationData.meal_plan_id);
-							}
-						}
-						// Update totals after all fields are set
-						(function(targetCount, targetNight, targetI) {
-							setTimeout(function() {
-								updateRoomTotals(targetCount, targetNight, targetI);
-							}, 900);
-						})(count, night, i);
-					}
-					// CRITICAL FIX: Set room data for single rooms (similar updates, NO TRIGGER)
-					for (let i = 1; i <= numSingles; i++) {
-						var seq = numDoubles + i;
-						var sid = `${count}${night}${seq}`;
-						var exp = singleExpansions[i - 1] || null;
-						console.log(`Setting single room ${i} (ID: ${sid}), Has expansion: ${exp !== null}`);
-						if (exp) {
-							console.log(`Expansion data for single room ${i}:`, exp);
-							// CRITICAL: Determine room category with proper precedence
-							var roomCatId = null;
-							// Check expansion room category first
-							if (exp.expansion_room_category_id && exp.expansion_room_category_id !== '' && exp.expansion_room_category_id !== '0' && exp.expansion_room_category_id != 0) {
-								roomCatId = exp.expansion_room_category_id;
-								console.log(`Using expansion room_category_id: ${roomCatId}`);
-							}
-							// Fallback to main room category only if expansion is truly empty
-							else if (locationData.room_category_id && locationData.room_category_id !== '' && locationData.room_category_id !== '0' && locationData.room_category_id != 0) {
-								roomCatId = locationData.room_category_id;
-								console.log(`Using main room_category_id: ${roomCatId}`);
-							}
-							// Set room category WITHOUT trigger
-							// Set room category WITHOUT trigger + Update Select2 display
-							(function(targetSid, targetRoomCatId) {
-								setTimeout(function() {
-									var $roomCatSelect = $(`#roomcat${targetSid}`);
-									console.log(`Setting roomcat${targetSid} to ${targetRoomCatId}`);
-									// Verify option exists
-									var optionExists = $roomCatSelect.find(`option[value="${targetRoomCatId}"]`).length > 0;
-									console.log(`Option ${targetRoomCatId} exists: ${optionExists}`);
-									if (optionExists && targetRoomCatId) {
-										$roomCatSelect.val(targetRoomCatId); // NO .trigger('change')
-										// CRITICAL FIX: Update Select2 display
-										if ($roomCatSelect.hasClass('select2-hidden-accessible')) {
-											$roomCatSelect.select2().trigger('change.select2');
-										}
-										console.log(`Successfully set roomcat${targetSid} to: ${$roomCatSelect.val()}`);
-									} else {
-										console.warn(`Room category ${targetRoomCatId} not found in options for ${targetSid}`);
-									}
-								}, 700);
-							})(sid, roomCatId);
-							// Set meal plan with fallback (NO TRIGGER) + Update Select2 display
-							var mealPlanId = exp.meal_plan_id || locationData.meal_plan_id || '';
-							(function(targetSid, targetMealPlanId) {
-								setTimeout(function() {
-									var $mealPlanSelect = $(`#mealplan${targetRid}`);
-									$mealPlanSelect.val(targetMealPlanId); // NO .trigger('change')
-									// CRITICAL FIX: Update Select2 display
-									if ($mealPlanSelect.hasClass('select2-hidden-accessible')) {
-										$mealPlanSelect.select2().trigger('change.select2');
-									}
-								}, 750);
-							})(sid, mealPlanId);
-							// Set rate fields
-							$(`#s_adult_rate${sid}`).val(exp.room_rate_single || 0);
-							$(`#s_child_rate${sid}`).val(exp.child_with_bed_single || 0);
-							$(`#s_child_wb_rate${sid}`).val(exp.child_without_bed_single || 0);
-							$(`#s_extra_bed_rate${sid}`).val(exp.extra_bed_single || 0);
-							// Set GST fields for single rooms if applicable
-							if (locationData.tax_status == 1) {
-								$(`#s_adult_gst${sid}`).val(exp.room_rate_single_gst || 0);
-								$(`#s_child_gst${sid}`).val(exp.child_with_bed_single_gst || 0);
-								$(`#s_child_wb_gst${sid}`).val(exp.child_without_bed_single_gst || 0);
-								$(`#s_extra_bed_gst${sid}`).val(exp.extra_bed_single_gst || 0);
-							}
-						} else {
-							// CRITICAL: Explicitly set to 0 when no expansion data
-							console.log(`No expansion data for single room ${i} - setting rates to 0`);
-							$(`#s_adult_rate${sid}`).val(0);
-							$(`#s_child_rate${sid}`).val(0);
-							$(`#s_child_wb_rate${sid}`).val(0);
-							$(`#s_extra_bed_rate${sid}`).val(0);
-							if (locationData.tax_status == 1) {
-								$(`#s_adult_gst${sid}`).val(0);
-								$(`#s_child_gst${sid}`).val(0);
-								$(`#s_child_wb_gst${sid}`).val(0);
-								$(`#s_extra_bed_gst${sid}`).val(0);
-							}
-							// Set default room category and meal plan if no expansion (NO TRIGGER)
-							if (locationData.room_category_id) {
-								(function(targetSid, targetRoomCatId) {
-									setTimeout(function() {
-										var $roomCatSelect = $(`#roomcat${targetSid}`);
-										$roomCatSelect.val(targetRoomCatId); // NO .trigger('change')
-										// CRITICAL FIX: Update Select2 display
-										if ($roomCatSelect.hasClass('select2-hidden-accessible')) {
-											$roomCatSelect.select2().trigger('change.select2');
-										}
-									}, 700);
-								})(sid, locationData.room_category_id);
-							}
-							if (locationData.meal_plan_id) {
-								(function(targetSid, targetMealPlanId) {
-									setTimeout(function() {
-										var $mealPlanSelect = $(`#mealplan${targetRid}`);
-										$mealPlanSelect.val(targetMealPlanId); // NO .trigger('change')
-										// CRITICAL FIX: Update Select2 display
-										if ($mealPlanSelect.hasClass('select2-hidden-accessible')) {
-											$mealPlanSelect.select2().trigger('change.select2');
-										}
-									}, 750);
-								})(sid, locationData.meal_plan_id);
-							}
-						}
-						// Update totals after all fields are set
-						(function(targetCount, targetNight, targetSeq) {
-							setTimeout(function() {
-								updateRoomTotals(targetCount, targetNight, targetSeq);
-							}, 900);
-						})(count, night, seq);
-					}
-					// FIXED: Populate vehicle data - Use expansion data if available; explicitly set 0 if expansions exist but no vehicle JSON
-					if (vehicleExpansion && vehicleExpansion.vehicle_details_json && vehicleExpansion.vehicle_details_json.trim() !== '[]') {
-						try {
-							var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
-							console.log(`Night ${night}: Loading vehicle data from expansion:`, vehicleDetails);
-							$.each(vehicleDetails, function(vindex, vdata) {
-								var vid = `${count}${night}${vdata.veh_type_id}`;
-								$(`#day_rent${vid}`).val(vdata.day_rent || 0);
-								$(`#travel_distance${vid}`).val(vdata.travel_distance || 0);
-								$(`#max_km_day${vid}`).val(vdata.max_km_day || 0);
-								$(`#extra_km_rate${vid}`).val(vdata.extra_km_rate || 0);
-								$(`#extra_kilometer${vid}`).val(vdata.extra_kilometer || 0);
-								$(`#veh_total${vid}`).val(vdata.veh_total || 0);
-								updateVehicleTotals(count, night, vindex);
-							});
-						} catch (e) {
-							console.error('Error parsing vehicle details:', e);
-						}
-					} else if (nightExpansions.length > 0) {
-						// FIXED: Explicitly set vehicle fields to 0 if expansions exist (dynamic) but no vehicle JSON
-						console.log(`Night ${night}: No vehicle data in expansion; setting defaults to 0`);
-						$.each(vehicle_models, function(vindex, vmodel) {
-							var vid = `${count}${night}${vmodel.vehicle_type_id}`;
-							$(`#day_rent${vid}`).val(0);
-							$(`#travel_distance${vid}`).val(0);
-							$(`#max_km_day${vid}`).val(0);
-							$(`#extra_km_rate${vid}`).val(0);
-							$(`#extra_kilometer${vid}`).val(0);
-							$(`#veh_total${vid}`).val(0);
-							updateVehicleTotals(count, night, vindex);
-						});
-						// Clear header if no data
-						setVehicleHeader(count, night, '');
-					}
-				} else {
-					// CRITICAL: Handle nights with NO expansion data at all
-					console.log(`Night ${night}: NO expansion data found - setting all rates to 0`);
-					// Set all double rooms to 0
-					for (let i = 1; i <= numDoubles; i++) {
-						var rid = `${count}${night}${i}`;
-						console.log(`Setting double room ${i} (ID: ${rid}) to 0 - no expansion data`);
-						$(`#d_adult_rate${rid}`).val(0);
-						$(`#d_child_rate${rid}`).val(0);
-						$(`#d_child_wb_rate${rid}`).val(0);
-						$(`#d_extra_bed_rate${rid}`).val(0);
-						if (locationData.tax_status == 1) {
-							$(`#d_adult_gst${rid}`).val(0);
-							$(`#d_child_gst${rid}`).val(0);
-							$(`#d_child_wb_gst${rid}`).val(0);
-							$(`#d_extra_bed_gst${rid}`).val(0);
-						}
-						// Set default room category and meal plan (NO TRIGGER)
-						if (locationData.room_category_id) {
-							(function(targetRid, targetRoomCatId) {
-								setTimeout(function() {
-									$(`#roomcat${targetRid}`).val(targetRoomCatId); // NO .trigger('change')
-								}, 700);
-							})(rid, locationData.room_category_id);
-						}
-						if (locationData.meal_plan_id) {
-							(function(targetRid, targetMealPlanId) {
-								setTimeout(function() {
-									var $mealPlanSelect = $(`#mealplan${targetRid}`);
-									$mealPlanSelect.val(targetMealPlanId); // NO .trigger('change')
-									// CRITICAL FIX: Update Select2 display
-									if ($mealPlanSelect.hasClass('select2-hidden-accessible')) {
-										$mealPlanSelect.select2().trigger('change.select2');
-									}
-								}, 750);
-							})(rid, locationData.meal_plan_id);
-						}
-						// Update totals
-						(function(targetCount, targetNight, targetI) {
-							setTimeout(function() {
-								updateRoomTotals(targetCount, targetNight, targetI);
-							}, 900);
-						})(count, night, i);
-					}
-					// Set all single rooms to 0
-					for (let i = 1; i <= numSingles; i++) {
-						var seq = numDoubles + i;
-						var sid = `${count}${night}${seq}`;
-						console.log(`Setting single room ${i} (ID: ${sid}) to 0 - no expansion data`);
-						$(`#s_adult_rate${sid}`).val(0);
-						$(`#s_child_rate${sid}`).val(0);
-						$(`#s_child_wb_rate${sid}`).val(0);
-						$(`#s_extra_bed_rate${sid}`).val(0);
-						if (locationData.tax_status == 1) {
-							$(`#s_adult_gst${sid}`).val(0);
-							$(`#s_child_gst${sid}`).val(0);
-							$(`#s_child_wb_gst${sid}`).val(0);
-							$(`#s_extra_bed_gst${sid}`).val(0);
-						}
-						// Set default room category and meal plan (NO TRIGGER)
-						if (locationData.room_category_id) {
-							(function(targetSid, targetRoomCatId) {
-								setTimeout(function() {
-									$(`#roomcat${targetSid}`).val(targetRoomCatId); // NO .trigger('change')
-								}, 700);
-							})(sid, locationData.room_category_id);
-						}
-						if (locationData.meal_plan_id) {
-							(function(targetSid, targetMealPlanId) {
-								setTimeout(function() {
-									var $mealPlanSelect = $(`#mealplan${targetRid}`);
-									$mealPlanSelect.val(targetMealPlanId); // NO .trigger('change')
-									// CRITICAL FIX: Update Select2 display
-									if ($mealPlanSelect.hasClass('select2-hidden-accessible')) {
-										$mealPlanSelect.select2().trigger('change.select2');
-									}
-								}, 750);
-							})(sid, locationData.meal_plan_id);
-						}
-						// Update totals
-						(function(targetCount, targetNight, targetSeq) {
-							setTimeout(function() {
-								updateRoomTotals(targetCount, targetNight, targetSeq);
-							}, 900);
-						})(count, night, seq);
-					}
-					// Set vehicle data to 0
-					console.log(`Night ${night}: Setting all vehicle data to 0 - no expansion data`);
-					$.each(vehicle_models, function(vindex, vmodel) {
-						var vid = `${count}${night}${vmodel.vehicle_type_id}`;
-						$(`#day_rent${vid}`).val(0);
-						$(`#travel_distance${vid}`).val(0);
-						$(`#max_km_day${vid}`).val(0);
-						$(`#extra_km_rate${vid}`).val(0);
-						$(`#extra_kilometer${vid}`).val(0);
-						$(`#veh_total${vid}`).val(0);
-						updateVehicleTotals(count, night, vindex);
-					});
-				}
-				// FIXED: Distribute vehicle totals only if main has data AND truly no expansion vehicle data (refined check excludes '[]')
-				if (locationData.vehicle_details && !hasExpansionVehicleData) {
-					try {
-						var mainVehicleDetails = typeof locationData.vehicle_details === 'string' ? JSON.parse(locationData.vehicle_details) : locationData.vehicle_details;
-						$.each(mainVehicleDetails, function(vindex, vdata) {
-							var matchedVehicleIndex = -1;
-							$.each(vehicle_models, function(modelIndex, model) {
-								if (model.vehicle_type_id == vdata.veh_type_id) {
-									matchedVehicleIndex = modelIndex;
-									return false;
-								}
-							});
-							if (matchedVehicleIndex !== -1) {
-								var totalDays = no_of_days;
-								var totalRent = parseFloat(vdata.veh_total) || 0;
-								var storedDayRent = parseFloat(vdata.day_rent) || 0;
-								var totalDistance = parseFloat(vdata.travel_distance) || 0;
-								var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
-								var kmRate = parseFloat(vdata.extra_km_rate) || 0;
-								var maxKmDay = parseFloat(vdata.max_km_day) || 0;
-								var headerText = vdata.veh_header || '';
-								var perNightRent = totalDays > 0 ? (storedDayRent || (totalRent / totalDays)) : 0;
-								var perNightDistance = totalDays > 0 ? (totalDistance / totalDays) : 0;
-								var perNightExtraKm = totalDays > 0 ? (totalExtraKm / totalDays) : 0;
-								var perNightVehTotal = totalDays > 0 ? (totalRent / totalDays) : 0;
-								for (let night = 1; night <= totalDays; night++) {
-									var vid = `${count}${night}${vdata.veh_type_id}`;
-									$(`#day_rent${vid}`).val(Math.round(perNightRent));
-									$(`#travel_distance${vid}`).val(Math.round(perNightDistance));
-									$(`#max_km_day${vid}`).val(maxKmDay);
-									$(`#extra_km_rate${vid}`).val(kmRate);
-									$(`#extra_kilometer${vid}`).val(Math.round(perNightExtraKm));
-									$(`#veh_total${vid}`).val(Math.round(perNightVehTotal));
-									if (!$(`#v_from_to${count}${night}`).text().trim()) {
-										setVehicleHeader(count, night, headerText);
-									}
-									updateVehicleTotals(count, night, matchedVehicleIndex);
-								}
-							}
-						});
-					} catch (e) {
-						console.error(`Error distributing vehicle data:`, e);
-					}
-				}
-			}
-			// Force GST column visibility
-			await delay(1000);
-			if (locationData.tax_status == 1) {
-				toggleGSTColumns(true, count);
-			} else {
-				toggleGSTColumns(false, count);
-			}
-			toggleNightsVisibility();
-			// Add vehicle summary
-			if (is_vehicle_required == 1) {
-				await addVehicleSummaryWithPreData(count, no_of_days, locationData.vehicle_details, allExpansions, hasExpansionVehicleData, isDynamic);
-			}
-			updateLocationTotals(count);
-		}
+    console.log(`\n=== USING PRE-DATA TARIFFS - Location ${count} ===`);
+    var nightlyDetails = $(`#nightly-details${count}`);
+    nightlyDetails.empty();
+    var no_of_days = parseInt(locationData.no_of_days) || 0;
+    var checkInDate = new Date(locationData.check_in_date);
+    var isDynamic = getIsDynamic();
+    var allExpansions = locationData.expansion || [];
+    // Group expansions by date
+    var expansionsByDate = {};
+    allExpansions.forEach(function(exp) {
+        var expDate = new Date(exp.tour_expansion_date).toDateString();
+        if (!expansionsByDate[expDate]) {
+            expansionsByDate[expDate] = [];
+        }
+        expansionsByDate[expDate].push(exp);
+    });
+    console.log('Expansions grouped by date:', expansionsByDate);
+    // FIXED: Refine check for expansion vehicle data (exclude empty arrays '[]')
+    var hasExpansionVehicleData = allExpansions.some(function(exp) {
+        return exp.vehicle_details_json && exp.vehicle_details_json.trim() !== '' &&
+               exp.vehicle_details_json !== '{}' && exp.vehicle_details_json !== '[]';
+    });
+    console.log('Has Expansion Vehicle Data:', hasExpansionVehicleData);
+    // Generate night sections
+    for (let night = 1; night <= no_of_days; night++) {
+        var nightDate = new Date(checkInDate);
+        nightDate.setDate(checkInDate.getDate() + (night - 1));
+        var nightDateStr = nightDate.toDateString();
+        var nightExpansions = expansionsByDate[nightDateStr] || [];
+        console.log(`\n--- Night ${night} (Date: ${nightDateStr}) ---`);
+        console.log('Night expansions count:', nightExpansions.length);
+        var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, locationData.check_in_date);
+        nightlyDetails.append(nightlyHtml);
+        // Populate room categories from common dropdown
+        var commonOptions = $(`#roomcat_common${count}`).html();
+        $(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
+            $(this).html(commonOptions);
+        });
+        // FIXED: Safe Select2 init for nightly selects
+        var $nightlySelects = $(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`);
+        $nightlySelects.each(function() {
+            if (!$(this).hasClass('select2-hidden-accessible')) {
+                $(this).select2();
+            }
+        });
+        // Set vehicle header based on mode
+        if (!isDynamic && locationData.vehicle_details) {
+            try {
+                var mainVehicleDetails = typeof locationData.vehicle_details === 'string' ? JSON.parse(locationData.vehicle_details) : locationData.vehicle_details;
+                var mainHeaders = [];
+                if (Array.isArray(mainVehicleDetails)) {
+                    mainVehicleDetails.forEach(function(md) {
+                        if (md && md.veh_header) {
+                            var cleaned = md.veh_header.toString().trim().replace(/^\s*-\s*/, '');
+                            if (mainHeaders.indexOf(cleaned) === -1) mainHeaders.push(cleaned);
+                        }
+                    });
+                }
+                if (mainHeaders.length > 0) {
+                    setVehicleHeader(count, night, mainHeaders.join(' + '));
+                }
+            } catch (e) {
+                console.error('Error parsing main vehicle details for header:', e);
+            }
+        }
+        // Populate expansion data per room
+        var numDoubles = parseInt(no_of_double_room);
+        var numSingles = parseInt(no_of_single_room);
+        if (nightExpansions.length > 0) {
+            console.log(`Populating expansion data for night ${night}`);
+            var doubleExpansions = nightExpansions.slice(0, numDoubles);
+            var singleExpansions = nightExpansions.slice(numDoubles, numDoubles + numSingles);
+            var vehicleExpansion = nightExpansions[0];
+            // Debug log
+            console.log(`Night ${night} expansion data:`, {
+                nightDateStr: nightDateStr,
+                totalExpansions: nightExpansions.length,
+                doubleExpansions: doubleExpansions.length,
+                singleExpansions: singleExpansions.length,
+                expectedDoubles: numDoubles,
+                expectedSingles: numSingles
+            });
+            // Dynamic mode: Set vehicle header from expansion
+            if (isDynamic && vehicleExpansion && vehicleExpansion.vehicle_details_json) {
+                try {
+                    var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
+                    var headersForNight = [];
+                    if (Array.isArray(vehicleDetails)) {
+                        vehicleDetails.forEach(function(vd) {
+                            if (vd && vd.veh_header) {
+                                var cleaned = vd.veh_header.toString().trim().replace(/^\s*-\s*/, '');
+                                if (headersForNight.indexOf(cleaned) === -1) headersForNight.push(cleaned);
+                            }
+                        });
+                    }
+                    if (headersForNight.length > 0) {
+                        setVehicleHeader(count, night, headersForNight.join(' + '));
+                    }
+                } catch (e) {
+                    console.error('Error parsing vehicle details for header:', e);
+                }
+            }
+            // CRITICAL FIX: Set room data for double rooms with proper room category handling (NO TRIGGER)
+            for (let i = 1; i <= numDoubles; i++) {
+                var rid = `${count}${night}${i}`;
+                var exp = doubleExpansions[i - 1] || null;
+                console.log(`Setting double room ${i} (ID: ${rid}), Has expansion: ${exp !== null}`);
+                if (exp) {
+                    console.log(`Expansion data for double room ${i}:`, exp);
+                    // CRITICAL: Determine room category with proper precedence
+                    // Priority: 1. Expansion room_category_id, 2. Main room_category_id
+                    var roomCatId = null;
+                    // Check expansion room category first
+                    if (exp.expansion_room_category_id && exp.expansion_room_category_id !== '' && exp.expansion_room_category_id !== '0' && exp.expansion_room_category_id != 0) {
+                        roomCatId = exp.expansion_room_category_id;
+                        console.log(`Using expansion room_category_id: ${roomCatId}`);
+                    }
+                    // Fallback to main room category only if expansion is truly empty
+                    else if (locationData.room_category_id && locationData.room_category_id !== '' && locationData.room_category_id !== '0' && locationData.room_category_id != 0) {
+                        roomCatId = locationData.room_category_id;
+                        console.log(`Using main room_category_id: ${roomCatId}`);
+                    }
+                    // Set room category WITHOUT trigger (prevents fetch) + Update Select2 display
+                    (function(targetRid, targetRoomCatId) {
+                        setTimeout(function() {
+                            var $roomCatSelect = $(`#roomcat${targetRid}`);
+                            console.log(`Setting roomcat${targetRid} to ${targetRoomCatId}`);
+                            // Verify option exists
+                            var optionExists = $roomCatSelect.find(`option[value="${targetRoomCatId}"]`).length > 0;
+                            console.log(`Option ${targetRoomCatId} exists: ${optionExists}`);
+                            if (optionExists && targetRoomCatId) {
+                                $roomCatSelect.val(targetRoomCatId);
+                                // NO .trigger('change') - silent set for pre-data
+                                // FIXED: Update Select2 display properly
+                                if ($roomCatSelect.hasClass('select2-hidden-accessible')) {
+                                    var $container = $roomCatSelect.next('.select2-container');
+                                    var selectedText = $roomCatSelect.find('option:selected').text();
+                                    $container.find('.select2-selection__rendered').text(selectedText).attr('title', selectedText);
+                                } else {
+                                    // Initialize if not already
+                                    $roomCatSelect.select2();
+                                }
+                                console.log(`Successfully set roomcat${targetRid} to: ${$roomCatSelect.val()}`);
+                            } else {
+                                console.warn(`Room category ${targetRoomCatId} not found in options for ${targetRid}`);
+                            }
+                        }, 700);
+                    })(rid, roomCatId);
+                    // Set meal plan with fallback (NO TRIGGER) + Update Select2 display
+                    var mealPlanId = exp.meal_plan_id || locationData.meal_plan_id || '';
+                    // ✅ AFTER (CORRECT):
+                    (function(targetRid, targetMealPlanId) {
+                        setTimeout(function() {
+                            var $mealPlanSelect = $(`#mealplan${targetRid}`);
+                            if ($mealPlanSelect.length === 0 || !targetMealPlanId) return;
+                            // Set value silently
+                            $mealPlanSelect.val(targetMealPlanId);
+                            // Update Select2 display properly
+                            if ($mealPlanSelect.hasClass('select2-hidden-accessible')) {
+                                // Force display update
+                                var $container = $mealPlanSelect.next('.select2-container');
+                                var selectedText = $mealPlanSelect.find('option:selected').text();
+                                $container.find('.select2-selection__rendered').text(selectedText).attr('title', selectedText);
+                            } else {
+                                // Initialize if not already
+                                $mealPlanSelect.select2();
+                            }
+                            console.log(`✓ Double room ${targetRid} meal plan set: ${targetMealPlanId}`);
+                        }, 750);
+                    })(rid, mealPlanId);
+                    // Set rate fields
+                    $(`#d_adult_rate${rid}`).val(exp.room_rate_double || 0);
+                    $(`#d_child_rate${rid}`).val(exp.child_with_bed_double || 0);
+                    $(`#d_child_wb_rate${rid}`).val(exp.child_without_bed_double || 0);
+                    $(`#d_extra_bed_rate${rid}`).val(exp.extra_bed_double || 0);
+                    // Set GST fields for double rooms if applicable
+                    if (locationData.tax_status == 1) {
+                        $(`#d_adult_gst${rid}`).val(exp.room_rate_double_gst || 0);
+                        $(`#d_child_gst${rid}`).val(exp.child_with_bed_double_gst || 0);
+                        $(`#d_child_wb_gst${rid}`).val(exp.child_without_bed_double_gst || 0);
+                        $(`#d_extra_bed_gst${rid}`).val(exp.extra_bed_double_gst || 0);
+                    }
+                } else {
+                    // CRITICAL: Explicitly set to 0 when no expansion data
+                    console.log(`No expansion data for double room ${i} - setting rates to 0`);
+                    $(`#d_adult_rate${rid}`).val(0);
+                    $(`#d_child_rate${rid}`).val(0);
+                    $(`#d_child_wb_rate${rid}`).val(0);
+                    $(`#d_extra_bed_rate${rid}`).val(0);
+                    if (locationData.tax_status == 1) {
+                        $(`#d_adult_gst${rid}`).val(0);
+                        $(`#d_child_gst${rid}`).val(0);
+                        $(`#d_child_wb_gst${rid}`).val(0);
+                        $(`#d_extra_bed_gst${rid}`).val(0);
+                    }
+                    // Set default room category and meal plan if no expansion (NO TRIGGER) + Update Select2 display
+                    if (locationData.room_category_id) {
+                        (function(targetRid, targetRoomCatId) {
+                            setTimeout(function() {
+                                var $roomCatSelect = $(`#roomcat${targetRid}`);
+                                $roomCatSelect.val(targetRoomCatId);
+                                // NO .trigger('change')
+                                // FIXED: Update Select2 display
+                                if ($roomCatSelect.hasClass('select2-hidden-accessible')) {
+                                    var $container = $roomCatSelect.next('.select2-container');
+                                    var selectedText = $roomCatSelect.find('option:selected').text();
+                                    $container.find('.select2-selection__rendered').text(selectedText).attr('title', selectedText);
+                                } else {
+                                    // Initialize if not already
+                                    $roomCatSelect.select2();
+                                }
+                            }, 700);
+                        })(rid, locationData.room_category_id);
+                    }
+                    if (locationData.meal_plan_id) {
+                        // ✅ AFTER (CORRECT):
+                        (function(targetRid, targetMealPlanId) {
+                            setTimeout(function() {
+                                var $mealPlanSelect = $(`#mealplan${targetRid}`);
+                                if ($mealPlanSelect.length === 0) return;
+                                // Set value silently
+                                $mealPlanSelect.val(targetMealPlanId);
+                                // Update Select2 display properly
+                                if ($mealPlanSelect.hasClass('select2-hidden-accessible')) {
+                                    // Force display update
+                                    var $container = $mealPlanSelect.next('.select2-container');
+                                    var selectedText = $mealPlanSelect.find('option:selected').text();
+                                    $container.find('.select2-selection__rendered').text(selectedText).attr('title', selectedText);
+                                } else {
+                                    // Initialize if not already
+                                    $mealPlanSelect.select2();
+                                }
+                                console.log(`✓ Double room ${targetRid} meal plan set (no exp): ${targetMealPlanId}`);
+                            }, 750);
+                        })(rid, locationData.meal_plan_id);
+                    }
+                }
+                // Update totals after all fields are set
+                (function(targetCount, targetNight, targetI) {
+                    setTimeout(function() {
+                        updateRoomTotals(targetCount, targetNight, targetI);
+                    }, 900);
+                })(count, night, i);
+            }
+            // CRITICAL FIX: Set room data for single rooms (similar updates, NO TRIGGER)
+            for (let i = 1; i <= numSingles; i++) {
+                var seq = numDoubles + i;
+                var sid = `${count}${night}${seq}`;
+                var exp = singleExpansions[i - 1] || null;
+                console.log(`Setting single room ${i} (ID: ${sid}), Has expansion: ${exp !== null}`);
+                if (exp) {
+                    console.log(`Expansion data for single room ${i}:`, exp);
+                    // CRITICAL: Determine room category with proper precedence
+                    var roomCatId = null;
+                    // Check expansion room category first
+                    if (exp.expansion_room_category_id && exp.expansion_room_category_id !== '' && exp.expansion_room_category_id !== '0' && exp.expansion_room_category_id != 0) {
+                        roomCatId = exp.expansion_room_category_id;
+                        console.log(`Using expansion room_category_id: ${roomCatId}`);
+                    }
+                    // Fallback to main room category only if expansion is truly empty
+                    else if (locationData.room_category_id && locationData.room_category_id !== '' && locationData.room_category_id !== '0' && locationData.room_category_id != 0) {
+                        roomCatId = locationData.room_category_id;
+                        console.log(`Using main room_category_id: ${roomCatId}`);
+                    }
+                    // Set room category WITHOUT trigger + Update Select2 display
+                    // ✅ AFTER (With proper display update):
+                    (function(targetSid, targetRoomCatId) {
+                        setTimeout(function() {
+                            var $roomCatSelect = $(`#roomcat${targetSid}`);
+                            if ($roomCatSelect.length === 0) return;
+                            // Verify option exists
+                            var optionExists = $roomCatSelect.find(`option[value="${targetRoomCatId}"]`).length > 0;
+                            if (optionExists && targetRoomCatId) {
+                                // Set value silently
+                                $roomCatSelect.val(targetRoomCatId);
+                                // Update Select2 display properly
+                                if ($roomCatSelect.hasClass('select2-hidden-accessible')) {
+                                    // Force display update
+                                    var $container = $roomCatSelect.next('.select2-container');
+                                    var selectedText = $roomCatSelect.find('option:selected').text();
+                                    $container.find('.select2-selection__rendered').text(selectedText).attr('title', selectedText);
+                                } else {
+                                    // Initialize if not already
+                                    $roomCatSelect.select2();
+                                }
+                                console.log(`✓ Room category ${targetSid} set: ${targetRoomCatId} (${selectedText})`);
+                            } else {
+                                console.warn(`Room category ${targetRoomCatId} not found for ${targetSid}`);
+                            }
+                        }, 700);
+                    })(sid, roomCatId);
+                    // Set meal plan with fallback (NO TRIGGER) + Update Select2 display
+                    var mealPlanId = exp.meal_plan_id || locationData.meal_plan_id || '';
+                    // ✅ AFTER (CORRECT - Uses targetSid):
+                    (function(targetSid, targetMealPlanId) {
+                        setTimeout(function() {
+                            var $mealPlanSelect = $(`#mealplan${targetSid}`); // ✅ CORRECT VARIABLE!
+                            if ($mealPlanSelect.length === 0 || !targetMealPlanId) return;
+                            // Set value silently
+                            $mealPlanSelect.val(targetMealPlanId);
+                            // Update Select2 display properly
+                            if ($mealPlanSelect.hasClass('select2-hidden-accessible')) {
+                                // Force display update
+                                var $container = $mealPlanSelect.next('.select2-container');
+                                var selectedText = $mealPlanSelect.find('option:selected').text();
+                                $container.find('.select2-selection__rendered').text(selectedText).attr('title', selectedText);
+                            } else {
+                                // Initialize if not already
+                                $mealPlanSelect.select2();
+                            }
+                            console.log(`✓ Single room ${targetSid} meal plan set: ${targetMealPlanId}`);
+                        }, 750);
+                    })(sid, mealPlanId);
+                    // Set rate fields
+                    $(`#s_adult_rate${sid}`).val(exp.room_rate_single || 0);
+                    $(`#s_child_rate${sid}`).val(exp.child_with_bed_single || 0);
+                    $(`#s_child_wb_rate${sid}`).val(exp.child_without_bed_single || 0);
+                    $(`#s_extra_bed_rate${sid}`).val(exp.extra_bed_single || 0);
+                    // Set GST fields for single rooms if applicable
+                    if (locationData.tax_status == 1) {
+                        $(`#s_adult_gst${sid}`).val(exp.room_rate_single_gst || 0);
+                        $(`#s_child_gst${sid}`).val(exp.child_with_bed_single_gst || 0);
+                        $(`#s_child_wb_gst${sid}`).val(exp.child_without_bed_single_gst || 0);
+                        $(`#s_extra_bed_gst${sid}`).val(exp.extra_bed_single_gst || 0);
+                    }
+                } else {
+                    // CRITICAL: Explicitly set to 0 when no expansion data
+                    console.log(`No expansion data for single room ${i} - setting rates to 0`);
+                    $(`#s_adult_rate${sid}`).val(0);
+                    $(`#s_child_rate${sid}`).val(0);
+                    $(`#s_child_wb_rate${sid}`).val(0);
+                    $(`#s_extra_bed_rate${sid}`).val(0);
+                    if (locationData.tax_status == 1) {
+                        $(`#s_adult_gst${sid}`).val(0);
+                        $(`#s_child_gst${sid}`).val(0);
+                        $(`#s_child_wb_gst${sid}`).val(0);
+                        $(`#s_extra_bed_gst${sid}`).val(0);
+                    }
+                    // Set default room category and meal plan if no expansion (NO TRIGGER)
+                    if (locationData.room_category_id) {
+                        (function(targetSid, targetRoomCatId) {
+                            setTimeout(function() {
+                                var $roomCatSelect = $(`#roomcat${targetSid}`);
+                                $roomCatSelect.val(targetRoomCatId);
+                                // NO .trigger('change')
+                                // FIXED: Update Select2 display
+                                if ($roomCatSelect.hasClass('select2-hidden-accessible')) {
+                                    var $container = $roomCatSelect.next('.select2-container');
+                                    var selectedText = $roomCatSelect.find('option:selected').text();
+                                    $container.find('.select2-selection__rendered').text(selectedText).attr('title', selectedText);
+                                } else {
+                                    // Initialize if not already
+                                    $roomCatSelect.select2();
+                                }
+                            }, 700);
+                        })(sid, locationData.room_category_id);
+                    }
+                    if (locationData.meal_plan_id) {
+                        // ✅ AFTER (CORRECT - Uses targetSid):
+                        (function(targetSid, targetMealPlanId) {
+                            setTimeout(function() {
+                                var $mealPlanSelect = $(`#mealplan${targetSid}`); // ✅ CORRECT VARIABLE!
+                                if ($mealPlanSelect.length === 0) return;
+                                // Set value silently
+                                $mealPlanSelect.val(targetMealPlanId);
+                                // Update Select2 display properly
+                                if ($mealPlanSelect.hasClass('select2-hidden-accessible')) {
+                                    // Force display update
+                                    var $container = $mealPlanSelect.next('.select2-container');
+                                    var selectedText = $mealPlanSelect.find('option:selected').text();
+                                    $container.find('.select2-selection__rendered').text(selectedText).attr('title', selectedText);
+                                } else {
+                                    // Initialize if not already
+                                    $mealPlanSelect.select2();
+                                }
+                                console.log(`✓ Single room ${targetSid} meal plan set (no exp): ${targetMealPlanId}`);
+                            }, 750);
+                        })(sid, locationData.meal_plan_id);
+                    }
+                }
+                // Update totals after all fields are set
+                (function(targetCount, targetNight, targetSeq) {
+                    setTimeout(function() {
+                        updateRoomTotals(targetCount, targetNight, targetSeq);
+                    }, 900);
+                })(count, night, seq);
+            }
+            // FIXED: Populate vehicle data - Use expansion data if available; explicitly set 0 if expansions exist but no vehicle JSON
+            if (vehicleExpansion && vehicleExpansion.vehicle_details_json && vehicleExpansion.vehicle_details_json.trim() !== '[]') {
+                try {
+                    var vehicleDetails = JSON.parse(vehicleExpansion.vehicle_details_json);
+                    console.log(`Night ${night}: Loading vehicle data from expansion:`, vehicleDetails);
+                    $.each(vehicleDetails, function(vindex, vdata) {
+                        var vid = `${count}${night}${vdata.veh_type_id}`;
+                        $(`#day_rent${vid}`).val(vdata.day_rent || 0);
+                        $(`#travel_distance${vid}`).val(vdata.travel_distance || 0);
+                        $(`#max_km_day${vid}`).val(vdata.max_km_day || 0);
+                        $(`#extra_km_rate${vid}`).val(vdata.extra_km_rate || 0);
+                        $(`#extra_kilometer${vid}`).val(vdata.extra_kilometer || 0);
+                        $(`#veh_total${vid}`).val(vdata.veh_total || 0);
+                        updateVehicleTotals(count, night, vindex);
+                    });
+                } catch (e) {
+                    console.error('Error parsing vehicle details:', e);
+                }
+            } else if (nightExpansions.length > 0) {
+                // FIXED: Explicitly set vehicle fields to 0 if expansions exist (dynamic) but no vehicle JSON
+                console.log(`Night ${night}: No vehicle data in expansion; setting defaults to 0`);
+                $.each(vehicle_models, function(vindex, vmodel) {
+                    var vid = `${count}${night}${vmodel.vehicle_type_id}`;
+                    $(`#day_rent${vid}`).val(0);
+                    $(`#travel_distance${vid}`).val(0);
+                    $(`#max_km_day${vid}`).val(0);
+                    $(`#extra_km_rate${vid}`).val(0);
+                    $(`#extra_kilometer${vid}`).val(0);
+                    $(`#veh_total${vid}`).val(0);
+                    updateVehicleTotals(count, night, vindex);
+                });
+                // Clear header if no data
+                setVehicleHeader(count, night, '');
+            }
+        } else {
+            // CRITICAL: Handle nights with NO expansion data at all
+            console.log(`Night ${night}: NO expansion data found - setting all rates to 0`);
+            // Set all double rooms to 0
+            for (let i = 1; i <= numDoubles; i++) {
+                var rid = `${count}${night}${i}`;
+                console.log(`Setting double room ${i} (ID: ${rid}) to 0 - no expansion data`);
+                $(`#d_adult_rate${rid}`).val(0);
+                $(`#d_child_rate${rid}`).val(0);
+                $(`#d_child_wb_rate${rid}`).val(0);
+                $(`#d_extra_bed_rate${rid}`).val(0);
+                if (locationData.tax_status == 1) {
+                    $(`#d_adult_gst${rid}`).val(0);
+                    $(`#d_child_gst${rid}`).val(0);
+                    $(`#d_child_wb_gst${rid}`).val(0);
+                    $(`#d_extra_bed_gst${rid}`).val(0);
+                }
+                // Set default room category and meal plan (NO TRIGGER)
+                if (locationData.room_category_id) {
+                    (function(targetRid, targetRoomCatId) {
+                        setTimeout(function() {
+                            var $roomCatSelect = $(`#roomcat${targetRid}`);
+                            $roomCatSelect.val(targetRoomCatId);
+                            // NO .trigger('change')
+                            // FIXED: Update Select2 display
+                            if ($roomCatSelect.hasClass('select2-hidden-accessible')) {
+                                var $container = $roomCatSelect.next('.select2-container');
+                                var selectedText = $roomCatSelect.find('option:selected').text();
+                                $container.find('.select2-selection__rendered').text(selectedText).attr('title', selectedText);
+                            } else {
+                                // Initialize if not already
+                                $roomCatSelect.select2();
+                            }
+                        }, 700);
+                    })(rid, locationData.room_category_id);
+                }
+                if (locationData.meal_plan_id) {
+                    (function(targetRid, targetMealPlanId) {
+                        setTimeout(function() {
+                            var $mealPlanSelect = $(`#mealplan${targetRid}`);
+                            if ($mealPlanSelect.length === 0) return;
+                            $mealPlanSelect.val(targetMealPlanId);
+                            // NO .trigger('change')
+                            // FIXED: Update Select2 display
+                            if ($mealPlanSelect.hasClass('select2-hidden-accessible')) {
+                                var $container = $mealPlanSelect.next('.select2-container');
+                                var selectedText = $mealPlanSelect.find('option:selected').text();
+                                $container.find('.select2-selection__rendered').text(selectedText).attr('title', selectedText);
+                            } else {
+                                // Initialize if not already
+                                $mealPlanSelect.select2();
+                            }
+                            console.log(`✓ Double room ${targetRid} meal plan set (no exp data): ${targetMealPlanId}`);
+                        }, 750);
+                    })(rid, locationData.meal_plan_id);
+                }
+                // Update totals
+                (function(targetCount, targetNight, targetI) {
+                    setTimeout(function() {
+                        updateRoomTotals(targetCount, targetNight, targetI);
+                    }, 900);
+                })(count, night, i);
+            }
+            // Set all single rooms to 0
+            for (let i = 1; i <= numSingles; i++) {
+                var seq = numDoubles + i;
+                var sid = `${count}${night}${seq}`;
+                console.log(`Setting single room ${i} (ID: ${sid}) to 0 - no expansion data`);
+                $(`#s_adult_rate${sid}`).val(0);
+                $(`#s_child_rate${sid}`).val(0);
+                $(`#s_child_wb_rate${sid}`).val(0);
+                $(`#s_extra_bed_rate${sid}`).val(0);
+                if (locationData.tax_status == 1) {
+                    $(`#s_adult_gst${sid}`).val(0);
+                    $(`#s_child_gst${sid}`).val(0);
+                    $(`#s_child_wb_gst${sid}`).val(0);
+                    $(`#s_extra_bed_gst${sid}`).val(0);
+                }
+                // Set default room category and meal plan (NO TRIGGER)
+                if (locationData.room_category_id) {
+                    (function(targetSid, targetRoomCatId) {
+                        setTimeout(function() {
+                            var $roomCatSelect = $(`#roomcat${targetSid}`);
+                            $roomCatSelect.val(targetRoomCatId);
+                            // NO .trigger('change')
+                            // FIXED: Update Select2 display
+                            if ($roomCatSelect.hasClass('select2-hidden-accessible')) {
+                                var $container = $roomCatSelect.next('.select2-container');
+                                var selectedText = $roomCatSelect.find('option:selected').text();
+                                $container.find('.select2-selection__rendered').text(selectedText).attr('title', selectedText);
+                            } else {
+                                // Initialize if not already
+                                $roomCatSelect.select2();
+                            }
+                        }, 700);
+                    })(sid, locationData.room_category_id);
+                }
+                if (locationData.meal_plan_id) {
+                    // ✅ AFTER (CORRECT - Uses targetSid):
+                    (function(targetSid, targetMealPlanId) {
+                        setTimeout(function() {
+                            var $mealPlanSelect = $(`#mealplan${targetSid}`); // ✅ CORRECT VARIABLE!
+                            if ($mealPlanSelect.length === 0) return;
+                            $mealPlanSelect.val(targetMealPlanId);
+                            // NO .trigger('change')
+                            // FIXED: Update Select2 display
+                            if ($mealPlanSelect.hasClass('select2-hidden-accessible')) {
+                                var $container = $mealPlanSelect.next('.select2-container');
+                                var selectedText = $mealPlanSelect.find('option:selected').text();
+                                $container.find('.select2-selection__rendered').text(selectedText).attr('title', selectedText);
+                            } else {
+                                // Initialize if not already
+                                $mealPlanSelect.select2();
+                            }
+                            console.log(`✓ Single room ${targetSid} meal plan set (no exp data): ${targetMealPlanId}`);
+                        }, 750);
+                    })(sid, locationData.meal_plan_id);
+                }
+                // Update totals
+                (function(targetCount, targetNight, targetSeq) {
+                    setTimeout(function() {
+                        updateRoomTotals(targetCount, targetNight, targetSeq);
+                    }, 900);
+                })(count, night, seq);
+            }
+            // Set vehicle data to 0
+            console.log(`Night ${night}: Setting all vehicle data to 0 - no expansion data`);
+            $.each(vehicle_models, function(vindex, vmodel) {
+                var vid = `${count}${night}${vmodel.vehicle_type_id}`;
+                $(`#day_rent${vid}`).val(0);
+                $(`#travel_distance${vid}`).val(0);
+                $(`#max_km_day${vid}`).val(0);
+                $(`#extra_km_rate${vid}`).val(0);
+                $(`#extra_kilometer${vid}`).val(0);
+                $(`#veh_total${vid}`).val(0);
+                updateVehicleTotals(count, night, vindex);
+            });
+        }
+        // FIXED: Distribute vehicle totals only if main has data AND truly no expansion vehicle data (refined check excludes '[]')
+        if (locationData.vehicle_details && !hasExpansionVehicleData) {
+            try {
+                var mainVehicleDetails = typeof locationData.vehicle_details === 'string' ? JSON.parse(locationData.vehicle_details) : locationData.vehicle_details;
+                $.each(mainVehicleDetails, function(vindex, vdata) {
+                    var matchedVehicleIndex = -1;
+                    $.each(vehicle_models, function(modelIndex, model) {
+                        if (model.vehicle_type_id == vdata.veh_type_id) {
+                            matchedVehicleIndex = modelIndex;
+                            return false;
+                        }
+                    });
+                    if (matchedVehicleIndex !== -1) {
+                        var totalDays = no_of_days;
+                        var totalRent = parseFloat(vdata.veh_total) || 0;
+                        var storedDayRent = parseFloat(vdata.day_rent) || 0;
+                        var totalDistance = parseFloat(vdata.travel_distance) || 0;
+                        var totalExtraKm = parseFloat(vdata.extra_kilometer) || 0;
+                        var kmRate = parseFloat(vdata.extra_km_rate) || 0;
+                        var maxKmDay = parseFloat(vdata.max_km_day) || 0;
+                        var headerText = vdata.veh_header || '';
+                        var perNightRent = totalDays > 0 ? (storedDayRent || (totalRent / totalDays)) : 0;
+                        var perNightDistance = totalDays > 0 ? (totalDistance / totalDays) : 0;
+                        var perNightExtraKm = totalDays > 0 ? (totalExtraKm / totalDays) : 0;
+                        var perNightVehTotal = totalDays > 0 ? (totalRent / totalDays) : 0;
+                        for (let night = 1; night <= totalDays; night++) {
+                            var vid = `${count}${night}${vdata.veh_type_id}`;
+                            $(`#day_rent${vid}`).val(Math.round(perNightRent));
+                            $(`#travel_distance${vid}`).val(Math.round(perNightDistance));
+                            $(`#max_km_day${vid}`).val(maxKmDay);
+                            $(`#extra_km_rate${vid}`).val(kmRate);
+                            $(`#extra_kilometer${vid}`).val(Math.round(perNightExtraKm));
+                            $(`#veh_total${vid}`).val(Math.round(perNightVehTotal));
+                            if (!$(`#v_from_to${count}${night}`).text().trim()) {
+                                setVehicleHeader(count, night, headerText);
+                            }
+                            updateVehicleTotals(count, night, matchedVehicleIndex);
+                        }
+                    }
+                });
+            } catch (e) {
+                console.error(`Error distributing vehicle data:`, e);
+            }
+        }
+    }
+    // Force GST column visibility
+    await delay(1000);
+    if (locationData.tax_status == 1) {
+        toggleGSTColumns(true, count);
+    } else {
+        toggleGSTColumns(false, count);
+    }
+    toggleNightsVisibility();
+    // Add vehicle summary
+    if (is_vehicle_required == 1) {
+        await addVehicleSummaryWithPreData(count, no_of_days, locationData.vehicle_details, allExpansions, hasExpansionVehicleData, isDynamic);
+    }
+    updateLocationTotals(count);
+}
 		// Set vehicle header without icon
 		function setVehicleHeader(count, night, headerText) {
 			var $headerElement = $(`#v_from_to${count}${night}`);
