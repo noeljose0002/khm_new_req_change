@@ -6072,10 +6072,10 @@ $is_edit = $edit_id ? $edit_id : 0;
 		console.log('rid:', rid, 'count:', count, 'night:', night, 'roomIndex:', roomIndex, 'type:', type, 'value:', mealplan);
 
 		// Skip if programmatic change (add this if missing)
-		// if ($(this).data('programmatic-change')) {
-		// 	$(this).removeData('programmatic-change');
-		// 	return;
-		// }
+		if ($(this).data('programmatic-change')) {
+			$(this).removeData('programmatic-change');
+			return;
+		}
 
 		// STATIC MODE: Optimized propagation (unchanged)
 		if (!getIsDynamic()) {
