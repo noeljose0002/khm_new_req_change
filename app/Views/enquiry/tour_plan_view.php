@@ -10824,9 +10824,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 		var pre_no_of_extra_bed = <?php echo isset($pre_object_det[0]['no_of_extra_bed']) ? $pre_object_det[0]['no_of_extra_bed'] : '0'; ?>;
 		var currentMealPlanId = <?php echo isset($object_det[0]['meal_plan']) ? $object_det[0]['meal_plan'] : '0'; ?>;
 		var preMealPlanId = <?php echo isset($pre_tour_plan[0]['meal_plan_id']) ? $pre_tour_plan[0]['meal_plan_id'] : '0'; ?>;
-		
-		
-		
+
+
+
 		// Convert date format if needed
 		if (date_of_tour_start.includes('-')) {
 			if (date_of_tour_start.split('-')[0].length === 2) {
@@ -10852,7 +10852,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			totalPaxChanged: total_no_of_pax != pre_total_no_of_pax,
 			mealPlanChanged: parseInt(currentMealPlanId) !== parseInt(preMealPlanId)
 		};
-		
+
 		console.log('Change Detection:', changeDetection);
 		// Handle nights decrease
 		if (changeDetection.nightsDecreased) {
@@ -10923,8 +10923,11 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		function determineCopyMode(changes) {
 			if (changes.mealPlanChanged) {
-        return 'MEAL_PLAN_CHANGED';
-    }
+				return 'MEAL_PLAN_CHANGED';
+			}
+			if (changes.roomsChanged) {
+				return 'ROOMS_CHANGED';
+			}
 			if (changes.nightsDecreased && !changes.dateChanged && !changes.roomsChanged) {
 				return 'NIGHTS_DECREASED_ONLY';
 			}
@@ -10936,9 +10939,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 			}
 			if (changes.dateChanged) {
 				return 'DATE_CHANGED';
-			}
-			if (changes.roomsChanged) {
-				return 'ROOMS_CHANGED';
 			}
 			if (changes.vehicleModelsChanged) {
 				return 'VEHICLE_CHANGED';
@@ -11013,16 +11013,16 @@ $is_edit = $edit_id ? $edit_id : 0;
 			var count = index + 1;
 			var locationData = planData[index];
 			console.log(`\n=== COPYING LOCATION ${count} (Mode: ${mode}) ===`);
-			 if (mode === 'MEAL_PLAN_CHANGED') {
-        console.log(`Overriding meal plan: ${locationData.meal_plan_id} → ${currentMealPlanId}`);
-        locationData.meal_plan_id = currentMealPlanId;
-    }
-	var mealPlanToUse = (mode === 'MEAL_PLAN_CHANGED') ? currentMealPlanId : locationData.meal_plan_id;
+			if (mode === 'MEAL_PLAN_CHANGED') {
+				console.log(`Overriding meal plan: ${locationData.meal_plan_id} → ${currentMealPlanId}`);
+				locationData.meal_plan_id = currentMealPlanId;
+			}
+			var mealPlanToUse = (mode === 'MEAL_PLAN_CHANGED') ? currentMealPlanId : locationData.meal_plan_id;
 			var ep_sel = locationData.meal_plan_id == 1 ? "selected" : "";
 			var cp_sel = locationData.meal_plan_id == 2 ? "selected" : "";
 			var map_sel = locationData.meal_plan_id == 3 ? "selected" : "";
 			var ap_sel = locationData.meal_plan_id == 4 ? "selected" : "";
-			var usePreTariffs = (mode === 'NO_CHANGES' || mode === 'NIGHTS_DECREASED_ONLY' || mode === 'PAX_ONLY_CHANGED' || mode === 'ROOMS_CHANGED');
+			var usePreTariffs = (mode === 'NO_CHANGES' || mode === 'NIGHTS_DECREASED_ONLY'|| mode === 'NIGHTS_INCREASED' || mode === 'PAX_ONLY_CHANGED');
 			var usePreVehicle = (mode !== 'VEHICLE_CHANGED' && mode !== 'MEAL_PLAN_CHANGED');
 			console.log(`Use Pre-Tariffs: ${usePreTariffs}, Use Pre-Vehicle: ${usePreVehicle}`);
 			var newCard = buildLocationCardHtml(count, locationData, ep_sel, cp_sel, map_sel, ap_sel, no_of_adult, no_of_child_with_bed, no_of_child_without_bed, no_of_extra_bed, total_no_of_pax);
@@ -11050,13 +11050,14 @@ $is_edit = $edit_id ? $edit_id : 0;
 			await copyTourPlanWithChangeHandling(planData, index + 1, mode, changes, no_of_adult, no_of_child_with_bed, no_of_child_without_bed, no_of_extra_bed, total_no_of_pax);
 		}
 		async function generateNightlyDetailsFromPreData(count, locationData, mode, changes) {
-			   console.log(`\n=== USING PRE-DATA TARIFFS - Location ${count} ===`);
-    
-    // ✅ CRITICAL: If meal plan changed, NEVER use pre-data - always fetch fresh
-    if (mode === 'MEAL_PLAN_CHANGED') {
-        console.log(`❌ MEAL PLAN CHANGED - Skipping pre-data, fetching fresh tariffs`);
-        return await generateNightlyDetailsWithFreshTariffs(count, locationData, mode, changes);
-    }
+			console.log(`\n=== USING PRE-DATA TARIFFS - Location ${count} ===`);
+
+			// ✅ CRITICAL: If meal plan changed, NEVER use pre-data - always fetch fresh
+			if (mode === 'MEAL_PLAN_CHANGED') {
+				console.log(`❌ MEAL PLAN CHANGED - Skipping pre-data, fetching fresh tariffs`);
+				return await generateNightlyDetailsWithFreshTariffs(count, locationData, mode, changes);
+			}
+
 			console.log(`\n=== USING PRE-DATA TARIFFS - Location ${count} ===`);
 			var nightlyDetails = $(`#nightly-details${count}`);
 			nightlyDetails.empty();
@@ -11866,38 +11867,52 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 		async function generateNightlyDetailsWithFreshTariffs(count, locationData, mode, changes) {
 			console.log(`\n=== FETCHING FRESH TARIFFS - Location ${count} (Mode: ${mode}) ===`);
-			  if (mode === 'MEAL_PLAN_CHANGED') {
-        console.log(`Using current meal plan ID: ${currentMealPlanId} (Previous was: ${preMealPlanId})`);
-        // Override locationData meal_plan_id with current one
-        locationData.meal_plan_id = currentMealPlanId;
-    }
 
-			// NEW: Route PAX_ONLY_CHANGED and ROOMS_CHANGED to pre-data path
-			if (mode === 'PAX_ONLY_CHANGED' || mode === 'ROOMS_CHANGED') {
+			if (mode === 'MEAL_PLAN_CHANGED') {
+				console.log(`Using current meal plan ID: ${currentMealPlanId} (Previous was: ${preMealPlanId})`);
+				// Override locationData meal_plan_id with current one
+				locationData.meal_plan_id = currentMealPlanId;
+			}
+
+			// ✅ FIXED: Only route PAX changes to pre-data; ROOMS_CHANGED needs fresh fetch
+			if (mode === 'PAX_ONLY_CHANGED') {
 				console.log(`Routing ${mode} to pre-data path (no fresh fetch)`);
 				return await generateNightlyDetailsFromPreData(count, locationData, mode, changes);
 			}
+
+			// ✅ ROOMS_CHANGED, DATE_CHANGED, VEHICLE_CHANGED, etc. continue below for fresh fetch
 
 			var nightlyDetails = $(`#nightly-details${count}`);
 			nightlyDetails.empty();
 			var no_of_days = parseInt(locationData.no_of_days) || 0;
 			var vehicleDetails = parseVehicleDetails(locationData.vehicle_details);
+
 			var usePreVehicleHeaders = (mode !== 'DATE_CHANGED' && mode !== 'VEHICLE_CHANGED');
 			var usePreVehicle = (mode !== 'VEHICLE_CHANGED');
+
 			var expansionData = locationData.expansion || [];
 			var hasExpansionVehicleData = expansionData.some(function(exp) {
-				return exp.vehicle_details_json && exp.vehicle_details_json.trim() !== '' && exp.vehicle_details_json !== '{}' && exp.vehicle_details_json !== '[]';
+				return exp.vehicle_details_json && exp.vehicle_details_json.trim() !== '' &&
+					exp.vehicle_details_json !== '{}' && exp.vehicle_details_json !== '[]';
 			});
+
+			// Generate nights with fresh tariff fetch
 			for (let night = 1; night <= no_of_days; night++) {
-				await generateNightWithFreshTariff(count, night, locationData, vehicleDetails, usePreVehicleHeaders, usePreVehicle, expansionData, hasExpansionVehicleData);
+				await generateNightWithFreshTariff(count, night, locationData, vehicleDetails,
+					usePreVehicleHeaders, usePreVehicle,
+					expansionData, hasExpansionVehicleData);
 			}
+
+			// Handle vehicle summary
 			if (is_vehicle_required == 1) {
 				if (mode === 'VEHICLE_CHANGED' || mode === 'DATE_CHANGED') {
 					await addVehicleSummaryWithFreshData(count, no_of_days);
 				} else {
-					await addVehicleSummaryWithPreData(count, no_of_days, locationData.vehicle_details, expansionData, hasExpansionVehicleData, getIsDynamic());
+					await addVehicleSummaryWithPreData(count, no_of_days, locationData.vehicle_details,
+						expansionData, hasExpansionVehicleData, getIsDynamic());
 				}
 			}
+
 			updateLocationTotals(count);
 		}
 		async function generateNightWithFreshTariff(count, night, locationData, vehicleDetails, usePreHeaders, usePreVehicle, expansionData, hasExpansionVehicleData) {
@@ -11927,8 +11942,8 @@ $is_edit = $edit_id ? $edit_id : 0;
 				$(`#mealplan${rid}`).val(locationData.meal_plan_id).trigger('change');
 				await delay(100);
 			}
-			   var mealPlanToUse = locationData.meal_plan_id;
-    console.log(`Night ${night}: Using meal plan ID: ${mealPlanToUse}`);
+			var mealPlanToUse = locationData.meal_plan_id;
+			console.log(`Night ${night}: Using meal plan ID: ${mealPlanToUse}`);
 			for (let i = 1; i <= numSingles; i++) {
 				var seq = numDoubles + i;
 				var sid = `${count}${night}${seq}`;
