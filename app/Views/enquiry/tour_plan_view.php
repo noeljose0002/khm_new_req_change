@@ -11917,133 +11917,125 @@ $is_edit = $edit_id ? $edit_id : 0;
 			updateLocationTotals(count);
 		}
 		async function generateNightWithFreshTariff(count, night, locationData, vehicleDetails, usePreHeaders, usePreVehicle, expansionData, hasExpansionVehicleData) {
-			var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, locationData.check_in_date);
-			$(`#nightly-details${count}`).append(nightlyHtml);
-			await delay(200);
-			var commonOptions = $(`#roomcat_common${count}`).html();
-			$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
-				$(this).html(commonOptions);
-			});
-			// FIXED: Safe Select2 init for nightly selects
-			var $nightlySelects = $(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`);
-			$nightlySelects.each(function() {
-				if (!$(this).hasClass('select2-hidden-accessible')) {
-					$(this).select2();
-				}
-			});
-			var wasDraftLoading = isDraftLoading;
-			isDraftLoading = false;
-			var numDoubles = parseInt(no_of_double_room);
-			var numSingles = parseInt(no_of_single_room);
-			// Trigger room tariff fetch
-			for (let i = 1; i <= numDoubles; i++) {
-				var rid = `${count}${night}${i}`;
-				$(`#roomcat${rid}`).val(locationData.room_category_id).trigger('change');
-				await delay(100);
-				$(`#mealplan${rid}`).val(locationData.meal_plan_id).trigger('change');
-				await delay(100);
-			}
-			var mealPlanToUse = locationData.meal_plan_id;
-			console.log(`Night ${night}: Using meal plan ID: ${mealPlanToUse}`);
-			for (let i = 1; i <= numSingles; i++) {
-				var seq = numDoubles + i;
-				var sid = `${count}${night}${seq}`;
-				$(`#roomcat${sid}`).val(locationData.room_category_id).trigger('change');
-				await delay(100);
-				$(`#mealplan${sid}`).val(locationData.meal_plan_id).trigger('change');
-				await delay(100);
-			}
-			isDraftLoading = wasDraftLoading;
-			// **CRITICAL FIX: Set vehicle header ONLY ONCE and ONLY if vehicle required**
-			if (is_vehicle_required == 1) {
-				var headerText = '';
-				var nightVehicleDetails = [];
-				var nightIndex = night - 1;
-				// Use expansion data when conditions are met
-				if (usePreVehicle && hasExpansionVehicleData && nightIndex < expansionData.length) {
-					var nightData = expansionData[nightIndex];
-					if (nightData && nightData.vehicle_details_json && nightData.vehicle_details_json.trim() !== '[]') { // FIXED: Skip empty arrays
-						try {
-							nightVehicleDetails = JSON.parse(nightData.vehicle_details_json);
-							// Extract unique headers from this night's vehicle data
-							var uniqueHeaders = [];
-							if (Array.isArray(nightVehicleDetails)) {
-								nightVehicleDetails.forEach(function(veh) {
-									if (veh && veh.veh_header) {
-										var cleaned = veh.veh_header.toString()
-											.trim()
-											.replace(/^(?:\s*[-–—+]\s*)+/g, '')
-											.replace(/\s+/g, ' ')
-											.trim();
-										if (cleaned && uniqueHeaders.indexOf(cleaned) === -1) {
-											uniqueHeaders.push(cleaned);
-										}
-									}
-								});
-							}
-							if (uniqueHeaders.length > 0) {
-								headerText = uniqueHeaders.join(' + ');
-								console.log(`Night ${night}: Using expansion headers: "${headerText}"`);
-							}
-						} catch (e) {
-							console.error('Error parsing vehicle_details_json for night ' + night + ':', e);
-						}
-					}
-				}
-				// FALLBACK: Use aggregated vehicle details if no expansion header
-				if (!headerText && usePreHeaders && vehicleDetails.length > 0) {
-					var mainHeaders = [];
-					vehicleDetails.forEach(function(veh) {
-						if (veh && veh.veh_header) {
-							var cleaned = veh.veh_header.toString()
-								.trim()
-								.replace(/^(?:\s*[-–—+]\s*)+/g, '')
-								.replace(/\s+/g, ' ')
-								.trim();
-							if (cleaned && mainHeaders.indexOf(cleaned) === -1) {
-								mainHeaders.push(cleaned);
-							}
-						}
-					});
-					if (mainHeaders.length > 0) {
-						headerText = mainHeaders.join(' + ');
-						console.log(`Night ${night}: Using aggregated headers: "${headerText}"`);
-					}
-				}
-				// **SET HEADER ONLY ONCE - Check if already set to prevent duplicates**
-				var $existingHeader = $(`#v_from_to${count}${night}`);
-				var currentHeaderText = $existingHeader.find('span').text().trim().replace(/^-\s*/, '');
-				if (!currentHeaderText || currentHeaderText !== headerText) {
-					setVehicleHeader(count, night, headerText);
-					console.log(`Night ${night}: Header set to "${headerText}"`);
-				} else {
-					console.log(`Night ${night}: Header already set correctly, skipping`);
-				}
-				// FIXED: Set vehicle data if using pre-data AND has expansion (with refined check)
-				if (usePreVehicle && hasExpansionVehicleData && nightVehicleDetails.length > 0) {
-					console.log(`Night ${night}: Setting vehicle data from expansion`);
-					setVehicleDataFromNightExpansion(count, night, nightVehicleDetails);
-				} else if (usePreVehicle && nightIndex < expansionData.length) {
-					// FIXED: Explicitly set to 0 if using pre but no data for this night
-					var nightData = expansionData[nightIndex];
-					if (nightData && (nightData.vehicle_details_json === undefined || nightData.vehicle_details_json.trim() === '' || nightData.vehicle_details_json === '[]' || nightData.vehicle_details_json === '{}')) {
-						console.log(`Night ${night}: No vehicle data for this night; setting to 0`);
-						$.each(vehicle_models, function(vindex, vmodel) {
-							var vid = `${count}${night}${vmodel.vehicle_type_id}`;
-							$(`#day_rent${vid}`).val(0);
-							$(`#travel_distance${vid}`).val(0);
-							$(`#max_km_day${vid}`).val(0);
-							$(`#extra_km_rate${vid}`).val(0);
-							$(`#extra_kilometer${vid}`).val(0);
-							$(`#veh_total${vid}`).val(0);
-							updateVehicleTotals(count, night, vindex);
-						});
-					}
-				}
-			}
-			await delay(300);
-		}
-
+    var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, locationData.check_in_date);
+    $(`#nightly-details${count}`).append(nightlyHtml);
+    
+    var commonOptions = $(`#roomcat_common${count}`).html();
+    $(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
+        $(this).html(commonOptions);
+    });
+    
+    // FIXED: Safe Select2 init for nightly selects
+    var $nightlySelects = $(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`);
+    $nightlySelects.each(function() {
+        if (!$(this).hasClass('select2-hidden-accessible')) {
+            $(this).select2();
+        }
+    });
+    
+    var wasDraftLoading = isDraftLoading;
+    isDraftLoading = false;
+    
+    // OPTIMIZED: Bulk set room category and meal plan for all rooms in this night at once (no loops/delays)
+    var commonRoom = locationData.room_category_id;
+    var commonMeal = locationData.meal_plan_id;
+    console.log(`Night ${night}: Using meal plan ID: ${commonMeal}`);
+    
+    $(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).val(commonRoom).trigger('change.select2');
+    $(`#nightly-details${count} .night-section[data-night="${night}"] .mp_row_change`).val(commonMeal).trigger('change');
+    
+    isDraftLoading = wasDraftLoading;
+    
+    // **CRITICAL FIX: Set vehicle header ONLY ONCE and ONLY if vehicle required**
+    if (is_vehicle_required == 1) {
+        var headerText = '';
+        var nightVehicleDetails = [];
+        var nightIndex = night - 1;
+        // Use expansion data when conditions are met
+        if (usePreVehicle && hasExpansionVehicleData && nightIndex < expansionData.length) {
+            var nightData = expansionData[nightIndex];
+            if (nightData && nightData.vehicle_details_json && nightData.vehicle_details_json.trim() !== '[]') { // FIXED: Skip empty arrays
+                try {
+                    nightVehicleDetails = JSON.parse(nightData.vehicle_details_json);
+                    // Extract unique headers from this night's vehicle data
+                    var uniqueHeaders = [];
+                    if (Array.isArray(nightVehicleDetails)) {
+                        nightVehicleDetails.forEach(function(veh) {
+                            if (veh && veh.veh_header) {
+                                var cleaned = veh.veh_header.toString()
+                                    .trim()
+                                    .replace(/^(?:\s*[-–—+]\s*)+/g, '')
+                                    .replace(/\s+/g, ' ')
+                                    .trim();
+                                if (cleaned && uniqueHeaders.indexOf(cleaned) === -1) {
+                                    uniqueHeaders.push(cleaned);
+                                }
+                            }
+                        });
+                    }
+                    if (uniqueHeaders.length > 0) {
+                        headerText = uniqueHeaders.join(' + ');
+                        console.log(`Night ${night}: Using expansion headers: "${headerText}"`);
+                    }
+                } catch (e) {
+                    console.error('Error parsing vehicle_details_json for night ' + night + ':', e);
+                }
+            }
+        }
+        // FALLBACK: Use aggregated vehicle details if no expansion header
+        if (!headerText && usePreHeaders && vehicleDetails.length > 0) {
+            var mainHeaders = [];
+            vehicleDetails.forEach(function(veh) {
+                if (veh && veh.veh_header) {
+                    var cleaned = veh.veh_header.toString()
+                        .trim()
+                        .replace(/^(?:\s*[-–—+]\s*)+/g, '')
+                        .replace(/\s+/g, ' ')
+                        .trim();
+                    if (cleaned && mainHeaders.indexOf(cleaned) === -1) {
+                        mainHeaders.push(cleaned);
+                    }
+                }
+            });
+            if (mainHeaders.length > 0) {
+                headerText = mainHeaders.join(' + ');
+                console.log(`Night ${night}: Using aggregated headers: "${headerText}"`);
+            }
+        }
+        // **SET HEADER ONLY ONCE - Check if already set to prevent duplicates**
+        var $existingHeader = $(`#v_from_to${count}${night}`);
+        var currentHeaderText = $existingHeader.find('span').text().trim().replace(/^-\s*/, '');
+        if (!currentHeaderText || currentHeaderText !== headerText) {
+            setVehicleHeader(count, night, headerText);
+            console.log(`Night ${night}: Header set to "${headerText}"`);
+        } else {
+            console.log(`Night ${night}: Header already set correctly, skipping`);
+        }
+        // FIXED: Set vehicle data if using pre-data AND has expansion (with refined check)
+        if (usePreVehicle && hasExpansionVehicleData && nightVehicleDetails.length > 0) {
+            console.log(`Night ${night}: Setting vehicle data from expansion`);
+            setVehicleDataFromNightExpansion(count, night, nightVehicleDetails);
+        } else if (usePreVehicle && nightIndex < expansionData.length) {
+            // FIXED: Explicitly set to 0 if using pre but no data for this night
+            var nightData = expansionData[nightIndex];
+            if (nightData && (nightData.vehicle_details_json === undefined || nightData.vehicle_details_json.trim() === '' || nightData.vehicle_details_json === '[]' || nightData.vehicle_details_json === '{}')) {
+                console.log(`Night ${night}: No vehicle data for this night; setting to 0`);
+                $.each(vehicle_models, function(vindex, vmodel) {
+                    var vid = `${count}${night}${vmodel.vehicle_type_id}`;
+                    $(`#day_rent${vid}`).val(0);
+                    $(`#travel_distance${vid}`).val(0);
+                    $(`#max_km_day${vid}`).val(0);
+                    $(`#extra_km_rate${vid}`).val(0);
+                    $(`#extra_kilometer${vid}`).val(0);
+                    $(`#veh_total${vid}`).val(0);
+                    updateVehicleTotals(count, night, vindex);
+                });
+            }
+        }
+    }
+    
+    // REMOVED: Final delay(300) - no longer needed for bulk operations
+}
 		function setVehicleDataFromNightExpansion(count, night, nightVehicleDetails) {
 			console.log(`Setting vehicle data for Night ${night}:`, nightVehicleDetails);
 			$.each(vehicle_models, function(vindex, vmodel) {
