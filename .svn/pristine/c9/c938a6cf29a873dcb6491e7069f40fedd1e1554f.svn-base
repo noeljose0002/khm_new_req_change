@@ -4996,8 +4996,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 		var commonRoom = $(`#roomcat_common${count}`).val();
 		if (commonRoom) {
-			$(`#nightly-details${count} .room_cat_change`).val(commonRoom).trigger('change.select2');
-
+			$(`#nightly-details${count} .room_cat_change`).val(commonRoom).trigger('change');
 		}
 		// Update totals
 		// updateGrandtotalBoth();
