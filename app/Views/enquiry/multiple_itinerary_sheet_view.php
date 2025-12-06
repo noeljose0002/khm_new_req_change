@@ -137,81 +137,202 @@ if($index == 0){
     <?php if($index == $total_count){ ?>
     <p id="dyn_multiple_iti"></p>
     <label style="background-color:#ff99c2;"><b>Rooms/Rates are subject to availability at the time of booking.</b></label><br><br><br>
-    <?php if($item['object_det'][0]['is_vehicle_required'] == 1) { ?>
-    <b><u>Itinerary</u></b>
-	<?php
-    $k = 1;
-    $ssdet = [];
+  <?php if(isset($item['object_det'][0]) && $item['object_det'][0]['is_vehicle_required'] == 1) { ?>
+<b><u>Itinerary</u></b>
+<?php
+$k = 1;
+foreach ($item['iti_data'] as $keys => $vals) {
+    $loc_name = isset($vals['geog_name']) ? $vals['geog_name'] : '';
+    $location_id = isset($vals['location_id']) ? intval($vals['location_id']) : 0;
     
-    foreach ($item['iti_data'] as $keys => $vals) {
-        $loc_name = $vals['geog_name'];
-        /*if(!empty($val['departure'])){
-            $dep_name = $Enquiry_model->getLocationName($val['departure']);
-        }
-        else{
-            $dep_name = '';
-        }*/
-		//$dep_name = $dep_name[0]['geog_name'];
-		$ss_id = 0;
-        foreach ($vals['cost'] as $key1 => $val1) {
-            if($val1['cost_component_id'] == "21") {
-				$ss_id = $val1['tariff'];
-			}
-		}
-			$ss_details = $Enquiry_model->getSightName($ss_id);
-
-            if(!empty($ss_details)){
-                $ss_name = $ss_details[0]['object_name'];
-                $description = $ss_details[0]['object_name']." - ".$ss_details[0]['sightseeing_description'];
+    // Initialize arrays to track sightseeing types
+    $all_sightseeing = [];
+    $has_pax_sightseeing = false;
+    $has_non_pax_sightseeing = false;
+    
+    // Parse ss_data_json to extract sightseeing items
+    $sightseeing_ids = [];
+    $ss_data_json_str = isset($vals['ss_data_json']) ? $vals['ss_data_json'] : '[]';
+    $ss_parsed = json_decode($ss_data_json_str, true);
+    $sightseeing_items = [];
+    
+    if (is_array($ss_parsed)) {
+        foreach ($ss_parsed as $item_ss) {
+            if (isset($item_ss['ss_data']) && is_array($item_ss['ss_data'])) {
+                $sightseeing_items = array_merge($sightseeing_items, $item_ss['ss_data']);
+            } elseif (is_array($item_ss)) {
+                $sightseeing_items[] = $item_ss;
             }
-            else{
-                //$ss_name = "Liesure";
-                //$description = "Liesure";
-                $trimmed = substr((string)$ss_id, 0, -3);
-													
-			    $ss_details = $Enquiry_model->getDefaultSightName($trimmed);
-																
-				if(!empty($ss_details)){
-                    $ss_name = $ss_details[0]['geog_name'];
-					$description = $ss_details[0]['geog_description'];
-				}
-				else{
-					$description = "";
-                    $ss_name = "Liesure";
-				}
-            }
-           if(date("d-m-Y", strtotime($vals['tour_date'])) == date("d-m-Y", strtotime($item['object_det'][0]['end_date']))){
-        ?>
-            <p><b>Day <?php echo $k++; ?> (<?php echo date("d-m-Y", strtotime($vals['tour_date'])); ?>) - Departure Transfer</b></p>
-            <p><?php echo $vals['departure_location_name']; ?></p>
-           <?php } else { 
-            if($ss_name == "" || $ss_name == "Liesure" || $ss_name == null){
-            ?>
-                <p><b>Day <?php echo $k++; ?> (<?php echo date("d-m-Y", strtotime($vals['tour_date'])); ?>) - <?php echo $loc_name; ?></b></p>
-            <?php } else { ?>
-                <p><b>Day <?php echo $k++; ?> (<?php echo date("d-m-Y", strtotime($vals['tour_date'])); ?>) - <?php echo $ss_name; ?></b></p>
-            <?php } ?>
-            <p><?php echo $description; ?></p>
-            <?php } ?>
-
-
-            <?php 
-        
-    	} ?>
-	<?php
-	} 
-        $v_lists = '';
-		$vehicle_details = json_decode($item['tour_plan_det'][0]['vehicle_details']);
-        if(!empty($vehicle_details)){
-            foreach ($vehicle_details as $keyv => $valv) {
-                $veh = $valv->vehicle_model;
-                $v_lists = $v_lists.$veh.", ";
-            }
-            //$newv_lists = substr($v_lists, 0, -2);
         }
     }
-    if($index == $total_count){
-    ?>
+    
+    // Process sightseeing items and collect IDs
+    foreach ($sightseeing_items as $val1) {
+        $ss_id = isset($val1['sightseeing_id']) ? intval($val1['sightseeing_id']) : 0;
+        $ss_name = isset($val1['name']) ? trim($val1['name']) : '';
+        
+        if ($ss_id > 0) {
+            $sightseeing_ids[] = $ss_id;
+        } else {
+            // For ID=0 or negative (e.g., Leisure or custom)
+            if (!empty($ss_name)) {
+                $all_sightseeing[] = [
+                    'name' => $ss_name,
+                    'description' => ($ss_name !== 'Leisure' ? 'Explore ' . $ss_name . ' at your own pace in ' . $loc_name . '.' : 'Day at leisure to explore ' . $loc_name . ' at your own pace.'),
+                    'is_pax' => 0
+                ];
+                $has_non_pax_sightseeing = true;
+            }
+        }
+    }
+    
+    // Fetch specific sightseeing details if IDs present (with is_pax field)
+    if (!empty($sightseeing_ids)) {
+        $ss_details = $Enquiry_model->getMultipleSightseeingWithPax($sightseeing_ids);
+        
+        if (!empty($ss_details)) {
+            foreach ($ss_details as $ss) {
+                $is_pax = isset($ss['is_pax']) ? intval($ss['is_pax']) : 0;
+                
+                if ($is_pax == 1) {
+                    $has_pax_sightseeing = true;
+                } else {
+                    $has_non_pax_sightseeing = true;
+                }
+                
+                $all_sightseeing[] = [
+                    'name' => isset($ss['sightseeing_name']) ? trim($ss['sightseeing_name']) : '',
+                    'description' => isset($ss['sightseeing_description']) ? trim($ss['sightseeing_description']) : '',
+                    'is_pax' => $is_pax
+                ];
+            }
+        }
+    }
+    
+    // Determine what to display based on is_pax conditions
+    $final_sightseeing = [];
+    
+    if ($has_pax_sightseeing && !$has_non_pax_sightseeing) {
+        // Case 1: ONLY pax sightseeing - use location description from geography table
+        $location_desc = $Enquiry_model->getLocationDescription($location_id);
+        
+        if (!empty($location_desc) && isset($location_desc[0]['geog_description']) && !empty($location_desc[0]['geog_description'])) {
+            $final_sightseeing[] = [
+                'name' => $loc_name,
+                'description' => $location_desc[0]['geog_description']
+            ];
+        } else {
+            $final_sightseeing[] = [
+                'name' => $loc_name,
+                'description' => 'Explore ' . $loc_name . ' at your own pace.'
+            ];
+        }
+    } elseif (!$has_pax_sightseeing && $has_non_pax_sightseeing) {
+        // Case 2: ONLY non-pax sightseeing - use their descriptions
+        foreach ($all_sightseeing as $ss) {
+            if ($ss['is_pax'] == 0) {
+                $final_sightseeing[] = $ss;
+            }
+        }
+    } elseif ($has_pax_sightseeing && $has_non_pax_sightseeing) {
+        // Case 3: BOTH pax and non-pax - use ONLY non-pax descriptions
+        foreach ($all_sightseeing as $ss) {
+            if ($ss['is_pax'] == 0) {
+                $final_sightseeing[] = $ss;
+            }
+        }
+    } else {
+        // Case 4: NO sightseeing at all - check geography description first
+        if ($location_id > 0) {
+            $location_desc = $Enquiry_model->getLocationDescription($location_id);
+            
+            if (!empty($location_desc) && isset($location_desc[0]['geog_description']) && !empty($location_desc[0]['geog_description'])) {
+                $final_sightseeing[] = [
+                    'name' => $loc_name,
+                    'description' => $location_desc[0]['geog_description']
+                ];
+            } else {
+                // Try default sightseeing
+                $default_sightseeing = $Enquiry_model->getAllSightseeingByLocation($location_id);
+                
+                if (!empty($default_sightseeing)) {
+                    foreach ($default_sightseeing as $ss) {
+                        $is_pax = isset($ss['is_pax']) ? intval($ss['is_pax']) : 0;
+                        
+                        // Only include non-pax default sightseeing
+                        if ($is_pax == 0) {
+                            $final_sightseeing[] = [
+                                'name' => isset($ss['sightseeing_name']) ? trim($ss['sightseeing_name']) : '',
+                                'description' => isset($ss['sightseeing_description']) ? trim($ss['sightseeing_description']) : '',
+                                'is_pax' => $is_pax
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Final fallback: Generic leisure
+        if (empty($final_sightseeing)) {
+            $final_sightseeing[] = [
+                'name' => 'Leisure',
+                'description' => 'Day at leisure to explore ' . $loc_name . ' at your own pace.'
+            ];
+        }
+    }
+    
+    // Check if this is the departure day
+    $end_date = isset($item['object_det'][0]['end_date']) ? $item['object_det'][0]['end_date'] : '';
+    if (isset($vals['tour_date']) && !empty($end_date) && date("d-m-Y", strtotime($vals['tour_date'])) == date("d-m-Y", strtotime($end_date))) {
+        $departure_location = isset($vals['departure_location_name']) ? $vals['departure_location_name'] : (isset($dep_name[0]['geog_name']) ? $dep_name[0]['geog_name'] : '');
+        ?>
+        <p><b>Day <?php echo $k++; ?> (<?php echo date("d-m-Y", strtotime($vals['tour_date'])); ?>) - Departure Transfer</b></p>
+        <p>Transfer to <?php echo $departure_location; ?>. Back to home with sweet memories of your tour</p>
+    <?php } else { 
+        // Display the day header
+        $day_title = '';
+        if (count($final_sightseeing) == 1 && $final_sightseeing[0]['name'] == 'Leisure') {
+            $day_title = $loc_name;
+        } else {
+            // Collect all sightseeing names for the title
+            $ss_names = array_filter(array_column($final_sightseeing, 'name'));
+            $day_title = !empty($ss_names) ? implode(' & ', $ss_names) : $loc_name;
+        }
+        ?>
+        <p><b>Day <?php echo $k++; ?> (<?php echo isset($vals['tour_date']) ? date("d-m-Y", strtotime($vals['tour_date'])) : ''; ?>) - <?php echo $day_title; ?></b></p>
+        <?php
+        // Display all sightseeing descriptions
+        foreach ($final_sightseeing as $idx => $ss) {
+            if (!empty($ss['description'])) {
+                // If multiple sightseeing, show the name as a sub-heading
+                if (count($final_sightseeing) > 1 && $ss['name'] != 'Leisure') {
+                    echo '<p><b>' . htmlspecialchars($ss['name']) . ':</b> ' . htmlspecialchars($ss['description']) . '</p>';
+                } else {
+                    echo '<p>' . htmlspecialchars($ss['description']) . '</p>';
+                }
+            }
+        }
+    } ?>
+<?php } ?>
+<?php
+}
+$v_listt = '';
+$v_lists = "Vehicle as per requirement";
+if(isset($item['tour_plan_det'][0]['vehicle_details'])) {
+    $vehicle_details = json_decode($item['tour_plan_det'][0]['vehicle_details']);
+    if(!empty($vehicle_details) && is_array($vehicle_details)){
+        foreach ($vehicle_details as $keyv => $valv) {
+            if(isset($valv->vehicle_model)) {
+                $veh = $valv->vehicle_model;
+                $v_listt = $v_listt.$veh.", ";
+            }
+        }
+        if(!empty($v_listt)) {
+            $v_lists = rtrim($v_listt, ", ");
+        }
+    }
+}
+?>
 
     <p><b>Package Includes:</b></p>
     <div><ul>
