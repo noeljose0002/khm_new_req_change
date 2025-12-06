@@ -79,8 +79,9 @@ $facility_tafiff = 0;
 											}
 										
 										}
-    $total_net_rates = ($no_of_double_room_temp*$room_t_d) + ($no_of_single_room_temp*$room_t_s) + ($hotels[0]['no_of_child_with_bed']*$child_t_d) + ($hotels[0]['no_of_child_without_bed']*$child_wb_t_d) + ($hotels[0]['no_of_extra_bed']*$extra_t_d);
-    $total_net_rate = $total_net_rates * $hotels[0]['no_of_days'];
+   // $total_net_rates = ($no_of_double_room_temp*$room_t_d) + ($no_of_single_room_temp*$room_t_s) + ($hotels[0]['no_of_child_with_bed']*$child_t_d) + ($hotels[0]['no_of_child_without_bed']*$child_wb_t_d) + ($hotels[0]['no_of_extra_bed']*$extra_t_d);
+     $total_net_rates = ($room_t_d) + ($room_t_s) + ($child_t_d) + ($child_wb_t_d) + ($extra_t_d);
+   $total_net_rate = $total_net_rates * $hotels[0]['no_of_days'];
 ?>
     <h6><?php echo $hotels[0]['object_name']; ?> (<?php echo date("d-m-Y", strtotime($hotels[0]['tour_date'])); ?>)</h6>
         <div class="row" style="padding-bottom:10px;">    
