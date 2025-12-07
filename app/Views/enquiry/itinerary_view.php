@@ -4206,797 +4206,595 @@ $cs_trans_total = 0;
 									</div>
 							<?php }
 							} ?>
-							<form id="myTourplanForm1" method="POST"
-								action="<?= site_url('Enquiry/generateCostingSheet'); ?>">
-								<input type="hidden" id="no_of_night_hidden" name="no_of_night_hidden"
-									value="<?php echo $object_det[0]['no_of_night']; ?>">
-								<input type="hidden" id="tac_hidden" name="tac_hidden" value="0">
-								<input type="hidden" id="ttc_hidden" name="ttc_hidden" value="0">
-								<input type="hidden" id="extraklm_hidden" name="extraklm_hidden"
-									value="<?php echo $total_extra_klm_cost; ?>">
-								<input type="hidden" id="permit_hidden" name="permit_hidden"
-									value="<?php echo $total_permit; ?>">
-								<input type="hidden" id="spcl_hidden" name="spcl_hidden" value="0">
-								<input type="hidden" id="daily_hidden" name="daily_hidden" value="0">
-								<input type="hidden" id="extension_ref_id" name="extension_ref_id"
-									value="<?php echo $extension_ref_id; ?>">
-								<input type="hidden" id="tnr_hidden" name="tnr_hidden" value="0">
-								<input type="hidden" name="enquiry_header_id_t"
-									value="<?php echo $object_det[0]['enquiry_header_id']; ?>">
-								<input type="hidden" name="enquiry_details_id_t"
-									value="<?php echo $object_det[0]['enquiry_details_id']; ?>">
-								<input type="hidden" name="object_id_t" value="<?php echo $object_id; ?>">
-								<input type="hidden" id="bifurcation_status" name="bifurcation_status" value="0">
-								<input type="hidden" id="tcs_hidden" name="tcs_hidden"
-									value="<?php echo $iti_cost_datas[0]['tcs_value'] ?? '0'; ?>">
+						<form id="myTourplanForm1" method="POST" action="<?= site_url('Enquiry/generateCostingSheet'); ?>">
+    <input type="hidden" id="no_of_night_hidden" name="no_of_night_hidden" value="<?php echo $object_det[0]['no_of_night']; ?>">
+    <input type="hidden" id="tac_hidden" name="tac_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['tac'] ?? '0'); ?>">
+    <input type="hidden" id="ttc_hidden" name="ttc_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['ttc'] ?? '0'); ?>">
+    <input type="hidden" id="extraklm_hidden" name="extraklm_hidden" value="<?php echo $total_extra_klm_cost; ?>">
+    <input type="hidden" id="permit_hidden" name="permit_hidden" value="<?php echo $total_permit; ?>">
+    <input type="hidden" id="spcl_hidden" name="spcl_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['special_event'] ?? '0'); ?>">
+    <input type="hidden" id="daily_hidden" name="daily_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['extra_charge'] ?? '0'); ?>">
+    <input type="hidden" id="extension_ref_id" name="extension_ref_id" value="<?php echo $extension_ref_id; ?>">
+    <input type="hidden" name="enquiry_header_id_t" value="<?php echo $object_det[0]['enquiry_header_id']; ?>">
+    <input type="hidden" name="enquiry_details_id_t" value="<?php echo $object_det[0]['enquiry_details_id']; ?>">
+    <input type="hidden" name="object_id_t" value="<?php echo $object_id; ?>">
+    <input type="hidden" id="bifurcation_status" name="bifurcation_status" value="0">
+    <input type="hidden" id="tnr_hidden" name="tnr_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['total_rate'] ?? '0'); ?>">
+    <input type="hidden" id="tcs_hidden" name="tcs_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['tcs_value'] ?? '0'); ?>">
+    <input type="hidden" id="tpc_with_tcs_hidden" name="tpc_with_tcs_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['tpc_with_tcs'] ?? ($iti_cost_datas[0]['tpc'] ?? '0')); ?>">
 
-								<?php if (!empty($itinerary_details_save)) {
-									if (empty($iti_cost_datas)) {
-								?>
-										<div class="costing-container" style="background-color:#003300;">
-											<div class="table-responsive costing-box">
-												<table class="table">
-													<tr>
-														<th>
-															<h5 style="font-weight:bold;color:#003300;">Total Acc Cost : <span
-																	id="tac_span"></span></h5>
-														</th>
-														<th>
-															<h5 style="font-weight:bold;color:#003300;">Total Trans Cost : <span
-																	id="ttc_span"></span></h5>
-														</th>
-														<th>
-															<h5 style="font-weight:bold;color:#003300;">Special Event : <span
-																	id="spcl_span"></span></h5>
-														</th>
-														<th>
-															<h5 style="font-weight:bold;color:#003300;">Extra Charge : <span
-																	id="daily_span"></span></h5>
-														</th>
-														<th>
-															<h5 style="font-weight:bold;color:#003300;">Total Net Rate : <span
-																	id="tnr_span"></span></h5>
-														</th>
-													</tr>
-												</table>
-												<table class="table">
-													<tr>
-														<td>
-															<h5 style="font-weight:bold;color:#003300;">Markup(%)</h5>
-														</td>
-														<td><input type="text" id="margin_value" name="margin_value"
-																class="form-control input-sm" maxlength="6"
-																value="<?php echo $mark_up; ?>" <?php echo $read_only_ext; ?>>
-														</td>
-														<td><input type="text" id="margin_total" name="margin_total"
-																class="form-control input-sm" maxlength="6" readonly></td>
-													</tr>
-													<tr>
-														<td>
-															<h5 style="font-weight:bold;color:#003300;">Tour Addon</h5>
-														</td>
-														<td><input type="text" id="tour_addon_value" name="tour_addon_value"
-																class="form-control input-sm" maxlength="6" value="0" <?php echo $read_only_ext; ?>></td>
-														<td><input type="text" id="tour_addon_total" name="tour_addon_total"
-																class="form-control input-sm" maxlength="6" readonly></td>
-													</tr>
-													<tr>
-														<td>
-															<h5 style="font-weight:bold;color:#003300;">Total</h5>
-														</td>
-														<td></td>
-														<td><input type="text" id="total_final" name="total_final"
-																class="form-control input-sm" maxlength="6" readonly></td>
-													</tr>
-													<tr>
-														<td>
-															<h5 style="font-weight:bold;color:#003300;">GST</h5>
-														</td>
-														<td>
-															<select id="gst_value" name="gst_value"
-																class="form-control input-sm" <?php echo $dis_abled_ext; ?>>
-																<option value="5">5%</option>
-																<option value="18">18%</option>
-															</select>
-														</td>
-														<td><input type="text" id="gst_final" name="gst_final"
-																class="form-control input-sm" maxlength="6" readonly></td>
-													</tr>
-													<tr>
-														<td>
-															<h5 style="font-weight:bold;color:#003300;">TCS</h5>
-														</td>
-														<td>
-															<input type="checkbox" id="tcs_checkbox" name="tcs_checkbox"
-																value="1" <?php echo $dis_abled_ext; ?>> 5%
-														</td>
-														<td><input type="text" id="tcs_final" name="tcs_final"
-																class="form-control input-sm" maxlength="6" value="0" readonly>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<h5 style="font-weight:bold;color:#003300;">Total Package Cost</h5>
-														</td>
-														<td></td>
-														<td><input type="text" id="tpc" name="tpc" class="form-control input-sm"
-																maxlength="6" readonly></td>
-													</tr>
-												</table>
-											<?php } else { ?>
-												<div class="costing-container" style="background-color:#003300;">
-													<div class="table-responsive costing-box">
-														<table class="table">
-															<tr>
-																<th>
-																	<h5 style="font-weight:bold;color:#003300;">Total Acc Cost :
-																		<span id="tac_span"></span>
-																	</h5>
-																</th>
-																<th>
-																	<h5 style="font-weight:bold;color:#003300;">Total Trans Cost
-																		: <span id="ttc_span"></span></h5>
-																</th>
-																<th>
-																	<h5 style="font-weight:bold;color:#003300;">Special Event :
-																		<span id="spcl_span"></span>
-																	</h5>
-																</th>
-																<th>
-																	<h5 style="font-weight:bold;color:#003300;">Extra Charge :
-																		<span id="daily_span"></span>
-																	</h5>
-																</th>
-																<th>
-																	<h5 style="font-weight:bold;color:#003300;">Total Net Rate :
-																		<span id="tnr_span"></span>
-																	</h5>
-																</th>
-															</tr>
-														</table>
-														<table class="table">
-															<tr>
-																<td>
-																	<h5 style="font-weight:bold;color:#003300;">Markup(%)</h5>
-																</td>
-																<td><input type="text" id="margin_value" name="margin_value"
-																		class="form-control input-sm" maxlength="6"
-																		value="<?php echo $iti_cost_datas[0]['margin_per']; ?>"
-																		<?php echo $read_only_ext; ?>></td>
-																<td><input type="text" id="margin_total" name="margin_total"
-																		class="form-control input-sm" maxlength="6"
-																		value="<?php echo $iti_cost_datas[0]['margin_value']; ?>"
-																		readonly></td>
-															</tr>
-															<tr>
-																<td>
-																	<h5 style="font-weight:bold;color:#003300;">Tour Addon</h5>
-																</td>
-																<td><input type="text" id="tour_addon_value"
-																		name="tour_addon_value" class="form-control input-sm"
-																		maxlength="6"
-																		value="<?php echo $iti_cost_datas[0]['tour_addon']; ?>"
-																		<?php echo $read_only_ext; ?>></td>
-																<td><input type="text" id="tour_addon_total"
-																		name="tour_addon_total" class="form-control input-sm"
-																		maxlength="6"
-																		value="<?php echo $iti_cost_datas[0]['tour_addon']; ?>"
-																		readonly></td>
-															</tr>
-															<tr>
-																<td>
-																	<h5 style="font-weight:bold;color:#003300;">Total</h5>
-																</td>
-																<td></td>
-																<td><input type="text" id="total_final" name="total_final"
-																		class="form-control input-sm" maxlength="6"
-																		value="<?php echo $iti_cost_datas[0]['total_rate']; ?>"
-																		readonly></td>
-															</tr>
-															<tr>
-																<td>
-																	<h5 style="font-weight:bold;color:#003300;">GST</h5>
-																</td>
-																<td>
-																	<select id="gst_value" name="gst_value"
-																		class="form-control input-sm" <?php echo $dis_abled_ext; ?>>
-																		<?php if ($iti_cost_datas[0]['gst_per'] == "5") { ?>
-																			<option value="5" selected>5%</option>
-																			<option value="18">18%</option>
-																		<?php } else { ?>
-																			<option value="5">5%</option>
-																			<option value="18" selected>18%</option>
-																		<?php } ?>
-																	</select>
-																</td>
-																<td><input type="text" id="gst_final" name="gst_final"
-																		class="form-control input-sm" maxlength="6"
-																		value="<?php echo $iti_cost_datas[0]['gst_value']; ?>"
-																		readonly></td>
-															</tr>
-															<tr>
-																<td>
-																	<h5 style="font-weight:bold;color:#003300;">TCS</h5>
-																</td>
-																<td>
-																	<input type="checkbox" id="tcs_checkbox" name="tcs_checkbox"
-																		value="1" <?php echo ($iti_cost_datas[0]['tcs_applied'] ?? 0) ? 'checked' : ''; ?> <?php echo $dis_abled_ext; ?>> 5%
-																</td>
-																<td><input type="text" id="tcs_final" name="tcs_final"
-																		class="form-control input-sm" maxlength="6"
-																		value="<?php echo $iti_cost_datas[0]['tcs_value'] ?? '0'; ?>"
-																		readonly></td>
-															</tr>
-															<tr>
-																<td>
-																	<h5 style="font-weight:bold;color:#003300;">Total Package
-																		Cost</h5>
-																</td>
-																<td></td>
-																<td><input type="text" id="tpc" name="tpc"
-																		class="form-control input-sm" maxlength="6"
-																		value="<?php echo $iti_cost_datas[0]['tpc']; ?>"
-																		readonly></td>
-															</tr>
-														</table>
+    <?php if (!empty($itinerary_details_save)) {
+        if (empty($iti_cost_datas)) {
+    ?>
+            <div class="costing-container" style="background-color:#003300;">
+                <div class="table-responsive costing-box">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                <h5 style="font-weight:bold;color:#003300;">Total Acc Cost : <span id="tac_span"></span></h5>
+                            </th>
+                            <th>
+                                <h5 style="font-weight:bold;color:#003300;">Total Trans Cost : <span id="ttc_span"></span></h5>
+                            </th>
+                            <th>
+                                <h5 style="font-weight:bold;color:#003300;">Special Event : <span id="spcl_span"></span></h5>
+                            </th>
+                            <th>
+                                <h5 style="font-weight:bold;color:#003300;">Extra Charge : <span id="daily_span"></span></h5>
+                            </th>
+                            <th>
+                                <h5 style="font-weight:bold;color:#003300;">Total Net Rate : <span id="tnr_span"></span></h5>
+                            </th>
+                        </tr>
+                    </table>
+                    <table class="table">
+                        <tr>
+                            <td>
+                                <h5 style="font-weight:bold;color:#003300;">Markup(%)</h5>
+                            </td>
+                            <td><input type="text" id="margin_value" name="margin_value" class="form-control input-sm" maxlength="6" value="<?php echo $mark_up; ?>" <?php echo $read_only_ext; ?>></td>
+                            <td><input type="text" id="margin_total" name="margin_total" class="form-control input-sm" maxlength="6" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5 style="font-weight:bold;color:#003300;">Tour Addon</h5>
+                            </td>
+                            <td><input type="text" id="tour_addon_value" name="tour_addon_value" class="form-control input-sm" maxlength="6" value="0" <?php echo $read_only_ext; ?>></td>
+                            <td><input type="text" id="tour_addon_total" name="tour_addon_total" class="form-control input-sm" maxlength="6" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5 style="font-weight:bold;color:#003300;">Total</h5>
+                            </td>
+                            <td></td>
+                            <td><input type="text" id="total_final" name="total_final" class="form-control input-sm" maxlength="6" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5 style="font-weight:bold;color:#003300;">GST</h5>
+                            </td>
+                            <td>
+                                <select id="gst_value" name="gst_value" class="form-control input-sm" <?php echo $dis_abled_ext; ?>>
+                                    <option value="5">5%</option>
+                                    <option value="18">18%</option>
+                                </select>
+                            </td>
+                            <td><input type="text" id="gst_final" name="gst_final" class="form-control input-sm" maxlength="6" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5 style="font-weight:bold;color:#003300;">Total Package Cost</h5>
+                            </td>
+                            <td></td>
+                            <td><input type="text" id="tpc" name="tpc" class="form-control input-sm" maxlength="6" readonly></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h5 style="font-weight:bold;color:#003300;">TCS</h5>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="tcs_checkbox" name="tcs_checkbox" value="0" <?php echo $dis_abled_ext; ?>> 5%
+                            </td>
+                            <td><input type="text" id="tcs_final" name="tcs_final" class="form-control input-sm" maxlength="6" value="0" readonly></td>
+                        </tr>
+                        <tr id="final_tpc_row" style="display: none;">
+                            <td>
+                                <h5 style="font-weight:bold;color:#003300;">Total Package Cost(With TCS)</h5>
+                            </td>
+                            <td></td>
+                            <td><input type="text" id="tpc_with_tcs" name="tpc_with_tcs" class="form-control input-sm" maxlength="6" readonly value="0"></td>
+                        </tr>
+                    </table>
+    <?php } else { ?>
+        <div class="costing-container" style="background-color:#003300;">
+            <div class="table-responsive costing-box">
+                <table class="table">
+                    <tr>
+                        <th>
+                            <h5 style="font-weight:bold;color:#003300;">Total Acc Cost : <span id="tac_span"><?php echo $iti_cost_datas[0]['tac'] ?? ''; ?></span></h5>
+                        </th>
+                        <th>
+                            <h5 style="font-weight:bold;color:#003300;">Total Trans Cost : <span id="ttc_span"><?php echo $iti_cost_datas[0]['ttc'] ?? ''; ?></span></h5>
+                        </th>
+                        <th>
+                            <h5 style="font-weight:bold;color:#003300;">Special Event : <span id="spcl_span"><?php echo $iti_cost_datas[0]['special_event'] ?? ''; ?></span></h5>
+                        </th>
+                        <th>
+                            <h5 style="font-weight:bold;color:#003300;">Extra Charge : <span id="daily_span"><?php echo $iti_cost_datas[0]['extra_charge'] ?? ''; ?></span></h5>
+                        </th>
+                        <th>
+                            <h5 style="font-weight:bold;color:#003300;">Total Net Rate : <span id="tnr_span"><?php echo $iti_cost_datas[0]['total_rate'] ?? ''; ?></span></h5>
+                        </th>
+                    </tr>
+                </table>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <h5 style="font-weight:bold;color:#003300;">Markup(%)</h5>
+                        </td>
+                        <td><input type="text" id="margin_value" name="margin_value" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['margin_per'] ?? $mark_up; ?>" <?php echo $read_only_ext; ?>></td>
+                        <td><input type="text" id="margin_total" name="margin_total" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['margin_value'] ?? '0'; ?>" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="font-weight:bold;color:#003300;">Tour Addon</h5>
+                        </td>
+                        <td><input type="text" id="tour_addon_value" name="tour_addon_value" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['tour_addon'] ?? '0'; ?>" <?php echo $read_only_ext; ?>></td>
+                        <td><input type="text" id="tour_addon_total" name="tour_addon_total" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['tour_addon'] ?? '0'; ?>" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="font-weight:bold;color:#003300;">Total</h5>
+                        </td>
+                        <td></td>
+                        <td><input type="text" id="total_final" name="total_final" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['total_rate'] ?? '0'; ?>" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="font-weight:bold;color:#003300;">GST</h5>
+                        </td>
+                        <td>
+                            <select id="gst_value" name="gst_value" class="form-control input-sm" <?php echo $dis_abled_ext; ?>>
+                                <?php 
+                                $saved_gst_per = $iti_cost_datas[0]['gst_per'] ?? '18'; // Default to 18 if not set
+                                if ($saved_gst_per == "5") { ?>
+                                    <option value="5" selected>5%</option>
+                                    <option value="18">18%</option>
+                                <?php } else { ?>
+                                    <option value="5">5%</option>
+                                    <option value="18" selected>18%</option>
+                                <?php } ?>
+                            </select>
+                        </td>
+                        <td><input type="text" id="gst_final" name="gst_final" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['gst_value'] ?? '0'; ?>" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="font-weight:bold;color:#003300;">Total Package Cost</h5>
+                        </td>
+                        <td></td>
+                        <td><input type="text" id="tpc" name="tpc" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['tpc'] ?? '0'; ?>" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h5 style="font-weight:bold;color:#003300;">TCS</h5>
+                        </td>
+                        <td>
+                            <input type="checkbox" id="tcs_checkbox" name="tcs_checkbox" value="1" <?php echo ($iti_cost_datas[0]['is_tcs'] ?? 0) ? 'checked' : ''; ?> <?php echo $dis_abled_ext; ?>> 5%
+                        </td>
+                        <td><input type="text" id="tcs_final" name="tcs_final" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['tcs_value'] ?? '0'; ?>" readonly></td>
+                    </tr>
+                    <tr id="final_tpc_row" style="display: <?php echo ($iti_cost_datas[0]['is_tcs'] ?? 0) ? 'table-row' : 'none'; ?>;">
+                        <td>
+                            <h5 style="font-weight:bold;color:#003300;"> Total Package Cost(With TCS)</h5>
+                        </td>
+                        <td></td>
+                        <td><input type="text" id="tpc_with_tcs" name="tpc_with_tcs" class="form-control input-sm" maxlength="6" readonly value="<?php echo $iti_cost_datas[0]['tpc_with_tcs'] ?? ($iti_cost_datas[0]['tpc'] ?? '0'); ?>"></td>
+                    </tr>
+                </table>
 
-												<?php
-											}
-										} ?>
-													</div>
-												</div>
+    <?php
+        }
+    } ?>
+                </div>
+            </div>
 
-												<!---------------------------------------Bifurcation----------------------------------------------------------------------->
-												<?php
-												if (!empty($itinerary_details_save)) {
-													$ttc_bifur = $cs_trans_total + $total_permit;
-													$no_of_pax_bifur = $object_det[0]['no_of_adult'];
-													$total_no_of_pax_bifur = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'];
-												?>
-													<div class="costing-container" style="display:none;" id="bifur_div">
-														<h4
-															style="text-align:center; color: #004d00; font-weight: bold; font-style: italic;font-size: 20px;">
-															Bifurcation</h4>
-														<div class="table-responsive costing-box">
-															<table class="table table-bordered costing-table">
-																<tr>
-																	<th>Si No</th>
-																	<th>No Of Pax</th>
-																	<th>Total Cost</th>
-																	<th>Per Person</th>
-																</tr>
-																<tr>
-																	<td>Transportation cost</td>
-																	<td>
-																		<input type="text" id="no_of_pax_b" name="no_of_pax_b"
-																			value="<?php echo $no_of_pax_bifur; ?>"
-																			style="width:50px;">
-																	</td>
-																	<td>
-																		<span id="ttc_bifur_span">
-																			<?php echo $ttc_bifur; ?>
-																		</span>
-																		<input type="hidden" id="ttc_bifur_hd" name="ttc_bifur_hd"
-																			value="<?php echo $ttc_bifur; ?>">
-																	</td>
-																	<td>
-																		<span id="ttc_bifur_span_pp">
-																			<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>
-																		</span>
-																		<input type="hidden" id="ttc_bifur_hd_pp"
-																			name="ttc_bifur_hd_pp"
-																			value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
-																	</td>
-																</tr>
-																<tr>
-																	<td>Sight Seeing cost</td>
-																	<td>
-																		<input type="text" id="no_of_pax_bs" name="no_of_pax_bs"
-																			value="<?php echo $total_no_of_pax_bifur; ?>"
-																			style="width:50px;">
-																	</td>
-																	<td>
-																		<span id="bifur_ss_span"></span>
-																		<input type="hidden" id="bifur_ss_hidden"
-																			name="bifur_ss_hidden" value="0">
-																	</td>
-																	<td>
-																		<span id="bifur_ss_span_pp"></span>
-																		<input type="hidden" id="bifur_ss_hidden_pp"
-																			name="bifur_ss_hidden_pp" value="0">
-																	</td>
-																</tr>
-																<tr>
-																	<td>Round Off</td>
-																	<td>
-																		<input type="text" id="no_of_pax_br" name="no_of_pax_br"
-																			value="<?php echo $total_no_of_pax_bifur; ?>"
-																			style="width:50px;">
-																	</td>
-																	<td>
-																		<span id="round_off_span"></span>
-																		<input type="hidden" id="round_off_hidden"
-																			name="round_off_hidden" value="0">
-																	</td>
-																	<td>
-																		<span id="round_off_span_pp"></span>
-																		<input type="hidden" id="round_off_hidden_pp"
-																			name="round_off_hidden_pp" value="0">
-																	</td>
-																</tr>
-															</table>
-														</div>
+            <!---------------------------------------Bifurcation----------------------------------------------------------------------->
+            <?php
+            if (!empty($itinerary_details_save)) {
+                $ttc_bifur = $cs_trans_total + $total_permit;
+                $no_of_pax_bifur = $object_det[0]['no_of_adult'];
+                $total_no_of_pax_bifur = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'];
+            ?>
+                <div class="costing-container" style="display:none;" id="bifur_div">
+                    <h4 style="text-align:center; color: #004d00; font-weight: bold; font-style: italic;font-size: 20px;">Bifurcation</h4>
+                    <div class="table-responsive costing-box">
+                        <table class="table table-bordered costing-table">
+                            <tr>
+                                <th>Si No</th>
+                                <th>No Of Pax</th>
+                                <th>Total Cost</th>
+                                <th>Per Person</th>
+                            </tr>
+                            <tr>
+                                <td>Transportation cost</td>
+                                <td>
+                                    <input type="text" id="no_of_pax_b" name="no_of_pax_b" value="<?php echo $no_of_pax_bifur; ?>" style="width:50px;">
+                                </td>
+                                <td>
+                                    <span id="ttc_bifur_span"><?php echo $ttc_bifur; ?></span>
+                                    <input type="hidden" id="ttc_bifur_hd" name="ttc_bifur_hd" value="<?php echo $ttc_bifur; ?>">
+                                </td>
+                                <td>
+                                    <span id="ttc_bifur_span_pp"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
+                                    <input type="hidden" id="ttc_bifur_hd_pp" name="ttc_bifur_hd_pp" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Sight Seeing cost</td>
+                                <td>
+                                    <input type="text" id="no_of_pax_bs" name="no_of_pax_bs" value="<?php echo $total_no_of_pax_bifur; ?>" style="width:50px;">
+                                </td>
+                                <td>
+                                    <span id="bifur_ss_span"></span>
+                                    <input type="hidden" id="bifur_ss_hidden" name="bifur_ss_hidden" value="0">
+                                </td>
+                                <td>
+                                    <span id="bifur_ss_span_pp"></span>
+                                    <input type="hidden" id="bifur_ss_hidden_pp" name="bifur_ss_hidden_pp" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Round Off</td>
+                                <td>
+                                    <input type="text" id="no_of_pax_br" name="no_of_pax_br" value="<?php echo $total_no_of_pax_bifur; ?>" style="width:50px;">
+                                </td>
+                                <td>
+                                    <span id="round_off_span"></span>
+                                    <input type="hidden" id="round_off_hidden" name="round_off_hidden" value="0">
+                                </td>
+                                <td>
+                                    <span id="round_off_span_pp"></span>
+                                    <input type="hidden" id="round_off_hidden_pp" name="round_off_hidden_pp" value="0">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
-														<div class="table-responsive costing-box">
-															<table class="table table-bordered costing-table">
-																<tr>
-																	<th>Si No</th>
-																	<th>No Of Pax</th>
-																	<th>Cost</th>
-																	<th>Per Person</th>
-																	<th>Vehicle</th>
-																	<th>sight Seeing</th>
-																	<th>Total</th>
-																	<th>Margin</th>
-																	<th>Net Total</th>
-																	<th>Round Off</th>
-																	<th>GSTIN</th>
-																	<th>Grand Total</th>
-																</tr>
-																<tr>
-																	<td>Double</td>
-																	<td>
-																		<span id="by_double_pax_span">
-																			<?php echo $object_det[0]['no_of_double_room'] * 2; ?>
-																		</span>
-																		<input type="hidden" id="by_double_pax_hidden"
-																			name="by_double_pax_hidden"
-																			value="<?php echo $object_det[0]['no_of_double_room'] * 2; ?>">
-																	</td>
-																	<td>
-																		<span id="bifur_double_total_span">
-																			<?php echo $bifur_double_total; ?>
-																		</span>
-																		<input type="hidden" id="bifur_double_total_hidden"
-																			name="bifur_double_total_hidden"
-																			value="<?php echo $bifur_double_total; ?>">
-																	</td>
-																	<td>
-																		<span id="bifur_double_pp_span">
-																			<?php
-																			$doubleRoomCount = isset($object_det[0]['no_of_double_room']) ? (int)$object_det[0]['no_of_double_room'] : 0;
-																			$denominator = $doubleRoomCount * 2;
+                    <div class="table-responsive costing-box">
+                        <table class="table table-bordered costing-table">
+                            <tr>
+                                <th>Si No</th>
+                                <th>No Of Pax</th>
+                                <th>Cost</th>
+                                <th>Per Person</th>
+                                <th>Vehicle</th>
+                                <th>sight Seeing</th>
+                                <th>Total</th>
+                                <th>Margin</th>
+                                <th>Net Total</th>
+                                <th>Round Off</th>
+                                <th>GSTIN</th>
+                                <th>Grand Total</th>
+                            </tr>
+                            <tr>
+                                <td>Double</td>
+                                <td>
+                                    <span id="by_double_pax_span"><?php echo $object_det[0]['no_of_double_room'] * 2; ?></span>
+                                    <input type="hidden" id="by_double_pax_hidden" name="by_double_pax_hidden" value="<?php echo $object_det[0]['no_of_double_room'] * 2; ?>">
+                                </td>
+                                <td>
+                                    <span id="bifur_double_total_span"><?php echo $bifur_double_total; ?></span>
+                                    <input type="hidden" id="bifur_double_total_hidden" name="bifur_double_total_hidden" value="<?php echo $bifur_double_total; ?>">
+                                </td>
+                                <td>
+                                    <span id="bifur_double_pp_span"><?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?></span>
+                                    <input type="hidden" id="bifur_double_pp_hidden" name="bifur_double_pp_hidden" value="<?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?>">
+                                </td>
+                                <td>
+                                    <span id="ttc_bifur_span_double_span"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
+                                    <input type="hidden" id="ttc_bifur_double_hd" name="ttc_bifur_double_hd" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
+                                </td>
+                                <td>
+                                    <span id="ss_bifur_double_span_pp">0</span>
+                                    <input type="hidden" id="ss_bifur_double_hd_pp" name="ss_bifur_double_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="total_bifur_double_span_pp">0</span>
+                                    <input type="hidden" id="total_bifur_double_hd_pp" name="total_bifur_double_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="margin_bifur_double_span_pp">0</span>
+                                    <input type="hidden" id="margin_bifur_double_hd_pp" name="margin_bifur_double_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="net_bifur_double_span_pp">0</span>
+                                    <input type="hidden" id="net_bifur_double_hd_pp" name="net_bifur_double_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="round_bifur_double_span_pp">0</span>
+                                    <input type="hidden" id="round_bifur_double_hd_pp" name="round_bifur_double_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="gst_bifur_double_span_pp">0</span>
+                                    <input type="hidden" id="gst_bifur_double_hd_pp" name="gst_bifur_double_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="grand_bifur_double_span_pp">0</span>
+                                    <input type="hidden" id="grand_bifur_double_hd_pp" name="grand_bifur_double_hd_pp" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Single</td>
+                                <td>
+                                    <span id="by_single_pax_span"><?php echo $object_det[0]['no_of_single_room']; ?></span>
+                                    <input type="hidden" id="by_single_pax_hidden" name="by_single_pax_hidden" value="<?php echo $object_det[0]['no_of_single_room']; ?>">
+                                </td>
+                                <td>
+                                    <?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
+                                        <span id="bifur_single_total_span"><?php echo $bifur_single_total; ?></span>
+                                        <input type="hidden" id="bifur_single_total_hidden" name="bifur_single_total_hidden" value="<?php echo $bifur_single_total; ?>">
+                                    <?php } else { ?>
+                                        <span id="bifur_single_total_span">0</span>
+                                        <input type="hidden" id="bifur_single_total_hidden" name="bifur_single_total_hidden" value="0">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
+                                        <span id="bifur_single_pp_span"><?php echo round($bifur_single_total / ($object_det[0]['no_of_single_room']), 2); ?></span>
+                                        <input type="hidden" id="bifur_single_pp_hidden" name="bifur_single_pp_hidden" value="<?php echo round($bifur_single_total / ($object_det[0]['no_of_single_room']), 2); ?>">
+                                    <?php } else { ?>
+                                        <span id="bifur_single_pp_span">0</span>
+                                        <input type="hidden" id="bifur_single_pp_hidden" name="bifur_single_pp_hidden" value="0">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
+                                        <span id="ttc_bifur_span_single_span"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
+                                        <input type="hidden" id="ttc_bifur_single_hd" name="ttc_bifur_single_hd" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
+                                    <?php } else { ?>
+                                        <span id="ttc_bifur_span_single_span">0</span>
+                                        <input type="hidden" id="ttc_bifur_single_hd" name="ttc_bifur_single_hd" value="0">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <span id="ss_bifur_single_span_pp">0</span>
+                                    <input type="hidden" id="ss_bifur_single_hd_pp" name="ss_bifur_single_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="total_bifur_single_span_pp">0</span>
+                                    <input type="hidden" id="total_bifur_single_hd_pp" name="total_bifur_single_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="margin_bifur_single_span_pp">0</span>
+                                    <input type="hidden" id="margin_bifur_single_hd_pp" name="margin_bifur_single_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="net_bifur_single_span_pp">0</span>
+                                    <input type="hidden" id="net_bifur_single_hd_pp" name="net_bifur_single_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="round_bifur_single_span_pp">0</span>
+                                    <input type="hidden" id="round_bifur_single_hd_pp" name="round_bifur_single_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="gst_bifur_single_span_pp">0</span>
+                                    <input type="hidden" id="gst_bifur_single_hd_pp" name="gst_bifur_single_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="grand_bifur_single_span_pp">0</span>
+                                    <input type="hidden" id="grand_bifur_single_hd_pp" name="grand_bifur_single_hd_pp" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Child</td>
+                                <td>
+                                    <span id="by_child_pax_span"><?php echo $object_det[0]['no_of_child_with_bed']; ?></span>
+                                    <input type="hidden" id="by_child_pax_hidden" name="by_child_pax_hidden" value="<?php echo $object_det[0]['no_of_child_with_bed']; ?>">
+                                </td>
+                                <td>
+                                    <?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
+                                        <span id="bifur_child_total_span"><?php echo $bifur_child_total; ?></span>
+                                        <input type="hidden" id="bifur_child_total_hidden" name="bifur_child_total_hidden" value="<?php echo $bifur_child_total; ?>">
+                                    <?php } else { ?>
+                                        <span id="bifur_child_total_span">0</span>
+                                        <input type="hidden" id="bifur_child_total_hidden" name="bifur_child_total_hidden" value="0">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
+                                        <span id="bifur_child_pp_span"><?php echo round($bifur_child_total / ($object_det[0]['no_of_child_with_bed']), 2); ?></span>
+                                        <input type="hidden" id="bifur_child_pp_hidden" name="bifur_child_pp_hidden" value="<?php echo round($bifur_child_total / ($object_det[0]['no_of_child_with_bed']), 2); ?>">
+                                    <?php } else { ?>
+                                        <span id="bifur_child_pp_span">0</span>
+                                        <input type="hidden" id="bifur_child_pp_hidden" name="bifur_child_pp_hidden" value="0">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <span id="ttc_bifur_span_child_span">0</span>
+                                    <input type="hidden" id="ttc_bifur_child_hd" name="ttc_bifur_child_hd" value="0">
+                                </td>
+                                <td>
+                                    <span id="ss_bifur_child_span_pp">0</span>
+                                    <input type="hidden" id="ss_bifur_child_hd_pp" name="ss_bifur_child_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="total_bifur_child_span_pp">0</span>
+                                    <input type="hidden" id="total_bifur_child_hd_pp" name="total_bifur_child_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="margin_bifur_child_span_pp">0</span>
+                                    <input type="hidden" id="margin_bifur_child_hd_pp" name="margin_bifur_child_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="net_bifur_child_span_pp">0</span>
+                                    <input type="hidden" id="net_bifur_child_hd_pp" name="net_bifur_child_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="round_bifur_child_span_pp">0</span>
+                                    <input type="hidden" id="round_bifur_child_hd_pp" name="round_bifur_child_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="gst_bifur_child_span_pp">0</span>
+                                    <input type="hidden" id="gst_bifur_child_hd_pp" name="gst_bifur_child_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="grand_bifur_child_span_pp">0</span>
+                                    <input type="hidden" id="grand_bifur_child_hd_pp" name="grand_bifur_child_hd_pp" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Child WB</td>
+                                <td>
+                                    <span id="by_child_wb_pax_span"><?php echo $object_det[0]['no_of_child_without_bed']; ?></span>
+                                    <input type="hidden" id="by_child_wb_pax_hidden" name="by_child_wb_pax_hidden" value="<?php echo $object_det[0]['no_of_child_without_bed']; ?>">
+                                </td>
+                                <td>
+                                    <?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
+                                        <span id="bifur_child_wb_total_span"><?php echo $bifur_child_wb_total; ?></span>
+                                        <input type="hidden" id="bifur_child_wb_total_hidden" name="bifur_child_wb_total_hidden" value="<?php echo $bifur_child_wb_total; ?>">
+                                    <?php } else { ?>
+                                        <span id="bifur_child_wb_total_span">0</span>
+                                        <input type="hidden" id="bifur_child_wb_total_hidden" name="bifur_child_wb_total_hidden" value="0">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
+                                        <span id="bifur_child_wb_pp_span"><?php echo round($bifur_child_wb_total / ($object_det[0]['no_of_child_without_bed']), 2); ?></span>
+                                        <input type="hidden" id="bifur_child_wb_pp_hidden" name="bifur_child_wb_pp_hidden" value="<?php echo round($bifur_child_wb_total / ($object_det[0]['no_of_child_without_bed']), 2); ?>">
+                                    <?php } else { ?>
+                                        <span id="bifur_child_wb_pp_span">0</span>
+                                        <input type="hidden" id="bifur_child_wb_pp_hidden" name="bifur_child_wb_pp_hidden" value="0">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <span id="ttc_bifur_span_child_wb_span">0</span>
+                                    <input type="hidden" id="ttc_bifur_child_wb_hd" name="ttc_bifur_child_wb_hd" value="0">
+                                </td>
+                                <td>
+                                    <span id="ss_bifur_child_wb_span_pp">0</span>
+                                    <input type="hidden" id="ss_bifur_child_wb_hd_pp" name="ss_bifur_child_wb_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="total_bifur_child_wb_span_pp">0</span>
+                                    <input type="hidden" id="total_bifur_child_wb_hd_pp" name="total_bifur_child_wb_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="margin_bifur_child_wb_span_pp">0</span>
+                                    <input type="hidden" id="margin_bifur_child_wb_hd_pp" name="margin_bifur_child_wb_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="net_bifur_child_wb_span_pp">0</span>
+                                    <input type="hidden" id="net_bifur_child_wb_hd_pp" name="net_bifur_child_wb_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="round_bifur_child_wb_span_pp">0</span>
+                                    <input type="hidden" id="round_bifur_child_wb_hd_pp" name="round_bifur_child_wb_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="gst_bifur_child_wb_span_pp">0</span>
+                                    <input type="hidden" id="gst_bifur_child_wb_hd_pp" name="gst_bifur_child_wb_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="grand_bifur_child_wb_span_pp">0</span>
+                                    <input type="hidden" id="grand_bifur_child_wb_hd_pp" name="grand_bifur_child_wb_hd_pp" value="0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Extra</td>
+                                <td>
+                                    <span id="by_extra_pax_span"><?php echo $object_det[0]['no_of_extra_bed']; ?></span>
+                                    <input type="hidden" id="by_extra_pax_hidden" name="by_extra_pax_hidden" value="<?php echo $object_det[0]['no_of_extra_bed']; ?>">
+                                </td>
+                                <td>
+                                    <?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
+                                        <span id="bifur_extra_total_span"><?php echo $bifur_extra_total; ?></span>
+                                        <input type="hidden" id="bifur_extra_total_hidden" name="bifur_extra_total_hidden" value="<?php echo $bifur_extra_total; ?>">
+                                    <?php } else { ?>
+                                        <span id="bifur_extra_total_span">0</span>
+                                        <input type="hidden" id="bifur_extra_total_hidden" name="bifur_extra_total_hidden" value="0">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
+                                        <span id="bifur_extra_pp_span"><?php echo round($bifur_extra_total / ($object_det[0]['no_of_extra_bed']), 2); ?></span>
+                                        <input type="hidden" id="bifur_extra_pp_hidden" name="bifur_extra_pp_hidden" value="<?php echo round($bifur_extra_total / ($object_det[0]['no_of_extra_bed']), 2); ?>">
+                                    <?php } else { ?>
+                                        <span id="bifur_extra_pp_span">0</span>
+                                        <input type="hidden" id="bifur_extra_pp_hidden" name="bifur_extra_pp_hidden" value="0">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
+                                        <span id="ttc_bifur_span_extra_span"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
+                                        <input type="hidden" id="ttc_bifur_extra_hd" name="ttc_bifur_extra_hd" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
+                                    <?php } else { ?>
+                                        <span id="ttc_bifur_span_extra_span">0</span>
+                                        <input type="hidden" id="ttc_bifur_extra_hd" name="ttc_bifur_extra_hd" value="0">
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <span id="ss_bifur_extra_span_pp">0</span>
+                                    <input type="hidden" id="ss_bifur_extra_hd_pp" name="ss_bifur_extra_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="total_bifur_extra_span_pp">0</span>
+                                    <input type="hidden" id="total_bifur_extra_hd_pp" name="total_bifur_extra_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="margin_bifur_extra_span_pp">0</span>
+                                    <input type="hidden" id="margin_bifur_extra_hd_pp" name="margin_bifur_extra_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="net_bifur_extra_span_pp">0</span>
+                                    <input type="hidden" id="net_bifur_extra_hd_pp" name="net_bifur_extra_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="round_bifur_extra_span_pp">0</span>
+                                    <input type="hidden" id="round_bifur_extra_hd_pp" name="round_bifur_extra_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="gst_bifur_extra_span_pp">0</span>
+                                    <input type="hidden" id="gst_bifur_extra_hd_pp" name="gst_bifur_extra_hd_pp" value="0">
+                                </td>
+                                <td>
+                                    <span id="grand_bifur_extra_span_pp">0</span>
+                                    <input type="hidden" id="grand_bifur_extra_hd_pp" name="grand_bifur_extra_hd_pp" value="0">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
 
-																			$doublePP = ($denominator > 0)
-																				? round($bifur_double_total / $denominator, 2)
-																				: 0; // valid fallback when rooms = 0
-																			?>
+                <!------------------------------------------------------------------------------------->
+                <table class="table">
+                    <tr>
+                        <th>
+                            <button type="button" id="calculate_bifur" class="btn btn-dark btn-sm">Show Bifurcation</button>
+                        </th>
+                        <th>
+                            <button type="button" id="recalculate_bifur" class="btn btn-primary btn-sm" style="display:none">Calculate Bifurcation</button>
+                        </th>
+                        <th>
+                            <input type="text" id="cs_name" name="cs_name" class="form-control input-sm" maxlength="50" placeholder="Enter Costing Sheet Name">
+                        </th>
+                        <th>
+                            <?php if ($final_save_flag == 0) { ?>
+                                <a href="<?= site_url('Enquiry/enquiry_list_view/10'); ?>" id="cancel_cost_sheet_id" data-toggle="tooltip" data-original-title="Itinerary Details" style="float:left;">Cancel</a>
+                            <?php } ?>
+                            <?php if ($final_save_flag == 1 || $iti_edit_id == 1) {
+                                if ($extension_disable == 0) {
+                            ?>
+                                    <button type="" id="view_cost_sheet_id" class="btn btn-success" style="float:right;">Save Costing Sheet</button>
+                            <?php }
+                            } ?>
+                        </th>
+                    </tr>
+                </table>
+    <?php } ?>
+</form>
 
-																			<?= number_format($doublePP, 2) ?>
-																		</span>
-
-																		<input type="hidden" id="bifur_double_pp_hidden"
-																			name="bifur_double_pp_hidden"
-																			value="<?= $doublePP ?>">
-																	</td>
-																	<td>
-																		<span id="ttc_bifur_span_double_span">
-																			<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>
-																		</span>
-																		<input type="hidden" id="ttc_bifur_double_hd"
-																			name="ttc_bifur_double_hd"
-																			value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
-																	</td>
-																	<td>
-																		<span id="ss_bifur_double_span_pp">0</span>
-																		<input type="hidden" id="ss_bifur_double_hd_pp"
-																			name="ss_bifur_double_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="total_bifur_double_span_pp">0</span>
-																		<input type="hidden" id="total_bifur_double_hd_pp"
-																			name="total_bifur_double_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="margin_bifur_double_span_pp">0</span>
-																		<input type="hidden" id="margin_bifur_double_hd_pp"
-																			name="margin_bifur_double_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="net_bifur_double_span_pp">0</span>
-																		<input type="hidden" id="net_bifur_double_hd_pp"
-																			name="net_bifur_double_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="round_bifur_double_span_pp">0</span>
-																		<input type="hidden" id="round_bifur_double_hd_pp"
-																			name="round_bifur_double_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="gst_bifur_double_span_pp">0</span>
-																		<input type="hidden" id="gst_bifur_double_hd_pp"
-																			name="gst_bifur_double_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="grand_bifur_double_span_pp">0</span>
-																		<input type="hidden" id="grand_bifur_double_hd_pp"
-																			name="grand_bifur_double_hd_pp" value="0">
-																	</td>
-																</tr>
-																<tr>
-																	<td>Single</td>
-																	<td>
-																		<span id="by_single_pax_span">
-																			<?php echo $object_det[0]['no_of_single_room']; ?>
-																		</span>
-																		<input type="hidden" id="by_single_pax_hidden"
-																			name="by_single_pax_hidden"
-																			value="<?php echo $object_det[0]['no_of_single_room']; ?>">
-																	</td>
-																	<td>
-																		<?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
-																			<span id="bifur_single_total_span">
-																				<?php echo $bifur_single_total; ?>
-																			</span>
-																			<input type="hidden" id="bifur_single_total_hidden"
-																				name="bifur_single_total_hidden"
-																				value="<?php echo $bifur_single_total; ?>">
-																		<?php } else { ?>
-																			<span id="bifur_single_total_span">0</span>
-																			<input type="hidden" id="bifur_single_total_hidden"
-																				name="bifur_single_total_hidden" value="0">
-																		<?php } ?>
-																	</td>
-																	<td>
-																		<?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
-																			<span id="bifur_single_pp_span">
-																				<?php echo round($bifur_single_total / ($object_det[0]['no_of_single_room']), 2); ?>
-																			</span>
-																			<input type="hidden" id="bifur_single_pp_hidden"
-																				name="bifur_single_pp_hidden"
-																				value="<?php echo round($bifur_single_total / ($object_det[0]['no_of_single_room']), 2); ?>">
-																		<?php } else { ?>
-																			<span id="bifur_single_pp_span">0</span>
-																			<input type="hidden" id="bifur_single_pp_hidden"
-																				name="bifur_single_pp_hidden" value="0">
-																		<?php } ?>
-																	</td>
-																	<td>
-																		<?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
-																			<span id="ttc_bifur_span_single_span">
-																				<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>
-																			</span>
-																			<input type="hidden" id="ttc_bifur_single_hd"
-																				name="ttc_bifur_single_hd"
-																				value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
-																		<?php } else { ?>
-																			<span id="ttc_bifur_span_single_span">0</span>
-																			<input type="hidden" id="ttc_bifur_single_hd"
-																				name="ttc_bifur_single_hd" value="0">
-																		<?php } ?>
-																	</td>
-																	<td>
-																		<span id="ss_bifur_single_span_pp">0</span>
-																		<input type="hidden" id="ss_bifur_single_hd_pp"
-																			name="ss_bifur_single_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="total_bifur_single_span_pp">0</span>
-																		<input type="hidden" id="total_bifur_single_hd_pp"
-																			name="total_bifur_single_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="margin_bifur_single_span_pp">0</span>
-																		<input type="hidden" id="margin_bifur_single_hd_pp"
-																			name="margin_bifur_single_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="net_bifur_single_span_pp">0</span>
-																		<input type="hidden" id="net_bifur_single_hd_pp"
-																			name="net_bifur_single_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="round_bifur_single_span_pp">0</span>
-																		<input type="hidden" id="round_bifur_single_hd_pp"
-																			name="round_bifur_single_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="gst_bifur_single_span_pp">0</span>
-																		<input type="hidden" id="gst_bifur_single_hd_pp"
-																			name="gst_bifur_single_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="grand_bifur_single_span_pp">0</span>
-																		<input type="hidden" id="grand_bifur_single_hd_pp"
-																			name="grand_bifur_single_hd_pp" value="0">
-																	</td>
-																</tr>
-																<tr>
-																	<td>Child</td>
-																	<td>
-																		<span id="by_child_pax_span">
-																			<?php echo $object_det[0]['no_of_child_with_bed']; ?>
-																		</span>
-																		<input type="hidden" id="by_child_pax_hidden"
-																			name="by_child_pax_hidden"
-																			value="<?php echo $object_det[0]['no_of_child_with_bed']; ?>">
-																	</td>
-																	<td>
-																		<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
-																			<span id="bifur_child_total_span">
-																				<?php echo $bifur_child_total; ?>
-																			</span>
-																			<input type="hidden" id="bifur_child_total_hidden"
-																				name="bifur_child_total_hidden"
-																				value="<?php echo $bifur_child_total; ?>">
-																		<?php } else { ?>
-																			<span id="bifur_child_total_span">0</span>
-																			<input type="hidden" id="bifur_child_total_hidden"
-																				name="bifur_child_total_hidden" value="0">
-																		<?php } ?>
-																	</td>
-																	<td>
-																		<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
-																			<span id="bifur_child_pp_span">
-																				<?php echo round($bifur_child_total / ($object_det[0]['no_of_child_with_bed']), 2); ?>
-																			</span>
-																			<input type="hidden" id="bifur_child_pp_hidden"
-																				name="bifur_child_pp_hidden"
-																				value="<?php echo round($bifur_child_total / ($object_det[0]['no_of_child_with_bed']), 2); ?>">
-																		<?php } else { ?>
-																			<span id="bifur_child_pp_span">0</span>
-																			<input type="hidden" id="bifur_child_pp_hidden"
-																				name="bifur_child_pp_hidden" value="0">
-																		<?php } ?>
-																	</td>
-																	<td>
-																		<span id="ttc_bifur_span_child_span">0</span>
-																		<input type="hidden" id="ttc_bifur_child_hd"
-																			name="ttc_bifur_child_hd" value="0">
-																	</td>
-																	<td>
-																		<span id="ss_bifur_child_span_pp">0</span>
-																		<input type="hidden" id="ss_bifur_child_hd_pp"
-																			name="ss_bifur_child_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="total_bifur_child_span_pp">0</span>
-																		<input type="hidden" id="total_bifur_child_hd_pp"
-																			name="total_bifur_child_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="margin_bifur_child_span_pp">0</span>
-																		<input type="hidden" id="margin_bifur_child_hd_pp"
-																			name="margin_bifur_child_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="net_bifur_child_span_pp">0</span>
-																		<input type="hidden" id="net_bifur_child_hd_pp"
-																			name="net_bifur_child_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="round_bifur_child_span_pp">0</span>
-																		<input type="hidden" id="round_bifur_child_hd_pp"
-																			name="round_bifur_child_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="gst_bifur_child_span_pp">0</span>
-																		<input type="hidden" id="gst_bifur_child_hd_pp"
-																			name="gst_bifur_child_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="grand_bifur_child_span_pp">0</span>
-																		<input type="hidden" id="grand_bifur_child_hd_pp"
-																			name="grand_bifur_child_hd_pp" value="0">
-																	</td>
-																</tr>
-																<tr>
-																	<td>Child WB</td>
-																	<td>
-																		<span id="by_child_wb_pax_span">
-																			<?php echo $object_det[0]['no_of_child_without_bed']; ?>
-																		</span>
-																		<input type="hidden" id="by_child_wb_pax_hidden"
-																			name="by_child_wb_pax_hidden"
-																			value="<?php echo $object_det[0]['no_of_child_without_bed']; ?>">
-																	</td>
-																	<td>
-																		<?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
-																			<span id="bifur_child_wb_total_span">
-																				<?php echo $bifur_child_wb_total; ?>
-																			</span>
-																			<input type="hidden" id="bifur_child_wb_total_hidden"
-																				name="bifur_child_wb_total_hidden"
-																				value="<?php echo $bifur_child_wb_total; ?>">
-																		<?php } else { ?>
-																			<span id="bifur_child_wb_total_span">0</span>
-																			<input type="hidden" id="bifur_child_wb_total_hidden"
-																				name="bifur_child_wb_total_hidden" value="0">
-																		<?php } ?>
-																	</td>
-																	<td>
-																		<?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
-																			<span id="bifur_child_wb_pp_span">
-																				<?php echo round($bifur_child_wb_total / ($object_det[0]['no_of_child_without_bed']), 2); ?>
-																			</span>
-																			<input type="hidden" id="bifur_child_wb_pp_hidden"
-																				name="bifur_child_wb_pp_hidden"
-																				value="<?php echo round($bifur_child_wb_total / ($object_det[0]['no_of_child_without_bed']), 2); ?>">
-																		<?php } else { ?>
-																			<span id="bifur_child_wb_pp_span">0</span>
-																			<input type="hidden" id="bifur_child_wb_pp_hidden"
-																				name="bifur_child_wb_pp_hidden" value="0">
-																		<?php } ?>
-																	</td>
-																	<td>
-																		<span id="ttc_bifur_span_child_wb_span">0</span>
-																		<input type="hidden" id="ttc_bifur_child_wb_hd"
-																			name="ttc_bifur_child_wb_hd" value="0">
-																	</td>
-																	<td>
-																		<span id="ss_bifur_child_wb_span_pp">0</span>
-																		<input type="hidden" id="ss_bifur_child_wb_hd_pp"
-																			name="ss_bifur_child_wb_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="total_bifur_child_wb_span_pp">0</span>
-																		<input type="hidden" id="total_bifur_child_wb_hd_pp"
-																			name="total_bifur_child_wb_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="margin_bifur_child_wb_span_pp">0</span>
-																		<input type="hidden" id="margin_bifur_child_wb_hd_pp"
-																			name="margin_bifur_child_wb_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="net_bifur_child_wb_span_pp">0</span>
-																		<input type="hidden" id="net_bifur_child_wb_hd_pp"
-																			name="net_bifur_child_wb_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="round_bifur_child_wb_span_pp">0</span>
-																		<input type="hidden" id="round_bifur_child_wb_hd_pp"
-																			name="round_bifur_child_wb_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="gst_bifur_child_wb_span_pp">0</span>
-																		<input type="hidden" id="gst_bifur_child_wb_hd_pp"
-																			name="gst_bifur_child_wb_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="grand_bifur_child_wb_span_pp">0</span>
-																		<input type="hidden" id="grand_bifur_child_wb_hd_pp"
-																			name="grand_bifur_child_wb_hd_pp" value="0">
-																	</td>
-																</tr>
-																<tr>
-																	<td>Extra</td>
-																	<td>
-																		<span id="by_extra_pax_span">
-																			<?php echo $object_det[0]['no_of_extra_bed']; ?>
-																		</span>
-																		<input type="hidden" id="by_extra_pax_hidden"
-																			name="by_extra_pax_hidden"
-																			value="<?php echo $object_det[0]['no_of_extra_bed']; ?>">
-																	</td>
-																	<td>
-																		<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
-																			<span id="bifur_extra_total_span">
-																				<?php echo $bifur_extra_total; ?>
-																			</span>
-																			<input type="hidden" id="bifur_extra_total_hidden"
-																				name="bifur_extra_total_hidden"
-																				value="<?php echo $bifur_extra_total; ?>">
-																		<?php } else { ?>
-																			<span id="bifur_extra_total_span">0</span>
-																			<input type="hidden" id="bifur_extra_total_hidden"
-																				name="bifur_extra_total_hidden" value="0">
-																		<?php } ?>
-																	</td>
-																	<td>
-																		<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
-																			<span id="bifur_extra_pp_span">
-																				<?php echo round($bifur_extra_total / ($object_det[0]['no_of_extra_bed']), 2); ?>
-																			</span>
-																			<input type="hidden" id="bifur_extra_pp_hidden"
-																				name="bifur_extra_pp_hidden"
-																				value="<?php echo round($bifur_extra_total / ($object_det[0]['no_of_extra_bed']), 2); ?>">
-																		<?php } else { ?>
-																			<span id="bifur_extra_pp_span">0</span>
-																			<input type="hidden" id="bifur_extra_pp_hidden"
-																				name="bifur_extra_pp_hidden" value="0">
-																		<?php } ?>
-																	</td>
-																	<td>
-																		<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
-																			<span id="ttc_bifur_span_extra_span">
-																				<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>
-																			</span>
-																			<input type="hidden" id="ttc_bifur_extra_hd"
-																				name="ttc_bifur_extra_hd"
-																				value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
-																		<?php } else { ?>
-																			<span id="ttc_bifur_span_extra_span">0</span>
-																			<input type="hidden" id="ttc_bifur_extra_hd"
-																				name="ttc_bifur_extra_hd" value="0">
-																		<?php } ?>
-																	</td>
-																	<td>
-																		<span id="ss_bifur_extra_span_pp">0</span>
-																		<input type="hidden" id="ss_bifur_extra_hd_pp"
-																			name="ss_bifur_extra_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="total_bifur_extra_span_pp">0</span>
-																		<input type="hidden" id="total_bifur_extra_hd_pp"
-																			name="total_bifur_extra_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="margin_bifur_extra_span_pp">0</span>
-																		<input type="hidden" id="margin_bifur_extra_hd_pp"
-																			name="margin_bifur_extra_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="net_bifur_extra_span_pp">0</span>
-																		<input type="hidden" id="net_bifur_extra_hd_pp"
-																			name="net_bifur_extra_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="round_bifur_extra_span_pp">0</span>
-																		<input type="hidden" id="round_bifur_extra_hd_pp"
-																			name="round_bifur_extra_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="gst_bifur_extra_span_pp">0</span>
-																		<input type="hidden" id="gst_bifur_extra_hd_pp"
-																			name="gst_bifur_extra_hd_pp" value="0">
-																	</td>
-																	<td>
-																		<span id="grand_bifur_extra_span_pp">0</span>
-																		<input type="hidden" id="grand_bifur_extra_hd_pp"
-																			name="grand_bifur_extra_hd_pp" value="0">
-																	</td>
-																</tr>
-															</table>
-														</div>
-													</div>
-
-													<!------------------------------------------------------------------------------------->
-													<table class="table">
-														<tr>
-															<th>
-																<button type="button" id="calculate_bifur"
-																	class="btn btn-dark btn-sm">Show Bifurcation</button>
-															</th>
-															<th>
-																<button type="button" id="recalculate_bifur"
-																	class="btn btn-primary btn-sm" style="display:none">Calculate
-																	Bifurcation</button>
-															</th>
-															<th>
-																<input type="text" id="cs_name" name="cs_name"
-																	class="form-control input-sm" maxlength="50"
-																	placeholder="Enter Costing Sheet Name">
-															</th>
-															<th>
-																<?php if ($final_save_flag == 0) { ?>
-																	<a href="<?= site_url('Enquiry/enquiry_list_view/10'); ?>"
-																		id="cancel_cost_sheet_id" data-toggle="tooltip"
-																		data-original-title="Itinerary Details"
-																		style="float:left;">Cancel</a>
-																<?php } ?>
-																<?php if ($final_save_flag == 1 || $iti_edit_id == 1) {
-																	if ($extension_disable == 0) {
-																?>
-																		<button type="" id="view_cost_sheet_id" class="btn btn-success"
-																			style="float:right;">Save Costing Sheet</button>
-																<?php }
-																} ?>
-															</th>
-														</tr>
-													</table>
-												<?php } ?>
-							</form>
+<input type="hidden" id="is_saved_load" value="<?php echo empty($iti_cost_datas) ? '0' : '1'; ?>">
 						</div>
 					</div>
 
@@ -5359,626 +5157,7 @@ $cs_trans_total = 0;
 		});
 	});
 </script>
-<script>
-	$(document).on('click', '#btn_add_bt', function(e) {
-		e.preventDefault();
-		var tour_plan_div = $('.tour_plan_div').val();
-		var hotel_categories = <?php echo json_encode($hotel_categories); ?>;
-		var hotel_category_exist = <?php echo $object_det[0]['hotel_category']; ?>;
-		var meal_plan_exist = <?php echo $object_det[0]['meal_plan']; ?>;
 
-		var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;
-		var total_no_of_pax = <?php echo $object_det[0]['total_no_of_pax']; ?>;
-		var enquiry_header_id = <?php echo $object_det[0]['enquiry_header_id']; ?>;
-		var enquiry_details_id = <?php echo $object_det[0]['enquiry_details_id']; ?>;
-		var no_of_adult = <?php echo $object_det[0]['no_of_adult']; ?>;
-		var no_of_child_with_bed = <?php echo $object_det[0]['no_of_child_with_bed']; ?>;
-		var no_of_child_without_bed = <?php echo $object_det[0]['no_of_child_without_bed']; ?>;
-		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
-		var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
-		var no_of_extra_bed = <?php echo $object_det[0]['no_of_extra_bed']; ?>;
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-		var is_quick_quote = <?php echo $object_det[0]['is_quick_quote'] ? $object_det[0]['is_quick_quote'] : 0; ?>;
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-
-		var vehicle_from_location_id = <?php echo $object_det[0]['vehicle_from_location']; ?>;
-		var arrival_location_id = <?php echo $object_det[0]['arrival_location']; ?>;
-		var departure_location_id = <?php echo $object_det[0]['departure_location']; ?>;
-
-		var start_date = <?= json_encode($start_date); ?>;
-		var tour_location_id = $('#tour_location').val();
-		var dyn_list_data = '';
-
-		var lastLocationId = $('.tour_plan_div .location-card:last').find('input[name^="addloc["][name$="[tour_location_id]"]').val();
-		var vid;
-		var newCard = ``;
-		var breadcrumb = ``;
-		var si_nos;
-		if (!tour_location_id) {
-			alert("Please select location");
-		} else if (lastLocationId == tour_location_id) {
-			alert("You cannot add same location continuously");
-		} else {
-			//var $link = $(this);
-			var $spinner = $('#csspinner');
-			//$link.addClass('disabled-link');
-			$('#btn_add_bt').attr('disabled', true);
-			$spinner.show();
-			$.ajax({
-				url: '<?= site_url('Enquiry/getLocationName'); ?>',
-				method: 'POST',
-				data: {
-					tour_location_id: tour_location_id,
-					hotel_category_exist: hotel_category_exist
-				},
-				dataType: 'json',
-				success: function(response) {
-					if (response.length > 0) {
-						var count = $('.tour_plan_div .location-card').length + 1;
-
-						if (count > 0) {
-							//$("#btn_save_tour_plan").show();
-							$("#btn_savedraft_tour_plan").show();
-						} else {
-							//$("#btn_save_tour_plan").hide();
-							$("#btn_savedraft_tour_plan").hide();
-						}
-						$('#btn_add_bt').prop('disabled', false);
-
-
-						var isFirst = count === 1;
-						var prevCheckout = $('.tour_plan_div .location-card:last input[name^="addloc["][name$="[checkout]"]').val();
-						var checkinDate = isFirst ? start_date : prevCheckout || '';
-						ep_sel = '';
-						cp_sel = '';
-						map_sel = '';
-						ap_sel = '';
-						if (meal_plan_exist == 1) {
-							ep_sel = "selected";
-						}
-						if (meal_plan_exist == 2) {
-							cp_sel = "selected";
-						}
-						if (meal_plan_exist == 3) {
-							map_sel = "selected";
-						}
-						if (meal_plan_exist == 4) {
-							ap_sel = "selected";
-						}
-						newCard += `
-					
-						<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
-							<div class="card">
-								<div class="card-header">
-									<input type="hidden" id="own_arrange${count}" name="addloc[${count}][own_arrange]" value="0">
-									<input type="hidden" id="tour_location_id${count}" name="addloc[${count}][tour_location_id]" value="${response[0].geog_id}">
-									<input type="hidden" id="location_sequence${count}" name="addloc[${count}][location_sequence]" value="${count}">
-									<div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${response[0].geog_name}</span></div>
-									<div class="card-options">
-										<a href="#" class="card-options-remove"><i class="fe fe-x"></i></a>
-									</div>
-								</div>
-								<div class="card-body">
-									<div class="ibox teams mb-30 bg-boxshadow">
-										<div class="ibox-content teams">
-											<div class="row mt-2">
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Checkin</b></div>
-													<span class="text-muted">
-														<input type="date" value="${checkinDate}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Nights</b></div>
-													<span class="text-muted">
-														<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" class="form-control input-sm no_of_night" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count});" required>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Checkout</b></div>
-													<span class="text-muted">
-														<input type="date" id="checkout${count}" name="addloc[${count}][checkout]" class="form-control input-sm" required readonly>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Hotel Category</b></div>
-														<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change" data-id="${count}" required>
-														<option value="">Select</option>
-														</select>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Hotel</b></div>
-													<span class="text-muted">
-														<select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm" data-id="${count}" required>
-														<option value="">Select</option>
-														</select>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Room Category</b></div>
-														<select id="roomcat${count}" name="addloc[${count}][roomcat]" class="form-control select2-show-search input-sm" data-id="${count}" required>
-														<option value="">Select</option>
-														</select>
-												</div>
-											</div>
-
-										
-											<div class="row mt-2">
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Meal Plan</b></div>
-													<span class="text-muted">
-														<select id="mealplan${count}" name="addloc[${count}][mealplan]" class="form-control select2-show-search input-sm mp_change" data-id="${count}" required>
-														<option value="">Select</option>
-														<option value="1" ${ep_sel}>EP</option>
-														<option value="2" ${cp_sel}>CP</option>
-														<option value="3" ${map_sel}>MAP</option>
-														<option value="4" ${ap_sel}>AP</option>
-														</select>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>No Of Adult</b></div>
-													<input type="text" id="no_of_adult${count}" name="addloc[${count}][no_of_adult]" value="${no_of_adult}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.With Bed Qty</b></div>
-													<input type="text" id="no_of_ch${count}" name="addloc[${count}][no_of_ch]" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.Without Bed Qty</b></div>
-													<input type="text" id="no_of_cw${count}" name="addloc[${count}][no_of_cw]" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Extra Bed Qty</b></div>
-													<input type="text" id="no_of_extra${count}" name="addloc[${count}][no_of_extra]" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Total Pax</b></div>
-													<input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly>
-												</div>
-												
-											</div>`;
-						if (no_of_double_room > 0) {
-
-							newCard += `<div class="row mt-2 double_row">
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Double Room</b></div>
-														<input type="text" id="double${count}" name="addloc[${count}][double]" value="${no_of_double_room}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-													</div>
-										
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Daily Room Rate</b></div>
-														<input type="text" id="d_adult_rate${count}" name="addloc[${count}][d_adult_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" required>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>C.With Bed Rate</b></div>
-														<input type="text" id="d_child_rate${count}" name="addloc[${count}][d_child_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);">
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>C.Without Bed Rate</b></div>
-														<input type="text" id="d_child_wb_rate${count}" name="addloc[${count}][d_child_wb_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);">
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Extra Bed Rate</b></div>
-														<input type="text" id="d_extra_bed_rate${count}" name="addloc[${count}][d_extra_bed_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);">
-													</div>
-														<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Total</b></div>
-														<input type="text" id="d_total_rate${count}" name="addloc[${count}][d_total_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-													
-												</div>`;
-						} else {
-							newCard += `<input type="hidden" id="double${count}" name="addloc[${count}][double]" value="0">
-															<input type="hidden" id="d_adult_rate${count}" name="addloc[${count}][d_adult_rate]" value="0">
-															<input type="hidden" id="d_child_rate${count}" name="addloc[${count}][d_child_rate]" value="0">
-															<input type="hidden" id="d_child_wb_rate${count}" name="addloc[${count}][d_child_wb_rate]" value="0">
-															<input type="hidden" id="d_extra_bed_rate${count}" name="addloc[${count}][d_extra_bed_rate]" value="0">
-															<input type="hidden" id="d_total_rate${count}" name="addloc[${count}][d_total_rate]" value="0">`;
-						}
-						if (no_of_single_room > 0) {
-							newCard += `<div class="row mt-2 single_row">
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Single Room</b></div>
-													<input type="text" id="single${count}" name="addloc[${count}][single]" value="${no_of_single_room}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-									
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Daily Room Rate</b></div>
-													<input type="text" id="s_adult_rate${count}" name="addloc[${count}][s_adult_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);">
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.With Bed Rate</b></div>
-													<input type="text" id="s_child_rate${count}" name="addloc[${count}][s_child_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.Without Bed Rate</b></div>
-													<input type="text" id="s_child_wb_rate${count}" name="addloc[${count}][s_child_wb_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Extra Bed Rate</b></div>
-													<input type="text" id="s_extra_bed_rate${count}" name="addloc[${count}][s_extra_bed_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Total</b></div>
-													<input type="text" id="s_total_rate${count}" name="addloc[${count}][s_total_rate]" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												
-											</div>`;
-						} else {
-							newCard += `<input type="hidden" id="single${count}" name="addloc[${count}][single]" value="0">
-															<input type="hidden" id="s_adult_rate${count}" name="addloc[${count}][s_adult_rate]" value="0">
-															<input type="hidden" id="s_child_rate${count}" name="addloc[${count}][s_child_rate]" value="0">
-															<input type="hidden" id="s_child_wb_rate${count}" name="addloc[${count}][s_child_wb_rate]" value="0">
-															<input type="hidden" id="s_extra_bed_rate${count}" name="addloc[${count}][s_extra_bed_rate]" value="0">
-															<input type="hidden" id="s_total_rate${count}" name="addloc[${count}][s_total_rate]" value="0">`;
-						}
-						if (is_vehicle_required == 1) {
-							newCard += `
-												<div class="row mt-2">
-													<div class="col-xl-1 col-sm-12 col-md-1">
-													<a id="loadvehs${count}" class="nav-link load_vehs_click" data-id="${count}"><i class="fa fa-refresh"></i></a>
-													</div>
-													<div class="col-xl-11 col-sm-12 col-md-11"><h5 style="color:#003300;">Vehicle Details<span id="v_from_to${count}"></span></h5>
-													</div>
-												</div>
-												<input type="hidden" id="veh_header${count}" name="addloc[${count}][veh_header]" value="">
-												<div class="row mt-2 single_row">
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Vehicle Model</b></div>
-													</div>		
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Vehicle Count</b></div>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Daily Rent</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Max KM/Day</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Distance</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Extra KM</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Extra KM Rate</b></div>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Total</b></div>
-													</div>
-												</div>
-														`;
-							$.each(vehicle_models, function(vindex, vmodel) {
-								si_nos = vindex + 1;
-								vid = count + vmodel.vehicle_type_id;
-								newCard += `
-												
-												<div class="row mt-2 single_row">
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="veh_model${vid}" name="addloc[${count}][veh_model][${vindex}]" value="${vmodel.vehicle_model_name}" class="form-control input-sm veh_model${vindex}" readonly>
-														<input type="hidden" id="veh_type_id${vid}" name="addloc[${count}][veh_type_id][${vindex}]" value="${vmodel.vehicle_type_id}" class="form-control input-sm veh_type_id${vindex}">
-													</div>
-										
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="veh_count${vid}" name="addloc[${count}][veh_count][${vindex}]" value="${vmodel.vehicle_count}" class="form-control input-sm veh_count${vindex}" maxlength="2" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="day_rent${vid}" name="addloc[${count}][day_rent][${vindex}]" value="0" class="form-control input-sm cls_daily day_rent${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this);">
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														
-														<input type="text" id="max_km_day${vid}" name="addloc[${count}][max_km_day][${vindex}]" value="0" class="form-control input-sm max_km_day${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														
-														<input type="text" id="travel_distance${vid}" name="addloc[${count}][travel_distance][${vindex}]" value="0" class="form-control input-sm cls_dist travel_distance${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this);">
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														
-														<input type="text" id="extra_kilometer${vid}" name="addloc[${count}][extra_kilometer][${vindex}]" value="0" class="form-control input-sm extra_kilometer${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														
-														<input type="text" id="extra_km_rate${vid}" name="addloc[${count}][extra_km_rate][${vindex}]" value="0" class="form-control input-sm extra_km_rate${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="veh_total${vid}" name="addloc[${count}][veh_total][${vindex}]" value="0" class="form-control input-sm veh_total${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													
-												</div>`;
-							});
-						} else {
-							newCard += `<input type="hidden" id="veh_model${count}0" name="addloc[${count}][veh_model][0]" value="">
-															<input type="hidden" id="veh_count${count}0" name="addloc[${count}][veh_count][0]" value="0">
-															<input type="hidden" id="day_rent${count}0" name="addloc[${count}][day_rent][0]" value="0">
-															<input type="hidden" id="max_km_day${count}0" name="addloc[${count}][max_km_day][0]" value="0">
-															<input type="hidden" id="extra_km_rate${count}0" name="addloc[${count}][extra_km_rate][0]" value="0">
-															<input type="hidden" id="veh_total${count}0" name="addloc[${count}][veh_total][0]" value="0">`;
-						}
-						newCard += `
-
-										</div>
-									</div>
-								</div>
-							</div>
-							
-						</div>
-						
-					`;
-
-						$(".tour_plan_div").append(newCard);
-						$('#tour_location').val('').trigger('change');
-
-						breadcrumb += `
-						<li class="bc-card" data-index="${count}">
-							<a>
-								<span class="bc-card-seq" style="color:#fff">${count}</span>.<span style="color:#fff">${response[0].geog_name}(<span id="span_night_id${count}" style="color:#fff"></span>)<span id="loc_total${count}" style="color:#fff"></span></span>
-							</a>
-						</li>
-					`;
-
-						$('.dyn_list').append(breadcrumb);
-
-						var totalNights = calculateTotalNights();
-						if (totalNights == no_of_night) {
-							$("#btn_save_tour_plan").show();
-							$('#btn_add_bt').prop('disabled', true);
-						} else {
-							$("#btn_save_tour_plan").hide();
-							$('#btn_add_bt').prop('disabled', false);
-						}
-						/* Load Hotel Category */
-						var hotelCat = $('#hotelcat' + count);
-						hotelCat.empty();
-
-						if (hotel_categories.length > 1) {
-							$.each(hotel_categories, function(index, hotelcat) {
-								if (hotelcat.hotel_category_id == hotel_category_exist) {
-									hotelCat.append('<option value="' + hotelcat.hotel_category_id + '" selected>' + hotelcat.hotel_category_name + '</option>');
-								} else {
-									hotelCat.append('<option value="' + hotelcat.hotel_category_id + '">' + hotelcat.hotel_category_name + '</option>');
-								}
-							});
-						} else {
-							hotelCat.append('<option value="">Hotel Category Not Found</option>');
-						}
-						hotelCat.trigger('change');
-						updateSequenceNumbers();
-					} else {
-						var halert = `<div class="alert alert-success alert-dismissible fade show" role="alert">
-						<span class="alert-inner--icon"><i class="fe fe-info"></i></span>
-						<span class="alert-inner--text">No hotels configured at this location with this hotel category</span>
-						<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>`;
-
-						$('#hotel_alert').html(halert);
-						setTimeout(function() {
-							$(".alert").fadeOut("slow", function() {
-								$(this).remove();
-							});
-						}, 2000);
-					}
-				},
-				complete: function() {
-					$('#btn_add_bt').attr('disabled', false);
-					$spinner.hide();
-				},
-				error: function(xhr, status, error) {
-					console.error('Error adding node:', error);
-				}
-			});
-		}
-	});
-
-	function calculateTotalNights() {
-		var totalNights = 0;
-		$('.no_of_night').each(function() {
-			var nights = parseInt($(this).val()) || 0;
-			totalNights += nights;
-		});
-		return totalNights;
-	}
-	// Remove location card and update sequence numbers
-	$(document).on("click", ".card-options-remove", function(e) {
-		e.preventDefault();
-		var card = $(this).closest(".location-card");
-		var removedIndex = card.index(); // Get index before removing
-		var bcid = card.attr("data-index");
-		card.remove();
-		$('.dyn_list li').each(function() {
-			if ($(this).text().trim().startsWith(bcid + ".")) {
-				$(this).remove();
-			}
-		});
-		updateSequenceNumbers();
-		var remainingCards = $('.tour_plan_div .location-card');
-		if (remainingCards.length === 0) {
-			$("#btn_save_tour_plan").hide();
-		} else {
-			remainingCards.each(function(index) {
-				if (index >= removedIndex) {
-					calculateCheckout(index);
-				}
-			});
-		}
-	});
-
-	// Function to update sequence numbers and adjust checkin/checkout dates
-	function updateSequenceNumbers() {
-		if ($('.tour_plan_div .location-card').length === 0) {
-			location.reload();
-		}
-		$('.tour_plan_div .location-card').each(function(index) {
-			let newIndex = index + 1;
-			$(this).attr("data-index", newIndex);
-			$(this).find('.card-seq').text(newIndex);
-
-			// Update IDs and Names of input fields
-			$(this).find('[id^="own_arrange"]').attr("id", `own_arrange${newIndex}`).attr("name", `addloc[${newIndex}][own_arrange]`);
-			$(this).find('[id^="tour_location_id"]').attr("id", `tour_location_id${newIndex}`).attr("name", `addloc[${newIndex}][tour_location_id]`);
-			$(this).find('[id^="location_sequence"]').attr("id", `location_sequence${newIndex}`).attr("name", `addloc[${newIndex}][location_sequence]`).val(newIndex);
-			$(this).find('[id^="checkin"]').attr("id", `checkin${newIndex}`).attr("name", `addloc[${newIndex}][checkin]`);
-			$(this).find('[id^="no_of_night"]').attr("id", `no_of_night${newIndex}`).attr("name", `addloc[${newIndex}][no_of_night]`);
-			$(this).find('[id^="checkout"]').attr("id", `checkout${newIndex}`).attr("name", `addloc[${newIndex}][checkout]`);
-			$(this).find('[id^="v_from_to"]').attr("id", `v_from_to${newIndex}`);
-			$(this).find('[id^="veh_header"]').attr("id", `veh_header${newIndex}`).attr("name", `addloc[${newIndex}][veh_header]`);
-
-			$(this).find('[id^="hotelcat"]').attr("id", `hotelcat${newIndex}`).attr("name", `addloc[${newIndex}][hotelcat]`).attr("data-id", newIndex);
-			$(this).find('[id^="hotelid"]').attr("id", `hotelid${newIndex}`).attr("name", `addloc[${newIndex}][hotelid]`).attr("data-id", newIndex);
-			$(this).find('[id^="roomcat"]').attr("id", `roomcat${newIndex}`).attr("name", `addloc[${newIndex}][roomcat]`).attr("data-id", newIndex);
-
-			$(this).find('[id^="mealplan"]').attr("id", `mealplan${newIndex}`).attr("name", `addloc[${newIndex}][mealplan]`).attr("data-id", newIndex);
-			$(this).find('[id^="no_of_adult"]').attr("id", `no_of_adult${newIndex}`).attr("name", `addloc[${newIndex}][no_of_adult]`);
-			$(this).find('[id^="no_of_ch"]').attr("id", `no_of_ch${newIndex}`).attr("name", `addloc[${newIndex}][no_of_ch]`);
-			$(this).find('[id^="no_of_cw"]').attr("id", `no_of_cw${newIndex}`).attr("name", `addloc[${newIndex}][no_of_cw]`);
-			$(this).find('[id^="no_of_extra"]').attr("id", `no_of_extra${newIndex}`).attr("name", `addloc[${newIndex}][no_of_extra]`);
-			$(this).find('[id^="no_of_pax"]').attr("id", `no_of_pax${newIndex}`).attr("name", `addloc[${newIndex}][no_of_pax]`);
-
-			$(this).find('[id^="double"]').attr("id", `double${newIndex}`).attr("name", `addloc[${newIndex}][double]`);
-			$(this).find('[id^="d_adult_rate"]').attr("id", `d_adult_rate${newIndex}`).attr("name", `addloc[${newIndex}][d_adult_rate]`);
-			$(this).find('[id^="d_child_rate"]').attr("id", `d_child_rate${newIndex}`).attr("name", `addloc[${newIndex}][d_child_rate]`);
-			$(this).find('[id^="d_child_wb_rate"]').attr("id", `d_child_wb_rate${newIndex}`).attr("name", `addloc[${newIndex}][d_child_wb_rate]`);
-			$(this).find('[id^="d_extra_bed_rate"]').attr("id", `d_extra_bed_rate${newIndex}`).attr("name", `addloc[${newIndex}][d_extra_bed_rate]`);
-			$(this).find('[id^="d_total_rate"]').attr("id", `d_total_rate${newIndex}`).attr("name", `addloc[${newIndex}][d_total_rate]`);
-
-			$(this).find('[id^="single"]').attr("id", `single${newIndex}`).attr("name", `addloc[${newIndex}][single]`);
-			$(this).find('[id^="s_adult_rate"]').attr("id", `s_adult_rate${newIndex}`).attr("name", `addloc[${newIndex}][s_adult_rate]`);
-			$(this).find('[id^="s_child_rate"]').attr("id", `s_child_rate${newIndex}`).attr("name", `addloc[${newIndex}][s_child_rate]`);
-			$(this).find('[id^="s_child_wb_rate"]').attr("id", `s_child_wb_rate${newIndex}`).attr("name", `addloc[${newIndex}][s_child_wb_rate]`);
-			$(this).find('[id^="s_extra_bed_rate"]').attr("id", `s_extra_bed_rate${newIndex}`).attr("name", `addloc[${newIndex}][s_extra_bed_rate]`);
-			$(this).find('[id^="s_total_rate"]').attr("id", `s_total_rate${newIndex}`).attr("name", `addloc[${newIndex}][s_total_rate]`);
-
-			$(this).find('[id^="loadvehs"]').attr("id", `loadvehs${newIndex}`).attr("data-id", newIndex);
-
-			var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-			var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-			if (is_vehicle_required == 1) {
-				let cardElement = $(this);
-
-				$.each(vehicle_models, function(vindex, vmodel) {
-					let vid = `${newIndex}${vmodel.vehicle_type_id}`;
-					cardElement.find(`.veh_model${vindex}`).attr("id", `veh_model${vid}`).attr("name", `addloc[${newIndex}][veh_model][${vindex}]`);
-					cardElement.find(`.veh_type_id${vindex}`).attr("id", `veh_type_id${vid}`).attr("name", `addloc[${newIndex}][veh_type_id][${vindex}]`);
-					cardElement.find(`.veh_count${vindex}`).attr("id", `veh_count${vid}`).attr("name", `addloc[${newIndex}][veh_count][${vindex}]`);
-					cardElement.find(`.day_rent${vindex}`).attr("id", `day_rent${vid}`).attr("name", `addloc[${newIndex}][day_rent][${vindex}]`).attr("data-id", vid).attr("data-cid", newIndex);
-					cardElement.find(`.max_km_day${vindex}`).attr("id", `max_km_day${vid}`).attr("name", `addloc[${newIndex}][max_km_day][${vindex}]`);
-					cardElement.find(`.extra_km_rate${vindex}`).attr("id", `extra_km_rate${vid}`).attr("name", `addloc[${newIndex}][extra_km_rate][${vindex}]`);
-					cardElement.find(`.veh_total${vindex}`).attr("id", `veh_total${vid}`).attr("name", `addloc[${newIndex}][veh_total][${vindex}]`);
-					cardElement.find(`.travel_distance${vindex}`).attr("id", `travel_distance${vid}`).attr("name", `addloc[${newIndex}][travel_distance][${vindex}]`).attr("data-id", vid).attr("data-cid", newIndex);
-					cardElement.find(`.c_travel_distance_copy${vindex}`).attr("id", `c_travel_distance_copy${vid}`).attr("name", `addloc[${newIndex}][c_travel_distance_copy][${vindex}]`).attr("data-id", vid).attr("data-cid", newIndex);
-					cardElement.find(`.extra_kilometer${vindex}`).attr("id", `extra_kilometer${vid}`).attr("name", `addloc[${newIndex}][extra_kilometer][${vindex}]`);
-				});
-			}
-			// Update Check-in Dates
-			var checkinInput = document.getElementById(`checkin${newIndex}`);
-			var checkoutInput = document.getElementById(`checkout${newIndex}`);
-
-			if (index === 0) {
-				checkinInput.value = <?= json_encode($start_date); ?>;
-			} else {
-				var prevCheckout = document.getElementById(`checkout${newIndex - 1}`)?.value;
-				checkinInput.value = prevCheckout || '';
-			}
-
-			// Recalculate checkout for each location
-			var nightsInput = document.getElementById(`no_of_night${newIndex}`).value;
-			if (nightsInput) {
-				calculateCheckout(newIndex);
-			}
-
-			var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;
-			var totalNights = calculateTotalNights();
-			$('#planned_night').text(totalNights + " / ");
-			if (totalNights == no_of_night) {
-				$("#btn_save_tour_plan").show();
-				$('#btn_add_bt').prop('disabled', true);
-			} else {
-				$("#btn_save_tour_plan").hide();
-				$('#btn_add_bt').prop('disabled', false);
-			}
-			/*var dvalue = parseInt($('#d_total_rate'+newIndex).val());
-			var svalue = parseInt($('#s_total_rate'+newIndex).val());
-			$('#loc_total'+newIndex).text(dvalue + svalue);*/
-		});
-
-		$('.dyn_list .bc-card').each(function(index1) {
-			let bcIndex = index1 + 1;
-			$(this).attr("data-index", bcIndex);
-			$(this).find('.bc-card-seq').text(bcIndex);
-		});
-
-
-		var accom_grand_total = get_accom_grand_total();
-		if (accom_grand_total > 0) {
-			$('#a_total').text(accom_grand_total);
-		} else {
-			$('#a_total').text(0);
-		}
-		var veh_grand_total = get_veh_grand_total();
-		if (veh_grand_total > 0) {
-			veh_grand_total += parseFloat($('#extraklm_hidden').val()) || 0;
-			veh_grand_total += parseFloat($('#permit_hidden').val()) || 0;
-			$('#v_total').text(veh_grand_total);
-		} else {
-			$('#v_total').text(0);
-		}
-		var g_total = parseInt(accom_grand_total) + parseInt(veh_grand_total);
-		if (g_total > 0) {
-			$('#g_total').text(g_total);
-		} else {
-			$('#g_total').text(0);
-		}
-	}
-
-	// Function to allow only numeric input
-	function validateNumericInput(input) {
-		input.value = input.value.replace(/\D/g, '');
-	}
-
-	// Function to calculate the checkout date
-	function calculateCheckout(count) {
-		var totalDuration = <?php echo $object_det[0]['no_of_night']; ?>;
-		var sum = 0;
-		$(".no_of_night").each(function() {
-			let nights = parseInt($(this).val()) || 0; // Ensure numeric value
-			sum += nights;
-		});
-		if (sum > totalDuration) {
-			alert("Total nights exceed the allowed duration!");
-			$('#no_of_night' + count).val('');
-		}
-		var checkin = document.getElementById(`checkin${count}`)?.value;
-		var nights = document.getElementById(`no_of_night${count}`)?.value;
-		var checkoutField = document.getElementById(`checkout${count}`);
-		//alert(checkin);alert(nights);alert(checkoutField);
-		if (checkin && nights) {
-			var checkinDate = new Date(checkin);
-			checkinDate.setDate(checkinDate.getDate() + parseInt(nights, 10));
-			var checkoutDate = checkinDate.toISOString().split('T')[0]; // Format YYYY-MM-DD
-			checkoutField.value = checkoutDate;
-
-			// Update checkin for all locations after the current one
-			$('.tour_plan_div .location-card').each(function(index) {
-				if (index >= count) {
-					var nextIndex = index + 1;
-					var nextCheckinField = document.getElementById(`checkin${nextIndex}`);
-					var prevCheckout = document.getElementById(`checkout${nextIndex - 1}`)?.value;
-					if (nextCheckinField && prevCheckout) {
-						nextCheckinField.value = prevCheckout;
-					}
-				}
-			});
-		}
-	}
-</script>
 <script>
 	$(document).on('change', '.hotel_change', function() {
 		var hotel_id = $(this).val();
@@ -6674,753 +5853,9 @@ $cs_trans_total = 0;
 		}
 	});
 </script>
-<script type="text/javascript">
-	/*$(document).on('click', '.tour_view', function(e) {
-		e.preventDefault();
-		var tourPlanDet = <?php echo json_encode($tour_plan_det); ?>;
-	var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-	var html = '';
-	html += '<table class="table table-bordered table-responsive-md table-striped mb-0 text-nowrap">';
-	html += '<tr>';
-	html += '<th colspan="7" style="text-align:center;"> Accommodation </th>';
-	html += '</tr>';
-	html += '<tr>';
-	html += '<th> Si No </th>';
-	html += '<th> Location </th>';
-	html += '<th> Start Date </th>';
-	html += '<th> Nights </th>';
-	html += '<th> End Date </th>';
-	html += '<th> Hotel </th>';
-	html += '<th> Room Category </th>';
-	html += '</tr>';
-	$.each(tourPlanDet, function (index, item) {
-		var sino = index + 1;
 
 
-		html += '<tr>';
-		html += '<td>' + sino + '</td>';
-		html += '<td>' + item.geog_name + '</td>';
-		html += '<td>' + item.check_in_date + '</td>';
-		html += '<td>' + item.no_of_days + '</td>';
-		html += '<td>' + item.check_out_date + '</td>';
-		html += '<td>' + item.object_name + '</td>';
-		html += '<td>' + item.room_category_name + '</td>';
-		html += '</tr>';
 
-
-	});
-	html += '</table>';
-
-	html += '<table class="table table-bordered table-responsive-md table-striped mb-0 text-nowrap">';
-	html += '<tr>';
-	html += '<th colspan="7" style="text-align:center;"> Transportation </th>';
-	html += '</tr>';
-	html += '<tr>';
-	html += '<th> Si No </th>';
-	html += '<th> Vehicle Model </th>';
-	html += '<th> Vehicle Count </th>';
-	html += '</tr>';
-	$.each(vehicle_models, function (index1, item1) {
-		var sino = index1 + 1;
-		html += '<tr>';
-		html += '<td>' + sino + '</td>';
-		html += '<td>' + item1.vehicle_model_name + '</td>';
-		html += '<td>' + item1.vehicle_count + '</td>';
-
-		html += '</tr>';
-
-	});
-	html += '</table>';
-	$('.tab_con').html(html);
-	$('#modal_tour').modal('show');
-	});*/
-
-	$(document).on('click', '.tour_view', function() {
-		var enquiry_header_id = <?php echo $object_det[0]['enquiry_header_id']; ?>;
-		var enquiry_details_id = <?php echo $object_det[0]['enquiry_details_id']; ?>;
-		var hotel_categories = <?php echo json_encode($hotel_categories); ?>;
-		var hotel_category_exist = <?php echo $object_det[0]['hotel_category']; ?>;
-		var meal_plan_exist = <?php echo $object_det[0]['meal_plan']; ?>;
-		var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;
-		var total_no_of_pax = <?php echo $object_det[0]['total_no_of_pax']; ?>;
-		var enquiry_header_id = <?php echo $object_det[0]['enquiry_header_id']; ?>;
-		var enquiry_details_id = <?php echo $object_det[0]['enquiry_details_id']; ?>;
-		var no_of_adult = <?php echo $object_det[0]['no_of_adult']; ?>;
-		var no_of_child_with_bed = <?php echo $object_det[0]['no_of_child_with_bed']; ?>;
-		var no_of_child_without_bed = <?php echo $object_det[0]['no_of_child_without_bed']; ?>;
-		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
-		var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
-		var no_of_extra_bed = <?php echo $object_det[0]['no_of_extra_bed']; ?>;
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-		var is_quick_quote = <?php echo $object_det[0]['is_quick_quote'] ? $object_det[0]['is_quick_quote'] : 0; ?>;
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-
-		var child_t_d = 0;
-		var child_t_s = 0;
-
-		var child_wb_t_d = 0;
-		var child_wb_t_s = 0;
-
-		var extra_t_d = 0;
-		var extra_t_s = 0;
-
-		var room_t_d = 0;
-		var room_t_s = 0;
-
-		var start_date = <?= json_encode($start_date); ?>;
-		var totalDays = 0;
-
-		var vid_t;
-		var v_day_rent;
-		var v_max_km_day;
-		var v_extra_km_rate;
-		var v_veh_total;
-		var v_veh_header;
-
-
-		$.ajax({
-			url: '<?= site_url('Enquiry/loadTourLocation'); ?>',
-			type: 'POST',
-			data: {
-				enquiry_header_id: enquiry_header_id,
-				enquiry_details_id: enquiry_details_id
-			},
-			dataType: 'json',
-			success: function(response) {
-				// Clear existing location cards if necessary
-
-				var newCard = ``;
-				$.each(response, function(index, item) {
-					// Create a new location card element
-					var vehicleDetails = JSON.parse(item.vehicle_details);
-					var count = index + 1;
-
-					var isFirst = count === 1;
-					var prevCheckout = $('.tour_plan_div .location-card:last input[name^="addloc["][name$="[checkout]"]').val();
-					var checkinDate = isFirst ? start_date : prevCheckout || '';
-					ep_sel = '';
-					cp_sel = '';
-					map_sel = '';
-					ap_sel = '';
-					if (item.meal_plan_id == 1) {
-						ep_sel = "selected";
-					}
-					if (item.meal_plan_id == 2) {
-						cp_sel = "selected";
-					}
-					if (item.meal_plan_id == 3) {
-						map_sel = "selected";
-					}
-					if (item.meal_plan_id == 4) {
-						ap_sel = "selected";
-					}
-					$.each(item.cost, function(index1, item3) {
-						if ((item3.cost_component_id == "6" || item3.cost_component_id == "7") && item3.room_type_id == "2") {
-							room_t_d = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "12" || item3.cost_component_id == "13") && item3.room_type_id == "2") {
-							child_t_d = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "15" || item3.cost_component_id == "16") && item3.room_type_id == "2") {
-							child_wb_t_d = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "9" || item3.cost_component_id == "10") && item3.room_type_id == "2") {
-							extra_t_d = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "6" || item3.cost_component_id == "7") && item3.room_type_id == "1") {
-							room_t_s = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "12" || item3.cost_component_id == "13") && item3.room_type_id == "1") {
-							child_t_s = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "15" || item3.cost_component_id == "16") && item3.room_type_id == "1") {
-							child_wb_t_s = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "9" || item3.cost_component_id == "10") && item3.room_type_id == "1") {
-							extra_t_s = item3.quick_quote_tariff;
-						}
-					});
-					var room_total = parseInt(no_of_double_room) * parseInt(room_t_d);
-					var child_total = parseInt(no_of_child_with_bed) * parseInt(child_t_d);
-					var child_wb_total = parseInt(no_of_child_without_bed) * parseInt(child_wb_t_d);
-					var extra_total = parseInt(no_of_extra_bed) * parseInt(extra_t_d);
-					if (item.tax_status == 1) {
-						var tot_d = parseInt(room_t_d) + child_total + child_wb_total + extra_total;
-						var tot_s = parseInt(room_t_s);
-						if (tot_d >= 7500) {
-							var gst = 18;
-							var gstval = (gst / 100) * tot_d;
-							var total_doubles = (tot_d + gstval) * parseInt(no_of_double_room);
-							var d_totals = total_doubles * parseInt(item.no_of_days);
-						} else {
-							var d_totals = (room_total + child_total + child_wb_total + extra_total) * parseInt(item.no_of_days);
-						}
-
-						if (tot_s >= 7500) {
-							var gst = 18;
-							var gstval = (gst / 100) * tot_s;
-							var total_singles = (tot_s + gstval) * parseInt(no_of_single_room);
-							var s_totals = total_singles * parseInt(item.no_of_days);
-						} else {
-							var s_totals = (parseInt(no_of_single_room) * parseInt(room_t_s)) * parseInt(item.no_of_days);
-						}
-
-					} else {
-						var d_totals = (room_total + child_total + child_wb_total + extra_total) * parseInt(item.no_of_days);
-						var s_totals = (parseInt(no_of_single_room) * parseInt(room_t_s)) * parseInt(item.no_of_days);
-					}
-
-					newCard += `
-					
-						<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
-							<div class="card">
-								<div class="card-header">
-									<input type="hidden" id="own_arrange${count}" name="addloc[${count}][own_arrange]" value="${item.is_own_arrangement}">
-									<input type="hidden" id="tour_location_id${count}" name="addloc[${count}][tour_location_id]" value="${item.tour_location}">
-									<input type="hidden" id="location_sequence${count}" name="addloc[${count}][location_sequence]" value="${count}">
-									<div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${item.geog_name}</span></div>
-								</div>
-								<div class="card-body">
-									<div class="ibox teams mb-30 bg-boxshadow">
-										<div class="ibox-content teams">
-											<div class="row mt-2">
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Checkin</b></div>
-													<span class="text-muted">
-														<input type="date" value="${item.check_in_date}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Nights</b></div>
-													<span class="text-muted">
-														<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" value="${item.no_of_days}" class="form-control input-sm no_of_night" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count});" readonly>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Checkout</b></div>
-													<span class="text-muted">
-														<input type="date" id="checkout${count}" value="${item.check_out_date}" name="addloc[${count}][checkout]" class="form-control input-sm" required readonly>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Hotel Category</b></div>
-														<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change_draft" data-id="${count}" data-hid="${item.hotel_id}" readonly>
-														<option value="">Select</option>
-														</select>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Hotel</b></div>
-													<span class="text-muted">
-														<select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm hotel_change_draft" data-rid="${item.room_category_id}" data-id="${count}" readonly>
-														<option value="">Select</option>
-														</select>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Room Category</b></div>
-														<select id="roomcat${count}" name="addloc[${count}][roomcat]" class="form-control select2-show-search input-sm" data-id="${count}" readonly>
-														<option value="">Select</option>
-														</select>
-												</div>
-											</div>
-
-										
-											<div class="row mt-2">
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Meal Plan</b></div>
-													<span class="text-muted">
-														<select id="mealplan${count}" name="addloc[${count}][mealplan]" class="form-control select2-show-search input-sm mp_change" data-id="${count}" readonly>
-														<option value="">Select</option>
-														<option value="1" ${ep_sel}>EP</option>
-														<option value="2" ${cp_sel}>CP</option>
-														<option value="3" ${map_sel}>MAP</option>
-														<option value="4" ${ap_sel}>AP</option>
-														</select>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>No Of Adult</b></div>
-													<input type="text" id="no_of_adult${count}" name="addloc[${count}][no_of_adult]" value="${no_of_adult}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.With Bed Qty</b></div>
-													<input type="text" id="no_of_ch${count}" name="addloc[${count}][no_of_ch]" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.Without Bed Qty</b></div>
-													<input type="text" id="no_of_cw${count}" name="addloc[${count}][no_of_cw]" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Extra Bed Qty</b></div>
-													<input type="text" id="no_of_extra${count}" name="addloc[${count}][no_of_extra]" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Total Pax</b></div>
-													<input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly>
-												</div>
-												
-											</div>`;
-					if (no_of_double_room > 0) {
-
-						newCard += `<div class="row mt-2 double_row">
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Double Room</b></div>
-														<input type="text" id="double${count}" name="addloc[${count}][double]" value="${no_of_double_room}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-													</div>
-										
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Daily Room Rate</b></div>
-														<input type="text" id="d_adult_rate${count}" name="addloc[${count}][d_adult_rate]" value="${room_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>C.With Bed Rate</b></div>
-														<input type="text" id="d_child_rate${count}" name="addloc[${count}][d_child_rate]" value="${child_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>C.Without Bed Rate</b></div>
-														<input type="text" id="d_child_wb_rate${count}" name="addloc[${count}][d_child_wb_rate]" value="${child_wb_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Extra Bed Rate</b></div>
-														<input type="text" id="d_extra_bed_rate${count}" name="addloc[${count}][d_extra_bed_rate]" value="${extra_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-														<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Total</b></div>
-														<input type="text" id="d_total_rate${count}" name="addloc[${count}][d_total_rate]" value="${d_totals}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-													
-												</div>`;
-					} else {
-						newCard += `<input type="hidden" id="double${count}" name="addloc[${count}][double]" value="0">
-															<input type="hidden" id="d_adult_rate${count}" name="addloc[${count}][d_adult_rate]" value="0">
-															<input type="hidden" id="d_child_rate${count}" name="addloc[${count}][d_child_rate]" value="0">
-															<input type="hidden" id="d_child_wb_rate${count}" name="addloc[${count}][d_child_wb_rate]" value="0">
-															<input type="hidden" id="d_extra_bed_rate${count}" name="addloc[${count}][d_extra_bed_rate]" value="0">
-															<input type="hidden" id="d_total_rate${count}" name="addloc[${count}][d_total_rate]" value="0">`;
-					}
-					if (no_of_single_room > 0) {
-						newCard += `<div class="row mt-2 single_row">
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Single Room</b></div>
-													<input type="text" id="single${count}" name="addloc[${count}][single]" value="${no_of_single_room}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-									
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Daily Room Rate</b></div>
-													<input type="text" id="s_adult_rate${count}" name="addloc[${count}][s_adult_rate]" value="${room_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.With Bed Rate</b></div>
-													<input type="text" id="s_child_rate${count}" name="addloc[${count}][s_child_rate]" value="${child_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.Without Bed Rate</b></div>
-													<input type="text" id="s_child_wb_rate${count}" name="addloc[${count}][s_child_wb_rate]" value="${child_wb_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Extra Bed Rate</b></div>
-													<input type="text" id="s_extra_bed_rate${count}" name="addloc[${count}][s_extra_bed_rate]" value="${extra_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Total</b></div>
-													<input type="text" id="s_total_rate${count}" name="addloc[${count}][s_total_rate]" value="${s_totals}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												
-											</div>`;
-					} else {
-						newCard += `<input type="hidden" id="single${count}" name="addloc[${count}][single]" value="0">
-															<input type="hidden" id="s_adult_rate${count}" name="addloc[${count}][s_adult_rate]" value="0">
-															<input type="hidden" id="s_child_rate${count}" name="addloc[${count}][s_child_rate]" value="0">
-															<input type="hidden" id="s_child_wb_rate${count}" name="addloc[${count}][s_child_wb_rate]" value="0">
-															<input type="hidden" id="s_extra_bed_rate${count}" name="addloc[${count}][s_extra_bed_rate]" value="0">
-															<input type="hidden" id="s_total_rate${count}" name="addloc[${count}][s_total_rate]" value="0">`;
-					}
-					if (is_vehicle_required == 1) {
-
-						$.each(vehicle_models, function(vindex, vmodel) {
-							$.each(vehicleDetails, function(v_index, v_item) {
-								if (vmodel.vehicle_type_id == v_item.veh_type_id) {
-									vid_t = count + vmodel.vehicle_type_id;
-									v_day_rent = v_item.day_rent;
-									v_max_km_day = v_item.max_km_day;
-									v_travel_distance = v_item.travel_distance;
-									v_extra_kilometer = v_item.extra_kilometer;
-									v_extra_km_rate = v_item.extra_km_rate;
-									v_veh_total = v_item.veh_total;
-									v_veh_header = v_item.veh_header;
-								}
-							});
-							if (vindex == 0) {
-								newCard += `
-												<center><div class="col-md-12 col-lg-12 col-xl-12"style="padding-top:10px;"><h5 style="color:#003300;">Vehicle Details<span id="v_from_to${count}">${v_veh_header}</span></h5></div></center>
-												<input type="hidden" id="veh_header${count}" name="addloc[${count}][veh_header]" value="${v_veh_header}">
-												<div class="row mt-2 single_row">
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Vehicle Model</b></div>
-													</div>		
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Vehicle Count</b></div>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Daily Rent</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Max KM/Day</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Distance</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Extra KM</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Extra KM Rate</b></div>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Total</b></div>
-													</div>
-												</div>
-														`;
-							}
-							vid = count + vmodel.vehicle_type_id;
-							newCard += `<div class="row mt-2 single_row">
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="veh_model${vid}" name="addloc[${count}][veh_model][${vindex}]" value="${vmodel.vehicle_model_name}" class="form-control input-sm veh_model${vindex}" readonly>
-														<input type="hidden" id="veh_type_id${vid}" name="addloc[${count}][veh_type_id][${vindex}]" value="${vmodel.vehicle_type_id}" class="form-control input-sm veh_type_id${vindex}">
-													</div>
-										
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="veh_count${vid}" name="addloc[${count}][veh_count][${vindex}]" value="${vmodel.vehicle_count}" class="form-control input-sm veh_count${vindex}" maxlength="2" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-													
-														<input type="text" id="day_rent${vid}" name="addloc[${count}][day_rent][${vindex}]" value="${v_day_rent}" class="form-control input-sm cls_daily day_rent${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-													
-														<input type="text" id="max_km_day${vid}" name="addloc[${count}][max_km_day][${vindex}]" value="${v_max_km_day}" class="form-control input-sm max_km_day${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-													
-														<input type="text" id="travel_distance${vid}" name="addloc[${count}][travel_distance][${vindex}]" value="${v_travel_distance}" class="form-control input-sm cls_dist travel_distance${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-													
-														<input type="text" id="extra_kilometer${vid}" name="addloc[${count}][extra_kilometer][${vindex}]" value="${v_extra_kilometer}" class="form-control input-sm extra_kilometer${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														
-														<input type="text" id="extra_km_rate${vid}" name="addloc[${count}][extra_km_rate][${vindex}]" value="${v_extra_km_rate}" class="form-control input-sm extra_km_rate${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="veh_total${vid}" name="addloc[${count}][veh_total][${vindex}]" value="${v_veh_total}" class="form-control input-sm veh_total${vindex}" maxlength="5" oninput="validateNumericInput(this);"readonly>
-													</div>
-													
-												</div>`;
-						});
-					} else {
-						newCard += `<input type="hidden" id="veh_model${count}0" name="addloc[${count}][veh_model][0]" value="">
-															<input type="hidden" id="veh_count${count}0" name="addloc[${count}][veh_count][0]" value="0">
-															<input type="hidden" id="day_rent${count}0" name="addloc[${count}][day_rent][0]" value="0">
-															<input type="hidden" id="max_km_day${count}0" name="addloc[${count}][max_km_day][0]" value="0">
-															<input type="hidden" id="extra_km_rate${count}0" name="addloc[${count}][extra_km_rate][0]" value="0">
-															<input type="hidden" id="veh_total${count}0" name="addloc[${count}][veh_total][0]" value="0">`;
-					}
-					newCard += `
-											
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					`;
-					setTimeout(function() {
-						var hotelCat = $('#hotelcat' + count);
-						console.log("Dropdown found?", hotelCat.length);
-
-						if (hotelCat.length > 0) {
-							hotelCat.empty();
-							hotelCat.append('<option value="">Select</option>');
-
-							$.each(hotel_categories, function(hIndex, hotelcat) {
-								var selected = (hotelcat.hotel_category_id == item.hot_cat_id) ? "selected" : "";
-								hotelCat.append('<option value="' + hotelcat.hotel_category_id + '" ' + selected + '>' + hotelcat.hotel_category_name + '</option>');
-							});
-
-							hotelCat.trigger('change');
-						} else {
-							console.log("Dropdown not found. Ensure it exists before updating.");
-						}
-					}, 500);
-				});
-				//$(".tour_plan_div").append(newCard);
-
-				$('.tab_con').html(newCard);
-				$('#modal_tour').modal('show');
-			},
-			error: function(xhr, status, error) {
-				console.error(error);
-			}
-		});
-	});
-</script>
-
-<script type="text/javascript">
-	$(document).on('click', '.qq_view', function(e) {
-		e.preventDefault();
-		var tourPlanDet = <?php echo json_encode($tour_plan_det); ?>;
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-		var quick_quote_det = <?php echo json_encode($quick_quote_det); ?>;
-		var rts;
-		var room_types = JSON.parse(tourPlanDet[0]['room_type']);
-		var vehicle_details = JSON.parse(tourPlanDet[0]['vehicle_details']);
-		var rt_count = 0;
-		var sino;
-		var room_t_d = 0;
-		var room_t_s = 0;
-
-		var child_t_d = 0;
-		var child_t_s = 0;
-
-		var child_wb_t_d = 0;
-		var child_wb_t_s = 0;
-
-		var extra_t_d = 0;
-		var extra_t_s = 0;
-
-		var no_of_double = 0;
-		var no_of_single = 0;
-
-		var room_total;
-		var child_total;
-		var child_wb_total;
-		var extra_total;
-		var d_totals = 0;
-		var s_totals = 0;
-		var g_total = 0;
-		var veh_total;
-		var veh_totals;
-		var extra_cost;
-		var ttc = 0;
-		$.each(room_types, function(index1, item1) {
-			if (parseInt(item1.double) > 0) {
-				rt_count += 1;
-				no_of_double = item1.double;
-			}
-			if (parseInt(item1.single) > 0) {
-				rt_count += 1;
-				no_of_single = item1.single;
-			}
-		});
-
-		var html = '';
-		html += '<table class="table table-bordered table-responsive-md">';
-		html += '<tr>';
-		html += '<th colspan="7" style="text-align:center;"> Accommodation </th>';
-		html += '<th colspan="6" style="text-align:center;"> Quantity </th>';
-		html += '<th colspan="6" style="text-align:center;"> Tariff Rates </th>';
-		html += '</tr>';
-		html += '<tr>';
-		html += '<th> Si No </th>';
-		html += '<th> Location </th>';
-		html += '<th> Start Date </th>';
-		html += '<th> Nights </th>';
-		html += '<th> End Date </th>';
-		html += '<th> Hotel </th>';
-		html += '<th> Room Category </th>';
-		if (no_of_double > 0) {
-			html += '<th> Double </th>';
-		}
-		if (no_of_single > 0) {
-			html += '<th> Single </th>';
-		}
-		html += '<th> Adult </th>';
-		html += '<th> C.With Bed </th>';
-		html += '<th> C.Without Bed </th>';
-		html += '<th> Extra Bed </th>';
-
-		html += '<th> Room Type </th>';
-		html += '<th> Adult </th>';
-		html += '<th> C.With Bed </th>';
-		html += '<th> C.Without Bed </th>';
-		html += '<th> Extra Bed </th>';
-
-		html += '<th> Total </th>';
-		html += '</tr>';
-		$.each(quick_quote_det, function(index, item) {
-			sino = index + 1;
-			rts = JSON.parse(item.room_type);
-			html += '<tr>';
-
-			if (item.is_own_arrangement == 1) {
-				html += '<td>' + sino + '</td>';
-				html += '<td>' + item.geog_name + '</td>';
-				html += '<td>' + item.check_in_date + '</td>';
-				html += '<td>' + item.no_of_days + '</td>';
-				html += '<td>' + item.check_out_date + '</td>';
-				html += '<td>' + item.object_name + '</td>';
-				html += '<td>' + item.room_category_name + '</td>';
-
-				if (no_of_double > 0) {
-					html += '<td>' + item.no_of_double_room + '</td>';
-				}
-				if (no_of_single > 0) {
-					html += '<td>' + item.no_of_single_room + '</td>';
-				}
-				html += '<td>' + item.no_of_adult + '</td>';
-				html += '<td>' + item.no_of_child_with_bed + '</td>';
-				html += '<td>' + item.no_of_child_without_bed + '</td>';
-				html += '<td>' + item.no_of_extra_bed + '</td>';
-				html += '<td colspan="6">Own Arrangement</td>';
-
-			} else {
-				html += '<td rowspan="' + rt_count + '">' + sino + '</td>';
-				html += '<td rowspan="' + rt_count + '">' + item.geog_name + '</td>';
-				html += '<td rowspan="' + rt_count + '">' + item.check_in_date + '</td>';
-				html += '<td rowspan="' + rt_count + '">' + item.no_of_days + '</td>';
-				html += '<td rowspan="' + rt_count + '">' + item.check_out_date + '</td>';
-				html += '<td rowspan="' + rt_count + '">' + item.object_name + '</td>';
-				html += '<td rowspan="' + rt_count + '">' + item.room_category_name + '</td>';
-
-				if (no_of_double > 0) {
-					html += '<td rowspan="' + rt_count + '">' + item.no_of_double_room + '</td>';
-				}
-				if (no_of_single > 0) {
-					html += '<td rowspan="' + rt_count + '">' + item.no_of_single_room + '</td>';
-				}
-				html += '<td rowspan="' + rt_count + '">' + item.no_of_adult + '</td>';
-				html += '<td rowspan="' + rt_count + '">' + item.no_of_child_with_bed + '</td>';
-				html += '<td rowspan="' + rt_count + '">' + item.no_of_child_without_bed + '</td>';
-				html += '<td rowspan="' + rt_count + '">' + item.no_of_extra_bed + '</td>';
-				$.each(rts, function(index2, item2) {
-					if (item2.double > 0) {
-						html += '<td>Double</td>';
-						$.each(item.cost, function(index3, item3) {
-							if (item3.cost_component_id == "6" && item3.room_type_id == "2") {
-								room_t_d = item3.quick_quote_tariff;
-							}
-							if (item3.cost_component_id == "12" && item3.room_type_id == "2") {
-								child_t_d = item3.quick_quote_tariff;
-							}
-							if (item3.cost_component_id == "15" && item3.room_type_id == "2") {
-								child_wb_t_d = item3.quick_quote_tariff;
-							}
-							if (item3.cost_component_id == "9" && item3.room_type_id == "2") {
-								extra_t_d = item3.quick_quote_tariff;
-							}
-						});
-						html += '<td>' + room_t_d + '</td>';
-						html += '<td>' + child_t_d + '</td>';
-						html += '<td>' + child_wb_t_d + '</td>';
-						html += '<td>' + extra_t_d + '</td>';
-						room_total = parseInt(item.no_of_double_room) * parseInt(room_t_d);
-						child_total = parseInt(item.no_of_child_with_bed) * parseInt(child_t_d);
-						child_wb_total = parseInt(item.no_of_child_without_bed) * parseInt(child_wb_t_d);
-						extra_total = parseInt(item.no_of_extra_bed) * parseInt(extra_t_d);
-						var d_totals = (room_total + child_total + child_wb_total + extra_total) * parseInt(item.no_of_days);
-						g_total = g_total + d_totals;
-						html += '<td><b>' + d_totals + '</b></td>';
-					}
-
-					html += '</tr>';
-					html += '<tr>';
-					if (item2.single > 0) {
-						html += '<td>Single</td>';
-						$.each(item.cost, function(index3, item3) {
-							if (item3.cost_component_id == "6" && item3.room_type_id == "1") {
-								room_t_s = item3.quick_quote_tariff;
-							}
-							if (item3.cost_component_id == "12" && item3.room_type_id == "1") {
-								child_t_s = item3.quick_quote_tariff;
-							}
-							if (item3.cost_component_id == "15" && item3.room_type_id == "1") {
-								child_wb_t_s = item3.quick_quote_tariff;
-							}
-							if (item3.cost_component_id == "9" && item3.room_type_id == "1") {
-								extra_t_s = item3.quick_quote_tariff;
-							}
-						});
-						html += '<td>' + room_t_s + '</td>';
-						html += '<td>' + child_t_s + '</td>';
-						html += '<td>' + child_wb_t_s + '</td>';
-						html += '<td>' + extra_t_s + '</td>';
-						s_totals = (parseInt(item.no_of_single_room) * parseInt(room_t_s)) * parseInt(item.no_of_days);
-						g_total = g_total + s_totals;
-						html += '<td><b>' + s_totals + '</b></td>';
-					}
-
-				});
-			}
-
-			html += '</tr>';
-		});
-		html += '</table>';
-		html += '<h4 style="float:right;">Total Accommodation Cost : Rs. ' + g_total + '.00</h4>';
-		if (vehicle_details != null) {
-			html += '<table class="table table-bordered table-responsive-md">';
-			html += '<tr>';
-			html += '<th colspan="12" style="text-align:center;"> Transportation </th>';
-			html += '</tr>';
-			html += '<tr>';
-			html += '<th> Si No </th>';
-			html += '<th> Location </th>';
-			html += '<th> Checkin </th>';
-			html += '<th> Night </th>';
-			html += '<th> Checkout </th>';
-
-			html += '<th> Vehicle Model </th>';
-			html += '<th> Vehicle Count </th>';
-			html += '<th> Day Rent </th>';
-			html += '<th> Distance </th>';
-			html += '<th> Extra KM </th>';
-			html += '<th> Extra KM Rate </th>';
-			html += '<th> Total </th>';
-			html += '</tr>';
-			var vehicleDetails;
-			$.each(quick_quote_det, function(index5, item5) {
-				sino = index5 + 1;
-				vehicleDetails = JSON.parse(item5.vehicle_details);
-				html += '<tr>';
-				html += '<td rowspan="' + vehicle_details.length + '">' + sino + '</td>';
-				html += '<td rowspan="' + vehicle_details.length + '">' + item5.geog_name + '</td>';
-				html += '<td rowspan="' + vehicle_details.length + '">' + item5.check_in_date + '</td>';
-				html += '<td rowspan="' + vehicle_details.length + '">' + item5.no_of_days + '</td>';
-				html += '<td rowspan="' + vehicle_details.length + '">' + item5.check_out_date + '</td>';
-				$.each(vehicleDetails, function(indexv, itemv) {
-					extra_cost = parseInt(itemv.extra_kilometer) * parseInt(itemv.extra_km_rate);
-					veh_totals = (parseInt(itemv.vehicle_count) * parseInt(itemv.day_rent)) * parseInt(item5.no_of_days);
-					veh_total = veh_totals + extra_cost;
-
-					html += '<td>' + itemv.vehicle_model + '</td>';
-					html += '<td>' + itemv.vehicle_count + '</td>';
-					html += '<td>' + itemv.day_rent + '</td>';
-					html += '<td>' + itemv.travel_distance + '</td>';
-					html += '<td>' + itemv.extra_kilometer + '</td>';
-					html += '<td>' + itemv.extra_km_rate + '</td>';
-					html += '<td>' + veh_total + '</td>';
-					html += '</tr>';
-					html += '<tr>';
-					ttc = ttc + veh_total;
-				});
-				html += '</tr>';
-
-			});
-
-			html += '</table>';
-		}
-		html += '<h4 style="float:right;">Total Transportation Cost : Rs. ' + ttc + '.00</h4>';
-		var grand_total = ttc + g_total;
-		html += '<br><br><h4 style="float:right;">Grand Total : Rs. ' + grand_total + '.00</h4>';
-
-
-		$('.tab_con_qq').html(html);
-		$('#modal_qq').modal('show');
-	});
-</script>
 <script>
 	function double_total_update(id, dataIndex) {
 		var double = parseInt($('#double' + id).val()) || 0;
@@ -10990,29 +9425,76 @@ $cs_trans_total = 0;
 </script>
 
 <script>
-	$(document).ready(function() {
-		// Existing calculation logic assumed here; add TCS handling
-		function calculateTCS() {
-			var total = parseFloat($('#total_final').val()) || 0;
-			var gst = parseFloat($('#gst_final').val()) || 0;
-			var tcsChecked = $('#tcs_checkbox').is(':checked');
-			var tcsRate = 0.05; // 5%
+$(document).ready(function() {
+    var isSavedLoad = parseInt($('#is_saved_load').val()) === 1;
+    if (!isSavedLoad) {
+        calculateCosting();  // Only run on fresh load (no saved data)
+    }
 
-			var tcsAmount = tcsChecked ? Math.round((total + gst) * tcsRate * 100) / 100 : 0;
-			$('#tcs_final').val(tcsAmount);
+    // Recalculate when margin or other inputs change
+    $('#margin_value, #tour_addon_value, #gst_value').on('input change', function() {
+        calculateCosting();
+    });
 
-			var tpc = total + gst + tcsAmount;
-			$('#tpc').val(Math.round(tpc * 100) / 100); // Round to 2 decimals
-		}
+    // Recalculate when TCS checkbox is clicked
+    $('#tcs_checkbox').on('change', function() {
+        calculateCosting();
+    });
 
-		// Trigger on changes to total, gst, or tcs checkbox
-		$('#total_final, #gst_final, #tcs_checkbox').on('change input', calculateTCS);
-		$('#gst_value').on('change', function() {
-			// Assuming existing GST calc triggers this
-			setTimeout(calculateTCS, 100); // Delay if GST calc is async
-		});
+    // Main costing calculation function
+    function calculateCosting() {
+        // STEP 1: Get base values
+        var tnr = parseFloat($('#tnr_hidden').val()) || 0;
+        var marginPercent = parseFloat($('#margin_value').val()) || 0;
+        var tourAddon = parseFloat($('#tour_addon_value').val()) || 0;
 
-		// Initial calc
-		calculateTCS();
-	});
+        // STEP 2: Calculate margin amount
+        var marginAmount = Math.round((tnr * marginPercent / 100) * 100) / 100;
+        $('#margin_total').val(marginAmount);
+
+        // STEP 3: Calculate tour addon total
+        $('#tour_addon_total').val(tourAddon);
+
+        // STEP 4: Calculate TOTAL (TNR + Margin + Tour Addon)
+        var total = Math.round((tnr + marginAmount + tourAddon) * 100) / 100;
+        $('#total_final').val(total);
+
+        // STEP 5: Calculate GST on TOTAL
+        var gstPercent = parseFloat($('#gst_value').val()) || 0;
+        var gstAmount = Math.round((total * gstPercent / 100) * 100) / 100;
+        $('#gst_final').val(gstAmount);
+
+        // STEP 6: Calculate TPC (Total Package Cost = Total + GST)
+        var tpc = Math.round((total + gstAmount) * 100) / 100;
+        $('#tpc').val(tpc);
+
+        // STEP 7: Calculate TCS if checkbox is checked (TCS is calculated on TPC)
+        var tcsChecked = $('#tcs_checkbox').is(':checked');
+        var tcsRate = 0.05; // 5%
+        var tcsAmount = 0;
+        
+        if (tcsChecked) {
+            tcsAmount = Math.round(tpc * tcsRate * 100) / 100;
+        }
+        
+        $('#tcs_final').val(tcsAmount);
+        $('#tcs_hidden').val(tcsAmount);
+
+        // STEP 8: Calculate FINAL TPC (TPC + TCS)
+        var tpcWithTcs = Math.round((tpc + tcsAmount) * 100) / 100;
+        $('#tpc_with_tcs').val(tpcWithTcs);
+        $('#tpc_with_tcs_hidden').val(tpcWithTcs);
+
+        // Show/hide the Final TPC row based on TCS checkbox
+        var finalRow = $('#final_tpc_row');
+        if (tcsChecked) {
+            finalRow.show();
+        } else {
+            finalRow.hide();
+            // When TCS is unchecked, set Final TPC to regular TPC
+            $('#tpc_with_tcs').val(tpc);
+            $('#tpc_with_tcs_hidden').val(tpc);
+        }
+    }
+});
 </script>

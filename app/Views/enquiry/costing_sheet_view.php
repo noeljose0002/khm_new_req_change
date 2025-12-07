@@ -10,72 +10,73 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 <?php } else { ?>
 	<textarea name="cost_sheet_template" id="cost_sheet_template" style="width:100%; height:1000px;">
     <?php
-    // === HELPER FUNCTION: Group expansion rooms by identical properties ===
-    function groupExpansionRooms($expansions, $val, $object_det, $room_type = 'double') {
-        $grouped = [];
-       
-        foreach ($expansions as $exp) {
-            // Create a unique key based on comparable fields
-            if ($room_type === 'double') {
-                $key = sprintf(
-                    '%s|%s|%s|%s|%s|%s',
-                    $exp['room_category_name'] ?? 'N/A',
-                    $exp['meal_plan_name'] ?? 'N/A',
-                    $exp['room_rate_double'] ?? 0,
-                    $exp['child_with_bed_double'] ?? 0,
-                    $exp['child_without_bed_double'] ?? 0,
-                    $exp['extra_bed_double'] ?? 0
-                );
-            } else {
-                $key = sprintf(
-                    '%s|%s|%s',
-                    $exp['room_category_name'] ?? 'N/A',
-                    $exp['meal_plan_name'] ?? 'N/A',
-                    $exp['room_rate_single'] ?? 0
-                );
-            }
-           
-            if (!isset($grouped[$key])) {
-                $grouped[$key] = [
-                    'data' => $exp,
-                    'room_count' => 0,
-                    'total' => 0
-                ];
-            }
-           
-            // Accumulate room count
-            $grouped[$key]['room_count']++;
-           
-            // Calculate individual room total based on room type
-            if ($room_type === 'double') {
-                $adult_rate = $exp['room_rate_double'] ?? 0;
-                $child_rate = $exp['child_with_bed_double'] ?? 0;
-                $child_wb_rate = $exp['child_without_bed_double'] ?? 0;
-                $extra_rate = $exp['extra_bed_double'] ?? 0;
-            } else {
-                $adult_rate = $exp['room_rate_single'] ?? 0;
-                $child_rate = 0;
-                $child_wb_rate = 0;
-                $extra_rate = 0;
-            }
-           
-            // Apply GST if applicable
-            if (isset($val['tax_status']) && $val['tax_status'] == 1) {
-                $gst_percent = $exp['gst'] ?? 0;
-                $gst_multiplier = 1 + ($gst_percent / 100);
-                $adult_rate *= $gst_multiplier;
-                $child_rate *= $gst_multiplier;
-                $child_wb_rate *= $gst_multiplier;
-                $extra_rate *= $gst_multiplier;
-            }
-           
-            $room_total = $adult_rate + $child_rate + $child_wb_rate + $extra_rate;
-            $grouped[$key]['total'] += $room_total;
-        }
-       
-        return array_values($grouped);
-    }
-    ?>
+	// === HELPER FUNCTION: Group expansion rooms by identical properties ===
+	function groupExpansionRooms($expansions, $val, $object_det, $room_type = 'double')
+	{
+		$grouped = [];
+
+		foreach ($expansions as $exp) {
+			// Create a unique key based on comparable fields
+			if ($room_type === 'double') {
+				$key = sprintf(
+					'%s|%s|%s|%s|%s|%s',
+					$exp['room_category_name'] ?? 'N/A',
+					$exp['meal_plan_name'] ?? 'N/A',
+					$exp['room_rate_double'] ?? 0,
+					$exp['child_with_bed_double'] ?? 0,
+					$exp['child_without_bed_double'] ?? 0,
+					$exp['extra_bed_double'] ?? 0
+				);
+			} else {
+				$key = sprintf(
+					'%s|%s|%s',
+					$exp['room_category_name'] ?? 'N/A',
+					$exp['meal_plan_name'] ?? 'N/A',
+					$exp['room_rate_single'] ?? 0
+				);
+			}
+
+			if (!isset($grouped[$key])) {
+				$grouped[$key] = [
+					'data' => $exp,
+					'room_count' => 0,
+					'total' => 0
+				];
+			}
+
+			// Accumulate room count
+			$grouped[$key]['room_count']++;
+
+			// Calculate individual room total based on room type
+			if ($room_type === 'double') {
+				$adult_rate = $exp['room_rate_double'] ?? 0;
+				$child_rate = $exp['child_with_bed_double'] ?? 0;
+				$child_wb_rate = $exp['child_without_bed_double'] ?? 0;
+				$extra_rate = $exp['extra_bed_double'] ?? 0;
+			} else {
+				$adult_rate = $exp['room_rate_single'] ?? 0;
+				$child_rate = 0;
+				$child_wb_rate = 0;
+				$extra_rate = 0;
+			}
+
+			// Apply GST if applicable
+			if (isset($val['tax_status']) && $val['tax_status'] == 1) {
+				$gst_percent = $exp['gst'] ?? 0;
+				$gst_multiplier = 1 + ($gst_percent / 100);
+				$adult_rate *= $gst_multiplier;
+				$child_rate *= $gst_multiplier;
+				$child_wb_rate *= $gst_multiplier;
+				$extra_rate *= $gst_multiplier;
+			}
+
+			$room_total = $adult_rate + $child_rate + $child_wb_rate + $extra_rate;
+			$grouped[$key]['total'] += $room_total;
+		}
+
+		return array_values($grouped);
+	}
+	?>
     <div class="container">
       
         <table style="width:100%;border-collapse: collapse;">  
@@ -281,36 +282,36 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 
 									// === RENDER GROUPED DOUBLE ROOM ROWS ===
 									if ($double_row_count > 0) {
-									    if (!empty($double_expansions)) {
-									        // Group double expansions - already grouped above
-									        foreach ($grouped_doubles as $g_idx => $group) {
-									            $d_exp = $group['data'];
-									            $room_count = $group['room_count'];
-									            $group_total = $group['total'];
-									           
-									            $d_adult_rate = $d_exp['room_rate_double'] ?? 0;
-									            $d_child_rate = $d_exp['child_with_bed_double'] ?? 0;
-									            $d_child_wb_rate = $d_exp['child_without_bed_double'] ?? 0;
-									            $d_extra_rate = $d_exp['extra_bed_double'] ?? 0;
-									           
-									            $d_room_cat_name = $d_exp['room_category_name'] ?? 'N/A';
-									            $d_meal_plan_name = $d_exp['meal_plan_name'] ?? 'N/A';
-									           
-									            // Apply GST if applicable
-									            if (isset($val['tax_status']) && $val['tax_status'] == 1) {
-									                $gst_percent = $d_exp['gst'] ?? 0;
-									                $gst_multiplier = 1 + ($gst_percent / 100);
-									                $d_adult_rate_display = $d_adult_rate * $gst_multiplier;
-									                $d_child_rate_display = $d_child_rate * $gst_multiplier;
-									                $d_child_wb_rate_display = $d_child_wb_rate * $gst_multiplier;
-									                $d_extra_rate_display = $d_extra_rate * $gst_multiplier;
-									            } else {
-									                $d_adult_rate_display = $d_adult_rate;
-									                $d_child_rate_display = $d_child_rate;
-									                $d_child_wb_rate_display = $d_child_wb_rate;
-									                $d_extra_rate_display = $d_extra_rate;
-									            }
-									        ?>
+										if (!empty($double_expansions)) {
+											// Group double expansions - already grouped above
+											foreach ($grouped_doubles as $g_idx => $group) {
+												$d_exp = $group['data'];
+												$room_count = $group['room_count'];
+												$group_total = $group['total'];
+
+												$d_adult_rate = $d_exp['room_rate_double'] ?? 0;
+												$d_child_rate = $d_exp['child_with_bed_double'] ?? 0;
+												$d_child_wb_rate = $d_exp['child_without_bed_double'] ?? 0;
+												$d_extra_rate = $d_exp['extra_bed_double'] ?? 0;
+
+												$d_room_cat_name = $d_exp['room_category_name'] ?? 'N/A';
+												$d_meal_plan_name = $d_exp['meal_plan_name'] ?? 'N/A';
+
+												// Apply GST if applicable
+												if (isset($val['tax_status']) && $val['tax_status'] == 1) {
+													$gst_percent = $d_exp['gst'] ?? 0;
+													$gst_multiplier = 1 + ($gst_percent / 100);
+													$d_adult_rate_display = $d_adult_rate * $gst_multiplier;
+													$d_child_rate_display = $d_child_rate * $gst_multiplier;
+													$d_child_wb_rate_display = $d_child_wb_rate * $gst_multiplier;
+													$d_extra_rate_display = $d_extra_rate * $gst_multiplier;
+												} else {
+													$d_adult_rate_display = $d_adult_rate;
+													$d_child_rate_display = $d_child_rate;
+													$d_child_wb_rate_display = $d_child_wb_rate;
+													$d_extra_rate_display = $d_extra_rate;
+												}
+							?>
 									            <tr>
 									                <?php if ($row_counter === 0) { ?>
 									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
@@ -347,25 +348,25 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <td style="border:1px solid black;text-align:right;"><?php echo number_format($group_total, 2); ?></td>
 									            </tr>
 									        <?php
-									            $row_counter++;
-									        }
-									    } else {
-									        // STATIC MODE: Original ungrouped logic remains unchanged
-									        $dtotal = ($val['double_room'] * $room_t_d) + ($val['child_with_bed'] * $child_t_d) + ($val['child_without_bed'] * $child_wb_t_d) + ($val['extra_bed'] * $extra_t_d);
+												$row_counter++;
+											}
+										} else {
+											// STATIC MODE: Original ungrouped logic remains unchanged
+											$dtotal = ($val['double_room'] * $room_t_d) + ($val['child_with_bed'] * $child_t_d) + ($val['child_without_bed'] * $child_wb_t_d) + ($val['extra_bed'] * $extra_t_d);
 
-									        if ($val['tax_status'] == 1) {
-									            $room_t_d_display = $val['adult_eighteen_double'] ?? $room_t_d;
-									            $child_t_d_display = $val['child_eighteen_double'] ?? $child_t_d;
-									            $child_wb_t_d_display = $val['child_wb_eighteen_double'] ?? $child_wb_t_d;
-									            $extra_t_d_display = $val['extra_eighteen_double'] ?? $extra_t_d;
-									            $dtotal = $val['tac_eighteen_double'] ?? $dtotal;
-									        } else {
-									            $room_t_d_display = $room_t_d;
-									            $child_t_d_display = $child_t_d;
-									            $child_wb_t_d_display = $child_wb_t_d;
-									            $extra_t_d_display = $extra_t_d;
-									        }
-									        ?>
+											if ($val['tax_status'] == 1) {
+												$room_t_d_display = $val['adult_eighteen_double'] ?? $room_t_d;
+												$child_t_d_display = $val['child_eighteen_double'] ?? $child_t_d;
+												$child_wb_t_d_display = $val['child_wb_eighteen_double'] ?? $child_wb_t_d;
+												$extra_t_d_display = $val['extra_eighteen_double'] ?? $extra_t_d;
+												$dtotal = $val['tac_eighteen_double'] ?? $dtotal;
+											} else {
+												$room_t_d_display = $room_t_d;
+												$child_t_d_display = $child_t_d;
+												$child_wb_t_d_display = $child_wb_t_d;
+												$extra_t_d_display = $extra_t_d;
+											}
+											?>
 									            <tr>
 									                <?php if ($row_counter === 0) { ?>
 									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
@@ -410,31 +411,31 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <td style="border:1px solid black;text-align:right;"><?php echo number_format($dtotal, 2); ?></td>
 									            </tr>
 									        <?php
-									            $row_counter++;
-									        }
-									    }
-									
+											$row_counter++;
+										}
+									}
+
 
 									// === RENDER GROUPED SINGLE ROOM ROWS ===
 									if ($single_row_count > 0) {
-									    if (!empty($single_expansions)) {
-									        // Group single expansions - already grouped above
-									        foreach ($grouped_singles as $s_idx => $group) {
-									            $s_exp = $group['data'];
-									            $room_count = $group['room_count'];
-									            $group_total = $group['total'];
-									           
-									            $s_adult_rate = $s_exp['room_rate_single'] ?? 0;
-									            $s_room_cat_name = $s_exp['room_category_name'] ?? 'N/A';
-									            $s_meal_plan_name = $s_exp['meal_plan_name'] ?? 'N/A';
-									           
-									            if (isset($val['tax_status']) && $val['tax_status'] == 1) {
-									                $gst_percent = $s_exp['gst'] ?? 0;
-									                $s_adult_rate_display = $s_adult_rate * (1 + ($gst_percent / 100));
-									            } else {
-									                $s_adult_rate_display = $s_adult_rate;
-									            }
-									        ?>
+										if (!empty($single_expansions)) {
+											// Group single expansions - already grouped above
+											foreach ($grouped_singles as $s_idx => $group) {
+												$s_exp = $group['data'];
+												$room_count = $group['room_count'];
+												$group_total = $group['total'];
+
+												$s_adult_rate = $s_exp['room_rate_single'] ?? 0;
+												$s_room_cat_name = $s_exp['room_category_name'] ?? 'N/A';
+												$s_meal_plan_name = $s_exp['meal_plan_name'] ?? 'N/A';
+
+												if (isset($val['tax_status']) && $val['tax_status'] == 1) {
+													$gst_percent = $s_exp['gst'] ?? 0;
+													$s_adult_rate_display = $s_adult_rate * (1 + ($gst_percent / 100));
+												} else {
+													$s_adult_rate_display = $s_adult_rate;
+												}
+											?>
 									            <tr>
 									                <?php if ($row_counter === 0 && $double_row_count == 0) { ?>
 									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
@@ -471,19 +472,19 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <td style="border:1px solid black;text-align:right;"><?php echo number_format($group_total, 2); ?></td>
 									            </tr>
 									        <?php
-									            $row_counter++;
-									        }
-									    } else {
-									        // STATIC MODE: Original ungrouped logic remains unchanged
-									        $stotal = $val['single_room'] * $room_t_s;
+												$row_counter++;
+											}
+										} else {
+											// STATIC MODE: Original ungrouped logic remains unchanged
+											$stotal = $val['single_room'] * $room_t_s;
 
-									        if ($val['tax_status'] == 1) {
-									            $room_t_s_display = $val['adult_eighteen_single'] ?? $room_t_s;
-									            $stotal = $val['tac_eighteen_single'] ?? $stotal;
-									        } else {
-									            $room_t_s_display = $room_t_s;
-									        }
-									        ?>
+											if ($val['tax_status'] == 1) {
+												$room_t_s_display = $val['adult_eighteen_single'] ?? $room_t_s;
+												$stotal = $val['tac_eighteen_single'] ?? $stotal;
+											} else {
+												$room_t_s_display = $room_t_s;
+											}
+											?>
 									            <tr>
 									                <?php if ($row_counter === 0 && $double_row_count == 0) { ?>
 									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
@@ -516,13 +517,13 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <td style="border:1px solid black;text-align:right;"><?php echo number_format($stotal, 2); ?></td>
 									            </tr>
 									        <?php
-									            $row_counter++;
-									        }
+											$row_counter++;
+										}
 									}
 									$k = $k + 1;
 								}
 							}
-									?>
+											?>
                         </table> 
 						<br/>
 						<?php
@@ -894,6 +895,10 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 							 <td><b>GST Total</b></td>
 							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['gst_value']; ?></td>
 						</tr>
+						<tr>
+							 <td><b>Total Package Cost</b></td>
+							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['tpc']; ?></td>
+						</tr>
 						 <?php if ($iti_cost_datas[0]['is_tcs'] == 1) { ?>
         <tr>
             <td><b>TCS %</b></td>
@@ -901,13 +906,17 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
         </tr>
         <tr>
             <td><b>TCS Amount</b></td>
-            <td style="text-align:right;"><?php echo number_format($iti_cost_datas[0]['tcs_value'], 2); ?></td>
+            <td style="text-align:right;"><?php echo ($iti_cost_datas[0]['tcs_value']); ?></td>
         </tr>
+		<tr>
+		<td>
+			 <b>Total Package Cost(With TCS)</b>
+				</td>
+																
+			<td style="text-align:right;"><?php echo ($iti_cost_datas[0]['tpc_with_tcs']); ?></td>
+				</tr>
         <?php } ?>
-						<tr>
-							 <td><b>Total Package Cost</b></td>
-							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['tpc']; ?></td>
-						</tr>
+						
 				</table>
 
 				<?php } ?>

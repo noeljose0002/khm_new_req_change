@@ -2560,7 +2560,7 @@ class Enquiry extends BaseController
                 $data['obj_loc'] = $obj_loc;
                 $data['object_id'] = $object_id;
                 $data['pre_tour_plan'] = $pre_tour_plan;
-                $data['pre_enq_details']=$pre_enq_details;
+                $data['pre_enq_details'] = $pre_enq_details;
                 $data['cur_tour_plan'] = $cur_tour_plan;
                 $data['pre_start_date'] = $pre_start_date;
                 $data['pre_no_night'] = $pre_no_night;
@@ -6068,13 +6068,13 @@ class Enquiry extends BaseController
                 $extension_ref_id_temp = 0;
             }
             $object_det = $Enquiry_model->get_object_details($object_id);
-          if ($edit_id > 0 && $extension_ref_id !== null) {
-    // We're editing a specific itinerary version - load its previous version for comparison
-    $last_itinerary = $Enquiry_model->get_last_itinerary_saved($object_det[0]['enquiry_header_id']);
-    if (!empty($last_itinerary)) {
-        $previous_itinerary_details_save = $Enquiry_model->get_itinerary_previous_details($last_itinerary['extension_ref_id']);
-    }
-}
+            if ($edit_id > 0 && $extension_ref_id !== null) {
+                // We're editing a specific itinerary version - load its previous version for comparison
+                $last_itinerary = $Enquiry_model->get_last_itinerary_saved($object_det[0]['enquiry_header_id']);
+                if (!empty($last_itinerary)) {
+                    $previous_itinerary_details_save = $Enquiry_model->get_itinerary_previous_details($last_itinerary['extension_ref_id']);
+                }
+            }
             if ($edit_id > 0 && $extension_ref_id !== null && (int)$extension_ref_id === 0) {
                 $enq_ext_ids = $Enquiry_model->get_enquiry_extensions_byid($edit_id);
                 if (!empty($enq_ext_ids)) {
@@ -9471,6 +9471,10 @@ class Enquiry extends BaseController
         $gst_value = $this->request->getPost('gst_value');
         $gst_final = $this->request->getPost('gst_final');
         $tpc = $this->request->getPost('tpc');
+    
+
+        // TPC WITH TCS (separate field)
+        $tpc_with_tcs = $this->request->getPost('tpc_with_tcs_hidden') ?: $tpc;
 
         $tac_hidden = $this->request->getPost('tac_hidden');
         $ttc_hidden = $this->request->getPost('ttc_hidden');
@@ -9509,6 +9513,7 @@ class Enquiry extends BaseController
             'is_bifurcation' => $bifurcation_status,
             'is_tcs' => $tcs_checkbox,  // TCS checkbox status (1 if checked, 0 if not)
             'tcs_value' => $tcs_final,  // TCS calculated value
+            'tpc_with_tcs' => $tpc_with_tcs, 
             'enterprise_id' => 1
         );
         $enquiry_detail_details_id = $Enquiry_model->insert_iti_costing($data_cs);
@@ -9823,6 +9828,7 @@ class Enquiry extends BaseController
         $response['final_cs_data'] = $final_cs_data;
         $response['is_tcs'] = $iti_cost_datas[0]['is_tcs'];
         $response['tcs_value'] = $iti_cost_datas[0]['tcs_value'];
+        $response['tpc_with_tcs'] = $iti_cost_datas[0]['tpc_with_tcs'];
 
         echo view('enquiry/costing_sheet_view', $response);
     }
@@ -9928,73 +9934,73 @@ class Enquiry extends BaseController
 
         echo view('enquiry/final_itinerary_sheet_view', $response);
     }
-  public function viewMultipleItinerarySheet()
-{
-    $Enquiry_model = new Enquiry_m();
+    public function viewMultipleItinerarySheet()
+    {
+        $Enquiry_model = new Enquiry_m();
 
-    $selectedIDs = $this->request->getPost('selectedIDs') ?? [];
-    $response = [];
-    
-    foreach ($selectedIDs as $key => $id) {
-        $itinerary_details_save = [];
-        $result2 = [];
-        $object_det = [];
-        $tour_plan_det = [];
-        $final_iti_data = [];
-        
-        $ext_det = $Enquiry_model->getExtensionDetailsbyid($id);
-        $extension_ref_id = $ext_det[0]['extension_ref_id'];
-        $tourplan_ref_id = $ext_det[0]['tour_plan_ref_id'];
-        $enq_ref_id = $ext_det[0]['enquiry_ref_id'];
-        
-        $iti_cost_datas = $Enquiry_model->get_iti_cost($id);
-        
-        // Get final itinerary data if confirmed
-        if ($iti_cost_datas[0]['cs_confirmed_id'] > 0) {
-            $final_iti_datas = $Enquiry_model->get_final_costing_sheet($iti_cost_datas[0]['cs_confirmed_id']);
-            $final_iti_data = $final_iti_datas[0]['itinerary'];
-        }
-        
-        $object_det = $Enquiry_model->get_object_details_forcs($iti_cost_datas[0]['object_id'], $enq_ref_id);
-        $tour_plan_det = $Enquiry_model->get_tour_plan_details_foredit($tourplan_ref_id);
-        
-        foreach ($tour_plan_det as $keys => $vals) {
-            $result2 = $Enquiry_model->get_itinerary_save_details_for_cs($id, $extension_ref_id, $enq_ref_id, $vals['tour_details_id']);
-            if (!empty($result2)) {
-                $itinerary_details_save = [...$itinerary_details_save, ...$result2];
+        $selectedIDs = $this->request->getPost('selectedIDs') ?? [];
+        $response = [];
+
+        foreach ($selectedIDs as $key => $id) {
+            $itinerary_details_save = [];
+            $result2 = [];
+            $object_det = [];
+            $tour_plan_det = [];
+            $final_iti_data = [];
+
+            $ext_det = $Enquiry_model->getExtensionDetailsbyid($id);
+            $extension_ref_id = $ext_det[0]['extension_ref_id'];
+            $tourplan_ref_id = $ext_det[0]['tour_plan_ref_id'];
+            $enq_ref_id = $ext_det[0]['enquiry_ref_id'];
+
+            $iti_cost_datas = $Enquiry_model->get_iti_cost($id);
+
+            // Get final itinerary data if confirmed
+            if ($iti_cost_datas[0]['cs_confirmed_id'] > 0) {
+                $final_iti_datas = $Enquiry_model->get_final_costing_sheet($iti_cost_datas[0]['cs_confirmed_id']);
+                $final_iti_data = $final_iti_datas[0]['itinerary'];
+            }
+
+            $object_det = $Enquiry_model->get_object_details_forcs($iti_cost_datas[0]['object_id'], $enq_ref_id);
+            $tour_plan_det = $Enquiry_model->get_tour_plan_details_foredit($tourplan_ref_id);
+
+            foreach ($tour_plan_det as $keys => $vals) {
+                $result2 = $Enquiry_model->get_itinerary_save_details_for_cs($id, $extension_ref_id, $enq_ref_id, $vals['tour_details_id']);
+                if (!empty($result2)) {
+                    $itinerary_details_save = [...$itinerary_details_save, ...$result2];
+                }
+            }
+
+            $response[$key]['iti_cost_datas'] = $iti_cost_datas;
+            $response[$key]['iti_data'] = $itinerary_details_save;
+            $response[$key]['object_det'] = $object_det;
+            $response[$key]['tour_plan_det'] = $tour_plan_det;
+            $response[$key]['tac_hidden'] = $iti_cost_datas[0]['tac'];
+            $response[$key]['ttc_hidden'] = $iti_cost_datas[0]['ttc'];
+            $response[$key]['spcl_hidden'] = $iti_cost_datas[0]['special_total_cost'];
+            $response[$key]['daily_hidden'] = $iti_cost_datas[0]['daily_total_cost'];
+            $response[$key]['tnr_hidden'] = $iti_cost_datas[0]['tnr'];
+            $response[$key]['is_bifurcation'] = $iti_cost_datas[0]['is_bifurcation'];
+            $response[$key]['final_iti_data'] = $final_iti_data;
+
+            // Add bifurcation data if applicable
+            if ($iti_cost_datas[0]['is_bifurcation'] == 1) {
+                $response[$key]['bifur_double'] = $Enquiry_model->get_bifur_datas($id, 1);
+                $response[$key]['bifur_single'] = $Enquiry_model->get_bifur_datas($id, 2);
+                $response[$key]['bifur_child'] = $Enquiry_model->get_bifur_datas($id, 3);
+                $response[$key]['bifur_child_wb'] = $Enquiry_model->get_bifur_datas($id, 4);
+                $response[$key]['bifur_extra'] = $Enquiry_model->get_bifur_datas($id, 5);
+            } else {
+                $response[$key]['bifur_double'] = [];
+                $response[$key]['bifur_single'] = [];
+                $response[$key]['bifur_child'] = [];
+                $response[$key]['bifur_child_wb'] = [];
+                $response[$key]['bifur_extra'] = [];
             }
         }
-        
-        $response[$key]['iti_cost_datas'] = $iti_cost_datas;
-        $response[$key]['iti_data'] = $itinerary_details_save;
-        $response[$key]['object_det'] = $object_det;
-        $response[$key]['tour_plan_det'] = $tour_plan_det;
-        $response[$key]['tac_hidden'] = $iti_cost_datas[0]['tac'];
-        $response[$key]['ttc_hidden'] = $iti_cost_datas[0]['ttc'];
-        $response[$key]['spcl_hidden'] = $iti_cost_datas[0]['special_total_cost'];
-        $response[$key]['daily_hidden'] = $iti_cost_datas[0]['daily_total_cost'];
-        $response[$key]['tnr_hidden'] = $iti_cost_datas[0]['tnr'];
-        $response[$key]['is_bifurcation'] = $iti_cost_datas[0]['is_bifurcation'];
-        $response[$key]['final_iti_data'] = $final_iti_data;
-        
-        // Add bifurcation data if applicable
-        if ($iti_cost_datas[0]['is_bifurcation'] == 1) {
-            $response[$key]['bifur_double'] = $Enquiry_model->get_bifur_datas($id, 1);
-            $response[$key]['bifur_single'] = $Enquiry_model->get_bifur_datas($id, 2);
-            $response[$key]['bifur_child'] = $Enquiry_model->get_bifur_datas($id, 3);
-            $response[$key]['bifur_child_wb'] = $Enquiry_model->get_bifur_datas($id, 4);
-            $response[$key]['bifur_extra'] = $Enquiry_model->get_bifur_datas($id, 5);
-        } else {
-            $response[$key]['bifur_double'] = [];
-            $response[$key]['bifur_single'] = [];
-            $response[$key]['bifur_child'] = [];
-            $response[$key]['bifur_child_wb'] = [];
-            $response[$key]['bifur_extra'] = [];
-        }
-    }
 
-    echo view('enquiry/multiple_itinerary_sheet_view', ['response' => $response]);
-}
+        echo view('enquiry/multiple_itinerary_sheet_view', ['response' => $response]);
+    }
 
 
     public function getTourTariffDetailsbyTourDetails($tour_date, $hotel_id, $room_cat_id, $mealplan, $double, $single)
