@@ -331,21 +331,21 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <!-- Display total room count -->
 									                <td style="border:1px solid black;"><?php echo $room_count; ?></td>
 									               
-									                <td style="border:1px solid black;text-align:right;"><?php echo number_format($d_adult_rate_display, 2); ?></td>
-									                <?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
-									                    <td style="border:1px solid black;"><?php echo isset($val['child_with_bed']) && $val['child_with_bed'] > 0 ? $room_count : 0; ?></td>
-									                    <td style="border:1px solid black;text-align:right;"><?php echo number_format($d_child_rate_display, 2); ?></td>
-									                <?php } ?>
-									                <?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
-									                    <td style="border:1px solid black;"><?php echo isset($val['child_without_bed']) && $val['child_without_bed'] > 0 ? $room_count : 0; ?></td>
-									                    <td style="border:1px solid black;text-align:right;"><?php echo number_format($d_child_wb_rate_display, 2); ?></td>
-									                <?php } ?>
-									                <?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
-									                    <td style="border:1px solid black;"><?php echo isset($val['extra_bed']) && $val['extra_bed'] > 0 ? $room_count : 0; ?></td>
-									                    <td style="border:1px solid black;text-align:right;"><?php echo number_format($d_extra_rate_display, 2); ?></td>
-									                <?php } ?>
+									                <td style="border:1px solid black;text-align:right;"><?php echo ($d_adult_rate_display); ?></td>
+									               <?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
+														<td style="border:1px solid black;"><?php echo ($d_child_rate > 0) ? $room_count : 0; ?></td>
+														<td style="border:1px solid black;text-align:right;"><?php echo ($d_child_rate_display); ?></td>
+													<?php } ?>
+													<?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
+														<td style="border:1px solid black;"><?php echo ($d_child_wb_rate > 0) ? $room_count : 0; ?></td>
+														<td style="border:1px solid black;text-align:right;"><?php echo ($d_child_wb_rate_display); ?></td>
+													<?php } ?>
+													<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
+														<td style="border:1px solid black;"><?php echo ($d_extra_rate > 0) ? $room_count : 0; ?></td>
+														<td style="border:1px solid black;text-align:right;"><?php echo ($d_extra_rate_display); ?></td>
+													<?php } ?>
 									                <!-- Display grouped total -->
-									                <td style="border:1px solid black;text-align:right;"><?php echo number_format($group_total, 2); ?></td>
+									                <td style="border:1px solid black;text-align:right;"><?php echo ($group_total); ?></td>
 									            </tr>
 									        <?php
 												$row_counter++;

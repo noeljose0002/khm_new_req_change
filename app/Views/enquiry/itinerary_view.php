@@ -3597,20 +3597,17 @@ $cs_trans_total = 0;
 																	<td><?php echo ($d_adult_rate_display); ?></td>
 
 																	<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
-																		<td><?php echo isset($val['child_with_bed']) && $val['child_with_bed'] > 0 ? 1 : 0; ?>
-																		</td>
+																		<td><?php echo ($d_child_rate > 0) ? 1 : 0; ?></td>
 																		<td><?php echo ($d_child_rate_display); ?></td>
 																	<?php } ?>
 
 																	<?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
-																		<td><?php echo isset($val['child_without_bed']) && $val['child_without_bed'] > 0 ? 1 : 0; ?>
-																		</td>
+																		<td><?php echo ($d_child_wb_rate > 0) ? 1 : 0; ?></td>
 																		<td><?php echo ($d_child_wb_rate_display); ?></td>
 																	<?php } ?>
 
 																	<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
-																		<td><?php echo isset($val['extra_bed']) && $val['extra_bed'] > 0 ? 1 : 0; ?>
-																		</td>
+																		<td><?php echo ($d_extra_rate > 0) ? 1 : 0; ?></td>
 																		<td><?php echo ($d_extra_rate_display); ?></td>
 																	<?php } ?>
 
@@ -3758,17 +3755,17 @@ $cs_trans_total = 0;
 																	<td><?php echo ($s_adult_rate_display); ?></td>
 
 																	<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
-																		<td>0</td>
+																		<td><?php echo ($s_child_rate > 0) ? 1 : 0; ?></td>
 																		<td><?php echo ($s_child_rate_display); ?></td>
 																	<?php } ?>
 
 																	<?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
-																		<td>0</td>
+																		<td><?php echo ($s_child_wb_rate > 0) ? 1 : 0; ?></td>
 																		<td><?php echo ($s_child_wb_rate_display); ?></td>
 																	<?php } ?>
 
 																	<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
-																		<td>0</td>
+																		<td><?php echo ($s_extra_rate > 0) ? 1 : 0; ?></td>
 																		<td><?php echo ($s_extra_rate_display); ?></td>
 																	<?php } ?>
 
@@ -4206,595 +4203,595 @@ $cs_trans_total = 0;
 									</div>
 							<?php }
 							} ?>
-						<form id="myTourplanForm1" method="POST" action="<?= site_url('Enquiry/generateCostingSheet'); ?>">
-    <input type="hidden" id="no_of_night_hidden" name="no_of_night_hidden" value="<?php echo $object_det[0]['no_of_night']; ?>">
-    <input type="hidden" id="tac_hidden" name="tac_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['tac'] ?? '0'); ?>">
-    <input type="hidden" id="ttc_hidden" name="ttc_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['ttc'] ?? '0'); ?>">
-    <input type="hidden" id="extraklm_hidden" name="extraklm_hidden" value="<?php echo $total_extra_klm_cost; ?>">
-    <input type="hidden" id="permit_hidden" name="permit_hidden" value="<?php echo $total_permit; ?>">
-    <input type="hidden" id="spcl_hidden" name="spcl_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['special_event'] ?? '0'); ?>">
-    <input type="hidden" id="daily_hidden" name="daily_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['extra_charge'] ?? '0'); ?>">
-    <input type="hidden" id="extension_ref_id" name="extension_ref_id" value="<?php echo $extension_ref_id; ?>">
-    <input type="hidden" name="enquiry_header_id_t" value="<?php echo $object_det[0]['enquiry_header_id']; ?>">
-    <input type="hidden" name="enquiry_details_id_t" value="<?php echo $object_det[0]['enquiry_details_id']; ?>">
-    <input type="hidden" name="object_id_t" value="<?php echo $object_id; ?>">
-    <input type="hidden" id="bifurcation_status" name="bifurcation_status" value="0">
-    <input type="hidden" id="tnr_hidden" name="tnr_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['total_rate'] ?? '0'); ?>">
-    <input type="hidden" id="tcs_hidden" name="tcs_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['tcs_value'] ?? '0'); ?>">
-    <input type="hidden" id="tpc_with_tcs_hidden" name="tpc_with_tcs_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['tpc_with_tcs'] ?? ($iti_cost_datas[0]['tpc'] ?? '0')); ?>">
+							<form id="myTourplanForm1" method="POST" action="<?= site_url('Enquiry/generateCostingSheet'); ?>">
+								<input type="hidden" id="no_of_night_hidden" name="no_of_night_hidden" value="<?php echo $object_det[0]['no_of_night']; ?>">
+								<input type="hidden" id="tac_hidden" name="tac_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['tac'] ?? '0'); ?>">
+								<input type="hidden" id="ttc_hidden" name="ttc_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['ttc'] ?? '0'); ?>">
+								<input type="hidden" id="extraklm_hidden" name="extraklm_hidden" value="<?php echo $total_extra_klm_cost; ?>">
+								<input type="hidden" id="permit_hidden" name="permit_hidden" value="<?php echo $total_permit; ?>">
+								<input type="hidden" id="spcl_hidden" name="spcl_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['special_event'] ?? '0'); ?>">
+								<input type="hidden" id="daily_hidden" name="daily_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['extra_charge'] ?? '0'); ?>">
+								<input type="hidden" id="extension_ref_id" name="extension_ref_id" value="<?php echo $extension_ref_id; ?>">
+								<input type="hidden" name="enquiry_header_id_t" value="<?php echo $object_det[0]['enquiry_header_id']; ?>">
+								<input type="hidden" name="enquiry_details_id_t" value="<?php echo $object_det[0]['enquiry_details_id']; ?>">
+								<input type="hidden" name="object_id_t" value="<?php echo $object_id; ?>">
+								<input type="hidden" id="bifurcation_status" name="bifurcation_status" value="0">
+								<input type="hidden" id="tnr_hidden" name="tnr_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['total_rate'] ?? '0'); ?>">
+								<input type="hidden" id="tcs_hidden" name="tcs_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['tcs_value'] ?? '0'); ?>">
+								<input type="hidden" id="tpc_with_tcs_hidden" name="tpc_with_tcs_hidden" value="<?php echo empty($iti_cost_datas) ? '0' : ($iti_cost_datas[0]['tpc_with_tcs'] ?? ($iti_cost_datas[0]['tpc'] ?? '0')); ?>">
 
-    <?php if (!empty($itinerary_details_save)) {
-        if (empty($iti_cost_datas)) {
-    ?>
-            <div class="costing-container" style="background-color:#003300;">
-                <div class="table-responsive costing-box">
-                    <table class="table">
-                        <tr>
-                            <th>
-                                <h5 style="font-weight:bold;color:#003300;">Total Acc Cost : <span id="tac_span"></span></h5>
-                            </th>
-                            <th>
-                                <h5 style="font-weight:bold;color:#003300;">Total Trans Cost : <span id="ttc_span"></span></h5>
-                            </th>
-                            <th>
-                                <h5 style="font-weight:bold;color:#003300;">Special Event : <span id="spcl_span"></span></h5>
-                            </th>
-                            <th>
-                                <h5 style="font-weight:bold;color:#003300;">Extra Charge : <span id="daily_span"></span></h5>
-                            </th>
-                            <th>
-                                <h5 style="font-weight:bold;color:#003300;">Total Net Rate : <span id="tnr_span"></span></h5>
-                            </th>
-                        </tr>
-                    </table>
-                    <table class="table">
-                        <tr>
-                            <td>
-                                <h5 style="font-weight:bold;color:#003300;">Markup(%)</h5>
-                            </td>
-                            <td><input type="text" id="margin_value" name="margin_value" class="form-control input-sm" maxlength="6" value="<?php echo $mark_up; ?>" <?php echo $read_only_ext; ?>></td>
-                            <td><input type="text" id="margin_total" name="margin_total" class="form-control input-sm" maxlength="6" readonly></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h5 style="font-weight:bold;color:#003300;">Tour Addon</h5>
-                            </td>
-                            <td><input type="text" id="tour_addon_value" name="tour_addon_value" class="form-control input-sm" maxlength="6" value="0" <?php echo $read_only_ext; ?>></td>
-                            <td><input type="text" id="tour_addon_total" name="tour_addon_total" class="form-control input-sm" maxlength="6" readonly></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h5 style="font-weight:bold;color:#003300;">Total</h5>
-                            </td>
-                            <td></td>
-                            <td><input type="text" id="total_final" name="total_final" class="form-control input-sm" maxlength="6" readonly></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h5 style="font-weight:bold;color:#003300;">GST</h5>
-                            </td>
-                            <td>
-                                <select id="gst_value" name="gst_value" class="form-control input-sm" <?php echo $dis_abled_ext; ?>>
-                                    <option value="5">5%</option>
-                                    <option value="18">18%</option>
-                                </select>
-                            </td>
-                            <td><input type="text" id="gst_final" name="gst_final" class="form-control input-sm" maxlength="6" readonly></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h5 style="font-weight:bold;color:#003300;">Total Package Cost</h5>
-                            </td>
-                            <td></td>
-                            <td><input type="text" id="tpc" name="tpc" class="form-control input-sm" maxlength="6" readonly></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h5 style="font-weight:bold;color:#003300;">TCS</h5>
-                            </td>
-                            <td>
-                                <input type="checkbox" id="tcs_checkbox" name="tcs_checkbox" value="0" <?php echo $dis_abled_ext; ?>> 5%
-                            </td>
-                            <td><input type="text" id="tcs_final" name="tcs_final" class="form-control input-sm" maxlength="6" value="0" readonly></td>
-                        </tr>
-                        <tr id="final_tpc_row" style="display: none;">
-                            <td>
-                                <h5 style="font-weight:bold;color:#003300;">Total Package Cost(With TCS)</h5>
-                            </td>
-                            <td></td>
-                            <td><input type="text" id="tpc_with_tcs" name="tpc_with_tcs" class="form-control input-sm" maxlength="6" readonly value="0"></td>
-                        </tr>
-                    </table>
-    <?php } else { ?>
-        <div class="costing-container" style="background-color:#003300;">
-            <div class="table-responsive costing-box">
-                <table class="table">
-                    <tr>
-                        <th>
-                            <h5 style="font-weight:bold;color:#003300;">Total Acc Cost : <span id="tac_span"><?php echo $iti_cost_datas[0]['tac'] ?? ''; ?></span></h5>
-                        </th>
-                        <th>
-                            <h5 style="font-weight:bold;color:#003300;">Total Trans Cost : <span id="ttc_span"><?php echo $iti_cost_datas[0]['ttc'] ?? ''; ?></span></h5>
-                        </th>
-                        <th>
-                            <h5 style="font-weight:bold;color:#003300;">Special Event : <span id="spcl_span"><?php echo $iti_cost_datas[0]['special_event'] ?? ''; ?></span></h5>
-                        </th>
-                        <th>
-                            <h5 style="font-weight:bold;color:#003300;">Extra Charge : <span id="daily_span"><?php echo $iti_cost_datas[0]['extra_charge'] ?? ''; ?></span></h5>
-                        </th>
-                        <th>
-                            <h5 style="font-weight:bold;color:#003300;">Total Net Rate : <span id="tnr_span"><?php echo $iti_cost_datas[0]['total_rate'] ?? ''; ?></span></h5>
-                        </th>
-                    </tr>
-                </table>
-                <table class="table">
-                    <tr>
-                        <td>
-                            <h5 style="font-weight:bold;color:#003300;">Markup(%)</h5>
-                        </td>
-                        <td><input type="text" id="margin_value" name="margin_value" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['margin_per'] ?? $mark_up; ?>" <?php echo $read_only_ext; ?>></td>
-                        <td><input type="text" id="margin_total" name="margin_total" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['margin_value'] ?? '0'; ?>" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h5 style="font-weight:bold;color:#003300;">Tour Addon</h5>
-                        </td>
-                        <td><input type="text" id="tour_addon_value" name="tour_addon_value" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['tour_addon'] ?? '0'; ?>" <?php echo $read_only_ext; ?>></td>
-                        <td><input type="text" id="tour_addon_total" name="tour_addon_total" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['tour_addon'] ?? '0'; ?>" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h5 style="font-weight:bold;color:#003300;">Total</h5>
-                        </td>
-                        <td></td>
-                        <td><input type="text" id="total_final" name="total_final" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['total_rate'] ?? '0'; ?>" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h5 style="font-weight:bold;color:#003300;">GST</h5>
-                        </td>
-                        <td>
-                            <select id="gst_value" name="gst_value" class="form-control input-sm" <?php echo $dis_abled_ext; ?>>
-                                <?php 
-                                $saved_gst_per = $iti_cost_datas[0]['gst_per'] ?? '18'; // Default to 18 if not set
-                                if ($saved_gst_per == "5") { ?>
-                                    <option value="5" selected>5%</option>
-                                    <option value="18">18%</option>
-                                <?php } else { ?>
-                                    <option value="5">5%</option>
-                                    <option value="18" selected>18%</option>
-                                <?php } ?>
-                            </select>
-                        </td>
-                        <td><input type="text" id="gst_final" name="gst_final" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['gst_value'] ?? '0'; ?>" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h5 style="font-weight:bold;color:#003300;">Total Package Cost</h5>
-                        </td>
-                        <td></td>
-                        <td><input type="text" id="tpc" name="tpc" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['tpc'] ?? '0'; ?>" readonly></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h5 style="font-weight:bold;color:#003300;">TCS</h5>
-                        </td>
-                        <td>
-                            <input type="checkbox" id="tcs_checkbox" name="tcs_checkbox" value="1" <?php echo ($iti_cost_datas[0]['is_tcs'] ?? 0) ? 'checked' : ''; ?> <?php echo $dis_abled_ext; ?>> 5%
-                        </td>
-                        <td><input type="text" id="tcs_final" name="tcs_final" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['tcs_value'] ?? '0'; ?>" readonly></td>
-                    </tr>
-                    <tr id="final_tpc_row" style="display: <?php echo ($iti_cost_datas[0]['is_tcs'] ?? 0) ? 'table-row' : 'none'; ?>;">
-                        <td>
-                            <h5 style="font-weight:bold;color:#003300;"> Total Package Cost(With TCS)</h5>
-                        </td>
-                        <td></td>
-                        <td><input type="text" id="tpc_with_tcs" name="tpc_with_tcs" class="form-control input-sm" maxlength="6" readonly value="<?php echo $iti_cost_datas[0]['tpc_with_tcs'] ?? ($iti_cost_datas[0]['tpc'] ?? '0'); ?>"></td>
-                    </tr>
-                </table>
+								<?php if (!empty($itinerary_details_save)) {
+									if (empty($iti_cost_datas)) {
+								?>
+										<div class="costing-container" style="background-color:#003300;">
+											<div class="table-responsive costing-box">
+												<table class="table">
+													<tr>
+														<th>
+															<h5 style="font-weight:bold;color:#003300;">Total Acc Cost : <span id="tac_span"></span></h5>
+														</th>
+														<th>
+															<h5 style="font-weight:bold;color:#003300;">Total Trans Cost : <span id="ttc_span"></span></h5>
+														</th>
+														<th>
+															<h5 style="font-weight:bold;color:#003300;">Special Event : <span id="spcl_span"></span></h5>
+														</th>
+														<th>
+															<h5 style="font-weight:bold;color:#003300;">Extra Charge : <span id="daily_span"></span></h5>
+														</th>
+														<th>
+															<h5 style="font-weight:bold;color:#003300;">Total Net Rate : <span id="tnr_span"></span></h5>
+														</th>
+													</tr>
+												</table>
+												<table class="table">
+													<tr>
+														<td>
+															<h5 style="font-weight:bold;color:#003300;">Markup(%)</h5>
+														</td>
+														<td><input type="text" id="margin_value" name="margin_value" class="form-control input-sm" maxlength="6" value="<?php echo $mark_up; ?>" <?php echo $read_only_ext; ?>></td>
+														<td><input type="text" id="margin_total" name="margin_total" class="form-control input-sm" maxlength="6" readonly></td>
+													</tr>
+													<tr>
+														<td>
+															<h5 style="font-weight:bold;color:#003300;">Tour Addon</h5>
+														</td>
+														<td><input type="text" id="tour_addon_value" name="tour_addon_value" class="form-control input-sm" maxlength="6" value="0" <?php echo $read_only_ext; ?>></td>
+														<td><input type="text" id="tour_addon_total" name="tour_addon_total" class="form-control input-sm" maxlength="6" readonly></td>
+													</tr>
+													<tr>
+														<td>
+															<h5 style="font-weight:bold;color:#003300;">Total</h5>
+														</td>
+														<td></td>
+														<td><input type="text" id="total_final" name="total_final" class="form-control input-sm" maxlength="6" readonly></td>
+													</tr>
+													<tr>
+														<td>
+															<h5 style="font-weight:bold;color:#003300;">GST</h5>
+														</td>
+														<td>
+															<select id="gst_value" name="gst_value" class="form-control input-sm" <?php echo $dis_abled_ext; ?>>
+																<option value="5">5%</option>
+																<option value="18">18%</option>
+															</select>
+														</td>
+														<td><input type="text" id="gst_final" name="gst_final" class="form-control input-sm" maxlength="6" readonly></td>
+													</tr>
+													<tr>
+														<td>
+															<h5 style="font-weight:bold;color:#003300;">Total Package Cost</h5>
+														</td>
+														<td></td>
+														<td><input type="text" id="tpc" name="tpc" class="form-control input-sm" maxlength="6" readonly></td>
+													</tr>
+													<tr>
+														<td>
+															<h5 style="font-weight:bold;color:#003300;">TCS</h5>
+														</td>
+														<td>
+															<input type="checkbox" id="tcs_checkbox" name="tcs_checkbox" value="0" <?php echo $dis_abled_ext; ?>> 5%
+														</td>
+														<td><input type="text" id="tcs_final" name="tcs_final" class="form-control input-sm" maxlength="6" value="0" readonly></td>
+													</tr>
+													<tr id="final_tpc_row" style="display: none;">
+														<td>
+															<h5 style="font-weight:bold;color:#003300;">Total Package Cost(With TCS)</h5>
+														</td>
+														<td></td>
+														<td><input type="text" id="tpc_with_tcs" name="tpc_with_tcs" class="form-control input-sm" maxlength="6" readonly value="0"></td>
+													</tr>
+												</table>
+											<?php } else { ?>
+												<div class="costing-container" style="background-color:#003300;">
+													<div class="table-responsive costing-box">
+														<table class="table">
+															<tr>
+																<th>
+																	<h5 style="font-weight:bold;color:#003300;">Total Acc Cost : <span id="tac_span"><?php echo $iti_cost_datas[0]['tac'] ?? ''; ?></span></h5>
+																</th>
+																<th>
+																	<h5 style="font-weight:bold;color:#003300;">Total Trans Cost : <span id="ttc_span"><?php echo $iti_cost_datas[0]['ttc'] ?? ''; ?></span></h5>
+																</th>
+																<th>
+																	<h5 style="font-weight:bold;color:#003300;">Special Event : <span id="spcl_span"><?php echo $iti_cost_datas[0]['special_event'] ?? ''; ?></span></h5>
+																</th>
+																<th>
+																	<h5 style="font-weight:bold;color:#003300;">Extra Charge : <span id="daily_span"><?php echo $iti_cost_datas[0]['extra_charge'] ?? ''; ?></span></h5>
+																</th>
+																<th>
+																	<h5 style="font-weight:bold;color:#003300;">Total Net Rate : <span id="tnr_span"><?php echo $iti_cost_datas[0]['total_rate'] ?? ''; ?></span></h5>
+																</th>
+															</tr>
+														</table>
+														<table class="table">
+															<tr>
+																<td>
+																	<h5 style="font-weight:bold;color:#003300;">Markup(%)</h5>
+																</td>
+																<td><input type="text" id="margin_value" name="margin_value" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['margin_per'] ?? $mark_up; ?>" <?php echo $read_only_ext; ?>></td>
+																<td><input type="text" id="margin_total" name="margin_total" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['margin_value'] ?? '0'; ?>" readonly></td>
+															</tr>
+															<tr>
+																<td>
+																	<h5 style="font-weight:bold;color:#003300;">Tour Addon</h5>
+																</td>
+																<td><input type="text" id="tour_addon_value" name="tour_addon_value" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['tour_addon'] ?? '0'; ?>" <?php echo $read_only_ext; ?>></td>
+																<td><input type="text" id="tour_addon_total" name="tour_addon_total" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['tour_addon'] ?? '0'; ?>" readonly></td>
+															</tr>
+															<tr>
+																<td>
+																	<h5 style="font-weight:bold;color:#003300;">Total</h5>
+																</td>
+																<td></td>
+																<td><input type="text" id="total_final" name="total_final" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['total_rate'] ?? '0'; ?>" readonly></td>
+															</tr>
+															<tr>
+																<td>
+																	<h5 style="font-weight:bold;color:#003300;">GST</h5>
+																</td>
+																<td>
+																	<select id="gst_value" name="gst_value" class="form-control input-sm" <?php echo $dis_abled_ext; ?>>
+																		<?php
+																		$saved_gst_per = $iti_cost_datas[0]['gst_per'] ?? '18'; // Default to 18 if not set
+																		if ($saved_gst_per == "5") { ?>
+																			<option value="5" selected>5%</option>
+																			<option value="18">18%</option>
+																		<?php } else { ?>
+																			<option value="5">5%</option>
+																			<option value="18" selected>18%</option>
+																		<?php } ?>
+																	</select>
+																</td>
+																<td><input type="text" id="gst_final" name="gst_final" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['gst_value'] ?? '0'; ?>" readonly></td>
+															</tr>
+															<tr>
+																<td>
+																	<h5 style="font-weight:bold;color:#003300;">Total Package Cost</h5>
+																</td>
+																<td></td>
+																<td><input type="text" id="tpc" name="tpc" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['tpc'] ?? '0'; ?>" readonly></td>
+															</tr>
+															<tr>
+																<td>
+																	<h5 style="font-weight:bold;color:#003300;">TCS</h5>
+																</td>
+																<td>
+																	<input type="checkbox" id="tcs_checkbox" name="tcs_checkbox" value="1" <?php echo ($iti_cost_datas[0]['is_tcs'] ?? 0) ? 'checked' : ''; ?> <?php echo $dis_abled_ext; ?>> 5%
+																</td>
+																<td><input type="text" id="tcs_final" name="tcs_final" class="form-control input-sm" maxlength="6" value="<?php echo $iti_cost_datas[0]['tcs_value'] ?? '0'; ?>" readonly></td>
+															</tr>
+															<tr id="final_tpc_row" style="display: <?php echo ($iti_cost_datas[0]['is_tcs'] ?? 0) ? 'table-row' : 'none'; ?>;">
+																<td>
+																	<h5 style="font-weight:bold;color:#003300;"> Total Package Cost(With TCS)</h5>
+																</td>
+																<td></td>
+																<td><input type="text" id="tpc_with_tcs" name="tpc_with_tcs" class="form-control input-sm" maxlength="6" readonly value="<?php echo $iti_cost_datas[0]['tpc_with_tcs'] ?? ($iti_cost_datas[0]['tpc'] ?? '0'); ?>"></td>
+															</tr>
+														</table>
 
-    <?php
-        }
-    } ?>
-                </div>
-            </div>
+												<?php
+											}
+										} ?>
+													</div>
+												</div>
 
-            <!---------------------------------------Bifurcation----------------------------------------------------------------------->
-            <?php
-            if (!empty($itinerary_details_save)) {
-                $ttc_bifur = $cs_trans_total + $total_permit;
-                $no_of_pax_bifur = $object_det[0]['no_of_adult'];
-                $total_no_of_pax_bifur = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'];
-            ?>
-                <div class="costing-container" style="display:none;" id="bifur_div">
-                    <h4 style="text-align:center; color: #004d00; font-weight: bold; font-style: italic;font-size: 20px;">Bifurcation</h4>
-                    <div class="table-responsive costing-box">
-                        <table class="table table-bordered costing-table">
-                            <tr>
-                                <th>Si No</th>
-                                <th>No Of Pax</th>
-                                <th>Total Cost</th>
-                                <th>Per Person</th>
-                            </tr>
-                            <tr>
-                                <td>Transportation cost</td>
-                                <td>
-                                    <input type="text" id="no_of_pax_b" name="no_of_pax_b" value="<?php echo $no_of_pax_bifur; ?>" style="width:50px;">
-                                </td>
-                                <td>
-                                    <span id="ttc_bifur_span"><?php echo $ttc_bifur; ?></span>
-                                    <input type="hidden" id="ttc_bifur_hd" name="ttc_bifur_hd" value="<?php echo $ttc_bifur; ?>">
-                                </td>
-                                <td>
-                                    <span id="ttc_bifur_span_pp"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
-                                    <input type="hidden" id="ttc_bifur_hd_pp" name="ttc_bifur_hd_pp" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Sight Seeing cost</td>
-                                <td>
-                                    <input type="text" id="no_of_pax_bs" name="no_of_pax_bs" value="<?php echo $total_no_of_pax_bifur; ?>" style="width:50px;">
-                                </td>
-                                <td>
-                                    <span id="bifur_ss_span"></span>
-                                    <input type="hidden" id="bifur_ss_hidden" name="bifur_ss_hidden" value="0">
-                                </td>
-                                <td>
-                                    <span id="bifur_ss_span_pp"></span>
-                                    <input type="hidden" id="bifur_ss_hidden_pp" name="bifur_ss_hidden_pp" value="0">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Round Off</td>
-                                <td>
-                                    <input type="text" id="no_of_pax_br" name="no_of_pax_br" value="<?php echo $total_no_of_pax_bifur; ?>" style="width:50px;">
-                                </td>
-                                <td>
-                                    <span id="round_off_span"></span>
-                                    <input type="hidden" id="round_off_hidden" name="round_off_hidden" value="0">
-                                </td>
-                                <td>
-                                    <span id="round_off_span_pp"></span>
-                                    <input type="hidden" id="round_off_hidden_pp" name="round_off_hidden_pp" value="0">
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+												<!---------------------------------------Bifurcation----------------------------------------------------------------------->
+												<?php
+												if (!empty($itinerary_details_save)) {
+													$ttc_bifur = $cs_trans_total + $total_permit;
+													$no_of_pax_bifur = $object_det[0]['no_of_adult'];
+													$total_no_of_pax_bifur = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'];
+												?>
+													<div class="costing-container" style="display:none;" id="bifur_div">
+														<h4 style="text-align:center; color: #004d00; font-weight: bold; font-style: italic;font-size: 20px;">Bifurcation</h4>
+														<div class="table-responsive costing-box">
+															<table class="table table-bordered costing-table">
+																<tr>
+																	<th>Si No</th>
+																	<th>No Of Pax</th>
+																	<th>Total Cost</th>
+																	<th>Per Person</th>
+																</tr>
+																<tr>
+																	<td>Transportation cost</td>
+																	<td>
+																		<input type="text" id="no_of_pax_b" name="no_of_pax_b" value="<?php echo $no_of_pax_bifur; ?>" style="width:50px;">
+																	</td>
+																	<td>
+																		<span id="ttc_bifur_span"><?php echo $ttc_bifur; ?></span>
+																		<input type="hidden" id="ttc_bifur_hd" name="ttc_bifur_hd" value="<?php echo $ttc_bifur; ?>">
+																	</td>
+																	<td>
+																		<span id="ttc_bifur_span_pp"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
+																		<input type="hidden" id="ttc_bifur_hd_pp" name="ttc_bifur_hd_pp" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
+																	</td>
+																</tr>
+																<tr>
+																	<td>Sight Seeing cost</td>
+																	<td>
+																		<input type="text" id="no_of_pax_bs" name="no_of_pax_bs" value="<?php echo $total_no_of_pax_bifur; ?>" style="width:50px;">
+																	</td>
+																	<td>
+																		<span id="bifur_ss_span"></span>
+																		<input type="hidden" id="bifur_ss_hidden" name="bifur_ss_hidden" value="0">
+																	</td>
+																	<td>
+																		<span id="bifur_ss_span_pp"></span>
+																		<input type="hidden" id="bifur_ss_hidden_pp" name="bifur_ss_hidden_pp" value="0">
+																	</td>
+																</tr>
+																<tr>
+																	<td>Round Off</td>
+																	<td>
+																		<input type="text" id="no_of_pax_br" name="no_of_pax_br" value="<?php echo $total_no_of_pax_bifur; ?>" style="width:50px;">
+																	</td>
+																	<td>
+																		<span id="round_off_span"></span>
+																		<input type="hidden" id="round_off_hidden" name="round_off_hidden" value="0">
+																	</td>
+																	<td>
+																		<span id="round_off_span_pp"></span>
+																		<input type="hidden" id="round_off_hidden_pp" name="round_off_hidden_pp" value="0">
+																	</td>
+																</tr>
+															</table>
+														</div>
 
-                    <div class="table-responsive costing-box">
-                        <table class="table table-bordered costing-table">
-                            <tr>
-                                <th>Si No</th>
-                                <th>No Of Pax</th>
-                                <th>Cost</th>
-                                <th>Per Person</th>
-                                <th>Vehicle</th>
-                                <th>sight Seeing</th>
-                                <th>Total</th>
-                                <th>Margin</th>
-                                <th>Net Total</th>
-                                <th>Round Off</th>
-                                <th>GSTIN</th>
-                                <th>Grand Total</th>
-                            </tr>
-                            <tr>
-                                <td>Double</td>
-                                <td>
-                                    <span id="by_double_pax_span"><?php echo $object_det[0]['no_of_double_room'] * 2; ?></span>
-                                    <input type="hidden" id="by_double_pax_hidden" name="by_double_pax_hidden" value="<?php echo $object_det[0]['no_of_double_room'] * 2; ?>">
-                                </td>
-                                <td>
-                                    <span id="bifur_double_total_span"><?php echo $bifur_double_total; ?></span>
-                                    <input type="hidden" id="bifur_double_total_hidden" name="bifur_double_total_hidden" value="<?php echo $bifur_double_total; ?>">
-                                </td>
-                                <td>
-                                    <span id="bifur_double_pp_span"><?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?></span>
-                                    <input type="hidden" id="bifur_double_pp_hidden" name="bifur_double_pp_hidden" value="<?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?>">
-                                </td>
-                                <td>
-                                    <span id="ttc_bifur_span_double_span"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
-                                    <input type="hidden" id="ttc_bifur_double_hd" name="ttc_bifur_double_hd" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
-                                </td>
-                                <td>
-                                    <span id="ss_bifur_double_span_pp">0</span>
-                                    <input type="hidden" id="ss_bifur_double_hd_pp" name="ss_bifur_double_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="total_bifur_double_span_pp">0</span>
-                                    <input type="hidden" id="total_bifur_double_hd_pp" name="total_bifur_double_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="margin_bifur_double_span_pp">0</span>
-                                    <input type="hidden" id="margin_bifur_double_hd_pp" name="margin_bifur_double_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="net_bifur_double_span_pp">0</span>
-                                    <input type="hidden" id="net_bifur_double_hd_pp" name="net_bifur_double_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="round_bifur_double_span_pp">0</span>
-                                    <input type="hidden" id="round_bifur_double_hd_pp" name="round_bifur_double_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="gst_bifur_double_span_pp">0</span>
-                                    <input type="hidden" id="gst_bifur_double_hd_pp" name="gst_bifur_double_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="grand_bifur_double_span_pp">0</span>
-                                    <input type="hidden" id="grand_bifur_double_hd_pp" name="grand_bifur_double_hd_pp" value="0">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Single</td>
-                                <td>
-                                    <span id="by_single_pax_span"><?php echo $object_det[0]['no_of_single_room']; ?></span>
-                                    <input type="hidden" id="by_single_pax_hidden" name="by_single_pax_hidden" value="<?php echo $object_det[0]['no_of_single_room']; ?>">
-                                </td>
-                                <td>
-                                    <?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
-                                        <span id="bifur_single_total_span"><?php echo $bifur_single_total; ?></span>
-                                        <input type="hidden" id="bifur_single_total_hidden" name="bifur_single_total_hidden" value="<?php echo $bifur_single_total; ?>">
-                                    <?php } else { ?>
-                                        <span id="bifur_single_total_span">0</span>
-                                        <input type="hidden" id="bifur_single_total_hidden" name="bifur_single_total_hidden" value="0">
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    <?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
-                                        <span id="bifur_single_pp_span"><?php echo round($bifur_single_total / ($object_det[0]['no_of_single_room']), 2); ?></span>
-                                        <input type="hidden" id="bifur_single_pp_hidden" name="bifur_single_pp_hidden" value="<?php echo round($bifur_single_total / ($object_det[0]['no_of_single_room']), 2); ?>">
-                                    <?php } else { ?>
-                                        <span id="bifur_single_pp_span">0</span>
-                                        <input type="hidden" id="bifur_single_pp_hidden" name="bifur_single_pp_hidden" value="0">
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    <?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
-                                        <span id="ttc_bifur_span_single_span"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
-                                        <input type="hidden" id="ttc_bifur_single_hd" name="ttc_bifur_single_hd" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
-                                    <?php } else { ?>
-                                        <span id="ttc_bifur_span_single_span">0</span>
-                                        <input type="hidden" id="ttc_bifur_single_hd" name="ttc_bifur_single_hd" value="0">
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    <span id="ss_bifur_single_span_pp">0</span>
-                                    <input type="hidden" id="ss_bifur_single_hd_pp" name="ss_bifur_single_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="total_bifur_single_span_pp">0</span>
-                                    <input type="hidden" id="total_bifur_single_hd_pp" name="total_bifur_single_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="margin_bifur_single_span_pp">0</span>
-                                    <input type="hidden" id="margin_bifur_single_hd_pp" name="margin_bifur_single_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="net_bifur_single_span_pp">0</span>
-                                    <input type="hidden" id="net_bifur_single_hd_pp" name="net_bifur_single_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="round_bifur_single_span_pp">0</span>
-                                    <input type="hidden" id="round_bifur_single_hd_pp" name="round_bifur_single_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="gst_bifur_single_span_pp">0</span>
-                                    <input type="hidden" id="gst_bifur_single_hd_pp" name="gst_bifur_single_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="grand_bifur_single_span_pp">0</span>
-                                    <input type="hidden" id="grand_bifur_single_hd_pp" name="grand_bifur_single_hd_pp" value="0">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Child</td>
-                                <td>
-                                    <span id="by_child_pax_span"><?php echo $object_det[0]['no_of_child_with_bed']; ?></span>
-                                    <input type="hidden" id="by_child_pax_hidden" name="by_child_pax_hidden" value="<?php echo $object_det[0]['no_of_child_with_bed']; ?>">
-                                </td>
-                                <td>
-                                    <?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
-                                        <span id="bifur_child_total_span"><?php echo $bifur_child_total; ?></span>
-                                        <input type="hidden" id="bifur_child_total_hidden" name="bifur_child_total_hidden" value="<?php echo $bifur_child_total; ?>">
-                                    <?php } else { ?>
-                                        <span id="bifur_child_total_span">0</span>
-                                        <input type="hidden" id="bifur_child_total_hidden" name="bifur_child_total_hidden" value="0">
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    <?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
-                                        <span id="bifur_child_pp_span"><?php echo round($bifur_child_total / ($object_det[0]['no_of_child_with_bed']), 2); ?></span>
-                                        <input type="hidden" id="bifur_child_pp_hidden" name="bifur_child_pp_hidden" value="<?php echo round($bifur_child_total / ($object_det[0]['no_of_child_with_bed']), 2); ?>">
-                                    <?php } else { ?>
-                                        <span id="bifur_child_pp_span">0</span>
-                                        <input type="hidden" id="bifur_child_pp_hidden" name="bifur_child_pp_hidden" value="0">
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    <span id="ttc_bifur_span_child_span">0</span>
-                                    <input type="hidden" id="ttc_bifur_child_hd" name="ttc_bifur_child_hd" value="0">
-                                </td>
-                                <td>
-                                    <span id="ss_bifur_child_span_pp">0</span>
-                                    <input type="hidden" id="ss_bifur_child_hd_pp" name="ss_bifur_child_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="total_bifur_child_span_pp">0</span>
-                                    <input type="hidden" id="total_bifur_child_hd_pp" name="total_bifur_child_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="margin_bifur_child_span_pp">0</span>
-                                    <input type="hidden" id="margin_bifur_child_hd_pp" name="margin_bifur_child_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="net_bifur_child_span_pp">0</span>
-                                    <input type="hidden" id="net_bifur_child_hd_pp" name="net_bifur_child_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="round_bifur_child_span_pp">0</span>
-                                    <input type="hidden" id="round_bifur_child_hd_pp" name="round_bifur_child_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="gst_bifur_child_span_pp">0</span>
-                                    <input type="hidden" id="gst_bifur_child_hd_pp" name="gst_bifur_child_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="grand_bifur_child_span_pp">0</span>
-                                    <input type="hidden" id="grand_bifur_child_hd_pp" name="grand_bifur_child_hd_pp" value="0">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Child WB</td>
-                                <td>
-                                    <span id="by_child_wb_pax_span"><?php echo $object_det[0]['no_of_child_without_bed']; ?></span>
-                                    <input type="hidden" id="by_child_wb_pax_hidden" name="by_child_wb_pax_hidden" value="<?php echo $object_det[0]['no_of_child_without_bed']; ?>">
-                                </td>
-                                <td>
-                                    <?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
-                                        <span id="bifur_child_wb_total_span"><?php echo $bifur_child_wb_total; ?></span>
-                                        <input type="hidden" id="bifur_child_wb_total_hidden" name="bifur_child_wb_total_hidden" value="<?php echo $bifur_child_wb_total; ?>">
-                                    <?php } else { ?>
-                                        <span id="bifur_child_wb_total_span">0</span>
-                                        <input type="hidden" id="bifur_child_wb_total_hidden" name="bifur_child_wb_total_hidden" value="0">
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    <?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
-                                        <span id="bifur_child_wb_pp_span"><?php echo round($bifur_child_wb_total / ($object_det[0]['no_of_child_without_bed']), 2); ?></span>
-                                        <input type="hidden" id="bifur_child_wb_pp_hidden" name="bifur_child_wb_pp_hidden" value="<?php echo round($bifur_child_wb_total / ($object_det[0]['no_of_child_without_bed']), 2); ?>">
-                                    <?php } else { ?>
-                                        <span id="bifur_child_wb_pp_span">0</span>
-                                        <input type="hidden" id="bifur_child_wb_pp_hidden" name="bifur_child_wb_pp_hidden" value="0">
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    <span id="ttc_bifur_span_child_wb_span">0</span>
-                                    <input type="hidden" id="ttc_bifur_child_wb_hd" name="ttc_bifur_child_wb_hd" value="0">
-                                </td>
-                                <td>
-                                    <span id="ss_bifur_child_wb_span_pp">0</span>
-                                    <input type="hidden" id="ss_bifur_child_wb_hd_pp" name="ss_bifur_child_wb_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="total_bifur_child_wb_span_pp">0</span>
-                                    <input type="hidden" id="total_bifur_child_wb_hd_pp" name="total_bifur_child_wb_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="margin_bifur_child_wb_span_pp">0</span>
-                                    <input type="hidden" id="margin_bifur_child_wb_hd_pp" name="margin_bifur_child_wb_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="net_bifur_child_wb_span_pp">0</span>
-                                    <input type="hidden" id="net_bifur_child_wb_hd_pp" name="net_bifur_child_wb_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="round_bifur_child_wb_span_pp">0</span>
-                                    <input type="hidden" id="round_bifur_child_wb_hd_pp" name="round_bifur_child_wb_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="gst_bifur_child_wb_span_pp">0</span>
-                                    <input type="hidden" id="gst_bifur_child_wb_hd_pp" name="gst_bifur_child_wb_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="grand_bifur_child_wb_span_pp">0</span>
-                                    <input type="hidden" id="grand_bifur_child_wb_hd_pp" name="grand_bifur_child_wb_hd_pp" value="0">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Extra</td>
-                                <td>
-                                    <span id="by_extra_pax_span"><?php echo $object_det[0]['no_of_extra_bed']; ?></span>
-                                    <input type="hidden" id="by_extra_pax_hidden" name="by_extra_pax_hidden" value="<?php echo $object_det[0]['no_of_extra_bed']; ?>">
-                                </td>
-                                <td>
-                                    <?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
-                                        <span id="bifur_extra_total_span"><?php echo $bifur_extra_total; ?></span>
-                                        <input type="hidden" id="bifur_extra_total_hidden" name="bifur_extra_total_hidden" value="<?php echo $bifur_extra_total; ?>">
-                                    <?php } else { ?>
-                                        <span id="bifur_extra_total_span">0</span>
-                                        <input type="hidden" id="bifur_extra_total_hidden" name="bifur_extra_total_hidden" value="0">
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    <?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
-                                        <span id="bifur_extra_pp_span"><?php echo round($bifur_extra_total / ($object_det[0]['no_of_extra_bed']), 2); ?></span>
-                                        <input type="hidden" id="bifur_extra_pp_hidden" name="bifur_extra_pp_hidden" value="<?php echo round($bifur_extra_total / ($object_det[0]['no_of_extra_bed']), 2); ?>">
-                                    <?php } else { ?>
-                                        <span id="bifur_extra_pp_span">0</span>
-                                        <input type="hidden" id="bifur_extra_pp_hidden" name="bifur_extra_pp_hidden" value="0">
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    <?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
-                                        <span id="ttc_bifur_span_extra_span"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
-                                        <input type="hidden" id="ttc_bifur_extra_hd" name="ttc_bifur_extra_hd" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
-                                    <?php } else { ?>
-                                        <span id="ttc_bifur_span_extra_span">0</span>
-                                        <input type="hidden" id="ttc_bifur_extra_hd" name="ttc_bifur_extra_hd" value="0">
-                                    <?php } ?>
-                                </td>
-                                <td>
-                                    <span id="ss_bifur_extra_span_pp">0</span>
-                                    <input type="hidden" id="ss_bifur_extra_hd_pp" name="ss_bifur_extra_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="total_bifur_extra_span_pp">0</span>
-                                    <input type="hidden" id="total_bifur_extra_hd_pp" name="total_bifur_extra_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="margin_bifur_extra_span_pp">0</span>
-                                    <input type="hidden" id="margin_bifur_extra_hd_pp" name="margin_bifur_extra_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="net_bifur_extra_span_pp">0</span>
-                                    <input type="hidden" id="net_bifur_extra_hd_pp" name="net_bifur_extra_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="round_bifur_extra_span_pp">0</span>
-                                    <input type="hidden" id="round_bifur_extra_hd_pp" name="round_bifur_extra_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="gst_bifur_extra_span_pp">0</span>
-                                    <input type="hidden" id="gst_bifur_extra_hd_pp" name="gst_bifur_extra_hd_pp" value="0">
-                                </td>
-                                <td>
-                                    <span id="grand_bifur_extra_span_pp">0</span>
-                                    <input type="hidden" id="grand_bifur_extra_hd_pp" name="grand_bifur_extra_hd_pp" value="0">
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
+														<div class="table-responsive costing-box">
+															<table class="table table-bordered costing-table">
+																<tr>
+																	<th>Si No</th>
+																	<th>No Of Pax</th>
+																	<th>Cost</th>
+																	<th>Per Person</th>
+																	<th>Vehicle</th>
+																	<th>sight Seeing</th>
+																	<th>Total</th>
+																	<th>Margin</th>
+																	<th>Net Total</th>
+																	<th>Round Off</th>
+																	<th>GSTIN</th>
+																	<th>Grand Total</th>
+																</tr>
+																<tr>
+																	<td>Double</td>
+																	<td>
+																		<span id="by_double_pax_span"><?php echo $object_det[0]['no_of_double_room'] * 2; ?></span>
+																		<input type="hidden" id="by_double_pax_hidden" name="by_double_pax_hidden" value="<?php echo $object_det[0]['no_of_double_room'] * 2; ?>">
+																	</td>
+																	<td>
+																		<span id="bifur_double_total_span"><?php echo $bifur_double_total; ?></span>
+																		<input type="hidden" id="bifur_double_total_hidden" name="bifur_double_total_hidden" value="<?php echo $bifur_double_total; ?>">
+																	</td>
+																	<td>
+																		<span id="bifur_double_pp_span"><?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?></span>
+																		<input type="hidden" id="bifur_double_pp_hidden" name="bifur_double_pp_hidden" value="<?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?>">
+																	</td>
+																	<td>
+																		<span id="ttc_bifur_span_double_span"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
+																		<input type="hidden" id="ttc_bifur_double_hd" name="ttc_bifur_double_hd" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
+																	</td>
+																	<td>
+																		<span id="ss_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="ss_bifur_double_hd_pp" name="ss_bifur_double_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="total_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="total_bifur_double_hd_pp" name="total_bifur_double_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="margin_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="margin_bifur_double_hd_pp" name="margin_bifur_double_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="net_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="net_bifur_double_hd_pp" name="net_bifur_double_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="round_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="round_bifur_double_hd_pp" name="round_bifur_double_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="gst_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="gst_bifur_double_hd_pp" name="gst_bifur_double_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="grand_bifur_double_span_pp">0</span>
+																		<input type="hidden" id="grand_bifur_double_hd_pp" name="grand_bifur_double_hd_pp" value="0">
+																	</td>
+																</tr>
+																<tr>
+																	<td>Single</td>
+																	<td>
+																		<span id="by_single_pax_span"><?php echo $object_det[0]['no_of_single_room']; ?></span>
+																		<input type="hidden" id="by_single_pax_hidden" name="by_single_pax_hidden" value="<?php echo $object_det[0]['no_of_single_room']; ?>">
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
+																			<span id="bifur_single_total_span"><?php echo $bifur_single_total; ?></span>
+																			<input type="hidden" id="bifur_single_total_hidden" name="bifur_single_total_hidden" value="<?php echo $bifur_single_total; ?>">
+																		<?php } else { ?>
+																			<span id="bifur_single_total_span">0</span>
+																			<input type="hidden" id="bifur_single_total_hidden" name="bifur_single_total_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
+																			<span id="bifur_single_pp_span"><?php echo round($bifur_single_total / ($object_det[0]['no_of_single_room']), 2); ?></span>
+																			<input type="hidden" id="bifur_single_pp_hidden" name="bifur_single_pp_hidden" value="<?php echo round($bifur_single_total / ($object_det[0]['no_of_single_room']), 2); ?>">
+																		<?php } else { ?>
+																			<span id="bifur_single_pp_span">0</span>
+																			<input type="hidden" id="bifur_single_pp_hidden" name="bifur_single_pp_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_single_room'] > 0) { ?>
+																			<span id="ttc_bifur_span_single_span"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
+																			<input type="hidden" id="ttc_bifur_single_hd" name="ttc_bifur_single_hd" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
+																		<?php } else { ?>
+																			<span id="ttc_bifur_span_single_span">0</span>
+																			<input type="hidden" id="ttc_bifur_single_hd" name="ttc_bifur_single_hd" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<span id="ss_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="ss_bifur_single_hd_pp" name="ss_bifur_single_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="total_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="total_bifur_single_hd_pp" name="total_bifur_single_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="margin_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="margin_bifur_single_hd_pp" name="margin_bifur_single_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="net_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="net_bifur_single_hd_pp" name="net_bifur_single_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="round_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="round_bifur_single_hd_pp" name="round_bifur_single_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="gst_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="gst_bifur_single_hd_pp" name="gst_bifur_single_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="grand_bifur_single_span_pp">0</span>
+																		<input type="hidden" id="grand_bifur_single_hd_pp" name="grand_bifur_single_hd_pp" value="0">
+																	</td>
+																</tr>
+																<tr>
+																	<td>Child</td>
+																	<td>
+																		<span id="by_child_pax_span"><?php echo $object_det[0]['no_of_child_with_bed']; ?></span>
+																		<input type="hidden" id="by_child_pax_hidden" name="by_child_pax_hidden" value="<?php echo $object_det[0]['no_of_child_with_bed']; ?>">
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
+																			<span id="bifur_child_total_span"><?php echo $bifur_child_total; ?></span>
+																			<input type="hidden" id="bifur_child_total_hidden" name="bifur_child_total_hidden" value="<?php echo $bifur_child_total; ?>">
+																		<?php } else { ?>
+																			<span id="bifur_child_total_span">0</span>
+																			<input type="hidden" id="bifur_child_total_hidden" name="bifur_child_total_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
+																			<span id="bifur_child_pp_span"><?php echo round($bifur_child_total / ($object_det[0]['no_of_child_with_bed']), 2); ?></span>
+																			<input type="hidden" id="bifur_child_pp_hidden" name="bifur_child_pp_hidden" value="<?php echo round($bifur_child_total / ($object_det[0]['no_of_child_with_bed']), 2); ?>">
+																		<?php } else { ?>
+																			<span id="bifur_child_pp_span">0</span>
+																			<input type="hidden" id="bifur_child_pp_hidden" name="bifur_child_pp_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<span id="ttc_bifur_span_child_span">0</span>
+																		<input type="hidden" id="ttc_bifur_child_hd" name="ttc_bifur_child_hd" value="0">
+																	</td>
+																	<td>
+																		<span id="ss_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="ss_bifur_child_hd_pp" name="ss_bifur_child_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="total_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="total_bifur_child_hd_pp" name="total_bifur_child_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="margin_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="margin_bifur_child_hd_pp" name="margin_bifur_child_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="net_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="net_bifur_child_hd_pp" name="net_bifur_child_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="round_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="round_bifur_child_hd_pp" name="round_bifur_child_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="gst_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="gst_bifur_child_hd_pp" name="gst_bifur_child_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="grand_bifur_child_span_pp">0</span>
+																		<input type="hidden" id="grand_bifur_child_hd_pp" name="grand_bifur_child_hd_pp" value="0">
+																	</td>
+																</tr>
+																<tr>
+																	<td>Child WB</td>
+																	<td>
+																		<span id="by_child_wb_pax_span"><?php echo $object_det[0]['no_of_child_without_bed']; ?></span>
+																		<input type="hidden" id="by_child_wb_pax_hidden" name="by_child_wb_pax_hidden" value="<?php echo $object_det[0]['no_of_child_without_bed']; ?>">
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
+																			<span id="bifur_child_wb_total_span"><?php echo $bifur_child_wb_total; ?></span>
+																			<input type="hidden" id="bifur_child_wb_total_hidden" name="bifur_child_wb_total_hidden" value="<?php echo $bifur_child_wb_total; ?>">
+																		<?php } else { ?>
+																			<span id="bifur_child_wb_total_span">0</span>
+																			<input type="hidden" id="bifur_child_wb_total_hidden" name="bifur_child_wb_total_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
+																			<span id="bifur_child_wb_pp_span"><?php echo round($bifur_child_wb_total / ($object_det[0]['no_of_child_without_bed']), 2); ?></span>
+																			<input type="hidden" id="bifur_child_wb_pp_hidden" name="bifur_child_wb_pp_hidden" value="<?php echo round($bifur_child_wb_total / ($object_det[0]['no_of_child_without_bed']), 2); ?>">
+																		<?php } else { ?>
+																			<span id="bifur_child_wb_pp_span">0</span>
+																			<input type="hidden" id="bifur_child_wb_pp_hidden" name="bifur_child_wb_pp_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<span id="ttc_bifur_span_child_wb_span">0</span>
+																		<input type="hidden" id="ttc_bifur_child_wb_hd" name="ttc_bifur_child_wb_hd" value="0">
+																	</td>
+																	<td>
+																		<span id="ss_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="ss_bifur_child_wb_hd_pp" name="ss_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="total_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="total_bifur_child_wb_hd_pp" name="total_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="margin_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="margin_bifur_child_wb_hd_pp" name="margin_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="net_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="net_bifur_child_wb_hd_pp" name="net_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="round_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="round_bifur_child_wb_hd_pp" name="round_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="gst_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="gst_bifur_child_wb_hd_pp" name="gst_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="grand_bifur_child_wb_span_pp">0</span>
+																		<input type="hidden" id="grand_bifur_child_wb_hd_pp" name="grand_bifur_child_wb_hd_pp" value="0">
+																	</td>
+																</tr>
+																<tr>
+																	<td>Extra</td>
+																	<td>
+																		<span id="by_extra_pax_span"><?php echo $object_det[0]['no_of_extra_bed']; ?></span>
+																		<input type="hidden" id="by_extra_pax_hidden" name="by_extra_pax_hidden" value="<?php echo $object_det[0]['no_of_extra_bed']; ?>">
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
+																			<span id="bifur_extra_total_span"><?php echo $bifur_extra_total; ?></span>
+																			<input type="hidden" id="bifur_extra_total_hidden" name="bifur_extra_total_hidden" value="<?php echo $bifur_extra_total; ?>">
+																		<?php } else { ?>
+																			<span id="bifur_extra_total_span">0</span>
+																			<input type="hidden" id="bifur_extra_total_hidden" name="bifur_extra_total_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
+																			<span id="bifur_extra_pp_span"><?php echo round($bifur_extra_total / ($object_det[0]['no_of_extra_bed']), 2); ?></span>
+																			<input type="hidden" id="bifur_extra_pp_hidden" name="bifur_extra_pp_hidden" value="<?php echo round($bifur_extra_total / ($object_det[0]['no_of_extra_bed']), 2); ?>">
+																		<?php } else { ?>
+																			<span id="bifur_extra_pp_span">0</span>
+																			<input type="hidden" id="bifur_extra_pp_hidden" name="bifur_extra_pp_hidden" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
+																			<span id="ttc_bifur_span_extra_span"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
+																			<input type="hidden" id="ttc_bifur_extra_hd" name="ttc_bifur_extra_hd" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
+																		<?php } else { ?>
+																			<span id="ttc_bifur_span_extra_span">0</span>
+																			<input type="hidden" id="ttc_bifur_extra_hd" name="ttc_bifur_extra_hd" value="0">
+																		<?php } ?>
+																	</td>
+																	<td>
+																		<span id="ss_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="ss_bifur_extra_hd_pp" name="ss_bifur_extra_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="total_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="total_bifur_extra_hd_pp" name="total_bifur_extra_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="margin_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="margin_bifur_extra_hd_pp" name="margin_bifur_extra_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="net_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="net_bifur_extra_hd_pp" name="net_bifur_extra_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="round_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="round_bifur_extra_hd_pp" name="round_bifur_extra_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="gst_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="gst_bifur_extra_hd_pp" name="gst_bifur_extra_hd_pp" value="0">
+																	</td>
+																	<td>
+																		<span id="grand_bifur_extra_span_pp">0</span>
+																		<input type="hidden" id="grand_bifur_extra_hd_pp" name="grand_bifur_extra_hd_pp" value="0">
+																	</td>
+																</tr>
+															</table>
+														</div>
+													</div>
 
-                <!------------------------------------------------------------------------------------->
-                <table class="table">
-                    <tr>
-                        <th>
-                            <button type="button" id="calculate_bifur" class="btn btn-dark btn-sm">Show Bifurcation</button>
-                        </th>
-                        <th>
-                            <button type="button" id="recalculate_bifur" class="btn btn-primary btn-sm" style="display:none">Calculate Bifurcation</button>
-                        </th>
-                        <th>
-                            <input type="text" id="cs_name" name="cs_name" class="form-control input-sm" maxlength="50" placeholder="Enter Costing Sheet Name">
-                        </th>
-                        <th>
-                            <?php if ($final_save_flag == 0) { ?>
-                                <a href="<?= site_url('Enquiry/enquiry_list_view/10'); ?>" id="cancel_cost_sheet_id" data-toggle="tooltip" data-original-title="Itinerary Details" style="float:left;">Cancel</a>
-                            <?php } ?>
-                            <?php if ($final_save_flag == 1 || $iti_edit_id == 1) {
-                                if ($extension_disable == 0) {
-                            ?>
-                                    <button type="" id="view_cost_sheet_id" class="btn btn-success" style="float:right;">Save Costing Sheet</button>
-                            <?php }
-                            } ?>
-                        </th>
-                    </tr>
-                </table>
-    <?php } ?>
-</form>
+													<!------------------------------------------------------------------------------------->
+													<table class="table">
+														<tr>
+															<th>
+																<button type="button" id="calculate_bifur" class="btn btn-dark btn-sm">Show Bifurcation</button>
+															</th>
+															<th>
+																<button type="button" id="recalculate_bifur" class="btn btn-primary btn-sm" style="display:none">Calculate Bifurcation</button>
+															</th>
+															<th>
+																<input type="text" id="cs_name" name="cs_name" class="form-control input-sm" maxlength="50" placeholder="Enter Costing Sheet Name">
+															</th>
+															<th>
+																<?php if ($final_save_flag == 0) { ?>
+																	<a href="<?= site_url('Enquiry/enquiry_list_view/10'); ?>" id="cancel_cost_sheet_id" data-toggle="tooltip" data-original-title="Itinerary Details" style="float:left;">Cancel</a>
+																<?php } ?>
+																<?php if ($final_save_flag == 1 || $iti_edit_id == 1) {
+																	if ($extension_disable == 0) {
+																?>
+																		<button type="" id="view_cost_sheet_id" class="btn btn-success" style="float:right;">Save Costing Sheet</button>
+																<?php }
+																} ?>
+															</th>
+														</tr>
+													</table>
+												<?php } ?>
+							</form>
 
-<input type="hidden" id="is_saved_load" value="<?php echo empty($iti_cost_datas) ? '0' : '1'; ?>">
+							<input type="hidden" id="is_saved_load" value="<?php echo empty($iti_cost_datas) ? '0' : '1'; ?>">
 						</div>
 					</div>
 
@@ -9425,76 +9422,76 @@ $cs_trans_total = 0;
 </script>
 
 <script>
-$(document).ready(function() {
-    var isSavedLoad = parseInt($('#is_saved_load').val()) === 1;
-    if (!isSavedLoad) {
-        calculateCosting();  // Only run on fresh load (no saved data)
-    }
+	$(document).ready(function() {
+		var isSavedLoad = parseInt($('#is_saved_load').val()) === 1;
+		if (!isSavedLoad) {
+			calculateCosting(); // Only run on fresh load (no saved data)
+		}
 
-    // Recalculate when margin or other inputs change
-    $('#margin_value, #tour_addon_value, #gst_value').on('input change', function() {
-        calculateCosting();
-    });
+		// Recalculate when margin or other inputs change
+		$('#margin_value, #tour_addon_value, #gst_value').on('input change', function() {
+			calculateCosting();
+		});
 
-    // Recalculate when TCS checkbox is clicked
-    $('#tcs_checkbox').on('change', function() {
-        calculateCosting();
-    });
+		// Recalculate when TCS checkbox is clicked
+		$('#tcs_checkbox').on('change', function() {
+			calculateCosting();
+		});
 
-    // Main costing calculation function
-    function calculateCosting() {
-        // STEP 1: Get base values
-        var tnr = parseFloat($('#tnr_hidden').val()) || 0;
-        var marginPercent = parseFloat($('#margin_value').val()) || 0;
-        var tourAddon = parseFloat($('#tour_addon_value').val()) || 0;
+		// Main costing calculation function
+		function calculateCosting() {
+			// STEP 1: Get base values
+			var tnr = parseFloat($('#tnr_hidden').val()) || 0;
+			var marginPercent = parseFloat($('#margin_value').val()) || 0;
+			var tourAddon = parseFloat($('#tour_addon_value').val()) || 0;
 
-        // STEP 2: Calculate margin amount
-        var marginAmount = Math.round((tnr * marginPercent / 100) * 100) / 100;
-        $('#margin_total').val(marginAmount);
+			// STEP 2: Calculate margin amount
+			var marginAmount = Math.round((tnr * marginPercent / 100) * 100) / 100;
+			$('#margin_total').val(marginAmount);
 
-        // STEP 3: Calculate tour addon total
-        $('#tour_addon_total').val(tourAddon);
+			// STEP 3: Calculate tour addon total
+			$('#tour_addon_total').val(tourAddon);
 
-        // STEP 4: Calculate TOTAL (TNR + Margin + Tour Addon)
-        var total = Math.round((tnr + marginAmount + tourAddon) * 100) / 100;
-        $('#total_final').val(total);
+			// STEP 4: Calculate TOTAL (TNR + Margin + Tour Addon)
+			var total = Math.round((tnr + marginAmount + tourAddon) * 100) / 100;
+			$('#total_final').val(total);
 
-        // STEP 5: Calculate GST on TOTAL
-        var gstPercent = parseFloat($('#gst_value').val()) || 0;
-        var gstAmount = Math.round((total * gstPercent / 100) * 100) / 100;
-        $('#gst_final').val(gstAmount);
+			// STEP 5: Calculate GST on TOTAL
+			var gstPercent = parseFloat($('#gst_value').val()) || 0;
+			var gstAmount = Math.round((total * gstPercent / 100) * 100) / 100;
+			$('#gst_final').val(gstAmount);
 
-        // STEP 6: Calculate TPC (Total Package Cost = Total + GST)
-        var tpc = Math.round((total + gstAmount) * 100) / 100;
-        $('#tpc').val(tpc);
+			// STEP 6: Calculate TPC (Total Package Cost = Total + GST)
+			var tpc = Math.round((total + gstAmount) * 100) / 100;
+			$('#tpc').val(tpc);
 
-        // STEP 7: Calculate TCS if checkbox is checked (TCS is calculated on TPC)
-        var tcsChecked = $('#tcs_checkbox').is(':checked');
-        var tcsRate = 0.05; // 5%
-        var tcsAmount = 0;
-        
-        if (tcsChecked) {
-            tcsAmount = Math.round(tpc * tcsRate * 100) / 100;
-        }
-        
-        $('#tcs_final').val(tcsAmount);
-        $('#tcs_hidden').val(tcsAmount);
+			// STEP 7: Calculate TCS if checkbox is checked (TCS is calculated on TPC)
+			var tcsChecked = $('#tcs_checkbox').is(':checked');
+			var tcsRate = 0.05; // 5%
+			var tcsAmount = 0;
 
-        // STEP 8: Calculate FINAL TPC (TPC + TCS)
-        var tpcWithTcs = Math.round((tpc + tcsAmount) * 100) / 100;
-        $('#tpc_with_tcs').val(tpcWithTcs);
-        $('#tpc_with_tcs_hidden').val(tpcWithTcs);
+			if (tcsChecked) {
+				tcsAmount = Math.round(tpc * tcsRate * 100) / 100;
+			}
 
-        // Show/hide the Final TPC row based on TCS checkbox
-        var finalRow = $('#final_tpc_row');
-        if (tcsChecked) {
-            finalRow.show();
-        } else {
-            finalRow.hide();
-            // When TCS is unchecked, set Final TPC to regular TPC
-            $('#tpc_with_tcs').val(tpc);
-            $('#tpc_with_tcs_hidden').val(tpc);
-        }
-    }
-});
+			$('#tcs_final').val(tcsAmount);
+			$('#tcs_hidden').val(tcsAmount);
+
+			// STEP 8: Calculate FINAL TPC (TPC + TCS)
+			var tpcWithTcs = Math.round((tpc + tcsAmount) * 100) / 100;
+			$('#tpc_with_tcs').val(tpcWithTcs);
+			$('#tpc_with_tcs_hidden').val(tpcWithTcs);
+
+			// Show/hide the Final TPC row based on TCS checkbox
+			var finalRow = $('#final_tpc_row');
+			if (tcsChecked) {
+				finalRow.show();
+			} else {
+				finalRow.hide();
+				// When TCS is unchecked, set Final TPC to regular TPC
+				$('#tpc_with_tcs').val(tpc);
+				$('#tpc_with_tcs_hidden').val(tpc);
+			}
+		}
+	});
 </script>
