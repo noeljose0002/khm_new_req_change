@@ -2461,23 +2461,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 	});
 
 	// **HELPER: Get locations to refresh based on mode**
-	function getLocationsToRefresh(targetCount, isDynamic) {
-		var locations = [];
-
-		if (isDynamic) {
-			// Dynamic mode: all locations up to and including target
-			for (let i = 1; i <= targetCount; i++) {
-				if ($(`#tour_location_id${i}`).length > 0) {
-					locations.push(i);
-				}
-			}
-		} else {
-			// Static mode: just the target location
-			locations.push(targetCount);
-		}
-
-		return locations;
-	}
+	
 
 	// **REFRESH SINGLE LOCATION - DYNAMIC MODE (ALL NIGHTS)**
 	function refreshSingleLocationAllNights(count, callback) {
@@ -2758,19 +2742,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 	});
 
 	// **REFRESH SINGLE NIGHT**
-	function refreshSingleNight(count, night, callback) {
-		var $spinner = $('#csspinner');
-		$spinner.show();
 
-		console.log('Refreshing single night: Location ' + count + ', Night ' + night);
-
-		// Call the existing load vehicle function
-		loadVehicleDataForNight(count, night, function() {
-			$spinner.hide();
-			console.log('Single night refresh complete: Location ' + count + ', Night ' + night);
-			if (typeof callback === 'function') callback();
-		});
-	}
 
 	// **REFRESH NIGHTS SEQUENTIALLY WITH PROGRESS**
 	// function refreshNightsSequentiallyWithProgress(count, nights, onComplete) {
@@ -2813,90 +2785,90 @@ $is_edit = $edit_id ? $edit_id : 0;
 	// }
 
 	// **LOAD VEHICLE DATA FOR A SPECIFIC NIGHT**
-	function loadVehicleDataForNight(count, night, callback) {
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+	// function loadVehicleDataForNight(count, night, callback) {
+	// 	var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
 
-		if (is_vehicle_required != 1) {
-			console.log('Vehicle not required, skipping refresh');
-			if (typeof callback === 'function') callback();
-			return;
-		}
+	// 	if (is_vehicle_required != 1) {
+	// 		console.log('Vehicle not required, skipping refresh');
+	// 		if (typeof callback === 'function') callback();
+	// 		return;
+	// 	}
 
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-		var duration = <?php echo $object_det[0]['no_of_night']; ?>;
-		var totalNights = calculateTotalNights_new(count);
-		var tour_location_id = $(`#tour_location_id${count}`).val();
-		var previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
-		var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
-		var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
-		var departure_location = <?php echo $object_det[0]['departure_location']; ?>;
+	// 	var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+	// 	var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+	// 	var duration = <?php echo $object_det[0]['no_of_night']; ?>;
+	// 	var totalNights = calculateTotalNights_new(count);
+	// 	var tour_location_id = $(`#tour_location_id${count}`).val();
+	// 	var previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
+	// 	var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
+	// 	var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
+	// 	var departure_location = <?php echo $object_det[0]['departure_location']; ?>;
 
-		console.log('Loading vehicle data for Night ' + night + ', Location ' + count);
+	// 	console.log('Loading vehicle data for Night ' + night + ', Location ' + count);
 
-		$.ajax({
-			url: "<?= site_url('Enquiry/getVehicleDetails'); ?>",
-			method: "POST",
-			data: {
-				vehicle_models: vehicle_models,
-				no_of_night: no_of_night,
-				duration: duration,
-				totalNights: totalNights,
-				tour_location_id: tour_location_id,
-				previous_location_id: previous_location_id,
-				vehicle_from_location: vehicle_from_location,
-				arrival_location: arrival_location,
-				departure_location: departure_location,
-				count: count,
-				night: night
-			},
-			dataType: 'json',
-			success: function(data) {
-				if (data && data.success) {
-					// Update vehicle header info
-					$(`#veh_header${count}${night}`).val(data.veh_header || '');
-					$(`#pre_to_cur${count}${night}`).val(data.pre_to_cur || '');
-					$(`#cur_to_dep${count}${night}`).val(data.cur_to_dep || '');
-					$(`#dep_to_arr${count}${night}`).val(data.dep_to_arr || '');
-					$(`#hub_to_arr${count}${night}`).val(data.hub_to_arr || '');
-					$(`#arr_to_loc${count}${night}`).val(data.arr_to_loc || '');
+	// 	$.ajax({
+	// 		url: "<?= site_url('Enquiry/getVehicleDetails'); ?>",
+	// 		method: "POST",
+	// 		data: {
+	// 			vehicle_models: vehicle_models,
+	// 			no_of_night: no_of_night,
+	// 			duration: duration,
+	// 			totalNights: totalNights,
+	// 			tour_location_id: tour_location_id,
+	// 			previous_location_id: previous_location_id,
+	// 			vehicle_from_location: vehicle_from_location,
+	// 			arrival_location: arrival_location,
+	// 			departure_location: departure_location,
+	// 			count: count,
+	// 			night: night
+	// 		},
+	// 		dataType: 'json',
+	// 		success: function(data) {
+	// 			if (data && data.success) {
+	// 				// Update vehicle header info
+	// 				$(`#veh_header${count}${night}`).val(data.veh_header || '');
+	// 				$(`#pre_to_cur${count}${night}`).val(data.pre_to_cur || '');
+	// 				$(`#cur_to_dep${count}${night}`).val(data.cur_to_dep || '');
+	// 				$(`#dep_to_arr${count}${night}`).val(data.dep_to_arr || '');
+	// 				$(`#hub_to_arr${count}${night}`).val(data.hub_to_arr || '');
+	// 				$(`#arr_to_loc${count}${night}`).val(data.arr_to_loc || '');
 
-					// Update from-to display
-					if (data.from_to_display) {
-						$(`#v_from_to${count}${night}`).text(' - ' + data.from_to_display);
-					}
+	// 				// Update from-to display
+	// 				if (data.from_to_display) {
+	// 					$(`#v_from_to${count}${night}`).text(' - ' + data.from_to_display);
+	// 				}
 
-					// Update vehicle rates and distances
-					if (data.vehicles && data.vehicles.length > 0) {
-						$.each(data.vehicles, function(vindex, veh) {
-							var vid = count + '' + night + veh.vehicle_type_id;
+	// 				// Update vehicle rates and distances
+	// 				if (data.vehicles && data.vehicles.length > 0) {
+	// 					$.each(data.vehicles, function(vindex, veh) {
+	// 						var vid = count + '' + night + veh.vehicle_type_id;
 
-							$(`#day_rent${vid}`).val(veh.day_rent || 0);
-							$(`#max_km_day${vid}`).val(veh.max_km_day || 0);
-							$(`#travel_distance${vid}`).val(veh.travel_distance || 0);
-							$(`#extra_km_rate${vid}`).val(veh.extra_km_rate || 0);
+	// 						$(`#day_rent${vid}`).val(veh.day_rent || 0);
+	// 						$(`#max_km_day${vid}`).val(veh.max_km_day || 0);
+	// 						$(`#travel_distance${vid}`).val(veh.travel_distance || 0);
+	// 						$(`#extra_km_rate${vid}`).val(veh.extra_km_rate || 0);
 
-							// Recalculate vehicle totals
-							updateVehicleTotals(count, night, vindex);
-						});
-					}
+	// 						// Recalculate vehicle totals
+	// 						updateVehicleTotals(count, night, vindex);
+	// 					});
+	// 				}
 
-					// Mark as loaded
-					$(`#loadvehs${count}${night}`).attr('data-loaded', 'true');
+	// 				// Mark as loaded
+	// 				$(`#loadvehs${count}${night}`).attr('data-loaded', 'true');
 
-					console.log('Vehicle data loaded successfully for Night ' + night + ', Location ' + count);
-				} else {
-					console.error('Failed to load vehicle data for Night ' + night);
-				}
+	// 				console.log('Vehicle data loaded successfully for Night ' + night + ', Location ' + count);
+	// 			} else {
+	// 				console.error('Failed to load vehicle data for Night ' + night);
+	// 			}
 
-				if (typeof callback === 'function') callback();
-			},
-			error: function(xhr, status, error) {
-				console.error('Error loading vehicle data for Night ' + night + ':', error);
-				if (typeof callback === 'function') callback();
-			}
-		});
-	}
+	// 			if (typeof callback === 'function') callback();
+	// 		},
+	// 		error: function(xhr, status, error) {
+	// 			console.error('Error loading vehicle data for Night ' + night + ':', error);
+	// 			if (typeof callback === 'function') callback();
+	// 		}
+	// 	});
+	// }
 
 	console.log('Enhanced night-level chronological refresh system loaded successfully');
 	// **ENHANCED REFRESH SYSTEM FOR DYNAMIC MODE - NIGHT LEVEL**
@@ -2906,79 +2878,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 	$(document).off('click', '.load_vehs_click'); // Remove old handler
 
 	// **NEW NIGHT-LEVEL REFRESH HANDLER WITH CONFIRMATION**
-	$(document).on('click', '.load_vehs_click', function(e) {
-		e.preventDefault();
 
-		var $clickedIcon = $(this);
-		var count = parseInt($clickedIcon.attr('data-id'));
-		var targetNight = parseInt($clickedIcon.attr('data-night'));
-		var isLoaded = $clickedIcon.attr('data-loaded') === 'true';
-		var isDynamic = getIsDynamic();
-
-		console.log('Night refresh icon clicked:', {
-			count,
-			targetNight,
-			isLoaded,
-			isDynamic
-		});
-
-		// Add spinning animation
-		var $icon = $clickedIcon.find('i');
-		$icon.addClass('fa-spin');
-
-		// Get total nights for this location
-		var totalNights = parseInt($(`#no_of_night${count}`).val()) || 0;
-
-		// Build night list for message
-		var nightsList = [];
-		for (let n = 1; n <= targetNight; n++) {
-			nightsList.push('Night ' + n);
-		}
-
-		// Build confirmation message
-		var message = 'Refresh Vehicle Data\n\n';
-		message += 'Location: ' + count + '\n';
-		message += 'Target Night: ' + targetNight + ' (of ' + totalNights + ')\n';
-		message += 'Mode: ' + (isDynamic ? 'Dynamic' : 'Static') + '\n\n';
-
-		if (isDynamic && targetNight > 1) {
-			message += 'Choose refresh option:\n';
-			message += '- Press OK to refresh ALL previous nights + this one (' + nightsList.join(', ') + ')\n';
-			message += '- Press Cancel to refresh ONLY this night (Night ' + targetNight + ')';
-
-			var refreshAll = confirm(message);
-
-			if (refreshAll) {
-				// Refresh all nights from 1 to targetNight
-				var nightsToRefresh = [];
-				for (let n = 1; n <= targetNight; n++) {
-					nightsToRefresh.push(n);
-				}
-				refreshNightsSequentiallyWithProgress(count, nightsToRefresh, function() {
-					$icon.removeClass('fa-spin');
-					updateVehicleSummary(count);
-					updateAllTotals();
-					calculateVehicleExtraKmCharges();
-				});
-			} else {
-				// Refresh only this night
-				refreshSingleNight(count, targetNight, function() {
-					$icon.removeClass('fa-spin');
-					updateVehicleSummary(count);
-					updateAllTotals();
-					calculateVehicleExtraKmCharges();
-				});
-			}
-		} else {
-			// First night or static mode - just refresh this night (no confirmation needed)
-			refreshSingleNight(count, targetNight, function() {
-				$icon.removeClass('fa-spin');
-				updateVehicleSummary(count);
-				updateAllTotals();
-				calculateVehicleExtraKmCharges();
-			});
-		}
-	});
 
 	// **REFRESH SINGLE NIGHT**
 	function refreshSingleNight(count, night, callback) {
@@ -2996,130 +2896,93 @@ $is_edit = $edit_id ? $edit_id : 0;
 	}
 
 	// **REFRESH NIGHTS SEQUENTIALLY WITH PROGRESS**
-	function refreshNightsSequentiallyWithProgress(count, nights, onComplete) {
-		var $spinner = $('#csspinner');
-		$spinner.show();
 
-		var totalNights = nights.length;
-		var completedNights = 0;
-
-		console.log('Refreshing ' + totalNights + ' nights in chronological order for Location ' + count + ':', nights);
-
-		function refreshNextNight(index) {
-			if (index >= nights.length) {
-				// All nights refreshed
-				$spinner.hide();
-				// alert('SUCCESS!\n\nAll ' + totalNights + ' night(s) refreshed successfully for Location ' + count + '!');
-
-				if (typeof onComplete === 'function') {
-					onComplete();
-				}
-				return;
-			}
-
-			var currentNight = nights[index];
-			var progress = Math.round(((index + 1) / totalNights) * 100);
-
-			console.log('Refreshing Night ' + currentNight + ' (' + (index + 1) + '/' + totalNights + ') - ' + progress + '% for Location ' + count);
-
-			loadVehicleDataForNight(count, currentNight, function() {
-				completedNights++;
-				// Move to next night after 300ms delay
-				setTimeout(function() {
-					refreshNextNight(index + 1);
-				}, 300);
-			});
-		}
-
-		// Start refreshing from first night
-		refreshNextNight(0);
-	}
 
 	// **LOAD VEHICLE DATA FOR A SPECIFIC NIGHT**
-	function loadVehicleDataForNight(count, night, callback) {
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+	// function loadVehicleDataForNight(count, night, callback) {
+	// 	var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
 
-		if (is_vehicle_required != 1) {
-			console.log('Vehicle not required, skipping refresh');
-			if (typeof callback === 'function') callback();
-			return;
-		}
+	// 	if (is_vehicle_required != 1) {
+	// 		console.log('Vehicle not required, skipping refresh');
+	// 		if (typeof callback === 'function') callback();
+	// 		return;
+	// 	}
 
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-		var duration = <?php echo $object_det[0]['no_of_night']; ?>;
-		var totalNights = calculateTotalNights_new(count);
-		var tour_location_id = $(`#tour_location_id${count}`).val();
-		var previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
-		var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
-		var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
-		var departure_location = <?php echo $object_det[0]['departure_location']; ?>;
+	// 	var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
+	// 	var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+	// 	var duration = <?php echo $object_det[0]['no_of_night']; ?>;
+	// 	var totalNights = calculateTotalNights_new(count);
+	// 	var tour_location_id = $(`#tour_location_id${count}`).val();
+	// 	var previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
+	// 	var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
+	// 	var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
+	// 	var departure_location = <?php echo $object_det[0]['departure_location']; ?>;
 
-		console.log('Loading vehicle data for Night ' + night + ', Location ' + count);
+	// 	console.log('Loading vehicle data for Night ' + night + ', Location ' + count);
 
-		$.ajax({
-			url: "<?= site_url('Enquiry/getVehicleDetails'); ?>",
-			method: "POST",
-			data: {
-				vehicle_models: vehicle_models,
-				no_of_night: no_of_night,
-				duration: duration,
-				totalNights: totalNights,
-				tour_location_id: tour_location_id,
-				previous_location_id: previous_location_id,
-				vehicle_from_location: vehicle_from_location,
-				arrival_location: arrival_location,
-				departure_location: departure_location,
-				count: count,
-				night: night
-			},
-			dataType: 'json',
-			success: function(data) {
-				if (data && data.success) {
-					// Update vehicle header info
-					$(`#veh_header${count}${night}`).val(data.veh_header || '');
-					$(`#pre_to_cur${count}${night}`).val(data.pre_to_cur || '');
-					$(`#cur_to_dep${count}${night}`).val(data.cur_to_dep || '');
-					$(`#dep_to_arr${count}${night}`).val(data.dep_to_arr || '');
-					$(`#hub_to_arr${count}${night}`).val(data.hub_to_arr || '');
-					$(`#arr_to_loc${count}${night}`).val(data.arr_to_loc || '');
+	// 	$.ajax({
+	// 		url: "<?= site_url('Enquiry/getVehicleDetails'); ?>",
+	// 		method: "POST",
+	// 		data: {
+	// 			vehicle_models: vehicle_models,
+	// 			no_of_night: no_of_night,
+	// 			duration: duration,
+	// 			totalNights: totalNights,
+	// 			tour_location_id: tour_location_id,
+	// 			previous_location_id: previous_location_id,
+	// 			vehicle_from_location: vehicle_from_location,
+	// 			arrival_location: arrival_location,
+	// 			departure_location: departure_location,
+	// 			count: count,
+	// 			night: night
+	// 		},
+	// 		dataType: 'json',
+	// 		success: function(data) {
+	// 			if (data && data.success) {
+	// 				// Update vehicle header info
+	// 				$(`#veh_header${count}${night}`).val(data.veh_header || '');
+	// 				$(`#pre_to_cur${count}${night}`).val(data.pre_to_cur || '');
+	// 				$(`#cur_to_dep${count}${night}`).val(data.cur_to_dep || '');
+	// 				$(`#dep_to_arr${count}${night}`).val(data.dep_to_arr || '');
+	// 				$(`#hub_to_arr${count}${night}`).val(data.hub_to_arr || '');
+	// 				$(`#arr_to_loc${count}${night}`).val(data.arr_to_loc || '');
 
-					// Update from-to display
-					if (data.from_to_display) {
-						$(`#v_from_to${count}${night}`).text(' - ' + data.from_to_display);
-					}
+	// 				// Update from-to display
+	// 				if (data.from_to_display) {
+	// 					$(`#v_from_to${count}${night}`).text(' - ' + data.from_to_display);
+	// 				}
 
-					// Update vehicle rates and distances
-					if (data.vehicles && data.vehicles.length > 0) {
-						$.each(data.vehicles, function(vindex, veh) {
-							var vid = count + '' + night + veh.vehicle_type_id;
+	// 				// Update vehicle rates and distances
+	// 				if (data.vehicles && data.vehicles.length > 0) {
+	// 					$.each(data.vehicles, function(vindex, veh) {
+	// 						var vid = count + '' + night + veh.vehicle_type_id;
 
-							$(`#day_rent${vid}`).val(veh.day_rent || 0);
-							$(`#max_km_day${vid}`).val(veh.max_km_day || 0);
-							$(`#travel_distance${vid}`).val(veh.travel_distance || 0);
-							$(`#extra_km_rate${vid}`).val(veh.extra_km_rate || 0);
+	// 						$(`#day_rent${vid}`).val(veh.day_rent || 0);
+	// 						$(`#max_km_day${vid}`).val(veh.max_km_day || 0);
+	// 						$(`#travel_distance${vid}`).val(veh.travel_distance || 0);
+	// 						$(`#extra_km_rate${vid}`).val(veh.extra_km_rate || 0);
 
-							// Recalculate vehicle totals
-							updateVehicleTotals(count, night, vindex);
-						});
-					}
+	// 						// Recalculate vehicle totals
+	// 						updateVehicleTotals(count, night, vindex);
+	// 					});
+	// 				}
 
-					// Mark as loaded
-					$(`#loadvehs${count}${night}`).attr('data-loaded', 'true');
+	// 				// Mark as loaded
+	// 				$(`#loadvehs${count}${night}`).attr('data-loaded', 'true');
 
-					console.log('Vehicle data loaded successfully for Night ' + night + ', Location ' + count);
-				} else {
-					console.error('Failed to load vehicle data for Night ' + night);
-				}
+	// 				console.log('Vehicle data loaded successfully for Night ' + night + ', Location ' + count);
+	// 			} else {
+	// 				console.error('Failed to load vehicle data for Night ' + night);
+	// 			}
 
-				if (typeof callback === 'function') callback();
-			},
-			error: function(xhr, status, error) {
-				console.error('Error loading vehicle data for Night ' + night + ':', error);
-				if (typeof callback === 'function') callback();
-			}
-		});
-	}
+	// 			if (typeof callback === 'function') callback();
+	// 		},
+	// 		error: function(xhr, status, error) {
+	// 			console.error('Error loading vehicle data for Night ' + night + ':', error);
+	// 			if (typeof callback === 'function') callback();
+	// 		}
+	// 	});
+	// }
 
 	console.log('Enhanced night-level chronological refresh system loaded successfully');
 </script>
@@ -10014,6 +9877,10 @@ $is_edit = $edit_id ? $edit_id : 0;
 <!-- //nj// -->
 <!-- loadveh -->
 <script>
+	// **FIXED: Dynamic mode loads ALL previous locations' nights**
+
+	// **FIXED: Single alert after all locations load**
+
 	function loadVehicles(count) {
 		let no_of_night = $(`#no_of_night${count}`).val();
 		let checkin = $(`#checkin${count}`).val();
@@ -10028,6 +9895,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		let is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
 		let vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
 		let $spinner = $('#csspinner');
+		let isDynamic = getIsDynamic();
 
 		if (!no_of_night || no_of_night === 'undefined') {
 			alert("Please enter number of nights");
@@ -10038,7 +9906,115 @@ $is_edit = $edit_id ? $edit_id : 0;
 			return;
 		}
 
-		$spinner.show();
+		console.log('Loading vehicles:', {
+			count,
+			isDynamic,
+			no_of_night
+		});
+
+		// **DYNAMIC MODE: Ask user if they want to refresh all or just current**
+		if (isDynamic && count > 1) {
+			let locationNames = [];
+			for (let i = 1; i <= count; i++) {
+				if ($(`#tour_location_id${i}`).length > 0) {
+					locationNames.push('Location ' + i);
+				}
+			}
+
+			let message = 'Refresh Vehicle Data - Dynamic Mode\n\n';
+			message += 'Target: Location ' + count + '\n\n';
+			message += 'Choose refresh option:\n';
+			message += '- Press OK to refresh ALL previous locations + this one (' + locationNames.join(', ') + ')\n';
+			message += '- Press Cancel to refresh ONLY this location (Location ' + count + ')';
+
+			let refreshAll = confirm(message);
+
+			$spinner.show();
+
+			if (refreshAll) {
+				// Load all locations from 1 to current
+				console.log('User chose: Refresh ALL locations from 1 to', count);
+
+				let locationsToRefresh = [];
+				for (let loc = 1; loc <= count; loc++) {
+					if ($(`#tour_location_id${loc}`).length > 0) {
+						locationsToRefresh.push(loc);
+					}
+				}
+
+				loadLocationsSequentially(locationsToRefresh, 0, function() {
+					calculateVehicleExtraKmCharges();
+					updateAllTotals();
+					$spinner.hide();
+					// ✅ SINGLE ALERT AFTER ALL LOCATIONS
+					// alert(`SUCCESS!\n\nAll ${locationsToRefresh.length} location(s) refreshed successfully!`);
+					// console.log('All locations loaded successfully');
+				});
+			} else {
+				// Load only current location
+				console.log('User chose: Refresh ONLY location', count);
+				loadSingleLocation(count, function() {
+					calculateVehicleExtraKmCharges();
+					updateVehicleSummary(count);
+					updateAllTotals();
+					$spinner.hide();
+					// ✅ SINGLE ALERT FOR SINGLE LOCATION
+					// alert(`SUCCESS!\n\nLocation ${count} refreshed successfully!`);
+				});
+			}
+		} else {
+			// **First location OR Static mode: Load only current location (no prompt needed)**
+			$spinner.show();
+			console.log('Loading only location', count, '(First location or Static mode)');
+			loadSingleLocation(count, function() {
+				calculateVehicleExtraKmCharges();
+				updateVehicleSummary(count);
+				updateAllTotals();
+				$spinner.hide();
+				// ✅ SINGLE ALERT FOR FIRST LOCATION
+				// alert(`SUCCESS!\n\nLocation ${count} refreshed successfully!`);
+			});
+		}
+	}
+
+	// **NEW: Load multiple locations sequentially - NO ALERTS INSIDE**
+	function loadLocationsSequentially(locations, index, onComplete) {
+		if (index >= locations.length) {
+			// All locations loaded - callback handles the alert
+			if (typeof onComplete === 'function') {
+				onComplete();
+			}
+			return;
+		}
+
+		let currentLocation = locations[index];
+		console.log(`Loading location ${currentLocation} (${index + 1}/${locations.length})`);
+
+		// Load this location WITHOUT showing alert
+		loadSingleLocation(currentLocation, function() {
+			// Wait 300ms before loading next location
+			setTimeout(function() {
+				loadLocationsSequentially(locations, index + 1, onComplete);
+			}, 300);
+		});
+	}
+
+	// **Load a single location's vehicle data - NO ALERTS**
+	function loadSingleLocation(count, callback) {
+		let no_of_night = parseInt($(`#no_of_night${count}`).val());
+		let checkin = $(`#checkin${count}`).val();
+		let checkout = $(`#checkout${count}`).val();
+		let vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
+		let arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
+		let departure_location = <?php echo $object_det[0]['departure_location']; ?>;
+		let tour_location_id = $(`#tour_location_id${count}`).val();
+		let previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
+		let duration = <?php echo $object_det[0]['no_of_night']; ?>;
+		let totalNights = calculateTotalNights_new(count);
+		let is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+		let vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
+
+		console.log(`Loading vehicle data for location ${count}`);
 
 		$.ajax({
 			url: "<?= site_url('Enquiry/getVehicleTariffDetails'); ?>",
@@ -10061,8 +10037,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 			success: function(data) {
 				let parsedNoOfNight = parseInt(no_of_night);
 
-				// Update vehicle distance fields
+				// Update vehicle distance fields for ALL nights of this location
 				for (let night = 1; night <= parsedNoOfNight; night++) {
+					// Clear existing values
 					$(`#cur_to_dep${count}${night}`).val("");
 					$(`#dep_to_arr${count}${night}`).val("");
 					$(`#hub_to_arr${count}${night}`).val("");
@@ -10074,7 +10051,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 					let is_last_night = night === parsedNoOfNight;
 					let total_distance_int = 0;
 
-					// Inbound
+					// Inbound (first night only)
 					let has_inbound = (data.distance_type == 1 || data.distance_type == 2);
 					if (has_inbound && is_first_night) {
 						$(`#hub_to_arr${count}${night}`).val(data.dist1);
@@ -10083,7 +10060,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 						total_distance_int += parseInt(data.dist1 || 0) + parseInt(data.dist2 || 0);
 					}
 
-					// Inter
+					// Inter-location distance (first night only)
 					if ((data.distance_type == 3 && is_first_night) ||
 						(data.distance_type != 1 && data.distance_type != 2 && data.distance_type != 3 && is_first_night)) {
 						let inter_dist = (data.distance_type == 3) ? data.dist3 : data.total_distance;
@@ -10092,7 +10069,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 						total_distance_int += parseInt(inter_dist || 0);
 					}
 
-					// Outbound
+					// Outbound (last night only)
 					let has_outbound = (data.distance_type == 1 || data.distance_type == 3);
 					if (has_outbound && is_last_night) {
 						let outbound_dist1 = (data.distance_type == 1) ? data.dist3 : data.dist1;
@@ -10103,7 +10080,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 						total_distance_int += parseInt(outbound_dist1 || 0) + parseInt(outbound_dist2 || 0);
 					}
 
-					// Update display
+					// Update display text
 					let v_from_to_data = v_parts.length === 0 ?
 						` - (Stay at location - 0 KM)` :
 						` - (${v_parts.join(', ')})`;
@@ -10111,7 +10088,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 					$(`#v_from_to${count}${night}`).html(v_from_to_data);
 					$(`#veh_header${count}${night}`).val(v_from_to_data);
 
-					// Set vehicle data for this night
+					// Set vehicle rates and distances for this night
 					if (data.vehicles && data.vehicles.length > 0) {
 						$.each(data.vehicles, function(index, item) {
 							let type_id = item.vehicle_type_id;
@@ -10126,25 +10103,47 @@ $is_edit = $edit_id ? $edit_id : 0;
 					}
 				}
 
-				// Recalculate ALL totals
-				calculateVehicleExtraKmCharges();
+				console.log(`Vehicle data loaded for location ${count}`);
+
+				// Mark all nights as loaded
+				for (let night = 1; night <= parsedNoOfNight; night++) {
+					$(`#loadvehs${count}${night}`).attr('data-loaded', 'true');
+				}
+
+				// Update this location's summary
 				updateVehicleSummary(count);
+
+				// ✅ NO ALERT HERE - callback handles it
+				if (typeof callback === 'function') {
+					callback();
+				}
 			},
 			error: function(xhr, status, error) {
-				console.error('Error fetching vehicle tariff details:', error);
-			},
-			complete: function() {
-				$spinner.hide();
+				console.error(`Error loading vehicle data for location ${count}:`, error);
+				if (typeof callback === 'function') {
+					callback();
+				}
 			}
 		});
 	}
 
+	console.log('✅ Fixed vehicle loading with single alert message');
+
+	// Event handler remains the same
+	// $(document).on('click', '.load_vehs_click', function() {
+	// 	let count = $(this).attr('data-id');
+	// 	$(this).attr('data-loaded', 'true');
+	// 	loadVehicles(count);
+	// });
+
+	console.log('✅ Fixed dynamic vehicle loading system loaded');
+
 	// STEP 10: Event handlers
-	$(document).on('click', '.load_vehs_click', function() {
-		let count = $(this).attr('data-id');
-		$(this).attr('data-loaded', 'true');
-		loadVehicles(count);
-	});
+	// $(document).on('click', '.load_vehs_click', function() {
+	// 	let count = $(this).attr('data-id');
+	// 	$(this).attr('data-loaded', 'true');
+	// 	loadVehicles(count);
+	// });
 
 	// Recalculate when distance changes
 	$(document).on('input', 'input[id^="travel_distance"].cls_dist', function() {
@@ -11023,7 +11022,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			var cp_sel = locationData.meal_plan_id == 2 ? "selected" : "";
 			var map_sel = locationData.meal_plan_id == 3 ? "selected" : "";
 			var ap_sel = locationData.meal_plan_id == 4 ? "selected" : "";
-			var usePreTariffs = (mode === 'NO_CHANGES' || mode === 'NIGHTS_DECREASED_ONLY'|| mode === 'NIGHTS_INCREASED' || mode === 'PAX_ONLY_CHANGED');
+			var usePreTariffs = (mode === 'NO_CHANGES' || mode === 'NIGHTS_DECREASED_ONLY' || mode === 'NIGHTS_INCREASED' || mode === 'PAX_ONLY_CHANGED');
 			var usePreVehicle = (mode !== 'VEHICLE_CHANGED' && mode !== 'MEAL_PLAN_CHANGED');
 			console.log(`Use Pre-Tariffs: ${usePreTariffs}, Use Pre-Vehicle: ${usePreVehicle}`);
 			var newCard = buildLocationCardHtml(count, locationData, ep_sel, cp_sel, map_sel, ap_sel, no_of_adult, no_of_child_with_bed, no_of_child_without_bed, no_of_extra_bed, total_no_of_pax);
@@ -11917,125 +11916,126 @@ $is_edit = $edit_id ? $edit_id : 0;
 			updateLocationTotals(count);
 		}
 		async function generateNightWithFreshTariff(count, night, locationData, vehicleDetails, usePreHeaders, usePreVehicle, expansionData, hasExpansionVehicleData) {
-    var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, locationData.check_in_date);
-    $(`#nightly-details${count}`).append(nightlyHtml);
-    
-    var commonOptions = $(`#roomcat_common${count}`).html();
-    $(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
-        $(this).html(commonOptions);
-    });
-    
-    // FIXED: Safe Select2 init for nightly selects
-    var $nightlySelects = $(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`);
-    $nightlySelects.each(function() {
-        if (!$(this).hasClass('select2-hidden-accessible')) {
-            $(this).select2();
-        }
-    });
-    
-    var wasDraftLoading = isDraftLoading;
-    isDraftLoading = false;
-    
-    // OPTIMIZED: Bulk set room category and meal plan for all rooms in this night at once (no loops/delays)
-    var commonRoom = locationData.room_category_id;
-    var commonMeal = locationData.meal_plan_id;
-    console.log(`Night ${night}: Using meal plan ID: ${commonMeal}`);
-    
-    $(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).val(commonRoom).trigger('change.select2');
-    $(`#nightly-details${count} .night-section[data-night="${night}"] .mp_row_change`).val(commonMeal).trigger('change');
-    
-    isDraftLoading = wasDraftLoading;
-    
-    // **CRITICAL FIX: Set vehicle header ONLY ONCE and ONLY if vehicle required**
-    if (is_vehicle_required == 1) {
-        var headerText = '';
-        var nightVehicleDetails = [];
-        var nightIndex = night - 1;
-        // Use expansion data when conditions are met
-        if (usePreVehicle && hasExpansionVehicleData && nightIndex < expansionData.length) {
-            var nightData = expansionData[nightIndex];
-            if (nightData && nightData.vehicle_details_json && nightData.vehicle_details_json.trim() !== '[]') { // FIXED: Skip empty arrays
-                try {
-                    nightVehicleDetails = JSON.parse(nightData.vehicle_details_json);
-                    // Extract unique headers from this night's vehicle data
-                    var uniqueHeaders = [];
-                    if (Array.isArray(nightVehicleDetails)) {
-                        nightVehicleDetails.forEach(function(veh) {
-                            if (veh && veh.veh_header) {
-                                var cleaned = veh.veh_header.toString()
-                                    .trim()
-                                    .replace(/^(?:\s*[-–—+]\s*)+/g, '')
-                                    .replace(/\s+/g, ' ')
-                                    .trim();
-                                if (cleaned && uniqueHeaders.indexOf(cleaned) === -1) {
-                                    uniqueHeaders.push(cleaned);
-                                }
-                            }
-                        });
-                    }
-                    if (uniqueHeaders.length > 0) {
-                        headerText = uniqueHeaders.join(' + ');
-                        console.log(`Night ${night}: Using expansion headers: "${headerText}"`);
-                    }
-                } catch (e) {
-                    console.error('Error parsing vehicle_details_json for night ' + night + ':', e);
-                }
-            }
-        }
-        // FALLBACK: Use aggregated vehicle details if no expansion header
-        if (!headerText && usePreHeaders && vehicleDetails.length > 0) {
-            var mainHeaders = [];
-            vehicleDetails.forEach(function(veh) {
-                if (veh && veh.veh_header) {
-                    var cleaned = veh.veh_header.toString()
-                        .trim()
-                        .replace(/^(?:\s*[-–—+]\s*)+/g, '')
-                        .replace(/\s+/g, ' ')
-                        .trim();
-                    if (cleaned && mainHeaders.indexOf(cleaned) === -1) {
-                        mainHeaders.push(cleaned);
-                    }
-                }
-            });
-            if (mainHeaders.length > 0) {
-                headerText = mainHeaders.join(' + ');
-                console.log(`Night ${night}: Using aggregated headers: "${headerText}"`);
-            }
-        }
-        // **SET HEADER ONLY ONCE - Check if already set to prevent duplicates**
-        var $existingHeader = $(`#v_from_to${count}${night}`);
-        var currentHeaderText = $existingHeader.find('span').text().trim().replace(/^-\s*/, '');
-        if (!currentHeaderText || currentHeaderText !== headerText) {
-            setVehicleHeader(count, night, headerText);
-            console.log(`Night ${night}: Header set to "${headerText}"`);
-        } else {
-            console.log(`Night ${night}: Header already set correctly, skipping`);
-        }
-        // FIXED: Set vehicle data if using pre-data AND has expansion (with refined check)
-        if (usePreVehicle && hasExpansionVehicleData && nightVehicleDetails.length > 0) {
-            console.log(`Night ${night}: Setting vehicle data from expansion`);
-            setVehicleDataFromNightExpansion(count, night, nightVehicleDetails);
-        } else if (usePreVehicle && nightIndex < expansionData.length) {
-            // FIXED: Explicitly set to 0 if using pre but no data for this night
-            var nightData = expansionData[nightIndex];
-            if (nightData && (nightData.vehicle_details_json === undefined || nightData.vehicle_details_json.trim() === '' || nightData.vehicle_details_json === '[]' || nightData.vehicle_details_json === '{}')) {
-                console.log(`Night ${night}: No vehicle data for this night; setting to 0`);
-                $.each(vehicle_models, function(vindex, vmodel) {
-                    var vid = `${count}${night}${vmodel.vehicle_type_id}`;
-                    $(`#day_rent${vid}`).val(0);
-                    $(`#travel_distance${vid}`).val(0);
-                    $(`#max_km_day${vid}`).val(0);
-                    $(`#extra_km_rate${vid}`).val(0);
-                    $(`#extra_kilometer${vid}`).val(0);
-                    $(`#veh_total${vid}`).val(0);
-                    updateVehicleTotals(count, night, vindex);
-                });
-            }
-        }
-    }
-    
-    // REMOVED: Final delay(300) - no longer needed for bulk operations
-}
+			var nightlyHtml = generateNightHtml(count, night, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models, locationData.check_in_date);
+			$(`#nightly-details${count}`).append(nightlyHtml);
+
+			var commonOptions = $(`#roomcat_common${count}`).html();
+			$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).each(function() {
+				$(this).html(commonOptions);
+			});
+
+			// FIXED: Safe Select2 init for nightly selects
+			var $nightlySelects = $(`#nightly-details${count} .night-section[data-night="${night}"] .select2-show-search`);
+			$nightlySelects.each(function() {
+				if (!$(this).hasClass('select2-hidden-accessible')) {
+					$(this).select2();
+				}
+			});
+
+			var wasDraftLoading = isDraftLoading;
+			isDraftLoading = false;
+
+			// OPTIMIZED: Bulk set room category and meal plan for all rooms in this night at once (no loops/delays)
+			var commonRoom = locationData.room_category_id;
+			var commonMeal = locationData.meal_plan_id;
+			console.log(`Night ${night}: Using meal plan ID: ${commonMeal}`);
+
+			$(`#nightly-details${count} .night-section[data-night="${night}"] .room_cat_change`).val(commonRoom).trigger('change.select2');
+			$(`#nightly-details${count} .night-section[data-night="${night}"] .mp_row_change`).val(commonMeal).trigger('change');
+
+			isDraftLoading = wasDraftLoading;
+
+			// **CRITICAL FIX: Set vehicle header ONLY ONCE and ONLY if vehicle required**
+			if (is_vehicle_required == 1) {
+				var headerText = '';
+				var nightVehicleDetails = [];
+				var nightIndex = night - 1;
+				// Use expansion data when conditions are met
+				if (usePreVehicle && hasExpansionVehicleData && nightIndex < expansionData.length) {
+					var nightData = expansionData[nightIndex];
+					if (nightData && nightData.vehicle_details_json && nightData.vehicle_details_json.trim() !== '[]') { // FIXED: Skip empty arrays
+						try {
+							nightVehicleDetails = JSON.parse(nightData.vehicle_details_json);
+							// Extract unique headers from this night's vehicle data
+							var uniqueHeaders = [];
+							if (Array.isArray(nightVehicleDetails)) {
+								nightVehicleDetails.forEach(function(veh) {
+									if (veh && veh.veh_header) {
+										var cleaned = veh.veh_header.toString()
+											.trim()
+											.replace(/^(?:\s*[-–—+]\s*)+/g, '')
+											.replace(/\s+/g, ' ')
+											.trim();
+										if (cleaned && uniqueHeaders.indexOf(cleaned) === -1) {
+											uniqueHeaders.push(cleaned);
+										}
+									}
+								});
+							}
+							if (uniqueHeaders.length > 0) {
+								headerText = uniqueHeaders.join(' + ');
+								console.log(`Night ${night}: Using expansion headers: "${headerText}"`);
+							}
+						} catch (e) {
+							console.error('Error parsing vehicle_details_json for night ' + night + ':', e);
+						}
+					}
+				}
+				// FALLBACK: Use aggregated vehicle details if no expansion header
+				if (!headerText && usePreHeaders && vehicleDetails.length > 0) {
+					var mainHeaders = [];
+					vehicleDetails.forEach(function(veh) {
+						if (veh && veh.veh_header) {
+							var cleaned = veh.veh_header.toString()
+								.trim()
+								.replace(/^(?:\s*[-–—+]\s*)+/g, '')
+								.replace(/\s+/g, ' ')
+								.trim();
+							if (cleaned && mainHeaders.indexOf(cleaned) === -1) {
+								mainHeaders.push(cleaned);
+							}
+						}
+					});
+					if (mainHeaders.length > 0) {
+						headerText = mainHeaders.join(' + ');
+						console.log(`Night ${night}: Using aggregated headers: "${headerText}"`);
+					}
+				}
+				// **SET HEADER ONLY ONCE - Check if already set to prevent duplicates**
+				var $existingHeader = $(`#v_from_to${count}${night}`);
+				var currentHeaderText = $existingHeader.find('span').text().trim().replace(/^-\s*/, '');
+				if (!currentHeaderText || currentHeaderText !== headerText) {
+					setVehicleHeader(count, night, headerText);
+					console.log(`Night ${night}: Header set to "${headerText}"`);
+				} else {
+					console.log(`Night ${night}: Header already set correctly, skipping`);
+				}
+				// FIXED: Set vehicle data if using pre-data AND has expansion (with refined check)
+				if (usePreVehicle && hasExpansionVehicleData && nightVehicleDetails.length > 0) {
+					console.log(`Night ${night}: Setting vehicle data from expansion`);
+					setVehicleDataFromNightExpansion(count, night, nightVehicleDetails);
+				} else if (usePreVehicle && nightIndex < expansionData.length) {
+					// FIXED: Explicitly set to 0 if using pre but no data for this night
+					var nightData = expansionData[nightIndex];
+					if (nightData && (nightData.vehicle_details_json === undefined || nightData.vehicle_details_json.trim() === '' || nightData.vehicle_details_json === '[]' || nightData.vehicle_details_json === '{}')) {
+						console.log(`Night ${night}: No vehicle data for this night; setting to 0`);
+						$.each(vehicle_models, function(vindex, vmodel) {
+							var vid = `${count}${night}${vmodel.vehicle_type_id}`;
+							$(`#day_rent${vid}`).val(0);
+							$(`#travel_distance${vid}`).val(0);
+							$(`#max_km_day${vid}`).val(0);
+							$(`#extra_km_rate${vid}`).val(0);
+							$(`#extra_kilometer${vid}`).val(0);
+							$(`#veh_total${vid}`).val(0);
+							updateVehicleTotals(count, night, vindex);
+						});
+					}
+				}
+			}
+
+			// REMOVED: Final delay(300) - no longer needed for bulk operations
+		}
+
 		function setVehicleDataFromNightExpansion(count, night, nightVehicleDetails) {
 			console.log(`Setting vehicle data for Night ${night}:`, nightVehicleDetails);
 			$.each(vehicle_models, function(vindex, vmodel) {
