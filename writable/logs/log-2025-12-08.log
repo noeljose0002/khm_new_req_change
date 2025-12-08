@@ -3716,3 +3716,322 @@ INFO - 2025-12-08 17:40:21 --> getSightName(0) returned: 0 rows
 DEBUG - 2025-12-08 17:59:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2025-12-08 17:59:23 --> getSightName(0) returned: 0 rows
 INFO - 2025-12-08 17:59:23 --> getSightName(0) returned: 0 rows
+DEBUG - 2025-12-08 18:04:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:04:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:04:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:04:18 --> Error: Call to undefined function groupExpansionRooms()
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 245.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:04:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:04:20 --> Error: Call to undefined function groupExpansionRooms()
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 245.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:04:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:04:20 --> Error: Call to undefined function groupExpansionRooms()
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 245.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:04:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:04:21 --> Error: Call to undefined function groupExpansionRooms()
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 245.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:04:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:04:21 --> Error: Call to undefined function groupExpansionRooms()
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 245.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:05:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:05:55 --> ParseError: Unclosed '{' on line 10
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 965.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:05:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:05:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:05:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:05:58 --> ParseError: Unclosed '{' on line 10
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 965.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:06:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:06:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:06:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:06:31 --> ParseError: Unclosed '{' on line 10
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 965.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:06:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:06:32 --> ParseError: Unclosed '{' on line 10
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 965.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:06:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:06:32 --> ParseError: Unclosed '{' on line 10
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 965.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:06:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:06:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:06:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:07:00 --> ErrorException: Undefined variable $addon_count
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 562.
+ 1 APPPATH\Views\enquiry\costing_sheet_view.php(562): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $addon_count', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\costing_sheet_view.php', 562)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\costing_sheet_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:07:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:07:00 --> ErrorException: Undefined variable $addon_count
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 562.
+ 1 APPPATH\Views\enquiry\costing_sheet_view.php(562): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $addon_count', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\costing_sheet_view.php', 562)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\costing_sheet_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:08:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:08:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:08:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:08:13 --> ParseError: Unclosed '{' on line 23
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 978.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:08:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:08:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:08:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:08:29 --> ParseError: Unclosed '{' on line 11
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 966.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:09:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:09:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:09:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:09:14 --> ParseError: Unmatched '}'
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 959.
+ 1 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 3 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:09:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:09:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:09:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-08 18:09:33 --> Error: Call to undefined function groupExpansionRooms()
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 245.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:10:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:10:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:11:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-08 18:11:00 --> getSightName(0) returned: 0 rows
+CRITICAL - 2025-12-08 18:11:00 --> Error: Call to undefined function groupExpansionRoomsByRates()
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 311.
+ 1 SYSTEMPATH\View\View.php(234): include()
+ 2 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 4 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 6 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 7 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:11:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:11:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:11:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-08 18:11:36 --> getSightName(0) returned: 0 rows
+CRITICAL - 2025-12-08 18:11:36 --> ErrorException: Undefined variable $cs_acc_total
+[Method: POST, Route: Enquiry/viewCostingSheet]
+in APPPATH\Views\enquiry\costing_sheet_view.php on line 383.
+ 1 APPPATH\Views\enquiry\costing_sheet_view.php(383): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $cs_acc_total', 'C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\costing_sheet_view.php', 383)
+ 2 SYSTEMPATH\View\View.php(234): include('C:\\wamp64\\www\\khm\\app\\Views\\enquiry\\costing_sheet_view.php')
+ 3 SYSTEMPATH\View\View.php(237): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1171): CodeIgniter\View\View->render('enquiry/costing_sheet_view', [], true)
+ 5 APPPATH\Controllers\Enquiry.php(9833): view('enquiry/costing_sheet_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->viewCostingSheet()
+ 7 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 8 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-08 18:11:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:11:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:12:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-08 18:12:00 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-08 18:12:00 --> getSightName(0) returned: 0 rows
+DEBUG - 2025-12-08 18:18:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:18:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:18:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-08 18:18:56 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-08 18:18:56 --> getSightName(0) returned: 0 rows
+DEBUG - 2025-12-08 18:21:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:21:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:23:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:23:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:23:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-08 18:23:02 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-08 18:23:02 --> getSightName(0) returned: 0 rows
+DEBUG - 2025-12-08 18:24:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:24:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:24:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-08 18:24:08 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-08 18:24:08 --> getSightName(0) returned: 0 rows
+DEBUG - 2025-12-08 18:36:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:36:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:36:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-08 18:36:23 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-08 18:36:23 --> getSightName(0) returned: 0 rows
+DEBUG - 2025-12-08 18:36:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:36:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:36:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-08 18:36:54 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-08 18:36:54 --> getSightName(0) returned: 0 rows
+DEBUG - 2025-12-08 18:37:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:37:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:37:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-08 18:37:18 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-08 18:37:18 --> getSightName(0) returned: 0 rows
+DEBUG - 2025-12-08 18:38:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-08 18:38:24 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-08 18:38:24 --> getSightName(0) returned: 0 rows
+DEBUG - 2025-12-08 18:38:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:38:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:38:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-08 18:38:40 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-08 18:38:40 --> getSightName(0) returned: 0 rows
+DEBUG - 2025-12-08 18:38:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:38:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-08 18:38:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-08 18:38:56 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-08 18:38:56 --> getSightName(0) returned: 0 rows
