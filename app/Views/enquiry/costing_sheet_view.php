@@ -466,7 +466,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <?php } ?>
 									                <!-- Display room type with count -->
 									                <td style="border:1px solid black;">
-									                    Double <?php echo $room_count > 1 ? "({$room_count} Rooms)" : "(1 Room)"; ?>
+									                    Double
 									                </td>
 									                <td style="border:1px solid black;"><?php echo $d_room_cat_name; ?></td>
 									                <td style="border:1px solid black;"><?php echo $d_meal_plan_name; ?></td>
@@ -475,21 +475,21 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <!-- Display total room count -->
 									                <td style="border:1px solid black;text-align:center;"><?php echo $room_count; ?></td>
 									               
-									                <td style="border:1px solid black;text-align:right;"><?php echo number_format($d_adult_rate_display, 2); ?></td>
+									                <td style="border:1px solid black;text-align:right;"><?php echo ($d_adult_rate_display); ?></td>
 									               <?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
 														<td style="border:1px solid black;text-align:center;"><?php echo $child_no; ?></td>
-														<td style="border:1px solid black;text-align:right;"><?php echo number_format($d_child_rate_display, 2); ?></td>
+														<td style="border:1px solid black;text-align:right;"><?php echo ($d_child_rate_display); ?></td>
 													<?php } ?>
 													<?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
 														<td style="border:1px solid black;text-align:center;"><?php echo $child_wb_no; ?></td>
-														<td style="border:1px solid black;text-align:right;"><?php echo number_format($d_child_wb_rate_display, 2); ?></td>
+														<td style="border:1px solid black;text-align:right;"><?php echo ($d_child_wb_rate_display); ?></td>
 													<?php } ?>
 													<?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
 														<td style="border:1px solid black;text-align:center;"><?php echo $extra_no; ?></td>
-														<td style="border:1px solid black;text-align:right;"><?php echo number_format($d_extra_rate_display, 2); ?></td>
+														<td style="border:1px solid black;text-align:right;"><?php echo ($d_extra_rate_display); ?></td>
 													<?php } ?>
 									                <!-- Display grouped total -->
-									                <td style="border:1px solid black;text-align:right;"><?php echo number_format($group_total, 2); ?></td>
+									                <td style="border:1px solid black;text-align:right;"><?php echo ($group_total); ?></td>
 									            </tr>
 									        <?php
 												$row_counter++;
@@ -529,30 +529,30 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                
 									                
 									                    <td style="border:1px solid black;text-align:right;">
-									                        <?php echo number_format($room_t_d_display, 2); ?>
+									                        <?php echo ($room_t_d_display); ?>
 									                    </td>
 									                <?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
 									                    <td style="border:1px solid black;text-align:center;"><?php echo $val['child_with_bed']; ?></td>
 									                    
 									                        <td style="border:1px solid black;text-align:right;">
-									                            <?php echo number_format($child_t_d_display, 2); ?>
+									                            <?php echo ($child_t_d_display); ?>
 									                        </td>
 									                <?php } ?>
 									                <?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>	
 									                    <td style="border:1px solid black;text-align:center;"><?php echo $val['child_without_bed']; ?></td>
 									                
 									                        <td style="border:1px solid black;text-align:right;">
-									                            <?php echo number_format($child_wb_t_d_display, 2); ?>
+									                            <?php echo ($child_wb_t_d_display); ?>
 									                        </td>
 									                <?php } ?>
 									                <?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>	
 									                    <td style="border:1px solid black;text-align:center;"><?php echo $val['extra_bed']; ?></td>
 									                    
 									                        <td style="border:1px solid black;text-align:right;">
-									                            <?php echo number_format($extra_t_d_display, 2); ?>
+									                            <?php echo ($extra_t_d_display); ?>
 									                        </td>
 									                <?php } ?>	
-									                <td style="border:1px solid black;text-align:right;"><?php echo number_format($dtotal, 2); ?></td>
+									                <td style="border:1px solid black;text-align:right;"><?php echo ($dtotal); ?></td>
 									            </tr>
 									        <?php
 											$row_counter++;
@@ -598,7 +598,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <?php } ?>
 									                <!-- Display room type with count -->
 									                <td style="border:1px solid black;">
-									                    Single <?php echo $room_count > 1 ? "({$room_count} Rooms)" : "(1 Room)"; ?>
+									                    Single
 									                </td>
 									                <td style="border:1px solid black;"><?php echo $s_room_cat_name; ?></td>
 									                <td style="border:1px solid black;"><?php echo $s_meal_plan_name; ?></td>
@@ -607,21 +607,21 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <!-- Display total room count -->
 									                <td style="border:1px solid black;text-align:center;"><?php echo $room_count; ?></td>
 									               
-									                <td style="border:1px solid black;text-align:right;"><?php echo number_format($s_adult_rate_display, 2); ?></td>
+									                <td style="border:1px solid black;text-align:right;"><?php echo ($s_adult_rate_display); ?></td>
 									                <?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
 									                    <td style="border:1px solid black;text-align:center;"><?php echo $s_child_no; ?></td>
-									                    <td style="border:1px solid black;text-align:right;"><?php echo number_format($s_child_rate_display, 2); ?></td>
+									                    <td style="border:1px solid black;text-align:right;"><?php echo ($s_child_rate_display); ?></td>
 									                <?php } ?>
 									                <?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>
 									                    <td style="border:1px solid black;text-align:center;"><?php echo $s_child_wb_no; ?></td>
-									                    <td style="border:1px solid black;text-align:right;"><?php echo number_format($s_child_wb_rate_display, 2); ?></td>
+									                    <td style="border:1px solid black;text-align:right;"><?php echo ($s_child_wb_rate_display); ?></td>
 									                <?php } ?>
 									                <?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>
 									                    <td style="border:1px solid black;text-align:center;"><?php echo $s_extra_no; ?></td>
-									                    <td style="border:1px solid black;text-align:right;"><?php echo number_format($s_extra_rate_display, 2); ?></td>
+									                    <td style="border:1px solid black;text-align:right;"><?php echo ($s_extra_rate_display); ?></td>
 									                <?php } ?>
 									                <!-- Display grouped total -->
-									                <td style="border:1px solid black;text-align:right;"><?php echo number_format($group_total, 2); ?></td>
+									                <td style="border:1px solid black;text-align:right;"><?php echo ($group_total); ?></td>
 									            </tr>
 									        <?php
 												$row_counter++;
@@ -652,7 +652,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <td style="border:1px solid black;"><?php echo $val['single_room']; ?></td>
 									            
 									                    <td style="border:1px solid black;text-align:right;">
-									                        <?php echo number_format($room_t_s_display, 2); ?>
+									                        <?php echo ($room_t_s_display); ?>
 									                    </td>
 									                <?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>	
 									                    <td style="border:1px solid black;text-align:center;">0</td>
@@ -666,7 +666,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                    <td style="border:1px solid black;text-align:center;">0</td>
 									                    <td style="border:1px solid black;text-align:right;">0.00</td>
 									                <?php } ?>	
-									                <td style="border:1px solid black;text-align:right;"><?php echo number_format($stotal, 2); ?></td>
+									                <td style="border:1px solid black;text-align:right;"><?php echo ($stotal); ?></td>
 									            </tr>
 									        <?php
 											$row_counter++;
@@ -779,7 +779,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 																<td style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($valh['tour_date'])); ?></td>
 																<td style="border:1px solid black;"><?php echo $valh['geog_name']; ?></td>
 																<td style="border:1px solid black;"><?php echo $ss['name']; ?></td>
-																<td style="border:1px solid black;text-align:right;"><?php echo number_format($tariff, 2); ?></td>
+																<td style="border:1px solid black;text-align:right;"><?php echo ($tariff); ?></td>
 															</tr>
 															<?php
 															$cs_sightseeing_total += $tariff;
@@ -791,7 +791,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 															?>	
 									<tr>
 										<td colspan="4" style="border:1px solid black;"><b>Total Sightseeing Cost (with Pax)</b></td>
-										<td style="border:1px solid black;text-align:right;"><b><?php echo number_format($cs_sightseeing_total, 2); ?></b></td>
+										<td style="border:1px solid black;text-align:right;"><b><?php echo ($cs_sightseeing_total); ?></b></td>
 									</tr>
 								</table>
 						<?php
@@ -986,10 +986,10 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 							$model_str = implode(', ', array_unique($vehicle_models));
 ?>
     <tr>
-        <td colspan="4" style="border:1px solid black;">Extra Kilometer (Rate : <?php echo number_format($extra_rate, 2); ?>)</td>
-        <td style="border:1px solid black;"><?php echo number_format($total_extra_km, 2); ?></td>
+        <td colspan="4" style="border:1px solid black;">Extra Kilometer (Rate : <?php echo ($extra_rate); ?>)</td>
+        <td style="border:1px solid black;"><?php echo ($total_extra_km); ?></td>
         <td style="border:1px solid black;"><?php echo $model_str; ?></td>
-        <td style="border:1px solid black;text-align:right;"><?php echo number_format($total_extra_klm_cost, 2); ?></td>
+        <td style="border:1px solid black;text-align:right;"><?php echo ($total_extra_klm_cost); ?></td>
     </tr>
     <?php
 						}
@@ -1001,11 +1001,11 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
     <?php if ($object_det[0]['is_vehicle_required'] == 1) { ?>
         <tr>
             <td><b>Total Transportaion Cost</b></td>
-            <td style="text-align:right;"><b><?php echo number_format($cs_trans_total, 2); ?></b></td>
+            <td style="text-align:right;"><b><?php echo ($cs_trans_total); ?></b></td>
         </tr>
         <tr>
             <td><b>Other Charges / Permit</b></td>
-            <td style="text-align:right;"><b><?php echo number_format($total_permit, 2); ?></b></td>
+            <td style="text-align:right;"><b><?php echo ($total_permit); ?></b></td>
         </tr>
     <?php } ?>
     <tr> 
