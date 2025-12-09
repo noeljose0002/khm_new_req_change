@@ -3592,7 +3592,9 @@ $cs_trans_total = 0;
 																	<td>Double (Room <?php echo ($d_idx + 1); ?>)</td>
 																	<td><?php echo $d_room_cat_name; ?></td>
 																	<td><?php echo $d_meal_plan_name; ?></td>
-																	<td><?php echo $object_det[0]['no_of_adult']; ?></td>
+																	<?php if ($row_counter === 0) { ?>
+    <td rowspan="<?php echo $total_rows; ?>"><?php echo $object_det[0]['no_of_adult']; ?></td>
+<?php } ?>
 																	<td>1</td>
 																	<td><?php echo ($d_adult_rate_display); ?></td>
 
@@ -3670,7 +3672,9 @@ $cs_trans_total = 0;
 																<td>Double</td>
 																<td><?php echo $val['room_category_name']; ?></td>
 																<td><?php echo $val['meal_plan_name']; ?></td>
-																<td><?php echo $object_det[0]['no_of_adult']; ?></td>
+																<?php if ($row_counter === 0) { ?>
+    <td rowspan="<?php echo $total_rows; ?>"><?php echo $object_det[0]['no_of_adult']; ?></td>
+<?php } ?>
 																<td><?php echo $val['double_room']; ?></td>
 																<td><?php echo ($room_t_d_display); ?></td>
 
@@ -3750,7 +3754,9 @@ $cs_trans_total = 0;
 																	<td>Single (Room <?php echo ($s_idx + 1); ?>)</td>
 																	<td><?php echo $s_room_cat_name; ?></td>
 																	<td><?php echo $s_meal_plan_name; ?></td>
-																	<td><?php echo $object_det[0]['no_of_adult']; ?></td>
+																	<?php if ($row_counter === 0) { ?>
+    <td rowspan="<?php echo $total_rows; ?>"><?php echo $object_det[0]['no_of_adult']; ?></td>
+<?php } ?>
 																	<td>1</td>
 																	<td><?php echo ($s_adult_rate_display); ?></td>
 
@@ -3818,7 +3824,9 @@ $cs_trans_total = 0;
 																<td>Single</td>
 																<td><?php echo $val['room_category_name']; ?></td>
 																<td><?php echo $val['meal_plan_name']; ?></td>
-																<td><?php echo $object_det[0]['no_of_adult']; ?></td>
+																<?php if ($row_counter === 0) { ?>
+    <td rowspan="<?php echo $total_rows; ?>"><?php echo $object_det[0]['no_of_adult']; ?></td>
+<?php } ?>
 																<td><?php echo $val['single_room']; ?></td>
 																<td><?php echo ($room_t_s_display); ?></td>
 

@@ -10130,11 +10130,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 	console.log('✅ Fixed vehicle loading with single alert message');
 
 	// Event handler remains the same
-	// $(document).on('click', '.load_vehs_click', function() {
-	// 	let count = $(this).attr('data-id');
-	// 	$(this).attr('data-loaded', 'true');
-	// 	loadVehicles(count);
-	// });
 
 	console.log('✅ Fixed dynamic vehicle loading system loaded');
 
