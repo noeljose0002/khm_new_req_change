@@ -511,6 +511,16 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
 
 <table style="float:right;">
     <tr>
-        <td style="padding:5px;"><button type="button" id="save_iti_btn" class="btn btn-success btn-sm" style="float:right;margin-right:20px;">Save</button></td>
+        <td style="padding:5px;">
+            <button 
+                type="button" 
+                id="save_iti_btn" 
+                class="btn btn-success btn-sm" 
+                style="float:right;margin-right:20px;"
+                <?php echo ($iti_cost_datas[0]['cs_confirmed_id'] > 0) ? 'disabled' : ''; ?>
+            >
+                Save
+            </button>
+        </td>
     </tr>
 </table>

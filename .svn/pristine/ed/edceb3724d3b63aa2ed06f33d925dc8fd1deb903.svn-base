@@ -1064,20 +1064,8 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 <?php } ?>
 
 
-<?php if ($iti_cost_datas[0]['cs_confirmed_id'] > 0) { ?>
-	<table style="float:right;">
-		<tr>
-			<td style="padding:5px;">
-				<button type="button" id="save_cs_btn" class="btn btn-success btn-sm" style="float:right;margin-right:20px;" disabled>Save</button>
-			</td>
-		</tr>
-	</table>
-<?php } else { ?>
-	<table style="float:right;">
-		<tr>
-			<td style="padding:5px;">
-				<button type="button" id="save_cs_btn" class="btn btn-success btn-sm" style="float:right;margin-right:20px;">Save</button>
-			</td>
-		</tr>
-	</table>
-<?php } ?>
+<table style="float:right;">
+	<tr>
+		<td style="padding:5px;"><button type="button" id="save_cs_btn" class="btn btn-success btn-sm" style="float:right;margin-right:20px;">Save</button></td>
+	</tr>
+</table>
