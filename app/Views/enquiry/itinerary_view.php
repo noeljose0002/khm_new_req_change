@@ -2054,8 +2054,28 @@ $cs_trans_total = 0;
 																																break;
 																															}
 																														}
-
-																														$d_meal_plan_name = $ttval['meal_type_name'];
+$d_room_cat_name = '';
+    foreach ($room_cat_list_draft as $key => $val) {
+        if ($val['room_category_id'] == $d_room_cat) {
+            $d_room_cat_name = $val['room_category_name'];
+            break;
+        }
+    }
+    // FIXED (Robust): Resolve meal plan name dynamically from $meal_plans array with key fallbacks
+    $d_meal_plan_name = $ttval['meal_type_name']; // Default fallback
+    if (!empty($meal_plans)) {
+        foreach ($meal_plans as $mp) {
+            // Handle array or object structure
+            $mp_id = is_array($mp) ? ($mp['meal_plan_id'] ?? 0) : ($mp->meal_plan_id ?? 0);
+            if ((int)$mp_id === (int)$d_meal_plan) {
+                // Try common keys in order
+                $d_meal_plan_name = is_array($mp) ? ($mp['meal_type_name'] ?? ($mp['name'] ?? ($mp['meal_plan_name'] ?? ''))) : ($mp->meal_type_name ?? ($mp->name ?? ($mp->meal_plan_name ?? '')));
+                break;
+            }
+        }
+    }
+    
+																														
 																													?>
 																														<div
 																															class="row mt-2 double_row">
@@ -2343,7 +2363,20 @@ $cs_trans_total = 0;
 																															}
 																														}
 
-																														$s_meal_plan_name = $ttval['meal_type_name'];
+	$s_meal_plan_name = $ttval['meal_type_name']; // Default fallback
+    if (!empty($meal_plans)) {
+        foreach ($meal_plans as $mp) {
+            // Handle array or object structure
+            $mp_id = is_array($mp) ? ($mp['meal_plan_id'] ?? 0) : ($mp->meal_plan_id ?? 0);
+            if ((int)$mp_id === (int)$s_meal_plan) {
+                // Try common keys in order
+                $s_meal_plan_name = is_array($mp) ? ($mp['meal_type_name'] ?? ($mp['name'] ?? ($mp['meal_plan_name'] ?? ''))) : ($mp->meal_type_name ?? ($mp->name ?? ($mp->meal_plan_name ?? '')));
+                break;
+            }
+        }
+    }
+    // Debug (remove in production): Reuse the same script for single (only once)
+
 																													?>
 																														<div
 																															class="row mt-2 single_row">
@@ -3733,6 +3766,20 @@ if (!empty($itinerary_details_save)) {
 
 						$row_counter = 0;
 
+						// Calculate adult counts for display
+						$total_single_rooms = 0;
+						if (!empty($single_expansions)) {
+							$grouped_singles_temp = groupExpansionRooms($single_expansions, $val, $object_det, 'single');
+							foreach ($grouped_singles_temp as $sg) {
+								$total_single_rooms += $sg['room_count'];
+							}
+						} else if (isset($val['single_room'])) {
+							$total_single_rooms = $val['single_room'];
+						}
+						
+						$adults_for_double = $object_det[0]['no_of_adult'] - $total_single_rooms;
+						$adults_for_single = $total_single_rooms;
+
 						// === RENDER GROUPED DOUBLE ROOM ROWS ===
 						if ($double_row_count > 0) {
 							if (!empty($double_expansions)) {
@@ -3788,9 +3835,7 @@ if (!empty($itinerary_details_save)) {
 										<td>Double <?php echo $room_count > 1 ? "({$room_count} Rooms)" : "(1 Room)"; ?></td>
 										<td><?php echo $d_room_cat_name; ?></td>
 										<td><?php echo $d_meal_plan_name; ?></td>
-										<?php if ($row_counter === 0) { ?>
-											<td rowspan="<?php echo $total_rows; ?>"><?php echo $object_det[0]['no_of_adult']; ?></td>
-										<?php } ?>
+										<td><?php echo $adults_for_double; ?></td>
 										<td><?php echo $room_count; ?></td>
 										<td><?php echo number_format($d_adult_rate_display, 2); ?></td>
 										<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
@@ -3862,9 +3907,7 @@ if (!empty($itinerary_details_save)) {
 									<td>Double</td>
 									<td><?php echo $val['room_category_name']; ?></td>
 									<td><?php echo $val['meal_plan_name']; ?></td>
-									<?php if ($row_counter === 0) { ?>
-										<td rowspan="<?php echo $total_rows; ?>"><?php echo $object_det[0]['no_of_adult']; ?></td>
-									<?php } ?>
+									<td><?php echo $adults_for_double; ?></td>
 									<td><?php echo $val['double_room']; ?></td>
 									<td><?php echo number_format($room_t_d_display, 2); ?></td>
 									<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>
@@ -3932,9 +3975,7 @@ if (!empty($itinerary_details_save)) {
 										<td>Single <?php echo $room_count > 1 ? "({$room_count} Rooms)" : "(1 Room)"; ?></td>
 										<td><?php echo $s_room_cat_name; ?></td>
 										<td><?php echo $s_meal_plan_name; ?></td>
-										<?php if ($row_counter === 0) { ?>
-											<td rowspan="<?php echo $total_rows; ?>"><?php echo $object_det[0]['no_of_adult']; ?></td>
-										<?php } ?>
+										<td><?php echo $adults_for_single; ?></td>
 										<td><?php echo $room_count; ?></td>
 										<td><?php echo number_format($s_adult_rate_display, 2); ?></td>
 										<?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>

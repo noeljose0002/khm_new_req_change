@@ -520,7 +520,8 @@
 											<thead style="background-color:#c6ecd9;">
 												<tr>
 													<th>Si No</th>
-													<th>Costing Sheet ID</th>
+													<th>ID</th>
+													<th>Costing Sheet Name</th>
 													<th>Multiple</th>
 													<th>CS</th>
 													<th>Itinerary</th>
@@ -753,9 +754,15 @@
 					}
 				},
 				{
+				data: 'enquiry_detail_details_id',
+				render: function(data, type, row, meta) {
+					return data;
+				}
+			},
+				{
 					data: 'enquiry_detail_details_id',
 					render: function(data, type, row, meta) {
-						return row.cs_name + '-' + data;
+						return row.cs_name;
 					}
 				},
 				{
