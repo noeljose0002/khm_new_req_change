@@ -43,13 +43,9 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
                         <td style="border:1px solid black;text-align:center;background-color:#4baf58;color:#fff;word-wrap: break-word;padding:6px 10px;"><b>Place</b></td>
                         <td style="border:1px solid black;text-align:center;background-color:#4baf58;color:#fff;word-wrap: break-word;padding:6px 10px;"><b>Hotel</b></td>
                         <td style="border:1px solid black;text-align:center;background-color:#4baf58;color:#fff;word-wrap: break-word;padding:6px 10px;"><b>Room Type</b></td>
+                        <td style="border:1px solid black;text-align:center;background-color:#4baf58;color:#fff;word-wrap: break-word;padding:6px 10px;"><b>Room Category</b></td>
                         <td style="border:1px solid black;text-align:center;background-color:#4baf58;color:#fff;word-wrap: break-word;padding:6px 10px;"><b>Meal Plan</b></td>
-                        <?php if($object_det[0]['no_of_double_room'] > 0){ ?>
-                            <td style="border:1px solid black;text-align:center;background-color:#4baf58;color:#fff;word-wrap: break-word;padding:6px 10px;"><b>No of Rooms(Dbl)</b></td>
-                        <?php } ?>
-                        <?php if($object_det[0]['no_of_single_room'] > 0){ ?>
-                            <td style="border:1px solid black;text-align:center;background-color:#4baf58;color:#fff;word-wrap: break-word;padding:6px 10px;"><b>No of Rooms(Sgl)</b></td>
-                        <?php } ?>
+                        <td style="border:1px solid black;text-align:center;background-color:#4baf58;color:#fff;word-wrap: break-word;padding:6px 10px;"><b>No of Rooms</b></td>
                     </tr>
                 </thead>
 				<tbody>
@@ -60,52 +56,177 @@ if (!empty($iti_cost_datas[0]['itinerary'])) {
                     $cp = 0;
                     $map = 0;
                     $ap = 0;
-                    foreach ($tour_plan_det as $key => $val) {
+                    
+                    // Loop through each day in itinerary_details_save instead of tour_plan_det
+                    foreach ($iti_data as $key => $val) {
+                        // Skip the last date if it's the end date (no accommodation row for departure)
+                        if (isset($val['tour_date']) && date("d-m-Y", strtotime($val['tour_date'])) == date("d-m-Y", strtotime($object_det[0]['end_date']))) {
+                            continue;
+                        }
+                        
                         $meal_name = "";
-                        if($val['meal_plan_id'] == 1){
+                        $meal_plan_id = isset($val['meal_plan_id']) ? $val['meal_plan_id'] : 0;
+                        
+                        if($meal_plan_id == 1){
                             $ep = 1;
 							$meal_name = "EP";
                         }
-                        if($val['meal_plan_id'] == 2){
+                        if($meal_plan_id == 2){
                             $cp = 1;
 							$meal_name = "CP";
                         }
-                        if($val['meal_plan_id'] == 3){
+                        if($meal_plan_id == 3){
                             $map = 1;
 							$meal_name = "MAP";
                         }
-                        if($val['meal_plan_id'] == 4){
+                        if($meal_plan_id == 4){
                             $ap = 1;
 							$meal_name = "AP";
                         }
-                        if ($val['is_own_arrangement'] == 1) { ?>
+                        
+                        $is_own_arrangement = isset($val['is_own_arrangement']) ? $val['is_own_arrangement'] : 0;
+                        
+                        if ($is_own_arrangement == 1) { ?>
                             <tr>
-                                <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo date("d-m-Y", strtotime($val['check_in_date'])); ?></td>
-                                <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo date("d-m-Y", strtotime($val['check_out_date'])); ?></td>
+                                <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo date("d-m-Y", strtotime($val['tour_date'])); ?></td>
+                                <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo date("d-m-Y", strtotime($val['tour_date'] . ' +1 day')); ?></td>
                                 <td style="border:1px solid black;text-align: center;word-wrap: break-word;" colspan="7">Own Arrangements</td>
                             </tr>
-                            <?php } else {
-                            $sdate = $val['check_in_date'];
-                            $hname = $val['object_name'];
-                            $cat = $val['room_category_name'];
-                           ?>
-                            <tr>
-                            <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo date("d-m-Y", strtotime($val['check_in_date'])); ?></td>
-                            <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo date("d-m-Y", strtotime($val['check_out_date'])); ?></td>
-                            <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo $val['no_of_days']; ?></td>
-                            <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo $val['geog_name']; ?></td>
-                            <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo $hname; ?></td>
-                            <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo $cat; ?></td>
-                            <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo $meal_name; ?></td>
-                            <?php if($object_det[0]['no_of_double_room'] > 0){ ?>
-                                <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo $val['no_of_double_room']; ?></td>
-                            <?php } ?>
-                            <?php if($object_det[0]['no_of_single_room'] > 0){ ?>
-                                <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo $val['no_of_single_room']; ?></td>
-                            <?php } ?>
-                            </tr>
-                        <?php }
-
+                        <?php } else {
+                            $tour_details_id = isset($val['tour_details_id']) ? $val['tour_details_id'] : 0;
+                            $tour_date = isset($val['tour_date']) ? $val['tour_date'] : '';
+                            $geog_name = isset($val['geog_name']) ? $val['geog_name'] : '';
+                            $object_name = isset($val['object_name']) ? $val['object_name'] : '';
+                            $room_category_name = isset($val['room_category_name']) ? $val['room_category_name'] : '';
+                            
+                            // Get expansion data for this specific date
+                            $expansion_rows = [];
+                            
+                            // Check if expansion data exists for this tour_details_id and date
+                            if ($tour_details_id > 0 && !empty($tour_date)) {
+                                if (!empty($itinerary_expansion_details[$tour_details_id])) {
+                                    foreach ($itinerary_expansion_details[$tour_details_id] as $exp) {
+                                        if (isset($exp['tour_expansion_date']) && $exp['tour_expansion_date'] === $tour_date) {
+                                            $expansion_rows[] = $exp;
+                                        }
+                                    }
+                                }
+                                
+                                // If no expansion data, fall back to tour_expansion_details
+                                if (empty($expansion_rows) && !empty($tour_expansion_details[$tour_details_id])) {
+                                    foreach ($tour_expansion_details[$tour_details_id] as $exp) {
+                                        if (isset($exp['tour_expansion_date']) && $exp['tour_expansion_date'] === $tour_date) {
+                                            $expansion_rows[] = $exp;
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            // If still no expansion data, use base tour_plan data
+                            if (empty($expansion_rows)) {
+                                $expansion_rows[] = $val; // Use the itinerary details itself
+                            }
+                            
+                            // Group expansion rows by room type (double/single), room category, and meal plan
+                            $grouped_rows = [];
+                            foreach ($expansion_rows as $exp_row) {
+                                $room_cat = isset($exp_row['room_category_name']) ? $exp_row['room_category_name'] : $room_category_name;
+                                $meal = isset($exp_row['meal_plan_name']) ? $exp_row['meal_plan_name'] : $meal_name;
+                                
+                                // Create a combined key for grouping by room_category and meal_plan only
+                                $combined_key = $room_cat . '|' . $meal;
+                                
+                                // Initialize the group if it doesn't exist
+                                if (!isset($grouped_rows[$combined_key])) {
+                                    $grouped_rows[$combined_key] = [
+                                        'room_category' => $room_cat,
+                                        'meal_plan' => $meal,
+                                        'double_count' => 0,
+                                        'single_count' => 0
+                                    ];
+                                }
+                                
+                                // Determine if this is double or single and add to counts
+                                $has_double = (isset($exp_row['room_rate_double']) && $exp_row['room_rate_double'] > 0) || 
+                                              (isset($exp_row['double_room']) && $exp_row['double_room'] > 0);
+                                $has_single = (isset($exp_row['room_rate_single']) && $exp_row['room_rate_single'] > 0) || 
+                                              (isset($exp_row['single_room']) && $exp_row['single_room'] > 0);
+                                
+                                if ($has_double) {
+                                    $grouped_rows[$combined_key]['double_count']++;
+                                }
+                                
+                                if ($has_single) {
+                                    $grouped_rows[$combined_key]['single_count']++;
+                                }
+                            }
+                            
+                            // If no grouped rows, create default entry
+                            if (empty($grouped_rows)) {
+                                $default_key = $room_category_name . '|' . $meal_name;
+                                $grouped_rows[$default_key] = [
+                                    'room_category' => $room_category_name,
+                                    'meal_plan' => $meal_name,
+                                    'double_count' => isset($val['double_room']) ? $val['double_room'] : $object_det[0]['no_of_double_room'],
+                                    'single_count' => isset($val['single_room']) ? $val['single_room'] : $object_det[0]['no_of_single_room']
+                                ];
+                            }
+                            
+                            // Calculate total rows for this date (sub-rows for double/single per group)
+                            $total_rows_for_date = 0;
+                            foreach ($grouped_rows as $group) {
+                                if ($group['double_count'] > 0) $total_rows_for_date++;
+                                if ($group['single_count'] > 0) $total_rows_for_date++;
+                            }
+                            
+                            // Flag to output common cells only once
+                            $common_outputted = false;
+                            
+                            foreach ($grouped_rows as $group) {
+                                $show_double = $group['double_count'] > 0;
+                                $show_single = $group['single_count'] > 0;
+                                
+                                if ($show_double) {
+                                    ?>
+                                    <tr>
+                                        <?php if (!$common_outputted) { 
+                                            $common_outputted = true;
+                                        ?>
+                                            <td rowspan="<?php echo $total_rows_for_date; ?>" style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo !empty($tour_date) ? date("d-m-Y", strtotime($tour_date)) : ''; ?></td>
+                                            <td rowspan="<?php echo $total_rows_for_date; ?>" style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo !empty($tour_date) ? date("d-m-Y", strtotime($tour_date . ' +1 day')) : ''; ?></td>
+                                            <td rowspan="<?php echo $total_rows_for_date; ?>" style="border:1px solid black;text-align: center;word-wrap: break-word;">1</td>
+                                            <td rowspan="<?php echo $total_rows_for_date; ?>" style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo htmlspecialchars($geog_name); ?></td>
+                                            <td rowspan="<?php echo $total_rows_for_date; ?>" style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo htmlspecialchars($object_name); ?></td>
+                                        <?php } ?>
+                                        <td style="border:1px solid black;text-align: center;word-wrap: break-word;">Double</td>
+                                        <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo htmlspecialchars($group['room_category']); ?></td>
+                                        <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo htmlspecialchars($group['meal_plan']); ?></td>
+                                        <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo $group['double_count']; ?></td>
+                                    </tr>
+                                    <?php
+                                }
+                                
+                                if ($show_single) {
+                                    ?>
+                                    <tr>
+                                        <?php if (!$common_outputted) { 
+                                            $common_outputted = true;
+                                        ?>
+                                            <td rowspan="<?php echo $total_rows_for_date; ?>" style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo !empty($tour_date) ? date("d-m-Y", strtotime($tour_date)) : ''; ?></td>
+                                            <td rowspan="<?php echo $total_rows_for_date; ?>" style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo !empty($tour_date) ? date("d-m-Y", strtotime($tour_date . ' +1 day')) : ''; ?></td>
+                                            <td rowspan="<?php echo $total_rows_for_date; ?>" style="border:1px solid black;text-align: center;word-wrap: break-word;">1</td>
+                                            <td rowspan="<?php echo $total_rows_for_date; ?>" style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo htmlspecialchars($geog_name); ?></td>
+                                            <td rowspan="<?php echo $total_rows_for_date; ?>" style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo htmlspecialchars($object_name); ?></td>
+                                        <?php } ?>
+                                        <td style="border:1px solid black;text-align: center;word-wrap: break-word;">Single</td>
+                                        <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo htmlspecialchars($group['room_category']); ?></td>
+                                        <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo htmlspecialchars($group['meal_plan']); ?></td>
+                                        <td style="border:1px solid black;text-align: center;word-wrap: break-word;"><?php echo $group['single_count']; ?></td>
+                                    </tr>
+                                    <?php
+                                }
+                            }
+                        }
                     } ?>
                 </tbody>
             </table>

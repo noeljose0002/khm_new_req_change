@@ -517,8 +517,6 @@ if (!empty($proforma_saved_data[0]['proforma_data'])) {
                                             $meals = !empty($date_exps) ? ($date_exps[0]['exp_meal_plan_name'] ?? $val['meal_plan_name']) : $val['meal_plan_name'];
 
                                             $row_counter_for_date = 0;
-                                            $double_adult_shown = false;  // NEW: Track if double adult shown for this date
-$single_adult_shown = false;
 
                                             // === RENDER GROUPED DOUBLE ROOM ROWS FOR THIS DATE ===
                                             foreach ($grouped_doubles as $group) {
@@ -553,11 +551,8 @@ $single_adult_shown = false;
         
         <!-- UPDATED: No Of Pax section with adult count logic -->
         <?php if ($cdata[0]['no_of_adult'] > 0) { ?>
-    <?php if (!$double_adult_shown) { 
-        $double_adult_shown = true; ?>
-        <td rowspan="<?php echo $double_row_count; ?>" style="border:1px solid black;text-align:center;"><?php echo $adults_for_double; ?></td>
-    <?php } ?>
-<?php } ?>
+            <td style="border:1px solid black;text-align:center;"><?php echo $adults_for_double; ?></td>
+        <?php } ?>
         <?php if ($cdata[0]['no_of_child_with_bed'] > 0) { ?>
             <td style="border:1px solid black;text-align:center;"><?php echo $child_no; ?></td>
         <?php } ?>
@@ -619,11 +614,8 @@ $single_adult_shown = false;
         
         <!-- UPDATED: No Of Pax section with adult count logic -->
         <?php if ($cdata[0]['no_of_adult'] > 0) { ?>
-    <?php if (!$single_adult_shown) { 
-        $single_adult_shown = true; ?>
-        <td rowspan="<?php echo $single_row_count; ?>" style="border:1px solid black;text-align:center;"><?php echo $adults_for_single; ?></td>
-    <?php } ?>
-<?php } ?>
+            <td style="border:1px solid black;text-align:center;"><?php echo $adults_for_single; ?></td>
+        <?php } ?>
         <?php if ($cdata[0]['no_of_child_with_bed'] > 0) { ?>
             <td style="border:1px solid black;text-align:center;">0</td>
         <?php } ?>
@@ -721,11 +713,8 @@ $single_adult_shown = false;
     
     <!-- UPDATED: No Of Pax with proper adult count -->
     <?php if($val['no_of_adult'] > 0){ ?>
-    <?php if (!$double_adult_shown) { 
-        $double_adult_shown = true; ?>
-        <td rowspan="<?php echo ($rlen > 0 ? 1 : 0); ?>" style="border:1px solid black;text-align:center;"><?php echo $adults_for_double_fb; ?></td>
+        <td style="border:1px solid black;text-align:center;"><?php echo $adults_for_double_fb; ?></td>
     <?php } ?>
-<?php } ?>
     <?php if($val['no_of_child_with_bed'] > 0){ ?>
         <td style="border:1px solid black;text-align:center;"><?php echo ($d_child > 0) ? $val['no_of_child_with_bed'] : 0; ?></td>
     <?php } ?>
@@ -763,11 +752,8 @@ if($val['no_of_single_room'] > 0) {
     
     <!-- UPDATED: No Of Pax with proper adult count -->
     <?php if($val['no_of_adult'] > 0){ ?>
-    <?php if (!$single_adult_shown) { 
-        $single_adult_shown = true; ?>
         <td style="border:1px solid black;text-align:center;"><?php echo $adults_for_single_fb; ?></td>
     <?php } ?>
-<?php } ?>
     <?php if($val['no_of_child_with_bed'] > 0){ ?>
         <td style="border:1px solid black;text-align:center;">0</td>
     <?php } ?>

@@ -373,8 +373,6 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									$adults_for_single = $total_single_rooms;
 
 									$row_counter = 0;
-									$double_adult_shown = false;  // NEW: Track if double adult cell is shown
-									$single_adult_shown = false;
 
 									// Extract cost data (existing logic)
 									foreach ($val['cost'] as $ckey => $cval) {
@@ -460,7 +458,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 							?>
 									            <tr>
 									                <?php if ($row_counter === 0) { ?>
-									                    <td rowspan="<?php echo $total_rows; ?>" style="text-align:center;border:1px solid black;"><?php echo $k; ?></td>
+									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
 									                    <td rowspan="<?php echo $total_rows; ?>" style="text-align:center;border:1px solid black;"><?php echo date("d-m-Y", strtotime($val['tour_date'])); ?></td>
 									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
 									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['remarks']; ?></td>
@@ -471,11 +469,8 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                    Double
 									                </td>
 									                <td style="border:1px solid black;"><?php echo $d_room_cat_name; ?></td>
-									                <td style="border:1px solid black;text-align:center;"><?php echo $d_meal_plan_name; ?></td>
-									                <?php if (!$double_adult_shown) {
-														$double_adult_shown = true; ?>
-    <td rowspan="<?php echo $double_row_count; ?>" style="border:1px solid black;text-align:center;"><?php echo $adults_for_double; ?></td>
-<?php } ?>
+									                <td style="border:1px solid black;"><?php echo $d_meal_plan_name; ?></td>
+									                <td style="border:1px solid black;text-align:center;"><?php echo $adults_for_double; ?></td>
 									               
 									                <!-- Display total room count -->
 									                <td style="border:1px solid black;text-align:center;"><?php echo $room_count; ?></td>
@@ -518,7 +513,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 											?>
 									            <tr>
 									                <?php if ($row_counter === 0) { ?>
-									                    <td rowspan="<?php echo $total_rows; ?>" style="text-align:center;border:1px solid black;"><?php echo $k; ?></td>
+									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
 									                    <td rowspan="<?php echo $total_rows; ?>" style="text-align:center;border:1px solid black;"><?php echo date("d-m-Y", strtotime($val['tour_date'])); ?></td>
 									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
 									                    
@@ -527,12 +522,9 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <?php } ?>
 									                <td style="border:1px solid black;">Double</td>
 									                <td style="border:1px solid black;"><?php echo $val['room_category_name']; ?></td>
-									                <td style="border:1px solid black;text-align:center;"><?php echo $val['meal_plan_name']; ?></td>
+									                <td style="border:1px solid black;"><?php echo $val['meal_plan_name']; ?></td>
 									                
-									                <?php if (!$double_adult_shown) {
-														$double_adult_shown = true; ?>
-    <td rowspan="<?php echo $double_row_count; ?>" style="border:1px solid black;text-align:center;"><?php echo $adults_for_double; ?></td>
-<?php } ?>
+									                <td style="border:1px solid black;text-align:center;"><?php echo $adults_for_double; ?></td>
 									                <td style="border:1px solid black;"><?php echo $val['double_room']; ?></td>
 									                
 									                
@@ -598,7 +590,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 											?>
 									            <tr>
 									                <?php if ($row_counter === 0 && $double_row_count == 0) { ?>
-									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;text-align:center;"><?php echo $k; ?></td>
+									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $k; ?></td>
 									                    <td rowspan="<?php echo $total_rows; ?>" style="text-align:center;border:1px solid black;"><?php echo date("d-m-Y", strtotime($val['tour_date'])); ?></td>
 									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['geog_name']; ?></td>
 									                    <td rowspan="<?php echo $total_rows; ?>" style="border:1px solid black;"><?php echo $val['remarks']; ?></td>
@@ -609,11 +601,8 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                    Single
 									                </td>
 									                <td style="border:1px solid black;"><?php echo $s_room_cat_name; ?></td>
-									                <td style="border:1px solid black;text-align:center;"><?php echo $s_meal_plan_name; ?></td>
-									               <?php if (!$single_adult_shown) {
-														$single_adult_shown = true; ?>
-    <td rowspan="<?php echo $single_row_count; ?>" style="border:1px solid black;text-align:center;"><?php echo $adults_for_single; ?></td>
-<?php } ?>
+									                <td style="border:1px solid black;"><?php echo $s_meal_plan_name; ?></td>
+									               <td style="border:1px solid black;text-align:center;"><?php echo $adults_for_single; ?></td>
 									               
 									                <!-- Display total room count -->
 									                <td style="border:1px solid black;text-align:center;"><?php echo $room_count; ?></td>
@@ -659,10 +648,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <td style="border:1px solid black;">Single</td>
 									                <td style="border:1px solid black;"><?php echo $val['room_category_name']; ?></td>
 									                <td style="border:1px solid black;"><?php echo $val['meal_plan_name']; ?></td>
-									                <?php if (!$single_adult_shown) {
-														$single_adult_shown = true; ?>
-    <td rowspan="<?php echo $single_row_count; ?>" style="border:1px solid black;text-align:center;"><?php echo $adults_for_single; ?></td>
-<?php } ?>
+									                <td style="border:1px solid black;text-align:center;"><?php echo $adults_for_single; ?></td>
 									                <td style="border:1px solid black;"><?php echo $val['single_room']; ?></td>
 									            
 									                    <td style="border:1px solid black;text-align:right;">
@@ -776,7 +762,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
                                     	<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Date</b></td>
 										<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Destination</b></td>
 										<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Sightseeing</b></td>
-										<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Tariff</b></td>
+										<td style="background-color:#4baf58;color:#fff;border:1px solid black;text-align:right;"><b>Tariff</b></td>
 									</tr>
 									<?php
 									$cs_sightseeing_total = 0;
@@ -830,7 +816,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
                                     	<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Si No</b></td>
                                     	<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Date</b></td>
 										<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Name</b></td>
-										<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Tariff</b></td>
+										<td style="background-color:#4baf58;color:#fff;border:1px solid black;text-align:right;"><b>Tariff</b></td>
 									</tr>
 									<?php
 									foreach ($iti_data as $keys => $vals) {
@@ -955,7 +941,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 								echo '<tr>';
 
 								if ($first) {
-									echo '<td rowspan="' . $rowspan . '" style="border:1px solid black;text-align:center;">' . $dayNo . '</td>';
+									echo '<td rowspan="' . $rowspan . '" style="border:1px solid black;">' . $dayNo . '</td>';
 									echo '<td rowspan="' . $rowspan . '" style="text-align:center;border:1px solid black;">' . date('d-m-Y', strtotime($tourDate)) . '</td>';
 									echo '<td rowspan="' . $rowspan . '" style="border:1px solid black;">' . $day['transport_remarks'] . '</td>';
 
@@ -975,7 +961,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									$first = false;
 								}
 
-								echo '<td style="border:1px solid black;text-align:center;">' . $v->travel_distance . '</td>';
+								echo '<td style="border:1px solid black;">' . $v->travel_distance . '</td>';
 								echo '<td style="border:1px solid black;">' . $v->vehicle_model . '</td>';
 								echo '<td style="border:1px solid black;text-align:right;">' . $v->day_rent . '</td>';
 								echo '</tr>';
