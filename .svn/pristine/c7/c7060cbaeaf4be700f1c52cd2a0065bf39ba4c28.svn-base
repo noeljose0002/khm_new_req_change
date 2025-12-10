@@ -3236,7 +3236,7 @@ $cs_trans_total = 0;
 																											value="">
 
 
-																										<!-- <div
+																										<div
 																											class="col-xl-2 col-sm-12 col-md-2">
 																											<div
 																												class="teams-rank">
@@ -3253,8 +3253,8 @@ $cs_trans_total = 0;
 																												maxlength="30"
 																												value="<?php echo $special_event_name; ?>"
 																												<?php echo $read_only; ?>>
-																										</div> -->
-																										<!-- <div
+																										</div>
+																										<div
 																											class="col-xl-1 col-sm-12 col-md-1">
 																											<div
 																												class="teams-rank">
@@ -3268,14 +3268,9 @@ $cs_trans_total = 0;
 																												class="form-control input-sm"
 																												value="<?php echo $spcl_tariff; ?>"
 																												<?php echo $read_only; ?>>
-																										</div> -->
-																										<div class="col-xl-2 col-sm-12 col-md-1"
-																											>
-																											<div
-																												class="teams-rank">
-																												<label
-																													class="small-label">Special event</label>
-																											</div>
+																										</div>
+																										<div class="col-xl-1 col-sm-12 col-md-1"
+																											style="padding-top:20px;">
 																											<button
 																												type="button"
 																												class="btn btn-success btn-sm add_spcl"
