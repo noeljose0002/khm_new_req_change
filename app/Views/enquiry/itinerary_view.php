@@ -3236,39 +3236,40 @@ $cs_trans_total = 0;
 																											value="">
 
 
-																										<!-- <div
-																											class="col-xl-2 col-sm-12 col-md-2">
-																											<div
-																												class="teams-rank">
-																												<label
-																													class="small-label">Special
-																													Event
-																													Name</label>
-																											</div>
-																											<input
-																												type="text"
-																												id="spcl_event<?php echo $iti_id; ?>"
-																												name="additi[<?php echo $iti_id; ?>][spcl_event]"
-																												class="form-control input-sm"
-																												maxlength="30"
-																												value="<?php echo $special_event_name; ?>"
-																												<?php echo $read_only; ?>>
-																										</div> -->
-																										<!-- <div
-																											class="col-xl-1 col-sm-12 col-md-1">
-																											<div
-																												class="teams-rank">
-																												<label
-																													class="small-label">Tariff</label>
-																											</div>
-																											<input
-																												type="text"
-																												id="spcl_tariff<?php echo $iti_id; ?>"
-																												name="additi[<?php echo $iti_id; ?>][spcl_tariff]"
-																												class="form-control input-sm"
-																												value="<?php echo $spcl_tariff; ?>"
-																												<?php echo $read_only; ?>>
-																										</div> -->
+																								<div
+	class="col-xl-2 col-sm-12 col-md-2" style="display: none;">
+	<div
+		class="teams-rank">
+		<label
+			class="small-label">Special
+			Event
+			Name</label>
+	</div>
+	<input
+		type="text"
+		id="spcl_event<?php echo $iti_id; ?>"
+		name="additi[<?php echo $iti_id; ?>][spcl_event]"
+		class="form-control input-sm"
+		maxlength="30"
+		value="<?php echo $special_event_name; ?>"
+		<?php echo $read_only; ?>>
+</div>
+<div
+	class="col-xl-1 col-sm-12 col-md-1"
+	style="display: none;">
+	<div
+		class="teams-rank">
+		<label
+			class="small-label">Tariff</label>
+	</div>
+	<input
+		type="text"
+		id="spcl_tariff<?php echo $iti_id; ?>"
+		name="additi[<?php echo $iti_id; ?>][spcl_tariff]"
+		class="form-control input-sm"
+		value="<?php echo $spcl_tariff; ?>"
+		<?php echo $read_only; ?>>
+</div>
 																										<div class="col-xl-2 col-sm-12 col-md-1"
 																											>
 																											<div
