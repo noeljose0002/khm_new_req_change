@@ -6098,136 +6098,173 @@ class Enquiry extends BaseController
                 $start1 = new DateTime($checkindate);
                 $end1 = new DateTime($checkoutdate);
                 // CHECK IF TAX IS APPLICABLE
-                if ($vals['tax_status'] == 1) {
-                    // TAX APPLICABLE - USE TAX TABLES DATA INSTEAD OF EXPANSION
-                    $tac_eighteen = 0;
-                    $tac_eighteen_double = 0;
-                    $tac_eighteen_single = 0;
-                    $adult_eighteen_double = 0;
-                    $child_eighteen_double = 0;
-                    $child_wb_eighteen_double = 0;
-                    $extra_eighteen_double = 0;
-                    $adult_eighteen_single = 0;
-                    // Fetch from tax tables
-                    $eighteen_datas_double = $Enquiry_model->get_eighteen_datas_double($vals['tour_details_id']);
-                    $eighteen_datas_single = $Enquiry_model->get_eighteen_datas_single($vals['tour_details_id']);
-                    // Fetch original tour expansion for vehicle details
-                    $original_tour_expansion = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
-                    $vehicle_details_json = '';
-                    if (!empty($original_tour_expansion)) {
-                        $vehicle_details_json = $original_tour_expansion[0]['vehicle_details_json'] ?? '';
-                    }
-                    // POPULATE TOUR EXPANSION DETAILS DYNAMICALLY FROM TAX TABLES
-                    $tour_expansion_details[$tid] = [];
-                    // Add rows from double tax data
-                    if (!empty($eighteen_datas_double)) {
-                        foreach ($eighteen_datas_double as $geys => $gals) {
-                            // Calculate base total for this row
-                            $base_total = $gals['room_rate'] + ($gals['child_rate'] * $gals['no_of_child']) + ($gals['child_wb_rate'] * $gals['no_of_child_wb']) + ($gals['extra_rate'] * $gals['no_of_extra']);
-                            // GST is amount, not rate
-                            $tax_amount = $gals['gst'];
-                            $grand_total = $gals['grand_total'];
-                            $tac_eighteen += $grand_total;
-                            $tac_eighteen_double += $grand_total;
-                            // Apportion tax for adult (room_rate assumed for adults)
-                            $adult_base = $gals['room_rate'];
-                            $adult_tax = ($base_total > 0) ? ($adult_base / $base_total) * $tax_amount : 0;
-                            $adult_eighteen_double += $adult_base + $adult_tax;
-                            // Apportion for child
-                            $child_base = $gals['child_rate'] * $gals['no_of_child'];
-                            $child_tax = ($base_total > 0) ? ($child_base / $base_total) * $tax_amount : 0;
-                            $child_eighteen_double += $child_base + $child_tax;
-                            // Apportion for child_wb
-                            $child_wb_base = $gals['child_wb_rate'] * $gals['no_of_child_wb'];
-                            $child_wb_tax = ($base_total > 0) ? ($child_wb_base / $base_total) * $tax_amount : 0;
-                            $child_wb_eighteen_double += $child_wb_base + $child_wb_tax;
-                            // Apportion for extra
-                            $extra_base = $gals['extra_rate'] * $gals['no_of_extra'];
-                            $extra_tax = ($base_total > 0) ? ($extra_base / $base_total) * $tax_amount : 0;
-                            $extra_eighteen_double += $extra_base + $extra_tax;
-                            // Calculate date based on sequence_id
-                            $sequence_id = $gals['sequence_id'];
-                            $day_num = floor(($sequence_id % 100) / 10);
-                            $expansion_date = clone $start1;
-                            $expansion_date->modify('+' . ($day_num - 1) . ' days');
-                            $tour_expansion_date = $expansion_date->format('Y-m-d');
-                            // Populate expansion row with fields expected by view (base rates)
-                            $expansion_row = [
-                                'tour_details_id' => $vals['tour_details_id'],
-                                'sequence_id' => $gals['sequence_id'],
-                                'room_rate_double' => $gals['room_rate'],
-                                'child_with_bed_double' => $gals['child_rate'],
-                                'child_without_bed_double' => $gals['child_wb_rate'],
-                                'extra_bed_double' => $gals['extra_rate'],
-                                'double_total_rate' => $gals['grand_total'],
-                                'single_total_rate' => 0,
-                                'tour_expansion_date' => $tour_expansion_date,
-                                // Defaults if not in tax data
-                                'room_category_id' => $vals['room_category_id'],
-                                'meal_plan_id' => $vals['meal_plan_id'],
-                                'vehicle_details_json' => $vehicle_details_json
-                            ];
-                            $tour_expansion_details[$tid][] = $expansion_row;
-                        }
-                    }
-                    // Calculate from single occupancy tax table
-                    if (!empty($eighteen_datas_single)) {
-                        foreach ($eighteen_datas_single as $sgeys => $sgals) {
-                            $tac_eighteen += $sgals['grand_total'];
-                            $tac_eighteen_single += $sgals['grand_total'];
-                            // For single: base is room_rate, full tax
-                            $adult_base_single = $sgals['room_rate'];
-                            $tax_amount_single = $sgals['gst'];
-                            $adult_eighteen_single += $adult_base_single + $tax_amount_single;
-                            // Calculate date based on sequence_id
-                            $sequence_id = $sgals['sequence_id'];
-                            $day_num = floor(($sequence_id % 100) / 10);
-                            $expansion_date = clone $start1;
-                            $expansion_date->modify('+' . ($day_num - 1) . ' days');
-                            $tour_expansion_date = $expansion_date->format('Y-m-d');
-                            // Populate expansion row for single with fields expected by view (base rates)
-                            $expansion_row = [
-                                'tour_details_id' => $vals['tour_details_id'],
-                                'sequence_id' => $sgals['sequence_id'],
-                                'room_rate_single' => $sgals['room_rate'],
-                                // Child/extra 0 for single
-                                'child_with_bed_double' => 0,
-                                'child_without_bed_double' => 0,
-                                'extra_bed_double' => 0,
-                                'double_total_rate' => 0,
-                                'single_total_rate' => $sgals['grand_total'],
-                                'tour_expansion_date' => $tour_expansion_date,
-                                // Defaults if not in tax data
-                                'room_category_id' => $vals['room_category_id'],
-                                'meal_plan_id' => $vals['meal_plan_id'],
-                                'vehicle_details_json' => $vehicle_details_json
-                            ];
-                            $tour_expansion_details[$tid][] = $expansion_row;
-                        }
-                    }
-                    // Safety check: Ensure vehicle_details_json is set if missing in any row
-                    if (empty($vehicle_details_json)) {
-                        $original_tour_expansion = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
-                        $vehicle_details_json = !empty($original_tour_expansion) ? $original_tour_expansion[0]['vehicle_details_json'] ?? '' : '';
-                        // Update existing rows if needed
-                        if (!empty($tour_expansion_details[$tid])) {
-                            foreach ($tour_expansion_details[$tid] as &$row) {
-                                $row['vehicle_details_json'] = $vehicle_details_json;
-                            }
-                        }
-                    }
-                    // Store tax calculations
-                    $tour_plan_det[$keys]['tac_eighteen'] = $tac_eighteen;
-                    $tour_plan_det[$keys]['tac_eighteen_double'] = $tac_eighteen_double;
-                    $tour_plan_det[$keys]['tac_eighteen_single'] = $tac_eighteen_single;
-                    $tour_plan_det[$keys]['adult_eighteen_double'] = $adult_eighteen_double;
-                    $tour_plan_det[$keys]['child_eighteen_double'] = $child_eighteen_double;
-                    $tour_plan_det[$keys]['child_wb_eighteen_double'] = $child_wb_eighteen_double;
-                    $tour_plan_det[$keys]['extra_eighteen_double'] = $extra_eighteen_double;
-                    $tour_plan_det[$keys]['adult_eighteen_single'] = $adult_eighteen_single;
-                    // DO NOT USE EXPANSION TABLES - But now populated dynamically from tax data
-                    // FIXED: Now collect itinerary_details_ids for tax tours as well (post-save override)
-                } else {
+                // REPLACE THE TAX_STATUS == 1 BLOCK (around line 85-180) with this fixed version:
+
+if ($vals['tax_status'] == 1) {
+    // TAX APPLICABLE - USE TAX TABLES DATA
+    $tac_eighteen = 0;
+    $tac_eighteen_double = 0;
+    $tac_eighteen_single = 0;
+    $adult_eighteen_double = 0;
+    $child_eighteen_double = 0;
+    $child_wb_eighteen_double = 0;
+    $extra_eighteen_double = 0;
+    $adult_eighteen_single = 0;
+    
+    // Fetch from tax tables
+    $eighteen_datas_double = $Enquiry_model->get_eighteen_datas_double($vals['tour_details_id']);
+    $eighteen_datas_single = $Enquiry_model->get_eighteen_datas_single($vals['tour_details_id']);
+    
+    // Fetch original tour expansion for vehicle details AND room/meal plan names
+    $original_tour_expansion = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
+    $vehicle_details_json = '';
+    
+    // GET ROOM CATEGORY AND MEAL PLAN NAMES FROM TOUR PLAN OR EXPANSION
+    $room_category_name = $vals['room_category_name'] ?? 'N/A';
+    $meal_plan_name = $vals['meal_plan_name'] ?? 'N/A';
+    
+    // If not in vals, try to get from original expansion
+    if (($room_category_name === 'N/A' || $meal_plan_name === 'N/A') && !empty($original_tour_expansion)) {
+        $room_category_name = $original_tour_expansion[0]['room_category_name'] ?? $room_category_name;
+        $meal_plan_name = $original_tour_expansion[0]['meal_plan_name'] ?? $meal_plan_name;
+        $vehicle_details_json = $original_tour_expansion[0]['vehicle_details_json'] ?? '';
+    }
+    
+    // If still not available, fetch from master tables
+    if ($room_category_name === 'N/A') {
+        $room_cat_data = $Enquiry_model->get_room_category_by_id($vals['room_category_id']);
+        $room_category_name = $room_cat_data[0]['room_category_name'] ?? 'N/A';
+    }
+    if ($meal_plan_name === 'N/A') {
+        $meal_plan_data = $Enquiry_model->get_meal_plan_by_id($vals['meal_plan_id']);
+        $meal_plan_name = $meal_plan_data[0]['meal_plan_name'] ?? 'N/A';
+    }
+    
+    // POPULATE TOUR EXPANSION DETAILS DYNAMICALLY FROM TAX TABLES
+    $tour_expansion_details[$tid] = [];
+    
+    // Add rows from double tax data
+    if (!empty($eighteen_datas_double)) {
+        foreach ($eighteen_datas_double as $geys => $gals) {
+            // Calculate base total for this row (BEFORE GST)
+            $base_total = $gals['room_rate'] + 
+                         ($gals['child_rate'] * $gals['no_of_child']) + 
+                         ($gals['child_wb_rate'] * $gals['no_of_child_wb']) + 
+                         ($gals['extra_rate'] * $gals['no_of_extra']);
+            
+            // GST amount from tax table
+            $tax_amount = $gals['gst'];
+            
+            // Grand total (AFTER GST) - this is what should be displayed
+            $grand_total = $gals['grand_total'];
+            
+            $tac_eighteen += $grand_total;
+            $tac_eighteen_double += $grand_total;
+            
+            // Apportion tax for each component
+            $adult_base = $gals['room_rate'];
+            $adult_tax = ($base_total > 0) ? ($adult_base / $base_total) * $tax_amount : 0;
+            $adult_eighteen_double += $adult_base + $adult_tax;
+            
+            $child_base = $gals['child_rate'] * $gals['no_of_child'];
+            $child_tax = ($base_total > 0) ? ($child_base / $base_total) * $tax_amount : 0;
+            $child_eighteen_double += $child_base + $child_tax;
+            
+            $child_wb_base = $gals['child_wb_rate'] * $gals['no_of_child_wb'];
+            $child_wb_tax = ($base_total > 0) ? ($child_wb_base / $base_total) * $tax_amount : 0;
+            $child_wb_eighteen_double += $child_wb_base + $child_wb_tax;
+            
+            $extra_base = $gals['extra_rate'] * $gals['no_of_extra'];
+            $extra_tax = ($base_total > 0) ? ($extra_base / $base_total) * $tax_amount : 0;
+            $extra_eighteen_double += $extra_base + $extra_tax;
+            
+            // Calculate date based on sequence_id
+            $sequence_id = $gals['sequence_id'];
+            $day_num = floor(($sequence_id % 100) / 10);
+            $expansion_date = clone $start1;
+            $expansion_date->modify('+' . ($day_num - 1) . ' days');
+            $tour_expansion_date = $expansion_date->format('Y-m-d');
+            
+            // Populate expansion row with ALL necessary fields
+            $expansion_row = [
+                'tour_details_id' => $vals['tour_details_id'],
+                'sequence_id' => $gals['sequence_id'],
+                'room_rate_double' => $gals['room_rate'],  // Base rate (before GST)
+                'child_with_bed_double' => $gals['child_rate'],
+                'child_without_bed_double' => $gals['child_wb_rate'],
+                'extra_bed_double' => $gals['extra_rate'],
+                'double_total_rate' => $grand_total,  // Grand total (after GST)
+                'single_total_rate' => 0,
+                'tour_expansion_date' => $tour_expansion_date,
+                'room_category_id' => $vals['room_category_id'],
+                'meal_plan_id' => $vals['meal_plan_id'],
+                // CRITICAL: Add the names for display
+                'room_category_name' => $room_category_name,
+                'meal_plan_name' => $meal_plan_name,
+                'gst' => $gals['gst_percentage'] ?? ($vals['gst'] ?? 0),  // GST percentage
+                'vehicle_details_json' => $vehicle_details_json
+            ];
+            $tour_expansion_details[$tid][] = $expansion_row;
+        }
+    }
+    
+    // Add rows from single tax data
+    if (!empty($eighteen_datas_single)) {
+        foreach ($eighteen_datas_single as $sgeys => $sgals) {
+            $grand_total_single = $sgals['grand_total'];
+            
+            $tac_eighteen += $grand_total_single;
+            $tac_eighteen_single += $grand_total_single;
+            
+            // For single: base is room_rate, full tax
+            $adult_base_single = $sgals['room_rate'];
+            $tax_amount_single = $sgals['gst'];
+            $adult_eighteen_single += $adult_base_single + $tax_amount_single;
+            
+            // Calculate date based on sequence_id
+            $sequence_id = $sgals['sequence_id'];
+            $day_num = floor(($sequence_id % 100) / 10);
+            $expansion_date = clone $start1;
+            $expansion_date->modify('+' . ($day_num - 1) . ' days');
+            $tour_expansion_date = $expansion_date->format('Y-m-d');
+            
+            // Populate expansion row for single
+            $expansion_row = [
+                'tour_details_id' => $vals['tour_details_id'],
+                'sequence_id' => $sgals['sequence_id'],
+                'room_rate_single' => $sgals['room_rate'],  // Base rate
+                'child_with_bed_double' => 0,
+                'child_without_bed_double' => 0,
+                'extra_bed_double' => 0,
+                'double_total_rate' => 0,
+                'single_total_rate' => $grand_total_single,  // Grand total (after GST)
+                'tour_expansion_date' => $tour_expansion_date,
+                'room_category_id' => $vals['room_category_id'],
+                'meal_plan_id' => $vals['meal_plan_id'],
+                // CRITICAL: Add the names for display
+                'room_category_name' => $room_category_name,
+                'meal_plan_name' => $meal_plan_name,
+                'gst' => $sgals['gst_percentage'] ?? ($vals['gst'] ?? 0),
+                'vehicle_details_json' => $vehicle_details_json
+            ];
+            $tour_expansion_details[$tid][] = $expansion_row;
+        }
+    }
+    
+    // Store tax calculations in tour_plan_det
+    $tour_plan_det[$keys]['tac_eighteen'] = $tac_eighteen;
+    $tour_plan_det[$keys]['tac_eighteen_double'] = $tac_eighteen_double;
+    $tour_plan_det[$keys]['tac_eighteen_single'] = $tac_eighteen_single;
+    $tour_plan_det[$keys]['adult_eighteen_double'] = $adult_eighteen_double;
+    $tour_plan_det[$keys]['child_eighteen_double'] = $child_eighteen_double;
+    $tour_plan_det[$keys]['child_wb_eighteen_double'] = $child_wb_eighteen_double;
+    $tour_plan_det[$keys]['extra_eighteen_double'] = $extra_eighteen_double;
+    $tour_plan_det[$keys]['adult_eighteen_single'] = $adult_eighteen_single;
+    
+    // Also store names in tour_plan_det for fallback
+    $tour_plan_det[$keys]['room_category_name'] = $room_category_name;
+    $tour_plan_det[$keys]['meal_plan_name'] = $meal_plan_name;
+} else {
                     // NO TAX - USE EXPANSION TABLES AS NORMAL
                     $tac_eighteen = 0;
                     $tac_eighteen_double = 0;

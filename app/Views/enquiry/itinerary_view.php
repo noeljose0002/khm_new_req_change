@@ -3449,198 +3449,247 @@ $cs_trans_total = 0;
 							<hr />
 							<?php
 							// === HELPER FUNCTION: Group expansion rooms by base properties, with smart combining for uniform supplements ===
-							function groupExpansionRooms($expansions, $val, $object_det, $room_type = 'double')
-							{
-								$grouped = [];
-								if (empty($expansions)) {
-									return $grouped;
-								}
+							
+// === FIXED HELPER FUNCTION: Group expansion rooms with proper tax handling ===
+function groupExpansionRooms($expansions, $val, $object_det, $room_type = 'double')
+{
+    $grouped = [];
+    if (empty($expansions)) {
+        return $grouped;
+    }
 
-								// Base grouping key: room_category, meal_plan, adult_rate (excluding child rates for combining)
-								$base_grouped = [];
-								foreach ($expansions as $exp) {
-									$room_cat = $exp['room_category_name'] ?? 'N/A';
-									$meal = $exp['meal_plan_name'] ?? 'N/A';
-									if ($room_type === 'double') {
-										$adult_rate = $exp['room_rate_double'] ?? 0;
-									} else {
-										$adult_rate = $exp['room_rate_single'] ?? 0;
-									}
-									$base_key = sprintf('%s|%s|%s', $room_cat, $meal, $adult_rate);
+    // Check if tax status is active
+    $tax_status = isset($val['tax_status']) && $val['tax_status'] == 1;
 
-									if (!isset($base_grouped[$base_key])) {
-										$base_grouped[$base_key] = [
-											'expansions' => [],
-											'adult_rate_pre' => $adult_rate,
-											'room_cat' => $room_cat,
-											'meal' => $meal
-										];
-									}
-									$base_grouped[$base_key]['expansions'][] = $exp;
-								}
+    // Base grouping key: room_category, meal_plan, adult_rate (excluding child rates for combining)
+    $base_grouped = [];
+    foreach ($expansions as $exp) {
+        $room_cat = $exp['room_category_name'] ?? 'N/A';
+        $meal = $exp['meal_plan_name'] ?? 'N/A';
+        if ($room_type === 'double') {
+            $adult_rate = $exp['room_rate_double'] ?? 0;
+        } else {
+            $adult_rate = $exp['room_rate_single'] ?? 0;
+        }
+        $base_key = sprintf('%s|%s|%s', $room_cat, $meal, $adult_rate);
 
-								// Assume uniform GST per base group (take from first exp)
-								$tax_status = isset($val['tax_status']) && $val['tax_status'] == 1;
-								foreach ($base_grouped as $bkey => $bgroup) {
-									$exps = $bgroup['expansions'];
-									$total_rooms = count($exps);
-									if ($total_rooms == 0) continue;
+        if (!isset($base_grouped[$base_key])) {
+            $base_grouped[$base_key] = [
+                'expansions' => [],
+                'adult_rate_pre' => $adult_rate,
+                'room_cat' => $room_cat,
+                'meal' => $meal
+            ];
+        }
+        $base_grouped[$base_key]['expansions'][] = $exp;
+    }
 
-									$first_exp = $exps[0];
-									$gst = $first_exp['gst'] ?? 0;
-									$multi = $tax_status ? (1 + ($gst / 100)) : 1;
-									$adult_rate_pre = $bgroup['adult_rate_pre'];
-									$adult_rate_post = $adult_rate_pre * $multi;
+    // Process each base group
+    foreach ($base_grouped as $bkey => $bgroup) {
+        $exps = $bgroup['expansions'];
+        $total_rooms = count($exps);
+        if ($total_rooms == 0) continue;
 
-									// Initialize child aggregates (0 for single)
-									$cwb_unique_nonzero = [];
-									$cwo_unique_nonzero = [];
-									$extra_unique_nonzero = [];
-									$cwb_map = []; // rate_pre => count
-									$cwo_map = [];
-									$extra_map = [];
+        $first_exp = $exps[0];
+        $gst = $first_exp['gst'] ?? 0;
+        
+        // FIXED: Use appropriate multiplier based on tax status
+        if ($tax_status) {
+            // For tax status = 1, rates are PRE-tax, need to add GST
+            $multi = 1 + ($gst / 100);
+        } else {
+            // For tax status = 0, rates already include everything
+            $multi = 1;
+        }
+        
+        $adult_rate_pre = $bgroup['adult_rate_pre'];
+        $adult_rate_post = $adult_rate_pre * $multi;
 
-									if ($room_type === 'double') {
-										// Aggregate for child with bed
-										foreach ($exps as $exp) {
-											$r = $exp['child_with_bed_double'] ?? 0;
-											if ($r > 0) {
-												$cwb_unique_nonzero[] = $r;
-												$cwb_map[$r] = ($cwb_map[$r] ?? 0) + 1;
-											}
-										}
-										$cwb_unique = array_unique($cwb_unique_nonzero);
-										$cwb_can = count($cwb_unique) <= 1;
+        // Initialize child aggregates
+        $cwb_unique_nonzero = [];
+        $cwo_unique_nonzero = [];
+        $extra_unique_nonzero = [];
+        $cwb_map = [];
+        $cwo_map = [];
+        $extra_map = [];
 
-										// Child without bed
-										foreach ($exps as $exp) {
-											$r = $exp['child_without_bed_double'] ?? 0;
-											if ($r > 0) {
-												$cwo_unique_nonzero[] = $r;
-												$cwo_map[$r] = ($cwo_map[$r] ?? 0) + 1;
-											}
-										}
-										$cwo_unique = array_unique($cwo_unique_nonzero);
-										$cwo_can = count($cwo_unique) <= 1;
+        if ($room_type === 'double') {
+            // Aggregate child with bed
+            foreach ($exps as $exp) {
+                $r = $exp['child_with_bed_double'] ?? 0;
+                if ($r > 0) {
+                    $cwb_unique_nonzero[] = $r;
+                    $cwb_map[$r] = ($cwb_map[$r] ?? 0) + 1;
+                }
+            }
+            $cwb_unique = array_unique($cwb_unique_nonzero);
+            $cwb_can = count($cwb_unique) <= 1;
 
-										// Extra bed
-										foreach ($exps as $exp) {
-											$r = $exp['extra_bed_double'] ?? 0;
-											if ($r > 0) {
-												$extra_unique_nonzero[] = $r;
-												$extra_map[$r] = ($extra_map[$r] ?? 0) + 1;
-											}
-										}
-										$extra_unique = array_unique($extra_unique_nonzero);
-										$extra_can = count($extra_unique) <= 1;
-									} else {
-										// Single: no children
-										$cwb_can = $cwo_can = $extra_can = true;
-									}
+            // Child without bed
+            foreach ($exps as $exp) {
+                $r = $exp['child_without_bed_double'] ?? 0;
+                if ($r > 0) {
+                    $cwo_unique_nonzero[] = $r;
+                    $cwo_map[$r] = ($cwo_map[$r] ?? 0) + 1;
+                }
+            }
+            $cwo_unique = array_unique($cwo_unique_nonzero);
+            $cwo_can = count($cwo_unique) <= 1;
 
-									$all_can_combine = $cwb_can && $cwo_can && $extra_can;
+            // Extra bed
+            foreach ($exps as $exp) {
+                $r = $exp['extra_bed_double'] ?? 0;
+                if ($r > 0) {
+                    $extra_unique_nonzero[] = $r;
+                    $extra_map[$r] = ($extra_map[$r] ?? 0) + 1;
+                }
+            }
+            $extra_unique = array_unique($extra_unique_nonzero);
+            $extra_can = count($extra_unique) <= 1;
+        } else {
+            // Single: no children
+            $cwb_can = $cwo_can = $extra_can = true;
+        }
 
-									$group_total_post = $adult_rate_post * $total_rooms;
+        $all_can_combine = $cwb_can && $cwo_can && $extra_can;
 
-									if ($all_can_combine) {
-										// Combined mode
-										$cwb_rate_pre = !empty($cwb_unique) ? $cwb_unique[0] : 0;
-										$cwb_count = $cwb_map[$cwb_rate_pre] ?? 0;
-										$cwb_rate_post = $cwb_rate_pre * $multi;
-										$group_total_post += $cwb_rate_post * $cwb_count;
+        // FIXED: Calculate group total properly
+        if ($tax_status) {
+            // Tax status = 1: Use grand_total from expansion data (already includes GST)
+            $group_total_post = 0;
+            foreach ($exps as $exp) {
+                // For double occupancy
+                if ($room_type === 'double') {
+                    $group_total_post += $exp['double_total_rate'] ?? 0;
+                } else {
+                    // For single occupancy
+                    $group_total_post += $exp['single_total_rate'] ?? 0;
+                }
+            }
+        } else {
+            // Tax status = 0: Calculate manually (rates already complete)
+            $group_total_post = $adult_rate_post * $total_rooms;
+            
+            if ($room_type === 'double') {
+                $cwb_rate_pre = !empty($cwb_unique) ? $cwb_unique[0] : 0;
+                $cwb_count = $cwb_map[$cwb_rate_pre] ?? 0;
+                $cwb_rate_post = $cwb_rate_pre * $multi;
+                $group_total_post += $cwb_rate_post * $cwb_count;
 
-										$cwo_rate_pre = !empty($cwo_unique) ? $cwo_unique[0] : 0;
-										$cwo_count = $cwo_map[$cwo_rate_pre] ?? 0;
-										$cwo_rate_post = $cwo_rate_pre * $multi;
-										$group_total_post += $cwo_rate_post * $cwo_count;
+                $cwo_rate_pre = !empty($cwo_unique) ? $cwo_unique[0] : 0;
+                $cwo_count = $cwo_map[$cwo_rate_pre] ?? 0;
+                $cwo_rate_post = $cwo_rate_pre * $multi;
+                $group_total_post += $cwo_rate_post * $cwo_count;
 
-										$extra_rate_pre = !empty($extra_unique) ? $extra_unique[0] : 0;
-										$extra_count = $extra_map[$extra_rate_pre] ?? 0;
-										$extra_rate_post = $extra_rate_pre * $multi;
-										$group_total_post += $extra_rate_post * $extra_count;
+                $extra_rate_pre = !empty($extra_unique) ? $extra_unique[0] : 0;
+                $extra_count = $extra_map[$extra_rate_pre] ?? 0;
+                $extra_rate_post = $extra_rate_pre * $multi;
+                $group_total_post += $extra_rate_post * $extra_count;
+            }
+        }
 
-										// Create combined group
-										$combined_data = [
-											'room_category_name' => $bgroup['room_cat'],
-											'meal_plan_name' => $bgroup['meal'],
-											'gst' => $gst,
-											'room_rate_double' => $adult_rate_pre, // pre for consistency
-											'child_with_bed_double' => $cwb_rate_pre,
-											'child_without_bed_double' => $cwo_rate_pre,
-											'extra_bed_double' => $extra_rate_pre
-										];
-										if ($room_type === 'single') {
-											$combined_data['room_rate_single'] = $adult_rate_pre;
-										}
+        if ($all_can_combine) {
+            // Combined mode
+            $cwb_rate_pre = !empty($cwb_unique) ? $cwb_unique[0] : 0;
+            $cwb_count = $cwb_map[$cwb_rate_pre] ?? 0;
+            $cwb_rate_post = $cwb_rate_pre * $multi;
 
-										$grouped[] = [
-											'data' => $combined_data,
-											'room_count' => $total_rooms,
-											'total' => $group_total_post,
-											'cwb_actual_count' => $cwb_count,
-											'cwo_actual_count' => $cwo_count,
-											'extra_actual_count' => $extra_count,
-											'is_combined' => true
-										];
-									} else {
-										// Fallback: sub-group by full supplement config (child rates)
-										$sub_grouped = [];
-										foreach ($exps as $exp) {
-											$cwb_r = $exp['child_with_bed_double'] ?? 0;
-											$cwo_r = $exp['child_without_bed_double'] ?? 0;
-											$extra_r = $exp['extra_bed_double'] ?? 0;
-											$full_sub_key = sprintf('%s|%s|%s', $cwb_r, $cwo_r, $extra_r);
+            $cwo_rate_pre = !empty($cwo_unique) ? $cwo_unique[0] : 0;
+            $cwo_count = $cwo_map[$cwo_rate_pre] ?? 0;
+            $cwo_rate_post = $cwo_rate_pre * $multi;
 
-											if (!isset($sub_grouped[$full_sub_key])) {
-												$sub_grouped[$full_sub_key] = [
-													'data' => $exp,
-													'room_count' => 0,
-													'total' => 0.0
-												];
-											}
+            $extra_rate_pre = !empty($extra_unique) ? $extra_unique[0] : 0;
+            $extra_count = $extra_map[$extra_rate_pre] ?? 0;
+            $extra_rate_post = $extra_rate_pre * $multi;
 
-											$sub_grouped[$full_sub_key]['room_count']++;
+            $combined_data = [
+                'room_category_name' => $bgroup['room_cat'],
+                'meal_plan_name' => $bgroup['meal'],
+                'gst' => $gst,
+                'room_rate_double' => $adult_rate_pre,
+                'child_with_bed_double' => $cwb_rate_pre,
+                'child_without_bed_double' => $cwo_rate_pre,
+                'extra_bed_double' => $extra_rate_pre
+            ];
+            if ($room_type === 'single') {
+                $combined_data['room_rate_single'] = $adult_rate_pre;
+            }
 
-											// Compute per-room total post-gst
-											$sub_adult_post = $adult_rate_post;
-											$sub_cwb_post = ($cwb_r * $multi);
-											$sub_cwo_post = ($cwo_r * $multi);
-											$sub_extra_post = ($extra_r * $multi);
-											$sub_room_total = $sub_adult_post + $sub_cwb_post + $sub_cwo_post + $sub_extra_post;
-											$sub_grouped[$full_sub_key]['total'] += $sub_room_total;
-										}
+            $grouped[] = [
+                'data' => $combined_data,
+                'room_count' => $total_rooms,
+                'total' => $group_total_post,
+                'cwb_actual_count' => $cwb_count,
+                'cwo_actual_count' => $cwo_count,
+                'extra_actual_count' => $extra_count,
+                'is_combined' => true
+            ];
+        } else {
+            // Fallback: sub-group by full supplement config
+            $sub_grouped = [];
+            foreach ($exps as $exp) {
+                $cwb_r = $exp['child_with_bed_double'] ?? 0;
+                $cwo_r = $exp['child_without_bed_double'] ?? 0;
+                $extra_r = $exp['extra_bed_double'] ?? 0;
+                $full_sub_key = sprintf('%s|%s|%s', $cwb_r, $cwo_r, $extra_r);
 
-										// Handle skipping/merging zero supplement sub if others exist
-										$zero_sub_key = '0|0|0';
-										$skipped_count = 0;
-										$skipped_total = 0.0;
-										if (isset($sub_grouped[$zero_sub_key]) && count($sub_grouped) > 1) {
-											$skipped_count = $sub_grouped[$zero_sub_key]['room_count'];
-											$skipped_total = $sub_grouped[$zero_sub_key]['total'];
-											unset($sub_grouped[$zero_sub_key]);
-										}
+                if (!isset($sub_grouped[$full_sub_key])) {
+                    $sub_grouped[$full_sub_key] = [
+                        'data' => $exp,
+                        'room_count' => 0,
+                        'total' => 0.0
+                    ];
+                }
 
-										// Add to first remaining sub if skipped
-										if ($skipped_count > 0 && !empty($sub_grouped)) {
-											$first_sub_key = array_key_first($sub_grouped);
-											$sub_grouped[$first_sub_key]['room_count'] += $skipped_count;
-											$sub_grouped[$first_sub_key]['total'] += $skipped_total;
-										}
+                $sub_grouped[$full_sub_key]['room_count']++;
 
-										// Add sub groups to main
-										foreach ($sub_grouped as $sub) {
-											$grouped[] = [
-												'data' => $sub['data'],
-												'room_count' => $sub['room_count'],
-												'total' => $sub['total']
-												// No is_combined, uses original logic
-											];
-										}
-									}
-								}
+                // FIXED: Use grand_total if tax_status = 1
+                if ($tax_status) {
+                    if ($room_type === 'double') {
+                        $sub_room_total = $exp['double_total_rate'] ?? 0;
+                    } else {
+                        $sub_room_total = $exp['single_total_rate'] ?? 0;
+                    }
+                } else {
+                    // Calculate manually
+                    $sub_adult_post = $adult_rate_post;
+                    $sub_cwb_post = ($cwb_r * $multi);
+                    $sub_cwo_post = ($cwo_r * $multi);
+                    $sub_extra_post = ($extra_r * $multi);
+                    $sub_room_total = $sub_adult_post + $sub_cwb_post + $sub_cwo_post + $sub_extra_post;
+                }
+                
+                $sub_grouped[$full_sub_key]['total'] += $sub_room_total;
+            }
 
-								return $grouped;
-							}
+            // Handle zero supplement merging
+            $zero_sub_key = '0|0|0';
+            $skipped_count = 0;
+            $skipped_total = 0.0;
+            if (isset($sub_grouped[$zero_sub_key]) && count($sub_grouped) > 1) {
+                $skipped_count = $sub_grouped[$zero_sub_key]['room_count'];
+                $skipped_total = $sub_grouped[$zero_sub_key]['total'];
+                unset($sub_grouped[$zero_sub_key]);
+            }
+
+            if ($skipped_count > 0 && !empty($sub_grouped)) {
+                $first_sub_key = array_key_first($sub_grouped);
+                $sub_grouped[$first_sub_key]['room_count'] += $skipped_count;
+                $sub_grouped[$first_sub_key]['total'] += $skipped_total;
+            }
+
+            foreach ($sub_grouped as $sub) {
+                $grouped[] = [
+                    'data' => $sub['data'],
+                    'room_count' => $sub['room_count'],
+                    'total' => $sub['total']
+                ];
+            }
+        }
+    }
+
+    return $grouped;
+}
 
 							$pax_count_exist = 0;
 							if (!empty($itinerary_details_save)) {
