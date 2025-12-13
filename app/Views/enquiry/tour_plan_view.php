@@ -2461,7 +2461,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 	});
 
 	// **HELPER: Get locations to refresh based on mode**
-	
+
 
 	// **REFRESH SINGLE LOCATION - DYNAMIC MODE (ALL NIGHTS)**
 	function refreshSingleLocationAllNights(count, callback) {
@@ -5919,244 +5919,768 @@ $is_edit = $edit_id ? $edit_id : 0;
 	}
 
 	// Optimized meal plan change handler
-	$(document).on('change', '.mp_row_change', function() {
-		if (isDraftLoading) {
-			console.log('Skipping meal plan change during draft load');
-			return;
-		}
-		var mealplan = $(this).val();
-		var rid = $(this).attr('data-id');
-		var count = $(this).attr('data-count');
-		var type = $(this).attr('data-type');
-		var $spinner = $('#csspinner');
-		var $mealplanSelect = $(this);
-		var night = parseInt($(this).attr('data-night'));
-		var roomIndex = parseInt($(this).attr('data-room-index'));
-		console.log('=== Meal Plan Change ===');
-		console.log('rid:', rid, 'count:', count, 'night:', night, 'roomIndex:', roomIndex, 'type:', type, 'value:', mealplan);
+	// $(document).on('change', '.mp_row_change', function() {
+	// 	if (isDraftLoading) {
+	// 		console.log('Skipping meal plan change during draft load');
+	// 		return;
+	// 	}
+	// 	var mealplan = $(this).val();
+	// 	var rid = $(this).attr('data-id');
+	// 	var count = $(this).attr('data-count');
+	// 	var type = $(this).attr('data-type');
+	// 	var $spinner = $('#csspinner');
+	// 	var $mealplanSelect = $(this);
+	// 	var night = parseInt($(this).attr('data-night'));
+	// 	var roomIndex = parseInt($(this).attr('data-room-index'));
+	// 	console.log('=== Meal Plan Change ===');
+	// 	console.log('rid:', rid, 'count:', count, 'night:', night, 'roomIndex:', roomIndex, 'type:', type, 'value:', mealplan);
 
-		// Skip if programmatic change (add this if missing)
-		// if ($(this).data('programmatic-change')) {
-		// 	$(this).removeData('programmatic-change');
-		// 	return;
-		// }
+	// 	// Skip if programmatic change (add this if missing)
+	// 	// if ($(this).data('programmatic-change')) {
+	// 	// 	$(this).removeData('programmatic-change');
+	// 	// 	return;
+	// 	// }
 
-		// STATIC MODE: Optimized propagation (unchanged)
-		if (!getIsDynamic()) {
-			var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
-			console.log('Static mode propagation - Room Type:', type, 'Total Nights:', no_of_night);
-			var propagationTargets = [];
-			for (let n = 1; n <= no_of_night; n++) {
-				var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
-				var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
-				var startIndex, endIndex;
-				if (type === 'double') {
-					startIndex = 1;
-					endIndex = totalDoubleRooms;
-				} else {
-					startIndex = totalDoubleRooms + 1;
-					endIndex = totalDoubleRooms + totalSingleRooms;
-				}
-				for (let r = startIndex; r <= endIndex; r++) {
-					if (n === night && r === roomIndex) continue;
-					var otherRid = `${count}${n}${r}`;
-					var mealPlanId = `mealplan${otherRid}`;
-					var $otherMealPlan = $(`#${mealPlanId}`);
-					if ($otherMealPlan.length > 0 && $otherMealPlan.val() !== mealplan) {
-						propagationTargets.push({
-							element: $otherMealPlan,
-							value: mealplan,
-							rid: otherRid
-						});
-					}
-				}
+	// 	// STATIC MODE: Optimized propagation (unchanged)
+	// 	if (!getIsDynamic()) {
+	// 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+	// 		console.log('Static mode propagation - Room Type:', type, 'Total Nights:', no_of_night);
+	// 		var propagationTargets = [];
+	// 		for (let n = 1; n <= no_of_night; n++) {
+	// 			var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
+	// 			var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
+	// 			var startIndex, endIndex;
+	// 			if (type === 'double') {
+	// 				startIndex = 1;
+	// 				endIndex = totalDoubleRooms;
+	// 			} else {
+	// 				startIndex = totalDoubleRooms + 1;
+	// 				endIndex = totalDoubleRooms + totalSingleRooms;
+	// 			}
+	// 			for (let r = startIndex; r <= endIndex; r++) {
+	// 				if (n === night && r === roomIndex) continue;
+	// 				var otherRid = `${count}${n}${r}`;
+	// 				var mealPlanId = `mealplan${otherRid}`;
+	// 				var $otherMealPlan = $(`#${mealPlanId}`);
+	// 				if ($otherMealPlan.length > 0 && $otherMealPlan.val() !== mealplan) {
+	// 					propagationTargets.push({
+	// 						element: $otherMealPlan,
+	// 						value: mealplan,
+	// 						rid: otherRid
+	// 					});
+	// 				}
+	// 			}
+	// 		}
+	// 		if (propagationTargets.length > 0) {
+	// 			console.log(`Batching ${propagationTargets.length} propagation updates`);
+	// 			batchDOMUpdate(function() {
+	// 				propagationTargets.forEach(function(target) {
+	// 					target.element.data('programmatic-change', true).val(target.value);
+	// 					if (target.element.hasClass('select2-hidden-accessible')) {
+	// 						target.element.trigger('change.select2');
+	// 					}
+	// 					target.element.trigger('change');
+	// 				});
+	// 			});
+	// 		}
+	// 		console.log('Meal plan propagation complete');
+	// 	}
+
+	// 	// Process the current room
+	// 	$spinner.show();
+	// 	$mealplanSelect.prop('disabled', true);
+
+	// 	// Reset totals if mealplan is empty (unchanged)
+	// 	if (mealplan === "" || mealplan === "0") {
+	// 		$(`#d_total_rate${rid}`).val(0);
+	// 		$(`#s_total_rate${rid}`).val(0);
+	// 		updateRoomTotals(count, night, roomIndex);
+	// 		updateAllTotals();
+	// 		calculateVehicleExtraKmCharges();
+	// 		$spinner.hide();
+	// 		$mealplanSelect.prop('disabled', false);
+	// 		return;
+	// 	}
+
+	// 	// Validation (unchanged)
+	// 	if ($(`#roomcat${rid}`).length === 0) {
+	// 		console.error('Room category dropdown not found for rid:', rid);
+	// 		showAlert('error', 'Room category dropdown not found. Please refresh the page.');
+	// 		$spinner.hide();
+	// 		$mealplanSelect.prop('disabled', false).val("");
+	// 		return;
+	// 	}
+	// 	var no_of_night = $(`#no_of_night${count}`).val();
+	// 	var hotel_id = $(`#hotelid${count}`).val();
+	// 	var tax_status = $(`#tax_status${count}`).val();
+	// 	var checkin = $(`#checkin${count}`).val();
+	// 	var checkout = $(`#checkout${count}`).val();
+	// 	var room_cat_id = $(`#roomcat${rid}`).val();
+	// 	if (!room_cat_id || room_cat_id === "" || room_cat_id === "0" || room_cat_id === null) {
+	// 		console.error('Room category ID is missing or invalid for rid:', rid, 'Value:', room_cat_id);
+	// 		showAlert('warning', 'Please select a room category first before choosing a meal plan.');
+	// 		$spinner.hide();
+	// 		$mealplanSelect.prop('disabled', false).val("");
+	// 		return;
+	// 	}
+	// 	if (!hotel_id || !checkin || !checkout || !no_of_night) {
+	// 		console.error('Missing required fields');
+	// 		showAlert('warning', 'Please ensure hotel, check-in, check-out dates are properly selected.');
+	// 		$spinner.hide();
+	// 		$mealplanSelect.prop('disabled', false).val("");
+	// 		return;
+	// 	}
+
+	// 	var double = type === 'double' ? 1 : 0;
+	// 	var single = type === 'single' ? 1 : 0;
+	// 	var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
+	// 	var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
+	// 	var departure_location = <?php echo $object_det[0]['departure_location']; ?>;
+	// 	var tour_location_id = $(`#tour_location_id${count}`).val();
+	// 	var previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
+	// 	var duration = <?php echo $object_det[0]['no_of_night']; ?>;
+	// 	var totalNights = calculateTotalNights();
+	// 	var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+	// 	var vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
+
+	// 	$.ajax({
+	// 		url: "<?= site_url('Enquiry/getTourTariffDetails'); ?>",
+	// 		method: "POST",
+	// 		data: {
+	// 			hotel_id: hotel_id,
+	// 			room_cat_id: room_cat_id,
+	// 			mealplan: mealplan,
+	// 			checkin: checkin,
+	// 			checkout: checkout,
+	// 			no_of_night: no_of_night,
+	// 			double: double,
+	// 			single: single,
+	// 			vehicle_models: vehicle_models,
+	// 			id: rid,
+	// 			duration: duration,
+	// 			totalNights: totalNights,
+	// 			tour_location_id: tour_location_id,
+	// 			previous_location_id: previous_location_id,
+	// 			vehicle_from_location: vehicle_from_location,
+	// 			arrival_location: arrival_location,
+	// 			departure_location: departure_location
+	// 		},
+	// 		dataType: 'json',
+	// 		success: function(data) {
+	// 			if (data.different_season == 1) {
+	// 				var html_data = '<p>' + data.season_name1 + '</p>';
+	// 				html_data += '<p>' + data.season_name2 + '</p>';
+	// 				$('#season_name_placeholder').html(html_data);
+	// 				$('#diff_season_modal').modal('show');
+	// 				$(`#no_of_night${count}`).val(1);
+	// 				calculateCheckout(count);
+	// 				$(`#mealplan${rid}`).trigger('change');
+	// 				return;
+	// 			}
+
+	// 			var no_of_ch = parseInt($(`#no_of_ch${count}`).val()) || 0;
+	// 			var no_of_cw = parseInt($(`#no_of_cw${count}`).val()) || 0;
+	// 			var no_of_extra = parseInt($(`#no_of_extra${count}`).val()) || 0;
+	// 			var room_qty = type === 'double' ? (parseInt($(`#double${count}${night}`).val()) || 0) : (parseInt($(`#single${count}${night}`).val()) || 0);
+
+	// 			var room_r = parseInt(data.d_room_tariff) || parseInt(data.s_room_tariff) || 0;
+	// 			var child_r = parseInt(data.d_child_tariff) || parseInt(data.s_child_tariff) || 0;
+	// 			var child_wb_r = parseInt(data.d_child_wb_tariff) || parseInt(data.s_child_wb_tariff) || 0;
+	// 			var extra_r = parseInt(data.d_extra_tariff) || parseInt(data.s_extra_tariff) || 0;
+
+	// 			batchDOMUpdate(function() {
+	// 				var rates = {
+	// 					room_r: room_r,
+	// 					child_r: child_r,
+	// 					child_wb_r: child_wb_r,
+	// 					extra_r: extra_r
+	// 				};
+	// 				setRoomRatesWithRoundRobin(count, night, roomIndex, type, rates);
+	// 				if (!getIsDynamic()) {
+	// 					updateStaticModeDisplayTotal(count);
+	// 				}
+	// 			});
+
+	// 			// ===== UPDATED DYNAMIC PROPAGATION: No direct .val(); use setRoomRatesWithRoundRobin only =====
+	// 			if (getIsDynamic()) {
+	// 				console.log('Dynamic mode: Propagating rates to matching rooms in other nights');
+	// 				var currentRoomCat = $(`#roomcat${rid}`).val();
+	// 				var currentMealPlan = mealplan;
+	// 				var no_of_night_total = parseInt($(`#no_of_night${count}`).val()) || 0;
+	// 				var prefix = type === 'double' ? 'd_' : 's_'; // Unused now
+
+	// 				for (let otherNight = 1; otherNight <= no_of_night_total; otherNight++) {
+	// 					if (otherNight === night) continue;
+	// 					var otherRid = `${count}${otherNight}${roomIndex}`;
+	// 					var $otherRoomCat = $(`#roomcat${otherRid}`);
+	// 					var $otherMealPlan = $(`#mealplan${otherRid}`);
+	// 					if ($otherRoomCat.length && $otherRoomCat.val() === currentRoomCat &&
+	// 						$otherMealPlan.length && $otherMealPlan.val() === currentMealPlan) {
+	// 						console.log(`Propagating rates to Night ${otherNight}, Room ${roomIndex} (configs match)`);
+	// 						var rates = {
+	// 							room_r: room_r,
+	// 							child_r: child_r,
+	// 							child_wb_r: child_wb_r,
+	// 							extra_r: extra_r
+	// 						};
+	// 						// Apply full set + allocation (zeros extra if ineligible, e.g., child bed present)
+	// 						setRoomRatesWithRoundRobin(count, otherNight, roomIndex, type, rates);
+	// 						updateRoomTotals(count, otherNight, roomIndex);
+	// 					} else {
+	// 						console.log(`Skipping Night ${otherNight}, Room ${roomIndex} (configs mismatch)`);
+	// 					}
+	// 				}
+	// 			}
+	// 			// ===== END UPDATED CODE =====
+
+	// 			deferToIdle(function() {
+	// 				updateRoomTotals(count, night, roomIndex);
+	// 				if (roomIndex === 1 && !getIsDynamic()) {
+	// 					propagateRoomData(count, night, type);
+	// 					updateStaticModeDisplayTotal(count);
+	// 				}
+	// 				updateAllTotals();
+	// 				calculateVehicleExtraKmCharges();
+	// 			});
+	// 		},
+	// 		error: function(xhr, status, error) {
+	// 			console.error('Error fetching tariff details:', error);
+	// 			showAlert('danger', 'Error fetching tariff details. Please try again.');
+	// 			$mealplanSelect.prop('disabled', false);
+	// 			$(`#roomcat${rid}`).prop('disabled', false);
+	// 		},
+	// 		complete: function() {
+	// 			$spinner.hide();
+	// 			$mealplanSelect.prop('disabled', false);
+	// 			$(`#roomcat${rid}`).prop('disabled', false);
+	// 		}
+	// 	});
+	// });
+	// $(document).on('change', '.mp_row_change', function() {
+	// 	if (isDraftLoading) {
+	// 		console.log('Skipping meal plan change during draft load');
+	// 		return;
+	// 	}
+	// 	var mealplan = $(this).val();
+	// 	var rid = $(this).attr('data-id');
+	// 	var count = $(this).attr('data-count');
+	// 	var type = $(this).attr('data-type');
+	// 	var $spinner = $('#csspinner');
+	// 	var $mealplanSelect = $(this);
+	// 	var night = parseInt($(this).attr('data-night'));
+	// 	var roomIndex = parseInt($(this).attr('data-room-index'));
+	// 	console.log('=== Meal Plan Change ===');
+	// 	console.log('rid:', rid, 'count:', count, 'night:', night, 'roomIndex:', roomIndex, 'type:', type, 'value:', mealplan);
+
+	// 	// Skip if programmatic change
+	// 	// if ($(this).data('programmatic-change')) {
+	// 	// 	$(this).removeData('programmatic-change');
+	// 	// 	return;
+	// 	// }
+
+	// 	// STATIC MODE: Optimized propagation (unchanged)
+	// 	if (!getIsDynamic()) {
+	// 		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+	// 		console.log('Static mode propagation - Room Type:', type, 'Total Nights:', no_of_night);
+	// 		var propagationTargets = [];
+	// 		for (let n = 1; n <= no_of_night; n++) {
+	// 			var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
+	// 			var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
+	// 			var startIndex, endIndex;
+	// 			if (type === 'double') {
+	// 				startIndex = 1;
+	// 				endIndex = totalDoubleRooms;
+	// 			} else {
+	// 				startIndex = totalDoubleRooms + 1;
+	// 				endIndex = totalDoubleRooms + totalSingleRooms;
+	// 			}
+	// 			for (let r = startIndex; r <= endIndex; r++) {
+	// 				if (n === night && r === roomIndex) continue;
+	// 				var otherRid = `${count}${n}${r}`;
+	// 				var mealPlanId = `mealplan${otherRid}`;
+	// 				var $otherMealPlan = $(`#${mealPlanId}`);
+	// 				if ($otherMealPlan.length > 0 && $otherMealPlan.val() !== mealplan) {
+	// 					propagationTargets.push({
+	// 						element: $otherMealPlan,
+	// 						value: mealplan,
+	// 						rid: otherRid
+	// 					});
+	// 				}
+	// 			}
+	// 		}
+	// 		if (propagationTargets.length > 0) {
+	// 			console.log(`Batching ${propagationTargets.length} propagation updates`);
+	// 			batchDOMUpdate(function() {
+	// 				propagationTargets.forEach(function(target) {
+	// 					target.element.data('programmatic-change', true).val(target.value);
+	// 					if (target.element.hasClass('select2-hidden-accessible')) {
+	// 						target.element.trigger('change.select2');
+	// 					}
+	// 					target.element.trigger('change');
+	// 				});
+	// 			});
+	// 		}
+	// 		console.log('Meal plan propagation complete');
+	// 	}
+
+	// 	// Process the current room
+	// 	$spinner.show();
+	// 	$mealplanSelect.prop('disabled', true);
+
+	// 	// Reset totals if mealplan is empty (unchanged)
+	// 	if (mealplan === "" || mealplan === "0") {
+	// 		$(`#d_total_rate${rid}`).val(0);
+	// 		$(`#s_total_rate${rid}`).val(0);
+	// 		updateRoomTotals(count, night, roomIndex);
+	// 		updateAllTotals();
+	// 		calculateVehicleExtraKmCharges();
+	// 		$spinner.hide();
+	// 		$mealplanSelect.prop('disabled', false);
+	// 		return;
+	// 	}
+
+	// 	// Validation (unchanged)
+	// 	if ($(`#roomcat${rid}`).length === 0) {
+	// 		console.error('Room category dropdown not found for rid:', rid);
+	// 		showAlert('error', 'Room category dropdown not found. Please refresh the page.');
+	// 		$spinner.hide();
+	// 		$mealplanSelect.prop('disabled', false).val("");
+	// 		return;
+	// 	}
+	// 	var no_of_night = $(`#no_of_night${count}`).val();
+	// 	var hotel_id = $(`#hotelid${count}`).val();
+	// 	var tax_status = $(`#tax_status${count}`).val();
+	// 	var checkin = $(`#checkin${count}`).val();
+	// 	var checkout = $(`#checkout${count}`).val();
+	// 	var room_cat_id = $(`#roomcat${rid}`).val();
+	// 	if (!room_cat_id || room_cat_id === "" || room_cat_id === "0" || room_cat_id === null) {
+	// 		console.error('Room category ID is missing or invalid for rid:', rid, 'Value:', room_cat_id);
+	// 		showAlert('warning', 'Please select a room category first before choosing a meal plan.');
+	// 		$spinner.hide();
+	// 		$mealplanSelect.prop('disabled', false).val("");
+	// 		return;
+	// 	}
+	// 	if (!hotel_id || !checkin || !checkout || !no_of_night) {
+	// 		console.error('Missing required fields');
+	// 		showAlert('warning', 'Please ensure hotel, check-in, check-out dates are properly selected.');
+	// 		$spinner.hide();
+	// 		$mealplanSelect.prop('disabled', false).val("");
+	// 		return;
+	// 	}
+
+	// 	var double = type === 'double' ? 1 : 0;
+	// 	var single = type === 'single' ? 1 : 0;
+	// 	var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
+	// 	var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
+	// 	var departure_location = <?php echo $object_det[0]['departure_location']; ?>;
+	// 	var tour_location_id = $(`#tour_location_id${count}`).val();
+	// 	var previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
+	// 	var duration = <?php echo $object_det[0]['no_of_night']; ?>;
+	// 	var totalNights = calculateTotalNights();
+	// 	var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+	// 	var vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
+
+	// 	$.ajax({
+	// 		url: "<?= site_url('Enquiry/getTourTariffDetails'); ?>",
+	// 		method: "POST",
+	// 		data: {
+	// 			hotel_id: hotel_id,
+	// 			room_cat_id: room_cat_id,
+	// 			mealplan: mealplan,
+	// 			checkin: checkin,
+	// 			checkout: checkout,
+	// 			no_of_night: no_of_night,
+	// 			double: double,
+	// 			single: single,
+	// 			vehicle_models: vehicle_models,
+	// 			id: rid,
+	// 			duration: duration,
+	// 			totalNights: totalNights,
+	// 			tour_location_id: tour_location_id,
+	// 			previous_location_id: previous_location_id,
+	// 			vehicle_from_location: vehicle_from_location,
+	// 			arrival_location: arrival_location,
+	// 			departure_location: departure_location
+	// 		},
+	// 		dataType: 'json',
+	// 		success: function(data) {
+	// 				var current_no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+			
+	// 		// **FIX: Check for different seasons BEFORE applying any rates**
+	// 		if (data.different_season == 1) {
+	// 			if (current_no_of_night > 1) {
+	// 				console.log('Different seasons detected. Adjusting nights to 1 and re-fetching rates.');
+	// 				var html_data = '<p>' + data.season_name1 + '</p>';
+	// 				html_data += '<p>' + data.season_name2 + '</p>';
+	// 				$('#season_name_placeholder').html(html_data);
+	// 				$('#diff_season_modal').modal('show');
+					
+	// 				// **FIX: Set nights to 1 and re-trigger WITHOUT applying current (averaged) rates**
+	// 				$(`#no_of_night${count}`).val(1);
+	// 				calculateCheckout(count);
+					
+	// 				// Re-trigger will fetch correct single-night rates
+	// 				setTimeout(function() {
+	// 					$(`#mealplan${rid}`).trigger('change');
+	// 				}, 100);
+					
+	// 				return; // Exit early - don't apply these averaged rates
+	// 			} else {
+	// 				console.log('Different seasons detected but nights is already 1. Proceeding.');
+	// 			}
+	// 		}
+
+	// 			var no_of_ch = parseInt($(`#no_of_ch${count}`).val()) || 0;
+	// 			var no_of_cw = parseInt($(`#no_of_cw${count}`).val()) || 0;
+	// 			var no_of_extra = parseInt($(`#no_of_extra${count}`).val()) || 0;
+	// 			var room_qty = type === 'double' ? (parseInt($(`#double${count}${night}`).val()) || 0) : (parseInt($(`#single${count}${night}`).val()) || 0);
+
+	// 			var room_r = parseInt(data.d_room_tariff) || parseInt(data.s_room_tariff) || 0;
+	// 			var child_r = parseInt(data.d_child_tariff) || parseInt(data.s_child_tariff) || 0;
+	// 			var child_wb_r = parseInt(data.d_child_wb_tariff) || parseInt(data.s_child_wb_tariff) || 0;
+	// 			var extra_r = parseInt(data.d_extra_tariff) || parseInt(data.s_extra_tariff) || 0;
+
+	// 			batchDOMUpdate(function() {
+	// 				var rates = {
+	// 					room_r: room_r,
+	// 					child_r: child_r,
+	// 					child_wb_r: child_wb_r,
+	// 					extra_r: extra_r
+	// 				};
+	// 				setRoomRatesWithRoundRobin(count, night, roomIndex, type, rates);
+	// 				if (!getIsDynamic()) {
+	// 					updateStaticModeDisplayTotal(count);
+	// 				}
+	// 			});
+
+	// 			// ===== UPDATED DYNAMIC PROPAGATION: No direct .val(); use setRoomRatesWithRoundRobin only =====
+	// 			if (getIsDynamic()) {
+	// 				console.log('Dynamic mode: Propagating rates to matching rooms in other nights');
+	// 				var currentRoomCat = $(`#roomcat${rid}`).val();
+	// 				var currentMealPlan = mealplan;
+	// 				var no_of_night_total = parseInt($(`#no_of_night${count}`).val()) || 0;
+	// 				var prefix = type === 'double' ? 'd_' : 's_'; // Unused now
+
+	// 				for (let otherNight = 1; otherNight <= no_of_night_total; otherNight++) {
+	// 					if (otherNight === night) continue;
+	// 					var otherRid = `${count}${otherNight}${roomIndex}`;
+	// 					var $otherRoomCat = $(`#roomcat${otherRid}`);
+	// 					var $otherMealPlan = $(`#mealplan${otherRid}`);
+	// 					if ($otherRoomCat.length && $otherRoomCat.val() === currentRoomCat &&
+	// 						$otherMealPlan.length && $otherMealPlan.val() === currentMealPlan) {
+	// 						console.log(`Propagating rates to Night ${otherNight}, Room ${roomIndex} (configs match)`);
+	// 						var rates = {
+	// 							room_r: room_r,
+	// 							child_r: child_r,
+	// 							child_wb_r: child_wb_r,
+	// 							extra_r: extra_r
+	// 						};
+	// 						// Apply full set + allocation (zeros extra if ineligible, e.g., child bed present)
+	// 						setRoomRatesWithRoundRobin(count, otherNight, roomIndex, type, rates);
+	// 						updateRoomTotals(count, otherNight, roomIndex);
+	// 					} else {
+	// 						console.log(`Skipping Night ${otherNight}, Room ${roomIndex} (configs mismatch)`);
+	// 					}
+	// 				}
+	// 			}
+	// 			// ===== END UPDATED CODE =====
+
+	// 			deferToIdle(function() {
+	// 				updateRoomTotals(count, night, roomIndex);
+	// 				if (roomIndex === 1 && !getIsDynamic()) {
+	// 					propagateRoomData(count, night, type);
+	// 					updateStaticModeDisplayTotal(count);
+	// 				}
+	// 				updateAllTotals();
+	// 				calculateVehicleExtraKmCharges();
+	// 			});
+	// 		},
+	// 		error: function(xhr, status, error) {
+	// 			console.error('Error fetching tariff details:', error);
+	// 			showAlert('danger', 'Error fetching tariff details. Please try again.');
+	// 			$mealplanSelect.prop('disabled', false);
+	// 			$(`#roomcat${rid}`).prop('disabled', false);
+	// 		},
+	// 		complete: function() {
+	// 			$spinner.hide();
+	// 			$mealplanSelect.prop('disabled', false);
+	// 			$(`#roomcat${rid}`).prop('disabled', false);
+	// 		}
+	// 	});
+	// });
+$(document).on('change', '.mp_row_change', function() {
+	if (isDraftLoading) {
+		console.log('Skipping meal plan change during draft load');
+		return;
+	}
+	
+	var mealplan = $(this).val();
+	var rid = $(this).attr('data-id');
+	var count = $(this).attr('data-count');
+	var type = $(this).attr('data-type');
+	var $spinner = $('#csspinner');
+	var $mealplanSelect = $(this);
+	var night = parseInt($(this).attr('data-night'));
+	var roomIndex = parseInt($(this).attr('data-room-index'));
+	
+	console.log('=== Meal Plan Change ===');
+	console.log('rid:', rid, 'count:', count, 'night:', night, 'roomIndex:', roomIndex, 'type:', type, 'value:', mealplan);
+
+	// STATIC MODE: Optimized propagation (unchanged)
+	if (!getIsDynamic()) {
+		var no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+		console.log('Static mode propagation - Room Type:', type, 'Total Nights:', no_of_night);
+		var propagationTargets = [];
+		for (let n = 1; n <= no_of_night; n++) {
+			var totalDoubleRooms = parseInt($(`#double${count}${n}`).val()) || 0;
+			var totalSingleRooms = parseInt($(`#single${count}${n}`).val()) || 0;
+			var startIndex, endIndex;
+			if (type === 'double') {
+				startIndex = 1;
+				endIndex = totalDoubleRooms;
+			} else {
+				startIndex = totalDoubleRooms + 1;
+				endIndex = totalDoubleRooms + totalSingleRooms;
 			}
-			if (propagationTargets.length > 0) {
-				console.log(`Batching ${propagationTargets.length} propagation updates`);
-				batchDOMUpdate(function() {
-					propagationTargets.forEach(function(target) {
-						target.element.data('programmatic-change', true).val(target.value);
-						if (target.element.hasClass('select2-hidden-accessible')) {
-							target.element.trigger('change.select2');
-						}
-						target.element.trigger('change');
+			for (let r = startIndex; r <= endIndex; r++) {
+				if (n === night && r === roomIndex) continue;
+				var otherRid = `${count}${n}${r}`;
+				var mealPlanId = `mealplan${otherRid}`;
+				var $otherMealPlan = $(`#${mealPlanId}`);
+				if ($otherMealPlan.length > 0 && $otherMealPlan.val() !== mealplan) {
+					propagationTargets.push({
+						element: $otherMealPlan,
+						value: mealplan,
+						rid: otherRid
 					});
-				});
+				}
 			}
-			console.log('Meal plan propagation complete');
 		}
-
-		// Process the current room
-		$spinner.show();
-		$mealplanSelect.prop('disabled', true);
-
-		// Reset totals if mealplan is empty (unchanged)
-		if (mealplan === "" || mealplan === "0") {
-			$(`#d_total_rate${rid}`).val(0);
-			$(`#s_total_rate${rid}`).val(0);
-			updateRoomTotals(count, night, roomIndex);
-			updateAllTotals();
-			calculateVehicleExtraKmCharges();
-			$spinner.hide();
-			$mealplanSelect.prop('disabled', false);
-			return;
+		if (propagationTargets.length > 0) {
+			console.log(`Batching ${propagationTargets.length} propagation updates`);
+			batchDOMUpdate(function() {
+				propagationTargets.forEach(function(target) {
+					target.element.data('programmatic-change', true).val(target.value);
+					if (target.element.hasClass('select2-hidden-accessible')) {
+						target.element.trigger('change.select2');
+					}
+					target.element.trigger('change');
+				});
+			});
 		}
+		console.log('Meal plan propagation complete');
+	}
 
-		// Validation (unchanged)
-		if ($(`#roomcat${rid}`).length === 0) {
-			console.error('Room category dropdown not found for rid:', rid);
-			showAlert('error', 'Room category dropdown not found. Please refresh the page.');
-			$spinner.hide();
-			$mealplanSelect.prop('disabled', false).val("");
-			return;
-		}
-		var no_of_night = $(`#no_of_night${count}`).val();
-		var hotel_id = $(`#hotelid${count}`).val();
-		var tax_status = $(`#tax_status${count}`).val();
-		var checkin = $(`#checkin${count}`).val();
-		var checkout = $(`#checkout${count}`).val();
-		var room_cat_id = $(`#roomcat${rid}`).val();
-		if (!room_cat_id || room_cat_id === "" || room_cat_id === "0" || room_cat_id === null) {
-			console.error('Room category ID is missing or invalid for rid:', rid, 'Value:', room_cat_id);
-			showAlert('warning', 'Please select a room category first before choosing a meal plan.');
-			$spinner.hide();
-			$mealplanSelect.prop('disabled', false).val("");
-			return;
-		}
-		if (!hotel_id || !checkin || !checkout || !no_of_night) {
-			console.error('Missing required fields');
-			showAlert('warning', 'Please ensure hotel, check-in, check-out dates are properly selected.');
-			$spinner.hide();
-			$mealplanSelect.prop('disabled', false).val("");
-			return;
-		}
+	// Process the current room
+	$spinner.show();
+	$mealplanSelect.prop('disabled', true);
 
-		var double = type === 'double' ? 1 : 0;
-		var single = type === 'single' ? 1 : 0;
-		var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
-		var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
-		var departure_location = <?php echo $object_det[0]['departure_location']; ?>;
-		var tour_location_id = $(`#tour_location_id${count}`).val();
-		var previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
-		var duration = <?php echo $object_det[0]['no_of_night']; ?>;
-		var totalNights = calculateTotalNights();
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-		var vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
+	// Reset totals if mealplan is empty
+	if (mealplan === "" || mealplan === "0") {
+		$(`#d_total_rate${rid}`).val(0);
+		$(`#s_total_rate${rid}`).val(0);
+		updateRoomTotals(count, night, roomIndex);
+		updateAllTotals();
+		calculateVehicleExtraKmCharges();
+		$spinner.hide();
+		$mealplanSelect.prop('disabled', false);
+		return;
+	}
 
-		$.ajax({
-			url: "<?= site_url('Enquiry/getTourTariffDetails'); ?>",
-			method: "POST",
-			data: {
-				hotel_id: hotel_id,
-				room_cat_id: room_cat_id,
-				mealplan: mealplan,
-				checkin: checkin,
-				checkout: checkout,
-				no_of_night: no_of_night,
-				double: double,
-				single: single,
-				vehicle_models: vehicle_models,
-				id: rid,
-				duration: duration,
-				totalNights: totalNights,
-				tour_location_id: tour_location_id,
-				previous_location_id: previous_location_id,
-				vehicle_from_location: vehicle_from_location,
-				arrival_location: arrival_location,
-				departure_location: departure_location
-			},
-			dataType: 'json',
-			success: function(data) {
-				if (data.different_season == 1) {
+	// Validation
+	if ($(`#roomcat${rid}`).length === 0) {
+		console.error('Room category dropdown not found for rid:', rid);
+		showAlert('error', 'Room category dropdown not found. Please refresh the page.');
+		$spinner.hide();
+		$mealplanSelect.prop('disabled', false).val("");
+		return;
+	}
+	
+	var no_of_night = $(`#no_of_night${count}`).val();
+	var hotel_id = $(`#hotelid${count}`).val();
+	var tax_status = $(`#tax_status${count}`).val();
+	var checkin = $(`#checkin${count}`).val();
+	var checkout = $(`#checkout${count}`).val();
+	var room_cat_id = $(`#roomcat${rid}`).val();
+	
+	if (!room_cat_id || room_cat_id === "" || room_cat_id === "0" || room_cat_id === null) {
+		console.error('Room category ID is missing or invalid for rid:', rid, 'Value:', room_cat_id);
+		showAlert('warning', 'Please select a room category first before choosing a meal plan.');
+		$spinner.hide();
+		$mealplanSelect.prop('disabled', false).val("");
+		return;
+	}
+	
+	if (!hotel_id || !checkin || !checkout || !no_of_night) {
+		console.error('Missing required fields');
+		showAlert('warning', 'Please ensure hotel, check-in, check-out dates are properly selected.');
+		$spinner.hide();
+		$mealplanSelect.prop('disabled', false).val("");
+		return;
+	}
+
+	var double = type === 'double' ? 1 : 0;
+	var single = type === 'single' ? 1 : 0;
+	var vehicle_from_location = <?php echo $object_det[0]['vehicle_from_location'] ? $object_det[0]['vehicle_from_location'] : 0; ?>;
+	var arrival_location = <?php echo $object_det[0]['arrival_location']; ?>;
+	var departure_location = <?php echo $object_det[0]['departure_location']; ?>;
+	var tour_location_id = $(`#tour_location_id${count}`).val();
+	var previous_location_id = count > 1 ? $(`#tour_location_id${parseInt(count) - 1}`).val() : null;
+	var duration = <?php echo $object_det[0]['no_of_night']; ?>;
+	var totalNights = calculateTotalNights();
+	var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
+	var vehicle_models = is_vehicle_required == 1 ? <?php echo json_encode($vehicle_data); ?> : null;
+
+	// **FIX: Abort any pending AJAX request for this rid**
+	if (window.activeTariffRequests && window.activeTariffRequests[rid]) {
+		console.log('Aborting previous request for rid:', rid);
+		window.activeTariffRequests[rid].abort();
+	}
+	
+	// Initialize tracking object if it doesn't exist
+	if (!window.activeTariffRequests) {
+		window.activeTariffRequests = {};
+	}
+
+	// **FIX: Store the AJAX request so we can abort it if needed**
+	var xhr = $.ajax({
+		url: "<?= site_url('Enquiry/getTourTariffDetails'); ?>",
+		method: "POST",
+		data: {
+			hotel_id: hotel_id,
+			room_cat_id: room_cat_id,
+			mealplan: mealplan,
+			checkin: checkin,
+			checkout: checkout,
+			no_of_night: no_of_night,
+			double: double,
+			single: single,
+			vehicle_models: vehicle_models,
+			id: rid,
+			duration: duration,
+			totalNights: totalNights,
+			tour_location_id: tour_location_id,
+			previous_location_id: previous_location_id,
+			vehicle_from_location: vehicle_from_location,
+			arrival_location: arrival_location,
+			departure_location: departure_location
+		},
+		dataType: 'json',
+		success: function(data) {
+			var current_no_of_night = parseInt($(`#no_of_night${count}`).val()) || 0;
+			
+			// **FIX: Check for different seasons BEFORE applying any rates**
+			if (data.different_season == 1) {
+				if (current_no_of_night > 1) {
+					console.log('Different seasons detected. Adjusting nights to 1 and re-fetching rates.');
 					var html_data = '<p>' + data.season_name1 + '</p>';
 					html_data += '<p>' + data.season_name2 + '</p>';
 					$('#season_name_placeholder').html(html_data);
 					$('#diff_season_modal').modal('show');
+					
+					// **FIX: Set nights to 1 and re-trigger WITHOUT applying current (averaged) rates**
 					$(`#no_of_night${count}`).val(1);
 					calculateCheckout(count);
-					$(`#mealplan${rid}`).trigger('change');
-					return;
+					
+					// Re-trigger will fetch correct single-night rates
+					setTimeout(function() {
+						$(`#mealplan${rid}`).trigger('change');
+					}, 100);
+					
+					return; // Exit early - don't apply these averaged rates
+				} else {
+					console.log('Different seasons detected but nights is already 1. Proceeding.');
 				}
-
-				var no_of_ch = parseInt($(`#no_of_ch${count}`).val()) || 0;
-				var no_of_cw = parseInt($(`#no_of_cw${count}`).val()) || 0;
-				var no_of_extra = parseInt($(`#no_of_extra${count}`).val()) || 0;
-				var room_qty = type === 'double' ? (parseInt($(`#double${count}${night}`).val()) || 0) : (parseInt($(`#single${count}${night}`).val()) || 0);
-
-				var room_r = parseInt(data.d_room_tariff) || parseInt(data.s_room_tariff) || 0;
-				var child_r = parseInt(data.d_child_tariff) || parseInt(data.s_child_tariff) || 0;
-				var child_wb_r = parseInt(data.d_child_wb_tariff) || parseInt(data.s_child_wb_tariff) || 0;
-				var extra_r = parseInt(data.d_extra_tariff) || parseInt(data.s_extra_tariff) || 0;
-
-				batchDOMUpdate(function() {
-					var rates = {
-						room_r: room_r,
-						child_r: child_r,
-						child_wb_r: child_wb_r,
-						extra_r: extra_r
-					};
-					setRoomRatesWithRoundRobin(count, night, roomIndex, type, rates);
-					if (!getIsDynamic()) {
-						updateStaticModeDisplayTotal(count);
-					}
-				});
-
-				// ===== UPDATED DYNAMIC PROPAGATION: No direct .val(); use setRoomRatesWithRoundRobin only =====
-				if (getIsDynamic()) {
-					console.log('Dynamic mode: Propagating rates to matching rooms in other nights');
-					var currentRoomCat = $(`#roomcat${rid}`).val();
-					var currentMealPlan = mealplan;
-					var no_of_night_total = parseInt($(`#no_of_night${count}`).val()) || 0;
-					var prefix = type === 'double' ? 'd_' : 's_'; // Unused now
-
-					for (let otherNight = 1; otherNight <= no_of_night_total; otherNight++) {
-						if (otherNight === night) continue;
-						var otherRid = `${count}${otherNight}${roomIndex}`;
-						var $otherRoomCat = $(`#roomcat${otherRid}`);
-						var $otherMealPlan = $(`#mealplan${otherRid}`);
-						if ($otherRoomCat.length && $otherRoomCat.val() === currentRoomCat &&
-							$otherMealPlan.length && $otherMealPlan.val() === currentMealPlan) {
-							console.log(`Propagating rates to Night ${otherNight}, Room ${roomIndex} (configs match)`);
-							var rates = {
-								room_r: room_r,
-								child_r: child_r,
-								child_wb_r: child_wb_r,
-								extra_r: extra_r
-							};
-							// Apply full set + allocation (zeros extra if ineligible, e.g., child bed present)
-							setRoomRatesWithRoundRobin(count, otherNight, roomIndex, type, rates);
-							updateRoomTotals(count, otherNight, roomIndex);
-						} else {
-							console.log(`Skipping Night ${otherNight}, Room ${roomIndex} (configs mismatch)`);
-						}
-					}
-				}
-				// ===== END UPDATED CODE =====
-
-				deferToIdle(function() {
-					updateRoomTotals(count, night, roomIndex);
-					if (roomIndex === 1 && !getIsDynamic()) {
-						propagateRoomData(count, night, type);
-						updateStaticModeDisplayTotal(count);
-					}
-					updateAllTotals();
-					calculateVehicleExtraKmCharges();
-				});
-			},
-			error: function(xhr, status, error) {
-				console.error('Error fetching tariff details:', error);
-				showAlert('danger', 'Error fetching tariff details. Please try again.');
-				$mealplanSelect.prop('disabled', false);
-				$(`#roomcat${rid}`).prop('disabled', false);
-			},
-			complete: function() {
-				$spinner.hide();
-				$mealplanSelect.prop('disabled', false);
-				$(`#roomcat${rid}`).prop('disabled', false);
 			}
-		});
-	});
 
+			// Only apply rates if we're not re-triggering due to season change
+			var no_of_ch = parseInt($(`#no_of_ch${count}`).val()) || 0;
+			var no_of_cw = parseInt($(`#no_of_cw${count}`).val()) || 0;
+			var no_of_extra = parseInt($(`#no_of_extra${count}`).val()) || 0;
+			var room_qty = type === 'double' ? (parseInt($(`#double${count}${night}`).val()) || 0) : (parseInt($(`#single${count}${night}`).val()) || 0);
+
+			var room_r = parseInt(data.d_room_tariff) || parseInt(data.s_room_tariff) || 0;
+			var child_r = parseInt(data.d_child_tariff) || parseInt(data.s_child_tariff) || 0;
+			var child_wb_r = parseInt(data.d_child_wb_tariff) || parseInt(data.s_child_wb_tariff) || 0;
+			var extra_r = parseInt(data.d_extra_tariff) || parseInt(data.s_extra_tariff) || 0;
+
+			console.log('Applying rates:', { room_r, child_r, child_wb_r, extra_r });
+
+			batchDOMUpdate(function() {
+				var rates = {
+					room_r: room_r,
+					child_r: child_r,
+					child_wb_r: child_wb_r,
+					extra_r: extra_r
+				};
+				setRoomRatesWithRoundRobin(count, night, roomIndex, type, rates);
+				if (!getIsDynamic()) {
+					updateStaticModeDisplayTotal(count);
+				}
+			});
+
+			// Dynamic mode propagation
+			if (getIsDynamic()) {
+				console.log('Dynamic mode: Propagating rates to matching rooms in other nights');
+				var currentRoomCat = $(`#roomcat${rid}`).val();
+				var currentMealPlan = mealplan;
+				var no_of_night_total = parseInt($(`#no_of_night${count}`).val()) || 0;
+
+				for (let otherNight = 1; otherNight <= no_of_night_total; otherNight++) {
+					if (otherNight === night) continue;
+					var otherRid = `${count}${otherNight}${roomIndex}`;
+					var $otherRoomCat = $(`#roomcat${otherRid}`);
+					var $otherMealPlan = $(`#mealplan${otherRid}`);
+					if ($otherRoomCat.length && $otherRoomCat.val() === currentRoomCat &&
+						$otherMealPlan.length && $otherMealPlan.val() === currentMealPlan) {
+						console.log(`Propagating rates to Night ${otherNight}, Room ${roomIndex} (configs match)`);
+						var rates = {
+							room_r: room_r,
+							child_r: child_r,
+							child_wb_r: child_wb_r,
+							extra_r: extra_r
+						};
+						setRoomRatesWithRoundRobin(count, otherNight, roomIndex, type, rates);
+						updateRoomTotals(count, otherNight, roomIndex);
+					}
+				}
+			}
+
+			deferToIdle(function() {
+				updateRoomTotals(count, night, roomIndex);
+				if (roomIndex === 1 && !getIsDynamic()) {
+					propagateRoomData(count, night, type);
+					updateStaticModeDisplayTotal(count);
+				}
+				updateAllTotals();
+				calculateVehicleExtraKmCharges();
+			});
+		},
+		error: function(xhr, status, error) {
+			// **FIX: Don't show error if request was aborted**
+			if (status === 'abort') {
+				console.log('Request aborted for rid:', rid);
+				return;
+			}
+			console.error('Error fetching tariff details:', error);
+			showAlert('danger', 'Error fetching tariff details. Please try again.');
+			$mealplanSelect.prop('disabled', false);
+			$(`#roomcat${rid}`).prop('disabled', false);
+		},
+		complete: function() {
+			// **FIX: Clean up request tracking**
+			if (window.activeTariffRequests) {
+				delete window.activeTariffRequests[rid];
+			}
+			$spinner.hide();
+			$mealplanSelect.prop('disabled', false);
+			$(`#roomcat${rid}`).prop('disabled', false);
+		}
+	});
+	
+	// **FIX: Store the request for potential abortion**
+	window.activeTariffRequests[rid] = xhr;
+});
 
 
 
