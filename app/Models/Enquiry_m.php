@@ -7,6 +7,8 @@ use CodeIgniter\Model;
 class Enquiry_m extends Model
 {
     protected $khm_obj_enquiry_detail_extensions = 'khm_obj_enquiry_detail_extensions';
+    protected $khm_obj_mst_hotel_room_category = 'khm_obj_mst_hotel_room_category'; //nj
+    protected $khm_obj_mst_meal_type = 'khm_obj_mst_meal_type'; //nj
     protected $khm_obj_enquiry_tour_expansion = 'khm_obj_enquiry_tour_expansion'; //nj//
     protected $khm_obj_enquiry_tour_itinerary_expansion = 'khm_obj_enquiry_tour_itinerary_expansion'; //nj//
     protected $khm_obj_itinerary_costing_details = 'khm_obj_itinerary_costing_details';
@@ -194,167 +196,167 @@ class Enquiry_m extends Model
 
     ////////////////nj//////////
     public function enquiry_list_data($params)
-{
-    $system_id = session('system_id');
-    $user_id = session('user_id');
-    $parent_id = session('parent_id');
-    $hierarchy_id = session('hierarchy_id');
-    $draw = $params['draw'];
-    $start = $params['start'];
-    $rowperpage = $params['length'];
-    $columnIndex = $params['order'][0]['column'];
-    $columnName = $params['columns'][$columnIndex]['data'];
-    $columnSortOrder = $params['order'][0]['dir'];
-    $searchValue = $params['search']['value'];
-    $object_class_id = $params['object_class_id'];
-    $db = \Config\Database::connect();
+    {
+        $system_id = session('system_id');
+        $user_id = session('user_id');
+        $parent_id = session('parent_id');
+        $hierarchy_id = session('hierarchy_id');
+        $draw = $params['draw'];
+        $start = $params['start'];
+        $rowperpage = $params['length'];
+        $columnIndex = $params['order'][0]['column'];
+        $columnName = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue = $params['search']['value'];
+        $object_class_id = $params['object_class_id'];
+        $db = \Config\Database::connect();
 
-    $subStatusQuery = $db->table('khm_obj_enquiry_status s')
-        ->select('s.enquiry_status_id,s.enquiry_header_id, s.current_status_id, s.updated_time')
-        ->join(
-            '(SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id,s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id,enquiry_header_id
           FROM khm_obj_enquiry_status 
           GROUP BY enquiry_header_id) latest',
-            's.enquiry_header_id = latest.enquiry_header_id AND s.enquiry_status_id = latest.max_status_id',
-            'inner'
-        );
-    $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+                's.enquiry_header_id = latest.enquiry_header_id AND s.enquiry_status_id = latest.max_status_id',
+                'inner'
+            );
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
 
-    $stSub = "
+        $stSub = "
         (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
         FROM khm_obj_enquiry_status
         WHERE current_status_id = 1
         GROUP BY enquiry_header_id) st1
     ";
-    $stsSub = "
+        $stsSub = "
         (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
         FROM khm_obj_enquiry_status
         WHERE current_status_id = 13
         GROUP BY enquiry_header_id) sts1
     ";
-    $acSub = "
+        $acSub = "
         (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
         FROM khm_obj_enquiry_status
         WHERE current_status_id = 8 AND assigned_status = 1
         GROUP BY enquiry_header_id) ac1
     ";
-    $sttSub = "
+        $sttSub = "
         (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
         FROM khm_obj_enquiry_status
         WHERE current_status_id = 14
         GROUP BY enquiry_header_id) stt1
     ";
-    $attSub = "
+        $attSub = "
         (SELECT enquiry_header_id, MAX(enquiry_status_id) AS enquiry_status_id
         FROM khm_obj_enquiry_status
         WHERE current_status_id = 17
         GROUP BY enquiry_header_id) att1
     ";
 
-    $query = $db->table('khm_obj_mst a');
-    $query->select('SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request,ex.availability_check', false);
-    $query->join('khm_obj_enquiry_header h', 'h.object_id = a.object_id', 'left');
-    $query->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = h.enquiry_header_id AND er.is_active = 1', 'left');
-    $query->join('khm_entity_mst ag', 'ag.entity_id = h.agent_entity_id', 'left');
-    $query->join('khm_entity_mst gs', 'gs.entity_id = h.employee_entity_id', 'left');
-    $query->join('khm_obj_enquiry_details t', 't.enquiry_header_id = h.enquiry_header_id', 'left');
-    $query->join('khm_loc_mst_geography m', 'm.geog_id = a.object_location_id', 'left');
-    $query->join('khm_loc_mst_geography arr', 'arr.geog_id = t.arrival_location', 'left');
-    $query->join('khm_loc_mst_geography dep', 'dep.geog_id = t.departure_location', 'left');
-    $query->join('khm_obj_mst_hotel_category hc', 'hc.hotel_category_id = t.hotel_category', 'left');
-    $query->join('khm_obj_enquiry_detail_extensions ex', 'ex.enquiry_header_id = h.enquiry_header_id AND ex.is_active = 1', 'left');
+        $query = $db->table('khm_obj_mst a');
+        $query->select('SQL_CALC_FOUND_ROWS  a.*,er.enquiry_edit_request_id,er.cs_confirmed_id,top.entity_name as top_name,sop.entity_name as sop_name,stt.assigned_to as top_id,sts.assigned_to as sop_id,st.assigned_to as exe_id,exe.entity_name as executive,ss.status_name,est.current_status_id,t.no_of_adult,h.enq_type_id,h.ref_no,ex.enquiry_detail_details_id,ex.enquiry_ref_id,ex.tour_plan_ref_id,ex.extension_ref_id,hc.hotel_category_name,dep.geog_name as departure_loc,arr.geog_name as arrival_loc,gs.entity_name as guest_name,ag.entity_name as agent_name,m.geog_name,h.enquiry_header_id,DATE_FORMAT(h.enq_added_date, "%d-%m-%Y") as enq_date,t.no_of_night,DATE_FORMAT(t.date_of_tour_start, "%d-%m-%Y") as start_date,DATE_FORMAT(t.date_of_tour_completion, "%d-%m-%Y") as end_date,h.edit_request,ex.availability_check', false);
+        $query->join('khm_obj_enquiry_header h', 'h.object_id = a.object_id', 'left');
+        $query->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = h.enquiry_header_id AND er.is_active = 1', 'left');
+        $query->join('khm_entity_mst ag', 'ag.entity_id = h.agent_entity_id', 'left');
+        $query->join('khm_entity_mst gs', 'gs.entity_id = h.employee_entity_id', 'left');
+        $query->join('khm_obj_enquiry_details t', 't.enquiry_header_id = h.enquiry_header_id', 'left');
+        $query->join('khm_loc_mst_geography m', 'm.geog_id = a.object_location_id', 'left');
+        $query->join('khm_loc_mst_geography arr', 'arr.geog_id = t.arrival_location', 'left');
+        $query->join('khm_loc_mst_geography dep', 'dep.geog_id = t.departure_location', 'left');
+        $query->join('khm_obj_mst_hotel_category hc', 'hc.hotel_category_id = t.hotel_category', 'left');
+        $query->join('khm_obj_enquiry_detail_extensions ex', 'ex.enquiry_header_id = h.enquiry_header_id AND ex.is_active = 1', 'left');
 
-    $query->join($stSub, 'st1.enquiry_header_id = h.enquiry_header_id', 'left', false);
-    $query->join('khm_obj_enquiry_status st', 'st.enquiry_status_id = st1.enquiry_status_id', 'left');
-    $query->join('khm_entity_mst exe', 'exe.entity_id =st.assigned_to', 'left');
-    $query->join('khm_sys_usg_mst_entity_role tl', 'tl.entity_id = st.assigned_to AND tl.role_id = 5', 'left');
+        $query->join($stSub, 'st1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status st', 'st.enquiry_status_id = st1.enquiry_status_id', 'left');
+        $query->join('khm_entity_mst exe', 'exe.entity_id =st.assigned_to', 'left');
+        $query->join('khm_sys_usg_mst_entity_role tl', 'tl.entity_id = st.assigned_to AND tl.role_id = 5', 'left');
 
-    $query->join($stsSub, 'sts1.enquiry_header_id = h.enquiry_header_id', 'left', false);
-    $query->join('khm_obj_enquiry_status sts', 'sts.enquiry_status_id = sts1.enquiry_status_id', 'left');
-    $query->join('khm_entity_mst sop', 'sop.entity_id =sts.assigned_to', 'left');
-    $query->join('khm_sys_usg_mst_entity_role stl', 'stl.entity_id = sts.assigned_to AND stl.role_id = 8', 'left');
+        $query->join($stsSub, 'sts1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status sts', 'sts.enquiry_status_id = sts1.enquiry_status_id', 'left');
+        $query->join('khm_entity_mst sop', 'sop.entity_id =sts.assigned_to', 'left');
+        $query->join('khm_sys_usg_mst_entity_role stl', 'stl.entity_id = sts.assigned_to AND stl.role_id = 8', 'left');
 
-    $query->join($acSub, 'ac1.enquiry_header_id = h.enquiry_header_id', 'left', false);
-    $query->join('khm_obj_enquiry_status ac', 'ac.enquiry_status_id = ac1.enquiry_status_id', 'left');
-    $query->join('khm_entity_mst acp', 'acp.entity_id =ac.assigned_to', 'left');
-    $query->join('khm_sys_usg_mst_entity_role stlac', 'stlac.entity_id = ac.assigned_to AND stlac.role_id = 8', 'left');
+        $query->join($acSub, 'ac1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status ac', 'ac.enquiry_status_id = ac1.enquiry_status_id', 'left');
+        $query->join('khm_entity_mst acp', 'acp.entity_id =ac.assigned_to', 'left');
+        $query->join('khm_sys_usg_mst_entity_role stlac', 'stlac.entity_id = ac.assigned_to AND stlac.role_id = 8', 'left');
 
-    $query->join($sttSub, 'stt1.enquiry_header_id = h.enquiry_header_id', 'left', false);
-    $query->join('khm_obj_enquiry_status stt', 'stt.enquiry_status_id = stt1.enquiry_status_id', 'left');
-    $query->join('khm_entity_mst top', 'top.entity_id =stt.assigned_to', 'left');
-    $query->join('khm_sys_usg_mst_entity_role ttl', 'ttl.entity_id = stt.assigned_to AND ttl.role_id = 10', 'left');
+        $query->join($sttSub, 'stt1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status stt', 'stt.enquiry_status_id = stt1.enquiry_status_id', 'left');
+        $query->join('khm_entity_mst top', 'top.entity_id =stt.assigned_to', 'left');
+        $query->join('khm_sys_usg_mst_entity_role ttl', 'ttl.entity_id = stt.assigned_to AND ttl.role_id = 10', 'left');
 
-    $query->join($attSub, 'att1.enquiry_header_id = h.enquiry_header_id', 'left', false);
-    $query->join('khm_obj_enquiry_status att', 'att.enquiry_status_id = att1.enquiry_status_id', 'left');
-    $query->join('khm_entity_mst acc', 'acc.entity_id =att.assigned_to', 'left');
-    $query->join('khm_sys_usg_mst_entity_role atl', 'atl.entity_id = att.assigned_to AND atl.role_id = 11', 'left');
+        $query->join($attSub, 'att1.enquiry_header_id = h.enquiry_header_id', 'left', false);
+        $query->join('khm_obj_enquiry_status att', 'att.enquiry_status_id = att1.enquiry_status_id', 'left');
+        $query->join('khm_entity_mst acc', 'acc.entity_id =att.assigned_to', 'left');
+        $query->join('khm_sys_usg_mst_entity_role atl', 'atl.entity_id = att.assigned_to AND atl.role_id = 11', 'left');
 
-    $query->join('(' . $latestStatusSql . ') est', 'est.enquiry_header_id = h.enquiry_header_id', 'left');
-    $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id = est.current_status_id', 'left');
-    $query->where('a.object_class_id', $object_class_id);
-    $query->where('h.is_active', 1);
-    $query->where('t.is_active', 1);
-    $query->where('h.enq_type_id', $system_id);
-    
-    // FIXED: Executive / Executive Team Lead logic
-    if ($parent_id == 4 || $parent_id == 1) {
-        $query->groupStart()
-            ->where('st.assigned_to', $user_id)  // Direct assignment
-            ->orWhere('tl.team_lead_id', $user_id)  // Team member assignment
-            ->groupEnd();
-    }
-    
-    // FIXED: Sales Support / Sales Support Team Lead logic
-    if ($parent_id == 7 || $parent_id == 2) {
-        $query->groupStart()
-            ->groupStart()
+        $query->join('(' . $latestStatusSql . ') est', 'est.enquiry_header_id = h.enquiry_header_id', 'left');
+        $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id = est.current_status_id', 'left');
+        $query->where('a.object_class_id', $object_class_id);
+        $query->where('h.is_active', 1);
+        $query->where('t.is_active', 1);
+        $query->where('h.enq_type_id', $system_id);
+
+        // FIXED: Executive / Executive Team Lead logic
+        if ($parent_id == 4 || $parent_id == 1) {
+            $query->groupStart()
+                ->where('st.assigned_to', $user_id)  // Direct assignment
+                ->orWhere('tl.team_lead_id', $user_id)  // Team member assignment
+                ->groupEnd();
+        }
+
+        // FIXED: Sales Support / Sales Support Team Lead logic
+        if ($parent_id == 7 || $parent_id == 2) {
+            $query->groupStart()
+                ->groupStart()
                 ->where('sts.assigned_to', $user_id)  // Direct assignment to user
                 ->orWhere('ac.assigned_to', $user_id)
-            ->groupEnd()
-            ->orGroupStart()
+                ->groupEnd()
+                ->orGroupStart()
                 ->where('stl.team_lead_id', $user_id)  // Team member assignment
                 ->orWhere('stlac.team_lead_id', $user_id)
-            ->groupEnd()
-            ->groupEnd();
+                ->groupEnd()
+                ->groupEnd();
+        }
+
+        // FIXED: Tour Operator / Tour Operator Team Lead logic
+        if ($parent_id == 9 || $parent_id == 3) {
+            $query->groupStart()
+                ->where('stt.assigned_to', $user_id)  // Direct assignment
+                ->orWhere('ttl.team_lead_id', $user_id)  // Team member assignment
+                ->groupEnd();
+        }
+
+        if ($parent_id == 11) {
+            $query->where('er.cs_confirmed_id >', 0);
+        }
+
+        $query->orderBy('h.enquiry_header_id', 'DESC');
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('a.object_name', $searchValue)
+                ->orLike('m.geog_name', $searchValue)
+                ->orLike('h.ref_no', $searchValue)
+                ->groupEnd();
+        }
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+
+        $records = $query->get()->getResultArray();
+
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        );
+        return $response;
     }
-    
-    // FIXED: Tour Operator / Tour Operator Team Lead logic
-    if ($parent_id == 9 || $parent_id == 3) {
-        $query->groupStart()
-            ->where('stt.assigned_to', $user_id)  // Direct assignment
-            ->orWhere('ttl.team_lead_id', $user_id)  // Team member assignment
-            ->groupEnd();
-    }
-    
-    if ($parent_id == 11) {
-        $query->where('er.cs_confirmed_id >', 0);
-    }
-
-    $query->orderBy('h.enquiry_header_id', 'DESC');
-
-    if (!empty($searchValue)) {
-        $query->groupStart()
-            ->like('a.object_name', $searchValue)
-            ->orLike('m.geog_name', $searchValue)
-            ->orLike('h.ref_no', $searchValue)
-            ->groupEnd();
-    }
-    $query->orderBy($columnName, $columnSortOrder);
-    $query->limit($rowperpage, $start);
-
-    $records = $query->get()->getResultArray();
-
-    $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
-    $totalRecords = $queryTot->getResultArray()[0]['count'];
-
-    $response = array(
-        "draw" => intval($draw),
-        "iTotalRecords" => $totalRecords,
-        "iTotalDisplayRecords" => $totalRecords,
-        "aaData" => $records
-    );
-    return $response;
-}
 
     public function fetchEnquiryDetails($object_id)
     {
@@ -579,6 +581,23 @@ class Enquiry_m extends Model
             return $output;
         }
     }*/
+///////////////////////////////////////////////////////////////////////////////////nj/////////////
+    public function get_room_category_by_id($id)
+    {
+        return $this->db->table('khm_obj_mst_hotel_room_category')
+            ->where('room_category_id', $id)
+            ->get()
+            ->getResultArray();
+    }
+
+    public function get_meal_plan_by_id($id)
+    {
+        return $this->db->table('khm_obj_mst_meal_type')
+            ->where('meal_type_id', $id)
+            ->get()
+            ->getResultArray();
+    }
+
     public function getTourRoomCategory($hotel_id, $no_of_double_room, $no_of_single_room)
     {
         $db = \Config\Database::connect();
@@ -807,133 +826,133 @@ class Enquiry_m extends Model
         }
         return $response;
     }
- public function getSightName($sightseeing_id)
-{
-    try {
-        $builder = $this->db->table('khm_obj_sightseeing');
-        $builder->select('sightseeing_id, object_id, sightseeing_name as object_name, sightseeing_description');
-        $builder->where('sightseeing_id', $sightseeing_id);
-        $builder->where('is_default_ss', 0);
-        $query = $builder->get();
-        
-        $result = $query->getResultArray();
-        
-        // Log for debugging
-        log_message('info', "getSightName($sightseeing_id) returned: " . count($result) . " rows");
-        
-        return $result;
-    } catch (\Exception $e) {
-        log_message('error', 'Error in getSightName: ' . $e->getMessage());
-        return [];
-    }
-}
-public function getAllSightseeingByLocation($location_id)
-{
-    try {
-        $builder = $this->db->table('khm_obj_sightseeing');
-        $builder->select('sightseeing_id, object_id, sightseeing_name, sightseeing_description, is_pax');
-        $builder->where('object_id', $location_id);
-        $builder->where('is_default_ss', 1);
-        $builder->orderBy('sightseeing_id', 'ASC');
-        $query = $builder->get();
-        
-        $result = $query->getResultArray();
-        
-        log_message('info', "getAllSightseeingByLocation($location_id) returned: " . count($result) . " rows");
-        
-        return $result;
-    } catch (\Exception $e) {
-        log_message('error', 'Error in getAllSightseeingByLocation: ' . $e->getMessage());
-        return [];
-    }
-}
-public function getLocationDescription($location_id)
-{
-    try {
-        $db = \Config\Database::connect();
-        $builder = $db->table('khm_loc_mst_geography');
-        $builder->select('geog_id, geog_name, geog_description');
-        $builder->where('geog_id', $location_id);
-        $builder->where('deleted', 0); // Assuming soft delete
-        $query = $builder->get();
-        
-        $result = $query->getResultArray();
-        
-        log_message('info', "getLocationDescription($location_id) returned: " . count($result) . " rows");
-        
-        return $result;
-    } catch (\Exception $e) {
-        log_message('error', 'Error in getLocationDescription: ' . $e->getMessage());
-        return [];
-    }
-}
-public function getMultipleSightseeingWithPax($sightseeing_ids)
-{
-    try {
-        if(empty($sightseeing_ids) || !is_array($sightseeing_ids)) {
-            return [];
-        }
-        
-        $builder = $this->db->table('khm_obj_sightseeing');
-        $builder->select('sightseeing_id, object_id, sightseeing_name, sightseeing_description, is_pax');
-        $builder->whereIn('sightseeing_id', $sightseeing_ids);
-        $builder->orderBy('sightseeing_id', 'ASC');
-        $query = $builder->get();
-        
-        $result = $query->getResultArray();
-        
-        log_message('info', "getMultipleSightseeingWithPax returned: " . count($result) . " rows for IDs: " . implode(',', $sightseeing_ids));
-        
-        return $result;
-    } catch (\Exception $e) {
-        log_message('error', 'Error in getMultipleSightseeingWithPax: ' . $e->getMessage());
-        return [];
-    }
-}
-public function getMultipleSightseeing($sightseeing_ids)
-{
-    try {
-        if(empty($sightseeing_ids) || !is_array($sightseeing_ids)) {
-            return [];
-        }
-        
-        $builder = $this->db->table('khm_obj_sightseeing');
-        $builder->select('sightseeing_id, object_id, sightseeing_name, sightseeing_description');  // No alias on name
-        $builder->whereIn('sightseeing_id', $sightseeing_ids);
-        $builder->orderBy('sightseeing_id', 'ASC');
-        $query = $builder->get();
-        
-        $result = $query->getResultArray();
-        
-        log_message('info', "getMultipleSightseeing returned: " . count($result) . " rows for IDs: " . implode(',', $sightseeing_ids));
-        
-        return $result;
-    } catch (\Exception $e) {
-        log_message('error', 'Error in getMultipleSightseeing: ' . $e->getMessage());
-        return [];
-    }
-}
+    public function getSightName($sightseeing_id)
+    {
+        try {
+            $builder = $this->db->table('khm_obj_sightseeing');
+            $builder->select('sightseeing_id, object_id, sightseeing_name as object_name, sightseeing_description');
+            $builder->where('sightseeing_id', $sightseeing_id);
+            $builder->where('is_default_ss', 0);
+            $query = $builder->get();
 
-   public function getDefaultSightName($location_id)
-{
-    try {
-        $builder = $this->db->table('khm_obj_sightseeing');
-        $builder->select('sightseeing_id, object_id, sightseeing_name as geog_name, sightseeing_description as geog_description');
-        $builder->where('object_id', $location_id);
-        $builder->where('is_default_ss', 1);
-        $query = $builder->get();
-        
-        $result = $query->getResultArray();
-        
-        // Log for debugging
-        log_message('info', "getDefaultSightName($location_id) returned: " . count($result) . " rows");
-        
-        return $result;
-    } catch (\Exception $e) {
-        log_message('error', 'Error in getDefaultSightName: ' . $e->getMessage());
-        return [];
+            $result = $query->getResultArray();
+
+            // Log for debugging
+            log_message('info', "getSightName($sightseeing_id) returned: " . count($result) . " rows");
+
+            return $result;
+        } catch (\Exception $e) {
+            log_message('error', 'Error in getSightName: ' . $e->getMessage());
+            return [];
+        }
     }
-}
+    public function getAllSightseeingByLocation($location_id)
+    {
+        try {
+            $builder = $this->db->table('khm_obj_sightseeing');
+            $builder->select('sightseeing_id, object_id, sightseeing_name, sightseeing_description, is_pax');
+            $builder->where('object_id', $location_id);
+            $builder->where('is_default_ss', 1);
+            $builder->orderBy('sightseeing_id', 'ASC');
+            $query = $builder->get();
+
+            $result = $query->getResultArray();
+
+            log_message('info', "getAllSightseeingByLocation($location_id) returned: " . count($result) . " rows");
+
+            return $result;
+        } catch (\Exception $e) {
+            log_message('error', 'Error in getAllSightseeingByLocation: ' . $e->getMessage());
+            return [];
+        }
+    }
+    public function getLocationDescription($location_id)
+    {
+        try {
+            $db = \Config\Database::connect();
+            $builder = $db->table('khm_loc_mst_geography');
+            $builder->select('geog_id, geog_name, geog_description');
+            $builder->where('geog_id', $location_id);
+            $builder->where('deleted', 0); // Assuming soft delete
+            $query = $builder->get();
+
+            $result = $query->getResultArray();
+
+            log_message('info', "getLocationDescription($location_id) returned: " . count($result) . " rows");
+
+            return $result;
+        } catch (\Exception $e) {
+            log_message('error', 'Error in getLocationDescription: ' . $e->getMessage());
+            return [];
+        }
+    }
+    public function getMultipleSightseeingWithPax($sightseeing_ids)
+    {
+        try {
+            if (empty($sightseeing_ids) || !is_array($sightseeing_ids)) {
+                return [];
+            }
+
+            $builder = $this->db->table('khm_obj_sightseeing');
+            $builder->select('sightseeing_id, object_id, sightseeing_name, sightseeing_description, is_pax');
+            $builder->whereIn('sightseeing_id', $sightseeing_ids);
+            $builder->orderBy('sightseeing_id', 'ASC');
+            $query = $builder->get();
+
+            $result = $query->getResultArray();
+
+            log_message('info', "getMultipleSightseeingWithPax returned: " . count($result) . " rows for IDs: " . implode(',', $sightseeing_ids));
+
+            return $result;
+        } catch (\Exception $e) {
+            log_message('error', 'Error in getMultipleSightseeingWithPax: ' . $e->getMessage());
+            return [];
+        }
+    }
+    public function getMultipleSightseeing($sightseeing_ids)
+    {
+        try {
+            if (empty($sightseeing_ids) || !is_array($sightseeing_ids)) {
+                return [];
+            }
+
+            $builder = $this->db->table('khm_obj_sightseeing');
+            $builder->select('sightseeing_id, object_id, sightseeing_name, sightseeing_description');  // No alias on name
+            $builder->whereIn('sightseeing_id', $sightseeing_ids);
+            $builder->orderBy('sightseeing_id', 'ASC');
+            $query = $builder->get();
+
+            $result = $query->getResultArray();
+
+            log_message('info', "getMultipleSightseeing returned: " . count($result) . " rows for IDs: " . implode(',', $sightseeing_ids));
+
+            return $result;
+        } catch (\Exception $e) {
+            log_message('error', 'Error in getMultipleSightseeing: ' . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function getDefaultSightName($location_id)
+    {
+        try {
+            $builder = $this->db->table('khm_obj_sightseeing');
+            $builder->select('sightseeing_id, object_id, sightseeing_name as geog_name, sightseeing_description as geog_description');
+            $builder->where('object_id', $location_id);
+            $builder->where('is_default_ss', 1);
+            $query = $builder->get();
+
+            $result = $query->getResultArray();
+
+            // Log for debugging
+            log_message('info', "getDefaultSightName($location_id) returned: " . count($result) . " rows");
+
+            return $result;
+        } catch (\Exception $e) {
+            log_message('error', 'Error in getDefaultSightName: ' . $e->getMessage());
+            return [];
+        }
+    }
 
     function get_markup_details($session_name)
     {
@@ -1632,14 +1651,14 @@ public function getMultipleSightseeing($sightseeing_ids)
     //     $query = $builder->get();
     //     return $query->getResultArray();
     // }
-public function get_leisure_sight_seeing($tour_location)
-{
-    return $this->db->table('khm_obj_sightseeing')
-        ->where('object_id', $tour_location)
-        ->like('sightseeing_name', 'Leisure') // Generates: WHERE sightseeing_name LIKE '%Leisure%'
-        ->get()
-        ->getResultArray();
-}
+    public function get_leisure_sight_seeing($tour_location)
+    {
+        return $this->db->table('khm_obj_sightseeing')
+            ->where('object_id', $tour_location)
+            ->like('sightseeing_name', 'Leisure') // Generates: WHERE sightseeing_name LIKE '%Leisure%'
+            ->get()
+            ->getResultArray();
+    }
 
     public function get_itinerary_expansion_by_itinerary_id($itinerary_details_id)
     {
@@ -2162,13 +2181,13 @@ public function get_leisure_sight_seeing($tour_location)
     }
     //nj
     public function get_tour_details_by_extension_ref($extension_ref_id)
-{
-    $builder = $this->db->table('khm_obj_enquiry_tour_details');
-    $builder->where('extension_ref_id', $extension_ref_id);
-    $builder->where('is_active', 1);
-    $query = $builder->get();
-    return $query->getResultArray();
-}
+    {
+        $builder = $this->db->table('khm_obj_enquiry_tour_details');
+        $builder->where('extension_ref_id', $extension_ref_id);
+        $builder->where('is_active', 1);
+        $query = $builder->get();
+        return $query->getResultArray();
+    }
     public function update_iti_detailsforedit($data, $enquiry_header_id, $extension_ref_id)
     {
         $db = \Config\Database::connect();
@@ -2760,6 +2779,67 @@ public function get_leisure_sight_seeing($tour_location)
             ->get()->getResultArray();
         return $result;
     }
+
+    // Add this method to your Enquiry_model class
+
+public function get_itinerary_expansion_by_tour_id($tour_details_id)
+{
+    // First, get all itinerary_details_ids for this tour
+    $builder = $this->db->table('khm_obj_enquiry_itinerary_details');
+    $builder->select('itinerary_details_id');
+    $builder->where('tour_details_id', $tour_details_id);
+
+    $itinerary_ids = $builder->get()->getResultArray();
+    
+    if (empty($itinerary_ids)) {
+        return [];
+    }
+    
+    // Extract IDs
+    $ids = array_column($itinerary_ids, 'itinerary_details_id');
+    
+    // Get expansion data for these IDs
+    $expansion_builder = $this->db->table('khm_obj_enquiry_tour_itinerary_expansion as e');
+   $expansion_builder->select('
+    e.tour_itinerary_expansion_id,
+    e.itinerary_details_id,
+    e.tour_details_id,
+    e.tour_expansion_date,
+
+    e.room_category_id,
+    e.meal_plan_id,
+
+    e.room_rate_double,
+    e.child_with_bed_double,
+    e.child_without_bed_double,
+    e.extra_bed_double,
+
+    e.no_of_child_with_bed,
+    e.no_of_child_without_bed,
+    e.no_of_extra_bed,
+
+    e.double_total_rate,
+
+    e.room_rate_single,
+    e.child_with_bed_single,
+    e.child_without_bed_single,
+    e.extra_bed_single,
+    e.single_total_rate,
+
+    e.vehicle_details_json,
+
+    rc.room_category_name,
+    mp.meal_type_name AS meal_plan_name
+');
+    $expansion_builder->join('khm_obj_mst_hotel_room_category as rc', 'rc.room_category_id = e.room_category_id', 'left');
+    $expansion_builder->join('khm_obj_mst_meal_type as mp', 'mp.meal_type_id = e.meal_plan_id', 'left');
+    $expansion_builder->whereIn('e.itinerary_details_id', $ids);
+   
+    $expansion_builder->orderBy('e.tour_expansion_date', 'ASC');
+
+    
+    return $expansion_builder->get()->getResultArray();
+}
     public function get_tour_plan_details($enquiry_header_id, $enquiry_details_id)
     {
         $db = \Config\Database::connect();
@@ -2790,6 +2870,132 @@ public function get_leisure_sight_seeing($tour_location)
         }
         return $response;
     }
+
+    //njmakecurrent
+//     public function updateAllItinerariesInactive($extension_ref_id)
+// {
+//     return $this->db->table('khm_obj_enquiry_itinerary_details')
+//         ->where('extension_ref_id', $extension_ref_id)
+//         ->update(['is_active' => 0]);
+// }
+
+// public function setItineraryAsCurrent($enquiry_detail_details_id)
+// {
+//     return $this->db->table('khm_obj_enquiry_itinerary_details')
+//         ->where('enquiry_details_id', $enquiry_detail_details_id)
+//         ->update(['is_active' => 1]);
+// }
+// Get itinerary by ID
+// Get itinerary by ID (including tour_plan_ref_id)
+public function getItineraryById($enquiry_detail_details_id)
+{
+    $db = \Config\Database::connect();
+    return $db->table('khm_obj_enquiry_detail_extensions')
+        ->where('enquiry_detail_details_id', $enquiry_detail_details_id)
+        ->get()
+        ->getRowArray();
+}
+
+// ============= ITINERARY EXTENSIONS TABLE =============
+// Set all itineraries inactive for an enquiry_header_id
+public function updateAllItinerariesInactive($enquiry_header_id)
+{
+    $db = \Config\Database::connect();
+    return $db->table('khm_obj_enquiry_detail_extensions')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->update([
+            'is_active' => 0,
+            'is_edit' => 0,
+            
+        ]);
+}
+
+// Set specific itinerary as current/active
+public function setItineraryAsCurrent($enquiry_detail_details_id)
+{
+    $db = \Config\Database::connect();
+    return $db->table('khm_obj_enquiry_detail_extensions')
+        ->where('enquiry_detail_details_id', $enquiry_detail_details_id)
+        ->update([
+            'is_active' => 1,
+            // 'is_draft' => 1,
+            
+        ]);
+}
+
+// ============= TOUR DETAILS TABLE =============
+// Set all tour details inactive for an enquiry_details_id
+public function updateAllTourDetailsInactive($enquiry_details_id)
+{
+    $db = \Config\Database::connect();
+    return $db->table('khm_obj_enquiry_tour_details')
+        ->where('enquiry_details_id', $enquiry_details_id)
+        ->update([
+            'is_active' => 0,
+            'is_draft' => 0,
+            'updated_time' => date('Y-m-d H:i:s')
+        ]);
+}
+
+// Set tour details as active by tour_plan_ref_id
+public function setTourDetailsAsActiveByTourPlanRef($tour_plan_ref_id)
+{
+    $db = \Config\Database::connect();
+    return $db->table('khm_obj_enquiry_tour_details')
+        ->where('tour_details_id', $tour_plan_ref_id)
+        ->update([
+            'is_active' => 1,
+            'is_draft' => 1,
+            'updated_time' => date('Y-m-d H:i:s')
+        ]);
+}
+
+// Get all tour_details_id values for a tour_plan_ref_id
+public function getTourDetailsIdsByTourPlanRef($tour_plan_ref_id)
+{
+    $db = \Config\Database::connect();
+    $result = $db->table('khm_obj_enquiry_tour_details')
+        ->select('tour_details_id')
+        ->where('tour_details_id', $tour_plan_ref_id)
+        ->get()
+        ->getResultArray();
+    
+    // Extract just the IDs into an array
+    return array_column($result, 'tour_details_id');
+}
+
+// ============= ITINERARY DETAILS TABLE =============
+// Set all itinerary details inactive for an enquiry_details_id
+public function updateAllItineraryDetailsInactive($enquiry_details_id)
+{
+    $db = \Config\Database::connect();
+    return $db->table('khm_obj_enquiry_itinerary_details')
+        ->where('enquiry_details_id', $enquiry_details_id)
+        ->update([
+            'is_active' => 0,
+            'is_draft' => 0,
+            'updated_time' => date('Y-m-d H:i:s')
+        ]);
+}
+
+// Set itinerary details as active based on tour_details_id array
+public function setItineraryDetailsAsActiveByTourDetailsIds($tour_details_ids)
+{
+    if (empty($tour_details_ids)) {
+        return true;
+    }
+    
+    $db = \Config\Database::connect();
+    return $db->table('khm_obj_enquiry_itinerary_details')
+        ->whereIn('tour_details_id', $tour_details_ids)
+        ->update([
+            'is_active' => 1,
+            'is_draft' => 1,
+            'updated_time' => date('Y-m-d H:i:s')
+        ]);
+}
+
+
 
     public function get_tour_plan_details_foredit($tourplan_ref_id)
     {

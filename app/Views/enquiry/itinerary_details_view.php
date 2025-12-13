@@ -530,6 +530,8 @@
 													<th>Created Date</th>
 													<th>Status</th>
 													<th>Availability Check</th>
+													<th>Make Current</th>
+
 
 												</tr>
 											</thead>
@@ -730,7 +732,7 @@
 
 			'columnDefs': [{
 				"orderable": false,
-				"targets": [3, 4]
+				"targets": [3, 4,10]
 			}],
 
 			'columns': [{
@@ -854,6 +856,28 @@
 						}
 					}
 				},
+				{
+    data: 'enquiry_detail_details_id',
+    orderable: false,
+    render: function(data, type, row, meta) {
+        if (add_per == 1) {
+            // If already current, show indicator
+            if (row.is_active == 1) {
+                return '<span style="color:#339966; font-weight:bold;">✓ Current</span>';
+            }
+            // If confirmed, disable the button
+            else if (row.cs_confirmed_id > 0) {
+                return '<button class="btn btn-sm btn-secondary" disabled>Confirmed</button>';
+            }
+            // Allow making it current
+            else {
+                return '<button class="btn btn-sm btn-success make-current-iti" data-id="' + data + '" data-eid="' + row.extension_ref_id + '">Make Current</button>';
+            }
+        } else {
+            return '-';
+        }
+    }
+}
 
 			],
 			'drawCallback': function() {
@@ -1157,3 +1181,44 @@
 		});
 	});
 </script>
+
+<!-- njnj -->
+ <script>
+$(document).on('click', '.make-current-iti', function(e) {
+    e.preventDefault();
+    
+    if (!confirm("Are you sure you want to make this itinerary the current one? This will replace the existing current itinerary.")) {
+        return;
+    }
+    
+    var $btn = $(this);
+    $btn.prop('disabled', true).text('Processing...');
+    
+    var enquiry_detail_details_id = $(this).data('id');
+    var extension_ref_id = $(this).data('eid');
+    
+    $.ajax({
+        type: "POST",
+        url: '<?= site_url('Enquiry/makeItineraryCurrent'); ?>',
+        data: {
+            enquiry_detail_details_id: enquiry_detail_details_id,
+            extension_ref_id: extension_ref_id
+        },
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                alert("Itinerary has been set as current successfully!");
+                cs_confirm_table(); // Refresh the table
+            } else {
+                alert("Error: " + (response.message || "Unable to make itinerary current"));
+                $btn.prop('disabled', false).text('Make Current');
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("An error occurred. Please try again.");
+            console.error(error);
+            $btn.prop('disabled', false).text('Make Current');
+        }
+    });
+});
+ </script>
