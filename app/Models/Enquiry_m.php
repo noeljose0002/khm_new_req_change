@@ -2945,7 +2945,7 @@ public function setTourDetailsAsActiveByTourPlanRef($tour_plan_ref_id)
         ->where('tour_details_id', $tour_plan_ref_id)
         ->update([
             'is_active' => 1,
-            'is_draft' => 1,
+            'is_draft' => 0,
             'updated_time' => date('Y-m-d H:i:s')
         ]);
 }

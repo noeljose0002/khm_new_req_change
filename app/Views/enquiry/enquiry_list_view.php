@@ -2497,8 +2497,8 @@
                         theme_advanced_toolbar_location: "top",
                         theme_advanced_toolbar_align: "left",
                         mode: "exact",
-                        elements: "cost_sheet_template"
-                        //readonly: true
+                        elements: "cost_sheet_template",
+                        readonly: true
                     });
                 });
             }

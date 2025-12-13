@@ -33,6 +33,7 @@
 
 	<!-- Bootstrap-daterangepicker css -->
 	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-daterangepicker/daterangepicker.css'); ?>">
+	
 
 	<!-- Bootstrap-datepicker css -->
 	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css'); ?>">
@@ -918,8 +919,8 @@
 						theme_advanced_toolbar_location: "top",
 						theme_advanced_toolbar_align: "left",
 						mode: "exact",
-						elements: "cost_sheet_template"
-						//readonly: true
+						elements: "cost_sheet_template",
+						readonly: true
 					});
 				});
 			}

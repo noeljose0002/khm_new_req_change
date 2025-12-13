@@ -705,27 +705,27 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 									                <?php } ?>
 									                <td style="border:1px solid black;">Single</td>
 									                <td style="border:1px solid black;"><?php echo $val['room_category_name']; ?></td>
-									                <td style="border:1px solid black;"><?php echo $val['meal_plan_name']; ?></td>
+									                <td style="border:1px solid black;text-align:center;"><?php echo $val['meal_plan_name']; ?></td>
 									                <?php if (!$single_adult_shown) {
 														$single_adult_shown = true; ?>
     <td rowspan="<?php echo $single_row_count; ?>" style="border:1px solid black;text-align:center;"><?php echo $adults_for_single; ?></td>
 <?php } ?>
-									                <td style="border:1px solid black;"><?php echo $val['single_room']; ?></td>
+									                <td style="border:1px solid black;text-align:center;"><?php echo $val['single_room']; ?></td>
 									            
 									                    <td style="border:1px solid black;text-align:right;">
 									                        <?php echo ($room_t_s_display); ?>
 									                    </td>
 									                <?php if ($object_det[0]['no_of_child_with_bed'] > 0) { ?>	
 									                    <td style="border:1px solid black;text-align:center;">0</td>
-									                    <td style="border:1px solid black;text-align:right;">0.00</td>
+									                    <td style="border:1px solid black;text-align:right;">0</td>
 									                <?php } ?>
 									                <?php if ($object_det[0]['no_of_child_without_bed'] > 0) { ?>	
 									                    <td style="border:1px solid black;text-align:center;">0</td>
-									                    <td style="border:1px solid black;text-align:right;">0.00</td>
+									                    <td style="border:1px solid black;text-align:right;">0</td>
 									                <?php } ?>
 									                <?php if ($object_det[0]['no_of_extra_bed'] > 0) { ?>	
 									                    <td style="border:1px solid black;text-align:center;">0</td>
-									                    <td style="border:1px solid black;text-align:right;">0.00</td>
+									                    <td style="border:1px solid black;text-align:right;">0</td>
 									                <?php } ?>	
 									                <td style="border:1px solid black;text-align:right;"><?php echo ($stotal); ?></td>
 									            </tr>

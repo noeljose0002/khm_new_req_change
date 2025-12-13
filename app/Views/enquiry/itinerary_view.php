@@ -7401,6 +7401,8 @@ $cs_trans_total = 0;
 			$('input.grand_total').each(function() {
 				totalNetRate += parseFloat($(this).val()) || 0;
 			});
+		
+			totalNetRate+=specialEventTotal;
 			totalNetRate += parseFloat($('#extraklm_hidden').val()) || 0;
 			totalNetRate += parseFloat($('#permit_hidden').val()) || 0;
 			$('#tnr_span').text(totalNetRate);
@@ -7436,9 +7438,9 @@ $cs_trans_total = 0;
 			total += ssGrandTotal;
 
 			// 4. spcl_tariff (special tariff)
-			$scope.find('input[id^="spcl_tariff"]').each(function() {
-				total += parseFloat($(this).val()) || 0;
-			});
+			// $scope.find('input[id^="spcl_tariff"]').each(function() {
+			// 	total += parseFloat($(this).val()) || 0;
+			// });
 
 			// 5. daily_addon
 			$scope.find('input[id^="daily_addon"]').each(function() {
@@ -9047,9 +9049,12 @@ $cs_trans_total = 0;
 				spclTariff,
 				facRate
 			});
+			$('input[id^="spcl_tariff"]').each(function() {
+				specialEventTotal += parseFloat($(this).val()) || 0;
+			});
 
 			// var grandTotal = accTotal + vehicleTotal + ssGrandTotal + dailyAddon + permit + spclTariff + facRate;
-			var grandTotal = accTotal + vehicleTotal + ssGrandTotal + dailyAddon + spclTariff;
+			var grandTotal = accTotal + vehicleTotal + ssGrandTotal + dailyAddon;
 
 			// Update the grand total field
 			$('#grand_total' + iti_id).val(grandTotal);
