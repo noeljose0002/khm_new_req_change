@@ -2169,11 +2169,6 @@ $is_edit = $edit_id ? $edit_id : 0;
 <script>
 	// New handler for room category changes
 	$(document).on('change', '.room_cat_change', function() {
-		if (isDraftLoading) {
-			console.log('Skipping room cat change during draft load');
-			return;
-		}
-
 		var $select = $(this);
 		var roomCatVal = $select.val();
 		var rid = $select.attr('data-id');
