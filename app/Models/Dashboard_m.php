@@ -140,6 +140,18 @@ class Dashboard_m extends Model
             ->get()->getResultArray();
         return $result;
     }
+       public function roomCategoryExists($name, $exclude_id = null)
+{
+    $builder = $this->db->table('khm_obj_mst_hotel_room_category');
+    $builder->where('room_category_name', $name);
+
+    if ($exclude_id) {
+        $builder->where('room_category_id !=', $exclude_id);
+    }
+
+    return $builder->countAllResults() > 0;
+}
+
     public function get_all_rc()
     {
         $db = \Config\Database::connect();

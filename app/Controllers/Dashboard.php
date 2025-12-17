@@ -4534,50 +4534,47 @@ class Dashboard extends BaseController
         }
     }
 
-    public function saveObjectrc()
-    {
-        if (!empty(session()->get('user_id'))) {
+        public function saveObjectrc()
+{
+    if (!empty(session()->get('user_id'))) {
 
-            $Dashboard_model = new Dashboard_m();
+        $Dashboard_model = new Dashboard_m();
 
-            $object_edit_id = $this->request->getPost('object_edit_id');
+        $object_edit_id = $this->request->getPost('object_edit_id');
+        $room_cat_name  = trim($this->request->getPost('room_cat_name'));
+        $sURL = site_url('Dashboard/room_category_master');
 
-
-
-            if ($object_edit_id > 0) {
-                $bURL = config('App')->baseURL;
-                $room_cat_name = $this->request->getPost('room_cat_name');
-                $sURL = site_url('Dashboard/room_category_master');
-                $baseURL = ($bURL === '') ? $bURL : rtrim($bURL, '/ ') . '/';
-
-
-
-                $datas = array(
-                    'room_category_name' => $this->request->getPost('room_cat_name'),
-
-                );
-                $update_id1 = $Dashboard_model->update_object_rc($datas, $object_edit_id);
-                return redirect()->to($sURL);
-            } else {
-                $bURL = config('App')->baseURL;
-                $class_id = $this->request->getPost('object_class_id');
-                $sURL = site_url('Dashboard/room_category_master');
-                $baseURL = ($bURL === '') ? $bURL : rtrim($bURL, '/ ') . '/';
-
-
-
-                $datas = array(
-                    'room_category_name' => $this->request->getPost('room_cat_name'),
-
-                );
-
-                $object_id = $Dashboard_model->insert_object_rc($datas);
-                return redirect()->to($sURL);
-            }
-        } else {
-            return redirect()->to('Login');
+       
+        if ($Dashboard_model->roomCategoryExists($room_cat_name, $object_edit_id)) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Room category already exists');
         }
+
+        $datas = array(
+            'room_category_name' => $room_cat_name,
+        );
+
+        if ($object_edit_id > 0) {
+
+            // UPDATE
+            $Dashboard_model->update_object_rc($datas, $object_edit_id);
+            return redirect()->to($sURL)
+                ->with('success', 'Room category updated successfully');
+
+        } else {
+
+            // INSERT
+            $Dashboard_model->insert_object_rc($datas);
+            return redirect()->to($sURL)
+                ->with('success', 'Room category added successfully');
+        }
+
+    } else {
+        return redirect()->to('Login');
     }
+}
+
     public function switchRoomCategoryOrder()
     {
         $Dashboard_model = new Dashboard_m();
