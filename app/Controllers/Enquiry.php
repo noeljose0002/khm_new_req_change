@@ -4646,186 +4646,187 @@ class Enquiry extends BaseController
     //     }
     // }
 
-   public function getVehicleTariffDetails() {
-    if (!empty(session()->get('user_id'))) {
-        $Enquiry_model = new Enquiry_m();
-        $vehicle_models = $this->request->getPost('vehicle_models');
-        $id = $this->request->getPost('id');
-        $checkin = $this->request->getPost('checkin');
-        $checkout = $this->request->getPost('checkout');
-        $no_of_night = $this->request->getPost('no_of_night');
-        $duration = $this->request->getPost('duration');
-        $totalNights = $this->request->getPost('totalNights');
-        $tour_location_id = $this->request->getPost('tour_location_id');
-        $previous_location_id = $this->request->getPost('previous_location_id');
-        $vehicle_from_location = $this->request->getPost('vehicle_from_location');
-        $vehicle_from_locations = $Enquiry_model->getLocationidfromhub($vehicle_from_location);
-        $arrival_location = $this->request->getPost('arrival_location');
-        if (!empty($vehicle_from_locations)) {
-            $vehicle_from_loc_id = $vehicle_from_locations[0]['geog_id'];
-        } else {
-            $vehicle_from_loc_id = $arrival_location;
-        }
-        $departure_location = $this->request->getPost('departure_location');
-        $dist1 = 0;
-        $dist2 = 0;
-        $dist3 = 0;
-        $dist4 = 0;
-        $total_distance = 0;
-        if ($id == 1) {
-            if ($duration == $totalNights) {
-                $distance1 = $Enquiry_model->getDistancebyLocations($vehicle_from_loc_id, $arrival_location);
-                $distance2 = $Enquiry_model->getDistancebyLocations($arrival_location, $tour_location_id);
-                $distance3 = $Enquiry_model->getDistancebyLocations($tour_location_id, $departure_location);
-                $distance4 = $Enquiry_model->getDistancebyLocations($departure_location, $vehicle_from_loc_id);
-                if (!empty($distance1)) {
-                    $dist1 = $distance1[0]['geog_km_distance'];
-                } else {
-                    $dist1 = 0;
-                }
-                if (!empty($distance2)) {
-                    $dist2 = $distance2[0]['geog_km_distance'];
-                } else {
-                    $dist2 = 0;
-                }
-                if (!empty($distance3)) {
-                    $dist3 = $distance3[0]['geog_km_distance'];
-                } else {
-                    $dist3 = 0;
-                }
-                if (!empty($distance4)) {
-                    $dist4 = $distance4[0]['geog_km_distance'];
-                } else {
-                    $dist4 = 0;
-                }
-                $total_distance = $dist1 + $dist2 + $dist3 + $dist4;
-                $distance_type = 1;
+    public function getVehicleTariffDetails()
+    {
+        if (!empty(session()->get('user_id'))) {
+            $Enquiry_model = new Enquiry_m();
+            $vehicle_models = $this->request->getPost('vehicle_models');
+            $id = $this->request->getPost('id');
+            $checkin = $this->request->getPost('checkin');
+            $checkout = $this->request->getPost('checkout');
+            $no_of_night = $this->request->getPost('no_of_night');
+            $duration = $this->request->getPost('duration');
+            $totalNights = $this->request->getPost('totalNights');
+            $tour_location_id = $this->request->getPost('tour_location_id');
+            $previous_location_id = $this->request->getPost('previous_location_id');
+            $vehicle_from_location = $this->request->getPost('vehicle_from_location');
+            $vehicle_from_locations = $Enquiry_model->getLocationidfromhub($vehicle_from_location);
+            $arrival_location = $this->request->getPost('arrival_location');
+            if (!empty($vehicle_from_locations)) {
+                $vehicle_from_loc_id = $vehicle_from_locations[0]['geog_id'];
             } else {
-                $distance1 = $Enquiry_model->getDistancebyLocations($vehicle_from_loc_id, $arrival_location);
-                $distance2 = $Enquiry_model->getDistancebyLocations($arrival_location, $tour_location_id);
-                if (!empty($distance1)) {
-                    $dist1 = $distance1[0]['geog_km_distance'];
-                } else {
-                    $dist1 = 0;
-                }
-                if (!empty($distance2)) {
-                    $dist2 = $distance2[0]['geog_km_distance'];
-                } else {
-                    $dist2 = 0;
-                }
-                $total_distance = $dist1 + $dist2;
-                $distance_type = 2;
+                $vehicle_from_loc_id = $arrival_location;
             }
-        } else {
-            if ($duration == $totalNights) {
-                $distance3 = $Enquiry_model->getDistancebyLocations($previous_location_id, $tour_location_id);
-                if (!empty($distance3)) {
-                    $dist3 = $distance3[0]['geog_km_distance'];
-                } else {
-                    $dist3 = 0;
-                }
-                $distance1 = $Enquiry_model->getDistancebyLocations($tour_location_id, $departure_location);
-                $distance2 = $Enquiry_model->getDistancebyLocations($departure_location, $vehicle_from_loc_id);
-                if (!empty($distance1)) {
-                    $dist1 = $distance1[0]['geog_km_distance'];
-                } else {
-                    $dist1 = 0;
-                }
-                if (!empty($distance2)) {
-                    $dist2 = $distance2[0]['geog_km_distance'];
-                } else {
-                    $dist2 = 0;
-                }
-                $total_distance = $dist1 + $dist2 + $dist3;
-                $distance_type = 3;
-            } else {
-                $distance = $Enquiry_model->getDistancebyLocations($previous_location_id, $tour_location_id);
-                if (!empty($distance)) {
-                    $total_distance = $distance[0]['geog_km_distance'];
-                } else {
-                    $total_distance = 0;
-                }
-                $distance_type = 4;
-            }
-        }
-        $tariff_det = [];
-        $startDate = new DateTime($checkin);
-        $endDate = new DateTime($checkout);
-        //$endDate->modify('+1 day');
-        $interval = new DateInterval('P1D');
-        $period = new DatePeriod($startDate, $interval, $endDate);
-        $season_id_t = null;
-        $veh_tariffs = [];
-        // **NEW: Initialize season detection variables**
-        $different_season = 0;
-        $season_name1 = '';
-        $season_name2 = '';
-        $season_id_copy = 0;  // Shared tracking; set flag if any vehicle detects change
-        if (!empty($vehicle_models)) {
-            foreach ($vehicle_models as $key => $val) {
-                $veh_object_ids = $Enquiry_model->getObjectidByvehicle($val['vehicle_type_id']);
-                $veh_object_id = $veh_object_ids[0]['object_id'];
-                $rate_per_day = 0;
-                $max_km_day = 0;
-                $extra_km_rate = 0;
-                $km_rate = 0;
-                $veh_tariffs[$key]['vehicle_count'] = $val['vehicle_count'];
-                $veh_tariffs[$key]['vehicle_type_id'] = $val['vehicle_type_id'];
-                $veh_tariffs[$key]['vehicle_model_name'] = $val['vehicle_model_name'];
-                $vehicle_basic_tariffs = $Enquiry_model->getTourtravelbasic(1, $val['vehicle_type_id']);
-                $max_km_day = $vehicle_basic_tariffs[0]['tour_travel_max_km'];
-                $extra_km_rate = $vehicle_basic_tariffs[0]['extra_km_rate'];
-                foreach ($period as $date) {
-                    $v_tour_date = $date->format('Y-m-d');
-                    $vehicle_basic_tariffs = $Enquiry_model->getTourtravelbasic(1, $val['vehicle_type_id']);
-                    $v_season_tariff = $Enquiry_model->checkVehicleSeasonExist($v_tour_date, $veh_object_id);
-                    // **NEW: Track season changes**
-                    $season_id_temp = !empty($v_season_tariff) ? $v_season_tariff[0]['season_id'] : 0;
-                    if ($season_id_temp !== $season_id_copy && $season_id_copy > 0) {
-                        $different_season = 1;
-                        $season_names1 = $Enquiry_model->getseasonname($season_id_temp);
-                        if (!empty($season_names1)) {
-                            $season_name1 = $season_names1[0]['season_name'];
-                        }
-                        $season_names2 = $Enquiry_model->getseasonname($season_id_copy);
-                        if (!empty($season_names2)) {
-                            $season_name2 = $season_names2[0]['season_name'];
-                        }
-                    }
-                    $season_id_copy = $season_id_temp;
-                    // **END NEW**
-                    if (!empty($v_season_tariff)) {
-                        $vehicle_season_tariffs = $Enquiry_model->getTourtravelseason(2, $v_season_tariff[0]['season_id'], $val['vehicle_type_id']);
-                        $rate_per_day = $rate_per_day + $vehicle_season_tariffs[0]['rate_per_day'];
-                        $extra_km_rate = $vehicle_season_tariffs[0]['extra_km_rate'];
-                        $km_rate = $vehicle_season_tariffs[0]['km_rate'];
+            $departure_location = $this->request->getPost('departure_location');
+            $dist1 = 0;
+            $dist2 = 0;
+            $dist3 = 0;
+            $dist4 = 0;
+            $total_distance = 0;
+            if ($id == 1) {
+                if ($duration == $totalNights) {
+                    $distance1 = $Enquiry_model->getDistancebyLocations($vehicle_from_loc_id, $arrival_location);
+                    $distance2 = $Enquiry_model->getDistancebyLocations($arrival_location, $tour_location_id);
+                    $distance3 = $Enquiry_model->getDistancebyLocations($tour_location_id, $departure_location);
+                    $distance4 = $Enquiry_model->getDistancebyLocations($departure_location, $vehicle_from_loc_id);
+                    if (!empty($distance1)) {
+                        $dist1 = $distance1[0]['geog_km_distance'];
                     } else {
-                        $vehicle_tariffs = $Enquiry_model->getTourtravelbasic(1, $val['vehicle_type_id']);
-                        $rate_per_day = $rate_per_day + $vehicle_tariffs[0]['tour_travel_daily_rate'];
+                        $dist1 = 0;
                     }
+                    if (!empty($distance2)) {
+                        $dist2 = $distance2[0]['geog_km_distance'];
+                    } else {
+                        $dist2 = 0;
+                    }
+                    if (!empty($distance3)) {
+                        $dist3 = $distance3[0]['geog_km_distance'];
+                    } else {
+                        $dist3 = 0;
+                    }
+                    if (!empty($distance4)) {
+                        $dist4 = $distance4[0]['geog_km_distance'];
+                    } else {
+                        $dist4 = 0;
+                    }
+                    $total_distance = $dist1 + $dist2 + $dist3 + $dist4;
+                    $distance_type = 1;
+                } else {
+                    $distance1 = $Enquiry_model->getDistancebyLocations($vehicle_from_loc_id, $arrival_location);
+                    $distance2 = $Enquiry_model->getDistancebyLocations($arrival_location, $tour_location_id);
+                    if (!empty($distance1)) {
+                        $dist1 = $distance1[0]['geog_km_distance'];
+                    } else {
+                        $dist1 = 0;
+                    }
+                    if (!empty($distance2)) {
+                        $dist2 = $distance2[0]['geog_km_distance'];
+                    } else {
+                        $dist2 = 0;
+                    }
+                    $total_distance = $dist1 + $dist2;
+                    $distance_type = 2;
                 }
-                $veh_tariffs[$key]['rate_per_day'] = $rate_per_day / $no_of_night;
-                $veh_tariffs[$key]['max_km_day'] = $max_km_day;
-                $veh_tariffs[$key]['extra_km_rate'] = $extra_km_rate;
+            } else {
+                if ($duration == $totalNights) {
+                    $distance3 = $Enquiry_model->getDistancebyLocations($previous_location_id, $tour_location_id);
+                    if (!empty($distance3)) {
+                        $dist3 = $distance3[0]['geog_km_distance'];
+                    } else {
+                        $dist3 = 0;
+                    }
+                    $distance1 = $Enquiry_model->getDistancebyLocations($tour_location_id, $departure_location);
+                    $distance2 = $Enquiry_model->getDistancebyLocations($departure_location, $vehicle_from_loc_id);
+                    if (!empty($distance1)) {
+                        $dist1 = $distance1[0]['geog_km_distance'];
+                    } else {
+                        $dist1 = 0;
+                    }
+                    if (!empty($distance2)) {
+                        $dist2 = $distance2[0]['geog_km_distance'];
+                    } else {
+                        $dist2 = 0;
+                    }
+                    $total_distance = $dist1 + $dist2 + $dist3;
+                    $distance_type = 3;
+                } else {
+                    $distance = $Enquiry_model->getDistancebyLocations($previous_location_id, $tour_location_id);
+                    if (!empty($distance)) {
+                        $total_distance = $distance[0]['geog_km_distance'];
+                    } else {
+                        $total_distance = 0;
+                    }
+                    $distance_type = 4;
+                }
             }
+            $tariff_det = [];
+            $startDate = new DateTime($checkin);
+            $endDate = new DateTime($checkout);
+            //$endDate->modify('+1 day');
+            $interval = new DateInterval('P1D');
+            $period = new DatePeriod($startDate, $interval, $endDate);
+            $season_id_t = null;
+            $veh_tariffs = [];
+            // **NEW: Initialize season detection variables**
+            $different_season = 0;
+            $season_name1 = '';
+            $season_name2 = '';
+            $season_id_copy = 0;  // Shared tracking; set flag if any vehicle detects change
+            if (!empty($vehicle_models)) {
+                foreach ($vehicle_models as $key => $val) {
+                    $veh_object_ids = $Enquiry_model->getObjectidByvehicle($val['vehicle_type_id']);
+                    $veh_object_id = $veh_object_ids[0]['object_id'];
+                    $rate_per_day = 0;
+                    $max_km_day = 0;
+                    $extra_km_rate = 0;
+                    $km_rate = 0;
+                    $veh_tariffs[$key]['vehicle_count'] = $val['vehicle_count'];
+                    $veh_tariffs[$key]['vehicle_type_id'] = $val['vehicle_type_id'];
+                    $veh_tariffs[$key]['vehicle_model_name'] = $val['vehicle_model_name'];
+                    $vehicle_basic_tariffs = $Enquiry_model->getTourtravelbasic(1, $val['vehicle_type_id']);
+                    $max_km_day = $vehicle_basic_tariffs[0]['tour_travel_max_km'];
+                    $extra_km_rate = $vehicle_basic_tariffs[0]['extra_km_rate'];
+                    foreach ($period as $date) {
+                        $v_tour_date = $date->format('Y-m-d');
+                        $vehicle_basic_tariffs = $Enquiry_model->getTourtravelbasic(1, $val['vehicle_type_id']);
+                        $v_season_tariff = $Enquiry_model->checkVehicleSeasonExist($v_tour_date, $veh_object_id);
+                        // **NEW: Track season changes**
+                        $season_id_temp = !empty($v_season_tariff) ? $v_season_tariff[0]['season_id'] : 0;
+                        if ($season_id_temp !== $season_id_copy && $season_id_copy > 0) {
+                            $different_season = 1;
+                            $season_names1 = $Enquiry_model->getseasonname($season_id_temp);
+                            if (!empty($season_names1)) {
+                                $season_name1 = $season_names1[0]['season_name'];
+                            }
+                            $season_names2 = $Enquiry_model->getseasonname($season_id_copy);
+                            if (!empty($season_names2)) {
+                                $season_name2 = $season_names2[0]['season_name'];
+                            }
+                        }
+                        $season_id_copy = $season_id_temp;
+                        // **END NEW**
+                        if (!empty($v_season_tariff)) {
+                            $vehicle_season_tariffs = $Enquiry_model->getTourtravelseason(2, $v_season_tariff[0]['season_id'], $val['vehicle_type_id']);
+                            $rate_per_day = $rate_per_day + $vehicle_season_tariffs[0]['rate_per_day'];
+                            $extra_km_rate = $vehicle_season_tariffs[0]['extra_km_rate'];
+                            $km_rate = $vehicle_season_tariffs[0]['km_rate'];
+                        } else {
+                            $vehicle_tariffs = $Enquiry_model->getTourtravelbasic(1, $val['vehicle_type_id']);
+                            $rate_per_day = $rate_per_day + $vehicle_tariffs[0]['tour_travel_daily_rate'];
+                        }
+                    }
+                    $veh_tariffs[$key]['rate_per_day'] = $rate_per_day / $no_of_night;
+                    $veh_tariffs[$key]['max_km_day'] = $max_km_day;
+                    $veh_tariffs[$key]['extra_km_rate'] = $extra_km_rate;
+                }
+            }
+            $tariff_det['vehicles'] = $veh_tariffs;
+            $tariff_det['total_distance'] = $total_distance;
+            $tariff_det['dist1'] = $dist1;
+            $tariff_det['dist2'] = $dist2;
+            $tariff_det['dist3'] = $dist3;
+            $tariff_det['dist4'] = $dist4;
+            $tariff_det['distance_type'] = $distance_type;
+            // **NEW: Include season detection in response**
+            $tariff_det['different_season'] = $different_season;
+            $tariff_det['season_name1'] = $season_name1;
+            $tariff_det['season_name2'] = $season_name2;
+            // **END NEW**
+            echo json_encode($tariff_det);
+        } else {
+            return redirect()->to('Login');
         }
-        $tariff_det['vehicles'] = $veh_tariffs;
-        $tariff_det['total_distance'] = $total_distance;
-        $tariff_det['dist1'] = $dist1;
-        $tariff_det['dist2'] = $dist2;
-        $tariff_det['dist3'] = $dist3;
-        $tariff_det['dist4'] = $dist4;
-        $tariff_det['distance_type'] = $distance_type;
-        // **NEW: Include season detection in response**
-        $tariff_det['different_season'] = $different_season;
-        $tariff_det['season_name1'] = $season_name1;
-        $tariff_det['season_name2'] = $season_name2;
-        // **END NEW**
-        echo json_encode($tariff_det);
-    } else {
-        return redirect()->to('Login');
     }
-}
 
     // public function itinerary($object_id,$final_save_flag,$edit_id = null,$iti_edit_id = null,$extension_ref_id = null)
     // {
@@ -6627,7 +6628,8 @@ class Enquiry extends BaseController
                             $data = $saved_sightseeing_by_date[$tid][$expansion_date];
                             $ss_dist = $data['is_saved'] ? $data['ss_total_distance'] : 0;
                         }
-
+                        $db_total = 0;
+                        $base_dist = 0;
                         // Decode vehicle json (assume it's an array of vehicles)
                         $vehicle_details_json = $expansion['vehicle_details_json'] ?? '';
                         $vehicle_details = json_decode($vehicle_details_json, true) ?: [];
@@ -6705,7 +6707,8 @@ class Enquiry extends BaseController
                             $data = $saved_sightseeing_by_date[$tid][$expansion_date];
                             $ss_dist = $data['is_saved'] ? $data['ss_total_distance'] : 0;
                         }
-
+                        $db_total = 0;
+                        $base_dist = 0;
                         // Decode vehicle json (assume similar structure)
                         $vehicle_details_json = $expansion['vehicle_details_json'] ?? '';
                         $vehicle_details = json_decode($vehicle_details_json, true) ?: [];
@@ -10013,105 +10016,106 @@ class Enquiry extends BaseController
         echo view('enquiry/costing_sheet_view', $response);
     }
 
-   public function viewItinerarySheet() {
-    $Enquiry_model = new Enquiry_m();
-    $itinerary_details_save = [];
-    $result2 = [];
-    $object_det = [];
-    $tour_plan_det = [];
-    $final_iti_data = [];
-    $id = $this->request->getPost('id');
-    $extension_ref_id = $this->request->getPost('extension_ref_id');
-    $tourplan_ref_id = $this->request->getPost('tourplan_ref_id');
-    $enq_ref_id = $this->request->getPost('enq_ref_id');
-    $iti_cost_datas = $Enquiry_model->get_iti_cost($id);
-    if ($iti_cost_datas[0]['cs_confirmed_id'] > 0) {
-        $final_iti_datas = $Enquiry_model->get_final_costing_sheet($iti_cost_datas[0]['cs_confirmed_id']);
-        $final_iti_data = $final_iti_datas[0]['itinerary'];
-    }
-    $object_det = $Enquiry_model->get_object_details_forcs($iti_cost_datas[0]['object_id'], $enq_ref_id);
-    $tour_plan_det = $Enquiry_model->get_tour_plan_details_foredit($tourplan_ref_id);
+    public function viewItinerarySheet()
+    {
+        $Enquiry_model = new Enquiry_m();
+        $itinerary_details_save = [];
+        $result2 = [];
+        $object_det = [];
+        $tour_plan_det = [];
+        $final_iti_data = [];
+        $id = $this->request->getPost('id');
+        $extension_ref_id = $this->request->getPost('extension_ref_id');
+        $tourplan_ref_id = $this->request->getPost('tourplan_ref_id');
+        $enq_ref_id = $this->request->getPost('enq_ref_id');
+        $iti_cost_datas = $Enquiry_model->get_iti_cost($id);
+        if ($iti_cost_datas[0]['cs_confirmed_id'] > 0) {
+            $final_iti_datas = $Enquiry_model->get_final_costing_sheet($iti_cost_datas[0]['cs_confirmed_id']);
+            $final_iti_data = $final_iti_datas[0]['itinerary'];
+        }
+        $object_det = $Enquiry_model->get_object_details_forcs($iti_cost_datas[0]['object_id'], $enq_ref_id);
+        $tour_plan_det = $Enquiry_model->get_tour_plan_details_foredit($tourplan_ref_id);
 
-    // Collect itinerary details IDs for fetching expansion data
-    $itinerary_details_ids = [];
-    // CHANGED: Initialize arrays earlier
-    $tour_expansion_details = [];  // Ensure it's always available
-    $itinerary_expansion_details = [];  // For saved data
+        // Collect itinerary details IDs for fetching expansion data
+        $itinerary_details_ids = [];
+        // CHANGED: Initialize arrays earlier
+        $tour_expansion_details = [];  // Ensure it's always available
+        $itinerary_expansion_details = [];  // For saved data
 
-    foreach ($tour_plan_det as $keys => $vals) {
-        $tid = $vals['tour_details_id'];  // NEW: Capture for keying
-        $result2 = $Enquiry_model->get_itinerary_save_details_for_cs($id, $extension_ref_id, $enq_ref_id, $vals['tour_details_id']);
-        if (!empty($result2)) {
-            $itinerary_details_save = [...$itinerary_details_save, ...$result2];
-            // Collect itinerary_details_ids for expansion data
-            foreach ($result2 as $r) {
-                if (isset($r['itinerary_details_id'])) {
-                    $itinerary_details_ids[] = $r['itinerary_details_id'];
+        foreach ($tour_plan_det as $keys => $vals) {
+            $tid = $vals['tour_details_id'];  // NEW: Capture for keying
+            $result2 = $Enquiry_model->get_itinerary_save_details_for_cs($id, $extension_ref_id, $enq_ref_id, $vals['tour_details_id']);
+            if (!empty($result2)) {
+                $itinerary_details_save = [...$itinerary_details_save, ...$result2];
+                // Collect itinerary_details_ids for expansion data
+                foreach ($result2 as $r) {
+                    if (isset($r['itinerary_details_id'])) {
+                        $itinerary_details_ids[] = $r['itinerary_details_id'];
+                    }
+                }
+            }
+            // NEW: Always fetch tour expansion details per tour_details_id (like in viewCostingSheet)
+            // This ensures fallback data always has room_category_name, even with tax_status=1
+            $tour_expansion_details[$tid] = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
+        }
+
+        // Fetch expansion details for itinerary (saved data)
+        if (!empty($itinerary_details_ids)) {
+            $itinerary_details_ids = array_unique($itinerary_details_ids);
+            // Get expansion data grouped by itinerary_details_id
+            $expansion_raw = $Enquiry_model->get_itinerary_expansion_grouped($itinerary_details_ids);
+            // Build a mapping from itinerary_details_id to tour_details_id
+            $iti_to_tour_map = [];
+            foreach ($itinerary_details_save as $save) {
+                if (isset($save['itinerary_details_id']) && isset($save['tour_details_id'])) {
+                    $iti_to_tour_map[$save['itinerary_details_id']] = $save['tour_details_id'];
+                }
+            }
+            // Re-group expansion data by tour_details_id for easier access in the view
+            foreach ($expansion_raw as $iti_id => $expansions) {
+                if (isset($iti_to_tour_map[$iti_id])) {
+                    $tour_details_id = $iti_to_tour_map[$iti_id];
+                    if (!isset($itinerary_expansion_details[$tour_details_id])) {
+                        $itinerary_expansion_details[$tour_details_id] = [];
+                    }
+                    foreach ($expansions as $exp) {
+                        $itinerary_expansion_details[$tour_details_id][] = $exp;
+                    }
                 }
             }
         }
-        // NEW: Always fetch tour expansion details per tour_details_id (like in viewCostingSheet)
-        // This ensures fallback data always has room_category_name, even with tax_status=1
-        $tour_expansion_details[$tid] = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
-    }
+        // REMOVED: The entire "Fallback: Fetch tour expansion details if no itinerary expansion exists" block
+        // Reason: We now always fetch tour_expansion_details above, so no need for conditional bulk fetch
 
-    // Fetch expansion details for itinerary (saved data)
-    if (!empty($itinerary_details_ids)) {
-        $itinerary_details_ids = array_unique($itinerary_details_ids);
-        // Get expansion data grouped by itinerary_details_id
-        $expansion_raw = $Enquiry_model->get_itinerary_expansion_grouped($itinerary_details_ids);
-        // Build a mapping from itinerary_details_id to tour_details_id
-        $iti_to_tour_map = [];
-        foreach ($itinerary_details_save as $save) {
-            if (isset($save['itinerary_details_id']) && isset($save['tour_details_id'])) {
-                $iti_to_tour_map[$save['itinerary_details_id']] = $save['tour_details_id'];
-            }
+        $response['iti_cost_datas'] = $iti_cost_datas;
+        $response['iti_data'] = $itinerary_details_save;
+        $response['object_det'] = $object_det;
+        $response['tour_plan_det'] = $tour_plan_det;
+        // Pass expansion data to view
+        $response['itinerary_expansion_details'] = $itinerary_expansion_details;
+        $response['tour_expansion_details'] = $tour_expansion_details;  // Now always populated
+        $response['tac_hidden'] = $iti_cost_datas[0]['tac'];
+        $response['ttc_hidden'] = $iti_cost_datas[0]['ttc'];
+        $response['spcl_hidden'] = $iti_cost_datas[0]['special_total_cost'];
+        $response['daily_hidden'] = $iti_cost_datas[0]['daily_total_cost'];
+        $response['tnr_hidden'] = $iti_cost_datas[0]['tnr'];
+        $response['is_bifurcation'] = $iti_cost_datas[0]['is_bifurcation'];
+        $response['final_iti_data'] = $final_iti_data;
+        if ($iti_cost_datas[0]['is_bifurcation'] == 1) {
+            $response['bifur_double'] = $Enquiry_model->get_bifur_datas($id, 1);
+            $response['bifur_single'] = $Enquiry_model->get_bifur_datas($id, 2);
+            $response['bifur_child'] = $Enquiry_model->get_bifur_datas($id, 3);
+            $response['bifur_child_wb'] = $Enquiry_model->get_bifur_datas($id, 4);
+            $response['bifur_extra'] = $Enquiry_model->get_bifur_datas($id, 5);
+        } else {
+            $response['bifur_double'] = [];
+            $response['bifur_single'] = [];
+            $response['bifur_child'] = [];
+            $response['bifur_child_wb'] = [];
+            $response['bifur_extra'] = [];
         }
-        // Re-group expansion data by tour_details_id for easier access in the view
-        foreach ($expansion_raw as $iti_id => $expansions) {
-            if (isset($iti_to_tour_map[$iti_id])) {
-                $tour_details_id = $iti_to_tour_map[$iti_id];
-                if (!isset($itinerary_expansion_details[$tour_details_id])) {
-                    $itinerary_expansion_details[$tour_details_id] = [];
-                }
-                foreach ($expansions as $exp) {
-                    $itinerary_expansion_details[$tour_details_id][] = $exp;
-                }
-            }
-        }
+        echo view('enquiry/itinerary_sheet_view', $response);
     }
-    // REMOVED: The entire "Fallback: Fetch tour expansion details if no itinerary expansion exists" block
-    // Reason: We now always fetch tour_expansion_details above, so no need for conditional bulk fetch
-
-    $response['iti_cost_datas'] = $iti_cost_datas;
-    $response['iti_data'] = $itinerary_details_save;
-    $response['object_det'] = $object_det;
-    $response['tour_plan_det'] = $tour_plan_det;
-    // Pass expansion data to view
-    $response['itinerary_expansion_details'] = $itinerary_expansion_details;
-    $response['tour_expansion_details'] = $tour_expansion_details;  // Now always populated
-    $response['tac_hidden'] = $iti_cost_datas[0]['tac'];
-    $response['ttc_hidden'] = $iti_cost_datas[0]['ttc'];
-    $response['spcl_hidden'] = $iti_cost_datas[0]['special_total_cost'];
-    $response['daily_hidden'] = $iti_cost_datas[0]['daily_total_cost'];
-    $response['tnr_hidden'] = $iti_cost_datas[0]['tnr'];
-    $response['is_bifurcation'] = $iti_cost_datas[0]['is_bifurcation'];
-    $response['final_iti_data'] = $final_iti_data;
-    if ($iti_cost_datas[0]['is_bifurcation'] == 1) {
-        $response['bifur_double'] = $Enquiry_model->get_bifur_datas($id, 1);
-        $response['bifur_single'] = $Enquiry_model->get_bifur_datas($id, 2);
-        $response['bifur_child'] = $Enquiry_model->get_bifur_datas($id, 3);
-        $response['bifur_child_wb'] = $Enquiry_model->get_bifur_datas($id, 4);
-        $response['bifur_extra'] = $Enquiry_model->get_bifur_datas($id, 5);
-    } else {
-        $response['bifur_double'] = [];
-        $response['bifur_single'] = [];
-        $response['bifur_child'] = [];
-        $response['bifur_child_wb'] = [];
-        $response['bifur_extra'] = [];
-    }
-    echo view('enquiry/itinerary_sheet_view', $response);
-}
 
     public function viewFinalItinerarySheet()
     {
@@ -10155,107 +10159,107 @@ class Enquiry extends BaseController
 
         echo view('enquiry/final_itinerary_sheet_view', $response);
     }
-   public function viewMultipleItinerarySheet()
-{
-    $Enquiry_model = new Enquiry_m();
+    public function viewMultipleItinerarySheet()
+    {
+        $Enquiry_model = new Enquiry_m();
 
-    $selectedIDs = $this->request->getPost('selectedIDs') ?? [];
-    $response = [];
-    foreach ($selectedIDs as $key => $id) {
-        $itinerary_details_save = [];
-        $result2 = [];
-        $object_det = [];
-        $tour_plan_det = [];
-        $ext_det = $Enquiry_model->getExtensionDetailsbyid($id);
-        $extension_ref_id = $ext_det[0]['extension_ref_id'];
-        $tourplan_ref_id = $ext_det[0]['tour_plan_ref_id'];
-        $enq_ref_id = $ext_det[0]['enquiry_ref_id'];
-        $iti_cost_datas = $Enquiry_model->get_iti_cost($id);
-        $object_det = $Enquiry_model->get_object_details_forcs($iti_cost_datas[0]['object_id'], $enq_ref_id);
-        $tour_plan_det = $Enquiry_model->get_tour_plan_details_foredit($tourplan_ref_id);
-        foreach ($tour_plan_det as $keys => $vals) {
-            $result2 = $Enquiry_model->get_itinerary_save_details_for_cs($id, $extension_ref_id, $enq_ref_id, $vals['tour_details_id']);
-            if (!empty($result2)) {
-                $itinerary_details_save = [...$itinerary_details_save, ...$result2];
-            }
-        }
-
-        // Collect itinerary details IDs for fetching expansion data
-        $itinerary_details_ids = [];
-
-        foreach ($itinerary_details_save as $r) {
-            if (isset($r['itinerary_details_id'])) {
-                $itinerary_details_ids[] = $r['itinerary_details_id'];
-            }
-        }
-
-        // CHANGED: Initialize arrays earlier
-        $tour_expansion_details = [];  // Ensure it's always available
-        $itinerary_expansion_details = [];  // For saved data
-
-        // NEW: Always fetch tour expansion details per tour_details_id (like in viewItinerarySheet)
-        // This ensures fallback data always has room_category_name, even with tax_status=1
-        foreach ($tour_plan_det as $keys => $vals) {
-            $tid = $vals['tour_details_id'];  // Capture for keying
-            $tour_expansion_details[$tid] = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
-        }
-
-        // Fetch expansion details for itinerary (saved data)
-        if (!empty($itinerary_details_ids)) {
-            $itinerary_details_ids = array_unique($itinerary_details_ids);
-
-            // Get expansion data grouped by itinerary_details_id
-            $expansion_raw = $Enquiry_model->get_itinerary_expansion_grouped($itinerary_details_ids);
-
-            // Build a mapping from itinerary_details_id to tour_details_id
-            $iti_to_tour_map = [];
-            foreach ($itinerary_details_save as $save) {
-                if (isset($save['itinerary_details_id']) && isset($save['tour_details_id'])) {
-                    $iti_to_tour_map[$save['itinerary_details_id']] = $save['tour_details_id'];
+        $selectedIDs = $this->request->getPost('selectedIDs') ?? [];
+        $response = [];
+        foreach ($selectedIDs as $key => $id) {
+            $itinerary_details_save = [];
+            $result2 = [];
+            $object_det = [];
+            $tour_plan_det = [];
+            $ext_det = $Enquiry_model->getExtensionDetailsbyid($id);
+            $extension_ref_id = $ext_det[0]['extension_ref_id'];
+            $tourplan_ref_id = $ext_det[0]['tour_plan_ref_id'];
+            $enq_ref_id = $ext_det[0]['enquiry_ref_id'];
+            $iti_cost_datas = $Enquiry_model->get_iti_cost($id);
+            $object_det = $Enquiry_model->get_object_details_forcs($iti_cost_datas[0]['object_id'], $enq_ref_id);
+            $tour_plan_det = $Enquiry_model->get_tour_plan_details_foredit($tourplan_ref_id);
+            foreach ($tour_plan_det as $keys => $vals) {
+                $result2 = $Enquiry_model->get_itinerary_save_details_for_cs($id, $extension_ref_id, $enq_ref_id, $vals['tour_details_id']);
+                if (!empty($result2)) {
+                    $itinerary_details_save = [...$itinerary_details_save, ...$result2];
                 }
             }
 
-            // Group expansion data by tour_details_id
-            foreach ($expansion_raw as $iti_id => $expansions) {
-                if (isset($iti_to_tour_map[$iti_id])) {
-                    $tour_details_id = $iti_to_tour_map[$iti_id];
-                    if (!isset($itinerary_expansion_details[$tour_details_id])) {
-                        $itinerary_expansion_details[$tour_details_id] = [];
+            // Collect itinerary details IDs for fetching expansion data
+            $itinerary_details_ids = [];
+
+            foreach ($itinerary_details_save as $r) {
+                if (isset($r['itinerary_details_id'])) {
+                    $itinerary_details_ids[] = $r['itinerary_details_id'];
+                }
+            }
+
+            // CHANGED: Initialize arrays earlier
+            $tour_expansion_details = [];  // Ensure it's always available
+            $itinerary_expansion_details = [];  // For saved data
+
+            // NEW: Always fetch tour expansion details per tour_details_id (like in viewItinerarySheet)
+            // This ensures fallback data always has room_category_name, even with tax_status=1
+            foreach ($tour_plan_det as $keys => $vals) {
+                $tid = $vals['tour_details_id'];  // Capture for keying
+                $tour_expansion_details[$tid] = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
+            }
+
+            // Fetch expansion details for itinerary (saved data)
+            if (!empty($itinerary_details_ids)) {
+                $itinerary_details_ids = array_unique($itinerary_details_ids);
+
+                // Get expansion data grouped by itinerary_details_id
+                $expansion_raw = $Enquiry_model->get_itinerary_expansion_grouped($itinerary_details_ids);
+
+                // Build a mapping from itinerary_details_id to tour_details_id
+                $iti_to_tour_map = [];
+                foreach ($itinerary_details_save as $save) {
+                    if (isset($save['itinerary_details_id']) && isset($save['tour_details_id'])) {
+                        $iti_to_tour_map[$save['itinerary_details_id']] = $save['tour_details_id'];
                     }
-                    foreach ($expansions as $exp) {
-                        $itinerary_expansion_details[$tour_details_id][] = $exp;
+                }
+
+                // Group expansion data by tour_details_id
+                foreach ($expansion_raw as $iti_id => $expansions) {
+                    if (isset($iti_to_tour_map[$iti_id])) {
+                        $tour_details_id = $iti_to_tour_map[$iti_id];
+                        if (!isset($itinerary_expansion_details[$tour_details_id])) {
+                            $itinerary_expansion_details[$tour_details_id] = [];
+                        }
+                        foreach ($expansions as $exp) {
+                            $itinerary_expansion_details[$tour_details_id][] = $exp;
+                        }
                     }
                 }
             }
-        }
-        // REMOVED: The entire "Fallback: Fetch tour expansion details if no itinerary expansion exists" block
-        // Reason: We now always fetch tour_expansion_details above, so no need for conditional bulk fetch
+            // REMOVED: The entire "Fallback: Fetch tour expansion details if no itinerary expansion exists" block
+            // Reason: We now always fetch tour_expansion_details above, so no need for conditional bulk fetch
 
-        $response[$key]['iti_cost_datas'] = $iti_cost_datas;
-        $response[$key]['iti_data'] = $itinerary_details_save;
-        $response[$key]['object_det'] = $object_det;
-        $response[$key]['tour_plan_det'] = $tour_plan_det;
-        $response[$key]['itinerary_expansion_details'] = $itinerary_expansion_details;
-        $response[$key]['tour_expansion_details'] = $tour_expansion_details;  // Now always populated
+            $response[$key]['iti_cost_datas'] = $iti_cost_datas;
+            $response[$key]['iti_data'] = $itinerary_details_save;
+            $response[$key]['object_det'] = $object_det;
+            $response[$key]['tour_plan_det'] = $tour_plan_det;
+            $response[$key]['itinerary_expansion_details'] = $itinerary_expansion_details;
+            $response[$key]['tour_expansion_details'] = $tour_expansion_details;  // Now always populated
 
-        // Bifurcation data if applicable
-        if ($iti_cost_datas[0]['is_bifurcation'] == 1) {
-            $response[$key]['bifur_double'] = $Enquiry_model->get_bifur_datas($id, 1);
-            $response[$key]['bifur_single'] = $Enquiry_model->get_bifur_datas($id, 2);
-            $response[$key]['bifur_child'] = $Enquiry_model->get_bifur_datas($id, 3);
-            $response[$key]['bifur_child_wb'] = $Enquiry_model->get_bifur_datas($id, 4);
-            $response[$key]['bifur_extra'] = $Enquiry_model->get_bifur_datas($id, 5);
-        } else {
-            $response[$key]['bifur_double'] = [];
-            $response[$key]['bifur_single'] = [];
-            $response[$key]['bifur_child'] = [];
-            $response[$key]['bifur_child_wb'] = [];
-            $response[$key]['bifur_extra'] = [];
+            // Bifurcation data if applicable
+            if ($iti_cost_datas[0]['is_bifurcation'] == 1) {
+                $response[$key]['bifur_double'] = $Enquiry_model->get_bifur_datas($id, 1);
+                $response[$key]['bifur_single'] = $Enquiry_model->get_bifur_datas($id, 2);
+                $response[$key]['bifur_child'] = $Enquiry_model->get_bifur_datas($id, 3);
+                $response[$key]['bifur_child_wb'] = $Enquiry_model->get_bifur_datas($id, 4);
+                $response[$key]['bifur_extra'] = $Enquiry_model->get_bifur_datas($id, 5);
+            } else {
+                $response[$key]['bifur_double'] = [];
+                $response[$key]['bifur_single'] = [];
+                $response[$key]['bifur_child'] = [];
+                $response[$key]['bifur_child_wb'] = [];
+                $response[$key]['bifur_extra'] = [];
+            }
         }
+
+        echo view('enquiry/multiple_itinerary_sheet_view', ['response' => $response]);
     }
-
-    echo view('enquiry/multiple_itinerary_sheet_view', ['response' => $response]);
-}
 
     public function getTourTariffDetailsbyTourDetails($tour_date, $hotel_id, $room_cat_id, $mealplan, $double, $single)
     {
