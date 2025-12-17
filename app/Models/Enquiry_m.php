@@ -5541,7 +5541,7 @@ class Enquiry_m extends Model
         $query->join('khm_obj_enquiry_header h', 'h.object_id = a.object_id', 'left');
         $query->join('khm_obj_enquiry_edit_request er', 'er.enquiry_header_id = h.enquiry_header_id AND er.is_active = 1', 'inner');
         $query->join('khm_entity_mst ag', 'ag.entity_id = h.agent_entity_id', 'left');
-        $query->join('khm_entity_mst gs', 'gs.entity_id = h.employee_entity_id', 'left');
+        $query->join('khm_entity_mst gs', 'gs.entity_id = h.guest_entity_id', 'left');
         $query->join('khm_obj_enquiry_details t', 't.enquiry_header_id = h.enquiry_header_id', 'left');
         $query->join('khm_loc_mst_geography m', 'm.geog_id = a.object_location_id', 'left');
         $query->join('khm_loc_mst_geography arr', 'arr.geog_id = t.arrival_location', 'left');
