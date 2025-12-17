@@ -303,20 +303,24 @@ class Enquiry_m extends Model
             $query->groupStart()
                 ->where('st.assigned_to', $user_id)  // Direct assignment
                 ->orWhere('tl.team_lead_id', $user_id)  // Team member assignment
-                ->orWhere('t.sales_support_assigned_to', $user_id)  // NEW: Assignment via sales_support_assigned_to
                 ->groupEnd();
         }
+
         // FIXED: Sales Support / Sales Support Team Lead logic
         if ($parent_id == 7 || $parent_id == 2) {
             $query->groupStart()
+                // Direct assignment to user (status-based)
                 ->groupStart()
-                ->where('sts.assigned_to', $user_id)  // Direct assignment to user
+                ->where('sts.assigned_to', $user_id)
                 ->orWhere('ac.assigned_to', $user_id)
                 ->groupEnd()
+                // Team member assignment (status-based)
                 ->orGroupStart()
-                ->where('stl.team_lead_id', $user_id)  // Team member assignment
+                ->where('stl.team_lead_id', $user_id)
                 ->orWhere('stlac.team_lead_id', $user_id)
                 ->groupEnd()
+                // NEW: Direct assignment via sales_support_assigned_to field
+                ->orWhere('t.sales_support_assigned_to', $user_id)
                 ->groupEnd();
         }
 
