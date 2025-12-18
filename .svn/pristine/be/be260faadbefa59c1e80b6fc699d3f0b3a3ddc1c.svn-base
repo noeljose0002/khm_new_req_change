@@ -2887,41 +2887,6 @@ class Enquiry_m extends Model
     // }
     // Get itinerary by ID
     // Get itinerary by ID (including tour_plan_ref_id)
-// ============= ENQUIRY HEADER TABLE =============
-// Set enquiry header as active
-public function setEnquiryHeaderActive($enquiry_header_id)
-{
-    $db = \Config\Database::connect();
-    return $db->table('khm_obj_enquiry_header')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->update([
-            'is_active' => 1
-        ]);
-}
-
-// ============= ENQUIRY DETAILS TABLE =============
-// Set all enquiry details inactive for an enquiry_header_id
-public function updateAllEnquiryDetailsInactive($enquiry_header_id)
-{
-    $db = \Config\Database::connect();
-    return $db->table('khm_obj_enquiry_details')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->update([
-            'is_active' => 0
-        ]);
-}
-
-// Set specific enquiry details as active
-public function setEnquiryDetailsActive($enquiry_details_id)
-{
-    $db = \Config\Database::connect();
-    return $db->table('khm_obj_enquiry_details')
-        ->where('enquiry_details_id', $enquiry_details_id)
-        ->update([
-            'is_active' => 1
-        ]);
-}
-
     public function getItineraryById($enquiry_detail_details_id)
     {
         $db = \Config\Database::connect();
@@ -2973,21 +2938,17 @@ public function setEnquiryDetailsActive($enquiry_details_id)
     }
 
     // Set tour details as active by tour_plan_ref_id
-   public function setTourDetailsAsActiveByTourPlanRef($tour_plan_ref_id)
-{
-    $db = \Config\Database::connect();
-
-    return $db->table('khm_obj_enquiry_tour_details')
-        ->groupStart()
+    public function setTourDetailsAsActiveByTourPlanRef($tour_plan_ref_id)
+    {
+        $db = \Config\Database::connect();
+        return $db->table('khm_obj_enquiry_tour_details')
             ->where('tour_details_id', $tour_plan_ref_id)
-            ->orWhere('extension_ref_id', $tour_plan_ref_id)
-        ->groupEnd()
-        ->update([
-            'is_active'    => 1,
-            'is_draft'     => 0,
-            'updated_time' => date('Y-m-d H:i:s')
-        ]);
-}
+            ->update([
+                'is_active' => 1,
+                'is_draft' => 0,
+                'updated_time' => date('Y-m-d H:i:s')
+            ]);
+    }
 
     // Get all tour_details_id values for a tour_plan_ref_id
     public function getTourDetailsIdsByTourPlanRef($tour_plan_ref_id)

@@ -2059,7 +2059,7 @@ $cs_trans_total = 0;
 																																break;
 																															}
 																														}
-																													
+
 																														// FIXED (Robust): Resolve meal plan name dynamically from $meal_plans array with key fallbacks
 																														$d_meal_plan_name = $ttval['meal_type_name']; // Default fallback
 																														if (!empty($meal_plans)) {
@@ -2904,7 +2904,7 @@ $cs_trans_total = 0;
 																											$travel_distance = isset($vmodel->travel_distance) ? (float)$vmodel->travel_distance : 0;
 																											$extra_kilometer = isset($vmodel->extra_kilometer) ? (float)$vmodel->extra_kilometer : 0;
 																											$day_rent = isset($vmodel->day_rent) ? (float)$vmodel->day_rent : 0;
-																											$extra_km_rate = isset($vmodel->extra_km_rate) ? (float)$vmodel->extra_km_rate : 0;
+																											$extra_km_rate = 0;
 																											$max_km_day = isset($vmodel->max_km_day) ? (int)$vmodel->max_km_day : 0;
 																											$pre_to_cur = isset($vmodel->pre_to_cur) ? (float)$vmodel->pre_to_cur : 0;
 																											$cur_to_dep = isset($vmodel->cur_to_dep) ? (float)$vmodel->cur_to_dep : 0;
@@ -3002,7 +3002,7 @@ $cs_trans_total = 0;
 																												}
 
 																												// Update grand total if overridden
-																												$grand_veh_total = $grand_veh_total + ($veh_total_temp * $vehicle_count);  // Adjust if per-instance, but since loop per j, careful
+																												// Adjust if per-instance, but since loop per j, careful
 																										?>
 																												<div class="row mt-2 single_row">
 																													<div class="col-xl-1 col-sm-12 col-md-1">
@@ -3346,16 +3346,19 @@ $cs_trans_total = 0;
 																												$grand_veh_total = 0;
 																											}
 																											?>
+																											<?php
+																											$is_last_day = ($startDate1->format('d-m-Y') == $object_det[0]['end_date']);
+																											$display_grand_total = $is_last_day ? $grand_veh_total : ($tac + $grand_veh_total);
+																											?>
 																											<input
 																												type="text"
 																												id="grand_total<?php echo $iti_id; ?>"
 																												name="additi[<?php echo $iti_id; ?>][grand_total]"
 																												class="form-control input-sm grand_total"
-																												value="<?php echo $tac + $grand_veh_total; ?>"
+																												value="<?php echo $display_grand_total; ?>"
 																												readonly
 																												style="background-color: #004d00; color: white; font-weight: bold; font-style: italic;font-size: 20px;">
 																										</div>
-
 
 																									</div>
 																									<!-- Dynamic Rows Container -->
@@ -4457,10 +4460,9 @@ $cs_trans_total = 0;
 														echo '<td>' . ($v->day_rent) . '</td>';
 														echo '</tr>';
 														$cs_trans_total = $cs_trans_total + $v->day_rent;
-														 if (isset($v->adhoc_rate) && $v->adhoc_rate > 0) {
-        $total_adhoc_rate += $v->adhoc_rate;
-    }
-
+														if (isset($v->adhoc_rate) && $v->adhoc_rate > 0) {
+															$total_adhoc_rate += $v->adhoc_rate;
+														}
 													}
 												}
 
@@ -7406,8 +7408,8 @@ $cs_trans_total = 0;
 			$('input.grand_total').each(function() {
 				totalNetRate += parseFloat($(this).val()) || 0;
 			});
-		
-			totalNetRate+=specialEventTotal;
+
+			totalNetRate += specialEventTotal;
 			totalNetRate += parseFloat($('#extraklm_hidden').val()) || 0;
 			totalNetRate += parseFloat($('#permit_hidden').val()) || 0;
 			$('#tnr_span').text(totalNetRate);
