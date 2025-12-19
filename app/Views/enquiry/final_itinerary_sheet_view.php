@@ -257,6 +257,7 @@ ob_start();
     <p>
         Thank you for your attention to this matter. Should you have any further questions or require additional information, feel free to reach out
     </p>
+    <p>Please review the details at your earliest convenience, and we look forward to receiving your confirmation. If you require any amendments or support regarding the itinerary from our end, please do not hesitate to contact us. </p>
     <p><b>Thanks 'N' Regards,</b></p>
     <?php
         $footer_html = ob_get_clean();

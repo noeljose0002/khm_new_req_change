@@ -343,23 +343,22 @@ $cs_trans_total = 0;
 
 		#view_cost_sheet_id,
 		#gen_cost_sheet_id,
-		#tour_view_id,.te,
+		#tour_view_id,
 		#cancel_cost_sheet_id,
 		#ac_btn_id {
-			 background: #339966;
-    color: white;
-    border: 1px solid #006600;
-    border-radius: 12px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    padding: 6px 14px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    margin-right: 10px; /* ✅ SPACE BETWEEN BUTTONS */
-}
+			background: #339966;
+			color: white;
+			border: 1px solid #006600;
+			border-radius: 12px;
+			backdrop-filter: blur(8px);
+			-webkit-backdrop-filter: blur(8px);
+			padding: 6px 14px;
+			font-size: 16px;
+			font-weight: 600;
+			float: right;
+			cursor: pointer;
+			transition: all 0.3s ease-in-out;
+		}
 
 		#btn_total_km {
 			background: #006666;
@@ -378,7 +377,7 @@ $cs_trans_total = 0;
 
 		#view_cost_sheet_id:hover,
 		#gen_cost_sheet_id:hover,
-		#tour_view_id:hover,.te:hover,
+		#tour_view_id:hover,
 		#cancel_cost_sheet_id:hover,
 		#ac_btn_id:hover {
 			background: #006600;
@@ -779,30 +778,18 @@ $cs_trans_total = 0;
 							<a href="#" data-toggle="sidebar" class="nav-link icon toggle"></a>
 
 
-							<div class="d-flex header-left left-header align-items-center gap-3">
-
-    <button class="btn btn-success btn-sm" onclick="history.back()" title="Go Back">
-        <i class="fa fa-arrow-left"></i> Back
-    </button>
-
-    <button type="button" id="tour_view_id" class="btn btn-success tour_view" style="margin-left: 13px;">
-        View Tour Plan
-    </button>
-
-    <!-- TOUR EDIT LINK -->
-    <a href="<?= site_url('Enquiry/tour_plan/' . $object_id . '/' . $enquiry_details_id); ?>"
-       class="btn btn-success te"
-       title="Tour Edit">
-        <i class="fa fa-edit"></i> Tour Edit
-    </a>
-
-    <button type="button" id="btn_total_km" class="btn btn-success">
-        Total KM : <span id="btn_total_id"></span>
-    </button>
-
-</div>
-
-
+							<div class="d-flex header-left left-header">
+								<div class="d-none d-lg-block horizontal" style="padding-top:7px;">
+									<button class="btn btn-success btn-sm" onclick="history.back()" title="Go Back"><i
+											class="fa fa-arrow-left"></i> Back</button>
+									&nbsp;&nbsp;<button type="button" id="tour_view_id"
+										class="btn btn-success tour_view">View Tour Plan</button>
+								</div>
+								<div class="d-none d-lg-block horizontal" style="padding-top:7px;">
+									&nbsp;&nbsp;<button type="button" id="btn_total_km" class="btn btn-success">Total KM
+										: <span id="btn_total_id"></span></button>
+								</div>
+							</div>
 							<div class="d-flex header-right ml-auto">
 								<div class="dropdown d-md-flex message" style="padding-top:10px;">
 									<span class="separator"></span>
@@ -8526,35 +8513,17 @@ $cs_trans_total = 0;
 	});
 </script>
 <script>
-$(document).ready(function() {
-    // Initially disable the save button if cost sheet name is empty
-    function toggleSaveButton() {
-        const csName = $('#cs_name').val().trim();
-        const saveButton = $('#view_cost_sheet_id');
-        if (csName === '') {
-            saveButton.prop('disabled', true);
-        } else {
-            saveButton.prop('disabled', false);
-        }
-    }
-
-    // Listen for changes on the input field
-    $('#cs_name').on('input', toggleSaveButton);
-
-    // Initial check
-    toggleSaveButton();
-
-    // Handle form submit
-    $('#myTourplanForm1').on('submit', function() {
-        $('#gen_cost_sheet_id, #view_cost_sheet_id').prop('disabled', true);
-        if ($('#gen_cost_sheet_id').is(':visible')) {
-            $('#gen_cost_sheet_id').html('<i class="fa fa-spinner fa-spin"></i> Saving...');
-        }
-        if ($('#view_cost_sheet_id').is(':visible')) {
-            $('#view_cost_sheet_id').html('<i class="fa fa-spinner fa-spin"></i> Updating...');
-        }
-    });
-});
+	$(document).ready(function() {
+		$('#myTourplanForm1').on('submit', function() {
+			$('#gen_cost_sheet_id, #view_cost_sheet_id').prop('disabled', true);
+			if ($('#gen_cost_sheet_id').is(':visible')) {
+				$('#gen_cost_sheet_id').html('<i class="fa fa-spinner fa-spin"></i> Saving...');
+			}
+			if ($('#view_cost_sheet_id').is(':visible')) {
+				$('#view_cost_sheet_id').html('<i class="fa fa-spinner fa-spin"></i> Updating...');
+			}
+		});
+	});
 </script>
 
 <script>
@@ -9784,23 +9753,23 @@ $(document).ready(function() {
 			var tourAddon = parseFloat($('#tour_addon_value').val()) || 0;
 
 			// STEP 2: Calculate margin amount
-			var marginAmount =parseFloat(((tnr * marginPercent / 100) * 100) / 100);
+			var marginAmount = Math.round((tnr * marginPercent / 100) * 100) / 100;
 			$('#margin_total').val(marginAmount);
 
 			// STEP 3: Calculate tour addon total
 			$('#tour_addon_total').val(tourAddon);
 
 			// STEP 4: Calculate TOTAL (TNR + Margin + Tour Addon)
-			var total = parseInt(((tnr + marginAmount + tourAddon) * 100) / 100);
+			var total = Math.round((tnr + marginAmount + tourAddon) * 100) / 100;
 			$('#total_final').val(total);
 
 			// STEP 5: Calculate GST on TOTAL
 			var gstPercent = parseFloat($('#gst_value').val()) || 0;
-			var gstAmount = parseInt(((total * gstPercent / 100) * 100) / 100);
+			var gstAmount = Math.round((total * gstPercent / 100) * 100) / 100;
 			$('#gst_final').val(gstAmount);
 
 			// STEP 6: Calculate TPC (Total Package Cost = Total + GST)
-			var tpc = parseInt((total + gstAmount) * 100) / 100;
+			var tpc = Math.round((total + gstAmount) * 100) / 100;
 			$('#tpc').val(tpc);
 
 			// STEP 7: Calculate TCS if checkbox is checked (TCS is calculated on TPC)
@@ -9809,14 +9778,14 @@ $(document).ready(function() {
 			var tcsAmount = 0;
 
 			if (tcsChecked) {
-				tcsAmount = parseInt((tpc * tcsRate * 100) / 100);
+				tcsAmount = Math.round(tpc * tcsRate * 100) / 100;
 			}
 
 			$('#tcs_final').val(tcsAmount);
 			$('#tcs_hidden').val(tcsAmount);
 
 			// STEP 8: Calculate FINAL TPC (TPC + TCS)
-			var tpcWithTcs = parseInt(((tpc + tcsAmount) * 100) / 100);
+			var tpcWithTcs = Math.round((tpc + tcsAmount) * 100) / 100;
 			$('#tpc_with_tcs').val(tpcWithTcs);
 			$('#tpc_with_tcs_hidden').val(tpcWithTcs);
 
@@ -9831,499 +9800,5 @@ $(document).ready(function() {
 				$('#tpc_with_tcs_hidden').val(tpc);
 			}
 		}
-	});
-</script>
-<script type="text/javascript">
-	/*$(document).on('click', '.tour_view', function(e) {
-        e.preventDefault();
-		var tourPlanDet = <?php echo json_encode($tour_plan_det); ?>;
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-		var html = '';
-		html += '<table class="table table-bordered table-responsive-md table-striped mb-0 text-nowrap">';
-		html += '<tr>';
-		html += '<th colspan="7" style="text-align:center;"> Accommodation </th>';
-		html += '</tr>';
-		html += '<tr>';
-						html += '<th> Si No </th>';
-						html += '<th> Location </th>';
-						html += '<th> Start Date </th>';
-						html += '<th> Nights </th>';
-						html += '<th> End Date </th>';
-						html += '<th> Hotel </th>';
-						html += '<th> Room Category </th>';
-					html += '</tr>';
-		$.each(tourPlanDet, function (index, item) {
-			var sino = index + 1;
-			
-					
-					html += '<tr>';
-						html += '<td>'+sino+'</td>';
-						html += '<td>'+item.geog_name+'</td>';
-						html += '<td>'+item.check_in_date+'</td>';
-						html += '<td>'+item.no_of_days+'</td>';
-						html += '<td>'+item.check_out_date+'</td>';
-						html += '<td>'+item.object_name+'</td>';
-						html += '<td>'+item.room_category_name+'</td>';
-					html += '</tr>';
-					
-					
-		});
-		html += '</table>';
-
-		html += '<table class="table table-bordered table-responsive-md table-striped mb-0 text-nowrap">';
-		html += '<tr>';
-		html += '<th colspan="7" style="text-align:center;"> Transportation </th>';
-		html += '</tr>';
-		html += '<tr>';
-						html += '<th> Si No </th>';
-						html += '<th> Vehicle Model </th>';
-						html += '<th> Vehicle Count </th>';
-					html += '</tr>';
-		$.each(vehicle_models, function (index1, item1) {
-			var sino = index1 + 1;		
-					html += '<tr>';
-						html += '<td>'+sino+'</td>';
-						html += '<td>'+item1.vehicle_model_name+'</td>';
-						html += '<td>'+item1.vehicle_count+'</td>';
-					
-					html += '</tr>';
-						
-		});
-		html += '</table>';
-		$('.tab_con').html(html);
-        $('#modal_tour').modal('show');
-    });*/
-
-	$(document).on('click', '.tour_view', function() {
-		var enquiry_header_id = <?php echo $object_det[0]['enquiry_header_id']; ?>;
-		var enquiry_details_id = <?php echo $object_det[0]['enquiry_details_id']; ?>;
-		var hotel_categories = <?php echo json_encode($hotel_categories); ?>;
-		var hotel_category_exist = <?php echo $object_det[0]['hotel_category']; ?>;
-		var meal_plan_exist = <?php echo $object_det[0]['meal_plan']; ?>;
-		var no_of_night = <?php echo $object_det[0]['no_of_night']; ?>;
-		var total_no_of_pax = <?php echo $object_det[0]['total_no_of_pax']; ?>;
-		var enquiry_header_id = <?php echo $object_det[0]['enquiry_header_id']; ?>;
-		var enquiry_details_id = <?php echo $object_det[0]['enquiry_details_id']; ?>;
-		var no_of_adult = <?php echo $object_det[0]['no_of_adult']; ?>;
-		var no_of_child_with_bed = <?php echo $object_det[0]['no_of_child_with_bed']; ?>;
-		var no_of_child_without_bed = <?php echo $object_det[0]['no_of_child_without_bed']; ?>;
-		var no_of_double_room = <?php echo $object_det[0]['no_of_double_room']; ?>;
-		var no_of_single_room = <?php echo $object_det[0]['no_of_single_room']; ?>;
-		var no_of_extra_bed = <?php echo $object_det[0]['no_of_extra_bed']; ?>;
-		var is_vehicle_required = <?php echo $object_det[0]['is_vehicle_required']; ?>;
-		var is_quick_quote = <?php echo $object_det[0]['is_quick_quote'] ? $object_det[0]['is_quick_quote'] : 0; ?>;
-		var vehicle_models = <?php echo json_encode($vehicle_data); ?>;
-
-		var child_t_d = 0;
-		var child_t_s = 0;
-
-		var child_wb_t_d = 0;
-		var child_wb_t_s = 0;
-
-		var extra_t_d = 0;
-		var extra_t_s = 0;
-
-		var room_t_d = 0;
-		var room_t_s = 0;
-
-		var start_date = <?= json_encode($start_date); ?>;
-		var totalDays = 0;
-
-		var vid_t;
-		var v_day_rent;
-		var v_max_km_day;
-		var v_extra_km_rate;
-		var v_veh_total;
-		var v_veh_header;
-
-
-		$.ajax({
-			url: '<?= site_url('Enquiry/loadTourLocation'); ?>',
-			type: 'POST',
-			data: {
-				enquiry_header_id: enquiry_header_id,
-				enquiry_details_id: enquiry_details_id
-			},
-			dataType: 'json',
-			success: function(response) {
-				// Clear existing location cards if necessary
-
-				var newCard = ``;
-				$.each(response, function(index, item) {
-					// Create a new location card element
-					var vehicleDetails = JSON.parse(item.vehicle_details);
-					var count = index + 1;
-
-					var isFirst = count === 1;
-					var prevCheckout = $('.tour_plan_div .location-card:last input[name^="addloc["][name$="[checkout]"]').val();
-					var checkinDate = isFirst ? start_date : prevCheckout || '';
-					ep_sel = '';
-					cp_sel = '';
-					map_sel = '';
-					ap_sel = '';
-					if (item.meal_plan_id == 1) {
-						ep_sel = "selected";
-					}
-					if (item.meal_plan_id == 2) {
-						cp_sel = "selected";
-					}
-					if (item.meal_plan_id == 3) {
-						map_sel = "selected";
-					}
-					if (item.meal_plan_id == 4) {
-						ap_sel = "selected";
-					}
-					$.each(item.cost, function(index1, item3) {
-						if ((item3.cost_component_id == "6" || item3.cost_component_id == "7") && item3.room_type_id == "2") {
-							room_t_d = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "12" || item3.cost_component_id == "13") && item3.room_type_id == "2") {
-							child_t_d = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "15" || item3.cost_component_id == "16") && item3.room_type_id == "2") {
-							child_wb_t_d = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "9" || item3.cost_component_id == "10") && item3.room_type_id == "2") {
-							extra_t_d = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "6" || item3.cost_component_id == "7") && item3.room_type_id == "1") {
-							room_t_s = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "12" || item3.cost_component_id == "13") && item3.room_type_id == "1") {
-							child_t_s = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "15" || item3.cost_component_id == "16") && item3.room_type_id == "1") {
-							child_wb_t_s = item3.quick_quote_tariff;
-						}
-						if ((item3.cost_component_id == "9" || item3.cost_component_id == "10") && item3.room_type_id == "1") {
-							extra_t_s = item3.quick_quote_tariff;
-						}
-					});
-					var room_total = parseInt(no_of_double_room) * parseInt(room_t_d);
-					var child_total = parseInt(no_of_child_with_bed) * parseInt(child_t_d);
-					var child_wb_total = parseInt(no_of_child_without_bed) * parseInt(child_wb_t_d);
-					var extra_total = parseInt(no_of_extra_bed) * parseInt(extra_t_d);
-					if (item.tax_status == 1) {
-						var tot_d = parseInt(room_t_d) + child_total + child_wb_total + extra_total;
-						var tot_s = parseInt(room_t_s);
-						if (tot_d >= 7500) {
-							var gst = 18;
-							var gstval = (gst / 100) * tot_d;
-							var total_doubles = (tot_d + gstval) * parseInt(no_of_double_room);
-							var d_totals = total_doubles * parseInt(item.no_of_days);
-						} else {
-							var d_totals = (room_total + child_total + child_wb_total + extra_total) * parseInt(item.no_of_days);
-						}
-
-						if (tot_s >= 7500) {
-							var gst = 18;
-							var gstval = (gst / 100) * tot_s;
-							var total_singles = (tot_s + gstval) * parseInt(no_of_single_room);
-							var s_totals = total_singles * parseInt(item.no_of_days);
-						} else {
-							var s_totals = (parseInt(no_of_single_room) * parseInt(room_t_s)) * parseInt(item.no_of_days);
-						}
-
-					} else {
-						var d_totals = (room_total + child_total + child_wb_total + extra_total) * parseInt(item.no_of_days);
-						var s_totals = (parseInt(no_of_single_room) * parseInt(room_t_s)) * parseInt(item.no_of_days);
-					}
-
-					newCard += `
-					
-						<div class="col-md-12 col-lg-12 col-xl-12 location-card" data-index="${count}">
-							<div class="card">
-								<div class="card-header">
-									<input type="hidden" id="own_arrange${count}" name="addloc[${count}][own_arrange]" value="${item.is_own_arrangement}">
-									<input type="hidden" id="tour_location_id${count}" name="addloc[${count}][tour_location_id]" value="${item.tour_location}">
-									<input type="hidden" id="location_sequence${count}" name="addloc[${count}][location_sequence]" value="${count}">
-									<div class="card-title"><span class="card-seq" style="color:#339966;">${count}</span>. <span style="color:#339966;">${item.geog_name}</span></div>
-								</div>
-								<div class="card-body">
-									<div class="ibox teams mb-30 bg-boxshadow">
-										<div class="ibox-content teams">
-											<div class="row mt-2">
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Checkin</b></div>
-													<span class="text-muted">
-														<input type="date" value="${item.check_in_date}" id="checkin${count}" name="addloc[${count}][checkin]" class="form-control input-sm" required readonly>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Nights</b></div>
-													<span class="text-muted">
-														<input type="text" id="no_of_night${count}" name="addloc[${count}][no_of_night]" value="${item.no_of_days}" class="form-control input-sm no_of_night" maxlength="2" oninput="validateNumericInput(this); calculateCheckout(${count});" readonly>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Checkout</b></div>
-													<span class="text-muted">
-														<input type="date" id="checkout${count}" value="${item.check_out_date}" name="addloc[${count}][checkout]" class="form-control input-sm" required readonly>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Hotel Category</b></div>
-														<select id="hotelcat${count}" name="addloc[${count}][hotelcat]" class="form-control select2-show-search input-sm hotel_cat_change_draft" data-id="${count}" data-hid="${item.hotel_id}" readonly>
-														<option value="">Select</option>
-														</select>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Hotel</b></div>
-													<span class="text-muted">
-														<select id="hotelid${count}" name="addloc[${count}][hotelid]" class="form-control select2-show-search input-sm hotel_change_draft" data-rid="${item.room_category_id}" data-id="${count}" readonly>
-														<option value="">Select</option>
-														</select>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Room Category</b></div>
-														<select id="roomcat${count}" name="addloc[${count}][roomcat]" class="form-control select2-show-search input-sm" data-id="${count}" readonly>
-														<option value="">Select</option>
-														</select>
-												</div>
-											</div>
-
-										
-											<div class="row mt-2">
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Meal Plan</b></div>
-													<span class="text-muted">
-														<select id="mealplan${count}" name="addloc[${count}][mealplan]" class="form-control select2-show-search input-sm mp_change" data-id="${count}" readonly>
-														<option value="">Select</option>
-														<option value="1" ${ep_sel}>EP</option>
-														<option value="2" ${cp_sel}>CP</option>
-														<option value="3" ${map_sel}>MAP</option>
-														<option value="4" ${ap_sel}>AP</option>
-														</select>
-													</span>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>No Of Adult</b></div>
-													<input type="text" id="no_of_adult${count}" name="addloc[${count}][no_of_adult]" value="${no_of_adult}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.With Bed Qty</b></div>
-													<input type="text" id="no_of_ch${count}" name="addloc[${count}][no_of_ch]" value="${no_of_child_with_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.Without Bed Qty</b></div>
-													<input type="text" id="no_of_cw${count}" name="addloc[${count}][no_of_cw]" value="${no_of_child_without_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Extra Bed Qty</b></div>
-													<input type="text" id="no_of_extra${count}" name="addloc[${count}][no_of_extra]" value="${no_of_extra_bed}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Total Pax</b></div>
-													<input type="text" id="no_of_pax${count}" name="addloc[${count}][no_of_pax]" value="${total_no_of_pax}" class="form-control input-sm" maxlength="3" oninput="validateNumericInput(this);" readonly>
-												</div>
-												
-											</div>`;
-					if (no_of_double_room > 0) {
-
-						newCard += `<div class="row mt-2 double_row">
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Double Room</b></div>
-														<input type="text" id="double${count}" name="addloc[${count}][double]" value="${no_of_double_room}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-													</div>
-										
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Daily Room Rate</b></div>
-														<input type="text" id="d_adult_rate${count}" name="addloc[${count}][d_adult_rate]" value="${room_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>C.With Bed Rate</b></div>
-														<input type="text" id="d_child_rate${count}" name="addloc[${count}][d_child_rate]" value="${child_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>C.Without Bed Rate</b></div>
-														<input type="text" id="d_child_wb_rate${count}" name="addloc[${count}][d_child_wb_rate]" value="${child_wb_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Extra Bed Rate</b></div>
-														<input type="text" id="d_extra_bed_rate${count}" name="addloc[${count}][d_extra_bed_rate]" value="${extra_t_d}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-														<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Total</b></div>
-														<input type="text" id="d_total_rate${count}" name="addloc[${count}][d_total_rate]" value="${d_totals}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-													</div>
-													
-												</div>`;
-					} else {
-						newCard += `<input type="hidden" id="double${count}" name="addloc[${count}][double]" value="0">
-															<input type="hidden" id="d_adult_rate${count}" name="addloc[${count}][d_adult_rate]" value="0">
-															<input type="hidden" id="d_child_rate${count}" name="addloc[${count}][d_child_rate]" value="0">
-															<input type="hidden" id="d_child_wb_rate${count}" name="addloc[${count}][d_child_wb_rate]" value="0">
-															<input type="hidden" id="d_extra_bed_rate${count}" name="addloc[${count}][d_extra_bed_rate]" value="0">
-															<input type="hidden" id="d_total_rate${count}" name="addloc[${count}][d_total_rate]" value="0">`;
-					}
-					if (no_of_single_room > 0) {
-						newCard += `<div class="row mt-2 single_row">
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Single Room</b></div>
-													<input type="text" id="single${count}" name="addloc[${count}][single]" value="${no_of_single_room}" class="form-control input-sm" maxlength="2" oninput="validateNumericInput(this);" readonly>
-												</div>
-									
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Daily Room Rate</b></div>
-													<input type="text" id="s_adult_rate${count}" name="addloc[${count}][s_adult_rate]" value="${room_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.With Bed Rate</b></div>
-													<input type="text" id="s_child_rate${count}" name="addloc[${count}][s_child_rate]" value="${child_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>C.Without Bed Rate</b></div>
-													<input type="text" id="s_child_wb_rate${count}" name="addloc[${count}][s_child_wb_rate]" value="${child_wb_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Extra Bed Rate</b></div>
-													<input type="text" id="s_extra_bed_rate${count}" name="addloc[${count}][s_extra_bed_rate]" value="${extra_t_s}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-													<div class="teams-rank"><b>Total</b></div>
-													<input type="text" id="s_total_rate${count}" name="addloc[${count}][s_total_rate]" value="${s_totals}" class="form-control input-sm" maxlength="6" oninput="validateNumericInput(this);" readonly>
-												</div>
-												
-											</div>`;
-					} else {
-						newCard += `<input type="hidden" id="single${count}" name="addloc[${count}][single]" value="0">
-															<input type="hidden" id="s_adult_rate${count}" name="addloc[${count}][s_adult_rate]" value="0">
-															<input type="hidden" id="s_child_rate${count}" name="addloc[${count}][s_child_rate]" value="0">
-															<input type="hidden" id="s_child_wb_rate${count}" name="addloc[${count}][s_child_wb_rate]" value="0">
-															<input type="hidden" id="s_extra_bed_rate${count}" name="addloc[${count}][s_extra_bed_rate]" value="0">
-															<input type="hidden" id="s_total_rate${count}" name="addloc[${count}][s_total_rate]" value="0">`;
-					}
-					if (is_vehicle_required == 1) {
-
-						$.each(vehicle_models, function(vindex, vmodel) {
-							$.each(vehicleDetails, function(v_index, v_item) {
-								if (vmodel.vehicle_type_id == v_item.veh_type_id) {
-									vid_t = count + vmodel.vehicle_type_id;
-									v_day_rent = v_item.day_rent;
-									v_max_km_day = v_item.max_km_day;
-									v_travel_distance = v_item.travel_distance;
-									v_extra_kilometer = v_item.extra_kilometer;
-									v_extra_km_rate = v_item.extra_km_rate;
-									v_veh_total = v_item.veh_total;
-									v_veh_header = v_item.veh_header;
-								}
-							});
-							if (vindex == 0) {
-								newCard += `
-												<center><div class="col-md-12 col-lg-12 col-xl-12"style="padding-top:10px;"><h5 style="color:#003300;">Vehicle Details<span id="v_from_to${count}">${v_veh_header}</span></h5></div></center>
-												<input type="hidden" id="veh_header${count}" name="addloc[${count}][veh_header]" value="${v_veh_header}">
-												<div class="row mt-2 single_row">
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Vehicle Model</b></div>
-												    </div>		
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Vehicle Count</b></div>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Daily Rent</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Max KM/Day</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Distance</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Extra KM</b></div>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Extra KM Rate</b></div>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														<div class="teams-rank"><b>Total</b></div>
-													</div>
-												</div>
-														`;
-							}
-							vid = count + vmodel.vehicle_type_id;
-							newCard += `<div class="row mt-2 single_row">
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="veh_model${vid}" name="addloc[${count}][veh_model][${vindex}]" value="${vmodel.vehicle_model_name}" class="form-control input-sm veh_model${vindex}" readonly>
-														<input type="hidden" id="veh_type_id${vid}" name="addloc[${count}][veh_type_id][${vindex}]" value="${vmodel.vehicle_type_id}" class="form-control input-sm veh_type_id${vindex}">
-													</div>
-										
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="veh_count${vid}" name="addloc[${count}][veh_count][${vindex}]" value="${vmodel.vehicle_count}" class="form-control input-sm veh_count${vindex}" maxlength="2" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-													
-														<input type="text" id="day_rent${vid}" name="addloc[${count}][day_rent][${vindex}]" value="${v_day_rent}" class="form-control input-sm cls_daily day_rent${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-													
-														<input type="text" id="max_km_day${vid}" name="addloc[${count}][max_km_day][${vindex}]" value="${v_max_km_day}" class="form-control input-sm max_km_day${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-													
-														<input type="text" id="travel_distance${vid}" name="addloc[${count}][travel_distance][${vindex}]" value="${v_travel_distance}" class="form-control input-sm cls_dist travel_distance${vindex}" data-id="${vid}" data-cid="${count}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-													
-														<input type="text" id="extra_kilometer${vid}" name="addloc[${count}][extra_kilometer][${vindex}]" value="${v_extra_kilometer}" class="form-control input-sm extra_kilometer${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-1 col-sm-12 col-md-2">
-														
-														<input type="text" id="extra_km_rate${vid}" name="addloc[${count}][extra_km_rate][${vindex}]" value="${v_extra_km_rate}" class="form-control input-sm extra_km_rate${vindex}" maxlength="5" oninput="validateNumericInput(this);" readonly>
-													</div>
-													<div class="col-xl-2 col-sm-12 col-md-2">
-														
-														<input type="text" id="veh_total${vid}" name="addloc[${count}][veh_total][${vindex}]" value="${v_veh_total}" class="form-control input-sm veh_total${vindex}" maxlength="5" oninput="validateNumericInput(this);"readonly>
-													</div>
-													
-												</div>`;
-						});
-					} else {
-						newCard += `<input type="hidden" id="veh_model${count}0" name="addloc[${count}][veh_model][0]" value="">
-															<input type="hidden" id="veh_count${count}0" name="addloc[${count}][veh_count][0]" value="0">
-															<input type="hidden" id="day_rent${count}0" name="addloc[${count}][day_rent][0]" value="0">
-															<input type="hidden" id="max_km_day${count}0" name="addloc[${count}][max_km_day][0]" value="0">
-															<input type="hidden" id="extra_km_rate${count}0" name="addloc[${count}][extra_km_rate][0]" value="0">
-															<input type="hidden" id="veh_total${count}0" name="addloc[${count}][veh_total][0]" value="0">`;
-					}
-					newCard += `
-											
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						
-					`;
-					setTimeout(function() {
-						var hotelCat = $('#hotelcat' + count);
-						console.log("Dropdown found?", hotelCat.length);
-
-						if (hotelCat.length > 0) {
-							hotelCat.empty();
-							hotelCat.append('<option value="">Select</option>');
-
-							$.each(hotel_categories, function(hIndex, hotelcat) {
-								var selected = (hotelcat.hotel_category_id == item.hot_cat_id) ? "selected" : "";
-								hotelCat.append('<option value="' + hotelcat.hotel_category_id + '" ' + selected + '>' + hotelcat.hotel_category_name + '</option>');
-							});
-
-							hotelCat.trigger('change');
-						} else {
-							console.log("Dropdown not found. Ensure it exists before updating.");
-						}
-					}, 500);
-				});
-				//$(".tour_plan_div").append(newCard);
-
-				$('.tab_con').html(newCard);
-				$('#modal_tour').modal('show');
-			},
-			error: function(xhr, status, error) {
-				console.error(error);
-			}
-		});
 	});
 </script>

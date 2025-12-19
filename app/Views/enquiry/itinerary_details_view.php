@@ -842,7 +842,7 @@
 							if (row.availability_check == 1) {
 								return '<h6 style="font-weight: bold;color:#0066cc">In Progress</h6>';
 							} else if (row.availability_check == 2) {
-								return '<h6 style="font-weight: bold;color:#339966">Available</h6>';
+								return '<h6 style="font-weight: bold;color:#339966">Available  <a href="" class="hotel_not_available" data-id=' + row.enquiry_detail_details_id + '><i class="fa fa-question-circle" style="color:rgb(7, 138, 2); padding-right:10px;" type="button" title="Hotel Not Available"></i></a></h6>';
 							} else if (row.availability_check == 3) {
 								return '<h6 style="font-weight: bold;color:#cc3399">Not Available <a href="" class="hotel_not_available" data-id=' + row.enquiry_detail_details_id + '><i class="fa fa-question-circle" style="color:rgb(7, 138, 2); padding-right:10px;" type="button" title="Hotel Not Available"></i></a></h6>';
 							} else {

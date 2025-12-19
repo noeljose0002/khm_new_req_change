@@ -6901,6 +6901,8 @@ class Enquiry extends BaseController
                 $data['extension_ref_id_temp'] = $extension_ref_id_temp;
                 $data['tour_plan_ref_id'] = $tour_plan_det[0]['extension_ref_id'];
                 $data['previous_itinerary_details_save'] = $previous_itinerary_details_save;
+                $data['enquiry_header_id'] = $object_det[0]['enquiry_header_id'];
+                $data['enquiry_details_id'] = $object_det[0]['enquiry_details_id'];
                 return view('enquiry/itinerary_view', $data);
             }
         } else {
