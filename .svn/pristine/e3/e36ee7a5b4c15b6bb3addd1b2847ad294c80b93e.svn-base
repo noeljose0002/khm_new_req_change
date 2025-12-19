@@ -2904,7 +2904,7 @@ $cs_trans_total = 0;
 																											$travel_distance = isset($vmodel->travel_distance) ? (float)$vmodel->travel_distance : 0;
 																											$extra_kilometer = isset($vmodel->extra_kilometer) ? (float)$vmodel->extra_kilometer : 0;
 																											$day_rent = isset($vmodel->day_rent) ? (float)$vmodel->day_rent : 0;
-																											$extra_km_rate = isset($vmodel->extra_km_rate) ? (float)$vmodel->extra_km_rate : 0;
+																											$extra_km_rate = 0;
 																											$max_km_day = isset($vmodel->max_km_day) ? (int)$vmodel->max_km_day : 0;
 																											$pre_to_cur = isset($vmodel->pre_to_cur) ? (float)$vmodel->pre_to_cur : 0;
 																											$cur_to_dep = isset($vmodel->cur_to_dep) ? (float)$vmodel->cur_to_dep : 0;
@@ -2912,7 +2912,7 @@ $cs_trans_total = 0;
 																											$hub_to_arr = isset($vmodel->hub_to_arr) ? (float)$vmodel->hub_to_arr : 0;
 																											$arr_to_loc = isset($vmodel->arr_to_loc) ? (float)$vmodel->arr_to_loc : 0;
 																											$adhoc_rate_temp = isset($adhoc_rate_temp) ? (float)$adhoc_rate_temp : (isset($vmodel->adhoc_rate) ? (float)$vmodel->adhoc_rate : 0);
-																											
+
 																											// FIXED: Determine if this is the last day or second-last day
 																											$is_last_day = ($startDate1->format('d-m-Y') == $object_det[0]['end_date']);
 																											$is_second_last_day = false;
@@ -2946,7 +2946,7 @@ $cs_trans_total = 0;
 																											$extra_kilometer_temp = ($travel_distance_temp > $max_km_day_temp) ? $travel_distance_temp - $max_km_day_temp : 0;
 
 																											// FIXED: Use temp extra for total calculation
-																											$veh_total_temp = $day_rent + ($extra_kilometer_temp * 0) + $adhoc_rate_temp;
+																											$veh_total_temp = $day_rent + ($extra_kilometer_temp * $extra_km_rate) + $adhoc_rate_temp;
 																											$grand_veh_total += ($veh_total_temp * $vehicle_count);
 
 																											$si_nos = $vindex + 1;
@@ -2967,7 +2967,7 @@ $cs_trans_total = 0;
 																																$adhoc_rate_temp = isset($drval->adhoc_rate) ? (float)$drval->adhoc_rate : $adhoc_rate_temp;
 																																// Recompute extra_temp based on overridden temp
 																																$extra_kilometer_temp = ($travel_distance_temp > $max_km_day_temp) ? $travel_distance_temp - $max_km_day_temp : 0;
-																																$veh_total_temp = $day_rent + ($extra_kilometer_temp * 0) + $adhoc_rate_temp;
+																																$veh_total_temp = $day_rent + ($extra_kilometer_temp * $extra_km_rate) + $adhoc_rate_temp;
 																															}
 																														}
 																													}
