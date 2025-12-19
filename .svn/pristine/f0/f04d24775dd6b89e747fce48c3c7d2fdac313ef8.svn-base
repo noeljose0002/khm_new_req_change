@@ -8299,8 +8299,7 @@ class Enquiry extends BaseController
                                         "veh_total" => $item['veh_total'][$index],
                                         'veh_header' => $item['veh_header'],
                                         'chk_vehicle' => $item['chk_vehicle_value'][$index],
-                                        'chk_vehicle_status' => $item['chk_vehicle_hidden'][$index],
-                                        'vehicle_count' => 1
+                                        'chk_vehicle_status' => $item['chk_vehicle_hidden'][$index]
                                     ];
                                 }
                             }
@@ -8417,8 +8416,7 @@ class Enquiry extends BaseController
                                         "veh_total" => $item['veh_total'][$index],
                                         'veh_header' => $item['veh_header'],
                                         'chk_vehicle' => $item['chk_vehicle_value'][$index],
-                                        'chk_vehicle_status' => $item['chk_vehicle_hidden'][$index],
-                                        'vehicle_count' => 1
+                                        'chk_vehicle_status' => $item['chk_vehicle_hidden'][$index]
                                     ];
                                 }
                             }
@@ -8609,8 +8607,7 @@ class Enquiry extends BaseController
                                         "veh_total" => $item['veh_total'][$index],
                                         'veh_header' => $item['veh_header'],
                                         'chk_vehicle' => $item['chk_vehicle_value'][$index],
-                                        'chk_vehicle_status' => $item['chk_vehicle_hidden'][$index],
-                                        'vehicle_count' => 1
+                                        'chk_vehicle_status' => $item['chk_vehicle_hidden'][$index]
                                     ];
                                 }
                             }
@@ -8733,8 +8730,7 @@ class Enquiry extends BaseController
                                         "veh_total" => $item['veh_total'][$index],
                                         'veh_header' => $item['veh_header'],
                                         'chk_vehicle' => $item['chk_vehicle_value'][$index],
-                                        'chk_vehicle_status' => $item['chk_vehicle_hidden'][$index],
-                                        'vehicle_count' => 1
+                                        'chk_vehicle_status' => $item['chk_vehicle_hidden'][$index]
                                     ];
                                 }
                             }

@@ -6143,3 +6143,335 @@ DEBUG - 2025-12-19 10:41:03 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2025-12-19 10:41:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-12-19 10:41:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2025-12-19 10:41:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:09:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:09:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:09:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-12-19 11:09:15 --> [DEPRECATED] round(): Passing null to parameter #1 ($num) of type int|float is deprecated in APPPATH\Controllers\Dashboard.php on line 247.
+ 1 APPPATH\Controllers\Dashboard.php(247): round(null, 2)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-19 11:10:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:10:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:11:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:11:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:11:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 11:11:15 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-19 11:11:15 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-19 11:11:15 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-19 11:11:15 --> getSightName(0) returned: 0 rows
+DEBUG - 2025-12-19 11:13:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:13:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:13:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 11:13:31 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-19 11:13:31 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-19 11:13:31 --> getSightName(0) returned: 0 rows
+INFO - 2025-12-19 11:13:31 --> getSightName(0) returned: 0 rows
+DEBUG - 2025-12-19 11:23:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:23:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:24:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:24:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:24:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:24:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:24:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:24:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:24:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:24:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 11:24:17 --> Day 1 (date 2025-12-27): No defaults loaded
+INFO - 2025-12-19 11:24:17 --> Loaded default SS for Day 2 (date 2025-12-28): 1 items
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=0km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Day 1 (date 2025-12-29): No defaults loaded
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-28: Derived Base=90km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-28: Derived Base=90km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-28: Derived Base=90km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-28: Derived Base=90km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-28: Derived Base=90km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+INFO - 2025-12-19 11:24:17 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+DEBUG - 2025-12-19 11:24:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:24:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=90km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=90km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=90km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=90km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=90km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-28: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-28: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-28: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-28: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-28: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+INFO - 2025-12-19 11:24:30 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+DEBUG - 2025-12-19 11:25:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:25:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:25:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:25:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:25:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:34:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-27: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=90km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=90km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=90km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=90km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-28: DB Total=0km, Saved SS=90km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Expansion date 2025-12-29: DB Total=211km, Saved SS=0km, Derived Base=211km (display base; JS adds current SS)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-27: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-28: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-28: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-28: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-28: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-28: Derived Base=0km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+INFO - 2025-12-19 11:34:11 --> Itinerary expansion date 2025-12-29: Derived Base=200km (no SS added)
+DEBUG - 2025-12-19 11:34:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:34:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:36:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:36:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:39:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:39:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:39:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:39:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:39:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:40:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:58:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:58:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:58:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:59:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-12-19 17:29:12 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-12-19 17:29:12 --> 220 smtp.gmail.com ESMTP d9443c01a7336-2a2f3d5d863sm20789525ad.80 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [122.167.184.116]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials d9443c01a7336-2a2f3d5d863sm20789525ad.80 - gsmtp
+
+DEBUG - 2025-12-19 11:59:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:59:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:59:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:59:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:59:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:59:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 11:59:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2025-12-19 17:30:24 --> Email: Unable to send email using SMTP. Your server might not be configured to send mail using this method.
+ERROR - 2025-12-19 17:30:24 --> 220 smtp.gmail.com ESMTP 98e67ed59e1d1-34e70ddf58dsm5141738a91.17 - gsmtp
+
+hello: 250-smtp.gmail.com at your service, [122.167.184.116]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+Failed to authenticate password. Error: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-34e70ddf58dsm5141738a91.17 - gsmtp
+
+DEBUG - 2025-12-19 12:00:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:00:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 12:00:49 --> Day 1 (date 2026-01-01): No defaults loaded
+INFO - 2025-12-19 12:00:49 --> Loaded default SS for Day 2 (date 2026-01-02): 1 items
+INFO - 2025-12-19 12:00:49 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:00:49 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:00:49 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:00:49 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:00:49 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:00:49 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+DEBUG - 2025-12-19 12:24:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:24:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 12:24:55 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:24:55 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:24:55 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:24:55 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:24:55 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:24:55 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:24:55 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:24:55 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:24:55 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:24:55 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:24:55 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:24:55 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+DEBUG - 2025-12-19 12:57:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 12:57:18 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:18 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:18 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:18 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:18 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:18 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:18 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:57:18 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:57:18 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:57:18 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:57:18 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:57:18 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+DEBUG - 2025-12-19 12:57:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:57:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 12:57:26 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:26 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:26 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:26 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:26 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:26 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:26 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:57:26 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:57:26 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:57:26 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:57:26 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:57:26 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+DEBUG - 2025-12-19 12:57:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:57:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 12:57:32 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:32 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:32 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:32 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:32 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:32 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:57:32 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:57:32 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:57:32 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:57:32 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:57:32 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:57:32 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+DEBUG - 2025-12-19 12:59:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:59:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 12:59:26 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:26 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:26 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:26 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:26 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:26 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:26 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:59:26 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:59:26 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:59:26 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:59:26 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:59:26 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+DEBUG - 2025-12-19 12:59:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-19 12:59:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 12:59:47 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:47 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:47 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:47 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:47 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:47 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:47 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:59:47 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:59:47 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:59:47 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:59:47 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:59:47 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+DEBUG - 2025-12-19 12:59:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 12:59:49 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:49 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:49 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:49 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:49 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:49 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:49 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:59:49 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:59:49 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:59:49 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:59:49 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:59:49 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+DEBUG - 2025-12-19 12:59:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-19 12:59:51 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:51 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:51 --> Expansion date 2026-01-01: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:51 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:51 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:51 --> Expansion date 2026-01-02: DB Total=36km, Saved SS=200km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-19 12:59:51 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:59:51 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:59:51 --> Itinerary expansion date 2026-01-01: Derived Base=36km (no SS added)
+INFO - 2025-12-19 12:59:51 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:59:51 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)
+INFO - 2025-12-19 12:59:51 --> Itinerary expansion date 2026-01-02: Derived Base=0km (no SS added)

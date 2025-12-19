@@ -1071,8 +1071,8 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
         </tr>
     <?php } ?>
     <tr> 
-        <td style="background-color:#D3D3D3 ;"><b>Total Net Rate</b></td>
-        <td style="text-align:right;background-color:#D3D3D3;"><b><?php echo $tnr_hidden; ?></b></td>
+        <td style="background-color:#808080 ;"><b>Total Net Rate</b></td>
+        <td style="text-align:right;background-color:#808080;"><b><?php echo $tnr_hidden; ?></b></td>
         
     </tr>
 </table>	
@@ -1110,8 +1110,8 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['gst_value']; ?></td>
 						</tr>
 						<tr >
-							 <td style="background-color:#D3D3D3 ;"><b>Total Package Cost</b></td>
-							 <td style="text-align:right;background-color:#D3D3D3 ;"><?php echo $iti_cost_datas[0]['tpc']; ?></td>
+							 <td style="background-color:#808080 ;"><b>Total Package Cost</b></td>
+							 <td style="text-align:right;background-color:#808080 ;"><?php echo $iti_cost_datas[0]['tpc']; ?></td>
 						</tr>
 						 <?php if ($iti_cost_datas[0]['is_tcs'] == 1) { ?>
         <tr>
@@ -1127,7 +1127,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 			 <b>Total Package Cost(With TCS)</b>
 				</td>
 																
-			<td style="text-align:right;background-color:#D3D3D3;"><?php echo ($iti_cost_datas[0]['tpc_with_tcs']); ?></td>
+			<td style="text-align:right;background-color:#808080;"><?php echo ($iti_cost_datas[0]['tpc_with_tcs']); ?></td>
 				</tr>
         <?php } ?>
 						
