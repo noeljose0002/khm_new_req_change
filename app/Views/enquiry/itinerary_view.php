@@ -1955,28 +1955,41 @@ $cs_trans_total = 0;
 																												<!-- PRIORITY LOGIC: Check itinerary_expansion_details FIRST, then fallback to tour_expansion_details -->
 																												<?php
 																												$day_expansions = array();
-																												$data_source = ''; // Track which source we're using for debugging
+																												$vehicle_details = [];
+																												$data_source = '';
 
-																												// PRIORITY 1: Check itinerary_expansion_details first (saved/draft itinerary data from khm_obj_enquiry_tour_itinerary_expansion)
+																												// PRIORITY 1: Check itinerary_expansion_details first (saved/draft data)
 																												if (!empty($itinerary_expansion_details) && isset($itinerary_expansion_details[$ttval['tour_details_id']])) {
 																													foreach ($itinerary_expansion_details[$ttval['tour_details_id']] as $exp) {
 																														if ($exp['tour_expansion_date'] == $startDate1->format('Y-m-d')) {
-																															$day_expansions[] = $exp;
-																															$data_source = 'itinerary'; // Mark source as itinerary table
+																															$vehicle_details = json_decode($exp['vehicle_details_json']);
+																															$data_source = 'itinerary';
+																															break; // Use first match
 																														}
 																													}
 																												}
 
-																												// FALLBACK: If no itinerary expansion data, use tour_expansion_details (initial tour plan from khm_obj_enquiry_tour_expansion)
-																												if (empty($day_expansions) && isset($tour_expansion_details[$ttval['tour_details_id']])) {
+																												// FALLBACK: If no itinerary expansion data, use tour_expansion_details (initial tour plan)
+																												if (empty($vehicle_details) && isset($tour_expansion_details[$ttval['tour_details_id']])) {
 																													foreach ($tour_expansion_details[$ttval['tour_details_id']] as $exp) {
 																														if ($exp['tour_expansion_date'] == $startDate1->format('Y-m-d')) {
-																															$day_expansions[] = $exp;
-																															$data_source = 'tour'; // Mark source as tour table
+																															$vehicle_details = json_decode($exp['vehicle_details_json']);
+																															$data_source = 'tour';
+																															break;
 																														}
 																													}
 																												}
 
+																												// LAST RESORT: If still no expansion data, fall back to tour_plan_det static data
+																												if (empty($vehicle_details)) {
+																													$vehicle_details = json_decode($ttval['vehicle_details']);
+																													$data_source = 'static';
+																												}
+
+																												// Safety check
+																												if (!is_array($vehicle_details) && !is_object($vehicle_details)) {
+																													$vehicle_details = [];
+																												}
 																												// Calculate totals from expansion data
 																												$expansion_hotel_total = 0;
 																												$double_expansions = array();
@@ -1986,7 +1999,7 @@ $cs_trans_total = 0;
 																														$expansion_hotel_total += (int) $exp['double_total_rate'] + (int) $exp['single_total_rate'];
 																														// Only add to double_expansions if it has a non-zero double rate
 																														$double_rate = (int) ($exp['room_rate_double'] ?? 0);
-																														if ($double_rate >= 0) {
+																														if ($double_rate > 0) {
 																															$double_expansions[] = $exp;
 																														}
 																														// Only add to single_expansions if it has a non-zero single rate
@@ -4010,7 +4023,7 @@ $cs_trans_total = 0;
 															$bifur_extra_total += ($val['extra_bed'] * $extra_t_d);
 															?>
 															<?php $row_class = ($single_row_count === 0) ? ' class="hotel-row"' : ''; ?>
-?>
+															?>
 															<tr <?php echo $row_class; ?>>
 																<?php if ($row_counter === 0) { ?>
 																	<td rowspan="<?php echo $total_rows; ?>"><?php echo $k; ?></td>
