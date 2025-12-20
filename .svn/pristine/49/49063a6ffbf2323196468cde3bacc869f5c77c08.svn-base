@@ -1986,7 +1986,7 @@ $cs_trans_total = 0;
 																														$expansion_hotel_total += (int) $exp['double_total_rate'] + (int) $exp['single_total_rate'];
 																														// Only add to double_expansions if it has a non-zero double rate
 																														$double_rate = (int) ($exp['room_rate_double'] ?? 0);
-																														if ($double_rate >= 0) {
+																														if ($double_rate > 0) {
 																															$double_expansions[] = $exp;
 																														}
 																														// Only add to single_expansions if it has a non-zero single rate
