@@ -2176,6 +2176,11 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		var $select = $(this);
 		var roomCatVal = $select.val();
+		if (!roomCatVal || roomCatVal == '0') {
+		console.log('Skipping room cat change for Own Arrangement');
+		return;
+	}
+
 		var rid = $select.attr('data-id');
 		var count = $select.attr('count-id') || $select.data('count');
 		var night = parseInt($select.attr('data-night'));
@@ -3110,7 +3115,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		// **NEW: Check if room category is selected before allowing focus**
 		var roomCatCommon = $(`#roomcat_common${id}`).val();
-		if (!roomCatCommon || roomCatCommon === "" || roomCatCommon === "0") {
+		if (!roomCatCommon || roomCatCommon === "") {
 			alert("Please select Room Category first before entering number of nights");
 			$(this).blur(); // Remove focus immediately
 			return false;
@@ -6420,6 +6425,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 
 		var mealplan = $(this).val();
+		
 		var rid = $(this).attr('data-id');
 		var count = $(this).attr('data-count');
 		var type = $(this).attr('data-type');
@@ -6427,6 +6433,11 @@ $is_edit = $edit_id ? $edit_id : 0;
 		var $mealplanSelect = $(this);
 		var night = parseInt($(this).attr('data-night'));
 		var roomIndex = parseInt($(this).attr('data-room-index'));
+		var room_cat_id = $(`#roomcat${rid}`).val();
+if (!room_cat_id || room_cat_id == '0' || room_cat_id == '') {
+    console.log('Skipping meal plan change - room category is Own Arrangement or empty');
+    return;
+}
 
 		console.log('=== Meal Plan Change ===');
 		console.log('rid:', rid, 'count:', count, 'night:', night, 'roomIndex:', roomIndex, 'type:', type, 'value:', mealplan);
@@ -6710,6 +6721,10 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		const $this = $(this);
 		const room_cat_id = $this.val();
+		if (!room_cat_id || room_cat_id == '0') {
+		console.log('Skipping room cat change for Own Arrangement');
+		return;
+	}
 		const rid = $this.attr('data-id');
 		const count = $this.attr('count-id');
 		const $spinner = $('#csspinner');
@@ -7070,8 +7085,13 @@ $is_edit = $edit_id ? $edit_id : 0;
 			console.log('Skipping room cat change during draft load');
 			return;
 		}
+		
 
 		const value = $(this).val();
+		if (!value || value == '0') {
+			console.log('Skipping room cat change for Own Arrangement');
+			return;
+		}
 		const count = $(this).attr('data-id');
 		const commonOptions = $(this).html();
 
@@ -7205,6 +7225,10 @@ $is_edit = $edit_id ? $edit_id : 0;
 		$(this).data('updating', true);
 
 		var value = $(this).val();
+		if (!value || value == '0') {
+			console.log('Skipping room cat change for Own Arrangement');
+			return;
+		}
 		var count = $(this).attr('data-id');
 
 		var $spinner = $('#csspinner');
@@ -7325,18 +7349,25 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		$(`#roomcat_common${id}`).val('').trigger('change');
 
+		// Handle "Own Arrangement" selection (hotel_id == '0')
 		if (!hotel_id || hotel_id == '0') {
+			// Set room category dropdowns to "Own Arrangement"
 			$(`#nightly-details${id} .room_cat_change`).each(function() {
 				var $select = $(this);
-				$select.html('<option value="">Select</option>').select2();
+				$select.html('<option value="">Select</option><option value="0" selected>Own Arrangement</option>').select2();
 				$select.trigger('change');
 			});
+
+			// Set common room category to "Own Arrangement"
+			$(`#roomcat_common${id}`).html('<option value="">Select</option><option value="0" selected>Own Arrangement</option>').select2();
+			$(`#roomcat_common${id}`).trigger('change');
+
 			$(`#tax_status${id}`).val(0);
 
 			// Hide GST columns using the toggle function
 			toggleGSTColumns(false, id);
 
-			// updateGrandtotalBoth();
+			// Update totals
 			get_veh_grand_total();
 			$(`#loc_total${id}`).text(updateGrandtotalBoth(id) + " + " + 0);
 			updateAllTotals();
@@ -7345,6 +7376,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			return;
 		}
 
+		// Regular AJAX call for actual hotels
 		$.ajax({
 			url: "<?= site_url('Enquiry/getTourRoomCategory'); ?>",
 			method: "POST",
@@ -7379,21 +7411,18 @@ $is_edit = $edit_id ? $edit_id : 0;
 				// Trigger visibility toggle to apply GST column visibility
 				toggleNightsVisibility();
 
-				// updateGrandtotalBoth();
-				// get_veh_grand_total();
-				// $(`#loc_total${id}`).text(updateGrandtotalBoth(id) + " + " + 0);
 				updateAllTotals();
 			},
 			error: function(xhr, status, error) {
 				console.error('Error fetching room categories:', error);
 				var errorAlert = `
-				<div class="alert alert-danger alert-dismissible fade show" role="alert">
-					<span class="alert-inner--icon"><i class="fe fe-alert-triangle"></i></span>
-					<span class="alert-inner--text">Error fetching room categories. Please try again.</span>
-					<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>`;
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<span class="alert-inner--icon"><i class="fe fe-alert-triangle"></i></span>
+				<span class="alert-inner--text">Error fetching room categories. Please try again.</span>
+				<button type="button" class="close text-white" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>`;
 				$('#hotel_alert').html(errorAlert);
 				setTimeout(function() {
 					$(".alert").fadeOut("slow", function() {
@@ -11549,6 +11578,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 	var locations = <?php echo isset($all_locations) ? json_encode($all_locations) : '[]'; ?>;
 	// Updated copy_tour_plan click handler with nightly details generation
 	$(document).on('click', '#copy_tour_plan', async function() {
+		
 		var $btn = $(this);
 		if ($btn.prop('disabled')) return;
 		$btn.prop('disabled', true);
@@ -13008,6 +13038,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 			$btn.prop('disabled', false);
 			$('#spinner_draft').hide();
 		}
+		checkTotalNights();
 	});
 	// ================= Helper: Safe Select2 init/destroy =================
 	function isSelect2Initialized($el) {

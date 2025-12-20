@@ -4009,8 +4009,6 @@ $cs_trans_total = 0;
 															$bifur_child_wb_total += ($val['child_without_bed'] * $child_wb_t_d);
 															$bifur_extra_total += ($val['extra_bed'] * $extra_t_d);
 															?>
-															<?php $row_class = ($single_row_count === 0) ? ' class="hotel-row"' : ''; ?>
-?>
 															<tr <?php echo $row_class; ?>>
 																<?php if ($row_counter === 0) { ?>
 																	<td rowspan="<?php echo $total_rows; ?>"><?php echo $k; ?></td>
@@ -4678,37 +4676,37 @@ $cs_trans_total = 0;
 																</th>
 																<th>
 																	<?php
-																	// Extract special events from itinerary_details_save
-																	$special_events_list = [];
-																	if (!empty($itinerary_details_save)) {
-																		foreach ($itinerary_details_save as $iti_detail) {
-																			$json_special_event = $iti_detail['json_special_event'] ?? '[]';
-																			$events = json_decode($json_special_event, true);
+// Extract special events from itinerary_details_save
+$special_events_list = [];
+if (!empty($itinerary_details_save)) {
+    foreach ($itinerary_details_save as $iti_detail) {
+        $json_special_event = $iti_detail['json_special_event'] ?? '[]';
+        $events = json_decode($json_special_event, true);
+        
+        if (!empty($events) && is_array($events)) {
+            foreach ($events as $event) {
+                // KEY IS 'spcl_event' not 'special_event'
+                if (isset($event['spcl_event']) && !empty(trim($event['spcl_event']))) {
+                    $special_events_list[] = trim($event['spcl_event']);
+                }
+            }
+        }
+    }
+}
 
-																			if (!empty($events) && is_array($events)) {
-																				foreach ($events as $event) {
-																					// KEY IS 'spcl_event' not 'special_event'
-																					if (isset($event['spcl_event']) && !empty(trim($event['spcl_event']))) {
-																						$special_events_list[] = trim($event['spcl_event']);
-																					}
-																				}
-																			}
-																		}
-																	}
+// Get unique special event names
+$unique_special_events = array_unique(array_filter($special_events_list));
+?>
 
-																	// Get unique special event names
-																	$unique_special_events = array_unique(array_filter($special_events_list));
-																	?>
-
-																	<h5 style="font-weight:bold;color:#003300;">
-																		Special Event:
-																		<span id="spcl_span">
-																			<?php echo $iti_cost_datas[0]['special_event'] ?? ''; ?>
-																		</span>
-																		<?php if (!empty($unique_special_events)): ?>
-																			(<?php echo implode(', ', $unique_special_events); ?>)
-																		<?php endif; ?>
-																	</h5>
+<h5 style="font-weight:bold;color:#003300;">
+    Special Event: 
+    <span id="spcl_span">
+        <?php echo $iti_cost_datas[0]['special_event'] ?? ''; ?>
+    </span>
+    <?php if (!empty($unique_special_events)): ?>
+        (<?php echo implode(', ', $unique_special_events); ?>)
+    <?php endif; ?>
+</h5>
 																</th>
 																<th>
 																	<h5 style="font-weight:bold;color:#003300;">Extra Charge : <span id="daily_span"><?php echo $iti_cost_datas[0]['extra_charge'] ?? ''; ?></span></h5>
