@@ -256,3 +256,133 @@ INFO - 2025-12-22 05:54:29 --> Expansion date 2025-12-23: DB Total=290km, Saved 
 INFO - 2025-12-22 05:54:29 --> Day 1 (date 2025-12-24): No defaults loaded
 INFO - 2025-12-22 05:54:29 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
 INFO - 2025-12-22 05:54:29 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+DEBUG - 2025-12-22 06:07:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:07:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-22 06:07:46 --> Day 1 (date 2025-12-22): No defaults loaded
+INFO - 2025-12-22 06:07:46 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:07:46 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:07:46 --> Day 1 (date 2025-12-23): No defaults loaded
+INFO - 2025-12-22 06:07:46 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:07:46 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:07:46 --> Day 1 (date 2025-12-24): No defaults loaded
+INFO - 2025-12-22 06:07:46 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:07:46 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+DEBUG - 2025-12-22 06:10:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:10:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:11:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-22 06:11:43 --> Day 1 (date 2025-12-22): No defaults loaded
+INFO - 2025-12-22 06:11:43 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:11:43 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:11:43 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:11:43 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:11:43 --> Day 1 (date 2025-12-23): No defaults loaded
+INFO - 2025-12-22 06:11:43 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:11:43 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:11:43 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:11:43 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:11:43 --> Day 1 (date 2025-12-24): No defaults loaded
+INFO - 2025-12-22 06:11:43 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:11:43 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:11:43 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:11:43 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+DEBUG - 2025-12-22 06:12:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-22 06:12:44 --> Day 1 (date 2025-12-22): No defaults loaded
+INFO - 2025-12-22 06:12:44 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:12:44 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:12:44 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:12:44 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:12:44 --> Day 1 (date 2025-12-23): No defaults loaded
+INFO - 2025-12-22 06:12:44 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:12:44 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:12:44 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:12:44 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:12:44 --> Day 1 (date 2025-12-24): No defaults loaded
+INFO - 2025-12-22 06:12:44 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:12:44 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:12:44 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:12:44 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+DEBUG - 2025-12-22 06:13:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-22 06:13:08 --> Day 1 (date 2025-12-22): No defaults loaded
+INFO - 2025-12-22 06:13:08 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:08 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:08 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:08 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:08 --> Day 1 (date 2025-12-23): No defaults loaded
+INFO - 2025-12-22 06:13:08 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:08 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:08 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:08 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:08 --> Day 1 (date 2025-12-24): No defaults loaded
+INFO - 2025-12-22 06:13:08 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:08 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:08 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:08 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+DEBUG - 2025-12-22 06:13:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-22 06:13:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-22 06:13:44 --> Day 1 (date 2025-12-22): No defaults loaded
+INFO - 2025-12-22 06:13:44 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:44 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:44 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:44 --> Expansion date 2025-12-22: DB Total=176km, Saved SS=0km, Derived Base=176km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:44 --> Day 1 (date 2025-12-23): No defaults loaded
+INFO - 2025-12-22 06:13:44 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:44 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:44 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:44 --> Expansion date 2025-12-23: DB Total=290km, Saved SS=0km, Derived Base=290km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:44 --> Day 1 (date 2025-12-24): No defaults loaded
+INFO - 2025-12-22 06:13:44 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:44 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:44 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
+INFO - 2025-12-22 06:13:44 --> Expansion date 2025-12-24: DB Total=226km, Saved SS=0km, Derived Base=226km (display base; JS adds current SS)
