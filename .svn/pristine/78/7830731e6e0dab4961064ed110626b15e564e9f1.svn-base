@@ -1955,7 +1955,7 @@ $cs_trans_total = 0;
 																												<!-- PRIORITY LOGIC: Check itinerary_expansion_details FIRST, then fallback to tour_expansion_details -->
 																												<?php
 																												$day_expansions = array();
-																												$data_source = 'none'; // Initialize to prevent undefined variable error
+																												$data_source = ''; // Track which source we're using for debugging
 
 																												// PRIORITY 1: Check itinerary_expansion_details first (saved/draft itinerary data from khm_obj_enquiry_tour_itinerary_expansion)
 																												if (!empty($itinerary_expansion_details) && isset($itinerary_expansion_details[$ttval['tour_details_id']])) {
@@ -1981,95 +1981,42 @@ $cs_trans_total = 0;
 																												$expansion_hotel_total = 0;
 																												$double_expansions = array();
 																												$single_expansions = array();
-
 																												if (!empty($day_expansions)) {
 																													foreach ($day_expansions as $exp) {
-																														$expansion_hotel_total += (int)($exp['double_total_rate'] ?? 0) + (int)($exp['single_total_rate'] ?? 0);
-
-																														// FIXED: Check if record is for DOUBLE room (regardless of rate value)
-																														// A record is for double room if it has double_total_rate OR room_rate_double field present
-																														$double_total = (int)($exp['double_total_rate'] ?? 0);
-																														$double_rate = (int)($exp['room_rate_double'] ?? 0);
-																														$single_total = (int)($exp['single_total_rate'] ?? 0);
-																														$single_rate = (int)($exp['room_rate_single'] ?? 0);
-
-																														// Add to double if it has any double-specific value > 0
-																														// OR if it has double fields but single is zero (it's a double-only record)
-																														if (
-																															$double_total > 0 || $double_rate > 0 ||
-																															(($double_total >= 0 || $double_rate >= 0) && $single_total == 0 && $single_rate == 0)
-																														) {
+																														$expansion_hotel_total += (int) $exp['double_total_rate'] + (int) $exp['single_total_rate'];
+																														// Only add to double_expansions if it has a non-zero double rate
+																														$double_rate = (int) ($exp['room_rate_double'] ?? 0);
+																														if ($double_rate >0) {
 																															$double_expansions[] = $exp;
 																														}
-
-																														// Add to single if it has any single-specific value > 0
-																														if ($single_total > 0 || $single_rate > 0) {
+																														// Only add to single_expansions if it has a non-zero single rate
+																														$single_rate = (int) ($exp['room_rate_single'] ?? 0);
+																														if ($single_rate > 0) {
 																															$single_expansions[] = $exp;
 																														}
 																													}
 																												}
 
+																												// FIXED: Calculate base TAC WITHOUT special tariff
+																												// $tac_base = $expansion_hotel_total + $hot_fac_tariff + $daily_addon;
 																												$tac_base = $expansion_hotel_total + $hot_fac_tariff;
+
+
+																												// Calculate display TAC WITH special tariff for showing on screen
+																												// $tac = $tac_base + $spcl_tariff;
 																												$tac = $tac_base;
 
-																												// SIMPLIFIED: Use dynamic mode if we have expansion data
-																												$use_dynamic = !empty($day_expansions);
+																												// CRITICAL FIX: Determine if we should use dynamic rows
+																												// Use dynamic ONLY if we have actual expansion data with valid room information
+																												$use_dynamic = !empty($day_expansions) && (!empty($double_expansions) || !empty($single_expansions));
 
-																												// Prepare row data based on BOOKINGS and expansion data
+																												// Prepare row data
 																												if ($use_dynamic) {
-																													// For DOUBLE rooms: get the number we need based on booking
-																													$double_needed = (int)$object_det[0]['no_of_double_room'];
-																													$double_rows = array();
-
-																													if ($double_needed > 0) {
-																														if (!empty($double_expansions)) {
-																															// Use actual expansion records
-																															$double_rows = $double_expansions;
-
-																															// If we have fewer expansion records than needed, duplicate the last one
-																															while (count($double_rows) < $double_needed) {
-																																$double_rows[] = end($double_expansions);
-																															}
-
-																															// If we have more expansion records than needed, trim them
-																															if (count($double_rows) > $double_needed) {
-																																$double_rows = array_slice($double_rows, 0, $double_needed);
-																															}
-																														} else {
-																															// No specific double expansions, create from day expansions
-																															for ($i = 0; $i < $double_needed; $i++) {
-																																$double_rows[] = !empty($day_expansions) ? $day_expansions[0] : array();
-																															}
-																														}
-																													}
-
-																													// For SINGLE rooms: get the number we need based on booking
-																													$single_needed = (int)$object_det[0]['no_of_single_room'];
-																													$single_rows = array();
-
-																													if ($single_needed > 0) {
-																														if (!empty($single_expansions)) {
-																															// Use actual expansion records
-																															$single_rows = $single_expansions;
-
-																															// If we have fewer expansion records than needed, duplicate the last one
-																															while (count($single_rows) < $single_needed) {
-																																$single_rows[] = end($single_expansions);
-																															}
-
-																															// If we have more expansion records than needed, trim them
-																															if (count($single_rows) > $single_needed) {
-																																$single_rows = array_slice($single_rows, 0, $single_needed);
-																															}
-																														} else {
-																															// No specific single expansions, create from day expansions
-																															for ($i = 0; $i < $single_needed; $i++) {
-																																$single_rows[] = !empty($day_expansions) ? end($day_expansions) : array();
-																															}
-																														}
-																													}
+																													// Use expansion data if available
+																													$double_rows = !empty($double_expansions) ? $double_expansions : array();
+																													$single_rows = !empty($single_expansions) ? $single_expansions : array();
 																												} else {
-																													// Static mode - no expansion data at all
+																													// Static mode - will use the old single-row format
 																													$double_rows = array();
 																													$single_rows = array();
 																												}
@@ -4063,7 +4010,7 @@ $cs_trans_total = 0;
 															$bifur_extra_total += ($val['extra_bed'] * $extra_t_d);
 															?>
 															<?php $row_class = ($single_row_count === 0) ? ' class="hotel-row"' : ''; ?>
-															?>
+?>
 															<tr <?php echo $row_class; ?>>
 																<?php if ($row_counter === 0) { ?>
 																	<td rowspan="<?php echo $total_rows; ?>"><?php echo $k; ?></td>

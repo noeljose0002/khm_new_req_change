@@ -9727,137 +9727,91 @@ $is_edit = $edit_id ? $edit_id : 0;
 				$('.dyn_list').append(allBreadcrumbsHtml);
 
 				// STEP 3: Populate and configure all elements sequentially with async handling
-			// Replace the processLocation function with this fixed version
-function processLocation(index) {
-	if (index >= tourDetailsArray.length) {
-		// All locations processed, now generate nightly details
-		$.each(tourDetailsArray, function(locIndex, locationData) {
-			var count = locIndex + 1;
-			var main = locationData.main;
-			var expansions = locationData.expansions;
-			generateNightlyDetailsFromDraft(count, main, expansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models);
-		});
-		// Then update UI
-		updateUIAfterLoad(no_of_night);
-		return;
-	}
+				function processLocation(index) {
+					if (index >= tourDetailsArray.length) {
+						// All locations processed, now generate nightly details
+						$.each(tourDetailsArray, function(locIndex, locationData) {
+							var count = locIndex + 1;
+							var main = locationData.main;
+							var expansions = locationData.expansions;
+							generateNightlyDetailsFromDraft(count, main, expansions, no_of_double_room, no_of_single_room, is_vehicle_required, vehicle_models);
+						});
+						// Then update UI
+						updateUIAfterLoad(no_of_night);
+						return;
+					}
 
-	var count = index + 1;
-	var main = tourDetailsArray[index].main;
-	console.log(`\n=== POPULATING LOCATION ${count} ===`);
-	console.log('Hotel Category ID:', main.hot_cat_id);
-	console.log('Hotel ID:', main.hotel_id);
-	console.log('Room Category ID:', main.room_category_id);
+					var count = index + 1;
+					var main = tourDetailsArray[index].main;
+					console.log(`\n=== POPULATING LOCATION ${count} ===`);
 
-	// Check if hotel category select exists
-	var hotelCat = $('#hotelcat' + count);
-	if (hotelCat.length === 0) {
-		console.error(`Hotel category select #hotelcat${count} not found!`);
-		processLocation(index + 1);
-		return;
-	}
+					// Check if hotel category select exists
+					var hotelCat = $('#hotelcat' + count);
+					if (hotelCat.length === 0) {
+						console.error(`Hotel category select #hotelcat${count} not found!`);
+						processLocation(index + 1); // Skip to next
+						return;
+					}
 
-	// Populate hotel categories (sync, from PHP var)
-	hotelCat.empty();
-	hotelCat.append('<option value="">Select</option>');
-	if (hotel_categories.length > 0) {
-		$.each(hotel_categories, function(hcIndex, hotelcat) {
-			var selected = hotelcat.hotel_category_id == main.hot_cat_id ? ' selected' : '';
-			hotelCat.append('<option value="' + hotelcat.hotel_category_id + '"' + selected + '>' + hotelcat.hotel_category_name + '</option>');
-		});
-	}
-	console.log(`Hotel category ${main.hot_cat_id} populated for location ${count}`);
+					// Populate hotel categories (sync, from PHP var)
+					hotelCat.empty();
+					hotelCat.append('<option value="">Select</option>');
+					if (hotel_categories.length > 0) {
+						$.each(hotel_categories, function(hcIndex, hotelcat) {
+							var selected = hotelcat.hotel_category_id == main.hot_cat_id ? ' selected' : '';
+							hotelCat.append('<option value="' + hotelcat.hotel_category_id + '"' + selected + '>' + hotelcat.hotel_category_name + '</option>');
+						});
+					}
+					console.log(`Hotel category ${main.hot_cat_id} selected for location ${count}`);
 
-	// Initialize Select2 for this card
-	$(`.location-card[data-index="${count}"] .select2-show-search`).select2();
+					// Initialize Select2 for this card
+					$(`.location-card[data-index="${count}"] .select2-show-search`).select2();
 
-	// CRITICAL FIX: Set value BEFORE triggering change
-	hotelCat.val(main.hot_cat_id);
-	console.log(`Set hotel category value to: ${hotelCat.val()}`);
+					// Set hotel category value and trigger change (async load hotels)
+					hotelCat.val(main.hot_cat_id).trigger('change');
 
-	// Now trigger change to load hotels
-	hotelCat.trigger('change');
+					// Wait for hotels to load (poll for >1 options)
+					waitForOptions('#hotelid' + count, 2, function() {
+						console.log(`\n=== SETTING HOTEL ${main.hotel_id} for location ${count} ===`);
+						var hotelSelect = $('#hotelid' + count);
+						if (hotelSelect.length > 0) {
+							hotelSelect.val(main.hotel_id).trigger('change');
+							// Wait for room categories to load after hotel change
+							waitForOptions('#roomcat_common' + count, 2, function() {
+								console.log(`\n=== SETTING ROOM CATEGORY for location ${count} ===`);
+								console.log(`Room category ID to set: ${main.room_category_id}`);
 
-	// Wait for hotels to load with increased timeout
-	waitForOptions('#hotelid' + count, 2, function() {
-		console.log(`\n=== Hotels loaded for location ${count} ===`);
-		var hotelSelect = $('#hotelid' + count);
-		
-		if (hotelSelect.length === 0) {
-			console.error(`Hotel select #hotelid${count} not found!`);
-			processLocation(index + 1);
-			return;
-		}
+								var roomCatCommon = $('#roomcat_common' + count);
+								if (roomCatCommon.length === 0) {
+									console.error(`Room category common select #roomcat_common${count} not found!`);
+									processLocation(index + 1); // Skip to next
+									return;
+								}
 
-		// Log available hotel options
-		console.log('Available hotels:', hotelSelect.find('option').map(function() {
-			return $(this).val() + ': ' + $(this).text();
-		}).get());
+								// Log options for debugging
+								var roomCatOptions = roomCatCommon.find('option');
+								console.log(`Number of room category options loaded: ${roomCatOptions.length}`);
+								roomCatOptions.each(function() {
+									console.log(`Option: value="${$(this).val()}", text="${$(this).text()}"`);
+								});
 
-		// Set hotel value BEFORE triggering change
-		hotelSelect.val(main.hotel_id);
-		console.log(`Set hotel value to: ${hotelSelect.val()}`);
+								// Set and trigger room category
+								roomCatCommon.val(main.room_category_id).trigger('change');
+								console.log(`Set roomcat_common${count} to: ${main.room_category_id}`);
+								console.log(`Current value of roomcat_common${count}: ${roomCatCommon.val()}`);
 
-		// Trigger change to load room categories
-		hotelSelect.trigger('change');
-
-		// Wait for room categories to load with increased timeout and validation
-		waitForOptions('#roomcat_common' + count, 2, function() {
-			console.log(`\n=== Room categories loaded for location ${count} ===`);
-			
-			var roomCatCommon = $('#roomcat_common' + count);
-			if (roomCatCommon.length === 0) {
-				console.error(`Room category common select #roomcat_common${count} not found!`);
-				processLocation(index + 1);
-				return;
-			}
-
-			// Log available room category options
-			var roomCatOptions = roomCatCommon.find('option');
-			console.log(`Number of room category options: ${roomCatOptions.length}`);
-			console.log('Available room categories:', roomCatOptions.map(function() {
-				return $(this).val() + ': ' + $(this).text();
-			}).get());
-
-			// CRITICAL FIX: Wait longer to ensure Select2 is fully initialized
-			setTimeout(function() {
-				// Destroy and reinitialize Select2 to ensure clean state
-				if (roomCatCommon.hasClass('select2-hidden-accessible')) {
-					roomCatCommon.select2('destroy');
+								// Proceed to next location
+								processLocation(index + 1);
+							});
+						} else {
+							console.error(`Hotel select #hotelid${count} not found!`);
+							processLocation(index + 1); // Skip to next
+						}
+					});
 				}
-				roomCatCommon.select2();
 
-				// Set the value
-				roomCatCommon.val(main.room_category_id);
-				console.log(`Set roomcat_common${count} to: ${main.room_category_id}`);
-				console.log(`Actual value after setting: ${roomCatCommon.val()}`);
-
-				// Trigger change with additional delay
-				setTimeout(function() {
-					roomCatCommon.trigger('change');
-					console.log(`Triggered change for roomcat_common${count}`);
-
-					// Wait for the change handler to propagate to individual nights
-					setTimeout(function() {
-						console.log(`Room category propagation complete for location ${count}`);
-						// Verify the value stuck
-						console.log(`Final value verification: ${roomCatCommon.val()}`);
-						
-						// Move to next location
-						processLocation(index + 1);
-					}, 300); // Wait for change handler to complete
-
-				}, 200); // Wait before triggering change
-
-			}, 300); // Increased wait time for Select2 initialization
-
-		}, 100); // Increased max attempts for room categories
-
-	}, 100); // Increased max attempts for hotels
-}
-
-// Start processing locations sequentially
-processLocation(0);
+				// Start processing locations sequentially
+				processLocation(0);
 			},
 			error: function(xhr, status, error) {
 				console.error('Error loading draft:', error);
@@ -9865,7 +9819,7 @@ processLocation(0);
 				$('#spinner_draft').hide();
 			}
 		});
-
+		
 	});
 
 	// Helper to update UI after all locations are processed
@@ -9944,29 +9898,11 @@ processLocation(0);
 
 		// Populate room categories from common dropdown for ALL nights at once (wait for common to be ready)
 		waitForOptions('#roomcat_common' + count, 2, function() {
-			console.log(`Room cat common ready for location ${count}, copying to individual nights...`);
+			var commonOptions = $(`#roomcat_common${count}`).html();
+			$(`#nightly-details${count} .room_cat_change`).html(commonOptions);
 
-			// Add delay to ensure Select2 has fully initialized the source dropdown
-			setTimeout(function() {
-				var commonOptions = $(`#roomcat_common${count}`).html();
-
-				// Copy options to ALL individual night room category dropdowns
-				$(`#nightly-details${count} .room_cat_change`).each(function() {
-					$(this).html(commonOptions);
-					console.log(`Copied ${$(this).find('option').length} options to ${this.id}`);
-				});
-
-				// Initialize Select2 for ALL nights at once AFTER options are copied
-				$(`#nightly-details${count} .select2-show-search`).each(function() {
-					if (!$(this).hasClass('select2-hidden-accessible')) {
-						$(this).select2();
-					}
-				});
-
-				// Now proceed with setting values
-				processNight(1);
-
-			}, 200); // Increased wait time for stability
+			// Initialize Select2 for ALL nights at once
+			$(`#nightly-details${count} .select2-show-search`).select2();
 
 			// Set vehicle headers for all nights (synchronous)
 			if (!isDynamic && main.vehicle_details) {

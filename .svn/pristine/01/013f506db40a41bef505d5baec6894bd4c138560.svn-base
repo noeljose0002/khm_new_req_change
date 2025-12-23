@@ -1096,44 +1096,44 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 							 <td colspan="2" style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Total Cost</b></td>
 						 </tr>
 						 <tr>
-							 <td  style="text-align:left;padding-left:10%;"><b>Margin Percentage</b></td>
-							 <td style="text-align:right;padding-left:15px;"><?php echo $iti_cost_datas[0]['margin_per']; ?></td>
+							 <td><b>Margin Percentage</b></td>
+							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['margin_per']; ?></td>
 						</tr>
 						<tr>
-							 <td  style="text-align:left;padding-left:10%;"><b>Margin Total</b></td>
+							 <td><b>Margin Total</b></td>
 							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['margin_value']; ?></td>
 						</tr>
 						<tr>
-							 <td  style="text-align:left;padding-left:10%;"><b>Tour Addon</b></td>
+							 <td><b>Tour Addon</b></td>
 							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['tour_addon']; ?></td>
 						</tr>
 						<tr>
-							 <td  style="text-align:left;padding-left:10%;"><b>Total Net Rate</b></td>
+							 <td><b>Total Net Rate</b></td>
 							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['total_rate']; ?></td>
 						</tr>
 						<tr>
-							 <td  style="text-align:left;padding-left:10%;"><b>GST Percentage</b></td>
+							 <td><b>GST Percentage</b></td>
 							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['gst_per']; ?></td>
 						</tr>
 						<tr>
-							 <td  style="text-align:left;padding-left:10%;"><b>GST Total</b></td>
+							 <td><b>GST Total</b></td>
 							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['gst_value']; ?></td>
 						</tr>
 						<tr >
-							 <td style="background-color:#D3D3D3 ;text-align:left;padding-left:10%;"><b>Total Package Cost</b></td>
+							 <td style="background-color:#D3D3D3 ;"><b>Total Package Cost</b></td>
 							 <td style="text-align:right;background-color:#D3D3D3 ;"><?php echo $iti_cost_datas[0]['tpc']; ?></td>
 						</tr>
 						 <?php if ($iti_cost_datas[0]['is_tcs'] == 1) { ?>
         <tr>
-            <td  style="text-align:left;padding-left:10%;"><b>TCS %</b></td>
+            <td><b>TCS %</b></td>
             <td style="text-align:right;">5%</td>
         </tr>
         <tr>
-            <td style="text-align:left;padding-left:10%;"><b>TCS Amount</b></td>
+            <td><b>TCS Amount</b></td>
             <td style="text-align:right;"><?php echo ($iti_cost_datas[0]['tcs_value']); ?></td>
         </tr>
 		<tr>
-		<td  style="text-align:left;padding-left:10%;" >
+		<td >
 			 <b>Total Package Cost(With TCS)</b>
 				</td>
 																
