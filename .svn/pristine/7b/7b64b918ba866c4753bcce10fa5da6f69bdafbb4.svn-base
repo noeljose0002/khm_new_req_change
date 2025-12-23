@@ -10073,7 +10073,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 								}).get());
 
 								// Set and trigger immediately
-								$roomCatSelect.val(roomCatId).trigger('change.select2');
+								$roomCatSelect.val(roomCatId).trigger('change');
 								console.log(`After set, value is: ${$roomCatSelect.val()}`);
 
 								// Set meal plan
@@ -10081,7 +10081,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 								if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
 									mealPlanId = main.meal_plan_id;
 								}
-								$(`#mealplan${rid}`).val(mealPlanId).trigger('change.select2');
+								$(`#mealplan${rid}`).val(mealPlanId).trigger('change');
 
 								// Set rate fields
 								$(`#d_adult_rate${rid}`).val(exp.room_rate_double || 0);
@@ -10168,7 +10168,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 								}).get());
 
 								// Set and trigger immediately
-								$roomCatSelect.val(roomCatId).trigger('change.select2');
+								$roomCatSelect.val(roomCatId).trigger('change');
 								console.log(`After set, value is: ${$roomCatSelect.val()}`);
 
 								// Set meal plan
@@ -10176,7 +10176,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 								if (!mealPlanId || mealPlanId === '0' || mealPlanId === 0) {
 									mealPlanId = main.meal_plan_id;
 								}
-								$(`#mealplan${sid}`).val(mealPlanId).trigger('change.select2');
+								$(`#mealplan${sid}`).val(mealPlanId).trigger('change');
 
 								// Set rate fields
 								$(`#s_adult_rate${sid}`).val(exp.room_rate_single || 0);
