@@ -310,80 +310,80 @@ class Enquiry extends BaseController
     }
 
     //njmakecurrent//
-    public function makeItineraryCurrent()
-    {
-        $enquiry_detail_details_id = $this->request->getPost('enquiry_detail_details_id');
-        $extension_ref_id = $this->request->getPost('extension_ref_id');
+   public function makeItineraryCurrent()
+{
+    $enquiry_detail_details_id = $this->request->getPost('enquiry_detail_details_id');
+    $extension_ref_id = $this->request->getPost('extension_ref_id');
 
-        $Enquiry_model = new Enquiry_m();
+    $Enquiry_model = new Enquiry_m();
 
-        try {
-            // Get the itinerary details including tour_plan_ref_id
-            $itinerary = $Enquiry_model->getItineraryById($enquiry_detail_details_id);
+    try {
+        // Get the itinerary details including tour_plan_ref_id
+        $itinerary = $Enquiry_model->getItineraryById($enquiry_detail_details_id);
 
-            if (!$itinerary) {
-                echo json_encode(['success' => false, 'message' => 'Itinerary not found']);
-                return;
-            }
-
-            $enquiry_header_id = $itinerary['enquiry_header_id'];
-            $enquiry_details_id = $itinerary['enquiry_details_id'];
-            $tour_plan_ref_id = $itinerary['tour_plan_ref_id'];
-
-            // ========== NEW: ENQUIRY HEADER & DETAILS ==========
-            // Step 0.1: Set enquiry header as active
-            $update_enquiry_header = $Enquiry_model->setEnquiryHeaderActive($enquiry_header_id);
-
-            // Step 0.2: Set all enquiry details for this header to inactive
-            $update_all_enquiry_details = $Enquiry_model->updateAllEnquiryDetailsInactive($enquiry_header_id);
-
-            // Step 0.3: Set the selected enquiry details to active
-            $update_current_enquiry_details = $Enquiry_model->setEnquiryDetailsActive($enquiry_details_id);
-
-            // ========== EXISTING LOGIC ==========
-            // Step 1: Set all itineraries for this enquiry_header to inactive
-            $update_all_itineraries = $Enquiry_model->updateAllItinerariesInactive($enquiry_header_id);
-
-            // Step 2: Set the selected itinerary to active/current
-            $update_current_itinerary = $Enquiry_model->setItineraryAsCurrent($enquiry_detail_details_id);
-
-            // Step 3: Set all tour details for this enquiry_details_id to inactive
-            $update_all_tour_details = $Enquiry_model->updateAllTourDetailsInactive($enquiry_details_id);
-
-            // Step 4: Set the tour details for the current tour_plan_ref_id to active
-            $update_current_tour_details = $Enquiry_model->setTourDetailsAsActiveByTourPlanRef($tour_plan_ref_id);
-
-            // Step 5: Get all tour_details_ids for the selected tour_plan_ref_id
-            $tour_details_ids = $Enquiry_model->getTourDetailsIdsByTourPlanRef($tour_plan_ref_id);
-
-            // Step 6: Set all itinerary details for this enquiry_details_id to inactive
-            $update_all_itinerary_details = $Enquiry_model->updateAllItineraryDetailsInactive($enquiry_details_id);
-
-            // Step 7: Set the itinerary details for the current tour_details_ids to active
-            if (!empty($tour_details_ids)) {
-                $update_current_itinerary_details = $Enquiry_model->setItineraryDetailsAsActiveByTourDetailsIds($tour_details_ids);
-            } else {
-                $update_current_itinerary_details = true;
-            }
-
-            // Check all updates succeeded
-            if (
-                $update_enquiry_header && $update_all_enquiry_details && $update_current_enquiry_details &&
-                $update_all_itineraries && $update_current_itinerary &&
-                $update_all_tour_details && $update_current_tour_details &&
-                $update_all_itinerary_details && $update_current_itinerary_details
-            ) {
-                echo json_encode([
-                    'success' => true,
-                    'message' => 'Enquiry and itinerary updated successfully'
-                ]);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Database update failed']);
-            }
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        if (!$itinerary) {
+            echo json_encode(['success' => false, 'message' => 'Itinerary not found']);
+            return;
         }
+
+        $enquiry_header_id = $itinerary['enquiry_header_id'];
+        $enquiry_details_id = $itinerary['enquiry_details_id'];
+        $tour_plan_ref_id = $itinerary['tour_plan_ref_id'];
+
+        // ========== NEW: ENQUIRY HEADER & DETAILS ==========
+        // Step 0.1: Set enquiry header as active
+        $update_enquiry_header = $Enquiry_model->setEnquiryHeaderActive($enquiry_header_id);
+
+        // Step 0.2: Set all enquiry details for this header to inactive
+        $update_all_enquiry_details = $Enquiry_model->updateAllEnquiryDetailsInactive($enquiry_header_id);
+
+        // Step 0.3: Set the selected enquiry details to active
+        $update_current_enquiry_details = $Enquiry_model->setEnquiryDetailsActive($enquiry_details_id);
+
+        // ========== EXISTING LOGIC ==========
+        // Step 1: Set all itineraries for this enquiry_header to inactive
+        $update_all_itineraries = $Enquiry_model->updateAllItinerariesInactive($enquiry_header_id);
+
+        // Step 2: Set the selected itinerary to active/current
+        $update_current_itinerary = $Enquiry_model->setItineraryAsCurrent($enquiry_detail_details_id);
+
+        // Step 3: Set all tour details for this enquiry_details_id to inactive
+        $update_all_tour_details = $Enquiry_model->updateAllTourDetailsInactive($enquiry_details_id);
+
+        // Step 4: Set the tour details for the current tour_plan_ref_id to active
+        $update_current_tour_details = $Enquiry_model->setTourDetailsAsActiveByTourPlanRef($tour_plan_ref_id);
+
+        // Step 5: Get all tour_details_ids for the selected tour_plan_ref_id
+        $tour_details_ids = $Enquiry_model->getTourDetailsIdsByTourPlanRef($tour_plan_ref_id);
+
+        // Step 6: Set all itinerary details for this enquiry_details_id to inactive
+        $update_all_itinerary_details = $Enquiry_model->updateAllItineraryDetailsInactive($enquiry_details_id);
+
+        // Step 7: Set the itinerary details for the current tour_details_ids to active
+        if (!empty($tour_details_ids)) {
+            $update_current_itinerary_details = $Enquiry_model->setItineraryDetailsAsActiveByTourDetailsIds($tour_details_ids);
+        } else {
+            $update_current_itinerary_details = true;
+        }
+
+        // Check all updates succeeded
+        if (
+            $update_enquiry_header && $update_all_enquiry_details && $update_current_enquiry_details &&
+            $update_all_itineraries && $update_current_itinerary &&
+            $update_all_tour_details && $update_current_tour_details &&
+            $update_all_itinerary_details && $update_current_itinerary_details
+        ) {
+            echo json_encode([
+                'success' => true,
+                'message' => 'Enquiry and itinerary updated successfully'
+            ]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Database update failed']);
+        }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     }
+}
     public function payments($enquiry_header_id = null, $cs_confirmed_id = null)
     {
         $Dashboard_model = new Dashboard_m();
@@ -6127,7 +6127,7 @@ class Enquiry extends BaseController
     //         return redirect()->to('Login');
     //     }
     // }
-    //nj//
+    //njiti//
     public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_edit_id = null, $extension_ref_id = null)
     {
         if (!empty(session()->get('user_id'))) {
@@ -6479,9 +6479,6 @@ class Enquiry extends BaseController
                     $ss_total_distance = 0;
                     $ss_pax_cost = 0;
                     $ss_total_cost = 0;
-                    // ADD THESE
-                    $json_special_event = [];
-                    $json_addons = [];
 
                     // NEW: Check if we should force fresh defaults (ignore saved data)
                     // Add this parameter to function signature or get from request
@@ -6535,41 +6532,6 @@ class Enquiry extends BaseController
                             }
                         }
                     }
-                    // NEW: Load from PREVIOUS itinerary if new tour plan
-                    if (
-                        !$force_fresh &&
-                        !$had_saved_record &&
-                        empty($itinerary_details_draft) &&
-                        empty($itinerary_details_save) &&
-                        !empty($previous_itinerary_details_save)
-                    ) {
-                        foreach ($previous_itinerary_details_save as $pval) {
-                            if ($tour_date == $pval['tour_date']) {
-                                $had_saved_record = true;
-
-                                // Sightseeing
-                                $saved_sightseeing = json_decode($pval['ss_data_json'] ?? '[]', true);
-                                $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
-
-                                // Totals
-                                foreach ($saved_sightseeing as $ss) {
-                                    if (!empty($ss['is_pax'])) {
-                                        $ss_pax_cost += $ss['calculated_value'] ?? 0;
-                                        $ss_total_cost += $ss['calculated_value'] ?? 0;
-                                    } else {
-                                        $ss_total_distance += $ss['calculated_value'] ?? 0;
-                                    }
-                                }
-
-                                // Special events & addons
-                                $json_special_event = json_decode($pval['json_special_event'] ?? '[]', true);
-                                $json_addons = json_decode($pval['json_addons'] ?? '[]', true);
-
-                                break;
-                            }
-                        }
-                    }
-
 
                     // Calculate which day number this is (1-indexed)
                     $interval = $start1->diff($date);
@@ -6663,8 +6625,6 @@ class Enquiry extends BaseController
                         'ss_total_distance' => $ss_total_distance,
                         'ss_pax_cost' => $ss_pax_cost,
                         'ss_total_cost' => $ss_total_cost,
-                        'json_special_event' => $json_special_event ?? [],
-                        'json_addons' => $json_addons ?? [],
                         'is_saved' => $had_saved_record  // Flag for base derivation in adjustment
                     ];
                 }
@@ -10074,141 +10034,141 @@ class Enquiry extends BaseController
 
     //     echo view('enquiry/costing_sheet_view', $response);
     // }
-    public function viewCostingSheet()
-    {
-        $Enquiry_model = new Enquiry_m();
-        $itinerary_details_save = [];
-        $result2 = [];
-        $object_det = [];
-        $tour_plan_det = [];
-        $final_cs_data = [];
+public function viewCostingSheet()
+{
+    $Enquiry_model = new Enquiry_m();
+    $itinerary_details_save = [];
+    $result2 = [];
+    $object_det = [];
+    $tour_plan_det = [];
+    $final_cs_data = [];
 
-        $id = $this->request->getPost('id');
-        $extension_ref_id = $this->request->getPost('extension_ref_id');
-        $tourplan_ref_id = $this->request->getPost('tourplan_ref_id');
-        $enq_ref_id = $this->request->getPost('enq_ref_id');
+    $id = $this->request->getPost('id');
+    $extension_ref_id = $this->request->getPost('extension_ref_id');
+    $tourplan_ref_id = $this->request->getPost('tourplan_ref_id');
+    $enq_ref_id = $this->request->getPost('enq_ref_id');
 
-        $iti_cost_datas = $Enquiry_model->get_iti_cost($id);
+    $iti_cost_datas = $Enquiry_model->get_iti_cost($id);
 
-        if ($iti_cost_datas[0]['cs_confirmed_id'] > 0) {
-            $final_cs_datas = $Enquiry_model->get_final_costing_sheet($iti_cost_datas[0]['cs_confirmed_id']);
-            $final_cs_data = $final_cs_datas[0]['costing_sheet'];
-        }
-
-        $object_det = $Enquiry_model->get_object_details_forcs($iti_cost_datas[0]['object_id'], $enq_ref_id);
-        $tour_plan_det = $Enquiry_model->get_tour_plan_details_foredit($tourplan_ref_id);
-
-        // TWO SEPARATE ARRAYS FOR DIFFERENT PURPOSES
-        $tour_expansion_details = []; // For initial tour plan data
-        $itinerary_expansion_details = []; // For saved itinerary data
-        $itinerary_details_ids = []; // Collect IDs for expansion data
-
-        foreach ($tour_plan_det as $keys => $vals) {
-            $tid = $vals['tour_details_id'];
-
-            // Fetch saved itinerary details
-            $result2 = $Enquiry_model->get_itinerary_save_details_for_cs($id, $extension_ref_id, $enq_ref_id, $vals['tour_details_id']);
-            if (!empty($result2)) {
-                $itinerary_details_save = [...$itinerary_details_save, ...$result2];
-
-                // Collect itinerary_details_ids for expansion data
-                foreach ($result2 as $r) {
-                    if (isset($r['itinerary_details_id'])) {
-                        $itinerary_details_ids[] = $r['itinerary_details_id'];
-                    }
-                }
-            }
-
-            // FOR INITIAL DATA: Fetch tour expansion details (from khm_obj_enquiry_tour_expansion)
-            $tour_expansion_details[$tid] = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
-        }
-
-        // FOR SAVED DATA: Fetch itinerary expansion details (from khm_obj_enquiry_tour_itinerary_expansion)
-        if (!empty($itinerary_details_ids)) {
-            $itinerary_details_ids = array_unique($itinerary_details_ids);
-
-            // Get expansion data grouped by itinerary_details_id
-            $expansion_raw = $Enquiry_model->get_itinerary_expansion_grouped($itinerary_details_ids);
-
-            // Build a mapping from itinerary_details_id to tour_details_id
-            $iti_to_tour_map = [];
-            foreach ($itinerary_details_save as $save) {
-                if (isset($save['itinerary_details_id']) && isset($save['tour_details_id'])) {
-                    $iti_to_tour_map[$save['itinerary_details_id']] = $save['tour_details_id'];
-                }
-            }
-
-            // Re-group expansion data by tour_details_id for easier access in the view
-            foreach ($expansion_raw as $iti_id => $expansions) {
-                if (isset($iti_to_tour_map[$iti_id])) {
-                    $tour_details_id = $iti_to_tour_map[$iti_id];
-                    if (!isset($itinerary_expansion_details[$tour_details_id])) {
-                        $itinerary_expansion_details[$tour_details_id] = [];
-                    }
-                    foreach ($expansions as $exp) {
-                        $itinerary_expansion_details[$tour_details_id][] = $exp;
-                    }
-                }
-            }
-        }
-
-        // EXTRACT SPECIAL EVENT NAMES AND CALCULATE TOTAL COST
-        $special_events_list = [];
-        $total_special_event_cost = 0;
-        $processed_events = [];
-
-        if (!empty($itinerary_details_save)) {
-            foreach ($itinerary_details_save as $iti_detail) {
-                $json_special_event = $iti_detail['json_special_event'] ?? '[]';
-                $events = json_decode($json_special_event, true);
-
-                if (!empty($events) && is_array($events)) {
-                    foreach ($events as $event) {
-                        $spcl_idvalue = $event['spcl_idvalue'] ?? '';
-
-                        // Collect unique event names
-                        if (isset($event['spcl_event']) && !empty(trim($event['spcl_event']))) {
-                            $special_events_list[] = trim($event['spcl_event']);
-                        }
-
-                        // Calculate total cost (avoiding duplicates)
-                        if (!in_array($spcl_idvalue, $processed_events)) {
-                            if (isset($event['spcl_tariff']) && is_numeric($event['spcl_tariff'])) {
-                                $total_special_event_cost += (float)$event['spcl_tariff'];
-                                $processed_events[] = $spcl_idvalue;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Get unique special event names
-        $unique_special_events = array_unique(array_filter($special_events_list));
-        $special_event_names = implode(', ', $unique_special_events);
-
-        $response['iti_cost_datas'] = $iti_cost_datas;
-        $response['iti_data'] = $itinerary_details_save;
-        $response['object_det'] = $object_det;
-        $response['tour_plan_det'] = $tour_plan_det;
-
-        // PASS BOTH EXPANSION ARRAYS TO VIEW
-        $response['tour_expansion_details'] = $tour_expansion_details; // For initial load
-        $response['itinerary_expansion_details'] = $itinerary_expansion_details; // For saved data
-
-        $response['tac_hidden'] = $iti_cost_datas[0]['tac'];
-        $response['ttc_hidden'] = $iti_cost_datas[0]['ttc'];
-        $response['spcl_hidden'] = number_format($total_special_event_cost, 2); // UPDATED
-        $response['special_event_names'] = $special_event_names; // NEW: Pass event names
-        $response['daily_hidden'] = $iti_cost_datas[0]['daily_total_cost'];
-        $response['tnr_hidden'] = $iti_cost_datas[0]['tnr'];
-        $response['final_cs_data'] = $final_cs_data;
-        $response['is_tcs'] = $iti_cost_datas[0]['is_tcs'];
-        $response['tcs_value'] = $iti_cost_datas[0]['tcs_value'];
-        $response['tpc_with_tcs'] = $iti_cost_datas[0]['tpc_with_tcs'];
-
-        echo view('enquiry/costing_sheet_view', $response);
+    if ($iti_cost_datas[0]['cs_confirmed_id'] > 0) {
+        $final_cs_datas = $Enquiry_model->get_final_costing_sheet($iti_cost_datas[0]['cs_confirmed_id']);
+        $final_cs_data = $final_cs_datas[0]['costing_sheet'];
     }
+
+    $object_det = $Enquiry_model->get_object_details_forcs($iti_cost_datas[0]['object_id'], $enq_ref_id);
+    $tour_plan_det = $Enquiry_model->get_tour_plan_details_foredit($tourplan_ref_id);
+
+    // TWO SEPARATE ARRAYS FOR DIFFERENT PURPOSES
+    $tour_expansion_details = []; // For initial tour plan data
+    $itinerary_expansion_details = []; // For saved itinerary data
+    $itinerary_details_ids = []; // Collect IDs for expansion data
+
+    foreach ($tour_plan_det as $keys => $vals) {
+        $tid = $vals['tour_details_id'];
+
+        // Fetch saved itinerary details
+        $result2 = $Enquiry_model->get_itinerary_save_details_for_cs($id, $extension_ref_id, $enq_ref_id, $vals['tour_details_id']);
+        if (!empty($result2)) {
+            $itinerary_details_save = [...$itinerary_details_save, ...$result2];
+
+            // Collect itinerary_details_ids for expansion data
+            foreach ($result2 as $r) {
+                if (isset($r['itinerary_details_id'])) {
+                    $itinerary_details_ids[] = $r['itinerary_details_id'];
+                }
+            }
+        }
+
+        // FOR INITIAL DATA: Fetch tour expansion details (from khm_obj_enquiry_tour_expansion)
+        $tour_expansion_details[$tid] = $Enquiry_model->get_tour_expansion_by_tour_id($vals['tour_details_id']);
+    }
+
+    // FOR SAVED DATA: Fetch itinerary expansion details (from khm_obj_enquiry_tour_itinerary_expansion)
+    if (!empty($itinerary_details_ids)) {
+        $itinerary_details_ids = array_unique($itinerary_details_ids);
+
+        // Get expansion data grouped by itinerary_details_id
+        $expansion_raw = $Enquiry_model->get_itinerary_expansion_grouped($itinerary_details_ids);
+
+        // Build a mapping from itinerary_details_id to tour_details_id
+        $iti_to_tour_map = [];
+        foreach ($itinerary_details_save as $save) {
+            if (isset($save['itinerary_details_id']) && isset($save['tour_details_id'])) {
+                $iti_to_tour_map[$save['itinerary_details_id']] = $save['tour_details_id'];
+            }
+        }
+
+        // Re-group expansion data by tour_details_id for easier access in the view
+        foreach ($expansion_raw as $iti_id => $expansions) {
+            if (isset($iti_to_tour_map[$iti_id])) {
+                $tour_details_id = $iti_to_tour_map[$iti_id];
+                if (!isset($itinerary_expansion_details[$tour_details_id])) {
+                    $itinerary_expansion_details[$tour_details_id] = [];
+                }
+                foreach ($expansions as $exp) {
+                    $itinerary_expansion_details[$tour_details_id][] = $exp;
+                }
+            }
+        }
+    }
+
+    // EXTRACT SPECIAL EVENT NAMES AND CALCULATE TOTAL COST
+    $special_events_list = [];
+    $total_special_event_cost = 0;
+    $processed_events = [];
+
+    if (!empty($itinerary_details_save)) {
+        foreach ($itinerary_details_save as $iti_detail) {
+            $json_special_event = $iti_detail['json_special_event'] ?? '[]';
+            $events = json_decode($json_special_event, true);
+            
+            if (!empty($events) && is_array($events)) {
+                foreach ($events as $event) {
+                    $spcl_idvalue = $event['spcl_idvalue'] ?? '';
+                    
+                    // Collect unique event names
+                    if (isset($event['spcl_event']) && !empty(trim($event['spcl_event']))) {
+                        $special_events_list[] = trim($event['spcl_event']);
+                    }
+                    
+                    // Calculate total cost (avoiding duplicates)
+                    if (!in_array($spcl_idvalue, $processed_events)) {
+                        if (isset($event['spcl_tariff']) && is_numeric($event['spcl_tariff'])) {
+                            $total_special_event_cost += (float)$event['spcl_tariff'];
+                            $processed_events[] = $spcl_idvalue;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Get unique special event names
+    $unique_special_events = array_unique(array_filter($special_events_list));
+    $special_event_names = implode(', ', $unique_special_events);
+
+    $response['iti_cost_datas'] = $iti_cost_datas;
+    $response['iti_data'] = $itinerary_details_save;
+    $response['object_det'] = $object_det;
+    $response['tour_plan_det'] = $tour_plan_det;
+
+    // PASS BOTH EXPANSION ARRAYS TO VIEW
+    $response['tour_expansion_details'] = $tour_expansion_details; // For initial load
+    $response['itinerary_expansion_details'] = $itinerary_expansion_details; // For saved data
+
+    $response['tac_hidden'] = $iti_cost_datas[0]['tac'];
+    $response['ttc_hidden'] = $iti_cost_datas[0]['ttc'];
+    $response['spcl_hidden'] = number_format($total_special_event_cost, 2); // UPDATED
+    $response['special_event_names'] = $special_event_names; // NEW: Pass event names
+    $response['daily_hidden'] = $iti_cost_datas[0]['daily_total_cost'];
+    $response['tnr_hidden'] = $iti_cost_datas[0]['tnr'];
+    $response['final_cs_data'] = $final_cs_data;
+    $response['is_tcs'] = $iti_cost_datas[0]['is_tcs'];
+    $response['tcs_value'] = $iti_cost_datas[0]['tcs_value'];
+    $response['tpc_with_tcs'] = $iti_cost_datas[0]['tpc_with_tcs'];
+
+    echo view('enquiry/costing_sheet_view', $response);
+}
     public function viewItinerarySheet()
     {
         $Enquiry_model = new Enquiry_m();

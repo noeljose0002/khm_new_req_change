@@ -2217,6 +2217,47 @@ class Enquiry_m extends Model
         }
         return $response;
     }
+
+    //nj load prev sight//
+public function get_previous_tour_plan_id(
+    int $enquiry_header_id,
+    int $current_tour_details_id
+): ?int {
+    $row = $this->db->table('khm_obj_enquiry_tour_details')
+        ->select('tour_details_id')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->where('tour_details_id !=', $current_tour_details_id)
+        ->orderBy('updated_time', 'DESC')
+        ->limit(1)
+        ->get()
+        ->getRowArray();
+
+    return $row['tour_details_id'] ?? null;
+}
+public function get_latest_itinerary_of_old_tour_plan(
+    int $enquiry_header_id,
+    int $old_tour_details_id,
+    int $current_extension_ref_id
+): array {
+
+    // subquery for previous extension_ref_id
+    $subQuery = $this->db->table('khm_obj_enquiry_itinerary_details')
+        ->selectMax('extension_ref_id')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->where('tour_details_id', $old_tour_details_id)
+        ->where('extension_ref_id <', $current_extension_ref_id)
+        ->getCompiledSelect();
+
+    return $this->db->table('khm_obj_enquiry_itinerary_details')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->where('tour_details_id', $old_tour_details_id)
+        ->where("extension_ref_id = ($subQuery)", null, false)
+        ->orderBy('tour_date', 'ASC')
+        ->get()
+        ->getResultArray();
+}
+
+
     public function get_itinerary_previous_details($extension_ref_id)
     {
         $db = \Config\Database::connect();
