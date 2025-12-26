@@ -2219,43 +2219,43 @@ class Enquiry_m extends Model
     }
 
     //nj load prev sight//
-public function get_previous_tour_plan_id(
-    int $enquiry_header_id,
-    int $current_tour_details_id
-): ?int {
-    $row = $this->db->table('khm_obj_enquiry_tour_details')
-        ->select('tour_details_id')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->where('tour_details_id !=', $current_tour_details_id)
-        ->orderBy('updated_time', 'DESC')
-        ->limit(1)
-        ->get()
-        ->getRowArray();
+    public function get_previous_tour_plan_id(
+        int $enquiry_header_id,
+        int $current_tour_details_id
+    ): ?int {
+        $row = $this->db->table('khm_obj_enquiry_tour_details')
+            ->select('tour_details_id')
+            ->where('enquiry_header_id', $enquiry_header_id)
+            ->where('tour_details_id !=', $current_tour_details_id)
+            ->orderBy('updated_time', 'DESC')
+            ->limit(1)
+            ->get()
+            ->getRowArray();
 
-    return $row['tour_details_id'] ?? null;
-}
-public function get_latest_itinerary_of_old_tour_plan(
-    int $enquiry_header_id,
-    int $old_tour_details_id,
-    int $current_extension_ref_id
-): array {
+        return $row['tour_details_id'] ?? null;
+    }
+    public function get_latest_itinerary_of_old_tour_plan(
+        int $enquiry_header_id,
+        int $old_tour_details_id,
+        int $current_extension_ref_id
+    ): array {
 
-    // subquery for previous extension_ref_id
-    $subQuery = $this->db->table('khm_obj_enquiry_itinerary_details')
-        ->selectMax('extension_ref_id')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->where('tour_details_id', $old_tour_details_id)
-        ->where('extension_ref_id <', $current_extension_ref_id)
-        ->getCompiledSelect();
+        // subquery for previous extension_ref_id
+        $subQuery = $this->db->table('khm_obj_enquiry_itinerary_details')
+            ->selectMax('extension_ref_id')
+            ->where('enquiry_header_id', $enquiry_header_id)
+            ->where('tour_details_id', $old_tour_details_id)
+            ->where('extension_ref_id <', $current_extension_ref_id)
+            ->getCompiledSelect();
 
-    return $this->db->table('khm_obj_enquiry_itinerary_details')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->where('tour_details_id', $old_tour_details_id)
-        ->where("extension_ref_id = ($subQuery)", null, false)
-        ->orderBy('tour_date', 'ASC')
-        ->get()
-        ->getResultArray();
-}
+        return $this->db->table('khm_obj_enquiry_itinerary_details')
+            ->where('enquiry_header_id', $enquiry_header_id)
+            ->where('tour_details_id', $old_tour_details_id)
+            ->where("extension_ref_id = ($subQuery)", null, false)
+            ->orderBy('tour_date', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
 
 
     public function get_itinerary_previous_details($extension_ref_id)
@@ -2928,40 +2928,40 @@ public function get_latest_itinerary_of_old_tour_plan(
     // }
     // Get itinerary by ID
     // Get itinerary by ID (including tour_plan_ref_id)
-// ============= ENQUIRY HEADER TABLE =============
-// Set enquiry header as active
-public function setEnquiryHeaderActive($enquiry_header_id)
-{
-    $db = \Config\Database::connect();
-    return $db->table('khm_obj_enquiry_header')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->update([
-            'is_active' => 1
-        ]);
-}
+    // ============= ENQUIRY HEADER TABLE =============
+    // Set enquiry header as active
+    public function setEnquiryHeaderActive($enquiry_header_id)
+    {
+        $db = \Config\Database::connect();
+        return $db->table('khm_obj_enquiry_header')
+            ->where('enquiry_header_id', $enquiry_header_id)
+            ->update([
+                'is_active' => 1
+            ]);
+    }
 
-// ============= ENQUIRY DETAILS TABLE =============
-// Set all enquiry details inactive for an enquiry_header_id
-public function updateAllEnquiryDetailsInactive($enquiry_header_id)
-{
-    $db = \Config\Database::connect();
-    return $db->table('khm_obj_enquiry_details')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->update([
-            'is_active' => 0
-        ]);
-}
+    // ============= ENQUIRY DETAILS TABLE =============
+    // Set all enquiry details inactive for an enquiry_header_id
+    public function updateAllEnquiryDetailsInactive($enquiry_header_id)
+    {
+        $db = \Config\Database::connect();
+        return $db->table('khm_obj_enquiry_details')
+            ->where('enquiry_header_id', $enquiry_header_id)
+            ->update([
+                'is_active' => 0
+            ]);
+    }
 
-// Set specific enquiry details as active
-public function setEnquiryDetailsActive($enquiry_details_id)
-{
-    $db = \Config\Database::connect();
-    return $db->table('khm_obj_enquiry_details')
-        ->where('enquiry_details_id', $enquiry_details_id)
-        ->update([
-            'is_active' => 1
-        ]);
-}
+    // Set specific enquiry details as active
+    public function setEnquiryDetailsActive($enquiry_details_id)
+    {
+        $db = \Config\Database::connect();
+        return $db->table('khm_obj_enquiry_details')
+            ->where('enquiry_details_id', $enquiry_details_id)
+            ->update([
+                'is_active' => 1
+            ]);
+    }
 
     public function getItineraryById($enquiry_detail_details_id)
     {
@@ -3014,21 +3014,21 @@ public function setEnquiryDetailsActive($enquiry_details_id)
     }
 
     // Set tour details as active by tour_plan_ref_id
-   public function setTourDetailsAsActiveByTourPlanRef($tour_plan_ref_id)
-{
-    $db = \Config\Database::connect();
+    public function setTourDetailsAsActiveByTourPlanRef($tour_plan_ref_id)
+    {
+        $db = \Config\Database::connect();
 
-    return $db->table('khm_obj_enquiry_tour_details')
-        ->groupStart()
+        return $db->table('khm_obj_enquiry_tour_details')
+            ->groupStart()
             ->where('tour_details_id', $tour_plan_ref_id)
             ->orWhere('extension_ref_id', $tour_plan_ref_id)
-        ->groupEnd()
-        ->update([
-            'is_active'    => 1,
-            'is_draft'     => 0,
-            'updated_time' => date('Y-m-d H:i:s')
-        ]);
-}
+            ->groupEnd()
+            ->update([
+                'is_active'    => 1,
+                'is_draft'     => 0,
+                'updated_time' => date('Y-m-d H:i:s')
+            ]);
+    }
 
     // Get all tour_details_id values for a tour_plan_ref_id
     public function getTourDetailsIdsByTourPlanRef($tour_plan_ref_id)
