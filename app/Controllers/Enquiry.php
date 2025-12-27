@@ -6487,22 +6487,22 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
                     }
                 }
             }
-            for ($date = clone $start1; $date < $end1; $date->modify('+1 day')) {
+           for ($date = clone $start1; $date < $end1; $date->modify('+1 day')) {
                 $tour_date = $date->format('Y-m-d');
                 $tariff_details_iti[] = $this->getTourTariffDetailsbyTourDetails($tour_date, $vals['hotel_id'], $vals['room_category_id'], $vals['meal_plan_id'], $object_det[0]['no_of_double_room'], $object_det[0]['no_of_single_room']);
 
                 // Calculate which day number this is (1-indexed)
                 $interval = $start1->diff($date);
-                $day_number = $interval->days + 1; // Day 1, 2, 3, etc.
+                $day_number = $interval->days + 1;
 
                 // Calculate total number of days (nights + 1)
                 $total_interval = $start1->diff($end1);
-                $total_days = $total_interval->days + 1; // Total days including departure day
+                $total_days = $total_interval->days + 1;
 
                 // Check if this is the last day (departure day)
                 $is_last_day = ($day_number === $total_days);
 
-                // IMPLEMENTED: Get saved sightseeing for each date
+                // Reset per-day variables
                 $had_saved_record = false;
                 $saved_sightseeing = [];
                 $saved_ss_ids = [];
@@ -6512,24 +6512,16 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
                 $saved_special_events = [];
                 $saved_addons = [];
 
-                // NEW: Check if we should force fresh defaults (ignore saved data)
-                // Add this parameter to function signature or get from request
                 $force_fresh = ($this->request->getGet('fresh') == '1') || ($final_save_flag == 0 && $edit_id === null);
 
-                // Only load saved data if NOT forcing fresh
+                // === STEP 1: Try to load from current draft or saved itinerary ===
                 if (!$force_fresh) {
-                    // Check draft itinerary first (if any) and mark that a record existed even if empty
                     if (!empty($itinerary_details_draft)) {
-                        foreach ($itinerary_details_draft as $dkey => $dval) {
+                        foreach ($itinerary_details_draft as $dval) {
                             if ($tour_date == $dval['tour_date'] && $vals['tour_details_id'] == $dval['tour_details_id']) {
-                                // Mark that a saved/draft record exists for this date (even if it contains empty ss_data_json)
                                 $had_saved_record = true;
-
-                                // Decode JSON (may become empty array)
-                                $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true);
+                                $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true) ?: [];
                                 $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
-
-                                // Calculate totals from JSON (if any)
                                 foreach ($saved_sightseeing as $ss) {
                                     if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
                                         $ss_pax_cost += $ss['calculated_value'] ?? 0;
@@ -6538,19 +6530,19 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
                                         $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
                                     }
                                 }
+                                $saved_special_events = json_decode($dval['json_special_event'] ?? '[]', true) ?: [];
+                                $saved_addons = json_decode($dval['json_addons'] ?? '[]', true) ?: [];
                                 break;
                             }
                         }
                     }
 
-                    // If not in draft, check saved itinerary (same behavior)
                     if (!$had_saved_record && !empty($itinerary_details_save)) {
-                        foreach ($itinerary_details_save as $dkey => $dval) {
+                        foreach ($itinerary_details_save as $dval) {
                             if ($tour_date == $dval['tour_date'] && $vals['tour_details_id'] == $dval['tour_details_id']) {
                                 $had_saved_record = true;
-                                $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true);
+                                $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true) ?: [];
                                 $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
-
                                 foreach ($saved_sightseeing as $ss) {
                                     if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
                                         $ss_pax_cost += $ss['calculated_value'] ?? 0;
@@ -6559,26 +6551,35 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
                                         $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
                                     }
                                 }
+                                $saved_special_events = json_decode($dval['json_special_event'] ?? '[]', true) ?: [];
+                                $saved_addons = json_decode($dval['json_addons'] ?? '[]', true) ?: [];
                                 break;
                             }
                         }
                     }
                 }
 
-                // NEW: If no current saved record, check previous itinerary (for fresh loads, match by day_number + location)
+                // === STEP 2: If still no data and it's a fresh itinerary, try previous saved version ===
                 if (!$had_saved_record && $is_fresh && $prev_start_date !== null && !empty($previous_itinerary_details_save)) {
-                    foreach ($previous_itinerary_details_save as $pkey => $pval) {
+                    $matched = false;
+                    foreach ($previous_itinerary_details_save as $pval) {
                         $p_date = new DateTime($pval['tour_date']);
                         $p_start = new DateTime($prev_start_date);
                         $p_interval = $p_start->diff($p_date);
                         $p_day_number = $p_interval->days + 1;
 
-                        if ($day_number === $p_day_number && $vals['tour_location'] === $pval['tour_location']) {
-                            $had_saved_record = true; // Treat as "saved" for base derivation
+                        $current_loc = trim(strtolower($vals['tour_location'] ?? ''));
+                        $prev_loc = trim(strtolower($pval['tour_location'] ?? ''));
+                        $location_match = ($current_loc === $prev_loc);
+                        $hotel_match = (!empty($vals['hotel_id']) && !empty($pval['hotel_id']) && $vals['hotel_id'] == $pval['hotel_id']);
+
+                        log_message('debug', "Fresh SS match check: Day $day_number (date $tour_date) | Current: location='$current_loc', hotel_id={$vals['hotel_id']} | Prev Day $p_day_number: location='$prev_loc', hotel_id={$pval['hotel_id']} | LocationMatch=" . ($location_match ? 'YES' : 'NO') . " | HotelMatch=" . ($hotel_match ? 'YES' : 'NO'));
+
+                        if ($day_number === $p_day_number && ($hotel_match || $location_match)) {
+                            $had_saved_record = true;
                             $saved_sightseeing = json_decode($pval['ss_data_json'] ?? '[]', true) ?: [];
                             $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
 
-                            // Calculate totals from previous JSON
                             foreach ($saved_sightseeing as $ss) {
                                 if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
                                     $ss_pax_cost += $ss['calculated_value'] ?? 0;
@@ -6588,87 +6589,87 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
                                 }
                             }
 
-                            // Load special events and addons from previous
                             $saved_special_events = json_decode($pval['json_special_event'] ?? '[]', true) ?: [];
                             $saved_addons = json_decode($pval['json_addons'] ?? '[]', true) ?: [];
 
-                            log_message('info', 'Fresh itinerary: Pre-loaded previous data for day ' . $day_number . ' (date ' . $tour_date . ', location: ' . $vals['tour_location'] . ') from previous day ' . $p_day_number);
-                            break;
+                            log_message('info', "Fresh itinerary: SUCCESSFULLY pre-loaded SS, Special Events & Addons for Day $day_number (date $tour_date) | SS count: " . count($saved_sightseeing));
+
+                            $matched = true;
+                            break; // Critical: stop after first match
                         }
+                    }
+
+                    if (!$matched) {
+                        log_message('info', "Fresh itinerary: NO previous match found for Day $day_number (date $tour_date)");
                     }
                 }
 
-                // Load defaults if: no saved record (current or previous) OR forcing fresh
-                if (!$had_saved_record || $force_fresh) {
-                    $saved_sightseeing = [];
-                    $saved_ss_ids = [];
-                    $ss_total_distance = 0;
-                    $ss_pax_cost = 0;
-                    $ss_total_cost = 0;
-                    $saved_special_events = []; // Reset if defaults
-                    $saved_addons = []; // Reset if defaults
-                    $totalPax = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'] + $object_det[0]['no_of_child_below_five'];
+                // === STEP 3: ONLY load defaults if NOTHING was loaded above ===
+                if (!$had_saved_record && !$force_fresh) {
+    log_message('info', "Loading defaults for Day $day_number (date $tour_date) - no saved/previous/draft data found");
 
-                    if ($day_number === 2) {
-                        // Day 2: Load default sightseeing for the location
-                        $default_ss = $Enquiry_model->get_default_sight_seeing($vals['tour_location']);
+    // Only now reset (safe because no previous data)
+    $saved_sightseeing = [];
+    $saved_ss_ids = [];
+    $ss_total_distance = 0;
+    $ss_pax_cost = 0;
+    $ss_total_cost = 0;
+    $saved_special_events = [];
+    $saved_addons = [];
 
-                        foreach ($default_ss as $ss) {
-                            $ssItem = [
-                                'sightseeing_id' => $ss['sightseeing_id'],
-                                'name' => $ss['object_name'],
-                                'is_pax' => (int)($ss['is_pax'] ?? 0),
-                                'tariff' => (float)($ss['tariff'] ?? 0),
-                                'distance' => (float)($ss['sightseeing_distance'] ?? 0),
-                                'calculated_value' => 0,
-                                'remarks' => '',
-                                'cost' => 0,
-                                'distance_km' => 0
-                            ];
-                            if ($ssItem['is_pax'] == 1) {
-                                $ssItem['calculated_value'] = $ssItem['tariff'] * $totalPax;
-                                $ssItem['cost'] = $ssItem['calculated_value'];
-                                $ss_pax_cost += $ssItem['calculated_value'];
-                                $ss_total_cost += $ssItem['calculated_value'];
-                            } else {
-                                $ssItem['calculated_value'] = $ssItem['distance'];
-                                $ssItem['distance_km'] = $ssItem['calculated_value'];
-                                $ss_total_distance += $ssItem['calculated_value'];
-                            }
-                            $saved_sightseeing[] = $ssItem;
-                            $saved_ss_ids[] = $ss['sightseeing_id'];
-                        }
-                        log_message('info', 'Loaded default SS for Day 2 (date ' . $tour_date . '): ' . count($saved_sightseeing) . ' items');
-                    } elseif ($day_number > 2) {
-                        // Days 3 onwards (including last day): Create hardcoded "Leisure" entry
-                        $leisure_id = -999;
+    $totalPax = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'] + $object_det[0]['no_of_child_below_five'];
 
-                        $ssItem = [
-                            'sightseeing_id' => $leisure_id,
-                            'name' => 'Leisure',
-                            'is_pax' => 0,
-                            'tariff' => 0,
-                            'distance' => 0,
-                            'calculated_value' => 0,
-                            'remarks' => '',
-                            'cost' => 0,
-                            'distance_km' => 0,
-                            'is_auto_selected' => true,
-                            'is_hardcoded' => true
-                        ];
-
-                        $saved_sightseeing[] = $ssItem;
-                        $saved_ss_ids[] = $leisure_id;
-
-                        $day_type = $is_last_day ? 'Last day/Departure' : 'Day ' . $day_number;
-                        log_message('info', 'Hardcoded Leisure SS auto-selected for ' . $day_type . ' (date ' . $tour_date . ', location ' . $vals['tour_location'] . ')');
-                    } else {
-                        // Day 1: No defaults
-                        log_message('info', 'Day 1 (date ' . $tour_date . '): No defaults loaded');
-                    }
-                }
-
-                // Store the sightseeing data with totals
+    if ($day_number === 2) {
+        $default_ss = $Enquiry_model->get_default_sight_seeing($vals['tour_location']);
+        foreach ($default_ss as $ss) {
+            $ssItem = [
+                'sightseeing_id' => $ss['sightseeing_id'],
+                'name' => $ss['object_name'],
+                'is_pax' => (int)($ss['is_pax'] ?? 0),
+                'tariff' => (float)($ss['tariff'] ?? 0),
+                'distance' => (float)($ss['sightseeing_distance'] ?? 0),
+                'calculated_value' => 0,
+                'remarks' => '',
+                'cost' => 0,
+                'distance_km' => 0
+            ];
+            if ($ssItem['is_pax'] == 1) {
+                $ssItem['calculated_value'] = $ssItem['tariff'] * $totalPax;
+                $ssItem['cost'] = $ssItem['calculated_value'];
+                $ss_pax_cost += $ssItem['calculated_value'];
+                $ss_total_cost += $ssItem['calculated_value'];
+            } else {
+                $ssItem['calculated_value'] = $ssItem['distance'];
+                $ssItem['distance_km'] = $ssItem['calculated_value'];
+                $ss_total_distance += $ssItem['calculated_value'];
+            }
+            $saved_sightseeing[] = $ssItem;
+            $saved_ss_ids[] = $ss['sightseeing_id'];
+        }
+        log_message('info', 'Loaded default SS for Day 2 (date ' . $tour_date . '): ' . count($saved_sightseeing) . ' items');
+    } elseif ($day_number > 2) {
+        $leisure_id = -999;
+        $ssItem = [
+            'sightseeing_id' => $leisure_id,
+            'name' => 'Leisure',
+            'is_pax' => 0,
+            'tariff' => 0,
+            'distance' => 0,
+            'calculated_value' => 0,
+            'remarks' => '',
+            'cost' => 0,
+            'distance_km' => 0,
+            'is_auto_selected' => true,
+            'is_hardcoded' => true
+        ];
+        $saved_sightseeing[] = $ssItem;
+        $saved_ss_ids[] = $leisure_id;
+        log_message('info', 'Hardcoded Leisure for ' . ($is_last_day ? 'Last day' : 'Day ' . $day_number) . ' (date ' . $tour_date . ')');
+    }
+} else {
+    log_message('info', "SKIPPED defaults for Day $day_number (date $tour_date) - using pre-loaded data (had_saved: " . ($had_saved_record ? 'yes' : 'no') . ", force_fresh: " . ($force_fresh ? 'yes' : 'no') . ")");
+}
+                // === FINAL: Store in saved_sightseeing_by_date ===
                 if (!isset($saved_sightseeing_by_date[$vals['tour_details_id']])) {
                     $saved_sightseeing_by_date[$vals['tour_details_id']] = [];
                 }
@@ -6680,7 +6681,7 @@ public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_ed
                     'ss_total_cost' => $ss_total_cost,
                     'special_events' => $saved_special_events,
                     'addons' => $saved_addons,
-                    'is_saved' => $had_saved_record  // Flag for base derivation in adjustment
+                    'is_saved' => $had_saved_record || !$force_fresh // true if any real data was used
                 ];
             }
             // NEW: Adjust vehicle distances to base-only model (derive base, no SS addition; JS adds dynamically)
