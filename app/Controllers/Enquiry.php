@@ -6172,6 +6172,63 @@ class Enquiry extends BaseController
                 $extension_ref_id_temp = 0;
             }
             $object_det = $Enquiry_model->get_object_details($object_id);
+                $previous_itinerary_details_save = [];
+            $is_fresh = ($edit_id === null);
+
+            if ($edit_id > 0 && $extension_ref_id !== null) {
+                // Making a specific tour plan current - load THAT tour plan's previous version
+                $enq_ext_ids = $Enquiry_model->get_enquiry_extensions_byid($edit_id);
+
+                if (!empty($enq_ext_ids)) {
+                    $tour_plan_ref_id = $enq_ext_ids[0]['tour_plan_ref_id'];
+                    $current_extension_ref_id = $enq_ext_ids[0]['extension_ref_id'];
+
+                    log_message('info', '=== MAKE CURRENT MODE ===');
+                    log_message('info', 'Loading previous itinerary for tour_plan_ref_id: ' . $tour_plan_ref_id);
+                    log_message('info', 'Current extension_ref_id: ' . $current_extension_ref_id);
+
+                    // Load previous version of THIS SPECIFIC tour plan
+                    $previous_itinerary_details_save = $Enquiry_model->get_itinerary_previous_details(
+                        $current_extension_ref_id,
+                        $tour_plan_ref_id,
+                        $object_det[0]['enquiry_header_id']
+                    );
+
+                    log_message('info', 'Loaded ' . count($previous_itinerary_details_save) . ' records from SPECIFIC tour plan previous version');
+
+                    // Debug: Show what was loaded
+                    if (!empty($previous_itinerary_details_save)) {
+                        foreach ($previous_itinerary_details_save as $prev) {
+                            log_message('debug', 'Previous record: tour_date=' . $prev['tour_date'] . ', tour_details_id=' . $prev['tour_details_id'] . ', extension_ref_id=' . $prev['extension_ref_id']);
+                        }
+                    }
+                }
+            } elseif ($is_fresh) {
+                // Fresh itinerary - load from last saved (any tour plan)
+                log_message('info', '=== FRESH ITINERARY MODE ===');
+
+                $last_itinerary = $Enquiry_model->get_last_itinerary_saved($object_det[0]['enquiry_header_id']);
+
+                if (!empty($last_itinerary)) {
+                    log_message('info', 'Loading from last saved itinerary, extension_ref_id: ' . $last_itinerary['extension_ref_id']);
+
+                    // For fresh, use simple extension_ref_id lookup (no tour_plan_ref_id filter)
+                    $previous_itinerary_details_save = $Enquiry_model->get_itinerary_previous_details(
+                        $last_itinerary['extension_ref_id']
+                    );
+
+                    log_message('info', 'Loaded ' . count($previous_itinerary_details_save) . ' records from last saved itinerary');
+                } else {
+                    log_message('info', 'No previous itinerary found');
+                }
+            }
+            $prev_start_date = null;
+            if ($is_fresh && !empty($previous_itinerary_details_save)) {
+                $prev_tour_dates = array_column($previous_itinerary_details_save, 'tour_date');
+                if (!empty($prev_tour_dates)) {
+                    $prev_start_date = min($prev_tour_dates);
+                }
+            }
             if ($edit_id > 0 && $extension_ref_id !== null) {
                 // We're editing a specific itinerary version - load its previous version for comparison
                 $last_itinerary = $Enquiry_model->get_last_itinerary_saved($object_det[0]['enquiry_header_id']);
@@ -6783,6 +6840,8 @@ class Enquiry extends BaseController
                     if (!is_array($json_addons)) {
                         $json_addons = [];
                     }
+
+                    
 
                     $saved_sightseeing_by_date[$vals['tour_details_id']][$tour_date] = [
                         'sightseeing' => $saved_sightseeing,

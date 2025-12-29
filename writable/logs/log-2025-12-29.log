@@ -7346,3 +7346,1018 @@ INFO - 2025-12-29 14:56:44 --> Vehicle adjustment for 2026-02-06: is_saved=true,
 INFO - 2025-12-29 14:56:44 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
 INFO - 2025-12-29 14:56:44 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
 INFO - 2025-12-29 14:56:44 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 14:58:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 14:58:01 --> === FRESH ITINERARY MODE ===
+INFO - 2025-12-29 14:58:01 --> Loading from last saved itinerary, extension_ref_id: 577
+INFO - 2025-12-29 14:58:01 --> Fresh mode: Loading from extension_ref_id: 577
+INFO - 2025-12-29 14:58:01 --> Loaded 3 records from fresh mode
+INFO - 2025-12-29 14:58:01 --> Loaded 3 records from last saved itinerary
+DEBUG - 2025-12-29 14:58:01 --> Fresh SS match check: Day 1 (date 2026-02-05) | Current: tour_id=2036, location='9', hotel_id=401 | Prev Day 1: tour_id=1983, location='9', hotel_id=401, ext_ref=577 | LocationMatch=YES | HotelMatch=YES
+INFO - 2025-12-29 14:58:01 --> Fresh: SUCCESSFULLY pre-loaded SS, Special Events & Addons for Day 1 (date 2026-02-05) from extension_ref_id 577 | SS count: 2
+INFO - 2025-12-29 14:58:01 --> SKIPPED defaults for Day 1 (date 2026-02-05) - using pre-loaded data (had_saved: yes, force_fresh: yes)
+DEBUG - 2025-12-29 14:58:01 --> Fresh SS match check: Day 2 (date 2026-02-06) | Current: tour_id=2036, location='9', hotel_id=401 | Prev Day 1: tour_id=1983, location='9', hotel_id=401, ext_ref=577 | LocationMatch=YES | HotelMatch=YES
+DEBUG - 2025-12-29 14:58:01 --> Fresh SS match check: Day 2 (date 2026-02-06) | Current: tour_id=2036, location='9', hotel_id=401 | Prev Day 2: tour_id=1983, location='9', hotel_id=401, ext_ref=577 | LocationMatch=YES | HotelMatch=YES
+INFO - 2025-12-29 14:58:01 --> Fresh: SUCCESSFULLY pre-loaded SS, Special Events & Addons for Day 2 (date 2026-02-06) from extension_ref_id 577 | SS count: 0
+INFO - 2025-12-29 14:58:01 --> SKIPPED defaults for Day 2 (date 2026-02-06) - using pre-loaded data (had_saved: yes, force_fresh: yes)
+INFO - 2025-12-29 14:58:01 --> Expansion date 2026-02-05: DB Total=36km, Saved SS=400km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-29 14:58:01 --> Expansion date 2026-02-05: DB Total=36km, Saved SS=400km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-29 14:58:01 --> Expansion date 2026-02-05: DB Total=36km, Saved SS=400km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-29 14:58:01 --> Expansion date 2026-02-05: DB Total=36km, Saved SS=400km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-29 14:58:01 --> Expansion date 2026-02-06: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-29 14:58:01 --> Expansion date 2026-02-06: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-29 14:58:01 --> Expansion date 2026-02-06: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-29 14:58:01 --> Expansion date 2026-02-06: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+DEBUG - 2025-12-29 15:00:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:00:31 --> === FRESH ITINERARY MODE ===
+INFO - 2025-12-29 15:00:31 --> Loading from last saved itinerary, extension_ref_id: 577
+INFO - 2025-12-29 15:00:31 --> Fresh mode: Loading from extension_ref_id: 577
+INFO - 2025-12-29 15:00:31 --> Loaded 3 records from fresh mode
+INFO - 2025-12-29 15:00:31 --> Loaded 3 records from last saved itinerary
+INFO - 2025-12-29 15:00:31 --> Day 1 (date 2026-02-05): No defaults loaded
+INFO - 2025-12-29 15:00:31 --> Loaded default SS for Day 2 (date 2026-02-06): 1 items
+INFO - 2025-12-29 15:00:31 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:31 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:31 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:31 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:31 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:31 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:31 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:31 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:31 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:31 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:31 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:31 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:31 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:31 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:31 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:31 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 15:00:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:00:49 --> === FRESH ITINERARY MODE ===
+INFO - 2025-12-29 15:00:49 --> Loading from last saved itinerary, extension_ref_id: 577
+INFO - 2025-12-29 15:00:49 --> Fresh mode: Loading from extension_ref_id: 577
+INFO - 2025-12-29 15:00:49 --> Loaded 3 records from fresh mode
+INFO - 2025-12-29 15:00:49 --> Loaded 3 records from last saved itinerary
+INFO - 2025-12-29 15:00:49 --> Day 1 (date 2026-02-05): No defaults loaded
+INFO - 2025-12-29 15:00:50 --> Loaded default SS for Day 2 (date 2026-02-06): 1 items
+INFO - 2025-12-29 15:00:50 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:50 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:50 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:50 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:50 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:50 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:50 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:50 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:50 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:50 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:50 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:50 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:50 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:50 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:00:50 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 15:00:50 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 15:02:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:02:10 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:02:10 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:02:10 --> Found 3 itinerary records
+INFO - 2025-12-29 15:02:10 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 15:02:10 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401 | Location match: YES
+INFO - 2025-12-29 15:02:10 --> Same hotel (ID: 401) and location - loaded 2 hotel facilities
+INFO - 2025-12-29 15:02:10 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:02:10 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:02:10 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:02:10 --> Found 3 itinerary records
+INFO - 2025-12-29 15:02:10 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 15:02:10 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401 | Location match: YES
+INFO - 2025-12-29 15:02:10 --> Same hotel (ID: 401) and location - loaded 2 hotel facilities
+INFO - 2025-12-29 15:02:10 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:02:10 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:10 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:10 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:10 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:10 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:10 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:10 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:10 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:10 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:10 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:10 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:10 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:10 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:10 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:10 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:10 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 15:02:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:02:55 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:02:55 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:02:55 --> Found 3 itinerary records
+INFO - 2025-12-29 15:02:55 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 15:02:55 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:02:55 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:02:55 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:02:55 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:02:55 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:02:55 --> Found 3 itinerary records
+INFO - 2025-12-29 15:02:55 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 15:02:55 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:02:55 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:02:55 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:02:55 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:55 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:55 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:55 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:55 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:55 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:55 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:55 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:55 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:55 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:55 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:55 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:55 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:55 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:02:55 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:02:55 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 15:04:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:04:43 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:04:43 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:04:43 --> Found 3 itinerary records
+INFO - 2025-12-29 15:04:43 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 15:04:43 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:04:43 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:04:43 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:04:43 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:04:43 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:04:43 --> Found 3 itinerary records
+INFO - 2025-12-29 15:04:43 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 15:04:43 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:04:43 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:04:43 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:04:43 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:04:43 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:04:43 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:04:43 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:04:43 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:04:43 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:04:43 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:04:43 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:04:43 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:04:43 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:04:43 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:04:43 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:04:43 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:04:43 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:04:43 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:04:43 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 15:05:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:06:00 --> Loading previous itinerary data from previous_active_tour_id: 1983
+CRITICAL - 2025-12-29 15:06:00 --> CodeIgniter\Database\Exceptions\DatabaseException: You must set the database table to be used with your query.
+[Method: GET, Route: Enquiry/itinerary/2844/0]
+in SYSTEMPATH\Database\BaseConnection.php on line 927.
+ 1 SYSTEMPATH\Model.php(714): CodeIgniter\Database\BaseConnection->table(null)
+ 2 SYSTEMPATH\Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH\Controllers\Enquiry.php(6599): CodeIgniter\Model->__call('get_tour_plan_details_by_id', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2844', '0')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-29 15:06:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:06:01 --> Loading previous itinerary data from previous_active_tour_id: 1983
+CRITICAL - 2025-12-29 15:06:01 --> CodeIgniter\Database\Exceptions\DatabaseException: You must set the database table to be used with your query.
+[Method: GET, Route: Enquiry/itinerary/2844/0]
+in SYSTEMPATH\Database\BaseConnection.php on line 927.
+ 1 SYSTEMPATH\Model.php(714): CodeIgniter\Database\BaseConnection->table(null)
+ 2 SYSTEMPATH\Model.php(920): CodeIgniter\Model->builder()
+ 3 APPPATH\Controllers\Enquiry.php(6599): CodeIgniter\Model->__call('get_tour_plan_details_by_id', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Enquiry->itinerary('2844', '0')
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Enquiry))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-29 15:07:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:07:17 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:07:17 --> Hotel comparison - Previous: 401 | Current: 401
+INFO - 2025-12-29 15:07:17 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:07:17 --> Found 3 itinerary records
+INFO - 2025-12-29 15:07:17 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 15:07:17 --> Same hotel (ID: 401) - loaded 2 hotel facilities from previous tour
+INFO - 2025-12-29 15:07:17 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:07:17 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:07:17 --> Hotel comparison - Previous: 401 | Current: 401
+INFO - 2025-12-29 15:07:17 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:07:17 --> Found 3 itinerary records
+INFO - 2025-12-29 15:07:17 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 15:07:17 --> Same hotel (ID: 401) - loaded 2 hotel facilities from previous tour
+INFO - 2025-12-29 15:07:17 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:07:17 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:07:17 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:07:17 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:07:17 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:07:17 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:07:17 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:07:17 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:07:17 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:07:17 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:07:17 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:07:17 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:07:17 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:07:17 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:07:17 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:07:17 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:07:17 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 15:13:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:13:23 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:13:23 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:13:23 --> Found 3 itinerary records
+INFO - 2025-12-29 15:13:23 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 15:13:23 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:13:23 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:13:23 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:13:23 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:13:23 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:13:23 --> Found 3 itinerary records
+INFO - 2025-12-29 15:13:23 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 15:13:23 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:13:23 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:13:23 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:13:23 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:13:23 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:13:23 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:13:23 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:13:23 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:13:23 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:13:23 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:13:23 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:13:23 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:13:23 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:13:23 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:13:23 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:13:23 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:13:23 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:13:23 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:13:23 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 15:14:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:14:26 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:14:26 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:14:26 --> Found 3 itinerary records
+INFO - 2025-12-29 15:14:26 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 15:14:26 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:14:26 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:14:26 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:14:26 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:14:26 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:14:26 --> Found 3 itinerary records
+INFO - 2025-12-29 15:14:26 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 15:14:26 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:14:26 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:14:26 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:14:26 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:14:26 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:14:26 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:14:26 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:14:26 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:14:26 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:14:26 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:14:26 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:14:26 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:14:26 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:14:26 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:14:26 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:14:26 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:14:26 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:14:26 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:14:26 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 15:18:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:18:59 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:18:59 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:18:59 --> Found 3 itinerary records
+INFO - 2025-12-29 15:18:59 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 15:18:59 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:18:59 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:18:59 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:18:59 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:18:59 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:18:59 --> Found 3 itinerary records
+INFO - 2025-12-29 15:18:59 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 15:18:59 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:18:59 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:18:59 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:18:59 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:18:59 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:18:59 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:18:59 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:18:59 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:18:59 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:18:59 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:18:59 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:18:59 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:18:59 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:18:59 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:18:59 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:18:59 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:18:59 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:18:59 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:18:59 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 15:19:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:19:41 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:19:41 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:19:41 --> Found 3 itinerary records
+INFO - 2025-12-29 15:19:41 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 15:19:41 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:19:41 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:19:41 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:19:41 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:19:41 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:19:41 --> Found 3 itinerary records
+INFO - 2025-12-29 15:19:41 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 15:19:41 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:19:41 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:19:41 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:19:41 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:19:41 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:19:41 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:19:41 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:19:41 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:19:41 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:19:41 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:19:41 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:19:41 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:19:41 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:19:41 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:19:41 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:19:41 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:19:41 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:19:41 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:19:41 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 15:20:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 15:20:57 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:20:57 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:20:57 --> Found 3 itinerary records
+INFO - 2025-12-29 15:20:57 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 15:20:57 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:20:57 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:20:57 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:20:57 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 15:20:57 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 15:20:57 --> Found 3 itinerary records
+INFO - 2025-12-29 15:20:57 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 15:20:57 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 15:20:57 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 15:20:57 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 15:20:57 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:20:57 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:20:57 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:20:57 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:20:57 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:20:57 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:20:57 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:20:57 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:20:57 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:20:57 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:20:57 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:20:57 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:20:57 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:20:57 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 15:20:57 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 15:20:57 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:31:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-29 17:31:42 --> ParseError: syntax error, unexpected single-quoted string "saved_ss_ids", expecting "]"
+[Method: GET, Route: Enquiry/itinerary/2844/0]
+in APPPATH\Controllers\Enquiry.php on line 6786.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Enquiry/itinerary/2844/0', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Enquiry/itinerary/2844/0')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Enquiry/itinerary/2844/0')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-29 17:33:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-29 17:33:26 --> ParseError: syntax error, unexpected single-quoted string "saved_ss_ids", expecting "]"
+[Method: GET, Route: Enquiry/itinerary/2844/0]
+in APPPATH\Controllers\Enquiry.php on line 6786.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Enquiry/itinerary/2844/0', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Enquiry/itinerary/2844/0')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Enquiry/itinerary/2844/0')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-29 17:33:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-29 17:33:43 --> ParseError: syntax error, unexpected single-quoted string "saved_ss_ids", expecting "]"
+[Method: GET, Route: Enquiry/itinerary/2844/0]
+in APPPATH\Controllers\Enquiry.php on line 6785.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Enquiry/itinerary/2844/0', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Enquiry/itinerary/2844/0')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Enquiry/itinerary/2844/0')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-29 17:34:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-29 17:34:56 --> ParseError: syntax error, unexpected single-quoted string "saved_ss_ids", expecting "]"
+[Method: GET, Route: Enquiry/itinerary/2844/0]
+in APPPATH\Controllers\Enquiry.php on line 6819.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Enquiry/itinerary/2844/0', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Enquiry/itinerary/2844/0')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Enquiry/itinerary/2844/0')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-29 17:34:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-29 17:34:58 --> ParseError: syntax error, unexpected single-quoted string "saved_ss_ids", expecting "]"
+[Method: GET, Route: Enquiry/itinerary/2844/0]
+in APPPATH\Controllers\Enquiry.php on line 6819.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Enquiry/itinerary/2844/0', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Enquiry/itinerary/2844/0')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Enquiry/itinerary/2844/0')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-29 17:35:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-29 17:35:14 --> ParseError: syntax error, unexpected single-quoted string "saved_ss_ids", expecting "]"
+[Method: GET, Route: Enquiry/itinerary/2844/0]
+in APPPATH\Controllers\Enquiry.php on line 6819.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Enquiry/itinerary/2844/0', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Enquiry/itinerary/2844/0')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Enquiry/itinerary/2844/0')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-29 17:36:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2025-12-29 17:36:20 --> [DEPRECATED] round(): Passing null to parameter #1 ($num) of type int|float is deprecated in APPPATH\Controllers\Dashboard.php on line 247.
+ 1 APPPATH\Controllers\Dashboard.php(247): round(null, 2)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Dashboard->index()
+ 3 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Dashboard))
+ 4 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-29 17:36:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:36:28 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:36:28 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:36:28 --> Found 3 itinerary records
+INFO - 2025-12-29 17:36:28 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 17:36:28 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401 | Previous location: "9" | Current location: "9"
+INFO - 2025-12-29 17:36:28 --> Loaded 2 hotel facilities - Reason: same hotel (ID: 401)
+INFO - 2025-12-29 17:36:28 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:36:28 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:36:28 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:36:28 --> Found 3 itinerary records
+INFO - 2025-12-29 17:36:28 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 17:36:28 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401 | Previous location: "9" | Current location: "9"
+INFO - 2025-12-29 17:36:28 --> Loaded 2 hotel facilities - Reason: same hotel (ID: 401)
+INFO - 2025-12-29 17:36:28 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:36:28 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:28 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:28 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:28 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:28 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:28 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:28 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:28 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:28 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:28 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:28 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:28 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:28 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:28 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:28 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:28 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:36:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:36:38 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:36:38 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:36:38 --> Found 3 itinerary records
+INFO - 2025-12-29 17:36:38 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 17:36:38 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401 | Previous location: "9" | Current location: "9"
+INFO - 2025-12-29 17:36:38 --> Loaded 2 hotel facilities - Reason: same hotel (ID: 401)
+INFO - 2025-12-29 17:36:38 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:36:38 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:36:38 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:36:38 --> Found 3 itinerary records
+INFO - 2025-12-29 17:36:38 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 17:36:38 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401 | Previous location: "9" | Current location: "9"
+INFO - 2025-12-29 17:36:38 --> Loaded 2 hotel facilities - Reason: same hotel (ID: 401)
+INFO - 2025-12-29 17:36:38 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:36:38 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:38 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:38 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:38 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:38 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:38 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:38 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:38 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:38 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:38 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:38 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:38 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:38 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:38 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:38 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:38 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:36:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:36:42 --> Fresh mode: Loading from extension_ref_id: 577
+INFO - 2025-12-29 17:36:42 --> Loaded 3 records from fresh mode
+INFO - 2025-12-29 23:06:42 --> Loaded from DRAFT for date 2026-02-05: 1 sightseeing, 1 special events, 1 hotel facilities
+INFO - 2025-12-29 23:06:42 --> Loaded from DRAFT for date 2026-02-06: 0 sightseeing, 1 special events, 1 hotel facilities
+INFO - 2025-12-29 23:06:42 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=200km
+INFO - 2025-12-29 23:06:42 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=200km, Derived Base=0km
+INFO - 2025-12-29 23:06:42 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=200km
+INFO - 2025-12-29 23:06:42 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=200km, Derived Base=0km
+INFO - 2025-12-29 23:06:42 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=200km
+INFO - 2025-12-29 23:06:42 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=200km, Derived Base=0km
+INFO - 2025-12-29 23:06:42 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=200km
+INFO - 2025-12-29 23:06:42 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=200km, Derived Base=0km
+INFO - 2025-12-29 23:06:42 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 23:06:42 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 23:06:42 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 23:06:42 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 23:06:42 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 23:06:42 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 23:06:42 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 23:06:42 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 23:06:42 --> Itinerary expansion date 2026-02-05: Derived Base=36km (SS subtract=200km)
+INFO - 2025-12-29 23:06:42 --> Itinerary expansion date 2026-02-05: Derived Base=36km (SS subtract=200km)
+INFO - 2025-12-29 23:06:42 --> Itinerary expansion date 2026-02-05: Derived Base=36km (SS subtract=200km)
+INFO - 2025-12-29 23:06:42 --> Itinerary expansion date 2026-02-05: Derived Base=36km (SS subtract=200km)
+INFO - 2025-12-29 23:06:42 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+INFO - 2025-12-29 23:06:42 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+INFO - 2025-12-29 23:06:42 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+INFO - 2025-12-29 23:06:42 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+DEBUG - 2025-12-29 17:36:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:36:51 --> Fresh mode: Loading from extension_ref_id: 577
+INFO - 2025-12-29 17:36:51 --> Loaded 3 records from fresh mode
+INFO - 2025-12-29 23:06:51 --> Loaded from DRAFT for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 23:06:51 --> Loaded from DRAFT for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 23:06:51 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=400km
+INFO - 2025-12-29 23:06:51 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=400km, Derived Base=0km
+INFO - 2025-12-29 23:06:51 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=400km
+INFO - 2025-12-29 23:06:51 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=400km, Derived Base=0km
+INFO - 2025-12-29 23:06:51 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=400km
+INFO - 2025-12-29 23:06:51 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=400km, Derived Base=0km
+INFO - 2025-12-29 23:06:51 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=400km
+INFO - 2025-12-29 23:06:51 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=400km, Derived Base=0km
+INFO - 2025-12-29 23:06:51 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 23:06:51 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 23:06:51 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 23:06:51 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 23:06:51 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 23:06:51 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 23:06:51 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 23:06:51 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 23:06:51 --> Itinerary expansion date 2026-02-05: Derived Base=236km (SS subtract=400km)
+INFO - 2025-12-29 23:06:51 --> Itinerary expansion date 2026-02-05: Derived Base=236km (SS subtract=400km)
+INFO - 2025-12-29 23:06:51 --> Itinerary expansion date 2026-02-05: Derived Base=236km (SS subtract=400km)
+INFO - 2025-12-29 23:06:51 --> Itinerary expansion date 2026-02-05: Derived Base=236km (SS subtract=400km)
+INFO - 2025-12-29 23:06:51 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+INFO - 2025-12-29 23:06:51 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+INFO - 2025-12-29 23:06:51 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+INFO - 2025-12-29 23:06:51 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+DEBUG - 2025-12-29 17:36:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:36:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:36:58 --> Loaded from DRAFT for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:36:58 --> Loaded from DRAFT for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:36:58 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=400km
+INFO - 2025-12-29 17:36:58 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=400km, Derived Base=0km
+INFO - 2025-12-29 17:36:58 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=400km
+INFO - 2025-12-29 17:36:58 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=400km, Derived Base=0km
+INFO - 2025-12-29 17:36:58 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=400km
+INFO - 2025-12-29 17:36:58 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=400km, Derived Base=0km
+INFO - 2025-12-29 17:36:58 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=400km
+INFO - 2025-12-29 17:36:58 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=400km, Derived Base=0km
+INFO - 2025-12-29 17:36:58 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:58 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:58 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:58 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:58 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:58 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:58 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:36:58 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:36:58 --> Itinerary expansion date 2026-02-05: Derived Base=236km (SS subtract=400km)
+INFO - 2025-12-29 17:36:58 --> Itinerary expansion date 2026-02-05: Derived Base=236km (SS subtract=400km)
+INFO - 2025-12-29 17:36:58 --> Itinerary expansion date 2026-02-05: Derived Base=236km (SS subtract=400km)
+INFO - 2025-12-29 17:36:58 --> Itinerary expansion date 2026-02-05: Derived Base=236km (SS subtract=400km)
+INFO - 2025-12-29 17:36:58 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+INFO - 2025-12-29 17:36:58 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+INFO - 2025-12-29 17:36:58 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+INFO - 2025-12-29 17:36:58 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+DEBUG - 2025-12-29 17:37:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:37:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:37:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:37:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:37:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:37:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:37:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:37:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:37:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:37:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:37:11 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:37:11 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:37:11 --> Found 3 itinerary records
+INFO - 2025-12-29 17:37:11 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 17:37:11 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401 | Previous location: "9" | Current location: "9"
+INFO - 2025-12-29 17:37:11 --> Loaded 2 hotel facilities - Reason: same hotel (ID: 401)
+INFO - 2025-12-29 17:37:11 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:37:11 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:37:11 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:37:11 --> Found 3 itinerary records
+INFO - 2025-12-29 17:37:11 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 17:37:11 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401 | Previous location: "9" | Current location: "9"
+INFO - 2025-12-29 17:37:11 --> Loaded 2 hotel facilities - Reason: same hotel (ID: 401)
+INFO - 2025-12-29 17:37:11 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:37:11 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:11 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:11 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:11 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:11 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:11 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:11 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:11 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:11 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:11 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:11 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:11 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:11 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:11 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:11 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:11 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:37:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:37:15 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:37:15 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:37:15 --> Found 3 itinerary records
+INFO - 2025-12-29 17:37:15 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 17:37:15 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401 | Previous location: "9" | Current location: "9"
+INFO - 2025-12-29 17:37:15 --> Loaded 2 hotel facilities - Reason: same hotel (ID: 401)
+INFO - 2025-12-29 17:37:15 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:37:15 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:37:15 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:37:15 --> Found 3 itinerary records
+INFO - 2025-12-29 17:37:15 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 17:37:15 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401 | Previous location: "9" | Current location: "9"
+INFO - 2025-12-29 17:37:15 --> Loaded 2 hotel facilities - Reason: same hotel (ID: 401)
+INFO - 2025-12-29 17:37:15 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:37:15 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:15 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:15 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:15 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:15 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:15 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:15 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:15 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:15 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:15 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:15 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:15 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:15 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:15 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:37:15 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:37:15 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:40:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:40:36 --> SKIPPED defaults for Day 1 (date 2026-02-05) - using pre-loaded data (had_saved: no, force_fresh: yes)
+INFO - 2025-12-29 17:40:36 --> SKIPPED defaults for Day 2 (date 2026-02-06) - using pre-loaded data (had_saved: no, force_fresh: yes)
+INFO - 2025-12-29 17:40:36 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:36 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:36 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:36 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:36 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:36 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:36 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:36 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:36 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:36 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:36 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:36 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:36 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:36 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:36 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:36 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:40:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:40:38 --> SKIPPED defaults for Day 1 (date 2026-02-05) - using pre-loaded data (had_saved: no, force_fresh: yes)
+INFO - 2025-12-29 17:40:38 --> SKIPPED defaults for Day 2 (date 2026-02-06) - using pre-loaded data (had_saved: no, force_fresh: yes)
+INFO - 2025-12-29 17:40:38 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:38 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:38 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:38 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:38 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:38 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:38 --> Vehicle adjustment for 2026-02-05: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:38 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:38 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:38 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:38 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:38 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:38 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:38 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:40:38 --> Vehicle adjustment for 2026-02-06: is_saved=false, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-29 17:40:38 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:41:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:41:12 --> === FRESH ITINERARY MODE ===
+INFO - 2025-12-29 17:41:12 --> Loading from last saved itinerary, extension_ref_id: 577
+INFO - 2025-12-29 17:41:12 --> Fresh mode: Loading from extension_ref_id: 577
+INFO - 2025-12-29 17:41:12 --> Loaded 3 records from fresh mode
+INFO - 2025-12-29 17:41:12 --> Loaded 3 records from last saved itinerary
+DEBUG - 2025-12-29 17:41:12 --> Fresh SS match check: Day 1 (date 2026-02-05) | Current: tour_id=2037, location='9', hotel_id=401 | Prev Day 1: tour_id=1983, location='9', hotel_id=401, ext_ref=577 | LocationMatch=YES | HotelMatch=YES
+INFO - 2025-12-29 17:41:12 --> Fresh: SUCCESSFULLY pre-loaded SS, Special Events & Addons for Day 1 (date 2026-02-05) from extension_ref_id 577 | SS count: 2
+INFO - 2025-12-29 17:41:12 --> SKIPPED defaults for Day 1 (date 2026-02-05) - using pre-loaded data (had_saved: yes, force_fresh: yes)
+DEBUG - 2025-12-29 17:41:12 --> Fresh SS match check: Day 2 (date 2026-02-06) | Current: tour_id=2037, location='9', hotel_id=401 | Prev Day 1: tour_id=1983, location='9', hotel_id=401, ext_ref=577 | LocationMatch=YES | HotelMatch=YES
+DEBUG - 2025-12-29 17:41:12 --> Fresh SS match check: Day 2 (date 2026-02-06) | Current: tour_id=2037, location='9', hotel_id=401 | Prev Day 2: tour_id=1983, location='9', hotel_id=401, ext_ref=577 | LocationMatch=YES | HotelMatch=YES
+INFO - 2025-12-29 17:41:12 --> Fresh: SUCCESSFULLY pre-loaded SS, Special Events & Addons for Day 2 (date 2026-02-06) from extension_ref_id 577 | SS count: 0
+INFO - 2025-12-29 17:41:12 --> SKIPPED defaults for Day 2 (date 2026-02-06) - using pre-loaded data (had_saved: yes, force_fresh: yes)
+INFO - 2025-12-29 17:41:12 --> Expansion date 2026-02-05: DB Total=36km, Saved SS=400km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-29 17:41:12 --> Expansion date 2026-02-05: DB Total=36km, Saved SS=400km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-29 17:41:12 --> Expansion date 2026-02-05: DB Total=36km, Saved SS=400km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-29 17:41:12 --> Expansion date 2026-02-05: DB Total=36km, Saved SS=400km, Derived Base=0km (display base; JS adds current SS)
+INFO - 2025-12-29 17:41:12 --> Expansion date 2026-02-06: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-29 17:41:12 --> Expansion date 2026-02-06: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-29 17:41:12 --> Expansion date 2026-02-06: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+INFO - 2025-12-29 17:41:12 --> Expansion date 2026-02-06: DB Total=36km, Saved SS=0km, Derived Base=36km (display base; JS adds current SS)
+DEBUG - 2025-12-29 17:44:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2025-12-29 17:44:39 --> ParseError: syntax error, unexpected token "if", expecting "function" or "const"
+[Method: GET, Route: Enquiry/itinerary/2844/0]
+in APPPATH\Controllers\Enquiry.php on line 6234.
+ 1 SYSTEMPATH\Router\Router.php(563): CodeIgniter\Router\AutoRouter->getRoute('Enquiry/itinerary/2844/0', 'GET')
+ 2 SYSTEMPATH\Router\Router.php(228): CodeIgniter\Router\Router->autoRoute('Enquiry/itinerary/2844/0')
+ 3 SYSTEMPATH\CodeIgniter.php(834): CodeIgniter\Router\Router->handle('Enquiry/itinerary/2844/0')
+ 4 SYSTEMPATH\CodeIgniter.php(457): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-12-29 17:45:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:45:02 --> === FRESH ITINERARY MODE ===
+INFO - 2025-12-29 17:45:02 --> Loading from last saved itinerary, extension_ref_id: 577
+INFO - 2025-12-29 17:45:02 --> Fresh mode: Loading from extension_ref_id: 577
+INFO - 2025-12-29 17:45:02 --> Loaded 3 records from fresh mode
+INFO - 2025-12-29 17:45:02 --> Loaded 3 records from last saved itinerary
+INFO - 2025-12-29 17:45:02 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:45:02 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:45:02 --> Found 3 itinerary records
+INFO - 2025-12-29 17:45:02 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 17:45:02 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:45:02 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:45:02 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:45:02 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:45:02 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:45:02 --> Found 3 itinerary records
+INFO - 2025-12-29 17:45:02 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 17:45:02 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:45:02 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:45:02 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:45:02 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:02 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:02 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:02 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:02 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:02 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:02 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:02 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:02 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:02 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:02 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:02 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:02 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:02 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:02 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:02 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:45:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:45:21 --> === FRESH ITINERARY MODE ===
+INFO - 2025-12-29 17:45:21 --> Loading from last saved itinerary, extension_ref_id: 577
+INFO - 2025-12-29 17:45:21 --> Fresh mode: Loading from extension_ref_id: 577
+INFO - 2025-12-29 17:45:21 --> Loaded 3 records from fresh mode
+INFO - 2025-12-29 17:45:21 --> Loaded 3 records from last saved itinerary
+INFO - 2025-12-29 17:45:21 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:45:21 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:45:21 --> Found 3 itinerary records
+INFO - 2025-12-29 17:45:21 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 17:45:21 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:45:21 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:45:21 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:45:21 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:45:21 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:45:21 --> Found 3 itinerary records
+INFO - 2025-12-29 17:45:21 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 17:45:21 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:45:21 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:45:21 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:45:21 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:21 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:21 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:21 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:21 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:21 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:21 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:21 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:21 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:21 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:21 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:21 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:21 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:21 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:21 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:21 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:45:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:45:32 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:45:32 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:45:32 --> Found 3 itinerary records
+INFO - 2025-12-29 17:45:32 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 17:45:32 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:45:32 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:45:32 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:45:32 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:45:32 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:45:32 --> Found 3 itinerary records
+INFO - 2025-12-29 17:45:32 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 17:45:32 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:45:32 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:45:32 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:45:32 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:32 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:32 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:32 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:32 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:32 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:32 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:32 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:32 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:32 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:32 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:32 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:32 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:32 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:32 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:32 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:45:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:45:47 --> === FRESH ITINERARY MODE ===
+INFO - 2025-12-29 17:45:47 --> Loading from last saved itinerary, extension_ref_id: 577
+INFO - 2025-12-29 17:45:47 --> Fresh mode: Loading from extension_ref_id: 577
+INFO - 2025-12-29 17:45:47 --> Loaded 3 records from fresh mode
+INFO - 2025-12-29 17:45:47 --> Loaded 3 records from last saved itinerary
+INFO - 2025-12-29 17:45:47 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:45:47 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:45:47 --> Found 3 itinerary records
+INFO - 2025-12-29 17:45:47 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 17:45:47 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:45:47 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:45:47 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:45:47 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:45:47 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:45:47 --> Found 3 itinerary records
+INFO - 2025-12-29 17:45:47 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 17:45:47 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:45:47 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:45:47 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:45:47 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:47 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:47 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:47 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:47 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:47 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:47 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:47 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:47 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:47 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:47 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:47 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:47 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:47 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:45:47 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:45:47 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:46:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:46:02 --> === FRESH ITINERARY MODE ===
+INFO - 2025-12-29 17:46:02 --> Loading from last saved itinerary, extension_ref_id: 577
+INFO - 2025-12-29 17:46:02 --> Fresh mode: Loading from extension_ref_id: 577
+INFO - 2025-12-29 17:46:02 --> Loaded 3 records from fresh mode
+INFO - 2025-12-29 17:46:02 --> Loaded 3 records from last saved itinerary
+INFO - 2025-12-29 17:46:02 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:46:02 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:46:02 --> Found 3 itinerary records
+INFO - 2025-12-29 17:46:02 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 17:46:02 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:46:02 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:46:02 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:46:02 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:46:02 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:46:02 --> Found 3 itinerary records
+INFO - 2025-12-29 17:46:02 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 17:46:02 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:46:02 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:46:02 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:46:02 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:02 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:02 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:02 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:02 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:02 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:02 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:02 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:02 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:02 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:02 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:02 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:02 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:02 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:02 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:02 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:46:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:46:03 --> === FRESH ITINERARY MODE ===
+INFO - 2025-12-29 17:46:03 --> Loading from last saved itinerary, extension_ref_id: 577
+INFO - 2025-12-29 17:46:03 --> Fresh mode: Loading from extension_ref_id: 577
+INFO - 2025-12-29 17:46:03 --> Loaded 3 records from fresh mode
+INFO - 2025-12-29 17:46:03 --> Loaded 3 records from last saved itinerary
+INFO - 2025-12-29 17:46:03 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:46:03 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:46:03 --> Found 3 itinerary records
+INFO - 2025-12-29 17:46:03 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 17:46:03 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:46:03 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:46:03 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:46:03 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:46:03 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:46:03 --> Found 3 itinerary records
+INFO - 2025-12-29 17:46:03 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 17:46:03 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:46:03 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:46:03 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:46:03 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:03 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:03 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:03 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:03 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:03 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:03 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:03 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:03 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:03 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:03 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:03 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:03 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:03 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:46:03 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:46:03 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+DEBUG - 2025-12-29 17:46:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-29 17:47:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-29 17:47:49 --> === FRESH ITINERARY MODE ===
+INFO - 2025-12-29 17:47:49 --> Loading from last saved itinerary, extension_ref_id: 577
+INFO - 2025-12-29 17:47:49 --> Fresh mode: Loading from extension_ref_id: 577
+INFO - 2025-12-29 17:47:49 --> Loaded 3 records from fresh mode
+INFO - 2025-12-29 17:47:49 --> Loaded 3 records from last saved itinerary
+INFO - 2025-12-29 17:47:49 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:47:49 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:47:49 --> Found 3 itinerary records
+INFO - 2025-12-29 17:47:49 --> Found matching date 2026-02-05 in previous tour plan (preloading)
+INFO - 2025-12-29 17:47:49 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:47:49 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:47:49 --> Preloaded from previous tour for date 2026-02-05: 2 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:47:49 --> Loading previous itinerary data from previous_active_tour_id: 1983
+INFO - 2025-12-29 17:47:49 --> Loading itinerary for tour_details_id: 1983, extension_ref_id: 577
+INFO - 2025-12-29 17:47:49 --> Found 3 itinerary records
+INFO - 2025-12-29 17:47:49 --> Found matching date 2026-02-06 in previous tour plan (preloading)
+INFO - 2025-12-29 17:47:49 --> Addon matching check - Previous hotel_id: 401 | Current hotel_id: 401
+INFO - 2025-12-29 17:47:49 --> Same hotel (ID: 401) - loaded 2 hotel facilities
+INFO - 2025-12-29 17:47:49 --> Preloaded from previous tour for date 2026-02-06: 0 sightseeing, 0 special events, 2 hotel facilities
+INFO - 2025-12-29 17:47:49 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:47:49 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:47:49 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:47:49 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:47:49 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:47:49 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:47:49 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:47:49 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:47:49 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:47:49 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:47:49 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:47:49 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:47:49 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:47:49 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-29 17:47:49 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=true, SS distance to subtract=0km
+INFO - 2025-12-29 17:47:49 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km

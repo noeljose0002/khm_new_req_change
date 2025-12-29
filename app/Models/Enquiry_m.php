@@ -673,6 +673,7 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
+    
     function getHotelFacilitybyhotelid($hotel_id)
     {
         $db = \Config\Database::connect();
