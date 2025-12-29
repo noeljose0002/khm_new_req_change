@@ -3009,7 +3009,7 @@ $cs_trans_total = 0;
 
 																											// Override with draft/saved data if exists
 																											if (!empty($itinerary_details_draft)) {
-																												$checked = "";
+																												$checked = "checked";
 																												if (!empty($d_vehicles)) {
 																													foreach ($d_vehicles as $drkey => $drval) {
 																														if ($drval->chk_vehicle_status == 1) {
@@ -3024,7 +3024,7 @@ $cs_trans_total = 0;
 																													}
 																												}
 																											} elseif (!empty($previous_itinerary_details_save)) {
-																												$checked = "";
+																												$checked = "checked";
 																												foreach ($previous_itinerary_details_save as $p_key => $p_val) {
 																													$iti_id_new = $p_val['tour_details_id'] . "_" . $startDate1->format('d-m-Y');
 																													$vid_check = $iti_id_new . $veh_type_id . "_" . $instance_index;
@@ -3063,7 +3063,10 @@ $cs_trans_total = 0;
 																													<input type="checkbox" id="chk_vehicle<?php echo $vid; ?>"
 																														name="additi[<?php echo $iti_id; ?>][chk_vehicle][<?php echo $vid; ?>]"
 																														class="chk_vehicle" value="<?php echo $vid; ?>"
-																														data-id="<?php echo $iti_id; ?>" <?php echo $checked; ?> <?php echo $dis_abled; ?>>
+																														data-id="<?php echo $iti_id; ?>"
+																														checked
+																														<?php echo $checked; ?>
+																														<?php echo $dis_abled; ?>>
 																												</div>
 																												<div class="col-xl-3 col-sm-12 col-md-3">
 																													<input type="text" id="veh_model<?php echo $vid; ?>"
@@ -3545,7 +3548,7 @@ $cs_trans_total = 0;
 									</div>
 								<?php } ?>
 							</form>
-							
+
 
 							<!-------------------------------------------------------------------------------------------------------------->
 

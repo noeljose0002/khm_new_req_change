@@ -1,0 +1,26 @@
+INFO - 2025-12-30 01:23:55 --> Loaded from DRAFT for date 2026-02-05: 1 sightseeing, 1 special events, 1 hotel facilities
+INFO - 2025-12-30 01:23:55 --> Loaded from DRAFT for date 2026-02-06: 0 sightseeing, 1 special events, 1 hotel facilities
+INFO - 2025-12-30 01:23:55 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=200km
+INFO - 2025-12-30 01:23:55 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=200km, Derived Base=0km
+INFO - 2025-12-30 01:23:55 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=200km
+INFO - 2025-12-30 01:23:55 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=200km, Derived Base=0km
+INFO - 2025-12-30 01:23:55 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=200km
+INFO - 2025-12-30 01:23:55 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=200km, Derived Base=0km
+INFO - 2025-12-30 01:23:55 --> Vehicle adjustment for 2026-02-05: is_saved=true, is_preloaded=false, SS distance to subtract=200km
+INFO - 2025-12-30 01:23:55 --> Expansion date 2026-02-05: DB Total=36km, SS to subtract=200km, Derived Base=0km
+INFO - 2025-12-30 01:23:55 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-30 01:23:55 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-30 01:23:55 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-30 01:23:55 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-30 01:23:55 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-30 01:23:55 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-30 01:23:55 --> Vehicle adjustment for 2026-02-06: is_saved=true, is_preloaded=false, SS distance to subtract=0km
+INFO - 2025-12-30 01:23:55 --> Expansion date 2026-02-06: DB Total=36km, SS to subtract=0km, Derived Base=36km
+INFO - 2025-12-30 01:23:55 --> Itinerary expansion date 2026-02-05: Derived Base=36km (SS subtract=200km)
+INFO - 2025-12-30 01:23:55 --> Itinerary expansion date 2026-02-05: Derived Base=36km (SS subtract=200km)
+INFO - 2025-12-30 01:23:55 --> Itinerary expansion date 2026-02-05: Derived Base=36km (SS subtract=200km)
+INFO - 2025-12-30 01:23:55 --> Itinerary expansion date 2026-02-05: Derived Base=36km (SS subtract=200km)
+INFO - 2025-12-30 01:23:55 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+INFO - 2025-12-30 01:23:55 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+INFO - 2025-12-30 01:23:55 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
+INFO - 2025-12-30 01:23:55 --> Itinerary expansion date 2026-02-06: Derived Base=0km (SS subtract=0km)
