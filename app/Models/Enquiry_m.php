@@ -2217,65 +2217,186 @@ class Enquiry_m extends Model
         }
         return $response;
     }
+/**
+ * Get tour record by tour_details_id
+ */
+public function get_tour_record_by_id(int $tour_details_id): ?array
+{
+    $result = $this->db->table('khm_obj_enquiry_tour_details')
+        ->select('tour_details_id, previous_active_tour_id, enquiry_header_id, extension_ref_id')
+        ->where('tour_details_id', $tour_details_id)
+        ->get()
+        ->getRowArray();
+    
+    return $result ?: null;
+}
 
+/**
+ * Get latest itinerary for a specific tour plan
+ */
+public function get_latest_itinerary_for_tour(
+    int $enquiry_header_id,
+    int $tour_details_id
+): array {
+    // Find the LATEST extension_ref_id for this tour plan
+    $latest_extension = $this->db->table('khm_obj_enquiry_itinerary_details')
+        ->selectMax('extension_ref_id')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->where('tour_details_id', $tour_details_id)
+        ->get()
+        ->getRowArray();
+    
+    if (empty($latest_extension) || empty($latest_extension['extension_ref_id'])) {
+        log_message('info', 'No itinerary found for tour_details_id: ' . $tour_details_id);
+        return [];
+    }
+    
+    $extension_ref_id = $latest_extension['extension_ref_id'];
+    
+    log_message('info', 'Loading itinerary for tour_details_id: ' . $tour_details_id . 
+               ', extension_ref_id: ' . $extension_ref_id);
+    
+    // Get all itinerary records for this tour and extension
+    $result = $this->db->table('khm_obj_enquiry_itinerary_details a')
+        ->select('a.*, t.tour_location, t.hotel_id')  // FIXED: Added t.hotel_id to select
+        ->join('khm_obj_enquiry_tour_details t', 't.tour_details_id = a.tour_details_id', 'left')
+        ->where('a.enquiry_header_id', $enquiry_header_id)
+        ->where('a.tour_details_id', $tour_details_id)
+        ->where('a.extension_ref_id', $extension_ref_id)
+        ->orderBy('a.tour_date', 'ASC')
+        ->get()
+        ->getResultArray();
+    
+    log_message('info', 'Found ' . count($result) . ' itinerary records');
+    
+    return $result;
+}
     //nj load prev sight//
-    public function get_previous_tour_plan_id(
-        int $enquiry_header_id,
-        int $current_tour_details_id
-    ): ?int {
-        $row = $this->db->table('khm_obj_enquiry_tour_details')
-            ->select('tour_details_id')
-            ->where('enquiry_header_id', $enquiry_header_id)
-            ->where('tour_details_id !=', $current_tour_details_id)
-            ->orderBy('updated_time', 'DESC')
-            ->limit(1)
+   public function get_previous_tour_plan_id(
+    int $enquiry_header_id,
+    int $current_tour_details_id
+): ?int {
+    $row = $this->db->table('khm_obj_enquiry_tour_details')
+        ->select('previous_active_tour_id')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        // ->where('tour_details_id !=', $current_tour_details_id)
+        ->orderBy('updated_time', 'DESC')
+        ->limit(1)
+        ->get()
+        ->getRowArray();
+
+    return $row['tour_details_id'] ?? null;
+}
+
+public function get_latest_itinerary_of_old_tour_plan(
+    int $enquiry_header_id,
+    int $old_tour_details_id,
+    int $current_extension_ref_id
+): array {
+
+    // subquery for previous extension_ref_id
+    $subQuery = $this->db->table('khm_obj_enquiry_itinerary_details')
+        ->selectMax('extension_ref_id')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->where('tour_details_id', $old_tour_details_id)
+        ->where('extension_ref_id <', $current_extension_ref_id)
+        ->getCompiledSelect();
+
+    return $this->db->table('khm_obj_enquiry_itinerary_details')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->where('tour_details_id', $old_tour_details_id)
+        ->where("extension_ref_id = ($subQuery)", null, false)
+        ->orderBy('tour_date', 'ASC')
+        ->get()
+        ->getResultArray();
+}
+
+public function get_itinerary_previous_details($extension_ref_id, $tour_plan_ref_id = null, $enquiry_header_id = null)
+{
+    $db = \Config\Database::connect();
+    $response = [];
+    
+    if ($tour_plan_ref_id !== null && $enquiry_header_id !== null) {
+        // MAKE CURRENT MODE: Load previous version of SPECIFIC tour plan
+        log_message('info', 'Getting previous itinerary for specific tour plan: tour_plan_ref_id=' . $tour_plan_ref_id);
+        
+        // Get the tour record and check for previous_active_tour_id
+        $tour_record = $db->table('khm_obj_enquiry_tour_details')
+            ->select('tour_details_id, previous_active_tour_id')
+            ->groupStart()
+            ->where('tour_details_id', $tour_plan_ref_id)
+            ->orWhere('extension_ref_id', $tour_plan_ref_id)
+            ->groupEnd()
             ->get()
             ->getRowArray();
-
-        return $row['tour_details_id'] ?? null;
-    }
-    public function get_latest_itinerary_of_old_tour_plan(
-        int $enquiry_header_id,
-        int $old_tour_details_id,
-        int $current_extension_ref_id
-    ): array {
-
-        // subquery for previous extension_ref_id
-        $subQuery = $this->db->table('khm_obj_enquiry_itinerary_details')
-            ->selectMax('extension_ref_id')
-            ->where('enquiry_header_id', $enquiry_header_id)
-            ->where('tour_details_id', $old_tour_details_id)
-            ->where('extension_ref_id <', $current_extension_ref_id)
-            ->getCompiledSelect();
-
-        return $this->db->table('khm_obj_enquiry_itinerary_details')
-            ->where('enquiry_header_id', $enquiry_header_id)
-            ->where('tour_details_id', $old_tour_details_id)
-            ->where("extension_ref_id = ($subQuery)", null, false)
-            ->orderBy('tour_date', 'ASC')
-            ->get()
-            ->getResultArray();
-    }
-
-
-    public function get_itinerary_previous_details($extension_ref_id)
-    {
-        $db = \Config\Database::connect();
-        $response = [];
-        $selected_table = $db->table('khm_obj_enquiry_itinerary_details a');
-        $result = $selected_table->select('a.*,t.tour_location')
+        
+        if ($tour_record) {
+            // Use previous_active_tour_id if available, otherwise use current tour_details_id
+            $source_tour_id = $tour_record['previous_active_tour_id'] ?? $tour_record['tour_details_id'];
+            
+            log_message('info', 'Source tour_details_id for previous data: ' . $source_tour_id);
+            
+            // Find the LATEST extension_ref_id for the source tour plan (previous version)
+            $previous_extension = $db->table('khm_obj_enquiry_itinerary_details')
+                ->selectMax('extension_ref_id')
+                ->where('enquiry_header_id', $enquiry_header_id)
+                ->where('tour_details_id', $source_tour_id)
+                ->where('extension_ref_id <', $extension_ref_id) // CRITICAL: Get version BEFORE current
+                ->get()
+                ->getRowArray();
+            
+            if ($previous_extension && !empty($previous_extension['extension_ref_id'])) {
+                $prev_ext_ref_id = $previous_extension['extension_ref_id'];
+                
+                log_message('info', 'Found previous extension_ref_id: ' . $prev_ext_ref_id . ' for source tour plan');
+                
+                // Get itinerary from that previous version
+                $result = $db->table('khm_obj_enquiry_itinerary_details a')
+                    ->select('a.*, t.tour_location')
+                    ->join('khm_obj_enquiry_tour_details t', 't.tour_details_id = a.tour_details_id', 'left')
+                    ->where('a.enquiry_header_id', $enquiry_header_id)
+                    ->where('a.tour_details_id', $source_tour_id)
+                    ->where('a.extension_ref_id', $prev_ext_ref_id)
+                    ->orderBy('a.tour_date', 'ASC')
+                    ->get()
+                    ->getResultArray();
+                
+                log_message('info', 'Loaded ' . count($result) . ' previous itinerary records');
+            } else {
+                log_message('info', 'No previous extension found for source tour');
+                $result = [];
+            }
+        } else {
+            log_message('warning', 'Could not find tour record for tour_plan_ref_id: ' . $tour_plan_ref_id);
+            $result = [];
+        }
+    } else {
+        // FRESH MODE: Load from last saved itinerary (any tour plan)
+        log_message('info', 'Fresh mode: Loading from extension_ref_id: ' . $extension_ref_id);
+        
+        $result = $db->table('khm_obj_enquiry_itinerary_details a')
+            ->select('a.*, t.tour_location')
             ->join('khm_obj_enquiry_tour_details t', 't.tour_details_id = a.tour_details_id', 'left')
             ->where('a.extension_ref_id', $extension_ref_id)
-            ->get()->getResultArray();
-        foreach ($result as $key => $val) {
-            $response[$key] = $val;
-            $cost = $this->get_itinerary_draft_tariff($val['itinerary_details_id']);
-            $response[$key]['cost'] = $cost;
-            $room_cat_list = $this->get_room_categories_byHotel($val['hotel_id']);
-            $response[$key]['room_cat_list_draft'] = $room_cat_list;
-        }
-        return $response;
+            ->orderBy('a.tour_date', 'ASC')
+            ->get()
+            ->getResultArray();
+        
+        log_message('info', 'Loaded ' . count($result) . ' records from fresh mode');
     }
+    
+    // Enrich with cost and room category details
+    foreach ($result as $key => $val) {
+        $response[$key] = $val;
+        $cost = $this->get_itinerary_draft_tariff($val['itinerary_details_id']);
+        $response[$key]['cost'] = $cost;
+        $room_cat_list = $this->get_room_categories_byHotel($val['hotel_id']);
+        $response[$key]['room_cat_list_draft'] = $room_cat_list;
+    }
+    
+    return $response;
+}
+
     public function get_itinerary_draft_hotel_list($tour_location)
     {
         $db = \Config\Database::connect();
