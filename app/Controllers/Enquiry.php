@@ -6172,7 +6172,7 @@ class Enquiry extends BaseController
                 $extension_ref_id_temp = 0;
             }
             $object_det = $Enquiry_model->get_object_details($object_id);
-                $previous_itinerary_details_save = [];
+                 $previous_itinerary_details_save = [];
             $is_fresh = ($edit_id === null);
 
             if ($edit_id > 0 && $extension_ref_id !== null) {
@@ -6203,24 +6203,69 @@ class Enquiry extends BaseController
                         }
                     }
                 }
-            } elseif ($is_fresh) {
-                // Fresh itinerary - load from last saved (any tour plan)
-                log_message('info', '=== FRESH ITINERARY MODE ===');
+            }  elseif ($is_fresh) {
 
-                $last_itinerary = $Enquiry_model->get_last_itinerary_saved($object_det[0]['enquiry_header_id']);
+    log_message('info', '=== FRESH ITINERARY MODE ===');
 
-                if (!empty($last_itinerary)) {
-                    log_message('info', 'Loading from last saved itinerary, extension_ref_id: ' . $last_itinerary['extension_ref_id']);
+    $last_itinerary = $Enquiry_model->get_last_itinerary_saved(
+        $object_det[0]['enquiry_header_id']
+    );
 
-                    // For fresh, use simple extension_ref_id lookup (no tour_plan_ref_id filter)
-                    $previous_itinerary_details_save = $Enquiry_model->get_itinerary_previous_details(
-                        $last_itinerary['extension_ref_id']
-                    );
+    if (!empty($last_itinerary)) {
 
-                    log_message('info', 'Loaded ' . count($previous_itinerary_details_save) . ' records from last saved itinerary');
-                } else {
-                    log_message('info', 'No previous itinerary found');
-                }
+        log_message(
+            'info',
+            'Loading from last saved itinerary, extension_ref_id: ' .
+            $last_itinerary['extension_ref_id']
+        );
+
+        $previous_itinerary_details_save_raw =
+            $Enquiry_model->get_itinerary_previous_details(
+                $last_itinerary['extension_ref_id']
+            );
+
+        $previous_itinerary_details_save = [];
+
+        foreach ($previous_itinerary_details_save_raw as $row) {
+
+            $previous_itinerary_details_save[] = [
+                // REQUIRED IDENTIFIERS
+                'tour_date'       => $row['tour_date'],
+                'tour_details_id' => $row['tour_details_id'],
+                'hotel_id'        => $row['hotel_id'],
+                'tour_location'   => $row['tour_location'] ?? 0,
+
+                // REQUIRED VIEW DEFAULTS
+                'permit'                 => $row['permit'] ?? 0,
+                'transport_remarks'      => $row['transport_remarks'] ?? '',
+                'transport_description' => $row['transport_description'] ?? '',
+                'remarks'                => $row['remarks'] ?? '',
+                'hotel_facility_ids'     => $row['hotel_facility_ids'] ?? '',
+                 'cost' => $row['cost'] ?? [],
+                  'vehicle_details' => 0,
+
+                // COPY ONLY THESE
+                'ss_data_json'        => $row['ss_data_json'] ?? '[]',
+                'json_addons'         => $row['json_addons'] ?? '[]',
+                'json_special_event' => $row['json_special_event'] ?? '[]',
+
+                // FLAG
+                'is_preloaded' => true
+            ];
+        }
+
+        log_message(
+            'info',
+            'Previous itinerary filtered. Count=' .
+            count($previous_itinerary_details_save)
+        );
+
+    } else {
+
+        log_message('info', 'No previous itinerary found');
+        $previous_itinerary_details_save = [];
+    }
+
             }
             $prev_start_date = null;
             if ($is_fresh && !empty($previous_itinerary_details_save)) {
