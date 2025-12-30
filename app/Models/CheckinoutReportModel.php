@@ -183,29 +183,48 @@ class CheckinoutReportModel extends Model
 
 
 public function getByDateRange(string $fromYmd, string $toYmd, int $checkRaw, int $system): array
-{
-    // 1) Decide which date‐column to use for filtering
-    $column = $checkRaw === 1
-        ? 't.check_in_date'
-        : 't.check_out_date';
+    {
+        $activeRole = (int) session('active_role');
+        $entityId   = (int) session('user_id');
 
-    // 2) Start from your baseQuery() builder
-    $qb = $this->baseQuery();
+        $dateColumn = ($checkRaw === 1)
+            ? 't.check_in_date'
+            : 't.check_out_date';
 
-    // 3) If $system is nonzero (or otherwise truthy), add that WHERE clause
-    if ($system) {
-        $qb->where('h.enq_type_id', $system);
+        $qb = $this->baseQuery()
+            ->where("$dateColumn >=", $fromYmd)
+            ->where("$dateColumn <=", $toYmd);
+
+        if ($system) {
+            $qb->where('h.enq_type_id', $system);
+        }
+
+        /* ================= ROLE RULES ================= */
+
+        // Admin
+        if ($activeRole === 1) {
+            // no restriction
+        }
+        // Team Lead
+        elseif ($activeRole === 4) {
+            $team = $this->db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $entityId)
+                ->get()
+                ->getResultArray();
+
+            $ids = array_column($team, 'entity_id');
+            $ids[] = $entityId;
+
+            $qb->whereIn('h.employee_entity_id', $ids);
+        }
+        // Executive
+        else {
+            $qb->where('h.employee_entity_id', $entityId);
+        }
+
+        return $qb->get()->getResultArray();
     }
-
-    // 4) Add the date‐range filters
-    $qb->where("$column >=", $fromYmd)
-       ->where("$column <",  $toYmd);
-
-    // 5) Execute and return results as an array
-    return $qb
-        ->get()
-        ->getResultArray();
-}
 
 
 

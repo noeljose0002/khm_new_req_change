@@ -159,24 +159,46 @@ class DepartureReportModel extends Model
 
 
 
-    public function getByDateRange(string $fromYmd, string $toYmd, ?int $system = null): array
+   public function getByDateRange(string $fromYmd, string $toYmd, ?int $system = null): array
     {
-        // 1) Start from your baseQuery()
-        $qb = $this->baseQuery();
+        $activeRole = (int) session('active_role');
+        $entityId   = (int) session('user_id');
 
-        // 2) If $system was passed (i.e. not null), add that WHERE clause first
+        $qb = $this->baseQuery()
+            ->where('dr.departure_date >=', $fromYmd)
+            ->where('dr.departure_date <=', $toYmd);
+
+        /* ================= ADMIN ================= */
+        if ($activeRole === 1) {
+            // No restriction
+        }
+
+        /* ================= TEAM LEAD ================= */
+        elseif ($activeRole === 4) {
+
+            $teamIds = $this->db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $entityId)
+                ->get()
+                ->getResultArray();
+
+            $allowedIds = array_column($teamIds, 'entity_id');
+            $allowedIds[] = $entityId; // include team lead himself
+
+            $qb->whereIn('e11.entity_id', $allowedIds);
+        }
+
+        /* ================= OTHERS ================= */
+        else {
+            $qb->where('e11.entity_id', $entityId);
+        }
+
+        /* ================= SYSTEM FILTER ================= */
         if ($system !== null && $system !== 0) {
             $qb->where('oeh.enq_type_id', $system);
         }
 
-        // 3) Now add the date‐range filters on dr.departure_date
-        $qb->where('dr.departure_date >=', $fromYmd)
-            ->where('dr.departure_date <',  $toYmd);
-
-        // 4) Finally, execute and return
-        return $qb
-            ->get()
-            ->getResultArray();
+        return $qb->get()->getResultArray();
     }
 
 

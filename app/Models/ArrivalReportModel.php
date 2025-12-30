@@ -6,49 +6,32 @@ use CodeIgniter\Model;
 
 class ArrivalReportModel extends Model
 {
-    protected   $table         = 'khm_obj_arrival_follow_up';
-    protected   $primaryKey    = 'arrival_follow_up_id';
-    protected   $returnType    = 'array';
-    protected   $allowedFields = [
-        'followup_type_id',
-        'enquiry_header_id',
-        'call_date',
-        'mode_of_arrival',
-        'city',
-        'flight_train_no',
-        'arrival_date',
-        'comments',
-        'deleted',
-        'enterprise_id',
-    ];
+    protected $table      = 'khm_obj_arrival_follow_up';
+    protected $primaryKey = 'arrival_follow_up_id';
+    protected $returnType = 'array';
 
-    /**
-     * Build the core query with joins to enquiry_header and obj_mst.
-     */
+
     protected function baseQuery()
     {
-        // … your existing arrival & call subqueries …
+        $db = $this->db;
 
-        // subquery for latest arrivals
-        $latestArrivalSubquery = $this->db
-            ->table('khm_obj_arrival_follow_up')
+        /* Latest Arrival */
+        $latestArrivalSubquery = $db->table('khm_obj_arrival_follow_up')
             ->select('enquiry_header_id, MAX(arrival_follow_up_id) AS latest_arrival_id')
             ->where('deleted', 0)
             ->groupBy('enquiry_header_id');
 
-        // subquery for latest calls of type 15
-        $latestCallSubquery = $this->db
-            ->table('khm_obj_all_call_follow_up')
+        /* Latest Call */
+        $latestCallSubquery = $db->table('khm_obj_all_call_follow_up')
             ->select('enquiry_header_id, MAX(call_time) AS latest_call_time')
             ->where('followup_type_id', 15)
             ->groupBy('enquiry_header_id');
 
-        return $this->db
-            ->table('khm_obj_arrival_follow_up AS ar')
+        return $db->table('khm_obj_arrival_follow_up AS ar')
             ->distinct()
             ->select([
                 'ar.arrival_follow_up_id',
-                'ar.followup_type_id',
+                'ar.followup_type_id',         
                 'ar.enquiry_header_id',
                 'ar.call_date',
                 'ar.mode_of_arrival',
@@ -58,63 +41,42 @@ class ArrivalReportModel extends Model
                 'ar.comments',
                 'ar.deleted',
                 'ar.enterprise_id',
-                'eh.object_id',
-                'om.object_name',
-                'cf.call_time',
-                'eh.enq_type_id',
-                'e11.entity_name',
-                'e11.entity_id',
+
                 'oeh.ref_no',
                 'oeh.enq_type_id',
+
+                'eh.object_id',
+                'om.object_name',
+
+                'e11.entity_id',
+                'e11.entity_name',
+
+                'cf.call_time',
+
                 'tf.driver_name  AS drivername',
                 'tf.phone_number AS driverphone',
-
-
             ])
-            // only latest arrival rows
+
+            /* latest arrival */
             ->join(
                 "({$latestArrivalSubquery->getCompiledSelect()}) AS last_arr",
                 'ar.arrival_follow_up_id = last_arr.latest_arrival_id',
                 'inner'
             )
-            ->join(
-                'khm_obj_enquiry_header AS oeh',
-                'oeh.enquiry_header_id=ar.enquiry_header_id',
-                'left'
-            )
-            //trsansport
-            ->join(
-                'khm_obj_transport_follow_up AS tf',
-                'tf.enquiry_header_id=oeh.enquiry_header_id',
-                'left'
-            )
-            ->join(
-                'khm_entity_mst AS em4',
-                'em4.entity_id=tf.transporter_id',
-                'left'
-            )
-            // ->where('tf.is_active',1)
-            ////
-            ->join(
-                'khm_obj_enquiry_edit_request AS eer',
-                'eer.enquiry_header_id=ar.enquiry_header_id',
-                'left'
-            )
-            ->where('eer.is_active', 1)
-            ->join(
-                'khm_obj_enquiry_status AS s',
-                's.edit_request_id=eer.enquiry_edit_request_id',
-                'left'
-            )
-            ->where('s.current_status_id', 1)
-            ->join(
-                'khm_entity_mst AS e11',
-                'e11.entity_id=s.assigned_to',
-                'left'
-            )
+
+            ->join('khm_obj_enquiry_header AS oeh', 'oeh.enquiry_header_id = ar.enquiry_header_id', 'left')
             ->join('khm_obj_enquiry_header AS eh', 'eh.enquiry_header_id = ar.enquiry_header_id', 'left')
-            ->join('khm_obj_mst         AS om', 'om.object_id = eh.object_id',     'left')
-            // latest call join
+            ->join('khm_obj_mst AS om', 'om.object_id = eh.object_id', 'left')
+
+            /* Transport */
+            ->join('khm_obj_transport_follow_up AS tf', 'tf.enquiry_header_id = oeh.enquiry_header_id', 'left')
+
+            /* Status */
+            ->join('khm_obj_enquiry_edit_request AS eer', 'eer.enquiry_header_id = ar.enquiry_header_id', 'left')
+            ->join('khm_obj_enquiry_status AS s', 's.edit_request_id = eer.enquiry_edit_request_id', 'left')
+            ->join('khm_entity_mst AS e11', 'e11.entity_id = s.assigned_to', 'left')
+
+            /* Latest Call */
             ->join(
                 "({$latestCallSubquery->getCompiledSelect()}) AS last_call",
                 'last_call.enquiry_header_id = ar.enquiry_header_id',
@@ -123,57 +85,59 @@ class ArrivalReportModel extends Model
             ->join(
                 'khm_obj_all_call_follow_up AS cf',
                 'cf.enquiry_header_id = last_call.enquiry_header_id
-             AND cf.call_time = last_call.latest_call_time
-             AND cf.followup_type_id = 15',
+                 AND cf.call_time = last_call.latest_call_time
+                 AND cf.followup_type_id = 15',
                 'left'
             )
 
-            //
-            // ----- new joins for vehicles & drivers -----
-            //
-            ->join(
-                'khm_obj_enquiry_details AS ed',
-                'ed.enquiry_header_id = ar.enquiry_header_id',
-                'left'
-            )
-            // filter
-            ->where('ar.deleted', 0)
-
-            // since we’re aggregating driver fields, we need a GROUP BY on the unique arrival row
-            // ->groupBy('ar.arrival_follow_up_id')
-
+            ->where([
+                'ar.deleted'        => 0,
+                'eer.is_active'     => 1,
+                's.current_status_id' => 1,
+            ])
             ->orderBy('ar.arrival_follow_up_id', 'DESC');
     }
 
 
-
-
-    /**
-     * Return all rows whose arrival_date is between $from and $to (inclusive).
-     *
-     * @param  string  $fromYmd   YYYY‑MM‑DD
-     * @param  string  $toYmd     YYYY‑MM‑DD
-     * @return array
-     */
-    public function getByDateRange(string $fromYmd, string $toYmd, $system): array
+    public function getByDateRange(string $fromYmd, string $toYmd, $system = null): array
     {
+        $activeRole = (int) session('active_role');
+        $entityId   = (int) session('user_id');
+
         $qb = $this->baseQuery()
             ->where('ar.arrival_date >=', $fromYmd)
-            ->where('ar.arrival_date <', $toYmd); // '<' used to include up to end of day before next day
+            ->where('ar.arrival_date <=', $toYmd);
+
+        /* ================= ADMIN ================= */
+        if ($activeRole === 1) {
+            // No restriction
+        }
+
+        /* ================= TEAM LEAD ================= */
+        elseif ($activeRole === 4) {
+
+            $teamIds = $this->db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $entityId)
+                ->get()
+                ->getResultArray();
+
+            $allowedIds = array_column($teamIds, 'entity_id');
+            $allowedIds[] = $entityId; // include TL himself
+
+            $qb->whereIn('e11.entity_id', $allowedIds);
+        }
+
+        /* ================= OTHERS ================= */
+        else {
+            $qb->where('e11.entity_id', $entityId);
+        }
+
+        /* ================= SYSTEM FILTER ================= */
         if ($system) {
             $qb->where('oeh.enq_type_id', $system);
         }
 
         return $qb->get()->getResultArray();
-    }
-    /**
-     * (Optional) legacy method if you still need it:
-     */
-    public function getArrivalReport(): array
-    {
-        // simply returns everything (no date filter)
-        return $this->baseQuery()
-            ->get()
-            ->getResultArray();
     }
 }

@@ -798,30 +798,38 @@
 				},
 
 				{
-					data: 'enquiry_detail_details_id',
-					orderable: false,
-					render: function(data, type, row, meta) {
-						let obj_name = "";
-						if (edit_per == 1) {
-							if (row.edit_request == 1) {
-								return '<a><i class="fa fa-ban" aria-hidden="true"></i></a>';
-							} else {
-								if (row.cs_confirmed_id > 0) {
-									return '<a><i class="fa fa-ban" aria-hidden="true"></i></a>';
-								} else {
-									// Use row.enquiry_ref_id for tour plan edit instead of object_id
-									if (row.is_active == 1) {
-										return '<a data-toggle="tooltip" title="Enquiry Edit" href="<?= site_url('Enquiry/add_object_enquiry/10/'); ?>' + object_id + '"><i class="fa fa-xing-square" aria-hidden="true"></i></a>&nbsp;&nbsp;&nbsp;<a data-toggle="tooltip" title="Tour Plan Edit" href="<?= site_url('Enquiry/tour_plan/'); ?>' + object_id + '/' + row.enquiry_ref_id + '"><i class="fa fa-tumblr-square" aria-hidden="true"></i></a>&nbsp;&nbsp;&nbsp;<a data-toggle="tooltip" title="Itinerary Edit" href="<?= site_url('Enquiry/itinerary/'); ?>' + object_id + '/' + row.enquiry_ref_id + '/' + data + '/' + row.version_count + '"><i class="fa fa-hacker-news" aria-hidden="true"></i></a>';
-									} else {
-										return '<a data-toggle="tooltip" title="Enquiry Edit" href="<?= site_url('Enquiry/add_object_enquiry/10/'); ?>' + object_id + '"><i class="fa fa-xing-square" aria-hidden="true"></i></a>&nbsp;&nbsp;&nbsp;<a data-toggle="tooltip" title="Tour Plan Edit" href="<?= site_url('Enquiry/tour_plan/'); ?>' + object_id + '/' + row.enquiry_ref_id + '"><i class="fa fa-tumblr-square" aria-hidden="true"></i></a>&nbsp;&nbsp;&nbsp;<a data-toggle="tooltip" title="Itinerary Edit" href="<?= site_url('Enquiry/itinerary/'); ?>' + object_id + '/' + row.enquiry_ref_id + '/' + data + '/' + row.version_count + '/0"><i class="fa fa-hacker-news" aria-hidden="true"></i></a>';
-									}
-								}
-							}
-						} else {
-							return '<a href="javascript:void(0)" class="btn btn-success btn-sm text-white disabled" style="pointer-events: none; opacity: 0.6;"><i class="fa fa-edit"></i></a>';
-						}
-					}
-				},
+            data: null,
+            orderable: false,
+            render: function(data, type, row) {
+
+                // Disable edit completely
+                if (
+                    edit_per != 1 ||
+                    row.edit_request == 1 ||
+                    row.cs_confirmed_id > 0 ||
+                    row.is_active != 1
+                ) {
+                    return '<i class="fa fa-ban text-muted"></i>';
+                }
+
+                return `
+                    <a title="Enquiry Edit"
+                       href="<?= site_url('Enquiry/add_object_enquiry/10/'); ?>${object_id}">
+                        <i class="fa fa-xing-square"></i>
+                    </a>&nbsp;&nbsp;
+
+                    <a title="Tour Plan Edit"
+                       href="<?= site_url('Enquiry/tour_plan/'); ?>${object_id}/${row.enquiry_ref_id}">
+                        <i class="fa fa-tumblr-square"></i>
+                    </a>&nbsp;&nbsp;
+
+                    <a title="Itinerary Edit"
+                       href="<?= site_url('Enquiry/itinerary/'); ?>${object_id}/${row.enquiry_ref_id}/${row.enquiry_detail_details_id}/${row.version_count}">
+                        <i class="fa fa-hacker-news"></i>
+                    </a>
+                `;
+            }
+        },
 				{
 					data: 'tpc'
 				},

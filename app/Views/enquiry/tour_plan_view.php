@@ -5663,6 +5663,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 				// Summaries are already preserved and renumbered in updateSequenceNumbers().
 				// If regeneration is needed, it should be triggered explicitly in calculateCheckout or elsewhere.
 				calculateCheckout(seq);
+				recalcCheckoutOnly(seq);
 			});
 			window.isRecalculating = false;
 		}
