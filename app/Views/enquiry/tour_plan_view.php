@@ -5878,6 +5878,7 @@ $is_edit = $edit_id ? $edit_id : 0;
 					var prevCheckout = document.getElementById(`checkout${nextIndex - 1}`)?.value;
 					if (nextCheckinField && prevCheckout) {
 						nextCheckinField.value = prevCheckout;
+						recalcCheckoutOnly(nextIndex); // 🔥 auto checkout
 					}
 					updateNightlyDetails(nextIndex);
 				}
@@ -5897,6 +5898,19 @@ $is_edit = $edit_id ? $edit_id : 0;
 			$("#btn_save_tour_plan").hide();
 			$('#btn_add_bt').prop('disabled', false);
 		}
+	}
+
+
+	function recalcCheckoutOnly(count) {
+		var checkin = document.getElementById(`checkin${count}`)?.value;
+		var nights = document.getElementById(`no_of_night${count}`)?.value;
+		var checkoutField = document.getElementById(`checkout${count}`);
+
+		if (!checkin || !nights || !checkoutField) return;
+
+		var d = new Date(checkin);
+		d.setDate(d.getDate() + parseInt(nights, 10));
+		checkoutField.value = d.toISOString().split('T')[0];
 	}
 
 	// Function to update accommodation grand totals - unchanged

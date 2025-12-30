@@ -11064,7 +11064,7 @@ $(document).ready(function() {
 </script> -->
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(document).ready(function() {
 
 		var maxAddonSeq = 0;
@@ -11180,7 +11180,12 @@ $(document).ready(function() {
 			// ==================== LOAD SPECIAL EVENTS ====================
 			if (spclContainer.length > 0 && !spclContainer.data('spcl-loaded') && specialEventsByDate[tour_date]) {
 				specialEventsByDate[tour_date].forEach(function(event) {
-					var unique_id = event.spcl_idvalue;
+					var seq = parseInt(event.spcl_sequence) || 1;
+
+					// rebuild special event IDs using CURRENT tour plan
+					var newSpclId = currentTourPlanId + '_' + dmy;
+					var unique_id = newSpclId + '_' + seq;
+
 					if (!unique_id || $('#rowsp' + unique_id).length > 0) return;
 
 					var seq = parseInt(event.spcl_sequence) || 1;
@@ -11190,10 +11195,11 @@ $(document).ready(function() {
 					html += '<div class="row mt-2">';
 
 					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_id]" value="' + event.spcl_id + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_id]" value="' + newSpclId + '">';
 					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_sequence]" value="' + seq + '">';
 					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_idvalue]" value="' + unique_id + '">';
 					html += '<input type="hidden" name="spcl_additi[' + seq + '][tour_date]" value="' + tour_date + '">';
+
 					html += '</div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
 
 					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
@@ -11207,7 +11213,8 @@ $(document).ready(function() {
 					html += '</div>';
 
 					html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
-					html += '<button type="button" id="' + unique_id + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_spcl_remove">X</button>';
+					html += '<button type="button" id="' + unique_id + '" data-oid="' + newSpclId + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_spcl_remove">X</button>';
+
 					html += '</div>';
 
 					html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
@@ -11231,4 +11238,775 @@ $(document).ready(function() {
 			}
 		}
 	});
+</script> -->
+
+<!-- <script type="text/javascript">
+	$(document).ready(function() {
+
+		var maxAddonSeq = 0;
+
+		// We will collect all saved add-ons and special events by date
+		var addonsByDate = {};
+		var specialEventsByDate = {};
+
+		// First, collect all saved data grouped by tour_date (YYYY-MM-DD)
+		$.each(savedSightseeingData, function(tour_details_id, datesData) {
+			$.each(datesData, function(tour_date, dayData) {
+				if (!addonsByDate[tour_date]) {
+					addonsByDate[tour_date] = [];
+					specialEventsByDate[tour_date] = [];
+				}
+
+				if (dayData.json_addons && $.isArray(dayData.json_addons)) {
+					addonsByDate[tour_date] = addonsByDate[tour_date].concat(dayData.json_addons);
+				}
+				if (dayData.json_special_event && $.isArray(dayData.json_special_event)) {
+					specialEventsByDate[tour_date] = specialEventsByDate[tour_date].concat(dayData.json_special_event);
+				}
+			});
+		});
+
+		// Now process each visible day on the current page
+		$('[id^="addon_add_dynamic"]').each(function() {
+			var containerId = $(this).attr('id'); // e.g., addon_add_dynamic2055_06-02-2026
+			var iti_id = containerId.replace('addon_add_dynamic', ''); // 2055_06-02-2026
+			var currentTourPlanId = iti_id.split('_')[0]; // 2055
+
+
+			// Extract date part: 06-02-2026 → 2026-02-06
+			var parts = iti_id.split('_');
+			if (parts.length < 2) return;
+
+			var dmy = parts[1]; // 06-02-2026
+			var dateParts = dmy.split('-');
+			if (dateParts.length !== 3) return;
+
+			var tour_date = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]; // 2026-02-06
+
+			var addonContainer = $(this);
+			var spclContainer = $('#spcl_add_dynamic' + iti_id);
+
+			// Prevent reloading if already done
+			if (addonContainer.data('addons-loaded')) return;
+
+			// ==================== LOAD HOTEL FACILITY ADD-ONS ====================
+			if (addonsByDate[tour_date] && addonsByDate[tour_date].length > 0) {
+				addonsByDate[tour_date].forEach(function(addon) {
+					var seq = parseInt(addon.addon_sequence) || 1;
+					if (seq > maxAddonSeq) maxAddonSeq = seq;
+
+					var seq = parseInt(addon.addon_sequence) || 1;
+
+					// rebuild addon_id
+					var newAddonId = currentTourPlanId + '_' + dmy;
+
+					// rebuild addon_idvalue
+					var unique_id = newAddonId + '_' + seq;
+
+					if (!unique_id || $('#rowaddon' + unique_id).length > 0) return;
+
+					var html = '';
+					html += '<div id="rowaddon' + unique_id + '" class="dynamic-added card">';
+					html += '<div class="row mt-2">';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<div class="teams-rank"><b>Facility Name</b></div>';
+					html += '<input type="text" name="addon_additi[' + seq + '][addon_event]" value="' + addon.addon_event + '" class="form-control input-sm" maxlength="50" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+					html += '<div class="teams-rank"><b>Tariff</b></div>';
+					html += '<input type="text" name="addon_additi[' + seq + '][addon_tariff]" value="' + addon.addon_tariff + '" class="form-control input-sm addon_class' + iti_id + '" maxlength="7" readonly>';
+					html += '</div>';
+
+					var currentTourPlanId = iti_id.split('_')[0]; // eg: 2055
+					var dmy = parts[1]; // 06-02-2026
+
+					var newAddonId = currentTourPlanId + '_' + dmy;
+					var unique_id = newAddonId + '_' + seq;
+					html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+					html += '<button type="button" id="' + unique_id + '" data-oid="' + newAddonId + '" data-nid="' + iti_id + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_addon_remove">X</button>';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+
+
+
+					html += '<input type="hidden" name="addon_additi[' + seq + '][addon_id]" value="' + newAddonId + '">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][addon_sequence]" value="' + seq + '">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][addon_idvalue]" value="' + unique_id + '">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][tour_date]" value="' + tour_date + '">';
+
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+					html += '</div></div>';
+
+					addonContainer.append(html);
+				});
+
+				// Update total
+				var total = 0;
+				$('.addon_class' + iti_id).each(function() {
+					total += parseFloat($(this).val()) || 0;
+				});
+				$('#fac_rate' + iti_id).val(total);
+			}
+
+			// ==================== LOAD SPECIAL EVENTS ====================
+			if (spclContainer.length > 0 && !spclContainer.data('spcl-loaded') && specialEventsByDate[tour_date] && specialEventsByDate[tour_date].length > 0) {
+				// FIXED: Deduplicate events by unique_id before processing
+				var uniqueEvents = [];
+				var processedIds = new Set();
+				specialEventsByDate[tour_date].forEach(function(event) {
+					var seq = parseInt(event.spcl_sequence) || 1;
+					var newSpclId = currentTourPlanId + '_' + dmy;
+					var unique_id = newSpclId + '_' + seq;
+
+					// Skip if already processed (prevents duplicates across loads)
+					if (processedIds.has(unique_id)) return;
+					processedIds.add(unique_id);
+
+					uniqueEvents.push({
+						event: event,
+						seq: seq,
+						newSpclId: newSpclId,
+						unique_id: unique_id
+					});
+				});
+
+				uniqueEvents.forEach(function(item) {
+					var event = item.event;
+					var seq = item.seq;
+					var newSpclId = item.newSpclId;
+					var unique_id = item.unique_id;
+
+					// Additional check: Skip if row already exists in DOM
+					if ($('#rowsp' + unique_id).length > 0) return;
+
+					var html = '';
+					html += '<div id="rowsp' + unique_id + '" class="dynamic-added card">';
+					html += '<div class="row mt-2">';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_id]" value="' + newSpclId + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_sequence]" value="' + seq + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_idvalue]" value="' + unique_id + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][tour_date]" value="' + tour_date + '">';
+
+					html += '</div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<div class="teams-rank"><b>Special Event Name</b></div>';
+					html += '<input type="text" name="spcl_additi[' + seq + '][spcl_event]" value="' + event.spcl_event + '" class="form-control input-sm" maxlength="50" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+					html += '<div class="teams-rank"><b>Tariff</b></div>';
+					html += '<input type="text" name="spcl_additi[' + seq + '][spcl_tariff]" value="' + event.spcl_tariff + '" class="form-control input-sm" maxlength="7" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+					html += '<button type="button" id="' + unique_id + '" data-oid="' + newSpclId + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_spcl_remove">X</button>';
+
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+					html += '</div></div>';
+
+					spclContainer.append(html);
+				});
+				spclContainer.data('spcl-loaded', true);
+			}
+
+			addonContainer.data('addons-loaded', true);
+		});
+
+		// Sync global counter
+		if (maxAddonSeq > 0) {
+			$('#total_addon_count').val(maxAddonSeq);
+			if (typeof i !== 'undefined') {
+				i = maxAddonSeq;
+			} else {
+				window.i = maxAddonSeq;
+			}
+		}
+	});
+</script> -->
+
+<!-- <script type="text/javascript">
+	$(document).ready(function() {
+
+		var maxAddonSeq = 0;
+
+		// We will collect all saved add-ons and special events by date
+		var addonsByDate = {};
+		var specialEventsByDate = {};
+
+		// FIXED: Collect data properly - filter by tour_date match
+		$.each(savedSightseeingData, function(tour_details_id, datesData) {
+			$.each(datesData, function(tour_date, dayData) {
+				if (!addonsByDate[tour_date]) {
+					addonsByDate[tour_date] = [];
+					specialEventsByDate[tour_date] = [];
+				}
+
+				// Add addons for this date
+				if (dayData.json_addons && $.isArray(dayData.json_addons)) {
+					addonsByDate[tour_date] = addonsByDate[tour_date].concat(dayData.json_addons);
+				}
+
+				// FIXED: Filter special events to only include those matching this tour_date
+				if (dayData.json_special_event && $.isArray(dayData.json_special_event)) {
+					dayData.json_special_event.forEach(function(event) {
+						// Only add event if its tour_date matches the current date key
+						if (event.tour_date === tour_date) {
+							specialEventsByDate[tour_date].push(event);
+						}
+					});
+				}
+			});
+		});
+
+		// Now process each visible day on the current page
+		$('[id^="addon_add_dynamic"]').each(function() {
+			var containerId = $(this).attr('id'); // e.g., addon_add_dynamic2055_06-02-2026
+			var iti_id = containerId.replace('addon_add_dynamic', ''); // 2055_06-02-2026
+			var currentTourPlanId = iti_id.split('_')[0]; // 2055
+
+			// Extract date part: 06-02-2026 → 2026-02-06
+			var parts = iti_id.split('_');
+			if (parts.length < 2) return;
+
+			var dmy = parts[1]; // 06-02-2026
+			var dateParts = dmy.split('-');
+			if (dateParts.length !== 3) return;
+
+			var tour_date = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]; // 2026-02-06
+
+			var addonContainer = $(this);
+			var spclContainer = $('#spcl_add_dynamic' + iti_id);
+
+			// Prevent reloading if already done
+			if (addonContainer.data('addons-loaded')) return;
+
+			// ==================== LOAD HOTEL FACILITY ADD-ONS ====================
+			if (addonsByDate[tour_date] && addonsByDate[tour_date].length > 0) {
+				addonsByDate[tour_date].forEach(function(addon) {
+					var seq = parseInt(addon.addon_sequence) || 1;
+					if (seq > maxAddonSeq) maxAddonSeq = seq;
+
+					// rebuild addon_id
+					var newAddonId = currentTourPlanId + '_' + dmy;
+
+					// rebuild addon_idvalue
+					var unique_id = newAddonId + '_' + seq;
+
+					if (!unique_id || $('#rowaddon' + unique_id).length > 0) return;
+
+					var html = '';
+					html += '<div id="rowaddon' + unique_id + '" class="dynamic-added card">';
+					html += '<div class="row mt-2">';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<div class="teams-rank"><b>Facility Name</b></div>';
+					html += '<input type="text" name="addon_additi[' + seq + '][addon_event]" value="' + addon.addon_event + '" class="form-control input-sm" maxlength="50" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+					html += '<div class="teams-rank"><b>Tariff</b></div>';
+					html += '<input type="text" name="addon_additi[' + seq + '][addon_tariff]" value="' + addon.addon_tariff + '" class="form-control input-sm addon_class' + iti_id + '" maxlength="7" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+					html += '<button type="button" id="' + unique_id + '" data-oid="' + newAddonId + '" data-nid="' + iti_id + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_addon_remove">X</button>';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][addon_id]" value="' + newAddonId + '">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][addon_sequence]" value="' + seq + '">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][addon_idvalue]" value="' + unique_id + '">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][tour_date]" value="' + tour_date + '">';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+					html += '</div></div>';
+
+					addonContainer.append(html);
+				});
+
+				// Update total
+				var total = 0;
+				$('.addon_class' + iti_id).each(function() {
+					total += parseFloat($(this).val()) || 0;
+				});
+				$('#fac_rate' + iti_id).val(total);
+			}
+
+			// ==================== LOAD SPECIAL EVENTS ====================
+			if (spclContainer.length > 0 && !spclContainer.data('spcl-loaded') && specialEventsByDate[tour_date] && specialEventsByDate[tour_date].length > 0) {
+				// FIXED: Build unique events map using unique_id as key to prevent duplicates
+				var uniqueEventsMap = {};
+				
+				specialEventsByDate[tour_date].forEach(function(event) {
+					var seq = parseInt(event.spcl_sequence) || 1;
+					var newSpclId = currentTourPlanId + '_' + dmy;
+					var unique_id = newSpclId + '_' + seq;
+
+					// Store in map - this automatically handles duplicates
+					// Only add if not already in map and not in DOM
+					if (!uniqueEventsMap[unique_id] && $('#rowsp' + unique_id).length === 0) {
+						uniqueEventsMap[unique_id] = {
+							event: event,
+							seq: seq,
+							newSpclId: newSpclId,
+							unique_id: unique_id
+						};
+					}
+				});
+
+				// Now render each unique event
+				$.each(uniqueEventsMap, function(key, item) {
+					var event = item.event;
+					var seq = item.seq;
+					var newSpclId = item.newSpclId;
+					var unique_id = item.unique_id;
+
+					var html = '';
+					html += '<div id="rowsp' + unique_id + '" class="dynamic-added card">';
+					html += '<div class="row mt-2">';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_id]" value="' + newSpclId + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_sequence]" value="' + seq + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_idvalue]" value="' + unique_id + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][tour_date]" value="' + tour_date + '">';
+					html += '</div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<div class="teams-rank"><b>Special Event Name</b></div>';
+					html += '<input type="text" name="spcl_additi[' + seq + '][spcl_event]" value="' + event.spcl_event + '" class="form-control input-sm" maxlength="50" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+					html += '<div class="teams-rank"><b>Tariff</b></div>';
+					html += '<input type="text" name="spcl_additi[' + seq + '][spcl_tariff]" value="' + event.spcl_tariff + '" class="form-control input-sm" maxlength="7" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+					html += '<button type="button" id="' + unique_id + '" data-oid="' + newSpclId + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_spcl_remove">X</button>';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+					html += '</div></div>';
+
+					spclContainer.append(html);
+				});
+				
+				spclContainer.data('spcl-loaded', true);
+			}
+
+			addonContainer.data('addons-loaded', true);
+		});
+
+		// Sync global counter
+		if (maxAddonSeq > 0) {
+			$('#total_addon_count').val(maxAddonSeq);
+			if (typeof i !== 'undefined') {
+				i = maxAddonSeq;
+			} else {
+				window.i = maxAddonSeq;
+			}
+		}
+	});
+</script> -->
+
+<!-- <script type="text/javascript">
+	$(document).ready(function() {
+
+		var maxAddonSeq = 0;
+
+		// We will collect all saved add-ons and special events by date
+		var addonsByDate = {};
+		var specialEventsByDate = {};
+
+		// FIXED: Collect data properly - filter by tour_date match and data_source
+		$.each(savedSightseeingData, function(tour_details_id, datesData) {
+			$.each(datesData, function(tour_date, dayData) {
+				if (!addonsByDate[tour_date]) {
+					addonsByDate[tour_date] = [];
+					specialEventsByDate[tour_date] = [];
+				}
+
+				// Only process if data_source is "previous", skip if "saved"
+				if (dayData.data_source !== 'previous') {
+					return; // Skip this date if data_source is not "previous"
+				}
+
+				// Add addons for this date
+				if (dayData.json_addons && $.isArray(dayData.json_addons)) {
+					addonsByDate[tour_date] = addonsByDate[tour_date].concat(dayData.json_addons);
+				}
+
+				// FIXED: Filter special events to only include those matching this tour_date
+				if (dayData.json_special_event && $.isArray(dayData.json_special_event)) {
+					dayData.json_special_event.forEach(function(event) {
+						// Only add event if its tour_date matches the current date key
+						if (event.tour_date === tour_date) {
+							specialEventsByDate[tour_date].push(event);
+						}
+					});
+				}
+			});
+		});
+
+		// Now process each visible day on the current page
+		$('[id^="addon_add_dynamic"]').each(function() {
+			var containerId = $(this).attr('id'); // e.g., addon_add_dynamic2055_06-02-2026
+			var iti_id = containerId.replace('addon_add_dynamic', ''); // 2055_06-02-2026
+			var currentTourPlanId = iti_id.split('_')[0]; // 2055
+
+			// Extract date part: 06-02-2026 → 2026-02-06
+			var parts = iti_id.split('_');
+			if (parts.length < 2) return;
+
+			var dmy = parts[1]; // 06-02-2026
+			var dateParts = dmy.split('-');
+			if (dateParts.length !== 3) return;
+
+			var tour_date = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]; // 2026-02-06
+
+			var addonContainer = $(this);
+			var spclContainer = $('#spcl_add_dynamic' + iti_id);
+
+			// Prevent reloading if already done
+			if (addonContainer.data('addons-loaded')) return;
+
+			// ==================== LOAD HOTEL FACILITY ADD-ONS ====================
+			if (addonsByDate[tour_date] && addonsByDate[tour_date].length > 0) {
+				addonsByDate[tour_date].forEach(function(addon) {
+					var seq = parseInt(addon.addon_sequence) || 1;
+					if (seq > maxAddonSeq) maxAddonSeq = seq;
+
+					// rebuild addon_id
+					var newAddonId = currentTourPlanId + '_' + dmy;
+
+					// rebuild addon_idvalue
+					var unique_id = newAddonId + '_' + seq;
+
+					if (!unique_id || $('#rowaddon' + unique_id).length > 0) return;
+
+					var html = '';
+					html += '<div id="rowaddon' + unique_id + '" class="dynamic-added card">';
+					html += '<div class="row mt-2">';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<div class="teams-rank"><b>Facility Name</b></div>';
+					html += '<input type="text" name="addon_additi[' + seq + '][addon_event]" value="' + addon.addon_event + '" class="form-control input-sm" maxlength="50" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+					html += '<div class="teams-rank"><b>Tariff</b></div>';
+					html += '<input type="text" name="addon_additi[' + seq + '][addon_tariff]" value="' + addon.addon_tariff + '" class="form-control input-sm addon_class' + iti_id + '" maxlength="7" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+					html += '<button type="button" id="' + unique_id + '" data-oid="' + newAddonId + '" data-nid="' + iti_id + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_addon_remove">X</button>';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][addon_id]" value="' + newAddonId + '">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][addon_sequence]" value="' + seq + '">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][addon_idvalue]" value="' + unique_id + '">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][tour_date]" value="' + tour_date + '">';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+					html += '</div></div>';
+
+					addonContainer.append(html);
+				});
+
+				// Update total
+				var total = 0;
+				$('.addon_class' + iti_id).each(function() {
+					total += parseFloat($(this).val()) || 0;
+				});
+				$('#fac_rate' + iti_id).val(total);
+			}
+
+			// ==================== LOAD SPECIAL EVENTS ====================
+			if (spclContainer.length > 0 && !spclContainer.data('spcl-loaded') && specialEventsByDate[tour_date] && specialEventsByDate[tour_date].length > 0) {
+				// FIXED: Build unique events map using unique_id as key to prevent duplicates
+				var uniqueEventsMap = {};
+				
+				specialEventsByDate[tour_date].forEach(function(event) {
+					var seq = parseInt(event.spcl_sequence) || 1;
+					var newSpclId = currentTourPlanId + '_' + dmy;
+					var unique_id = newSpclId + '_' + seq;
+
+					// Store in map - this automatically handles duplicates
+					// Only add if not already in map and not in DOM
+					if (!uniqueEventsMap[unique_id] && $('#rowsp' + unique_id).length === 0) {
+						uniqueEventsMap[unique_id] = {
+							event: event,
+							seq: seq,
+							newSpclId: newSpclId,
+							unique_id: unique_id
+						};
+					}
+				});
+
+				// Now render each unique event
+				$.each(uniqueEventsMap, function(key, item) {
+					var event = item.event;
+					var seq = item.seq;
+					var newSpclId = item.newSpclId;
+					var unique_id = item.unique_id;
+
+					var html = '';
+					html += '<div id="rowsp' + unique_id + '" class="dynamic-added card">';
+					html += '<div class="row mt-2">';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_id]" value="' + newSpclId + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_sequence]" value="' + seq + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_idvalue]" value="' + unique_id + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][tour_date]" value="' + tour_date + '">';
+					html += '</div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<div class="teams-rank"><b>Special Event Name</b></div>';
+					html += '<input type="text" name="spcl_additi[' + seq + '][spcl_event]" value="' + event.spcl_event + '" class="form-control input-sm" maxlength="50" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+					html += '<div class="teams-rank"><b>Tariff</b></div>';
+					html += '<input type="text" name="spcl_additi[' + seq + '][spcl_tariff]" value="' + event.spcl_tariff + '" class="form-control input-sm" maxlength="7" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+					html += '<button type="button" id="' + unique_id + '" data-oid="' + newSpclId + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_spcl_remove">X</button>';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+					html += '</div></div>';
+
+					spclContainer.append(html);
+				});
+				
+				spclContainer.data('spcl-loaded', true);
+			}
+
+			addonContainer.data('addons-loaded', true);
+		});
+
+		// Sync global counter
+		if (maxAddonSeq > 0) {
+			$('#total_addon_count').val(maxAddonSeq);
+			if (typeof i !== 'undefined') {
+				i = maxAddonSeq;
+			} else {
+				window.i = maxAddonSeq;
+			}
+		}
+	});
+</script> -->
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		var maxAddonSeq = 0;
+
+		// We will collect all saved add-ons and special events by date
+		var addonsByDate = {};
+		var specialEventsByDate = {};
+
+		// FIXED: Collect data properly - filter by tour_date match and data_source
+		$.each(savedSightseeingData, function(tour_details_id, datesData) {
+			$.each(datesData, function(tour_date, dayData) {
+				if (!addonsByDate[tour_date]) {
+					addonsByDate[tour_date] = [];
+					specialEventsByDate[tour_date] = [];
+				}
+
+				// Only process if data_source is "previous", skip if "saved"
+				if (dayData.data_source !== 'previous') {
+					return; // Skip this date if data_source is not "previous"
+				}
+
+				// FIXED: Filter addons to only include those matching this tour_date
+				if (dayData.json_addons && $.isArray(dayData.json_addons)) {
+					dayData.json_addons.forEach(function(addon) {
+						// Only add addon if its tour_date matches the current date key
+						if (addon.tour_date === tour_date) {
+							addonsByDate[tour_date].push(addon);
+						}
+					});
+				}
+
+				// FIXED: Filter special events to only include those matching this tour_date
+				if (dayData.json_special_event && $.isArray(dayData.json_special_event)) {
+					dayData.json_special_event.forEach(function(event) {
+						// Only add event if its tour_date matches the current date key
+						if (event.tour_date === tour_date) {
+							specialEventsByDate[tour_date].push(event);
+						}
+					});
+				}
+			});
+		});
+
+		// Now process each visible day on the current page
+		$('[id^="addon_add_dynamic"]').each(function() {
+			var containerId = $(this).attr('id'); // e.g., addon_add_dynamic2055_06-02-2026
+			var iti_id = containerId.replace('addon_add_dynamic', ''); // 2055_06-02-2026
+			var currentTourPlanId = iti_id.split('_')[0]; // 2055
+
+			// Extract date part: 06-02-2026 → 2026-02-06
+			var parts = iti_id.split('_');
+			if (parts.length < 2) return;
+
+			var dmy = parts[1]; // 06-02-2026
+			var dateParts = dmy.split('-');
+			if (dateParts.length !== 3) return;
+
+			var tour_date = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]; // 2026-02-06
+
+			var addonContainer = $(this);
+			var spclContainer = $('#spcl_add_dynamic' + iti_id);
+
+			// Prevent reloading if already done
+			if (addonContainer.data('addons-loaded')) return;
+
+			// ==================== LOAD HOTEL FACILITY ADD-ONS ====================
+			if (addonsByDate[tour_date] && addonsByDate[tour_date].length > 0) {
+				addonsByDate[tour_date].forEach(function(addon) {
+					var seq = parseInt(addon.addon_sequence) || 1;
+					if (seq > maxAddonSeq) maxAddonSeq = seq;
+
+					// rebuild addon_id
+					var newAddonId = currentTourPlanId + '_' + dmy;
+
+					// rebuild addon_idvalue
+					var unique_id = newAddonId + '_' + seq;
+
+					if (!unique_id || $('#rowaddon' + unique_id).length > 0) return;
+
+					var html = '';
+					html += '<div id="rowaddon' + unique_id + '" class="dynamic-added card">';
+					html += '<div class="row mt-2">';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<div class="teams-rank"><b>Facility Name</b></div>';
+					html += '<input type="text" name="addon_additi[' + seq + '][addon_event]" value="' + addon.addon_event + '" class="form-control input-sm" maxlength="50" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+					html += '<div class="teams-rank"><b>Tariff</b></div>';
+					html += '<input type="text" name="addon_additi[' + seq + '][addon_tariff]" value="' + addon.addon_tariff + '" class="form-control input-sm addon_class' + iti_id + '" maxlength="7" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+					html += '<button type="button" id="' + unique_id + '" data-oid="' + newAddonId + '" data-nid="' + iti_id + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_addon_remove">X</button>';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][addon_id]" value="' + newAddonId + '">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][addon_sequence]" value="' + seq + '">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][addon_idvalue]" value="' + unique_id + '">';
+					html += '<input type="hidden" name="addon_additi[' + seq + '][tour_date]" value="' + tour_date + '">';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+					html += '</div></div>';
+
+					addonContainer.append(html);
+				});
+
+				// Update total
+				var total = 0;
+				$('.addon_class' + iti_id).each(function() {
+					total += parseFloat($(this).val()) || 0;
+				});
+				$('#fac_rate' + iti_id).val(total);
+			}
+
+			// ==================== LOAD SPECIAL EVENTS ====================
+			if (spclContainer.length > 0 && !spclContainer.data('spcl-loaded') && specialEventsByDate[tour_date] && specialEventsByDate[tour_date].length > 0) {
+				// FIXED: Build unique events map using unique_id as key to prevent duplicates
+				var uniqueEventsMap = {};
+				
+				specialEventsByDate[tour_date].forEach(function(event) {
+					var seq = parseInt(event.spcl_sequence) || 1;
+					var newSpclId = currentTourPlanId + '_' + dmy;
+					var unique_id = newSpclId + '_' + seq;
+
+					// Store in map - this automatically handles duplicates
+					// Only add if not already in map and not in DOM
+					if (!uniqueEventsMap[unique_id] && $('#rowsp' + unique_id).length === 0) {
+						uniqueEventsMap[unique_id] = {
+							event: event,
+							seq: seq,
+							newSpclId: newSpclId,
+							unique_id: unique_id
+						};
+					}
+				});
+
+				// Now render each unique event
+				$.each(uniqueEventsMap, function(key, item) {
+					var event = item.event;
+					var seq = item.seq;
+					var newSpclId = item.newSpclId;
+					var unique_id = item.unique_id;
+
+					var html = '';
+					html += '<div id="rowsp' + unique_id + '" class="dynamic-added card">';
+					html += '<div class="row mt-2">';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_id]" value="' + newSpclId + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_sequence]" value="' + seq + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][spcl_idvalue]" value="' + unique_id + '">';
+					html += '<input type="hidden" name="spcl_additi[' + seq + '][tour_date]" value="' + tour_date + '">';
+					html += '</div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<div class="teams-rank"><b>Special Event Name</b></div>';
+					html += '<input type="text" name="spcl_additi[' + seq + '][spcl_event]" value="' + event.spcl_event + '" class="form-control input-sm" maxlength="50" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+					html += '<div class="teams-rank"><b>Tariff</b></div>';
+					html += '<input type="text" name="spcl_additi[' + seq + '][spcl_tariff]" value="' + event.spcl_tariff + '" class="form-control input-sm" maxlength="7" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+					html += '<button type="button" id="' + unique_id + '" data-oid="' + newSpclId + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_spcl_remove">X</button>';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+					html += '</div></div>';
+
+					spclContainer.append(html);
+				});
+				
+				spclContainer.data('spcl-loaded', true);
+			}
+
+			addonContainer.data('addons-loaded', true);
+		});
+
+		// Sync global counter
+		if (maxAddonSeq > 0) {
+			$('#total_addon_count').val(maxAddonSeq);
+			if (typeof i !== 'undefined') {
+				i = maxAddonSeq;
+			} else {
+				window.i = maxAddonSeq;
+			}
+		}
+	});
 </script>
+
