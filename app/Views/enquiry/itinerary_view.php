@@ -10463,3 +10463,103 @@ $cs_trans_total = 0;
 		});
 	});
 </script>
+
+<script>
+// Pass saved sightseeing data to JavaScript
+var savedSightseeingData = <?= json_encode($saved_sightseeing_by_date) ?>;
+
+console.log('SavedSightseeingData from PHP:', savedSightseeingData);
+
+// The structure should be:
+// savedSightseeingData[tour_details_id][tour_date] = {
+//     sightseeing: [...],
+//     saved_ss_ids: [...],
+//     ss_total_distance: 400,
+//     ss_pax_cost: 0,
+//     ss_total_cost: 0,
+//     special_event_name: "12",
+//     json_special_event: [{...}],
+//     json_addons: [{...}, {...}],
+//     hotel_facility_ids: "",
+//     is_saved: true,
+//     data_source: "previous"
+// }
+</script>
+
+<script>
+$(document).ready(function() {
+    // Assuming savedSightseeingData[2048] contains the per-date data
+    var data = savedSightseeingData[2048] || {};
+
+    $.each(data, function(tour_date, dayData) {
+        // tour_date is YYYY-MM-DD → convert to d-m-Y for iti_id
+        var dateParts = tour_date.split('-');
+        if (dateParts.length !== 3) return;
+        var dmy = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]; // e.g., 06-02-2026
+        var iti_id = '2048_' + dmy; // Adjust '2048' if tour_details_id varies
+
+        var container = $('#addon_add_dynamic' + iti_id);
+        if (container.length === 0) return; // Skip if no container for this day
+
+        var addons = dayData.json_addons || [];
+        var sequence = 0; // Will increment for form array index
+
+        addons.forEach(function(addon) {
+            sequence++;
+
+            // Use the original addon_idvalue as the unique part of IDs (matches your add logic)
+            var unique_id = addon.addon_idvalue; // e.g., 2047_06-02-2026_1
+            var row_id = 'rowaddon' + unique_id;
+
+            var html = '';
+            html += '<div id="' + row_id + '" class="dynamic-added card" data-index="' + addon.addon_id + '">';
+            html += '<div class="row mt-2">';
+
+            // Facility Name
+            html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+            html += '<div class="teams-rank"><b>Facility Name</b></div>';
+            html += '<input type="text" id="addon_event' + unique_id + '" data-id="' + unique_id + '" name="addon_additi[' + sequence + '][addon_event]" value="' + addon.addon_event + '" class="form-control input-sm" maxlength="50" readonly>';
+            html += '</div>';
+
+            // Tariff
+            html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+            html += '<div class="teams-rank"><b>Tariff</b></div>';
+            html += '<input type="text" id="addon_tariff' + unique_id + '" data-id="' + unique_id + '" name="addon_additi[' + sequence + '][addon_tariff]" value="' + addon.addon_tariff + '" class="form-control input-sm addon_class' + iti_id + '" maxlength="7" readonly>';
+            html += '</div>';
+
+            // Remove button
+            html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+            html += '<button type="button" name="remove" id="' + unique_id + '" data-oid="' + addon.addon_id + '" data-nid="' + iti_id + '" data-cid="' + sequence + '" class="btn btn-danger btn-sm btn_addon_remove">X</button>';
+            html += '</div>';
+
+            // Hidden fields
+            html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+            html += '<input type="hidden" id="addon_id' + unique_id + '" name="addon_additi[' + sequence + '][addon_id]" value="' + addon.addon_id + '">';
+            html += '<input type="hidden" id="addon_sequence' + unique_id + '" name="addon_additi[' + sequence + '][addon_sequence]" value="' + (addon.addon_sequence || sequence) + '">';
+            html += '<input type="hidden" id="addon_idvalue' + unique_id + '" name="addon_additi[' + sequence + '][addon_idvalue]" value="' + unique_id + '">';
+            html += '<input type="hidden" id="tour_date' + unique_id + '" name="addon_additi[' + sequence + '][tour_date]" value="' + addon.tour_date + '">';
+            html += '</div>';
+
+            html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+            html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+            html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+            html += '</div></div>';
+
+            container.append(html);
+        });
+
+        // Recalculate and update the total facility rate for this day
+        var addonTotal = 0;
+        $('.addon_class' + iti_id).each(function() {
+            addonTotal += parseInt($(this).val()) || 0;
+        });
+        $('#fac_rate' + iti_id).val(addonTotal);
+
+        // Update global addon count (used when adding new ones)
+        if (sequence > $('#total_addon_count').val()) {
+            $('#total_addon_count').val(sequence);
+        }
+    });
+});
+</script>

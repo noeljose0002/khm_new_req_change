@@ -6134,7 +6134,7 @@ class Enquiry extends BaseController
     //         return redirect()->to('Login');
     //     }
     // }
-    //njiti//
+    //nj//
     public function itinerary($object_id, $final_save_flag, $edit_id = null, $iti_edit_id = null, $extension_ref_id = null)
     {
         if (!empty(session()->get('user_id'))) {
@@ -6172,108 +6172,6 @@ class Enquiry extends BaseController
                 $extension_ref_id_temp = 0;
             }
             $object_det = $Enquiry_model->get_object_details($object_id);
-                 $previous_itinerary_details_save = [];
-            $is_fresh = ($edit_id === null);
-
-            if ($edit_id > 0 && $extension_ref_id !== null) {
-                // Making a specific tour plan current - load THAT tour plan's previous version
-                $enq_ext_ids = $Enquiry_model->get_enquiry_extensions_byid($edit_id);
-
-                if (!empty($enq_ext_ids)) {
-                    $tour_plan_ref_id = $enq_ext_ids[0]['tour_plan_ref_id'];
-                    $current_extension_ref_id = $enq_ext_ids[0]['extension_ref_id'];
-
-                    log_message('info', '=== MAKE CURRENT MODE ===');
-                    log_message('info', 'Loading previous itinerary for tour_plan_ref_id: ' . $tour_plan_ref_id);
-                    log_message('info', 'Current extension_ref_id: ' . $current_extension_ref_id);
-
-                    // Load previous version of THIS SPECIFIC tour plan
-                    $previous_itinerary_details_save = $Enquiry_model->get_itinerary_previous_details(
-                        $current_extension_ref_id,
-                        $tour_plan_ref_id,
-                        $object_det[0]['enquiry_header_id']
-                    );
-
-                    log_message('info', 'Loaded ' . count($previous_itinerary_details_save) . ' records from SPECIFIC tour plan previous version');
-
-                    // Debug: Show what was loaded
-                    if (!empty($previous_itinerary_details_save)) {
-                        foreach ($previous_itinerary_details_save as $prev) {
-                            log_message('debug', 'Previous record: tour_date=' . $prev['tour_date'] . ', tour_details_id=' . $prev['tour_details_id'] . ', extension_ref_id=' . $prev['extension_ref_id']);
-                        }
-                    }
-                }
-            }  elseif ($is_fresh) {
-
-    log_message('info', '=== FRESH ITINERARY MODE ===');
-
-    $last_itinerary = $Enquiry_model->get_last_itinerary_saved(
-        $object_det[0]['enquiry_header_id']
-    );
-
-    if (!empty($last_itinerary)) {
-
-        log_message(
-            'info',
-            'Loading from last saved itinerary, extension_ref_id: ' .
-            $last_itinerary['extension_ref_id']
-        );
-
-        $previous_itinerary_details_save_raw =
-            $Enquiry_model->get_itinerary_previous_details(
-                $last_itinerary['extension_ref_id']
-            );
-
-        $previous_itinerary_details_save = [];
-
-        foreach ($previous_itinerary_details_save_raw as $row) {
-
-            $previous_itinerary_details_save[] = [
-                // REQUIRED IDENTIFIERS
-                'tour_date'       => $row['tour_date'],
-                'tour_details_id' => $row['tour_details_id'],
-                'hotel_id'        => $row['hotel_id'],
-                'tour_location'   => $row['tour_location'] ?? 0,
-
-                // REQUIRED VIEW DEFAULTS
-                'permit'                 => $row['permit'] ?? 0,
-                'transport_remarks'      => $row['transport_remarks'] ?? '',
-                'transport_description' => $row['transport_description'] ?? '',
-                'remarks'                => $row['remarks'] ?? '',
-                'hotel_facility_ids'     => $row['hotel_facility_ids'] ?? '',
-                 'cost' => $row['cost'] ?? [],
-                  'vehicle_details' => 0,
-
-                // COPY ONLY THESE
-                'ss_data_json'        => $row['ss_data_json'] ?? '[]',
-                'json_addons'         => $row['json_addons'] ?? '[]',
-                'json_special_event' => $row['json_special_event'] ?? '[]',
-
-                // FLAG
-                'is_preloaded' => true
-            ];
-        }
-
-        log_message(
-            'info',
-            'Previous itinerary filtered. Count=' .
-            count($previous_itinerary_details_save)
-        );
-
-    } else {
-
-        log_message('info', 'No previous itinerary found');
-        $previous_itinerary_details_save = [];
-    }
-
-            }
-            $prev_start_date = null;
-            if ($is_fresh && !empty($previous_itinerary_details_save)) {
-                $prev_tour_dates = array_column($previous_itinerary_details_save, 'tour_date');
-                if (!empty($prev_tour_dates)) {
-                    $prev_start_date = min($prev_tour_dates);
-                }
-            }
             if ($edit_id > 0 && $extension_ref_id !== null) {
                 // We're editing a specific itinerary version - load its previous version for comparison
                 $last_itinerary = $Enquiry_model->get_last_itinerary_saved($object_det[0]['enquiry_header_id']);
@@ -6560,7 +6458,7 @@ class Enquiry extends BaseController
                 $result1 = $Enquiry_model->get_itinerary_draft_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new, $vals['tour_details_id']);
                 $result2 = $Enquiry_model->get_itinerary_save_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new, $vals['tour_details_id']);
                 if (!empty($result1)) {
-                    $itinerary_details_draft = array_merge($itinerary_details_draft, $result1);
+                    $itinerary_details_draft = [...$itinerary_details_draft, ...$result1];
                     // FIXED: Always collect IDs, regardless of tax_status (for post-save override)
                     foreach ($result1 as $r) {
                         if (isset($r['itinerary_details_id'])) {
@@ -6569,7 +6467,7 @@ class Enquiry extends BaseController
                     }
                 }
                 if (!empty($result2)) {
-                    $itinerary_details_save = array_merge($itinerary_details_save, $result2);
+                    $itinerary_details_save = [...$itinerary_details_save, ...$result2];
                     // FIXED: Always collect IDs, regardless of tax_status (for post-save override)
                     foreach ($result2 as $r) {
                         if (isset($r['itinerary_details_id'])) {
@@ -6577,78 +6475,89 @@ class Enquiry extends BaseController
                         }
                     }
                 }
+                // PRELOAD PREVIOUS ITINERARY DATA (after tour_plan_det loop starts, before date loop)
+                // CRITICAL FIX: Use the CURRENT tour plan's extension_ref_id to look up previous_active_tour_id
+                $previous_itinerary_data = [];
+                if (!empty($previous_itinerary_data)) {
+                    log_message('info', 'Available previous itinerary keys: ' . implode(', ', array_keys($previous_itinerary_data)));
+                    log_message('info', 'Current tour location ID: ' . $vals['tour_location']);
+
+                    // Sample the first record to see its structure
+                    $sample = reset($previous_itinerary_data);
+                    log_message('info', 'Sample previous record: ' . json_encode([
+                        'tour_date' => $sample['tour_date'] ?? 'N/A',
+                        'tour_details_id' => $sample['tour_details_id'] ?? 'N/A',
+                        'ss_data_json' => substr($sample['ss_data_json'] ?? '', 0, 100)
+                    ]));
+                }
+                // Get the current extension_ref_id being worked on
+                $current_extension_ref_id = null;
+
+                if ($edit_id > 0 && $extension_ref_id !== null) {
+                    // Editing a specific version
+                    $current_extension_ref_id = $extension_ref_id;
+                } else {
+                    // Get the latest/current tour plan's extension_ref_id
+                    if (!empty($tour_plan_det)) {
+                        $current_extension_ref_id = $tour_plan_det[0]['extension_ref_id'] ?? null;
+                    }
+                }
+
+                log_message('info', 'Current extension_ref_id for previous itinerary lookup: ' . ($current_extension_ref_id ?? 'NULL'));
+
+                if (!empty($current_extension_ref_id)) {
+                    // This will internally look up previous_active_tour_id from the current tour plan
+                    $previous_itinerary_data = $Enquiry_model->get_previous_itinerary_grouped(
+                        $object_det[0]['enquiry_header_id'],
+                        $enquiry_details_id_new,
+                        $current_extension_ref_id  // Pass current extension_ref_id, model will find previous_active_tour_id
+                    );
+
+                    log_message('info', 'Loaded previous itinerary data: ' . count($previous_itinerary_data) . ' records from current extension_ref_id=' . $current_extension_ref_id);
+                } else {
+                    log_message('warning', 'No current_extension_ref_id available - cannot load previous itinerary');
+                }
+
+                // Inside the foreach ($tour_plan_det as $keys => $vals) loop
+                // Replace the date loop section with this updated version:
+
                 for ($date = clone $start1; $date < $end1; $date->modify('+1 day')) {
                     $tour_date = $date->format('Y-m-d');
                     $tariff_details_iti[] = $this->getTourTariffDetailsbyTourDetails($tour_date, $vals['hotel_id'], $vals['room_category_id'], $vals['meal_plan_id'], $object_det[0]['no_of_double_room'], $object_det[0]['no_of_single_room']);
 
-                    // IMPLEMENTED: Get saved sightseeing for each date
+                    // Initialize variables
                     $had_saved_record = false;
+                    $had_draft_record = false;
+                    $had_previous_record = false;
                     $saved_sightseeing = [];
                     $saved_ss_ids = [];
                     $ss_total_distance = 0;
                     $ss_pax_cost = 0;
                     $ss_total_cost = 0;
-
-                    // CRITICAL: Initialize these at the start (empty by default)
+                    $special_event_name = '';
                     $json_special_event = [];
-                    $json_addons = [];
+                    $hotel_facility_ids = '';
 
-                    // FIXED: Only force fresh if explicitly requested via query param
-                    $force_fresh = $this->request->getGet('fresh') == '1';
+                    // Check if we should force fresh defaults
+                    $force_fresh = ($this->request->getGet('fresh') == '1') || ($final_save_flag == 0 && $edit_id === null);
 
-                    // Only load saved data if NOT forcing fresh
                     if (!$force_fresh) {
-                        // Check draft itinerary first (if any) and mark that a record existed even if empty
-                        if (!empty($itinerary_details_draft)) {
-                            foreach ($itinerary_details_draft as $dkey => $dval) {
-                                if ($tour_date == $dval['tour_date'] && $vals['tour_details_id'] == $dval['tour_details_id']) {
-                                    // Mark that a saved/draft record exists for this date
-                                    $had_saved_record = true;
-
-                                    // Decode Sightseeing JSON
-                                    $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true);
-                                    $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
-
-                                    // Calculate totals from JSON
-                                    foreach ($saved_sightseeing as $ss) {
-                                        if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
-                                            $ss_pax_cost += $ss['calculated_value'] ?? 0;
-                                            $ss_total_cost += $ss['calculated_value'] ?? 0;
-                                        } else {
-                                            $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
-                                        }
-                                    }
-
-                                    // CRITICAL: Load special events and addons from draft
-                                    $json_special_event = json_decode($dval['json_special_event'] ?? '[]', true);
-                                    if (!is_array($json_special_event)) {
-                                        $json_special_event = [];
-                                    }
-
-                                    $json_addons = json_decode($dval['json_addons'] ?? '[]', true);
-                                    if (!is_array($json_addons)) {
-                                        $json_addons = [];
-                                    }
-
-                                    log_message('info', 'Loaded from DRAFT for date ' . $tour_date . ': ' .
-                                        count($saved_sightseeing) . ' sightseeing, ' .
-                                        count($json_special_event) . ' special events, ' .
-                                        count($json_addons) . ' hotel facilities');
-
-                                    break;
-                                }
-                            }
-                        }
-
-                        // If not in draft, check saved itinerary (same behavior)
-                        if (!$had_saved_record && !empty($itinerary_details_save)) {
+                        // PRIORITY 1: Check saved itinerary (is_active=1, is_draft=0)
+                        if (!empty($itinerary_details_save)) {
                             foreach ($itinerary_details_save as $dkey => $dval) {
                                 if ($tour_date == $dval['tour_date'] && $vals['tour_details_id'] == $dval['tour_details_id']) {
                                     $had_saved_record = true;
 
-                                    // Decode Sightseeing JSON
+                                    // Load sightseeing
                                     $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true);
                                     $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
+
+                                    // Load special events
+                                    $special_event_name = $dval['special_event_name'] ?? '';
+                                    $json_special_event = json_decode($dval['json_special_event'] ?? '[]', true);
+
+                                    // Load hotel facilities
+                                    $hotel_facility_ids = $dval['hotel_facility_ids'] ?? '';
 
                                     // Calculate totals
                                     foreach ($saved_sightseeing as $ss) {
@@ -6660,159 +6569,147 @@ class Enquiry extends BaseController
                                         }
                                     }
 
-                                    // CRITICAL: Load special events and addons from saved
-                                    $json_special_event = json_decode($dval['json_special_event'] ?? '[]', true);
-                                    if (!is_array($json_special_event)) {
-                                        $json_special_event = [];
-                                    }
-
-                                    $json_addons = json_decode($dval['json_addons'] ?? '[]', true);
-                                    if (!is_array($json_addons)) {
-                                        $json_addons = [];
-                                    }
-
-                                    log_message('info', 'Loaded from SAVED for date ' . $tour_date . ': ' .
-                                        count($saved_sightseeing) . ' sightseeing, ' .
-                                        count($json_special_event) . ' special events, ' .
-                                        count($json_addons) . ' hotel facilities');
-
+                                    log_message('info', 'PRIORITY 1 - Loaded SAVED itinerary for date ' . $tour_date . ' (tour_details_id=' . $vals['tour_details_id'] . ')');
                                     break;
                                 }
                             }
                         }
-                    }
 
-                    // FIXED: Load from PREVIOUS itinerary if new tour plan (no specific saved record for this segment/date)
-                    // Use a separate flag to track preloaded data vs actual saved data
-                    // FIXED: Load from PREVIOUS itinerary if new tour plan (no specific saved record for this segment/date)
-                    $is_preloaded_from_previous = false;
+                        // PRIORITY 2: Check draft itinerary (is_draft=1)
+                        if (!$had_saved_record && !empty($itinerary_details_draft)) {
+                            foreach ($itinerary_details_draft as $dkey => $dval) {
+                                if ($tour_date == $dval['tour_date'] && $vals['tour_details_id'] == $dval['tour_details_id']) {
+                                    $had_draft_record = true;
 
-                    if (
-                        !$force_fresh &&
-                        !$had_saved_record
-                    ) {
-                        // Check if current tour plan has a previous_active_tour_id
-                        $current_tour_record = $Enquiry_model->get_tour_record_by_id($vals['tour_details_id']);
+                                    // Load sightseeing
+                                    $saved_sightseeing = json_decode($dval['ss_data_json'] ?? '[]', true);
+                                    $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
 
-                        if (!empty($current_tour_record) && !empty($current_tour_record['previous_active_tour_id'])) {
-                            $previous_tour_id = $current_tour_record['previous_active_tour_id'];
+                                    // Load special events
+                                    $special_event_name = $dval['special_event_name'] ?? '';
+                                    $json_special_event = json_decode($dval['json_special_event'] ?? '[]', true);
 
-                            log_message('info', 'Loading previous itinerary data from previous_active_tour_id: ' . $previous_tour_id);
+                                    // Load hotel facilities
+                                    $hotel_facility_ids = $dval['hotel_facility_ids'] ?? '';
 
-                            // Get the latest itinerary from the previous tour plan
-                            $previous_tour_itinerary = $Enquiry_model->get_latest_itinerary_for_tour(
-                                $object_det[0]['enquiry_header_id'],
-                                $previous_tour_id
-                            );
-
-                            if (!empty($previous_tour_itinerary)) {
-                                // Match by tour_date (comparing dates, not specific tour_details_id)
-                                foreach ($previous_tour_itinerary as $pval) {
-                                    if ($tour_date == $pval['tour_date']) {
-                                        // CRITICAL FIX: Set BOTH flags
-                                        $had_saved_record = true;
-                                        $is_preloaded_from_previous = true;
-
-                                        log_message('info', 'Found matching date ' . $tour_date . ' in previous tour plan (preloading)');
-
-                                        // Load Sightseeing
-                                        $saved_sightseeing = json_decode($pval['ss_data_json'] ?? '[]', true);
-                                        if (!is_array($saved_sightseeing)) {
-                                            $saved_sightseeing = [];
-                                        }
-                                        $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
-
-                                        // Calculate totals
-                                        foreach ($saved_sightseeing as $ss) {
-                                            if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
-                                                $ss_pax_cost += $ss['calculated_value'] ?? 0;
-                                                $ss_total_cost += $ss['calculated_value'] ?? 0;
-                                            } else {
-                                                $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
-                                            }
-                                        }
-
-                                        // CRITICAL: Load Special Events
-                                        $json_special_event = json_decode($pval['json_special_event'] ?? '[]', true);
-                                        if (!is_array($json_special_event)) {
-                                            $json_special_event = [];
-                                        }
-
-                                        // CRITICAL FIX: Load Hotel Facilities - only if same hotel AND same location
-                                        $previous_hotel_id = $pval['hotel_id'] ?? null;
-                                        $current_hotel_id = $vals['hotel_id'] ?? null;
-
-                                        log_message('info', 'Addon matching check - Previous hotel_id: ' . $previous_hotel_id .
-                                            ' | Current hotel_id: ' . $current_hotel_id);
-
-                                        // Only load addons if same hotel (and hotel_id is not 0 or null)
-                                        if (
-                                            $previous_hotel_id == $current_hotel_id &&
-                                            !empty($previous_hotel_id) &&
-                                            $previous_hotel_id > 0
-                                        ) {
-
-                                            $json_addons = json_decode($pval['json_addons'] ?? '[]', true);
-                                            if (!is_array($json_addons)) {
-                                                $json_addons = [];
-                                            }
-                                            log_message('info', 'Same hotel (ID: ' . $current_hotel_id . ') - loaded ' . count($json_addons) . ' hotel facilities');
+                                    // Calculate totals
+                                    foreach ($saved_sightseeing as $ss) {
+                                        if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
+                                            $ss_pax_cost += $ss['calculated_value'] ?? 0;
+                                            $ss_total_cost += $ss['calculated_value'] ?? 0;
                                         } else {
-                                            // Different hotel: Don't load addons
-                                            $json_addons = [];
-
-                                            $reason = '';
-                                            if ($previous_hotel_id != $current_hotel_id) {
-                                                $reason = 'hotel mismatch (' . $previous_hotel_id . ' vs ' . $current_hotel_id . ')';
-                                            } elseif (empty($previous_hotel_id) || $previous_hotel_id == 0) {
-                                                $reason = 'no previous hotel (ID: ' . $previous_hotel_id . ')';
-                                            } elseif (empty($current_hotel_id) || $current_hotel_id == 0) {
-                                                $reason = 'no current hotel (ID: ' . $current_hotel_id . ')';
-                                            }
-
-                                            log_message('info', 'Addons NOT loaded - ' . $reason);
+                                            $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
                                         }
-
-                                        log_message('info', 'Preloaded from previous tour for date ' . $tour_date . ': ' .
-                                            count($saved_sightseeing) . ' sightseeing, ' .
-                                            count($json_special_event) . ' special events, ' .
-                                            count($json_addons) . ' hotel facilities');
-
-                                        break;
                                     }
+
+                                    log_message('info', 'PRIORITY 2 - Loaded DRAFT itinerary for date ' . $tour_date . ' (tour_details_id=' . $vals['tour_details_id'] . ')');
+                                    break;
                                 }
-                            } else {
-                                log_message('info', 'No previous itinerary found for previous_active_tour_id: ' . $previous_tour_id);
                             }
+                        }
+
+                        // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
+                        // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
+
+                    }
+                    // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
+                    // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
+                    if (!$had_saved_record && !$had_draft_record && !empty($previous_itinerary_data)) {
+                        $lookup_key = $tour_date . '_' . $vals['tour_location'];
+
+                        log_message('debug', 'Looking up previous itinerary with key: ' . $lookup_key);
+
+                        // Try multiple lookup strategies
+                        $prev_data = null;
+
+                        // Strategy 1: Date + Location
+                        if (isset($previous_itinerary_data[$lookup_key])) {
+                            $prev_data = $previous_itinerary_data[$lookup_key];
+                            log_message('info', 'PRIORITY 3 - Found by date+location key: ' . $lookup_key);
+                        }
+                        // Strategy 2: Date only (fallback)
+                        elseif (isset($previous_itinerary_data[$tour_date])) {
+                            $prev_data = $previous_itinerary_data[$tour_date];
+                            log_message('info', 'PRIORITY 3 - Found by date key: ' . $tour_date);
+                        }
+                        // Strategy 3: Scan all records for matching date
+                        else {
+                            foreach ($previous_itinerary_data as $key => $data) {
+                                if (isset($data['tour_date']) && $data['tour_date'] === $tour_date) {
+                                    $prev_data = $data;
+                                    log_message('info', 'PRIORITY 3 - Found by scanning: ' . $key);
+                                    break;
+                                }
+                            }
+                        }
+
+                        if ($prev_data !== null) {
+                            $had_previous_record = true;
+
+                            // Load sightseeing
+                            $saved_sightseeing = json_decode($prev_data['ss_data_json'] ?? '[]', true);
+                            $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
+
+                            // Load special events
+                            $json_special_event = json_decode($prev_data['json_special_event'] ?? '[]', true);
+                            $special_event_name = '';
+                            if (!empty($json_special_event) && isset($json_special_event[0]['spcl_event'])) {
+                                $special_event_name = $json_special_event[0]['spcl_event'];
+                            }
+
+                            // Load hotel facilities/addons
+                            $json_addons = json_decode($prev_data['json_addons'] ?? '[]', true);
+                            $hotel_facility_ids = $prev_data['hotel_facility_ids'] ?? '';
+
+                            // **FIX: Load vehicle details from previous itinerary**
+                            $prev_vehicle_json = $prev_data['vehicle_details_json'] ?? '';
+
+                            // Calculate totals
+                            foreach ($saved_sightseeing as $ss) {
+                                if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
+                                    $ss_pax_cost += $ss['calculated_value'] ?? 0;
+                                    $ss_total_cost += $ss['calculated_value'] ?? 0;
+                                } else {
+                                    $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
+                                }
+                            }
+
+                            log_message('info', 'PRIORITY 3 - Loaded PREVIOUS itinerary for date ' . $tour_date .
+                                ' (SS count: ' . count($saved_sightseeing) .
+                                ', SS distance: ' . $ss_total_distance . 'km' .
+                                ', Special Events: ' . count($json_special_event) .
+                                ', Addons: ' . count($json_addons) .
+                                ', Vehicle JSON length: ' . strlen($prev_vehicle_json) . ')');
                         } else {
-                            log_message('info', 'No previous_active_tour_id found for current tour_details_id: ' . $vals['tour_details_id']);
+                            log_message('warning', 'PRIORITY 3 - No previous itinerary found for date: ' . $tour_date);
                         }
                     }
 
 
-                    // Calculate which day number this is (1-indexed)
+                    // Calculate day number for defaults
                     $interval = $start1->diff($date);
-                    $day_number = $interval->days + 1; // Day 1, 2, 3, etc.
+                    $day_number = $interval->days + 1;
 
-                    // Calculate total number of days (nights + 1)
                     $total_interval = $start1->diff($end1);
-                    $total_days = $total_interval->days + 1; // Total days including departure day
+                    $total_days = $total_interval->days + 1;
 
-                    // Check if this is the last day (departure day)
                     $is_last_day = ($day_number === $total_days);
 
-                    // Load defaults if: no saved record OR forcing fresh
-                    if (!$had_saved_record || $force_fresh) {
+                    // PRIORITY 4: Load defaults if no saved/draft/previous data exists
+                    if (!$had_saved_record && !$had_draft_record && !$had_previous_record) {
                         $saved_sightseeing = [];
                         $saved_ss_ids = [];
                         $ss_total_distance = 0;
                         $ss_pax_cost = 0;
                         $ss_total_cost = 0;
-                        // Reset special events and addons when loading defaults
+                        $special_event_name = '';
                         $json_special_event = [];
-                        $json_addons = [];
+                        $hotel_facility_ids = '';
 
-                        $totalPax = $object_det[0]['no_of_adult'] + $object_det[0]['no_of_child_with_bed'] + $object_det[0]['no_of_child_without_bed'] + $object_det[0]['no_of_child_below_five'];
+                        $totalPax = $object_det[0]['no_of_adult'] +
+                            $object_det[0]['no_of_child_with_bed'] +
+                            $object_det[0]['no_of_child_without_bed'] +
+                            $object_det[0]['no_of_child_below_five'];
 
                         if ($day_number === 2) {
                             // Day 2: Load default sightseeing for the location
@@ -6830,6 +6727,7 @@ class Enquiry extends BaseController
                                     'cost' => 0,
                                     'distance_km' => 0
                                 ];
+
                                 if ($ssItem['is_pax'] == 1) {
                                     $ssItem['calculated_value'] = $ssItem['tariff'] * $totalPax;
                                     $ssItem['cost'] = $ssItem['calculated_value'];
@@ -6840,12 +6738,14 @@ class Enquiry extends BaseController
                                     $ssItem['distance_km'] = $ssItem['calculated_value'];
                                     $ss_total_distance += $ssItem['calculated_value'];
                                 }
+
                                 $saved_sightseeing[] = $ssItem;
                                 $saved_ss_ids[] = $ss['sightseeing_id'];
                             }
-                            log_message('info', 'Loaded default SS for Day 2 (date ' . $tour_date . '): ' . count($saved_sightseeing) . ' items');
+
+                            log_message('info', 'PRIORITY 4 - Loaded DEFAULT SS for Day 2 (date ' . $tour_date . ', location=' . $vals['tour_location'] . ')');
                         } elseif ($day_number > 2) {
-                            // Days 3 onwards (including last day): Create hardcoded "Leisure" entry
+                            // Days 3 onwards: Create hardcoded "Leisure" entry
                             $leisure_id = -999;
 
                             $ssItem = [
@@ -6866,27 +6766,16 @@ class Enquiry extends BaseController
                             $saved_ss_ids[] = $leisure_id;
 
                             $day_type = $is_last_day ? 'Last day/Departure' : 'Day ' . $day_number;
-                            log_message('info', 'Hardcoded Leisure SS auto-selected for ' . $day_type . ' (date ' . $tour_date . ', location ' . $vals['tour_location'] . ')');
+                            log_message('info', 'PRIORITY 4 - Hardcoded Leisure for ' . $day_type . ' (date ' . $tour_date . ', location=' . $vals['tour_location'] . ')');
                         } else {
-                            // Day 1: No defaults
-                            log_message('info', 'Day 1 (date ' . $tour_date . '): No defaults loaded');
+                            log_message('info', 'PRIORITY 4 - Day 1 (date ' . $tour_date . ', location=' . $vals['tour_location'] . ') - No defaults');
                         }
                     }
 
-                    // Store the sightseeing data with totals
+                    // Store the data by date for this tour
                     if (!isset($saved_sightseeing_by_date[$vals['tour_details_id']])) {
                         $saved_sightseeing_by_date[$vals['tour_details_id']] = [];
                     }
-
-                    // CRITICAL: Ensure arrays are valid before storing
-                    if (!is_array($json_special_event)) {
-                        $json_special_event = [];
-                    }
-                    if (!is_array($json_addons)) {
-                        $json_addons = [];
-                    }
-
-                    
 
                     $saved_sightseeing_by_date[$vals['tour_details_id']][$tour_date] = [
                         'sightseeing' => $saved_sightseeing,
@@ -6894,51 +6783,41 @@ class Enquiry extends BaseController
                         'ss_total_distance' => $ss_total_distance,
                         'ss_pax_cost' => $ss_pax_cost,
                         'ss_total_cost' => $ss_total_cost,
-                        'json_special_event' => $json_special_event,  // Now properly loaded
-                        'json_addons' => $json_addons,  // Now properly loaded
-                        'is_saved' => $had_saved_record,
-                        'is_preloaded' => $is_preloaded_from_previous
+                        'special_event_name' => $special_event_name,
+                        'json_addons' => $json_addons ?? [],
+                        'json_special_event' => $json_special_event,
+                        'hotel_facility_ids' => $hotel_facility_ids,
+                        'is_saved' => ($had_saved_record || $had_draft_record || $had_previous_record),
+                        'data_source' => $had_saved_record ? 'saved' : ($had_draft_record ? 'draft' : ($had_previous_record ? 'previous' : 'default'))
                     ];
                 }
                 // NEW: Adjust vehicle distances to base-only model (derive base, no SS addition; JS adds dynamically)
-                if (isset($tour_expansion_details[$tid])) {
+               if (isset($tour_expansion_details[$tid])) {
                     foreach ($tour_expansion_details[$tid] as &$expansion) {
                         // Skip if no date or invalid
                         if (!isset($expansion['tour_expansion_date'])) continue;
                         $expansion_date = $expansion['tour_expansion_date'];
 
-                        // CRITICAL FIX: Only subtract SS distance if ACTUALLY saved (not preloaded)
+                        // Get SS distance ONLY for logging/display purposes
                         $ss_dist = 0;
                         if (isset($saved_sightseeing_by_date[$tid][$expansion_date])) {
                             $data = $saved_sightseeing_by_date[$tid][$expansion_date];
-
-                            // Only subtract SS if this is a genuinely saved record (not preloaded from previous tour)
-                            $is_actually_saved = $data['is_saved'] && !($data['is_preloaded'] ?? false);
-                            $ss_dist = $is_actually_saved ? $data['ss_total_distance'] : 0;
-
-                            log_message('info', 'Vehicle adjustment for ' . $expansion_date .
-                                ': is_saved=' . ($data['is_saved'] ? 'true' : 'false') .
-                                ', is_preloaded=' . (($data['is_preloaded'] ?? false) ? 'true' : 'false') .
-                                ', SS distance to subtract=' . $ss_dist . 'km');
+                            $ss_dist = $data['is_saved'] ? $data['ss_total_distance'] : 0;
                         }
 
-                        $db_total = 0;
-                        $base_dist = 0;
                         // Decode vehicle json (assume it's an array of vehicles)
                         $vehicle_details_json = $expansion['vehicle_details_json'] ?? '';
                         $vehicle_details = json_decode($vehicle_details_json, true) ?: [];
 
                         if (is_array($vehicle_details) && !empty($vehicle_details)) {
                             foreach ($vehicle_details as &$veh) {
-                                // Get saved total from DB (previous total or initial base)
-                                $db_total = (float)($veh['travel_distance'] ?? 0);
+                                // CRITICAL FIX: travel_distance in DB is ALREADY the base distance
+                                // No subtraction needed - use it directly as base
+                                $base_dist = (float)($veh['travel_distance'] ?? 0);
 
-                                // Derive base: saved_total - saved_ss (or db_total - 0 for fresh/default/preloaded)
-                                $base_dist = max(0, $db_total - $ss_dist);
-
-                                // Set both to base (display base initially; JS adds current SS)
+                                // Set base distance (this is what we'll display + SS will be added by JS)
                                 $veh['base_travel_distance'] = $base_dist;
-                                $veh['travel_distance'] = $base_dist;  // View displays this as initial total (but it's base)
+                                $veh['travel_distance'] = $base_dist;  // View displays this as base
 
                                 // Optional: Update costing if distance-based (use base for now; JS will recalc total)
                                 if (isset($veh['extra_km_rate'])) {
@@ -6953,8 +6832,8 @@ class Enquiry extends BaseController
                             log_message('warning', 'No vehicle details for expansion on ' . $expansion_date);
                         }
 
-                        // Log for debugging
-                        log_message('info', 'Expansion date ' . $expansion_date . ': DB Total=' . $db_total . 'km, SS to subtract=' . $ss_dist . 'km, Derived Base=' . $base_dist . 'km');
+                        // Log for debugging - show what we're working with
+                        log_message('info', 'Expansion date ' . $expansion_date . ': Base Distance=' . $base_dist . 'km, Current SS=' . $ss_dist . 'km, Expected Total=' . ($base_dist + $ss_dist) . 'km (JS will add SS dynamically)');
                     }
                     unset($expansion); // Clean up reference
                 }
@@ -6993,16 +6872,12 @@ class Enquiry extends BaseController
                         if (!isset($expansion['tour_expansion_date'])) continue;
                         $expansion_date = $expansion['tour_expansion_date'];
 
-                        // CRITICAL FIX: Only subtract SS distance if ACTUALLY saved (not preloaded)
+                        // Get SS distance for subtraction ONLY if saved (not default/fresh)
                         $ss_dist = 0;
                         if (isset($saved_sightseeing_by_date[$tid][$expansion_date])) {
                             $data = $saved_sightseeing_by_date[$tid][$expansion_date];
-
-                            // Only subtract SS if this is a genuinely saved record (not preloaded from previous tour)
-                            $is_actually_saved = $data['is_saved'] && !($data['is_preloaded'] ?? false);
-                            $ss_dist = $is_actually_saved ? $data['ss_total_distance'] : 0;
+                            $ss_dist = $data['is_saved'] ? $data['ss_total_distance'] : 0;
                         }
-
                         $db_total = 0;
                         $base_dist = 0;
                         // Decode vehicle json (assume similar structure)
@@ -7014,7 +6889,7 @@ class Enquiry extends BaseController
                                 // Get saved total from DB
                                 $db_total = (float)($veh['travel_distance'] ?? 0);
 
-                                // Derive base: only subtract SS if genuinely saved
+                                // Derive base
                                 $base_dist = max(0, $db_total - $ss_dist);
 
                                 // Set to base
@@ -7031,7 +6906,7 @@ class Enquiry extends BaseController
                             $expansion['vehicle_details_json'] = json_encode($vehicle_details);
                         }
 
-                        log_message('info', 'Itinerary expansion date ' . $expansion_date . ': Derived Base=' . $base_dist . 'km (SS subtract=' . $ss_dist . 'km)');
+                        log_message('info', 'Itinerary expansion date ' . $expansion_date . ': Derived Base=' . $base_dist . 'km (no SS added)');
                     }
                     unset($expansion); // Clean up
                 }
@@ -7113,7 +6988,7 @@ class Enquiry extends BaseController
                 $data['states'] = $Enquiry_model->indian_states();
                 $data['all_agents'] = $Enquiry_model->get_all_agents();
                 $data['tour_plan_det'] = $tour_plan_det;
-                $tour_plan_draft_det = $Enquiry_model->get_tour_plan_draft_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new);
+                $tour_plan_draft_det = $Enquiry_model->get_tour_plan_draft_details(enquiry_header_id: $object_det[0]['enquiry_header_id'], enquiry_details_id: $enquiry_details_id_new);
                 $data['tour_plan_draft_det'] = $tour_plan_draft_det;
                 if ($object_det[0]['is_quick_quote'] && !empty($tour_plan_det)) {
                     $quick_quote_det = $Enquiry_model->get_quick_quote_details($object_det[0]['enquiry_header_id'], $enquiry_details_id_new, $tour_plan_det[0]['tour_details_id']);
