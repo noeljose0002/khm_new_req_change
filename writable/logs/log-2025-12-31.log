@@ -5156,3 +5156,24 @@ INFO - 2025-12-31 13:21:53 --> Expansion date 2026-02-07: Base Distance=72km, Cu
 INFO - 2025-12-31 13:21:53 --> Expansion date 2026-02-07: Base Distance=72km, Current SS=0km, Expected Total=72km (JS will add SS dynamically)
 INFO - 2025-12-31 13:21:53 --> Itinerary expansion date 2026-02-07: Derived Base=36km (no SS added)
 INFO - 2025-12-31 13:21:53 --> Itinerary expansion date 2026-02-07: Derived Base=36km (no SS added)
+DEBUG - 2025-12-31 13:23:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-31 13:23:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-31 13:23:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-31 13:23:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-31 13:23:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-31 13:23:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-31 13:23:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2025-12-31 13:23:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2025-12-31 13:23:29 --> Current extension_ref_id for previous itinerary lookup: 2116
+INFO - 2025-12-31 13:23:29 --> Found previous_active_tour_id=2111 for current extension_ref_id=2116
+INFO - 2025-12-31 13:23:29 --> Found max extension_ref_id=626 for tour_plan_ref_id=2111
+INFO - 2025-12-31 13:23:29 --> Retrieved 2 itinerary records from tour_plan_ref_id=2111 with extension_ref_id=626
+DEBUG - 2025-12-31 13:23:29 --> Grouped previous itinerary: key=2026-02-07_9, date_key=2026-02-07, tour_details_id=2111
+DEBUG - 2025-12-31 13:23:29 --> Grouped previous itinerary: key=2026-02-08_9, date_key=2026-02-08, tour_details_id=2111
+INFO - 2025-12-31 13:23:29 --> Grouped 4 previous itinerary records
+INFO - 2025-12-31 13:23:29 --> Loaded previous itinerary data: 4 records from current extension_ref_id=2116
+INFO - 2025-12-31 13:23:29 --> PRIORITY 1 - Loaded SAVED itinerary for date 2026-02-07 (tour_details_id=2116)
+INFO - 2025-12-31 13:23:29 --> Expansion date 2026-02-07: Base Distance=72km, Current SS=0km, Expected Total=72km (JS will add SS dynamically)
+INFO - 2025-12-31 13:23:29 --> Expansion date 2026-02-07: Base Distance=72km, Current SS=0km, Expected Total=72km (JS will add SS dynamically)
+INFO - 2025-12-31 13:23:29 --> Itinerary expansion date 2026-02-07: Derived Base=36km (no SS added)
+INFO - 2025-12-31 13:23:29 --> Itinerary expansion date 2026-02-07: Derived Base=36km (no SS added)
