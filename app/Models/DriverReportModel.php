@@ -94,21 +94,47 @@ class DriverReportModel extends Model
     ;}
 
     
-    public function getByDateRange(string $fromYmd, string $toYmd,$system): array
-    {
-        $qb = $this->baseQuery()
-            ->where('h.enq_added_date >=', $fromYmd)
-            ->where('h.enq_added_date <=', $toYmd);
+   public function getByDateRange(string $fromYmd, string $toYmd, $system): array
+{
+    $activeRole = (int) session('active_role');
+    $entityId   = (int) session('user_id');
 
-             if ($system) {
-            $qb->where('h.enq_type_id', $system);
-         }
+    $qb = $this->baseQuery()
+        ->where('h.enq_added_date >=', $fromYmd)
+        ->where('h.enq_added_date <=', $toYmd);
 
-
-
-        // Only apply agent filter if user selected a specific agent
-   
-        return $qb->get()
-            ->getResultArray();
+    if ($system) {
+        $qb->where('h.enq_type_id', $system);
     }
+
+    /* ========== ROLE FILTER ========== */
+
+    // ADMIN
+    if ($activeRole === 1) {
+        // no filter
+    }
+
+    // TEAM LEAD
+    elseif ($activeRole === 4) {
+
+        $team = $this->db->table('khm_sys_usg_mst_entity_role')
+            ->select('entity_id')
+            ->where('team_lead_id', $entityId)
+            ->get()
+            ->getResultArray();
+
+        $allowedIds = array_column($team, 'entity_id');
+        $allowedIds[] = $entityId;
+
+        $qb->whereIn('em3.entity_id', $allowedIds);
+    }
+
+    // EXECUTIVE
+    else {
+        $qb->where('em3.entity_id', $entityId);
+    }
+
+    return $qb->get()->getResultArray();
+}
+
 }

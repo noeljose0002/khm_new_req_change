@@ -68,7 +68,7 @@ class BestDestinationReportModel extends Model
             // only count active headers & active tour‐details
             ->where('h.is_active', 1)
             ->where('t.is_active', 1)
-            ->where('i.is_active',1)
+            ->where('i.is_active', 1)
             // group by location ID and its name (so each location appears once)
             ->groupBy('t.tour_location')
             ->groupBy('g.geog_name')
@@ -91,28 +91,57 @@ class BestDestinationReportModel extends Model
     }
 
 
-    public function getByDateRange(string $fromYmd, string $toYmd, string $destinationId, $system): array
-    {
+    public function getByDateRange(
+        string $fromYmd,
+        string $toYmd,
+        string $destinationId,
+        $system
+    ): array {
+        $activeRole = (int) session('active_role');
+        $entityId   = (int) session('user_id');
+
         $qb = $this->baseQuery()
             ->where('i.tour_date >=', $fromYmd)
             ->where('i.tour_date <=', $toYmd);
-        // ->where('t.check_in_date >=', $fromYmd)
-        // ->where('t.check_in_date <=', $toYmd);
-        // ->where('t.check_out_date <=', $toYmd)
-        // ->where('t.check_out_date >=', $fromYmd);
 
-        // Only apply agent filter if user selected a specific agent
+        /* DESTINATION FILTER */
         if ($destinationId !== 'all') {
             $qb->where('t.tour_location', $destinationId);
         }
 
+        /* SYSTEM FILTER */
         if ($system) {
             $qb->where('h.enq_type_id', $system);
         }
 
-        return $qb->get()
-            ->getResultArray();
+        /* ================= ROLE-BASED VISIBILITY ================= */
+
+        /* ADMIN */
+        if ($activeRole === 1) {
+            // Admin sees all destinations
+        }
+
+        /* TEAM LEAD */ elseif ($activeRole === 4) {
+
+            $teamRows = $this->db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $entityId)
+                ->get()
+                ->getResultArray();
+
+            $allowedIds = array_column($teamRows, 'entity_id');
+            $allowedIds[] = $entityId; // include TL himself
+
+            $qb->whereIn('h.employee_entity_id', $allowedIds);
+        }
+
+        /* EXECUTIVE / OTHERS */ else {
+            $qb->where('h.employee_entity_id', $entityId);
+        }
+
+        return $qb->get()->getResultArray();
     }
+
     /**
      * (Optional) legacy method if you still need it:
      */

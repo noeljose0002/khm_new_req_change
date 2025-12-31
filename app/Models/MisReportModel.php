@@ -225,30 +225,67 @@ class MisReportModel extends Model
             ->getResultArray();
     }
 
-    public function getByDateRange($fromYmd, $toYmd, $executive_id, $agents_id, $status_id, $system): array
-    {
-        $qb = $this->baseQuery()
-            ->where('h.enq_added_date >=', $fromYmd)
-            ->where('h.enq_added_date <=', $toYmd);
+    public function getByDateRange(
+    $fromYmd,
+    $toYmd,
+    $executive_id,
+    $agents_id,
+    $status_id,
+    $system
+): array
+{
+    $activeRole = (int) session('active_role');
+    $entityId   = (int) session('user_id');
 
+    $qb = $this->baseQuery()
+        ->where('h.enq_added_date >=', $fromYmd)
+        ->where('h.enq_added_date <=', $toYmd);
 
-        // Only apply agent filter if user selected a specific agent
-        if ($executive_id !== 'all') {
-            $qb->where('e.entity_id  ', $executive_id);
-        }
-        if ($agents_id !== 'all') {
-            $qb->where('e2.entity_id', $agents_id);
-        }
-        if ($status_id !== 'all') {
-            $qb->where('mes.status_id', $status_id);
-        }
+    /* ================= DROPDOWN FILTERS ================= */
 
-        if ($system) {
-            $qb->where('h.enq_type_id', $system);
-        }
-
-
-        return $qb->get()
-            ->getResultArray();
+    if ($executive_id !== 'all') {
+        $qb->where('e.entity_id', $executive_id);
     }
+
+    if ($agents_id !== 'all') {
+        $qb->where('e2.entity_id', $agents_id);
+    }
+
+    if ($status_id !== 'all') {
+        $qb->where('mes.status_id', $status_id);
+    }
+
+    if ($system) {
+        $qb->where('h.enq_type_id', $system);
+    }
+
+    /* ================= ROLE-BASED VISIBILITY ================= */
+
+    /* ADMIN */
+    if ($activeRole === 1) {
+        // Admin sees everything — no restriction
+    }
+
+    /* TEAM LEAD */
+    elseif ($activeRole === 4) {
+
+        $teamRows = $this->db->table('khm_sys_usg_mst_entity_role')
+            ->select('entity_id')
+            ->where('team_lead_id', $entityId)
+            ->get()
+            ->getResultArray();
+
+        $allowedIds = array_column($teamRows, 'entity_id');
+        $allowedIds[] = $entityId; // include TL himself
+
+        $qb->whereIn('h.employee_entity_id', $allowedIds);
+    }
+
+    /* EXECUTIVE / OTHERS */
+    else {
+        $qb->where('h.employee_entity_id', $entityId);
+    }
+
+    return $qb->get()->getResultArray();
+}
 }

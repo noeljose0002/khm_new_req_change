@@ -190,28 +190,57 @@ class PreArrivalReportModel extends Model
      * @param  string  $toYmd     YYYY‑MM‑DD
      * @return array
      */
-   public function getByDateRange(string $fromYmd, string $toYmd, $system): array
+  public function getByDateRange(string $fromYmd, string $toYmd, $system): array
 {
-    // 1) Set timezone and get today's date
     date_default_timezone_set('Asia/Kolkata');
-    $currentDate = date('Y-m-d'); // e.g., "2025-06-04"
 
-    // 2) If the entire requested range is in the future, return empty
+    $activeRole = (int) session('active_role');
+    $entityId   = (int) session('user_id');
+
+    $currentDate = date('Y-m-d');
+
+    // If entire range is future → empty
     if ($currentDate < $fromYmd) {
         return [];
     }
 
-    // 3) Adjust the date range to avoid going into the future
-    $effectiveFrom = max($fromYmd, '0000-00-00');
+    $effectiveFrom = $fromYmd;
     $effectiveTo   = min($toYmd, $currentDate);
 
-    // 4) Now query with corrected date range
     $qb = $this->baseQuery()
         ->where('ar.arrival_date >=', $effectiveFrom)
         ->where('ar.arrival_date <=', $effectiveTo);
 
+    /* SYSTEM FILTER */
     if ($system) {
         $qb->where('oeh.enq_type_id', $system);
+    }
+
+    /* ================= ROLE-BASED VISIBILITY ================= */
+
+    /* ADMIN */
+    if ($activeRole === 1) {
+        // Admin sees everything
+    }
+
+    /* TEAM LEAD */
+    elseif ($activeRole === 4) {
+
+        $teamRows = $this->db->table('khm_sys_usg_mst_entity_role')
+            ->select('entity_id')
+            ->where('team_lead_id', $entityId)
+            ->get()
+            ->getResultArray();
+
+        $allowedIds = array_column($teamRows, 'entity_id');
+        $allowedIds[] = $entityId; // include TL himself
+
+        $qb->whereIn('s.assigned_to', $allowedIds);
+    }
+
+    /* EXECUTIVE / OTHERS */
+    else {
+        $qb->where('s.assigned_to', $entityId);
     }
 
     return $qb->get()->getResultArray();

@@ -5617,73 +5617,164 @@ $is_edit = $edit_id ? $edit_id : 0;
 	})();
 
 	// Single card-options-remove handler (FIX: Removed duplicate)
+	// $(document).on("click", ".card-options-remove", function(e) {
+	// 	e.preventDefault();
+	// 	var card = $(this).closest(".location-card");
+	// 	// capture sequence (data-index) or fallback to DOM index
+	// 	var removedSeqAttr = parseInt(card.attr("data-index"), 10);
+	// 	var removedSeq = Number.isFinite(removedSeqAttr) ? removedSeqAttr : card.index();
+	// 	// Capture the current first card's checkin BEFORE removing anything
+	// 	var currentFirstCheckin = '';
+	// 	var firstCard = $('.tour_plan_div .location-card').first();
+	// 	if (firstCard.length) {
+	// 		// look for an input whose id starts with "checkin" inside the first card
+	// 		var firstCheckinInput = firstCard.find('input[id^="checkin"]');
+	// 		if (firstCheckinInput.length) currentFirstCheckin = firstCheckinInput.val();
+	// 	}
+	// 	// Remove the card from DOM
+	// 	card.remove();
+	// 	// Remove matching list entries (dyn_list)
+	// 	$('.dyn_list li').each(function() {
+	// 		var txt = $(this).text().trim();
+	// 		if (txt.startsWith(removedSeq + ".")) {
+	// 			$(this).remove();
+	// 		}
+	// 	});
+	// 	// Re-number remaining cards (assumes updateSequenceNumbers reassigns data-index and element ids)
+	// 	updateSequenceNumbers();
+	// 	var remainingCards = $('.tour_plan_div .location-card');
+	// 	if (remainingCards.length === 0) {
+	// 		$("#btn_save_tour_plan, #btn_savedraft_tour_plan").hide();
+	// 	} else {
+	// 		// If the first card was removed, set the new first checkin to tourStartDate (prefer) or fallback to previous first checkin
+	// 		if (removedSeq === 1) {
+	// 			var newFirstSeq = 1;
+	// 			var valueToSet = (typeof tourStartDate !== 'undefined' && tourStartDate) ? tourStartDate : currentFirstCheckin;
+	// 			if (valueToSet && $(`#checkin${newFirstSeq}`).length) {
+	// 				$(`#checkin${newFirstSeq}`).val(valueToSet);
+	// 			}
+	// 		}
+	// 		// **FIX: Recalculate checkouts for each remaining card using their new sequence**
+	// 		// Use a flag to prevent multiple vehicle summary regenerations
+	// 		window.isRecalculating = true; // FIX: Global flag to prevent recursion
+	// 		remainingCards.each(function(i) {
+	// 			var seq = i + 1;
+	// 			// **REMOVED: Clearing vehicle summaries here was causing loss of summaries on remaining cards after renumbering.**
+	// 			// Summaries are already preserved and renumbered in updateSequenceNumbers().
+	// 			// If regeneration is needed, it should be triggered explicitly in calculateCheckout or elsewhere.
+	// 			calculateCheckout(seq);
+	// 			recalcCheckoutOnly(seq);
+	// 		});
+	// 		window.isRecalculating = false;
+	// 	}
+	// 	// Update total nights and related UI
+	// 	var totalNights = calculateTotalNights();
+	// 	$('#planned_night').text(totalNights + " / ");
+	// 	var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
+	// 	if (totalNights === no_of_night) {
+	// 		$("#btn_save_tour_plan").show();
+	// 		$('#btn_add_bt').prop('disabled', true);
+	// 	} else {
+	// 		$("#btn_save_tour_plan").hide();
+	// 		$('#btn_add_bt').prop('disabled', false);
+	// 	}
+	// 	// updateGrandtotalBoth();
+	// 	updateAllTotals();
+	// 	get_veh_grand_total();
+	// 	toggleNightsVisibility();
+	// 	calculateVehicleExtraKmCharges();
+	// });
+
 	$(document).on("click", ".card-options-remove", function(e) {
-		e.preventDefault();
-		var card = $(this).closest(".location-card");
-		// capture sequence (data-index) or fallback to DOM index
-		var removedSeqAttr = parseInt(card.attr("data-index"), 10);
-		var removedSeq = Number.isFinite(removedSeqAttr) ? removedSeqAttr : card.index();
-		// Capture the current first card's checkin BEFORE removing anything
-		var currentFirstCheckin = '';
-		var firstCard = $('.tour_plan_div .location-card').first();
-		if (firstCard.length) {
-			// look for an input whose id starts with "checkin" inside the first card
-			var firstCheckinInput = firstCard.find('input[id^="checkin"]');
-			if (firstCheckinInput.length) currentFirstCheckin = firstCheckinInput.val();
+	e.preventDefault();
+	var card = $(this).closest(".location-card");
+	
+	// Capture sequence (data-index) or fallback to DOM index
+	var removedSeqAttr = parseInt(card.attr("data-index"), 10);
+	var removedSeq = Number.isFinite(removedSeqAttr) ? removedSeqAttr : card.index();
+	
+	// Capture the current first card's checkin BEFORE removing anything
+	var currentFirstCheckin = '';
+	var firstCard = $('.tour_plan_div .location-card').first();
+	if (firstCard.length) {
+		var firstCheckinInput = firstCard.find('input[id^="checkin"]');
+		if (firstCheckinInput.length) currentFirstCheckin = firstCheckinInput.val();
+	}
+	
+	// Remove the card from DOM
+	card.remove();
+	
+	// Remove matching list entries (dyn_list)
+	$('.dyn_list li').each(function() {
+		var txt = $(this).text().trim();
+		if (txt.startsWith(removedSeq + ".")) {
+			$(this).remove();
 		}
-		// Remove the card from DOM
-		card.remove();
-		// Remove matching list entries (dyn_list)
-		$('.dyn_list li').each(function() {
-			var txt = $(this).text().trim();
-			if (txt.startsWith(removedSeq + ".")) {
-				$(this).remove();
+	});
+	
+	// Re-number remaining cards
+	updateSequenceNumbers();
+	
+	var remainingCards = $('.tour_plan_div .location-card');
+	if (remainingCards.length === 0) {
+		$("#btn_save_tour_plan, #btn_savedraft_tour_plan").hide();
+	} else {
+		// Set flag to prevent recursion during recalculation
+		window.isRecalculating = true;
+		
+		// If the first card was removed, set the new first checkin
+		if (removedSeq === 1) {
+			var valueToSet = (typeof tourStartDate !== 'undefined' && tourStartDate) 
+				? tourStartDate 
+				: currentFirstCheckin;
+			if (valueToSet && $('#checkin1').length) {
+				$('#checkin1').val(valueToSet);
 			}
-		});
-		// Re-number remaining cards (assumes updateSequenceNumbers reassigns data-index and element ids)
-		updateSequenceNumbers();
-		var remainingCards = $('.tour_plan_div .location-card');
-		if (remainingCards.length === 0) {
-			$("#btn_save_tour_plan, #btn_savedraft_tour_plan").hide();
-		} else {
-			// If the first card was removed, set the new first checkin to tourStartDate (prefer) or fallback to previous first checkin
-			if (removedSeq === 1) {
-				var newFirstSeq = 1;
-				var valueToSet = (typeof tourStartDate !== 'undefined' && tourStartDate) ? tourStartDate : currentFirstCheckin;
-				if (valueToSet && $(`#checkin${newFirstSeq}`).length) {
-					$(`#checkin${newFirstSeq}`).val(valueToSet);
+		}
+		
+		// **FIX: Recalculate ALL check-in/checkout dates in sequence**
+		// Start from the first card and cascade through all cards
+		remainingCards.each(function(i) {
+			var seq = i + 1;
+			
+			if (seq === 1) {
+				// First card: just recalculate its checkout based on its nights
+				recalcCheckoutOnly(seq);
+			} else {
+				// Subsequent cards: set checkin = previous checkout, then calculate checkout
+				var prevCheckout = $(`#checkout${seq - 1}`).val();
+				if (prevCheckout) {
+					$(`#checkin${seq}`).val(prevCheckout);
+					recalcCheckoutOnly(seq);
 				}
 			}
-			// **FIX: Recalculate checkouts for each remaining card using their new sequence**
-			// Use a flag to prevent multiple vehicle summary regenerations
-			window.isRecalculating = true; // FIX: Global flag to prevent recursion
-			remainingCards.each(function(i) {
-				var seq = i + 1;
-				// **REMOVED: Clearing vehicle summaries here was causing loss of summaries on remaining cards after renumbering.**
-				// Summaries are already preserved and renumbered in updateSequenceNumbers().
-				// If regeneration is needed, it should be triggered explicitly in calculateCheckout or elsewhere.
-				calculateCheckout(seq);
-				recalcCheckoutOnly(seq);
-			});
-			window.isRecalculating = false;
-		}
-		// Update total nights and related UI
-		var totalNights = calculateTotalNights();
-		$('#planned_night').text(totalNights + " / ");
-		var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
-		if (totalNights === no_of_night) {
-			$("#btn_save_tour_plan").show();
-			$('#btn_add_bt').prop('disabled', true);
-		} else {
-			$("#btn_save_tour_plan").hide();
-			$('#btn_add_bt').prop('disabled', false);
-		}
-		// updateGrandtotalBoth();
-		updateAllTotals();
-		get_veh_grand_total();
-		toggleNightsVisibility();
-		calculateVehicleExtraKmCharges();
-	});
+			
+			// Update nightly details for this card
+			updateNightlyDetails(seq);
+		});
+		
+		window.isRecalculating = false;
+	}
+	
+	// Update total nights and related UI
+	var totalNights = calculateTotalNights();
+	$('#planned_night').text(totalNights + " / ");
+	var no_of_night = <?php echo (int)$object_det[0]['no_of_night']; ?>;
+	
+	if (totalNights === no_of_night) {
+		$("#btn_save_tour_plan").show();
+		$('#btn_add_bt').prop('disabled', true);
+	} else {
+		$("#btn_save_tour_plan").hide();
+		$('#btn_add_bt').prop('disabled', false);
+	}
+	
+	// Update totals
+	updateAllTotals();
+	get_veh_grand_total();
+	toggleNightsVisibility();
+	calculateVehicleExtraKmCharges();
+});
 
 	// Handle close night button - REMOVED DUPLICATE, use above
 
@@ -5835,63 +5926,29 @@ $is_edit = $edit_id ? $edit_id : 0;
 	}
 
 	function calculateCheckout(count) {
-		// FIX: Prevent recursion
-		if (typeof window.isRecalculating !== 'undefined' && window.isRecalculating) {
-			return;
-		}
-		var totalDuration = <?php echo $object_det[0]['no_of_night']; ?>;
-		var sum = 0;
-		$(".no_of_night").each(function() {
-			let nights = parseInt($(this).val()) || 0;
-			sum += nights;
-		});
-		if (sum > totalDuration) {
-			alert("Total nights exceed the allowed duration!");
-			$(`#no_of_night${count}`).val('');
-			updateNightlyDetails(count);
-			// updateGrandtotalBoth();
-			updateAllTotals();
-			get_veh_grand_total();
-			var totalNights = calculateTotalNights();
-			$('#planned_night').text(totalNights + " / ");
-			if (totalNights == totalDuration) {
-				$("#btn_save_tour_plan").show();
-				$('#btn_add_bt').prop('disabled', true);
-			} else {
-				$("#btn_save_tour_plan").hide();
-				$('#btn_add_bt').prop('disabled', false);
-			}
-			return;
-		}
-		var checkin = document.getElementById(`checkin${count}`)?.value;
-		var nights = document.getElementById(`no_of_night${count}`)?.value;
-		var checkoutField = document.getElementById(`checkout${count}`);
-		if (checkin && nights) {
-			var checkinDate = new Date(checkin);
-			checkinDate.setDate(checkinDate.getDate() + parseInt(nights, 10));
-			var checkoutDate = checkinDate.toISOString().split('T')[0];
-			checkoutField.value = checkoutDate;
-			// Update checkin for subsequent locations
-			$('.tour_plan_div .location-card').each(function(index) {
-				if (index >= count) {
-					var nextIndex = index + 1;
-					var nextCheckinField = document.getElementById(`checkin${nextIndex}`);
-					var prevCheckout = document.getElementById(`checkout${nextIndex - 1}`)?.value;
-					if (nextCheckinField && prevCheckout) {
-						nextCheckinField.value = prevCheckout;
-						recalcCheckoutOnly(nextIndex); // 🔥 auto checkout
-					}
-					updateNightlyDetails(nextIndex);
-				}
-			});
-		}
+	// Prevent recursion
+	if (typeof window.isRecalculating !== 'undefined' && window.isRecalculating) {
+		return;
+	}
+	
+	var totalDuration = <?php echo $object_det[0]['no_of_night']; ?>;
+	var sum = 0;
+	
+	$(".no_of_night").each(function() {
+		let nights = parseInt($(this).val()) || 0;
+		sum += nights;
+	});
+	
+	if (sum > totalDuration) {
+		alert("Total nights exceed the allowed duration!");
+		$(`#no_of_night${count}`).val('');
 		updateNightlyDetails(count);
-		// updateGrandtotalBoth();
 		updateAllTotals();
 		get_veh_grand_total();
-		calculateVehicleExtraKmCharges();
+		
 		var totalNights = calculateTotalNights();
 		$('#planned_night').text(totalNights + " / ");
+		
 		if (totalNights == totalDuration) {
 			$("#btn_save_tour_plan").show();
 			$('#btn_add_bt').prop('disabled', true);
@@ -5899,20 +5956,63 @@ $is_edit = $edit_id ? $edit_id : 0;
 			$("#btn_save_tour_plan").hide();
 			$('#btn_add_bt').prop('disabled', false);
 		}
+		return;
 	}
-
-
-	function recalcCheckoutOnly(count) {
-		var checkin = document.getElementById(`checkin${count}`)?.value;
-		var nights = document.getElementById(`no_of_night${count}`)?.value;
-		var checkoutField = document.getElementById(`checkout${count}`);
-
-		if (!checkin || !nights || !checkoutField) return;
-
-		var d = new Date(checkin);
-		d.setDate(d.getDate() + parseInt(nights, 10));
-		checkoutField.value = d.toISOString().split('T')[0];
+	
+	var checkin = document.getElementById(`checkin${count}`)?.value;
+	var nights = document.getElementById(`no_of_night${count}`)?.value;
+	var checkoutField = document.getElementById(`checkout${count}`);
+	
+	if (checkin && nights) {
+		var checkinDate = new Date(checkin);
+		checkinDate.setDate(checkinDate.getDate() + parseInt(nights, 10));
+		var checkoutDate = checkinDate.toISOString().split('T')[0];
+		checkoutField.value = checkoutDate;
+		
+		// Update checkin for subsequent locations
+		$('.tour_plan_div .location-card').each(function(index) {
+			if (index >= count) {
+				var nextIndex = index + 1;
+				var nextCheckinField = document.getElementById(`checkin${nextIndex}`);
+				var prevCheckout = document.getElementById(`checkout${nextIndex - 1}`)?.value;
+				
+				if (nextCheckinField && prevCheckout) {
+					nextCheckinField.value = prevCheckout;
+					recalcCheckoutOnly(nextIndex);
+				}
+				updateNightlyDetails(nextIndex);
+			}
+		});
 	}
+	
+	updateNightlyDetails(count);
+	updateAllTotals();
+	get_veh_grand_total();
+	calculateVehicleExtraKmCharges();
+	
+	var totalNights = calculateTotalNights();
+	$('#planned_night').text(totalNights + " / ");
+	
+	if (totalNights == totalDuration) {
+		$("#btn_save_tour_plan").show();
+		$('#btn_add_bt').prop('disabled', true);
+	} else {
+		$("#btn_save_tour_plan").hide();
+		$('#btn_add_bt').prop('disabled', false);
+	}
+}
+
+function recalcCheckoutOnly(count) {
+	var checkin = document.getElementById(`checkin${count}`)?.value;
+	var nights = document.getElementById(`no_of_night${count}`)?.value;
+	var checkoutField = document.getElementById(`checkout${count}`);
+
+	if (!checkin || !nights || !checkoutField) return;
+
+	var d = new Date(checkin);
+	d.setDate(d.getDate() + parseInt(nights, 10));
+	checkoutField.value = d.toISOString().split('T')[0];
+}
 
 	// Function to update accommodation grand totals - unchanged
 

@@ -35,16 +35,18 @@ class BestAgentReportModel extends Model
                 'kem1.entity_id = h.agent_entity_id',
                 'left'
             )
-          
-            ->join('khm_obj_enquiry_edit_request AS eer',
-            'eer.enquiry_header_id=h.enquiry_header_id',
-            'left')
-              ->join(
+
+            ->join(
+                'khm_obj_enquiry_edit_request AS eer',
+                'eer.enquiry_header_id=h.enquiry_header_id',
+                'left'
+            )
+            ->join(
                 'khm_obj_enquiry_detail_extensions AS koede',
                 'koede.enquiry_detail_details_id  = eer.cs_confirmed_id',
                 'left'
             )
-            ->where('eer.is_active',1)
+            ->where('eer.is_active', 1)
             // ->where('koede.is_active', 1)
             ->where('h.is_active',     1)
             // only group by agent ID & name now:
@@ -68,24 +70,55 @@ class BestAgentReportModel extends Model
     }
 
 
-    public function getByDateRange(string $fromYmd, string $toYmd, string $agentId,$system): array
-    {
+    public function getByDateRange(
+        string $fromYmd,
+        string $toYmd,
+        string $agentId,
+        $system
+    ): array {
+        $activeRole = (int) session('active_role');
+        $entityId   = (int) session('user_id');
+
         $qb = $this->baseQuery()
             ->where('h.enq_added_date >=', $fromYmd)
             ->where('h.enq_added_date <=', $toYmd);
 
-        // Only apply agent filter if user selected a specific agent
+        /* SYSTEM FILTER */
+        if ($system) {
+            $qb->where('h.enq_type_id', $system);
+        }
+
+        /* AGENT FILTER */
         if ($agentId !== 'all') {
             $qb->where('h.agent_entity_id', $agentId);
         }
 
-           if ($system) {
-            $qb->where('h.enq_type_id', $system);
-         }
+        /* ================= ROLE-BASED VISIBILITY ================= */
 
-        return $qb->get()
-            ->getResultArray();
-           
+        /* ADMIN */
+        if ($activeRole === 1) {
+            // Admin sees all agents
+        }
+
+        /* TEAM LEAD */ elseif ($activeRole === 4) {
+
+            $teamRows = $this->db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $entityId)
+                ->get()
+                ->getResultArray();
+
+            $allowedIds = array_column($teamRows, 'entity_id');
+            $allowedIds[] = $entityId; // include TL himself
+
+            $qb->whereIn('h.employee_entity_id', $allowedIds);
+        }
+
+        /* EXECUTIVE / OTHERS */ else {
+            $qb->where('h.employee_entity_id', $entityId);
+        }
+
+        return $qb->get()->getResultArray();
     }
     /**
      * (Optional) legacy method if you still need it:

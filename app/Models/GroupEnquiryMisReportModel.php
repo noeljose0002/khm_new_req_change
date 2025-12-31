@@ -226,30 +226,63 @@ class GroupEnquiryMisReportModel extends Model
     }
 
     public function getByDateRange($fromYmd, $toYmd, $executive_id, $agents_id, $status_id, $system): array
-    {
-        $qb = $this->baseQuery()
-            ->where('h.enq_added_date >=', $fromYmd)
-            ->where('h.enq_added_date <=', $toYmd)
-            ->where('ed.total_no_of_pax>=', 10);
+{
+    $activeRole = (int) session('active_role');
+    $entityId   = (int) session('user_id');
 
+    $qb = $this->baseQuery()
+        ->where('h.enq_added_date >=', $fromYmd)
+        ->where('h.enq_added_date <=', $toYmd)
+        ->where('ed.total_no_of_pax >=', 10);
 
-        // Only apply agent filter if user selected a specific agent
-        if ($executive_id !== 'all') {
-            $qb->where('e.entity_id  ', $executive_id);
-        }
-        if ($agents_id !== 'all') {
-            $qb->where('e2.entity_id', $agents_id);
-        }
-        if ($status_id !== 'all') {
-            $qb->where('mes.status_id', $status_id);
-        }
-
-        if ($system) {
-            $qb->where('h.enq_type_id', $system);
-        }
-
-
-        return $qb->get()
-            ->getResultArray();
+    /* ================= SYSTEM FILTER ================= */
+    if ($system) {
+        $qb->where('h.enq_type_id', $system);
     }
+
+    /* ================= ROLE BASED VISIBILITY ================= */
+
+    // ADMIN → see all
+    if ($activeRole === 1) {
+        // no restriction
+    }
+
+    // TEAM LEAD → own + team members
+    elseif ($activeRole === 4) {
+
+        $teamRows = $this->db
+            ->table('khm_sys_usg_mst_entity_role')
+            ->select('entity_id')
+            ->where('team_lead_id', $entityId)
+            ->get()
+            ->getResultArray();
+
+        $allowedIds = array_column($teamRows, 'entity_id');
+        $allowedIds[] = $entityId;
+
+        $qb->whereIn('e.entity_id', $allowedIds);
+    }
+
+    // EXECUTIVE → only own
+    else {
+        $qb->where('e.entity_id', $entityId);
+    }
+
+    /* ================= DROPDOWN FILTERS ================= */
+
+    if ($executive_id !== 'all') {
+        $qb->where('e.entity_id', $executive_id);
+    }
+
+    if ($agents_id !== 'all') {
+        $qb->where('e2.entity_id', $agents_id);
+    }
+
+    if ($status_id !== 'all') {
+        $qb->where('mes.status_id', $status_id);
+    }
+
+    return $qb->get()->getResultArray();
+}
+
 }

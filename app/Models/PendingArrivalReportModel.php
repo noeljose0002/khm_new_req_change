@@ -154,35 +154,62 @@ class PendingArrivalReportModel extends Model
      * @param  string  $toYmd     YYYY‑MM‑DD
      * @return array
      */
-   public function getByDateRange(string $fromYmd, string $toYmd,$system): array
+  public function getByDateRange(string $fromYmd, string $toYmd, $system): array
 {
-    // 1) Set timezone and grab “today” in YYYY-MM-DD form
     date_default_timezone_set('Asia/Kolkata');
-    $currentDate = date('Y-m-d'); // e.g. "2025-06-02"
 
-    // 2) If today is already after the requested end date, return empty
+    $activeRole = (int) session('active_role');
+    $entityId   = (int) session('user_id');
+
+    $currentDate = date('Y-m-d');
+
+    // If today is already after requested end date → nothing pending
     if ($currentDate > $toYmd) {
         return [];
     }
 
-    // 3) Clamp the lower bound to today if $fromYmd is in the past
-    if ($fromYmd < $currentDate) {
-        $effectiveFrom = $currentDate;
-    } else {
-        $effectiveFrom = $fromYmd;
-    }
+    // Pending = future arrivals (from today onwards)
+    $effectiveFrom = ($fromYmd < $currentDate) ? $currentDate : $fromYmd;
 
-    // 4) Build the query: arrival_date BETWEEN $effectiveFrom AND $toYmd
     $qb = $this->baseQuery()
         ->where('ar.arrival_date >=', $effectiveFrom)
         ->where('ar.arrival_date <=', $toYmd);
-        if ($system) {
-            $qb->where('oeh.enq_type_id', $system);
-        }
-        
+
+    /* SYSTEM FILTER */
+    if ($system) {
+        $qb->where('oeh.enq_type_id', $system);
+    }
+
+    /* ================= ROLE-BASED VISIBILITY ================= */
+
+    /* ADMIN */
+    if ($activeRole === 1) {
+        // Admin sees everything
+    }
+
+    /* TEAM LEAD */
+    elseif ($activeRole === 4) {
+
+        $teamRows = $this->db->table('khm_sys_usg_mst_entity_role')
+            ->select('entity_id')
+            ->where('team_lead_id', $entityId)
+            ->get()
+            ->getResultArray();
+
+        $allowedIds = array_column($teamRows, 'entity_id');
+        $allowedIds[] = $entityId; // include TL himself
+
+        $qb->whereIn('s.assigned_to', $allowedIds);
+    }
+
+    /* EXECUTIVE / OTHERS */
+    else {
+        $qb->where('s.assigned_to', $entityId);
+    }
 
     return $qb->get()->getResultArray();
 }
+
     /**
      * (Optional) legacy method if you still need it:
      */

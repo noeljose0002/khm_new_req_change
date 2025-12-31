@@ -89,22 +89,46 @@ class Web2LeadReportModel extends Model
 
   public function getByDateRange($fromYmd, $toYmd, $system): array
 {
+    $activeRole = (int) session('active_role');
+    $entityId   = (int) session('user_id');
+
     $qb = $this->baseQuery()
         ->where('eh.enq_added_date >=', $fromYmd)
         ->where('eh.enq_added_date <',  $toYmd);
-    
+
+    /* SYSTEM FILTER */
     if ($system) {
         $qb->where('eh.enq_type_id', $system);
+    }
+
+    /* ================= ROLE-BASED VISIBILITY ================= */
+
+    /* ADMIN */
+    if ($activeRole === 1) {
+        // Admin sees all — no restriction
+    }
+
+    /* TEAM LEAD */
+    elseif ($activeRole === 4) {
+
+        $teamRows = $this->db->table('khm_sys_usg_mst_entity_role')
+            ->select('entity_id')
+            ->where('team_lead_id', $entityId)
+            ->get()
+            ->getResultArray();
+
+        $allowedIds = array_column($teamRows, 'entity_id');
+        $allowedIds[] = $entityId; // include TL himself
+
+        $qb->whereIn('eh.employee_entity_id', $allowedIds);
+    }
+
+    /* EXECUTIVE / OTHERS */
+    else {
+        $qb->where('eh.employee_entity_id', $entityId);
     }
 
     return $qb->get()->getResultArray();
 }
 
-    public function getSourceReport(): array
-    {
-        // simply returns everything (no date filter)
-        return $this->baseQuery()
-            ->get()
-            ->getResultArray();
-    }
 }

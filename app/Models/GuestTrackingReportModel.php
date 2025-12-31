@@ -116,7 +116,7 @@ class GuestTrackingReportModel extends model
             ->where('t.is_active', 1)
 
             // details → tour details
-               ->join(
+            ->join(
                 'khm_obj_enquiry_edit_request AS eer',
                 'eer.enquiry_header_id=h.enquiry_header_id',
                 'left'
@@ -129,7 +129,7 @@ class GuestTrackingReportModel extends model
                 'e.enquiry_detail_details_id  = eer.cs_confirmed_id',
                 'left'
             )
-            ->where('e.is_active',1)
+            ->where('e.is_active', 1)
             // ->join(
             //     'khm_obj_enquiry_tour_details AS tf',
             //     "tf.enquiry_header_id = h.enquiry_header_id AND tf.enquiry_details_id = d.enquiry_details_id",
@@ -156,7 +156,7 @@ class GuestTrackingReportModel extends model
                 'kogen.geog_id=komen.object_location_id',
                 'left'
             )
-          
+
             // object master for booking object
             ->join('khm_obj_mst AS om', 'om.object_id = h.object_id', 'left')
             // guest / agent / employee
@@ -192,12 +192,12 @@ class GuestTrackingReportModel extends model
             ->join('khm_entity_mst AS em',    "em.entity_id = ea.entity_id AND em.deleted = 0", 'left')
 
             // executives
-          ->join(
+            ->join(
                 'khm_obj_enquiry_status AS es',
                 'es.edit_request_id =eer.enquiry_edit_request_id',
                 'left'
             )
-           
+
 
             ->join(
                 'khm_entity_mst AS e9',
@@ -234,14 +234,59 @@ class GuestTrackingReportModel extends model
 
     public function getByDateRange($fromYmd, $system): array
     {
+        $activeRole = (int) session('active_role');
+        $entityId   = (int) session('user_id');
+
         $qb = $this->baseQuery()
-            ->where('koei.tour_date=', $fromYmd);
-        // ->where('t.check_in_date <=', $fromYmd)
-        // ->where('t.check_out_date >=', $fromYmd);
+            ->where('koei.tour_date', $fromYmd);
 
-
+        /* SYSTEM FILTER */
         if ($system) {
             $qb->where('h.enq_type_id', $system);
+        }
+
+        /* ADMIN */
+        if ($activeRole === 1) {
+            // no restriction
+        }
+
+        /* TEAM LEAD */ elseif ($activeRole === 4) {
+
+            $teamRows = $this->db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $entityId)
+                ->get()
+                ->getResultArray();
+
+            $allowedIds = array_column($teamRows, 'entity_id');
+            $allowedIds[] = $entityId;
+
+            /* ADMIN */
+            if ($activeRole === 1) {
+                // no filter
+            }
+
+            /* TEAM LEAD */ elseif ($activeRole === 4) {
+
+                $teamRows = $this->db->table('khm_sys_usg_mst_entity_role')
+                    ->select('entity_id')
+                    ->where('team_lead_id', $entityId)
+                    ->get()
+                    ->getResultArray();
+
+                $allowedIds = array_column($teamRows, 'entity_id');
+                $allowedIds[] = $entityId;
+
+                $qb->whereIn('h.employee_entity_id', $allowedIds);
+            }
+
+            /* EXECUTIVE */ else {
+                $qb->where('h.employee_entity_id', $entityId);
+            }
+        }
+
+        /* OTHERS */ else {
+            $qb->where('es.assigned_to', $entityId);
         }
 
         return $qb->get()->getResultArray();

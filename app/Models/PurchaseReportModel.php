@@ -267,47 +267,66 @@ class PurchaseReportModel extends Model
      * Uses the same correlated subquery for tax_rate_percent.
      */
     public function getByDateRange(string $fromYmd, string $toYmd, int $checkRaw, int $system): array
-    {
-        $dateColumn = $checkRaw === 1
-            ? 'check_in_date'
-            : 'check_out_date';
+{
+    $activeRole = (int) session('active_role');
+    $entityId   = (int) session('user_id');
 
-        $innerSql = $this->compileInnerSql();
+    $dateColumn = $checkRaw === 1 ? 'check_in_date' : 'check_out_date';
 
-        $sql = "
-            SELECT
-                base.*,
+    $innerSql = $this->compileInnerSql();
 
-                (
-                  SELECT COALESCE(tr.tax_rate_percent, 0)
-                  FROM khm_obj_tax_rate AS tr
-                  WHERE
-                    base.total_value BETWEEN tr.applicable_hotel_range_from
-                                         AND tr.applicable_hotel_range_to
-                    AND tr.deleted = 0
-                  LIMIT 1
-                ) AS tax_rate_percent
+    $sql = "
+        SELECT base.*,
+        (
+            SELECT COALESCE(tr.tax_rate_percent, 0)
+            FROM khm_obj_tax_rate AS tr
+            WHERE base.total_value BETWEEN tr.applicable_hotel_range_from
+                                       AND tr.applicable_hotel_range_to
+              AND tr.deleted = 0
+            LIMIT 1
+        ) AS tax_rate_percent
+        FROM ( $innerSql ) AS base
+        WHERE 1 = 1
+    ";
 
-            FROM
-                ( $innerSql ) AS base
-            WHERE
-                1 = 1
-                " . ($system
-            ? " AND base.enq_type_id = ? "
-            : ""
-        ) . "
-                AND base.$dateColumn >= ?
-                AND base.$dateColumn < ?
-        ";
+    $params = [];
 
-        $params = [];
-        if ($system) {
-            $params[] = $system;
-        }
-        $params[] = $fromYmd;
-        $params[] = $toYmd;
-
-        return $this->db->query($sql, $params)
-            ->getResultArray();
+    /* SYSTEM FILTER */
+    if ($system) {
+        $sql .= " AND base.enq_type_id = ? ";
+        $params[] = $system;
     }
+
+    /* DATE FILTER */
+    $sql .= " AND base.$dateColumn >= ? AND base.$dateColumn < ? ";
+    $params[] = $fromYmd;
+    $params[] = $toYmd;
+
+    /* 🔐 ROLE FILTER */
+    if ($activeRole === 1) {
+        // ADMIN → no filter
+    }
+    elseif ($activeRole === 4) {
+        // TEAM LEAD → self + team
+        $teamIds = $this->db->table('khm_sys_usg_mst_entity_role')
+            ->select('entity_id')
+            ->where('team_lead_id', $entityId)
+            ->get()->getResultArray();
+
+        $allowed = array_column($teamIds, 'entity_id');
+        $allowed[] = $entityId;
+
+        $placeholders = implode(',', array_fill(0, count($allowed), '?'));
+        $sql .= " AND base.employee_entity_id IN ($placeholders)";
+        $params = array_merge($params, $allowed);
+    }
+    else {
+        // EXECUTIVE → ONLY OWN BOOKINGS
+        $sql .= " AND base.employee_entity_id = ?";
+        $params[] = $entityId;
+    }
+
+    return $this->db->query($sql, $params)->getResultArray();
+}
+
 }
