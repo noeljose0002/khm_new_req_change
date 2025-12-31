@@ -9516,243 +9516,283 @@ $cs_trans_total = 0;
 
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		var i = 0;
+$(document).ready(function () {
 
-		var iti_edit_id = <?php echo isset($iti_edit_id) && $iti_edit_id !== '' ? $iti_edit_id : 0; ?>;
-		if (iti_edit_id == 1) {
-			var read_only = "readonly";
-			var dis_abled = 'style="pointer-events: none; background-color: #eee;"';
-		} else {
-			var read_only = "";
-			var dis_abled = "";
-		}
-		$('.add_spcl').on('click', function() {
+    // global sequence counter (syncs with preloaded data)
+    var globalSpclCounter = 0;
 
-			var $btn = $(this);
-			var sequenceAttr = $btn.attr('data-sequence');
-			if (sequenceAttr !== undefined && sequenceAttr !== '') {
-				i = parseInt(sequenceAttr);
-			} else {
-				i++;
-			}
-			var html = '';
-			var id_t = $(this).attr('data-id');
-			var old_id = $(this).attr('data-oid');
-			var tour_date = $(this).attr('data-std');
+    // ---------- ADD SPECIAL EVENT ----------
+    $(document).on('click', '.add_spcl', function () {
 
-			var id = id_t + "_" + i;
-			html += '<div id="rowsp' + id + '" class="dynamic-added card" data-index="' + id_t + '">';
-			html += '<div class="row mt-2">';
-			html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-			html += '<input type="hidden" id="spcl_id' + id + '" name="spcl_additi[' + i + '][spcl_id]" value="' + id_t + '">';
-			html += '<input type="hidden" id="spcl_sequence' + id + '" name="spcl_additi[' + i + '][spcl_sequence]" value="' + i + '">';
-			html += '<input type="hidden" id="spcl_idvalue' + id + '" name="spcl_additi[' + i + '][spcl_idvalue]" value="' + id + '">';
-			html += '<input type="hidden" id="tour_date' + id + '" name="spcl_additi[' + i + '][tour_date]" value="' + tour_date + '">';
-			html += '</div>';
+        var $btn = $(this);
 
-			html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-			html += '</div>';
+        var id_t      = $btn.attr('data-id');   // e.g. 2115_07-02-2026
+        var tour_date = $btn.attr('data-std');
+        var old_id    = $btn.attr('data-oid');
+        var seqAttr   = $btn.attr('data-sequence');
 
-			html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-			html += '<div class="teams-rank"><b>Special Event Name</b></div>';
-			html += '<input type="text" id="spcl_event' + id + '" data-id="' + id + '" name="spcl_additi[' + i + '][spcl_event]" value="" class="form-control input-sm" maxlength="50">';
-			html += '</div>';
-			html += '<div class="col-xl-1 col-sm-12 col-md-1">';
-			html += '<div class="teams-rank"><b>Tariff</b></div>';
-			html += '<input type="text" id="spcl_tariff' + id + '" data-id="' + id + '" name="spcl_additi[' + i + '][spcl_tariff]" value="" class="form-control input-sm" maxlength="7">';
-			html += '</div>';
-			html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
-			html += '<button type="button" name="remove" id="' + id + '" data-oid="' + old_id + '" data-nid="' + id_t + '" data-cid="' + i + '" class="btn btn-danger btn-sm btn_spcl_remove">X</button>';
-			html += '</div>';
+        if (!id_t) return;
 
-			html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-			html += '</div>';
-			html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-			html += '</div>';
+        // decide sequence
+        var seq;
+        if (seqAttr !== undefined && seqAttr !== '') {
+            seq = parseInt(seqAttr, 10);
+            if (seq > globalSpclCounter) globalSpclCounter = seq;
+        } else {
+            globalSpclCounter++;
+            seq = globalSpclCounter;
+        }
 
-			html += '</div>';
+        var unique_id = id_t + '_' + seq;
 
-			html += '</div>';
-			$('#spcl_add_dynamic' + id_t).append(html);
+        // 🚨 DUPLICATE PREVENTION
+        if ($('#rowsp' + unique_id).length > 0) {
+            console.log('Special event already exists:', unique_id);
+            return;
+        }
 
-		});
-		$(document).on('click', '.btn_spcl_remove', function() {
-			var button_id = $(this).attr("id");
-			var old_id = $(this).attr('data-oid');
-			var id = $(this).attr('data-nid');
-			$('#rowsp' + button_id + '').remove();
-			var cid = $(this).attr('data-cid');
-			var current_i = parseInt(cid) - 1;
-			if (current_i < 0) {
-				i = 0;
-			} else {
-				i = current_i;
-			}
+        var html = '';
+        html += '<div id="rowsp' + unique_id + '" class="dynamic-added card" data-index="' + id_t + '">';
+        html += '<div class="row mt-2">';
 
-			$('input[id^="spcl_tariff"]').each(function() {
-				var vid = $(this).attr('id').replace('spcl_tariff', '');
-				setTimeout(() => calculateGrandTotal(vid), 300);
-			});
-		});
-	});
+        html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+        html += '<input type="hidden" name="spcl_additi[' + unique_id + '][spcl_id]" value="' + id_t + '">';
+        html += '<input type="hidden" name="spcl_additi[' + unique_id + '][spcl_sequence]" value="' + seq + '">';
+        html += '<input type="hidden" name="spcl_additi[' + unique_id + '][spcl_idvalue]" value="' + unique_id + '">';
+        html += '<input type="hidden" name="spcl_additi[' + unique_id + '][tour_date]" value="' + tour_date + '">';
+        html += '</div>';
+
+        html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+        html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+        html += '<div class="teams-rank"><b>Special Event Name</b></div>';
+        html += '<input type="text" id="spcl_event' + unique_id + '" ';
+        html += 'name="spcl_additi[' + unique_id + '][spcl_event]" ';
+        html += 'class="form-control input-sm" maxlength="50">';
+        html += '</div>';
+
+        html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+        html += '<div class="teams-rank"><b>Tariff</b></div>';
+        html += '<input type="text" id="spcl_tariff' + unique_id + '" ';
+        html += 'name="spcl_additi[' + unique_id + '][spcl_tariff]" ';
+        html += 'class="form-control input-sm" maxlength="7">';
+        html += '</div>';
+
+        html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+        html += '<button type="button" id="' + unique_id + '" ';
+        html += 'data-nid="' + id_t + '" ';
+        html += 'class="btn btn-danger btn-sm btn_spcl_remove">X</button>';
+        html += '</div>';
+
+        html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+        html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+        html += '</div></div>';
+
+        $('#spcl_add_dynamic' + id_t).append(html);
+    });
+
+    // ---------- REMOVE SPECIAL EVENT ----------
+    $(document).on('click', '.btn_spcl_remove', function () {
+        var unique_id = $(this).attr('id');
+        $('#rowsp' + unique_id).remove();
+
+        // recalc totals if needed
+        $('input[id^="spcl_tariff"]').each(function () {
+            var vid = $(this).attr('id').replace('spcl_tariff', '');
+            setTimeout(() => calculateGrandTotal(vid), 200);
+        });
+    });
+
+    // ---------- PRELOAD SAVED SPECIAL EVENTS ----------
+    const d_spcl_events = <?php echo json_encode($d_spcl_events); ?>;
+
+    if (Array.isArray(d_spcl_events) && d_spcl_events.length > 0) {
+        setTimeout(() => {
+            $.each(d_spcl_events, function (index, item) {
+
+                const selector =
+                    '.add_spcl' +
+                    '[data-id="' + item.spcl_id + '"]' +
+                    '[data-std="' + item.tour_date + '"]';
+
+                const $btn = $(selector);
+                if (!$btn.length) return;
+
+                var unique_id = item.spcl_idvalue;
+
+                // mark sequence and trigger click
+                $btn.attr('data-sequence', item.spcl_sequence);
+                $btn.trigger('click');
+                $btn.removeAttr('data-sequence');
+
+                // populate values
+                $('#spcl_event' + unique_id).val(item.spcl_event);
+                $('#spcl_tariff' + unique_id).val(item.spcl_tariff);
+
+                // sync counter
+                if (item.spcl_sequence > globalSpclCounter) {
+                    globalSpclCounter = item.spcl_sequence;
+                }
+            });
+        }, 500);
+    }
+});
 </script>
 
 <script>
-	$(document).ready(function() {
-		const d_spcl_events = <?php echo json_encode($d_spcl_events); ?>;
-		console.log(d_spcl_events);
+$(document).ready(function() {
+    // initialize global counter from hidden field if present
+    var globalCounter = parseInt($('#total_addon_count').val(), 10) || 0;
 
-		if (Array.isArray(d_spcl_events) && d_spcl_events.length > 0) {
-			setTimeout(() => {
-				$.each(d_spcl_events, function(index, item) {
-					const selector =
-						'.add_spcl' +
-						'[data-id="' + item.spcl_id + '"]' +
-						'[data-std="' + item.tour_date + '"]' +
-						'[data-oid="' + item.spcl_id + '"]';
+    var iti_edit_id = <?php echo isset($iti_edit_id) && $iti_edit_id !== '' ? $iti_edit_id : 0; ?>;
+    var read_only = iti_edit_id == 1 ? "readonly" : "";
+    var dis_abled = iti_edit_id == 1 ? 'style="pointer-events: none; background-color: #eee;"' : "";
 
-					const $btn = $(selector);
-					var id = item.spcl_idvalue;
-					if ($btn.length > 0) {
-						console.log("Triggering add for:", item.spcl_idvalue);
-						$btn.attr('data-sequence', item.spcl_sequence);
-						$btn.trigger("click");
-						$btn.removeAttr('data-sequence');
-						$('#spcl_event' + id).val(item.spcl_event);
-						$('#spcl_tariff' + id).val(item.spcl_tariff);
-					} else {
-						console.warn("Add button not found for selector:", selector);
-					}
-				});
-			}, 500);
-		}
-	});
+    // helper to sum tariffs for a given base id_t (eg '2115_07-02-2026')
+    function updateFacRateFor(id_t) {
+        var total = 0;
+        $('.addon_class' + id_t).each(function() {
+            total += parseFloat($(this).val()) || 0;
+        });
+        $('#fac_rate' + id_t).val(total);
+    }
+
+    // Add / prefill handler
+    $('.hotel_fac_change_new').on('change', function() {
+        var addonTotal = 0;
+        var $btn = $(this);
+
+        var sequenceAttr = $btn.attr('data-sequence'); // optional pre-provided sequence
+        var id_t = $btn.attr('data-id');                // e.g. 2115_07-02-2026
+        var tour_date = $btn.attr('data-std');          // e.g. 2026-02-07
+        if (!id_t) return;
+
+        var seq;
+        if (sequenceAttr !== undefined && sequenceAttr !== '') {
+            seq = parseInt(sequenceAttr, 10);
+            // ensure globalCounter at least seq
+            if (seq > globalCounter) globalCounter = seq;
+        } else {
+            // generate new global sequence
+            globalCounter++;
+            seq = globalCounter;
+        }
+
+        // persist counter
+        $('#total_addon_count').val(globalCounter);
+
+        var unique_id = id_t + '_' + seq; // stable unique id used everywhere
+
+        // DUPLICATE PREVENTION: if this unique row already exists, do not insert again
+        if ($('#rowaddon' + unique_id).length > 0) {
+            // If preloaded row exists, but sequenceAttr was passed to indicate we should
+            // populate its fields, we'll still fill the values below (if ajax returns).
+            console.log('Addon already exists, skipping insert:', unique_id);
+        } else {
+            // build HTML using unique_id as array key (so server receives stable keys)
+            var html = '';
+            html += '<div id="rowaddon' + unique_id + '" class="dynamic-added card" data-index="' + id_t + '">';
+            html += '<div class="row mt-2">';
+
+            html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+            html += '<div class="teams-rank"><b>Facility Name</b></div>';
+            html += '<input type="text" id="addon_event' + unique_id + '" data-id="' + unique_id + '" name="addon_additi[' + unique_id + '][addon_event]" value="" class="form-control input-sm" maxlength="50" ' + read_only + '>';
+            html += '</div>';
+
+            html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+            html += '<div class="teams-rank"><b>Tariff</b></div>';
+            html += '<input type="text" id="addon_tariff' + unique_id + '" data-id="' + unique_id + '" name="addon_additi[' + unique_id + '][addon_tariff]" value="" class="form-control input-sm addon_class' + id_t + '" maxlength="7">';
+            html += '</div>';
+
+            html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+            html += '<button type="button" name="remove" id="' + unique_id + '" data-oid="' + id_t + '" data-nid="' + id_t + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_addon_remove">X</button>';
+            html += '</div>';
+
+            html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+            html += '<input type="hidden" id="addon_id' + unique_id + '" name="addon_additi[' + unique_id + '][addon_id]" value="' + id_t + '">';
+            html += '<input type="hidden" id="addon_sequence' + unique_id + '" name="addon_additi[' + unique_id + '][addon_sequence]" value="' + seq + '">';
+            html += '<input type="hidden" id="addon_idvalue' + unique_id + '" name="addon_additi[' + unique_id + '][addon_idvalue]" value="' + unique_id + '">';
+            html += '<input type="hidden" id="tour_date' + unique_id + '" name="addon_additi[' + unique_id + '][tour_date]" value="' + tour_date + '">';
+            html += '</div>';
+
+            // filler cols
+            html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+            html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+            html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+            html += '</div></div>';
+
+            $('#addon_add_dynamic' + id_t).append(html);
+        }
+
+        // If a facility is selected, fetch tariff and populate (works for both preloaded and newly-added)
+        var facility_id = $btn.val();
+        if (facility_id > 0) {
+            $.ajax({
+                url: "<?= site_url('Enquiry/getHotelFaciliyTariffNew'); ?>",
+                method: "POST",
+                data: { facility_id: facility_id },
+                dataType: 'json',
+                success: function(data) {
+                    // populate the inputs for this unique row
+                    $('#addon_event' + unique_id).val(data && data[0] ? data[0].facility_name : '');
+                    $('#addon_tariff' + unique_id).val(data && data[0] ? data[0].tariff : '');
+
+                    // recalc totals for this date group
+                    updateFacRateFor(id_t);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Tariff fetch error:", error);
+                    updateFacRateFor(id_t);
+                }
+            });
+        } else {
+            // nothing selected — ensure rate zeroed for this date
+            updateFacRateFor(id_t);
+        }
+    });
+
+    // Remove handler — remove the correct unique row, then update totals
+    $(document).on('click', '.btn_addon_remove', function() {
+        var button_id = $(this).attr("id"); // this should be the unique_id string
+        var id_t = $(this).attr('data-nid');
+        if (!button_id) return;
+
+        $('#rowaddon' + button_id).remove();
+        // do NOT force globalCounter decrement (keeps uniqueness). If you want
+        // to compact sequences later, do that on server or in a separate clean-up routine.
+
+        // recalc totals for this date group
+        if (id_t) updateFacRateFor(id_t);
+    });
+
+    // When any tariff input changes, update the day's rate
+    $(document).on('input', 'input[id^="addon_tariff"]', function() {
+        var fullId = this.id.replace('addon_tariff', ''); // unique_id
+        // unique_id format is: <id_t>_<seq>. We need base id_t (everything before last _)
+        var lastUnd = fullId.lastIndexOf('_');
+        var id_t = lastUnd > 0 ? fullId.substring(0, lastUnd) : fullId;
+        updateFacRateFor(id_t);
+    });
+
+    // Optional: If you preload addons on page load with sequence numbers, ensure you set
+    // #total_addon_count to at least the max sequence so new generated seq values remain unique.
+    (function syncInitialCounter() {
+        var maxSeen = 0;
+        $('input[name$="[addon_sequence]"]').each(function() {
+            var v = parseInt($(this).val(), 10) || 0;
+            if (v > maxSeen) maxSeen = v;
+        });
+        if (maxSeen > globalCounter) {
+            globalCounter = maxSeen;
+            $('#total_addon_count').val(globalCounter);
+        }
+    })();
+
+});
 </script>
-<script>
-	$(document).ready(function() {
-		var i = 0;
 
-		var iti_edit_id = <?php echo isset($iti_edit_id) && $iti_edit_id !== '' ? $iti_edit_id : 0; ?>;
-		if (iti_edit_id == 1) {
-			var read_only = "readonly";
-			var dis_abled = 'style="pointer-events: none; background-color: #eee;"';
-		} else {
-			var read_only = "";
-			var dis_abled = "";
-		}
-		$('.hotel_fac_change_new').on('change', function() {
-			var addonTotal = 0;
-			var $btn = $(this);
-			var sequenceAttr = $btn.attr('data-sequence');
-			if (sequenceAttr !== undefined && sequenceAttr !== '') {
-				i = parseInt(sequenceAttr);
-			} else {
-				i++;
-			}
-			$('#total_addon_count').val(i);
-			var html = '';
-			var id_t = $(this).attr('data-id');
-			var old_id = id_t;
-			var tour_date = $(this).attr('data-std');
-
-			var id = id_t + "_" + i;
-			html += '<div id="rowaddon' + id + '" class="dynamic-added card" data-index="' + id_t + '">';
-			html += '<div class="row mt-2">';
-
-			html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-			html += '<div class="teams-rank"><b>Facility Name</b></div>';
-			html += '<input type="text" id="addon_event' + id + '" data-id="' + id + '" name="addon_additi[' + i + '][addon_event]" value="" class="form-control input-sm" maxlength="50">';
-			html += '</div>';
-			html += '<div class="col-xl-1 col-sm-12 col-md-1">';
-			html += '<div class="teams-rank"><b>Tariff</b></div>';
-			html += '<input type="text" id="addon_tariff' + id + '" data-id="' + id + '" name="addon_additi[' + i + '][addon_tariff]" value="" class="form-control input-sm addon_class' + id_t + '" maxlength="7">';
-			html += '</div>';
-			html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
-			html += '<button type="button" name="remove" id="' + id + '" data-oid="' + old_id + '" data-nid="' + id_t + '" data-cid="' + i + '" class="btn btn-danger btn-sm btn_addon_remove">X</button>';
-			html += '</div>';
-			html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-			html += '<input type="hidden" id="addon_id' + id + '" name="addon_additi[' + i + '][addon_id]" value="' + id_t + '">';
-			html += '<input type="hidden" id="addon_sequence' + id + '" name="addon_additi[' + i + '][addon_sequence]" value="' + i + '">';
-			html += '<input type="hidden" id="addon_idvalue' + id + '" name="addon_additi[' + i + '][addon_idvalue]" value="' + id + '">';
-			html += '<input type="hidden" id="tour_date' + id + '" name="addon_additi[' + i + '][tour_date]" value="' + tour_date + '">';
-			html += '</div>';
-
-			html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-			html += '</div>';
-
-			html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-			html += '</div>';
-			html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-			html += '</div>';
-
-			html += '</div>';
-
-			html += '</div>';
-			$('#addon_add_dynamic' + id_t).append(html);
-
-			var facility_id = $(this).val();
-
-
-			if (facility_id > 0) {
-				$.ajax({
-					url: "<?= site_url('Enquiry/getHotelFaciliyTariffNew'); ?>",
-					method: "POST",
-					data: {
-						facility_id: facility_id
-					},
-					dataType: 'json',
-					success: function(data) {
-
-						$('#addon_event' + id).val(data[0].facility_name);
-						$('#addon_tariff' + id).val(data[0].tariff);
-
-						$('.addon_class' + id_t).each(function() {
-							addonTotal += parseInt($(this).val()) || 0;
-						});
-						$('#fac_rate' + id_t).val(addonTotal);
-					},
-					error: function(xhr, status, error) {
-						console.error("Tariff fetch error:", error);
-						$('#fac_rate' + id_t).val(0);
-					}
-				});
-			} else {
-				$('#fac_rate' + id_t).val(0);
-			}
-		});
-		$(document).on('click', '.btn_addon_remove', function() {
-			var addonTotal_t = 0;
-			var button_id = $(this).attr("id");
-			var old_id = $(this).attr('data-oid');
-			var id = $(this).attr('data-nid');
-			var cid = $(this).attr('data-cid');
-			var current_i = parseInt(cid) - 1;
-			if (current_i < 0) {
-				i = 0;
-			} else {
-				i = current_i;
-			}
-			$('#total_addon_count').val(i);
-			$('#rowaddon' + button_id + '').remove();
-			$('.addon_class' + id).each(function() {
-				addonTotal_t += parseInt($(this).val()) || 0;
-			});
-			$('#fac_rate' + id).val(addonTotal_t);
-		});
-
-		$(document).on('input', 'input[id^="addon_tariff"]', function() {
-			var addonTotalnew = 0;
-			var vid = $(this).attr('id').replace('addon_tariff', '');
-			vid = vid.replace(/_\d+$/, '');
-			$('.addon_class' + vid).each(function() {
-				addonTotalnew += parseInt($(this).val()) || 0;
-			});
-			$('#fac_rate' + vid).val(addonTotalnew);
-
-		});
-	});
-</script>
 
 <script>
 	$(document).ready(function() {
