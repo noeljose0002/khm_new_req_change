@@ -328,9 +328,48 @@
 							<label for="toDate" class="form-label small-label">Executive</label>
 							<select id="selectOptionExecutive" class="form-control input-sm">
 								<option value="">All</option>
-								<?php foreach ($all_executives as $executive) : ?>
-									<option value="<?= $executive['entity_id'] ?>"><?= $executive['entity_name'] ?></option>
-								<?php endforeach; ?>
+
+								<?php
+								$activeRole = (int) session('active_role');
+								$userId     = (int) session('user_id');
+
+								foreach ($all_executives as $executive) :
+
+									// ADMIN → show all
+									if ($activeRole === 1) :
+								?>
+										<option value="<?= $executive['entity_id']; ?>">
+											<?= esc($executive['entity_name']); ?>
+										</option>
+
+										<?php
+									// TEAM LEAD → show team members + self
+									elseif ($activeRole === 4) :
+
+										if (
+											$executive['entity_id'] == $userId ||
+											(isset($executive['team_lead_id']) && $executive['team_lead_id'] == $userId)
+										) :
+										?>
+											<option value="<?= $executive['entity_id']; ?>">
+												<?= esc($executive['entity_name']); ?>
+											</option>
+										<?php
+										endif;
+
+									// EXECUTIVE → show only self
+									else :
+										if ($executive['entity_id'] == $userId) :
+										?>
+											<option value="<?= $executive['entity_id']; ?>">
+												<?= esc($executive['entity_name']); ?>
+											</option>
+								<?php
+										endif;
+									endif;
+
+								endforeach;
+								?>
 							</select>
 						</div>
 						<div class="page-leftheader" style="padding:5px;">
@@ -375,48 +414,48 @@
 							</div>
 						</div>
 
-						</div>
-						<!-- Page-header closed -->
-						<div class="row tblheader" style="display:none;">
-							<div class="col-md-12 col-lg-12">
-								<div class="card">
+					</div>
+					<!-- Page-header closed -->
+					<div class="row tblheader" style="display:none;">
+						<div class="col-md-12 col-lg-12">
+							<div class="card">
 
-									<div class="card-body">
-										<div class="table-responsive">
-											<table id="report_table" class="table table-bordered table-striped" cellspacing="0" width="100%">
-												<thead style="background-color:#c6ecd9;">
-													<tr>
-														<th>Reference No</th>
-														<th>Confirmed</th>
-														<th>Executive Name</th>
-														<th>Guest Name</th>
-														<th>Agent Name</th>
-														<th>Status</th>
-														<th>Arrival Date</th>
-														<th>Departure Date</th>
-														<th>SOP Executive</th>
-														<th>Quoted Amount</th>
-														<th>Received</th>
-														<th>Approved</th>
-														<th>Balance</th>
-														<th>Remarks</th>
-													</tr>
-												</thead>
-												<tbody>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table id="report_table" class="table table-bordered table-striped" cellspacing="0" width="100%">
+											<thead style="background-color:#c6ecd9;">
+												<tr>
+													<th>Reference No</th>
+													<th>Confirmed</th>
+													<th>Executive Name</th>
+													<th>Guest Name</th>
+													<th>Agent Name</th>
+													<th>Status</th>
+													<th>Arrival Date</th>
+													<th>Departure Date</th>
+													<th>SOP Executive</th>
+													<th>Quoted Amount</th>
+													<th>Received</th>
+													<th>Approved</th>
+													<th>Balance</th>
+													<th>Remarks</th>
+												</tr>
+											</thead>
+											<tbody>
 
-												</tbody>
-											</table>
+											</tbody>
+										</table>
 
 
-										</div>
 									</div>
-									<!-- table-wrapper -->
 								</div>
-								<!-- section-wrapper -->
+								<!-- table-wrapper -->
 							</div>
+							<!-- section-wrapper -->
 						</div>
+					</div>
 
-						<!-- row closed -->
+					<!-- row closed -->
 				</div>
 			</div>
 			<!-- App-content closed -->

@@ -6890,6 +6890,7 @@ if (!$had_saved_record && !$had_draft_record && !empty($previous_itinerary_data)
                             $data = $saved_sightseeing_by_date[$tid][$expansion_date];
                             $ss_dist = $data['is_saved'] ? $data['ss_total_distance'] : 0;
                         }
+                           $base_dist = 0;
 
                         // Decode vehicle json (assume it's an array of vehicles)
                         $vehicle_details_json = $expansion['vehicle_details_json'] ?? '';

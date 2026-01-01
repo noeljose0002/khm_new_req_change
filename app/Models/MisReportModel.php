@@ -180,22 +180,52 @@ class MisReportModel extends Model
 
     public function getAllEmployees(): array
     {
-        return $this->db
-            ->table('khm_sys_usg_mst_entity_role AS e4')
-            ->select([
-                'e5.entity_id AS id',
-                'e5.entity_name AS name',
-            ])
-            ->join(
-                'khm_entity_mst AS e5',
-                'e5.entity_id=e4.entity_id',
-                'left'
-            )
-            ->where('e4.role_id ', 5)
-            ->orderBy('e5.entity_name', 'ASC')
+        $db = $this->db;
+        $activeRole = (int) session('active_role');
+        $entityId   = (int) session('user_id');
+
+        /* ================= ADMIN ================= */
+        if ($activeRole === 1) {
+            return $db->table('khm_entity_mst')
+                ->select('entity_id AS id, entity_name AS name')
+                ->where('entity_class_id', 3)
+                ->where('deleted', 0)
+                ->orderBy('entity_name', 'ASC')
+                ->get()
+                ->getResultArray();
+        }
+
+        /* ================= TEAM LEAD ================= */
+        if ($activeRole === 4) {
+            return $this->db->query("
+                SELECT e.entity_id AS id, e.entity_name AS name
+                FROM khm_entity_mst e
+                JOIN khm_sys_usg_mst_entity_role er
+                    ON er.entity_id = e.entity_id
+                WHERE er.role_id = 5
+                  AND er.team_lead_id = ?
+                  AND e.deleted = 0
+
+                UNION
+
+                SELECT entity_id AS id, entity_name AS name
+                FROM khm_entity_mst
+                WHERE entity_id = ?
+                  AND deleted = 0
+
+                ORDER BY name
+            ", [$entityId, $entityId])->getResultArray();
+        }
+
+        /* ================= OTHERS ================= */
+        return $db->table('khm_entity_mst')
+            ->select('entity_id AS id, entity_name AS name')
+            ->where('entity_id', $entityId)
+            ->where('deleted', 0)
             ->get()
             ->getResultArray();
     }
+
 
     public function getAllStatus(): array
     {

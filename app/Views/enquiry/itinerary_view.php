@@ -4464,6 +4464,80 @@ $cs_trans_total = 0;
 								?>
 
 
+								
+
+<?php
+// Collect UNIQUE special events
+$special_events = [];
+
+foreach ($itinerary_details_save as $valh) {
+    $sp_events = json_decode($valh['json_special_event'] ?? '[]', true);
+
+    if (!empty($sp_events)) {
+        foreach ($sp_events as $sp) {
+
+            // Skip empty events
+            if (empty($sp['spcl_event'])) {
+                continue;
+            }
+
+            // Unique key to avoid duplicates
+            $unique_key = $sp['spcl_idvalue'];
+
+            $special_events[$unique_key] = [
+                'spcl_event'   => $sp['spcl_event'],
+                'spcl_tariff' => (int)($sp['spcl_tariff'] ?? 0),
+                'tour_date'   => $sp['tour_date'] ?? $valh['tour_date'],
+            ];
+        }
+    }
+}
+
+// Reindex array
+$special_events = array_values($special_events);
+
+// ✅ SHOW TABLE ONLY IF EVENTS EXIST
+if (!empty($special_events)) {
+?>
+<div class="costing-container">
+    <div class="table-responsive costing-box">
+        <table class="table table-bordered costing-table">
+            <tr>
+                <th>Sl No</th>
+                <th>Date</th>
+                <th>Special Event</th>
+                <th>Tariff</th>
+            </tr>
+
+            <?php
+            $slno = 1;
+            $total_special_event_cost = 0;
+
+            foreach ($special_events as $sp) {
+            ?>
+            <tr>
+                <td><?php echo $slno++; ?></td>
+                <td><?php echo date('d-m-Y', strtotime($sp['tour_date'])); ?></td>
+                <td><?php echo $sp['spcl_event']; ?></td>
+                <td style="text-align:right;"><?php echo $sp['spcl_tariff']; ?></td>
+            </tr>
+            <?php
+                $total_special_event_cost += $sp['spcl_tariff'];
+            }
+            ?>
+
+            <tr>
+                <th colspan="3">Total Special Event Cost</th>
+                <th style="text-align:right;"><?php echo $total_special_event_cost; ?></th>
+            </tr>
+        </table>
+    </div>
+</div>
+<?php
+}
+?>
+
+
 								<?php if ($object_det[0]['is_vehicle_required'] == 1) { ?>
 									<div class="costing-container">
 										<div class="table-responsive costing-box">
@@ -4762,9 +4836,9 @@ $cs_trans_total = 0;
 																		<span id="spcl_span">
 																			<?php echo $iti_cost_datas[0]['special_event'] ?? ''; ?>
 																		</span>
-																		<?php if (!empty($unique_special_events)): ?>
+																		<!-- <?php if (!empty($unique_special_events)): ?>
 																			(<?php echo implode(', ', $unique_special_events); ?>)
-																		<?php endif; ?>
+																		<?php endif; ?> -->
 																	</h5>
 																</th>
 																<th>
