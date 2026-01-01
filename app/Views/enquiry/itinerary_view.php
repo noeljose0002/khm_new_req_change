@@ -9515,7 +9515,7 @@ $cs_trans_total = 0;
 
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function () {
 
     // global sequence counter (syncs with preloaded data)
@@ -9791,7 +9791,7 @@ $(document).ready(function() {
     })();
 
 });
-</script>
+</script> -->
 
 
 <script>
@@ -11853,7 +11853,7 @@ $(document).ready(function() {
 	});
 </script> -->
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(document).ready(function() {
 
 		var maxAddonSeq = 0;
@@ -12048,5 +12048,518 @@ $(document).ready(function() {
 			}
 		}
 	});
+</script> -->
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var maxAddonSeq = 0;
+
+    // FIXED: Group by tour_details_id + tour_date to prevent cross-contamination
+    var addonsByTourAndDate = {};
+    var specialEventsByTourAndDate = {};
+
+    // Collect data with composite keys
+    $.each(savedSightseeingData, function(tour_details_id, datesData) {
+        $.each(datesData, function(tour_date, dayData) {
+            // FIXED: Process BOTH "saved" and "previous" data sources
+            // Only skip if explicitly marked as NOT saved (is_saved: false)
+            if (!dayData.is_saved) {
+                console.log('Skipping non-saved data for tour_details_id:', tour_details_id, 'tour_date:', tour_date);
+                return;
+            }
+
+            console.log('Processing data for tour_details_id:', tour_details_id, 'tour_date:', tour_date, 'source:', dayData.data_source);
+
+            // FIXED: Group addons by their OWN tour_date (not the dayData's tour_date)
+            // This ensures addons appear in the correct date's container
+            if (dayData.json_addons && $.isArray(dayData.json_addons)) {
+                console.log('Found', dayData.json_addons.length, 'addons in dayData for', tour_date);
+                dayData.json_addons.forEach(function(addon) {
+                    // CRITICAL FIX: Use addon's own tour_date for grouping
+                    var addonCompositeKey = tour_details_id + '_' + addon.tour_date;
+                    if (!addonsByTourAndDate[addonCompositeKey]) {
+                        addonsByTourAndDate[addonCompositeKey] = [];
+                    }
+                    addonsByTourAndDate[addonCompositeKey].push(addon);
+                    console.log('Added addon:', addon.addon_event, 'to key:', addonCompositeKey, '(addon date:', addon.tour_date, ')');
+                });
+            }
+
+            // FIXED: Group special events by their OWN tour_date (not the dayData's tour_date)
+            // This ensures events appear in the correct date's container
+            if (dayData.json_special_event && $.isArray(dayData.json_special_event)) {
+                console.log('Found', dayData.json_special_event.length, 'special events in dayData for', tour_date);
+                dayData.json_special_event.forEach(function(event) {
+                    // CRITICAL FIX: Use event's own tour_date for grouping
+                    var eventCompositeKey = tour_details_id + '_' + event.tour_date;
+                    if (!specialEventsByTourAndDate[eventCompositeKey]) {
+                        specialEventsByTourAndDate[eventCompositeKey] = [];
+                    }
+                    specialEventsByTourAndDate[eventCompositeKey].push(event);
+                    console.log('Added event:', event.spcl_event, 'to key:', eventCompositeKey, '(event date:', event.tour_date, ')');
+                });
+            }
+        });
+    });
+
+    console.log('Final addonsByTourAndDate:', addonsByTourAndDate);
+    console.log('Final specialEventsByTourAndDate:', specialEventsByTourAndDate);
+
+    // Process each visible day on the current page
+    $('[id^="addon_add_dynamic"]').each(function() {
+        var containerId = $(this).attr('id'); // e.g., addon_add_dynamic2126_10-01-2026
+        var iti_id = containerId.replace('addon_add_dynamic', ''); // 2126_10-01-2026
+        var currentTourPlanId = iti_id.split('_')[0]; // 2126
+
+        // Extract date: 10-01-2026 → 2026-01-10
+        var parts = iti_id.split('_');
+        if (parts.length < 2) return;
+
+        var dmy = parts[1]; // 10-01-2026
+        var dateParts = dmy.split('-');
+        if (dateParts.length !== 3) return;
+
+        var tour_date = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]; // 2026-01-10
+
+        var addonContainer = $(this);
+        var spclContainer = $('#spcl_add_dynamic' + iti_id);
+
+        // Prevent reloading if already done
+        if (addonContainer.data('addons-loaded')) {
+            console.log('Addons already loaded for', iti_id);
+            return;
+        }
+
+        // FIXED: Use composite key for lookup (now correctly grouped by addon's tour_date)
+        var compositeKey = currentTourPlanId + '_' + tour_date;
+        console.log('Looking up data for composite key:', compositeKey);
+
+        // ==================== LOAD HOTEL FACILITY ADD-ONS ====================
+        if (addonsByTourAndDate[compositeKey] && addonsByTourAndDate[compositeKey].length > 0) {
+            console.log('Loading', addonsByTourAndDate[compositeKey].length, 'addons for', compositeKey);
+            
+            addonsByTourAndDate[compositeKey].forEach(function(addon) {
+                console.log('Processing addon:', addon);
+                
+                var seq = parseInt(addon.addon_sequence) || 1;
+                if (seq > maxAddonSeq) maxAddonSeq = seq;
+
+                // FIXED: Since grouped by addon's tour_date, it matches current tour_date
+                // But keep using addon's date for consistency in ID generation
+                var addonDate_dmy = addon.tour_date.split('-').reverse().join('-'); // 2026-01-10 → 10-01-2026
+                var newAddonId = currentTourPlanId + '_' + addonDate_dmy;
+                var unique_id = addon.addon_idvalue || (newAddonId + '_' + seq);
+
+                console.log('Addon unique_id:', unique_id, 'for date:', addon.tour_date);
+
+                // Skip if already exists
+                if ($('#rowaddon' + unique_id).length > 0) {
+                    console.log('Addon row already exists:', unique_id);
+                    return;
+                }
+
+                // FIXED: Use unique_id as array key (not seq)
+                var html = '';
+                html += '<div id="rowaddon' + unique_id + '" class="dynamic-added card">';
+                html += '<div class="row mt-2">';
+
+                html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+                html += '<div class="teams-rank"><b>Facility Name</b></div>';
+                html += '<input type="text" name="addon_additi[' + unique_id + '][addon_event]" value="' + (addon.addon_event || '') + '" class="form-control input-sm" maxlength="50" readonly>';
+                html += '</div>';
+
+                html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+                html += '<div class="teams-rank"><b>Tariff</b></div>';
+                html += '<input type="text" name="addon_additi[' + unique_id + '][addon_tariff]" value="' + (addon.addon_tariff || '') + '" class="form-control input-sm addon_class' + iti_id + '" maxlength="7" readonly>';
+                html += '</div>';
+
+                html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+                html += '<button type="button" id="' + unique_id + '" data-oid="' + newAddonId + '" data-nid="' + iti_id + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_addon_remove">X</button>';
+                html += '</div>';
+
+                html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+                html += '<input type="hidden" name="addon_additi[' + unique_id + '][addon_id]" value="' + (addon.addon_id || newAddonId) + '">';
+                html += '<input type="hidden" name="addon_additi[' + unique_id + '][addon_sequence]" value="' + seq + '">';
+                html += '<input type="hidden" name="addon_additi[' + unique_id + '][addon_idvalue]" value="' + unique_id + '">';
+                html += '<input type="hidden" name="addon_additi[' + unique_id + '][tour_date]" value="' + addon.tour_date + '">';
+                html += '</div>';
+
+                html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+                html += '</div></div>';
+
+                addonContainer.append(html);
+                console.log('Appended addon row:', unique_id, 'to container for', iti_id);
+            });
+
+            // Update total
+            var total = 0;
+            $('.addon_class' + iti_id).each(function() {
+                total += parseFloat($(this).val()) || 0;
+            });
+            $('#fac_rate' + iti_id).val(total);
+            console.log('Updated total for', iti_id, ':', total);
+        } else {
+            console.log('No addons found for', compositeKey);
+        }
+
+        // ==================== LOAD SPECIAL EVENTS ====================
+        if (spclContainer.length > 0 && !spclContainer.data('spcl-loaded') && 
+            specialEventsByTourAndDate[compositeKey] && specialEventsByTourAndDate[compositeKey].length > 0) {
+            
+            console.log('Loading', specialEventsByTourAndDate[compositeKey].length, 'special events for', compositeKey);
+            
+            var uniqueEventsMap = {};
+            
+            specialEventsByTourAndDate[compositeKey].forEach(function(event) {
+                console.log('Processing special event:', event);
+                
+                var seq = parseInt(event.spcl_sequence) || 1;
+                
+                // FIXED: Since grouped by event's tour_date, it matches current tour_date
+                // But keep using event's date for consistency in ID generation
+                var eventDate_dmy = event.tour_date.split('-').reverse().join('-');
+                var newSpclId = currentTourPlanId + '_' + eventDate_dmy;
+                var unique_id = event.spcl_idvalue || (newSpclId + '_' + seq);
+
+                console.log('Event unique_id:', unique_id, 'for date:', event.tour_date);
+
+                // Store in map to prevent duplicates
+                if (!uniqueEventsMap[unique_id] && $('#rowsp' + unique_id).length === 0) {
+                    uniqueEventsMap[unique_id] = {
+                        event: event,
+                        seq: seq,
+                        newSpclId: event.spcl_id || newSpclId,
+                        unique_id: unique_id
+                    };
+                }
+            });
+
+            console.log('Unique events map:', uniqueEventsMap);
+
+            // Render each unique event
+            $.each(uniqueEventsMap, function(key, item) {
+                var event = item.event;
+                var seq = item.seq;
+                var newSpclId = item.newSpclId;
+                var unique_id = item.unique_id;
+
+                var html = '';
+                html += '<div id="rowsp' + unique_id + '" class="dynamic-added card">';
+                html += '<div class="row mt-2">';
+
+                html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+                html += '<input type="hidden" name="spcl_additi[' + unique_id + '][spcl_id]" value="' + newSpclId + '">';
+                html += '<input type="hidden" name="spcl_additi[' + unique_id + '][spcl_sequence]" value="' + seq + '">';
+                html += '<input type="hidden" name="spcl_additi[' + unique_id + '][spcl_idvalue]" value="' + unique_id + '">';
+                html += '<input type="hidden" name="spcl_additi[' + unique_id + '][tour_date]" value="' + event.tour_date + '">';
+                html += '</div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+                html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+                html += '<div class="teams-rank"><b>Special Event Name</b></div>';
+                html += '<input type="text" name="spcl_additi[' + unique_id + '][spcl_event]" value="' + (event.spcl_event || '') + '" class="form-control input-sm" maxlength="50" readonly>';
+                html += '</div>';
+
+                html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+                html += '<div class="teams-rank"><b>Tariff</b></div>';
+                html += '<input type="text" name="spcl_additi[' + unique_id + '][spcl_tariff]" value="' + (event.spcl_tariff || '') + '" class="form-control input-sm" maxlength="7" readonly>';
+                html += '</div>';
+
+                html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+                html += '<button type="button" id="' + unique_id + '" data-oid="' + newSpclId + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_spcl_remove">X</button>';
+                html += '</div>';
+
+                html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+                html += '</div></div>';
+
+                spclContainer.append(html);
+                console.log('Appended special event row:', unique_id, 'to container for', iti_id);
+            });
+            
+            spclContainer.data('spcl-loaded', true);
+        } else {
+            console.log('No special events found for', compositeKey, 'or already loaded');
+        }
+
+        addonContainer.data('addons-loaded', true);
+    });
+
+    // Sync global counter
+    if (maxAddonSeq > 0) {
+        $('#total_addon_count').val(maxAddonSeq);
+        if (typeof i !== 'undefined') {
+            i = maxAddonSeq;
+        } else {
+            window.i = maxAddonSeq;
+        }
+    }
+    
+    console.log('Addon loading complete. Max sequence:', maxAddonSeq);
+});
 </script>
 
+<!-- SCRIPT 2: Add special events dynamically (user clicks) -->
+<script type="text/javascript">
+$(document).ready(function () {
+
+    var globalSpclCounter = 0;
+
+    // ---------- ADD SPECIAL EVENT ----------
+    $(document).on('click', '.add_spcl', function () {
+
+        var $btn = $(this);
+
+        var id_t      = $btn.attr('data-id');   // e.g. 2479_10-01-2026
+        var tour_date = $btn.attr('data-std');
+        var old_id    = $btn.attr('data-oid');
+        var seqAttr   = $btn.attr('data-sequence');
+
+        if (!id_t) return;
+
+        // Decide sequence
+        var seq;
+        if (seqAttr !== undefined && seqAttr !== '') {
+            seq = parseInt(seqAttr, 10);
+            if (seq > globalSpclCounter) globalSpclCounter = seq;
+        } else {
+            globalSpclCounter++;
+            seq = globalSpclCounter;
+        }
+
+        var unique_id = id_t + '_' + seq;
+
+        // Duplicate prevention
+        if ($('#rowsp' + unique_id).length > 0) {
+            console.log('Special event already exists:', unique_id);
+            return;
+        }
+
+        // CRITICAL FIX: Use unique_id as array key (not seq)
+        var html = '';
+        html += '<div id="rowsp' + unique_id + '" class="dynamic-added card" data-index="' + id_t + '">';
+        html += '<div class="row mt-2">';
+
+        html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+        html += '<input type="hidden" name="spcl_additi[' + unique_id + '][spcl_id]" value="' + id_t + '">';
+        html += '<input type="hidden" name="spcl_additi[' + unique_id + '][spcl_sequence]" value="' + seq + '">';
+        html += '<input type="hidden" name="spcl_additi[' + unique_id + '][spcl_idvalue]" value="' + unique_id + '">';
+        html += '<input type="hidden" name="spcl_additi[' + unique_id + '][tour_date]" value="' + tour_date + '">';
+        html += '</div>';
+
+        html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+        html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+        html += '<div class="teams-rank"><b>Special Event Name</b></div>';
+        html += '<input type="text" id="spcl_event' + unique_id + '" ';
+        html += 'name="spcl_additi[' + unique_id + '][spcl_event]" ';
+        html += 'class="form-control input-sm" maxlength="50">';
+        html += '</div>';
+
+        html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+        html += '<div class="teams-rank"><b>Tariff</b></div>';
+        html += '<input type="text" id="spcl_tariff' + unique_id + '" ';
+        html += 'name="spcl_additi[' + unique_id + '][spcl_tariff]" ';
+        html += 'class="form-control input-sm" maxlength="7">';
+        html += '</div>';
+
+        html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+        html += '<button type="button" id="' + unique_id + '" ';
+        html += 'data-nid="' + id_t + '" ';
+        html += 'class="btn btn-danger btn-sm btn_spcl_remove">X</button>';
+        html += '</div>';
+
+        html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+        html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+        html += '</div></div>';
+
+        $('#spcl_add_dynamic' + id_t).append(html);
+    });
+
+    // ---------- REMOVE SPECIAL EVENT ----------
+    $(document).on('click', '.btn_spcl_remove', function () {
+        var unique_id = $(this).attr('id');
+        $('#rowsp' + unique_id).remove();
+
+        // Recalc totals if needed
+        $('input[id^="spcl_tariff"]').each(function () {
+            var vid = $(this).attr('id').replace('spcl_tariff', '');
+            setTimeout(() => calculateGrandTotal(vid), 200);
+        });
+    });
+
+    // ---------- PRELOAD SAVED SPECIAL EVENTS ----------
+    const d_spcl_events = <?php echo json_encode($d_spcl_events); ?>;
+
+    if (Array.isArray(d_spcl_events) && d_spcl_events.length > 0) {
+        setTimeout(() => {
+            $.each(d_spcl_events, function (index, item) {
+
+                const selector =
+                    '.add_spcl' +
+                    '[data-id="' + item.spcl_id + '"]' +
+                    '[data-std="' + item.tour_date + '"]';
+
+                const $btn = $(selector);
+                if (!$btn.length) return;
+
+                var unique_id = item.spcl_idvalue;
+
+                // Mark sequence and trigger click
+                $btn.attr('data-sequence', item.spcl_sequence);
+                $btn.trigger('click');
+                $btn.removeAttr('data-sequence');
+
+                // Populate values
+                $('#spcl_event' + unique_id).val(item.spcl_event);
+                $('#spcl_tariff' + unique_id).val(item.spcl_tariff);
+
+                // Sync counter
+                if (item.spcl_sequence > globalSpclCounter) {
+                    globalSpclCounter = item.spcl_sequence;
+                }
+            });
+        }, 500);
+    }
+});
+</script>
+
+<!-- SCRIPT 3: Add/remove hotel facility addons dynamically -->
+<script>
+$(document).ready(function() {
+    // Initialize global counter from hidden field if present
+    var globalCounter = parseInt($('#total_addon_count').val(), 10) || 0;
+
+    var iti_edit_id = <?php echo isset($iti_edit_id) && $iti_edit_id !== '' ? $iti_edit_id : 0; ?>;
+    var read_only = iti_edit_id == 1 ? "readonly" : "";
+    var dis_abled = iti_edit_id == 1 ? 'style="pointer-events: none; background-color: #eee;"' : "";
+
+    // Helper to sum tariffs for a given base id_t (eg '2479_10-01-2026')
+    function updateFacRateFor(id_t) {
+        var total = 0;
+        $('.addon_class' + id_t).each(function() {
+            total += parseFloat($(this).val()) || 0;
+        });
+        $('#fac_rate' + id_t).val(total);
+    }
+
+    // Add / prefill handler
+    $('.hotel_fac_change_new').on('change', function() {
+        var addonTotal = 0;
+        var $btn = $(this);
+
+        var sequenceAttr = $btn.attr('data-sequence');
+        var id_t = $btn.attr('data-id');        // e.g. 2479_10-01-2026
+        var tour_date = $btn.attr('data-std');  // e.g. 2026-01-10
+        if (!id_t) return;
+
+        var seq;
+        if (sequenceAttr !== undefined && sequenceAttr !== '') {
+            seq = parseInt(sequenceAttr, 10);
+            if (seq > globalCounter) globalCounter = seq;
+        } else {
+            globalCounter++;
+            seq = globalCounter;
+        }
+
+        // Persist counter
+        $('#total_addon_count').val(globalCounter);
+
+        var unique_id = id_t + '_' + seq; // Stable unique id
+
+        // Duplicate prevention
+        if ($('#rowaddon' + unique_id).length > 0) {
+            console.log('Addon already exists, skipping insert:', unique_id);
+        } else {
+            // CRITICAL FIX: Use unique_id as array key (not seq)
+            var html = '';
+            html += '<div id="rowaddon' + unique_id + '" class="dynamic-added card" data-index="' + id_t + '">';
+            html += '<div class="row mt-2">';
+
+            html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+            html += '<div class="teams-rank"><b>Facility Name</b></div>';
+            html += '<input type="text" id="addon_event' + unique_id + '" data-id="' + unique_id + '" name="addon_additi[' + unique_id + '][addon_event]" value="" class="form-control input-sm" maxlength="50" ' + read_only + '>';
+            html += '</div>';
+
+            html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+            html += '<div class="teams-rank"><b>Tariff</b></div>';
+            html += '<input type="text" id="addon_tariff' + unique_id + '" data-id="' + unique_id + '" name="addon_additi[' + unique_id + '][addon_tariff]" value="" class="form-control input-sm addon_class' + id_t + '" maxlength="7">';
+            html += '</div>';
+
+            html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+            html += '<button type="button" name="remove" id="' + unique_id + '" data-oid="' + id_t + '" data-nid="' + id_t + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_addon_remove">X</button>';
+            html += '</div>';
+
+            html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+            html += '<input type="hidden" id="addon_id' + unique_id + '" name="addon_additi[' + unique_id + '][addon_id]" value="' + id_t + '">';
+            html += '<input type="hidden" id="addon_sequence' + unique_id + '" name="addon_additi[' + unique_id + '][addon_sequence]" value="' + seq + '">';
+            html += '<input type="hidden" id="addon_idvalue' + unique_id + '" name="addon_additi[' + unique_id + '][addon_idvalue]" value="' + unique_id + '">';
+            html += '<input type="hidden" id="tour_date' + unique_id + '" name="addon_additi[' + unique_id + '][tour_date]" value="' + tour_date + '">';
+            html += '</div>';
+
+            html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+            html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+            html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+            html += '</div></div>';
+
+            $('#addon_add_dynamic' + id_t).append(html);
+        }
+
+        // Fetch tariff and populate
+        var facility_id = $btn.val();
+        if (facility_id > 0) {
+            $.ajax({
+                url: "<?= site_url('Enquiry/getHotelFaciliyTariffNew'); ?>",
+                method: "POST",
+                data: { facility_id: facility_id },
+                dataType: 'json',
+                success: function(data) {
+                    $('#addon_event' + unique_id).val(data && data[0] ? data[0].facility_name : '');
+                    $('#addon_tariff' + unique_id).val(data && data[0] ? data[0].tariff : '');
+                    updateFacRateFor(id_t);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Tariff fetch error:", error);
+                    updateFacRateFor(id_t);
+                }
+            });
+        } else {
+            updateFacRateFor(id_t);
+        }
+    });
+
+    // Remove handler
+    $(document).on('click', '.btn_addon_remove', function() {
+        var button_id = $(this).attr("id");
+        var id_t = $(this).attr('data-nid');
+        if (!button_id) return;
+
+        $('#rowaddon' + button_id).remove();
+
+        if (id_t) updateFacRateFor(id_t);
+    });
+
+    // When any tariff input changes, update the day's rate
+    $(document).on('input', 'input[id^="addon_tariff"]', function() {
+        var fullId = this.id.replace('addon_tariff', '');
+        var lastUnd = fullId.lastIndexOf('_');
+        var id_t = lastUnd > 0 ? fullId.substring(0, lastUnd) : fullId;
+        updateFacRateFor(id_t);
+    });
+
+    // Sync initial counter
+    (function syncInitialCounter() {
+        var maxSeen = 0;
+        $('input[name$="[addon_sequence]"]').each(function() {
+            var v = parseInt($(this).val(), 10) || 0;
+            if (v > maxSeen) maxSeen = v;
+        });
+        if (maxSeen > globalCounter) {
+            globalCounter = maxSeen;
+            $('#total_addon_count').val(globalCounter);
+        }
+    })();
+
+});
+</script>

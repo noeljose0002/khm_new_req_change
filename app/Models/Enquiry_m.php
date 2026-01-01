@@ -2787,7 +2787,7 @@ public function get_itinerary_previous_details($extension_ref_id, $tour_plan_ref
             ->where('a.enquiry_details_id', $enquiry_details_id)
             ->where('a.tour_details_id', $tour_details_id)
             ->where('a.is_active', 1)
-            ->where('a.is_draft', 1)
+            // ->where('a.is_draft', 1)
             ->get()->getResultArray();
         foreach ($result as $key => $val) {
             $response[$key] = $val;
@@ -3202,6 +3202,7 @@ public function get_itinerary_previous_details($extension_ref_id, $tour_plan_ref
     // Get itinerary by ID (including tour_plan_ref_id)
     // ============= ENQUIRY HEADER TABLE =============
     // Set enquiry header as active
+    
     public function setEnquiryHeaderActive($enquiry_header_id)
     {
         $db = \Config\Database::connect();
@@ -3303,18 +3304,21 @@ public function get_itinerary_previous_details($extension_ref_id, $tour_plan_ref
     }
 
     // Get all tour_details_id values for a tour_plan_ref_id
-    public function getTourDetailsIdsByTourPlanRef($tour_plan_ref_id)
-    {
-        $db = \Config\Database::connect();
-        $result = $db->table('khm_obj_enquiry_tour_details')
-            ->select('tour_details_id')
-            ->where('tour_details_id', $tour_plan_ref_id)
-            ->get()
-            ->getResultArray();
+public function getTourDetailsIdsByTourPlanRef($tour_plan_ref_id)
+{
+    $db = \Config\Database::connect();
+    $result = $db->table('khm_obj_enquiry_tour_details')
+        ->select('tour_details_id')
+        ->groupStart()
+        ->where('tour_details_id', $tour_plan_ref_id)
+        ->orWhere('extension_ref_id', $tour_plan_ref_id)
+        ->groupEnd()
+        ->get()
+        ->getResultArray();
 
-        // Extract just the IDs into an array
-        return array_column($result, 'tour_details_id');
-    }
+    // Extract just the IDs into an array
+    return array_column($result, 'tour_details_id');
+}
 
     // ============= ITINERARY DETAILS TABLE =============
     // Set all itinerary details inactive for an enquiry_details_id
