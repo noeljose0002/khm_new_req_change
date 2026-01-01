@@ -2290,7 +2290,17 @@ public function get_previous_itinerary_for_preload($enquiry_header_id, $enquiry_
 /**
  * Get previous itinerary grouped by tour_date and tour_location
  * For easier lookup when preloading
+ * 
+ * 
  */
+
+public function get_tour_plan_by_id($tour_details_id)
+{
+    return $this->db->table('khm_obj_enquiry_tour_details')
+        ->where('tour_details_id', $tour_details_id)
+        ->get()
+        ->getResultArray();
+}
 public function get_previous_itinerary_grouped($enquiry_header_id, $enquiry_details_id, $current_extension_ref_id)
 {
     $previous_itinerary = $this->get_previous_itinerary_for_preload(
@@ -2309,25 +2319,34 @@ public function get_previous_itinerary_grouped($enquiry_header_id, $enquiry_deta
     foreach ($previous_itinerary as $item) {
         $tour_date = $item['tour_date'];
         
-        // Get tour location for this tour_details_id
+        // Get tour location AND hotel for this tour_details_id
         $tour_plan = $this->db->table('khm_obj_enquiry_tour_details')
             ->where('tour_details_id', $item['tour_details_id'])
             ->get()
             ->getRowArray();
         
         if ($tour_plan) {
-            // Use date + location as key
-            $key = $tour_date . '_' . $tour_plan['tour_location'];
+            // Use date + location as key (for lookup)
+            $location_id = $tour_plan['tour_location'];
+            $key = $tour_date . '_' . $location_id;
+            
+            // Store the item with BOTH location and hotel info embedded
+            $item['tour_location'] = $location_id;
+            $item['hotel_id'] = $tour_plan['hotel_id'];  // ← ADD THIS
+            $item['tour_details_id'] = $tour_plan['tour_details_id']; // Keep for reference
             $grouped[$key] = $item;
             
-            // ALSO store by date alone as fallback
-            $grouped[$tour_date] = $item;
-            
-            log_message('debug', 'Grouped previous itinerary: key=' . $key . ', date_key=' . $tour_date . ', tour_details_id=' . $item['tour_details_id']);
+            log_message('debug', 'Grouped previous itinerary: key=' . $key . 
+                ', date=' . $tour_date . 
+                ', location=' . $location_id . 
+                ', hotel=' . $tour_plan['hotel_id'] .
+                ', tour_details_id=' . $item['tour_details_id']);
+        } else {
+            log_message('warning', 'Could not find tour plan for tour_details_id=' . $item['tour_details_id']);
         }
     }
     
-    log_message('info', 'Grouped ' . count($grouped) . ' previous itinerary records');
+    log_message('info', 'Grouped ' . count($grouped) . ' previous itinerary records (date+location keys only)');
     
     return $grouped;
 }
