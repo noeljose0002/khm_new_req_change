@@ -747,6 +747,7 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 						if ($addon_count > 0) {
 							$fac_count = 1;
 						?>
+						<br><br>
 								<table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
 						  			<tr>
 							 			<td colspan="6" style="text-align:center;background-color:#d0c6c6;color:black;"><b>Hotel Facility Tariff</b></td>
@@ -818,47 +819,94 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 						if ($sightseeing_count > 0) {
 							$ss_count = 1;
 						?>
-								<table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
-						  			<tr>
-							 			<td colspan="5" style="text-align:center;background-color:#d0c6c6;color:black;"><b>Sightseeing Tariff (with Pax)</b></td>
-						 			</tr>
-									<tr>
-                                    	<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Si No</b></td>
-                                    	<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Date</b></td>
-										<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Destination</b></td>
-										<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Sightseeing</b></td>
-										<td style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Tariff</b></td>
-									</tr>
-									<?php
-									$cs_sightseeing_total = 0;
-									foreach ($iti_data as $keyh => $valh) {
-										$ss_data = json_decode($valh['ss_data_json'] ?? '[]', true);
-										if (!empty($ss_data)) {
-											foreach ($ss_data as $ss) {
-												if ((isset($ss['is_pax']) && $ss['is_pax'] == 1) || !isset($ss['is_pax'])) {
-													$tariff = isset($ss['pax_cost']) ? floatval($ss['pax_cost']) : (isset($ss['cost']) ? floatval($ss['cost']) : 0);
-													if ($tariff > 0) {
-									?>
-															<tr>
-																<td style="border:1px solid black;"><?php echo $ss_count++; ?></td>
-																<td style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($valh['tour_date'])); ?></td>
-																<td style="border:1px solid black;"><?php echo $valh['geog_name']; ?></td>
-																<td style="border:1px solid black;"><?php echo $ss['name']; ?></td>
-																<td style="border:1px solid black;text-align:right;"><?php echo ($tariff); ?></td>
-															</tr>
-															<?php
-															$cs_sightseeing_total += $tariff;
-														}
-													}
-												}
-											}
-										}
-															?>	
-									<tr>
-										<td colspan="4" style="border:1px solid black;"><b>Total Sightseeing Cost (with Pax)</b></td>
-										<td style="border:1px solid black;text-align:right;"><b><?php echo ($cs_sightseeing_total); ?></b></td>
-									</tr>
-								</table>
+						<br><br>
+
+
+						<?php
+// ================= CHECK IF ANY SIGHTSEEING EXISTS =================
+$has_sightseeing = false;
+
+foreach ($iti_data as $valh) {
+    $ss_data = json_decode($valh['ss_data_json'] ?? '[]', true);
+
+    if (!empty($ss_data)) {
+        foreach ($ss_data as $ss) {
+            if (
+                ((isset($ss['is_pax']) && $ss['is_pax'] == 1) || !isset($ss['is_pax'])) &&
+                (
+                    (isset($ss['pax_cost']) && floatval($ss['pax_cost']) > 0) ||
+                    (isset($ss['cost']) && floatval($ss['cost']) > 0)
+                )
+            ) {
+                $has_sightseeing = true;
+                break 2; // Exit both loops
+            }
+        }
+    }
+}
+?>
+
+
+
+								<?php if ($has_sightseeing) { ?>
+
+<table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
+    <tr>
+        <td colspan="5" style="text-align:center;background-color:#d0c6c6;color:black;">
+            <b>Sightseeing Tariff (with Pax)</b>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:center;background-color:#d0c6c6;border:1px solid black;"><b>Si No</b></td>
+        <td style="text-align:center;background-color:#d0c6c6;border:1px solid black;"><b>Date</b></td>
+        <td style="text-align:center;background-color:#d0c6c6;border:1px solid black;"><b>Destination</b></td>
+        <td style="text-align:center;background-color:#d0c6c6;border:1px solid black;"><b>Sightseeing</b></td>
+        <td style="text-align:center;background-color:#d0c6c6;border:1px solid black;"><b>Tariff</b></td>
+    </tr>
+
+    <?php
+    $cs_sightseeing_total = 0;
+    $ss_count = 1;
+
+    foreach ($iti_data as $valh) {
+        $ss_data = json_decode($valh['ss_data_json'] ?? '[]', true);
+
+        if (!empty($ss_data)) {
+            foreach ($ss_data as $ss) {
+                if ((isset($ss['is_pax']) && $ss['is_pax'] == 1) || !isset($ss['is_pax'])) {
+
+                    $tariff = isset($ss['pax_cost'])
+                        ? floatval($ss['pax_cost'])
+                        : (isset($ss['cost']) ? floatval($ss['cost']) : 0);
+
+                    if ($tariff > 0) {
+    ?>
+                        <tr>
+                            <td style="border:1px solid black;"><?php echo $ss_count++; ?></td>
+                            <td style="border:1px solid black;"><?php echo date("d-m-Y", strtotime($valh['tour_date'])); ?></td>
+                            <td style="border:1px solid black;"><?php echo $valh['geog_name']; ?></td>
+                            <td style="border:1px solid black;"><?php echo $ss['name']; ?></td>
+                            <td style="border:1px solid black;text-align:right;"><?php echo $tariff; ?></td>
+                        </tr>
+    <?php
+                        $cs_sightseeing_total += $tariff;
+                    }
+                }
+            }
+        }
+    }
+    ?>
+
+    <tr>
+        <td colspan="4" style="border:1px solid black;"><b>Total Sightseeing Cost (with Pax)</b></td>
+        <td style="border:1px solid black;text-align:right;"><b><?php echo $cs_sightseeing_total; ?></b></td>
+    </tr>
+</table>
+
+<?php } ?>
+
+
+
 						<?php
 						}
 						?>
@@ -868,11 +916,95 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 								<td style="text-align:right;"><b><?php echo $tac_hidden; ?></b></td>
 							</tr>
 						</table>
+
+
+
+
+
+						<?php
+// ================= SPECIAL EVENT COLLECTION =================
+$special_events = [];
+
+foreach ($iti_data as $val) {
+
+    $sp_events = json_decode($val['json_special_event'] ?? '[]', true);
+
+    if (!empty($sp_events)) {
+        foreach ($sp_events as $sp) {
+
+            if (empty($sp['spcl_event']) || empty($sp['spcl_tariff'])) {
+                continue;
+            }
+
+            // unique key to prevent duplicates
+            $unique_key = $sp['spcl_idvalue'];
+
+            $special_events[$unique_key] = [
+                'tour_date'    => $sp['tour_date'],
+                'spcl_event'   => $sp['spcl_event'],
+                'spcl_tariff' => (int)$sp['spcl_tariff']
+            ];
+        }
+    }
+}
+
+// reset index
+$special_events = array_values($special_events);
+?>
+
+<?php if (!empty($special_events)) { ?>
+<br><br>
+
+<table style="width:100%;border-collapse: collapse;border:1px solid black;">
+    <tr>
+        <td colspan="4"
+            style="text-align:center;background-color:#d0c6c6;border:1px solid black;">
+            <b>Special Event Tariff</b>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="text-align:center;background-color:#d0c6c6;border:1px solid black;"><b>Si No</b></td>
+        <td style="text-align:center;background-color:#d0c6c6;border:1px solid black;"><b>Date</b></td>
+        <td style="text-align:center;background-color:#d0c6c6;border:1px solid black;"><b>Special Event</b></td>
+        <td style="text-align:center;background-color:#d0c6c6;border:1px solid black;"><b>Tariff</b></td>
+    </tr>
+
+    <?php
+    $sp_count = 1;
+    $total_special_event_cost = 0;
+
+    foreach ($special_events as $sp) {
+    ?>
+        <tr>
+            <td style="border:1px solid black;text-align:center;"><?php echo $sp_count++; ?></td>
+            <td style="border:1px solid black;text-align:center;">
+                <?php echo date("d-m-Y", strtotime($sp['tour_date'])); ?>
+            </td>
+            <td style="border:1px solid black;"><?php echo $sp['spcl_event']; ?></td>
+            <td style="border:1px solid black;text-align:right;"><?php echo $sp['spcl_tariff']; ?></td>
+        </tr>
+    <?php
+        $total_special_event_cost += $sp['spcl_tariff'];
+    }
+    ?>
+
+    
+</table>
+
+<?php } ?>
+
 						<br/>
 						<?php
 						if ($special_event_count > 0) {
 							$sp_count = 1;
 						?>
+
+
+
+
+
+
 								<table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
 						  			<tr>
 							 			<td colspan="4" style="text-align:center;background-color:#d0c6c6;color:#000000;border:1px solid black;"><b>Special Event Tariff</b></td>
@@ -936,17 +1068,17 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
     <td>
         <b>Total Special Event Cost</b>
         <?php if (!empty($special_event_names)): ?>
-            <span style="font-weight:normal;"> (<?php echo $special_event_names; ?>)</span>
+            <span style="font-weight:normal;"></span>
         <?php endif; ?>
     </td>
     <td style="text-align:right;"> <b><?php echo intval(str_replace(',', '', $spcl_hidden)); ?></b></td>
 
 </tr>
-						<tr> 
+						<!-- <tr> 
 							<td><b>Total Daily Addon Cost</b></td>
 							<td style="text-align:right;"><b><?php echo $daily_hidden; ?></b></td>
 							
-						</tr>
+						</tr> -->
 					</table>	
 					<br/>
 					<?php if ($object_det[0]['is_vehicle_required'] == 1) { ?>
@@ -1097,31 +1229,31 @@ if (!empty($iti_cost_datas[0]['costing_sheet'])) {
 						 </tr>
 						 <tr>
 							 <td  style="text-align:left;padding-left:10%;"><b>Margin Percentage</b></td>
-							 <td style="text-align:right;padding-left:15px;"><?php echo $iti_cost_datas[0]['margin_per']; ?></td>
+							 <td style="text-align:right;padding-right:10%;"><?php echo $iti_cost_datas[0]['margin_per']; ?></td>
 						</tr>
 						<tr>
 							 <td  style="text-align:left;padding-left:10%;"><b>Margin Total</b></td>
-							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['margin_value']; ?></td>
+							 <td style="text-align:right;padding-right:10%"><?php echo $iti_cost_datas[0]['margin_value']; ?></td>
 						</tr>
 						<tr>
 							 <td  style="text-align:left;padding-left:10%;"><b>Tour Addon</b></td>
-							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['tour_addon']; ?></td>
+							 <td style="text-align:right;padding-right:10%"><?php echo $iti_cost_datas[0]['tour_addon']; ?></td>
 						</tr>
 						<tr>
 							 <td  style="text-align:left;padding-left:10%;"><b>Total Net Rate</b></td>
-							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['total_rate']; ?></td>
+							 <td style="text-align:right;padding-right:10%"><?php echo $iti_cost_datas[0]['total_rate']; ?></td>
 						</tr>
 						<tr>
 							 <td  style="text-align:left;padding-left:10%;"><b>GST Percentage</b></td>
-							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['gst_per']; ?></td>
+							 <td style="text-align:right;padding-right:10%"><?php echo $iti_cost_datas[0]['gst_per']; ?></td>
 						</tr>
 						<tr>
 							 <td  style="text-align:left;padding-left:10%;"><b>GST Total</b></td>
-							 <td style="text-align:right;"><?php echo $iti_cost_datas[0]['gst_value']; ?></td>
+							 <td style="text-align:right;padding-right:10%"><?php echo $iti_cost_datas[0]['gst_value']; ?></td>
 						</tr>
 						<tr >
 							 <td style="background-color:#D3D3D3 ;text-align:left;padding-left:10%;"><b>Total Package Cost</b></td>
-							 <td style="text-align:right;background-color:#D3D3D3 ;"><?php echo $iti_cost_datas[0]['tpc']; ?></td>
+							 <td style="text-align:right;padding-right:10% ;background-color:#D3D3D3 ;"><?php echo $iti_cost_datas[0]['tpc']; ?></td>
 						</tr>
 						 <?php if ($iti_cost_datas[0]['is_tcs'] == 1) { ?>
         <tr>
