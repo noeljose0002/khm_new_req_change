@@ -6635,112 +6635,112 @@ class Enquiry extends BaseController
                     }
                     // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
                     // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
-                   // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
-// PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
-if (!$had_saved_record && !$had_draft_record && !empty($previous_itinerary_data)) {
-    // Create composite key: date + location
-    $lookup_key = $tour_date . '_' . $vals['tour_location'];
-    log_message('debug', 'Looking up previous itinerary with key: ' . $lookup_key . ' (hotel_id=' . $vals['hotel_id'] . ')');
-    
-    $prev_data = null;
-    
-    // Strategy 1: Try exact match (date + location)
-    if (isset($previous_itinerary_data[$lookup_key])) {
-        $prev_data = $previous_itinerary_data[$lookup_key];
-        
-        // Verify location matches
-        if (isset($prev_data['tour_location']) && $prev_data['tour_location'] == $vals['tour_location']) {
-            log_message('info', 'PRIORITY 3 - Found by date+location key: ' . $lookup_key);
-        } else {
-            log_message('warning', 'PRIORITY 3 - Location mismatch, ignoring data');
-            $prev_data = null;
-        }
-    }
-    
-    if ($prev_data !== null) {
-        $had_previous_record = true;
-        
-        // Get previous hotel_id from the matched data
-        $prev_hotel_id = null;
-        if (isset($prev_data['tour_details_id'])) {
-            $prev_tour_plan = $Enquiry_model->get_tour_plan_by_id($prev_data['tour_details_id']);
-            if (!empty($prev_tour_plan)) {
-                $prev_hotel_id = $prev_tour_plan[0]['hotel_id'] ?? null;
-            }
-        }
-        
-        $current_hotel_id = $vals['hotel_id'];
-        $hotel_matches = ($prev_hotel_id == $current_hotel_id);
-        
-        log_message('info', 'PRIORITY 3 - Hotel comparison: previous=' . $prev_hotel_id . ', current=' . $current_hotel_id . ', match=' . ($hotel_matches ? 'YES' : 'NO'));
-        
-        // ALWAYS load sightseeing if location matches (location-specific, not hotel-specific)
-        $saved_sightseeing = json_decode($prev_data['ss_data_json'] ?? '[]', true);
-        $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
-        
-        // Load special events ONLY if hotel matches (hotel-specific)
-        if ($hotel_matches) {
-            $json_special_event = json_decode($prev_data['json_special_event'] ?? '[]', true);
-            if (!is_array($json_special_event)) {
-                $json_special_event = [];
-            }
-            
-            $special_event_name = '';
-            if (!empty($json_special_event) && isset($json_special_event[0]['spcl_event'])) {
-                $special_event_name = $json_special_event[0]['spcl_event'];
-            }
-            
-            log_message('info', 'PRIORITY 3 - Loaded special events (hotel match): ' . count($json_special_event));
-        } else {
-            // Different hotel - don't load hotel-specific data
-            $json_special_event = [];
-            $special_event_name = '';
-            log_message('info', 'PRIORITY 3 - Skipped special events (hotel mismatch)');
-        }
-        
-        // Load hotel facilities/addons ONLY if hotel matches (hotel-specific)
-        if ($hotel_matches) {
-            $json_addons = json_decode($prev_data['json_addons'] ?? '[]', true);
-            if (!is_array($json_addons)) {
-                $json_addons = [];
-            }
-            $hotel_facility_ids = $prev_data['hotel_facility_ids'] ?? '';
-            
-            log_message('info', 'PRIORITY 3 - Loaded addons (hotel match): ' . count($json_addons));
-        } else {
-            // Different hotel - don't load hotel-specific data
-            $json_addons = [];
-            $hotel_facility_ids = '';
-            log_message('info', 'PRIORITY 3 - Skipped addons (hotel mismatch)');
-        }
-        
-        // Load vehicle details (usually location-specific, but verify)
-        $prev_vehicle_json = $prev_data['vehicle_details_json'] ?? '';
-        
-        // Calculate totals from sightseeing
-        $ss_pax_cost = 0;
-        $ss_total_cost = 0;
-        $ss_total_distance = 0;
-        foreach ($saved_sightseeing as $ss) {
-            if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
-                $ss_pax_cost += $ss['calculated_value'] ?? 0;
-                $ss_total_cost += $ss['calculated_value'] ?? 0;
-            } else {
-                $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
-            }
-        }
-        
-        log_message('info', 'PRIORITY 3 - Loaded PREVIOUS itinerary for date ' . $tour_date .
-            ' location ' . $vals['tour_location'] . 
-            ' hotel_id ' . $current_hotel_id .
-            ' (SS: ' . count($saved_sightseeing) .
-            ', Events: ' . count($json_special_event) .
-            ', Addons: ' . count($json_addons) . ')');
-    } else {
-        log_message('info', 'PRIORITY 3 - No previous itinerary found for date+location: ' . 
-            $lookup_key . ' - will use defaults');
-    }
-}
+                    // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
+                    // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
+                    if (!$had_saved_record && !$had_draft_record && !empty($previous_itinerary_data)) {
+                        // Create composite key: date + location
+                        $lookup_key = $tour_date . '_' . $vals['tour_location'];
+                        log_message('debug', 'Looking up previous itinerary with key: ' . $lookup_key . ' (hotel_id=' . $vals['hotel_id'] . ')');
+
+                        $prev_data = null;
+
+                        // Strategy 1: Try exact match (date + location)
+                        if (isset($previous_itinerary_data[$lookup_key])) {
+                            $prev_data = $previous_itinerary_data[$lookup_key];
+
+                            // Verify location matches
+                            if (isset($prev_data['tour_location']) && $prev_data['tour_location'] == $vals['tour_location']) {
+                                log_message('info', 'PRIORITY 3 - Found by date+location key: ' . $lookup_key);
+                            } else {
+                                log_message('warning', 'PRIORITY 3 - Location mismatch, ignoring data');
+                                $prev_data = null;
+                            }
+                        }
+
+                        if ($prev_data !== null) {
+                            $had_previous_record = true;
+
+                            // Get previous hotel_id from the matched data
+                            $prev_hotel_id = null;
+                            if (isset($prev_data['tour_details_id'])) {
+                                $prev_tour_plan = $Enquiry_model->get_tour_plan_by_id($prev_data['tour_details_id']);
+                                if (!empty($prev_tour_plan)) {
+                                    $prev_hotel_id = $prev_tour_plan[0]['hotel_id'] ?? null;
+                                }
+                            }
+
+                            $current_hotel_id = $vals['hotel_id'];
+                            $hotel_matches = ($prev_hotel_id == $current_hotel_id);
+
+                            log_message('info', 'PRIORITY 3 - Hotel comparison: previous=' . $prev_hotel_id . ', current=' . $current_hotel_id . ', match=' . ($hotel_matches ? 'YES' : 'NO'));
+
+                            // ALWAYS load sightseeing if location matches (location-specific, not hotel-specific)
+                            $saved_sightseeing = json_decode($prev_data['ss_data_json'] ?? '[]', true);
+                            $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
+
+                            // Load special events ONLY if hotel matches (hotel-specific)
+                            if ($hotel_matches) {
+                                $json_special_event = json_decode($prev_data['json_special_event'] ?? '[]', true);
+                                if (!is_array($json_special_event)) {
+                                    $json_special_event = [];
+                                }
+
+                                $special_event_name = '';
+                                if (!empty($json_special_event) && isset($json_special_event[0]['spcl_event'])) {
+                                    $special_event_name = $json_special_event[0]['spcl_event'];
+                                }
+
+                                log_message('info', 'PRIORITY 3 - Loaded special events (hotel match): ' . count($json_special_event));
+                            } else {
+                                // Different hotel - don't load hotel-specific data
+                                $json_special_event = [];
+                                $special_event_name = '';
+                                log_message('info', 'PRIORITY 3 - Skipped special events (hotel mismatch)');
+                            }
+
+                            // Load hotel facilities/addons ONLY if hotel matches (hotel-specific)
+                            if ($hotel_matches) {
+                                $json_addons = json_decode($prev_data['json_addons'] ?? '[]', true);
+                                if (!is_array($json_addons)) {
+                                    $json_addons = [];
+                                }
+                                $hotel_facility_ids = $prev_data['hotel_facility_ids'] ?? '';
+
+                                log_message('info', 'PRIORITY 3 - Loaded addons (hotel match): ' . count($json_addons));
+                            } else {
+                                // Different hotel - don't load hotel-specific data
+                                $json_addons = [];
+                                $hotel_facility_ids = '';
+                                log_message('info', 'PRIORITY 3 - Skipped addons (hotel mismatch)');
+                            }
+
+                            // Load vehicle details (usually location-specific, but verify)
+                            $prev_vehicle_json = $prev_data['vehicle_details_json'] ?? '';
+
+                            // Calculate totals from sightseeing
+                            $ss_pax_cost = 0;
+                            $ss_total_cost = 0;
+                            $ss_total_distance = 0;
+                            foreach ($saved_sightseeing as $ss) {
+                                if (isset($ss['is_pax']) && $ss['is_pax'] == 1) {
+                                    $ss_pax_cost += $ss['calculated_value'] ?? 0;
+                                    $ss_total_cost += $ss['calculated_value'] ?? 0;
+                                } else {
+                                    $ss_total_distance += $ss['calculated_value'] ?? ($ss['distance_km'] ?? 0);
+                                }
+                            }
+
+                            log_message('info', 'PRIORITY 3 - Loaded PREVIOUS itinerary for date ' . $tour_date .
+                                ' location ' . $vals['tour_location'] .
+                                ' hotel_id ' . $current_hotel_id .
+                                ' (SS: ' . count($saved_sightseeing) .
+                                ', Events: ' . count($json_special_event) .
+                                ', Addons: ' . count($json_addons) . ')');
+                        } else {
+                            log_message('info', 'PRIORITY 3 - No previous itinerary found for date+location: ' .
+                                $lookup_key . ' - will use defaults');
+                        }
+                    }
                     // Calculate day number for defaults
                     $interval = $start1->diff($date);
                     $day_number = $interval->days + 1;
@@ -6890,7 +6890,7 @@ if (!$had_saved_record && !$had_draft_record && !empty($previous_itinerary_data)
                             $data = $saved_sightseeing_by_date[$tid][$expansion_date];
                             $ss_dist = $data['is_saved'] ? $data['ss_total_distance'] : 0;
                         }
-                           $base_dist = 0;
+                        $base_dist = 0;
 
                         // Decode vehicle json (assume it's an array of vehicles)
                         $vehicle_details_json = $expansion['vehicle_details_json'] ?? '';
