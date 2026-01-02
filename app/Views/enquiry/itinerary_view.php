@@ -9594,7 +9594,7 @@ $cs_trans_total = 0;
 
 
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function () {
 
     // global sequence counter (syncs with preloaded data)
@@ -9870,7 +9870,7 @@ $(document).ready(function() {
     })();
 
 });
-</script> -->
+</script>
 
 
 <script>
