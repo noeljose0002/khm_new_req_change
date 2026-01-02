@@ -6637,7 +6637,7 @@ class Enquiry extends BaseController
                     // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
                     // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
                     // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
-                    if (!$had_saved_record && !$had_draft_record && !empty($previous_itinerary_data)) {
+                   if (!$had_saved_record && !$had_draft_record && !empty($previous_itinerary_data)) {
                         // Create composite key: date + location
                         $lookup_key = $tour_date . '_' . $vals['tour_location'];
                         log_message('debug', 'Looking up previous itinerary with key: ' . $lookup_key . ' (hotel_id=' . $vals['hotel_id'] . ')');
@@ -6698,21 +6698,39 @@ class Enquiry extends BaseController
                                 log_message('info', 'PRIORITY 3 - Skipped special events (hotel mismatch)');
                             }
 
-                            // Load hotel facilities/addons ONLY if hotel matches (hotel-specific)
-                            if ($hotel_matches) {
-                                $json_addons = json_decode($prev_data['json_addons'] ?? '[]', true);
-                                if (!is_array($json_addons)) {
-                                    $json_addons = [];
-                                }
-                                $hotel_facility_ids = $prev_data['hotel_facility_ids'] ?? '';
-
-                                log_message('info', 'PRIORITY 3 - Loaded addons (hotel match): ' . count($json_addons));
-                            } else {
-                                // Different hotel - don't load hotel-specific data
+                            // FIXED: For addons (hotel facilities), always filter against CURRENT hotel's available facilities,
+                            // regardless of hotel match. This ensures we only preload facilities that exist in the current hotel.
+                                                     // FIXED: For addons (hotel facilities), always filter against CURRENT hotel's available facilities,
+                            // regardless of hotel match. This ensures we only preload facilities that exist in the current hotel.
+                            $json_addons = json_decode($prev_data['json_addons'] ?? '[]', true);
+                            if (!is_array($json_addons)) {
                                 $json_addons = [];
-                                $hotel_facility_ids = '';
-                                log_message('info', 'PRIORITY 3 - Skipped addons (hotel mismatch)');
                             }
+
+                            // Track original count before filtering
+                            $original_count = count($json_addons);
+
+                            // Fetch current hotel's facilities to check availability
+                            $current_facilities = $this->get_hotel_facilities($current_hotel_id);
+                            $available_facility_names = array_column($current_facilities, 'facility_name');
+
+                            // Filter addons: only keep those whose facility name (addon_event) matches available in current hotel
+                            $filtered_addons = [];
+                            $skipped_count = 0;
+                            foreach ($json_addons as $addon) {
+                                $addon_name = trim($addon['addon_event'] ?? '');
+                                if (!empty($addon_name) && in_array($addon_name, $available_facility_names)) {
+                                    $filtered_addons[] = $addon;
+                                } else {
+                                    $skipped_count++;
+                                    log_message('info', 'PRIORITY 3 - Skipped addon facility_name="' . $addon_name . '" for date ' . $tour_date . ' (not available in current hotel ' . $current_hotel_id . ')');
+                                }
+                            }
+                            $json_addons = $filtered_addons;
+
+                            $hotel_facility_ids = implode(',', array_column($json_addons, 'addon_id')) ?? '';
+
+                            log_message('info', 'PRIORITY 3 - Loaded addons for date ' . $tour_date . ' (original: ' . $original_count . ', filtered available: ' . count($json_addons) . ', skipped: ' . $skipped_count . ')');
 
                             // Load vehicle details (usually location-specific, but verify)
                             $prev_vehicle_json = $prev_data['vehicle_details_json'] ?? '';
@@ -7153,6 +7171,17 @@ class Enquiry extends BaseController
         } else {
             return redirect()->to('Login');
         }
+    }
+
+    public function get_hotel_facilities($hotel_id)
+    {
+        $db = \Config\Database::connect();
+        $table = $db->table('khm_obj_hotel_facility a');
+        $result = $table->select('a.*,f.facility_name')
+            ->join('khm_obj_facility f', 'f.facility_id = a.facility_id', 'left')
+            ->where('a.hotel_id', $hotel_id)
+            ->get()->getResultArray();
+        return $result;
     }
     // njsight
     // Add this method to your Enquiry controller
