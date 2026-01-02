@@ -4834,7 +4834,7 @@ $cs_trans_total = 0;
 																	<h5 style="font-weight:bold;color:#003300;">
 																		Special Event:
 																		<span id="spcl_span">
-																			<?php echo $iti_cost_datas[0]['special_event'] ?? ''; ?>
+																			<?php echo $total_special_event_cost; ?>
 																		</span>
 																		<!-- <?php if (!empty($unique_special_events)): ?>
 																			(<?php echo implode(', ', $unique_special_events); ?>)
@@ -7598,9 +7598,14 @@ $cs_trans_total = 0;
 			$('#ttc_hidden').val(totalTransportationCost);
 			$('#v_total').text(totalTransportationCost);
 
-			$('input[id^="spcl_tariff"]').each(function() {
+			// $('input[id^="spcl_tariff"]').each(function() {
+			// 	specialEventTotal += parseFloat($(this).val()) || 0;
+			// });
+			$('input[name*="[spcl_tariff]"]').each(function() {
 				specialEventTotal += parseFloat($(this).val()) || 0;
 			});
+
+
 			$('#spcl_span').text(specialEventTotal);
 			$('#spcl_hidden').val(specialEventTotal);
 
@@ -13157,141 +13162,403 @@ $(document).ready(function() {
 <!-- SCRIPT 3: Add/remove hotel facility addons dynamically -->
 <script>
 	$(document).ready(function() {
-		// Initialize global counter from hidden field if present
-		var globalCounter = parseInt($('#total_addon_count').val(), 10) || 0;
 
-		var iti_edit_id = <?php echo isset($iti_edit_id) && $iti_edit_id !== '' ? $iti_edit_id : 0; ?>;
-		var read_only = iti_edit_id == 1 ? "readonly" : "";
-		var dis_abled = iti_edit_id == 1 ? 'style="pointer-events: none; background-color: #eee;"' : "";
+		var maxAddonSeq = 0;
 
-		// Helper to sum tariffs for a given base id_t (eg '2479_10-01-2026')
-		function updateFacRateFor(id_t) {
-			var total = 0;
-			$('.addon_class' + id_t).each(function() {
-				total += parseFloat($(this).val()) || 0;
+		// FIXED: Group by tour_details_id + tour_date to prevent cross-contamination
+		var addonsByTourAndDate = {};
+		var specialEventsByTourAndDate = {};
+		var sightseeingByTourAndDate = {};
+
+		// Collect data with composite keys
+		$.each(savedSightseeingData, function(tour_details_id, datesData) {
+			$.each(datesData, function(tour_date, dayData) {
+				// FIXED: Process BOTH "saved" and "previous" data sources
+				// Only skip if explicitly marked as NOT saved (is_saved: false)
+				if (!dayData.is_saved) {
+					console.log('Skipping non-saved data for tour_details_id:', tour_details_id, 'tour_date:', tour_date);
+					return;
+				}
+
+				console.log('Processing data for tour_details_id:', tour_details_id, 'tour_date:', tour_date, 'source:', dayData.data_source, 'location_id:', dayData.location_id, 'hotel_id:', dayData.hotel_id);
+
+				// CRITICAL FIX: Create a unique key that includes BOTH tour_details_id AND date
+				// This ensures each location card's date gets its own isolated data
+				var dayCompositeKey = tour_details_id + '_' + tour_date;
+
+				// FIXED: Group addons by composite key AND filter by location/hotel match
+				if (dayData.json_addons && $.isArray(dayData.json_addons)) {
+					console.log('Found', dayData.json_addons.length, 'addons in dayData for', tour_date);
+
+					dayData.json_addons.forEach(function(addon) {
+						// CRITICAL: Only include addons that match THIS day's location AND hotel
+						// AND the addon's own tour_date matches the current tour_date
+						if (addon.location_id == dayData.location_id &&
+							addon.hotel_id == dayData.hotel_id &&
+							addon.tour_date == tour_date) {
+
+							// Use the dayCompositeKey (not addon's date) to group
+							var addonCompositeKey = dayCompositeKey;
+
+							if (!addonsByTourAndDate[addonCompositeKey]) {
+								addonsByTourAndDate[addonCompositeKey] = [];
+							}
+
+							addonsByTourAndDate[addonCompositeKey].push(addon);
+							console.log('Added addon:', addon.addon_event, 'to key:', addonCompositeKey, '(location:', addon.location_id, 'hotel:', addon.hotel_id, ')');
+						} else {
+							console.log('Skipping addon due to mismatch:', addon.addon_event,
+								'addon loc:', addon.location_id, 'day loc:', dayData.location_id,
+								'addon hotel:', addon.hotel_id, 'day hotel:', dayData.hotel_id,
+								'addon date:', addon.tour_date, 'expected:', tour_date);
+						}
+					});
+				}
+
+				// FIXED: Group special events by composite key AND filter by location/hotel match
+				if (dayData.json_special_event && $.isArray(dayData.json_special_event)) {
+					console.log('Found', dayData.json_special_event.length, 'special events in dayData for', tour_date);
+
+					dayData.json_special_event.forEach(function(event) {
+						// CRITICAL: Only include events that match THIS day's location AND hotel
+						// AND the event's own tour_date matches the current tour_date
+						if (event.location_id == dayData.location_id &&
+							event.hotel_id == dayData.hotel_id &&
+							event.tour_date == tour_date) {
+
+							// Use the dayCompositeKey (not event's date) to group
+							var eventCompositeKey = dayCompositeKey;
+
+							if (!specialEventsByTourAndDate[eventCompositeKey]) {
+								specialEventsByTourAndDate[eventCompositeKey] = [];
+							}
+
+							specialEventsByTourAndDate[eventCompositeKey].push(event);
+							console.log('Added event:', event.spcl_event, 'to key:', eventCompositeKey, '(location:', event.location_id, 'hotel:', event.hotel_id, ')');
+						} else {
+							console.log('Skipping event due to mismatch:', event.spcl_event,
+								'event loc:', event.location_id, 'day loc:', dayData.location_id,
+								'event hotel:', event.hotel_id, 'day hotel:', dayData.hotel_id,
+								'event date:', event.tour_date, 'expected:', tour_date);
+						}
+					});
+				}
+
+				// Handle sightseeing loading based on location_id match
+				if (dayData.saved_ss_ids && dayData.sightseeing && $.isArray(dayData.sightseeing)) {
+					console.log('Found', dayData.saved_ss_ids.length, 'saved sightseeing IDs for', tour_date);
+
+					// Group by composite key
+					var ssCompositeKey = dayCompositeKey;
+
+					if (!sightseeingByTourAndDate[ssCompositeKey]) {
+						sightseeingByTourAndDate[ssCompositeKey] = {
+							saved_ss_ids: dayData.saved_ss_ids,
+							sightseeing: dayData.sightseeing.filter(function(ss_item) {
+								// Filter sightseeing items by location_id ONLY (location-specific, not hotel-specific)
+								return (!ss_item.location_id || ss_item.location_id == dayData.location_id);
+							}),
+							location_id: dayData.location_id,
+							hotel_id: dayData.hotel_id,
+							ss_pax_cost: dayData.ss_pax_cost || 0,
+							ss_total_cost: dayData.ss_total_cost || 0,
+							ss_total_distance: dayData.ss_total_distance || 0
+						};
+					}
+					console.log('Added sightseeing data to key:', ssCompositeKey, 'filtered items:', sightseeingByTourAndDate[ssCompositeKey].sightseeing.length);
+				}
 			});
-			$('#fac_rate' + id_t).val(total);
-		}
+		});
 
-		// Add / prefill handler
-		$('.hotel_fac_change_new').on('change', function() {
-			var addonTotal = 0;
-			var $btn = $(this);
+		console.log('Final addonsByTourAndDate:', addonsByTourAndDate);
+		console.log('Final specialEventsByTourAndDate:', specialEventsByTourAndDate);
+		console.log('Final sightseeingByTourAndDate:', sightseeingByTourAndDate);
 
-			var sequenceAttr = $btn.attr('data-sequence');
-			var id_t = $btn.attr('data-id'); // e.g. 2479_10-01-2026
-			var tour_date = $btn.attr('data-std'); // e.g. 2026-01-10
-			if (!id_t) return;
+		// Process each visible day on the current page
+		$('[id^="addon_add_dynamic"]').each(function() {
+			var containerId = $(this).attr('id'); // e.g., addon_add_dynamic2179_10-01-2026
+			var iti_id = containerId.replace('addon_add_dynamic', ''); // 2179_10-01-2026
+			var currentTourPlanId = iti_id.split('_')[0]; // 2179
 
-			var seq;
-			if (sequenceAttr !== undefined && sequenceAttr !== '') {
-				seq = parseInt(sequenceAttr, 10);
-				if (seq > globalCounter) globalCounter = seq;
-			} else {
-				globalCounter++;
-				seq = globalCounter;
+			// Extract date: 10-01-2026 → 2026-01-10
+			var parts = iti_id.split('_');
+			if (parts.length < 2) return;
+
+			var dmy = parts[1]; // 10-01-2026
+			var dateParts = dmy.split('-');
+			if (dateParts.length !== 3) return;
+
+			var tour_date = dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0]; // 2026-01-10
+
+			var addonContainer = $(this);
+			var spclContainer = $('#spcl_add_dynamic' + iti_id);
+			var ssContainer = $('#sightseeing_add_dynamic' + iti_id);
+
+			// Prevent reloading if already done
+			if (addonContainer.data('addons-loaded')) {
+				console.log('Addons already loaded for', iti_id);
+				return;
 			}
 
-			// Persist counter
-			$('#total_addon_count').val(globalCounter);
+			// FIXED: Use composite key for lookup (tour_details_id + tour_date)
+			var compositeKey = currentTourPlanId + '_' + tour_date;
+			console.log('Looking up data for composite key:', compositeKey);
 
-			var unique_id = id_t + '_' + seq; // Stable unique id
+			// Get the location_id and hotel_id for this specific card from the container's data attributes
+			var cardLocationId = addonContainer.data('location-id');
+			var cardHotelId = addonContainer.data('hotel-id');
 
-			// Duplicate prevention
-			if ($('#rowaddon' + unique_id).length > 0) {
-				console.log('Addon already exists, skipping insert:', unique_id);
+			console.log('Card context - location_id:', cardLocationId, 'hotel_id:', cardHotelId);
+
+			// ==================== LOAD HOTEL FACILITY ADD-ONS ====================
+			if (addonsByTourAndDate[compositeKey] && addonsByTourAndDate[compositeKey].length > 0) {
+				console.log('Loading', addonsByTourAndDate[compositeKey].length, 'addons for', compositeKey);
+
+				// CRITICAL FIX: Filter addons again at render time to ensure they match the card's context
+				var filteredAddons = addonsByTourAndDate[compositeKey].filter(function(addon) {
+					return addon.location_id == cardLocationId && addon.hotel_id == cardHotelId;
+				});
+
+				console.log('Filtered to', filteredAddons.length, 'addons matching card context');
+
+				filteredAddons.forEach(function(addon) {
+					console.log('Processing addon:', addon);
+
+					var seq = parseInt(addon.addon_sequence) || 1;
+					if (seq > maxAddonSeq) maxAddonSeq = seq;
+
+					var addonDate_dmy = addon.tour_date.split('-').reverse().join('-');
+					var newAddonId = currentTourPlanId + '_' + addonDate_dmy;
+					var unique_id = addon.addon_idvalue || (newAddonId + '_' + seq);
+
+					console.log('Addon unique_id:', unique_id, 'for date:', addon.tour_date);
+
+					// Skip if already exists
+					if ($('#rowaddon' + unique_id).length > 0) {
+						console.log('Addon row already exists:', unique_id);
+						return;
+					}
+
+					var html = '';
+					html += '<div id="rowaddon' + unique_id + '" class="dynamic-added card">';
+					html += '<div class="row mt-2">';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<div class="teams-rank"><b>Facility Name</b></div>';
+					html += '<input type="text" name="addon_additi[' + unique_id + '][addon_event]" value="' + (addon.addon_event || '') + '" class="form-control input-sm" maxlength="50" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+					html += '<div class="teams-rank"><b>Tariff</b></div>';
+					html += '<input type="text" name="addon_additi[' + unique_id + '][addon_tariff]" value="' + (addon.addon_tariff || '') + '" class="form-control input-sm addon_class' + iti_id + '" maxlength="7" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+					html += '<button type="button" id="' + unique_id + '" data-oid="' + newAddonId + '" data-nid="' + iti_id + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_addon_remove">X</button>';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<input type="hidden" name="addon_additi[' + unique_id + '][addon_id]" value="' + (addon.addon_id || newAddonId) + '">';
+					html += '<input type="hidden" name="addon_additi[' + unique_id + '][addon_sequence]" value="' + seq + '">';
+					html += '<input type="hidden" name="addon_additi[' + unique_id + '][addon_idvalue]" value="' + unique_id + '">';
+					html += '<input type="hidden" name="addon_additi[' + unique_id + '][tour_date]" value="' + addon.tour_date + '">';
+					html += '<input type="hidden" name="addon_additi[' + unique_id + '][location_id]" value="' + (addon.location_id || '') + '">';
+					html += '<input type="hidden" name="addon_additi[' + unique_id + '][hotel_id]" value="' + (addon.hotel_id || '') + '">';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+					html += '</div></div>';
+
+					addonContainer.append(html);
+					console.log('Appended addon row:', unique_id, 'to container for', iti_id);
+				});
+
+				// Update total
+				var total = 0;
+				$('.addon_class' + iti_id).each(function() {
+					total += parseFloat($(this).val()) || 0;
+				});
+				$('#fac_rate' + iti_id).val(total);
+				console.log('Updated total for', iti_id, ':', total);
 			} else {
-				// CRITICAL FIX: Use unique_id as array key (not seq)
-				var html = '';
-				html += '<div id="rowaddon' + unique_id + '" class="dynamic-added card" data-index="' + id_t + '">';
-				html += '<div class="row mt-2">';
-
-				html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-				html += '<div class="teams-rank"><b>Facility Name</b></div>';
-				html += '<input type="text" id="addon_event' + unique_id + '" data-id="' + unique_id + '" name="addon_additi[' + unique_id + '][addon_event]" value="" class="form-control input-sm" maxlength="50" ' + read_only + '>';
-				html += '</div>';
-
-				html += '<div class="col-xl-1 col-sm-12 col-md-1">';
-				html += '<div class="teams-rank"><b>Tariff</b></div>';
-				html += '<input type="text" id="addon_tariff' + unique_id + '" data-id="' + unique_id + '" name="addon_additi[' + unique_id + '][addon_tariff]" value="" class="form-control input-sm addon_class' + id_t + '" maxlength="7">';
-				html += '</div>';
-
-				html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
-				html += '<button type="button" name="remove" id="' + unique_id + '" data-oid="' + id_t + '" data-nid="' + id_t + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_addon_remove">X</button>';
-				html += '</div>';
-
-				html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-				html += '<input type="hidden" id="addon_id' + unique_id + '" name="addon_additi[' + unique_id + '][addon_id]" value="' + id_t + '">';
-				html += '<input type="hidden" id="addon_sequence' + unique_id + '" name="addon_additi[' + unique_id + '][addon_sequence]" value="' + seq + '">';
-				html += '<input type="hidden" id="addon_idvalue' + unique_id + '" name="addon_additi[' + unique_id + '][addon_idvalue]" value="' + unique_id + '">';
-				html += '<input type="hidden" id="tour_date' + unique_id + '" name="addon_additi[' + unique_id + '][tour_date]" value="' + tour_date + '">';
-				html += '</div>';
-
-				html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
-				html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
-				html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
-
-				html += '</div></div>';
-
-				$('#addon_add_dynamic' + id_t).append(html);
+				console.log('No addons found for', compositeKey);
 			}
 
-			// Fetch tariff and populate
-			var facility_id = $btn.val();
-			if (facility_id > 0) {
-				$.ajax({
-					url: "<?= site_url('Enquiry/getHotelFaciliyTariffNew'); ?>",
-					method: "POST",
-					data: {
-						facility_id: facility_id
-					},
-					dataType: 'json',
-					success: function(data) {
-						$('#addon_event' + unique_id).val(data && data[0] ? data[0].facility_name : '');
-						$('#addon_tariff' + unique_id).val(data && data[0] ? data[0].tariff : '');
-						updateFacRateFor(id_t);
-					},
-					error: function(xhr, status, error) {
-						console.error("Tariff fetch error:", error);
-						updateFacRateFor(id_t);
+			// ==================== LOAD SPECIAL EVENTS ====================
+			if (spclContainer.length > 0 && !spclContainer.data('spcl-loaded') &&
+				specialEventsByTourAndDate[compositeKey] && specialEventsByTourAndDate[compositeKey].length > 0) {
+
+				console.log('Loading', specialEventsByTourAndDate[compositeKey].length, 'special events for', compositeKey);
+
+				// CRITICAL FIX: Filter events again at render time to ensure they match the card's context
+				var filteredEvents = specialEventsByTourAndDate[compositeKey].filter(function(event) {
+					return event.location_id == cardLocationId && event.hotel_id == cardHotelId;
+				});
+
+				console.log('Filtered to', filteredEvents.length, 'events matching card context');
+
+				var uniqueEventsMap = {};
+
+				filteredEvents.forEach(function(event) {
+					console.log('Processing special event:', event);
+
+					var seq = parseInt(event.spcl_sequence) || 1;
+
+					var eventDate_dmy = event.tour_date.split('-').reverse().join('-');
+					var newSpclId = currentTourPlanId + '_' + eventDate_dmy;
+					var unique_id = event.spcl_idvalue || (newSpclId + '_' + seq);
+
+					console.log('Event unique_id:', unique_id, 'for date:', event.tour_date);
+
+					// Store in map to prevent duplicates
+					if (!uniqueEventsMap[unique_id] && $('#rowsp' + unique_id).length === 0) {
+						uniqueEventsMap[unique_id] = {
+							event: event,
+							seq: seq,
+							newSpclId: event.spcl_id || newSpclId,
+							unique_id: unique_id
+						};
 					}
 				});
+
+				console.log('Unique events map:', uniqueEventsMap);
+
+				// Render each unique event
+				$.each(uniqueEventsMap, function(key, item) {
+					var event = item.event;
+					var seq = item.seq;
+					var newSpclId = item.newSpclId;
+					var unique_id = item.unique_id;
+
+					var html = '';
+					html += '<div id="rowsp' + unique_id + '" class="dynamic-added card">';
+					html += '<div class="row mt-2">';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<input type="hidden" name="spcl_additi[' + unique_id + '][spcl_id]" value="' + newSpclId + '">';
+					html += '<input type="hidden" name="spcl_additi[' + unique_id + '][spcl_sequence]" value="' + seq + '">';
+					html += '<input type="hidden" name="spcl_additi[' + unique_id + '][spcl_idvalue]" value="' + unique_id + '">';
+					html += '<input type="hidden" name="spcl_additi[' + unique_id + '][tour_date]" value="' + event.tour_date + '">';
+					html += '<input type="hidden" name="spcl_additi[' + unique_id + '][location_id]" value="' + (event.location_id || '') + '">';
+					html += '<input type="hidden" name="spcl_additi[' + unique_id + '][hotel_id]" value="' + (event.hotel_id || '') + '">';
+					html += '</div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+					html += '<div class="teams-rank"><b>Special Event Name</b></div>';
+					html += '<input type="text" name="spcl_additi[' + unique_id + '][spcl_event]" value="' + (event.spcl_event || '') + '" class="form-control input-sm" maxlength="50" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+					html += '<div class="teams-rank"><b>Tariff</b></div>';
+					html += '<input type="text" name="spcl_additi[' + unique_id + '][spcl_tariff]" value="' + (event.spcl_tariff || '') + '" class="form-control input-sm" maxlength="7" readonly>';
+					html += '</div>';
+
+					html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+					html += '<button type="button" id="' + unique_id + '" data-oid="' + newSpclId + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_spcl_remove">X</button>';
+					html += '</div>';
+
+					html += '<div class="col-xl-2 col-sm-12 col-md-2"></div><div class="col-xl-2 col-sm-12 col-md-2"></div>';
+					html += '</div></div>';
+
+					spclContainer.append(html);
+					console.log('Appended special event row:', unique_id, 'to container for', iti_id);
+				});
+
+				spclContainer.data('spcl-loaded', true);
 			} else {
-				updateFacRateFor(id_t);
+				console.log('No special events found for', compositeKey, 'or already loaded');
 			}
-		});
 
-		// Remove handler
-		$(document).on('click', '.btn_addon_remove', function() {
-			var button_id = $(this).attr("id");
-			var id_t = $(this).attr('data-nid');
-			if (!button_id) return;
+			// ==================== LOAD SIGHTSEEING ====================
+			if (ssContainer.length > 0 && !ssContainer.data('ss-loaded') &&
+				sightseeingByTourAndDate[compositeKey]) {
 
-			$('#rowaddon' + button_id).remove();
+				var ssData = sightseeingByTourAndDate[compositeKey];
+				console.log('Loading sightseeing for', compositeKey, 'saved_ss_ids:', ssData.saved_ss_ids, 'location_id:', ssData.location_id);
 
-			if (id_t) updateFacRateFor(id_t);
-		});
+				// CRITICAL FIX: Filter sightseeing by location_id match
+				if (ssData.location_id == cardLocationId) {
+					ssData.saved_ss_ids.forEach(function(ss_id) {
+						var ss_item = ssData.sightseeing.find(function(item) {
+							return item.ss_id == ss_id || item.id == ss_id;
+						}) || {};
+						var ss_unique_id = iti_id + '_ss_' + ss_id;
+						if ($('#rowss' + ss_unique_id).length === 0) {
+							var html = '';
+							html += '<div id="rowss' + ss_unique_id + '" class="dynamic-added card">';
+							html += '<div class="row mt-2">';
 
-		// When any tariff input changes, update the day's rate
-		$(document).on('input', 'input[id^="addon_tariff"]', function() {
-			var fullId = this.id.replace('addon_tariff', '');
-			var lastUnd = fullId.lastIndexOf('_');
-			var id_t = lastUnd > 0 ? fullId.substring(0, lastUnd) : fullId;
-			updateFacRateFor(id_t);
-		});
+							html += '<div class="col-xl-4 col-sm-12 col-md-4">';
+							html += '<div class="teams-rank"><b>Sightseeing Name</b></div>';
+							html += '<input type="text" name="ss_additi[' + ss_unique_id + '][ss_event]" value="' + (ss_item.name || ss_item.ss_name || ss_id) + '" class="form-control input-sm" maxlength="100" readonly>';
+							html += '</div>';
 
-		// Sync initial counter
-		(function syncInitialCounter() {
-			var maxSeen = 0;
-			$('input[name$="[addon_sequence]"]').each(function() {
-				var v = parseInt($(this).val(), 10) || 0;
-				if (v > maxSeen) maxSeen = v;
-			});
-			if (maxSeen > globalCounter) {
-				globalCounter = maxSeen;
-				$('#total_addon_count').val(globalCounter);
+							html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+							html += '<div class="teams-rank"><b>Pax Cost</b></div>';
+							html += '<input type="text" name="ss_additi[' + ss_unique_id + '][ss_pax_cost]" value="' + (ss_item.pax_cost || ssData.ss_pax_cost || 0) + '" class="form-control input-sm ss_pax_class' + iti_id + '" readonly>';
+							html += '</div>';
+
+							html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+							html += '<div class="teams-rank"><b>Total Cost</b></div>';
+							html += '<input type="text" name="ss_additi[' + ss_unique_id + '][ss_total_cost]" value="' + (ss_item.total_cost || ssData.ss_total_cost || 0) + '" class="form-control input-sm ss_total_class' + iti_id + '" readonly>';
+							html += '</div>';
+
+							html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+							html += '<div class="teams-rank"><b>Distance</b></div>';
+							html += '<input type="text" name="ss_additi[' + ss_unique_id + '][ss_distance]" value="' + (ss_item.distance || ssData.ss_total_distance || 0) + '" class="form-control input-sm" readonly>';
+							html += '</div>';
+
+							html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+							html += '<button type="button" id="' + ss_unique_id + '" data-sid="' + ss_id + '" class="btn btn-danger btn-sm btn_ss_remove">X</button>';
+							html += '</div>';
+
+							html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+							html += '<input type="hidden" name="ss_additi[' + ss_unique_id + '][ss_id]" value="' + ss_id + '">';
+							html += '<input type="hidden" name="ss_additi[' + ss_unique_id + '][tour_date]" value="' + tour_date + '">';
+							html += '<input type="hidden" name="ss_additi[' + ss_unique_id + '][location_id]" value="' + ssData.location_id + '">';
+							html += '<input type="hidden" name="ss_additi[' + ss_unique_id + '][hotel_id]" value="' + ssData.hotel_id + '">';
+							html += '</div>';
+
+							html += '</div></div>';
+
+							ssContainer.append(html);
+							console.log('Appended sightseeing row:', ss_unique_id);
+						}
+					});
+
+					// Update totals
+					var totalPaxCost = 0;
+					var totalSsCost = ssData.ss_total_cost || 0;
+					var totalDistance = ssData.ss_total_distance || 0;
+					$('.ss_pax_class' + iti_id).each(function() {
+						totalPaxCost += parseFloat($(this).val()) || 0;
+					});
+					$('#ss_pax_total' + iti_id).val(totalPaxCost);
+					$('#ss_total_cost' + iti_id).val(totalSsCost);
+					$('#ss_total_distance' + iti_id).val(totalDistance);
+					console.log('Updated SS totals for', iti_id, ': pax', totalPaxCost, 'total cost', totalSsCost, 'distance', totalDistance);
+				} else {
+					console.log('Skipping sightseeing load - location mismatch (card:', cardLocationId, 'data:', ssData.location_id, ')');
+				}
+
+				ssContainer.data('ss-loaded', true);
+			} else {
+				console.log('No sightseeing found for', compositeKey, 'or already loaded');
 			}
-		})();
 
+			addonContainer.data('addons-loaded', true);
+		});
+
+		// Sync global counter
+		if (maxAddonSeq > 0) {
+			$('#total_addon_count').val(maxAddonSeq);
+			if (typeof i !== 'undefined') {
+				i = maxAddonSeq;
+			} else {
+				window.i = maxAddonSeq;
+			}
+		}
+
+		console.log('Loading complete. Max sequence:', maxAddonSeq);
 	});
 </script>
