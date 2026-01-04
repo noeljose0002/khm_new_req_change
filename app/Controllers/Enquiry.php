@@ -6671,8 +6671,43 @@ class Enquiry extends BaseController
                             log_message('info', 'PRIORITY 3 - Hotel comparison: previous=' . $prev_hotel_id . ', current=' . $current_hotel_id . ', match=' . ($hotel_matches ? 'YES' : 'NO'));
 
                             // ALWAYS load sightseeing (now date-based, regardless of location)
-                            $saved_sightseeing = json_decode($prev_data['ss_data_json'] ?? '[]', true);
-                            $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
+
+                            $current_location_id = $vals['tour_location']; // current day location
+                            $prev_location_id = null;
+
+if (!empty($prev_data['tour_details_id'])) {
+    $prev_tour_plan = $Enquiry_model->get_tour_plan_by_id($prev_data['tour_details_id']);
+    if (!empty($prev_tour_plan)) {
+        $prev_location_id = $prev_tour_plan[0]['tour_location'] ?? null;
+    }
+}
+$location_matches = ($prev_location_id == $current_location_id);
+
+log_message(
+    'info',
+    'Sightseeing location compare: previous=' . $prev_location_id .
+    ', current=' . $current_location_id .
+    ', match=' . ($location_matches ? 'YES' : 'NO')
+);
+
+if ($location_matches) {
+    // ✅ Load sightseeing
+    $saved_sightseeing = json_decode($prev_data['ss_data_json'] ?? '[]', true);
+    if (!is_array($saved_sightseeing)) {
+        $saved_sightseeing = [];
+    }
+
+    $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
+
+    log_message('info', 'Loaded sightseeing from previous itinerary: ' . count($saved_sightseeing));
+} else {
+    // ❌ Location changed → do NOT load sightseeing
+    $saved_sightseeing = [];
+    $saved_ss_ids = [];
+
+    log_message('info', 'Skipped sightseeing due to location change');
+}
+
 
                             // Load special events ONLY if hotel matches (hotel-specific)
                             if ($hotel_matches) {
@@ -7168,15 +7203,15 @@ class Enquiry extends BaseController
                 $data['enquiry_header_id'] = $object_det[0]['enquiry_header_id'];
                 $data['enquiry_details_id'] = $object_det[0]['enquiry_details_id'];
                 $data['hotel_facilities'] = [];
-foreach ($tour_plan_det as $tour) {
-    $tid = $tour['tour_details_id'];
-    $current_facilities = $Enquiry_model->get_hotel_facilities($tour['hotel_id']);
-    $available_facility_names = array_column($current_facilities, 'facility_name');
-    $normalized_available = array_map(function($name) {
-        return strtolower(trim($name ?? ''));
-    }, $available_facility_names);
-    $data['hotel_facilities'][$tid] = $normalized_available; // Pass to view
-}
+                foreach ($tour_plan_det as $tour) {
+                    $tid = $tour['tour_details_id'];
+                    $current_facilities = $Enquiry_model->get_hotel_facilities($tour['hotel_id']);
+                    $available_facility_names = array_column($current_facilities, 'facility_name');
+                    $normalized_available = array_map(function ($name) {
+                        return strtolower(trim($name ?? ''));
+                    }, $available_facility_names);
+                    $data['hotel_facilities'][$tid] = $normalized_available; // Pass to view
+                }
                 return view('enquiry/itinerary_view', $data);
             }
         } else {

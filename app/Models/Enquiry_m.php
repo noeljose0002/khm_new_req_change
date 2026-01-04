@@ -867,6 +867,27 @@ class Enquiry_m extends Model
             return [];
         }
     }
+
+     public function getAllSightseeingByLocation2($location_id)
+    {
+        try {
+            $builder = $this->db->table('khm_obj_sightseeing');
+            $builder->select('sightseeing_id, object_id, sightseeing_name, sightseeing_description, is_pax');
+            $builder->where('object_id', $location_id);
+            // $builder->where('is_default_ss', 1);
+            $builder->orderBy('sightseeing_id', 'ASC');
+            $query = $builder->get();
+
+            $result = $query->getResultArray();
+
+            log_message('info', "getAllSightseeingByLocation($location_id) returned: " . count($result) . " rows");
+
+            return $result;
+        } catch (\Exception $e) {
+            log_message('error', 'Error in getAllSightseeingByLocation: ' . $e->getMessage());
+            return [];
+        }
+    }
     public function getLocationDescription($location_id)
     {
         try {

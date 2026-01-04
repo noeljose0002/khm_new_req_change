@@ -1,231 +1,810 @@
-DEBUG - 2026-01-04 12:26:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2026-01-04 12:26:33 --> Current extension_ref_id for previous itinerary lookup: 2292
-INFO - 2026-01-04 12:26:33 --> Found previous_active_tour_id=2284 for current extension_ref_id=2292
-INFO - 2026-01-04 12:26:33 --> Found max extension_ref_id=676 for tour_plan_ref_id=2284
-INFO - 2026-01-04 12:26:33 --> Retrieved 5 itinerary records from tour_plan_ref_id=2284 with extension_ref_id=676
-DEBUG - 2026-01-04 12:26:33 --> Grouped previous itinerary: key=2026-03-06, date=2026-03-06, location=9, hotel=401, tour_details_id=2284
-DEBUG - 2026-01-04 12:26:33 --> Grouped previous itinerary: key=2026-03-07, date=2026-03-07, location=9, hotel=401, tour_details_id=2284
-DEBUG - 2026-01-04 12:26:33 --> Grouped previous itinerary: key=2026-03-08, date=2026-03-08, location=16, hotel=1190, tour_details_id=2285
-DEBUG - 2026-01-04 12:26:33 --> Grouped previous itinerary: key=2026-03-09, date=2026-03-09, location=16, hotel=1190, tour_details_id=2285
-DEBUG - 2026-01-04 12:26:33 --> Grouped previous itinerary: key=2026-03-10, date=2026-03-10, location=16, hotel=1190, tour_details_id=2285
-INFO - 2026-01-04 12:26:33 --> Grouped 5 previous itinerary records (date keys only)
-INFO - 2026-01-04 12:26:33 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2292
-DEBUG - 2026-01-04 12:26:33 --> Looking up previous itinerary with key: 2026-03-06 (hotel_id=1190)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Found by date key: 2026-03-06
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Hotel comparison: previous=401, current=1190, match=NO
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Skipped special events (hotel mismatch)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Loaded 6 raw addons from DB, date-filtered to 3 for exact date 2026-03-06 (skipped 3 mismatched dates)
-INFO - 2026-01-04 12:26:33 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
-INFO - 2026-01-04 12:26:33 --> ✗ Skipped addon after date filter: "Flower bed decoration" (norm: flower bed decoration) for date 2026-03-06 (unavailable in hotel 1190)
-INFO - 2026-01-04 12:26:33 --> ✓ Kept addon after hotel filter: Candle Light Dinner for date 2026-03-06, hotel 1190
-INFO - 2026-01-04 12:26:33 --> ✓ Kept addon after hotel filter: Chocolate Box for date 2026-03-06, hotel 1190
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Final addons for date 2026-03-06: date-filtered 3, hotel-filtered 2 (hotel-skipped 1)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-03-06 hotel_id 1190 (SS: 0, Events: 0, Addons: 2)
-DEBUG - 2026-01-04 12:26:33 --> Looking up previous itinerary with key: 2026-03-07 (hotel_id=1190)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Found by date key: 2026-03-07
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Hotel comparison: previous=401, current=1190, match=NO
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Skipped special events (hotel mismatch)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Loaded 6 raw addons from DB, date-filtered to 1 for exact date 2026-03-07 (skipped 5 mismatched dates)
-INFO - 2026-01-04 12:26:33 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
-INFO - 2026-01-04 12:26:33 --> ✗ Skipped addon after date filter: "Flower bed decoration" (norm: flower bed decoration) for date 2026-03-07 (unavailable in hotel 1190)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Final addons for date 2026-03-07: date-filtered 1, hotel-filtered 0 (hotel-skipped 1)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-03-07 hotel_id 1190 (SS: 0, Events: 0, Addons: 0)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-06: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-06: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-06: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-06: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-07: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-07: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-07: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-07: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Current extension_ref_id for previous itinerary lookup: 2292
-INFO - 2026-01-04 12:26:33 --> Found previous_active_tour_id=2284 for current extension_ref_id=2292
-INFO - 2026-01-04 12:26:33 --> Found max extension_ref_id=676 for tour_plan_ref_id=2284
-INFO - 2026-01-04 12:26:33 --> Retrieved 5 itinerary records from tour_plan_ref_id=2284 with extension_ref_id=676
-DEBUG - 2026-01-04 12:26:33 --> Grouped previous itinerary: key=2026-03-06, date=2026-03-06, location=9, hotel=401, tour_details_id=2284
-DEBUG - 2026-01-04 12:26:33 --> Grouped previous itinerary: key=2026-03-07, date=2026-03-07, location=9, hotel=401, tour_details_id=2284
-DEBUG - 2026-01-04 12:26:33 --> Grouped previous itinerary: key=2026-03-08, date=2026-03-08, location=16, hotel=1190, tour_details_id=2285
-DEBUG - 2026-01-04 12:26:33 --> Grouped previous itinerary: key=2026-03-09, date=2026-03-09, location=16, hotel=1190, tour_details_id=2285
-DEBUG - 2026-01-04 12:26:33 --> Grouped previous itinerary: key=2026-03-10, date=2026-03-10, location=16, hotel=1190, tour_details_id=2285
-INFO - 2026-01-04 12:26:33 --> Grouped 5 previous itinerary records (date keys only)
-INFO - 2026-01-04 12:26:33 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2292
-DEBUG - 2026-01-04 12:26:33 --> Looking up previous itinerary with key: 2026-03-08 (hotel_id=401)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Found by date key: 2026-03-08
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Hotel comparison: previous=1190, current=401, match=NO
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Skipped special events (hotel mismatch)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Loaded 6 raw addons from DB, date-filtered to 2 for exact date 2026-03-08 (skipped 4 mismatched dates)
-INFO - 2026-01-04 12:26:33 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
-INFO - 2026-01-04 12:26:33 --> ✓ Kept addon after hotel filter: Cake for date 2026-03-08, hotel 401
-INFO - 2026-01-04 12:26:33 --> ✓ Kept addon after hotel filter: Fruit Basket for date 2026-03-08, hotel 401
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Final addons for date 2026-03-08: date-filtered 2, hotel-filtered 2 (hotel-skipped 0)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-03-08 hotel_id 401 (SS: 0, Events: 0, Addons: 2)
-DEBUG - 2026-01-04 12:26:33 --> Looking up previous itinerary with key: 2026-03-09 (hotel_id=401)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Found by date key: 2026-03-09
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Hotel comparison: previous=1190, current=401, match=NO
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Skipped special events (hotel mismatch)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Loaded 6 raw addons from DB, date-filtered to 0 for exact date 2026-03-09 (skipped 6 mismatched dates)
-INFO - 2026-01-04 12:26:33 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Final addons for date 2026-03-09: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
-INFO - 2026-01-04 12:26:33 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-03-09 hotel_id 401 (SS: 0, Events: 0, Addons: 0)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-08: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-08: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-08: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-08: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-09: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-09: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-09: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
-INFO - 2026-01-04 12:26:33 --> Expansion date 2026-03-09: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
-DEBUG - 2026-01-04 12:28:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2026-01-04 12:28:11 --> Current extension_ref_id for previous itinerary lookup: 2292
-INFO - 2026-01-04 12:28:11 --> Found previous_active_tour_id=2284 for current extension_ref_id=2292
-INFO - 2026-01-04 12:28:11 --> Found max extension_ref_id=676 for tour_plan_ref_id=2284
-INFO - 2026-01-04 12:28:11 --> Retrieved 5 itinerary records from tour_plan_ref_id=2284 with extension_ref_id=676
-DEBUG - 2026-01-04 12:28:11 --> Grouped previous itinerary: key=2026-03-06, date=2026-03-06, location=9, hotel=401, tour_details_id=2284
-DEBUG - 2026-01-04 12:28:11 --> Grouped previous itinerary: key=2026-03-07, date=2026-03-07, location=9, hotel=401, tour_details_id=2284
-DEBUG - 2026-01-04 12:28:11 --> Grouped previous itinerary: key=2026-03-08, date=2026-03-08, location=16, hotel=1190, tour_details_id=2285
-DEBUG - 2026-01-04 12:28:11 --> Grouped previous itinerary: key=2026-03-09, date=2026-03-09, location=16, hotel=1190, tour_details_id=2285
-DEBUG - 2026-01-04 12:28:11 --> Grouped previous itinerary: key=2026-03-10, date=2026-03-10, location=16, hotel=1190, tour_details_id=2285
-INFO - 2026-01-04 12:28:11 --> Grouped 5 previous itinerary records (date keys only)
-INFO - 2026-01-04 12:28:11 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2292
-DEBUG - 2026-01-04 12:28:11 --> Looking up previous itinerary with key: 2026-03-06 (hotel_id=1190)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Found by date key: 2026-03-06
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Hotel comparison: previous=401, current=1190, match=NO
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Skipped special events (hotel mismatch)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Loaded 6 raw addons from DB, date-filtered to 3 for exact date 2026-03-06 (skipped 3 mismatched dates)
-INFO - 2026-01-04 12:28:11 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
-INFO - 2026-01-04 12:28:11 --> ✗ Skipped addon after date filter: "Flower bed decoration" (norm: flower bed decoration) for date 2026-03-06 (unavailable in hotel 1190)
-INFO - 2026-01-04 12:28:11 --> ✓ Kept addon after hotel filter: Candle Light Dinner for date 2026-03-06, hotel 1190
-INFO - 2026-01-04 12:28:11 --> ✓ Kept addon after hotel filter: Chocolate Box for date 2026-03-06, hotel 1190
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Final addons for date 2026-03-06: date-filtered 3, hotel-filtered 2 (hotel-skipped 1)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-03-06 hotel_id 1190 (SS: 0, Events: 0, Addons: 2)
-DEBUG - 2026-01-04 12:28:11 --> Looking up previous itinerary with key: 2026-03-07 (hotel_id=1190)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Found by date key: 2026-03-07
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Hotel comparison: previous=401, current=1190, match=NO
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Skipped special events (hotel mismatch)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Loaded 6 raw addons from DB, date-filtered to 1 for exact date 2026-03-07 (skipped 5 mismatched dates)
-INFO - 2026-01-04 12:28:11 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
-INFO - 2026-01-04 12:28:11 --> ✗ Skipped addon after date filter: "Flower bed decoration" (norm: flower bed decoration) for date 2026-03-07 (unavailable in hotel 1190)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Final addons for date 2026-03-07: date-filtered 1, hotel-filtered 0 (hotel-skipped 1)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-03-07 hotel_id 1190 (SS: 0, Events: 0, Addons: 0)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-06: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-06: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-06: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-06: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-07: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-07: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-07: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-07: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Current extension_ref_id for previous itinerary lookup: 2292
-INFO - 2026-01-04 12:28:11 --> Found previous_active_tour_id=2284 for current extension_ref_id=2292
-INFO - 2026-01-04 12:28:11 --> Found max extension_ref_id=676 for tour_plan_ref_id=2284
-INFO - 2026-01-04 12:28:11 --> Retrieved 5 itinerary records from tour_plan_ref_id=2284 with extension_ref_id=676
-DEBUG - 2026-01-04 12:28:11 --> Grouped previous itinerary: key=2026-03-06, date=2026-03-06, location=9, hotel=401, tour_details_id=2284
-DEBUG - 2026-01-04 12:28:11 --> Grouped previous itinerary: key=2026-03-07, date=2026-03-07, location=9, hotel=401, tour_details_id=2284
-DEBUG - 2026-01-04 12:28:11 --> Grouped previous itinerary: key=2026-03-08, date=2026-03-08, location=16, hotel=1190, tour_details_id=2285
-DEBUG - 2026-01-04 12:28:11 --> Grouped previous itinerary: key=2026-03-09, date=2026-03-09, location=16, hotel=1190, tour_details_id=2285
-DEBUG - 2026-01-04 12:28:11 --> Grouped previous itinerary: key=2026-03-10, date=2026-03-10, location=16, hotel=1190, tour_details_id=2285
-INFO - 2026-01-04 12:28:11 --> Grouped 5 previous itinerary records (date keys only)
-INFO - 2026-01-04 12:28:11 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2292
-DEBUG - 2026-01-04 12:28:11 --> Looking up previous itinerary with key: 2026-03-08 (hotel_id=401)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Found by date key: 2026-03-08
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Hotel comparison: previous=1190, current=401, match=NO
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Skipped special events (hotel mismatch)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Loaded 6 raw addons from DB, date-filtered to 2 for exact date 2026-03-08 (skipped 4 mismatched dates)
-INFO - 2026-01-04 12:28:11 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
-INFO - 2026-01-04 12:28:11 --> ✓ Kept addon after hotel filter: Cake for date 2026-03-08, hotel 401
-INFO - 2026-01-04 12:28:11 --> ✓ Kept addon after hotel filter: Fruit Basket for date 2026-03-08, hotel 401
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Final addons for date 2026-03-08: date-filtered 2, hotel-filtered 2 (hotel-skipped 0)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-03-08 hotel_id 401 (SS: 0, Events: 0, Addons: 2)
-DEBUG - 2026-01-04 12:28:11 --> Looking up previous itinerary with key: 2026-03-09 (hotel_id=401)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Found by date key: 2026-03-09
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Hotel comparison: previous=1190, current=401, match=NO
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Skipped special events (hotel mismatch)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Loaded 6 raw addons from DB, date-filtered to 0 for exact date 2026-03-09 (skipped 6 mismatched dates)
-INFO - 2026-01-04 12:28:11 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Final addons for date 2026-03-09: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
-INFO - 2026-01-04 12:28:11 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-03-09 hotel_id 401 (SS: 0, Events: 0, Addons: 0)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-08: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-08: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-08: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-08: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-09: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-09: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-09: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
-INFO - 2026-01-04 12:28:11 --> Expansion date 2026-03-09: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
-DEBUG - 2026-01-04 12:35:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-INFO - 2026-01-04 12:35:46 --> Current extension_ref_id for previous itinerary lookup: 2292
-INFO - 2026-01-04 12:35:46 --> Found previous_active_tour_id=2284 for current extension_ref_id=2292
-INFO - 2026-01-04 12:35:46 --> Found max extension_ref_id=676 for tour_plan_ref_id=2284
-INFO - 2026-01-04 12:35:46 --> Retrieved 5 itinerary records from tour_plan_ref_id=2284 with extension_ref_id=676
-DEBUG - 2026-01-04 12:35:46 --> Grouped previous itinerary: key=2026-03-06, date=2026-03-06, location=9, hotel=401, tour_details_id=2284
-DEBUG - 2026-01-04 12:35:46 --> Grouped previous itinerary: key=2026-03-07, date=2026-03-07, location=9, hotel=401, tour_details_id=2284
-DEBUG - 2026-01-04 12:35:46 --> Grouped previous itinerary: key=2026-03-08, date=2026-03-08, location=16, hotel=1190, tour_details_id=2285
-DEBUG - 2026-01-04 12:35:46 --> Grouped previous itinerary: key=2026-03-09, date=2026-03-09, location=16, hotel=1190, tour_details_id=2285
-DEBUG - 2026-01-04 12:35:46 --> Grouped previous itinerary: key=2026-03-10, date=2026-03-10, location=16, hotel=1190, tour_details_id=2285
-INFO - 2026-01-04 12:35:46 --> Grouped 5 previous itinerary records (date keys only)
-INFO - 2026-01-04 12:35:46 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2292
-DEBUG - 2026-01-04 12:35:46 --> Looking up previous itinerary with key: 2026-03-06 (hotel_id=1190)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Found by date key: 2026-03-06
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Hotel comparison: previous=401, current=1190, match=NO
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Skipped special events (hotel mismatch)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Loaded 6 raw addons from DB, date-filtered to 3 for exact date 2026-03-06 (skipped 3 mismatched dates)
-INFO - 2026-01-04 12:35:46 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
-INFO - 2026-01-04 12:35:46 --> ✗ Skipped addon after date filter: "Flower bed decoration" (norm: flower bed decoration) for date 2026-03-06 (unavailable in hotel 1190)
-INFO - 2026-01-04 12:35:46 --> ✓ Kept addon after hotel filter: Candle Light Dinner for date 2026-03-06, hotel 1190
-INFO - 2026-01-04 12:35:46 --> ✓ Kept addon after hotel filter: Chocolate Box for date 2026-03-06, hotel 1190
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Final addons for date 2026-03-06: date-filtered 3, hotel-filtered 2 (hotel-skipped 1)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-03-06 hotel_id 1190 (SS: 0, Events: 0, Addons: 2)
-DEBUG - 2026-01-04 12:35:46 --> Looking up previous itinerary with key: 2026-03-07 (hotel_id=1190)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Found by date key: 2026-03-07
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Hotel comparison: previous=401, current=1190, match=NO
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Skipped special events (hotel mismatch)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Loaded 6 raw addons from DB, date-filtered to 1 for exact date 2026-03-07 (skipped 5 mismatched dates)
-INFO - 2026-01-04 12:35:46 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
-INFO - 2026-01-04 12:35:46 --> ✗ Skipped addon after date filter: "Flower bed decoration" (norm: flower bed decoration) for date 2026-03-07 (unavailable in hotel 1190)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Final addons for date 2026-03-07: date-filtered 1, hotel-filtered 0 (hotel-skipped 1)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-03-07 hotel_id 1190 (SS: 0, Events: 0, Addons: 0)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-06: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-06: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-06: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-06: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-07: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-07: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-07: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-07: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Current extension_ref_id for previous itinerary lookup: 2292
-INFO - 2026-01-04 12:35:46 --> Found previous_active_tour_id=2284 for current extension_ref_id=2292
-INFO - 2026-01-04 12:35:46 --> Found max extension_ref_id=676 for tour_plan_ref_id=2284
-INFO - 2026-01-04 12:35:46 --> Retrieved 5 itinerary records from tour_plan_ref_id=2284 with extension_ref_id=676
-DEBUG - 2026-01-04 12:35:46 --> Grouped previous itinerary: key=2026-03-06, date=2026-03-06, location=9, hotel=401, tour_details_id=2284
-DEBUG - 2026-01-04 12:35:46 --> Grouped previous itinerary: key=2026-03-07, date=2026-03-07, location=9, hotel=401, tour_details_id=2284
-DEBUG - 2026-01-04 12:35:46 --> Grouped previous itinerary: key=2026-03-08, date=2026-03-08, location=16, hotel=1190, tour_details_id=2285
-DEBUG - 2026-01-04 12:35:46 --> Grouped previous itinerary: key=2026-03-09, date=2026-03-09, location=16, hotel=1190, tour_details_id=2285
-DEBUG - 2026-01-04 12:35:46 --> Grouped previous itinerary: key=2026-03-10, date=2026-03-10, location=16, hotel=1190, tour_details_id=2285
-INFO - 2026-01-04 12:35:46 --> Grouped 5 previous itinerary records (date keys only)
-INFO - 2026-01-04 12:35:46 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2292
-DEBUG - 2026-01-04 12:35:46 --> Looking up previous itinerary with key: 2026-03-08 (hotel_id=401)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Found by date key: 2026-03-08
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Hotel comparison: previous=1190, current=401, match=NO
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Skipped special events (hotel mismatch)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Loaded 6 raw addons from DB, date-filtered to 2 for exact date 2026-03-08 (skipped 4 mismatched dates)
-INFO - 2026-01-04 12:35:46 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
-INFO - 2026-01-04 12:35:46 --> ✓ Kept addon after hotel filter: Cake for date 2026-03-08, hotel 401
-INFO - 2026-01-04 12:35:46 --> ✓ Kept addon after hotel filter: Fruit Basket for date 2026-03-08, hotel 401
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Final addons for date 2026-03-08: date-filtered 2, hotel-filtered 2 (hotel-skipped 0)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-03-08 hotel_id 401 (SS: 0, Events: 0, Addons: 2)
-DEBUG - 2026-01-04 12:35:46 --> Looking up previous itinerary with key: 2026-03-09 (hotel_id=401)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Found by date key: 2026-03-09
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Hotel comparison: previous=1190, current=401, match=NO
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Skipped special events (hotel mismatch)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Loaded 6 raw addons from DB, date-filtered to 0 for exact date 2026-03-09 (skipped 6 mismatched dates)
-INFO - 2026-01-04 12:35:46 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Final addons for date 2026-03-09: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
-INFO - 2026-01-04 12:35:46 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-03-09 hotel_id 401 (SS: 0, Events: 0, Addons: 0)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-08: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-08: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-08: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-08: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-09: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-09: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-09: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
-INFO - 2026-01-04 12:35:46 --> Expansion date 2026-03-09: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+DEBUG - 2026-01-04 14:38:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-01-04 14:38:34 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:38:34 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:38:34 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:38:34 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:38:34 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:38:34 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:38:34 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:38:34 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:38:34 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:38:34 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:38:34 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:38:34 --> Looking up previous itinerary with key: 2026-02-04 (hotel_id=1190)
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Found by date key: 2026-02-04
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:38:34 --> getAllSightseeingByLocation(16) returned: 0 rows
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Available sightseeing for location 16: 
+INFO - 2026-01-04 14:38:34 --> ✗ Filtered out SS: Munnar Sight seeing (ID: 91) - not available in location 16
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-04 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:38:34 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:38:34 --> ✓ Kept addon after hotel filter: Candle Light Dinner for date 2026-02-04, hotel 1190
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Final addons for date 2026-02-04: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-04 hotel_id 1190 (SS: 0, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:38:34 --> Looking up previous itinerary with key: 2026-02-05 (hotel_id=1190)
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Found by date key: 2026-02-05
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:38:34 --> getAllSightseeingByLocation(16) returned: 0 rows
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Available sightseeing for location 16: 
+INFO - 2026-01-04 14:38:34 --> ✗ Filtered out SS: Munnar Sight seeing (ID: 91) - not available in location 16
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-05 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:38:34 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Final addons for date 2026-02-05: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-05 hotel_id 1190 (SS: 0, Events: 0, Addons: 0)
+INFO - 2026-01-04 14:38:34 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
+INFO - 2026-01-04 14:38:34 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
+INFO - 2026-01-04 14:38:34 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
+INFO - 2026-01-04 14:38:34 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
+INFO - 2026-01-04 14:38:34 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:38:34 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:38:34 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:38:34 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:38:34 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:38:34 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:38:34 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:38:34 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:38:34 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:38:34 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:38:34 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:38:34 --> Looking up previous itinerary with key: 2026-02-06 (hotel_id=401)
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Found by date key: 2026-02-06
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:38:34 --> getAllSightseeingByLocation(9) returned: 0 rows
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Available sightseeing for location 9: 
+INFO - 2026-01-04 14:38:34 --> ✗ Filtered out SS: Visit Guruvayoor  (ID: 95) - not available in location 9
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-06 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:38:34 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:38:34 --> ✓ Kept addon after hotel filter: Flower bed decoration for date 2026-02-06, hotel 401
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Final addons for date 2026-02-06: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-06 hotel_id 401 (SS: 0, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:38:34 --> Looking up previous itinerary with key: 2026-02-07 (hotel_id=401)
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Found by date key: 2026-02-07
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:38:34 --> getAllSightseeingByLocation(9) returned: 0 rows
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Available sightseeing for location 9: 
+INFO - 2026-01-04 14:38:34 --> ✗ Filtered out SS: Visit Guruvayoor  (ID: 95) - not available in location 9
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-07 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:38:34 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Final addons for date 2026-02-07: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:38:34 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-07 hotel_id 401 (SS: 0, Events: 0, Addons: 0)
+INFO - 2026-01-04 14:38:34 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
+INFO - 2026-01-04 14:38:34 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
+INFO - 2026-01-04 14:38:34 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+INFO - 2026-01-04 14:38:34 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+DEBUG - 2026-01-04 14:38:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:38:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:50:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-01-04 14:50:19 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:50:19 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:50:19 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:50:19 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:50:19 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:50:19 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:50:19 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:50:19 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:50:19 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:50:19 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:50:19 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:50:19 --> Looking up previous itinerary with key: 2026-02-04 (hotel_id=1190)
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Found by date key: 2026-02-04
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:50:19 --> getAllSightseeingByLocation(16) returned: 0 rows
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Available sightseeing for location 16: 
+INFO - 2026-01-04 14:50:19 --> ✗ Filtered out SS: Munnar Sight seeing (ID: 91) - not available in location 16
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-04 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:50:19 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:50:19 --> ✓ Kept addon after hotel filter: Candle Light Dinner for date 2026-02-04, hotel 1190
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Final addons for date 2026-02-04: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-04 hotel_id 1190 (SS: 0, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:50:19 --> Looking up previous itinerary with key: 2026-02-05 (hotel_id=1190)
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Found by date key: 2026-02-05
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:50:19 --> getAllSightseeingByLocation(16) returned: 0 rows
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Available sightseeing for location 16: 
+INFO - 2026-01-04 14:50:19 --> ✗ Filtered out SS: Munnar Sight seeing (ID: 91) - not available in location 16
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-05 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:50:19 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Final addons for date 2026-02-05: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Previous data found but empty after filtering - falling through to defaults
+INFO - 2026-01-04 14:50:19 --> PRIORITY 4 - Loaded DEFAULT SS for Day 2 (date 2026-02-05, location=16)
+INFO - 2026-01-04 14:50:19 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:19 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:19 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:19 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:19 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:50:19 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:50:19 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:50:19 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:50:19 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:50:19 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:50:19 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:50:19 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:50:19 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:50:19 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:50:19 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:50:19 --> Looking up previous itinerary with key: 2026-02-06 (hotel_id=401)
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Found by date key: 2026-02-06
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:50:19 --> getAllSightseeingByLocation(9) returned: 0 rows
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Available sightseeing for location 9: 
+INFO - 2026-01-04 14:50:19 --> ✗ Filtered out SS: Visit Guruvayoor  (ID: 95) - not available in location 9
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-06 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:50:19 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:50:19 --> ✓ Kept addon after hotel filter: Flower bed decoration for date 2026-02-06, hotel 401
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Final addons for date 2026-02-06: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:50:19 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-06 hotel_id 401 (SS: 0, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:50:20 --> Looking up previous itinerary with key: 2026-02-07 (hotel_id=401)
+INFO - 2026-01-04 14:50:20 --> PRIORITY 3 - Found by date key: 2026-02-07
+INFO - 2026-01-04 14:50:20 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:50:20 --> getAllSightseeingByLocation(9) returned: 0 rows
+INFO - 2026-01-04 14:50:20 --> PRIORITY 3 - Available sightseeing for location 9: 
+INFO - 2026-01-04 14:50:20 --> ✗ Filtered out SS: Visit Guruvayoor  (ID: 95) - not available in location 9
+INFO - 2026-01-04 14:50:20 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:50:20 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:50:20 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-07 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:50:20 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:50:20 --> PRIORITY 3 - Final addons for date 2026-02-07: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:50:20 --> PRIORITY 3 - Previous data found but empty after filtering - falling through to defaults
+INFO - 2026-01-04 14:50:20 --> PRIORITY 4 - Loaded DEFAULT SS for Day 2 (date 2026-02-07, location=9)
+INFO - 2026-01-04 14:50:20 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:20 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:20 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:20 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+DEBUG - 2026-01-04 14:50:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:50:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:50:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-01-04 14:50:49 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:50:49 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:50:49 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:50:49 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:50:49 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:50:49 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:50:49 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:50:49 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:50:49 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:50:49 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:50:49 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:50:49 --> Looking up previous itinerary with key: 2026-02-04 (hotel_id=1190)
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Found by date key: 2026-02-04
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:50:49 --> getAllSightseeingByLocation(16) returned: 0 rows
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Available sightseeing for location 16: 
+INFO - 2026-01-04 14:50:49 --> ✗ Filtered out SS: Munnar Sight seeing (ID: 91) - not available in location 16
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-04 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:50:49 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:50:49 --> ✓ Kept addon after hotel filter: Candle Light Dinner for date 2026-02-04, hotel 1190
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Final addons for date 2026-02-04: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-04 hotel_id 1190 (SS: 0, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:50:49 --> Looking up previous itinerary with key: 2026-02-05 (hotel_id=1190)
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Found by date key: 2026-02-05
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:50:49 --> getAllSightseeingByLocation(16) returned: 0 rows
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Available sightseeing for location 16: 
+INFO - 2026-01-04 14:50:49 --> ✗ Filtered out SS: Munnar Sight seeing (ID: 91) - not available in location 16
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-05 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:50:49 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Final addons for date 2026-02-05: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-05 hotel_id 1190 (SS: 0, Events: 0, Addons: 0)
+INFO - 2026-01-04 14:50:49 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:49 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:49 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:49 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:49 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:50:49 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:50:49 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:50:49 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:50:49 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:50:49 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:50:49 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:50:49 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:50:49 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:50:49 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:50:49 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:50:49 --> Looking up previous itinerary with key: 2026-02-06 (hotel_id=401)
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Found by date key: 2026-02-06
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:50:49 --> getAllSightseeingByLocation(9) returned: 0 rows
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Available sightseeing for location 9: 
+INFO - 2026-01-04 14:50:49 --> ✗ Filtered out SS: Visit Guruvayoor  (ID: 95) - not available in location 9
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-06 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:50:49 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:50:49 --> ✓ Kept addon after hotel filter: Flower bed decoration for date 2026-02-06, hotel 401
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Final addons for date 2026-02-06: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-06 hotel_id 401 (SS: 0, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:50:49 --> Looking up previous itinerary with key: 2026-02-07 (hotel_id=401)
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Found by date key: 2026-02-07
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:50:49 --> getAllSightseeingByLocation(9) returned: 0 rows
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Available sightseeing for location 9: 
+INFO - 2026-01-04 14:50:49 --> ✗ Filtered out SS: Visit Guruvayoor  (ID: 95) - not available in location 9
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-07 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:50:49 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Final addons for date 2026-02-07: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:50:49 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-07 hotel_id 401 (SS: 0, Events: 0, Addons: 0)
+INFO - 2026-01-04 14:50:49 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:49 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:49 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:49 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+DEBUG - 2026-01-04 14:50:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:50:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:50:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-01-04 14:50:55 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:50:55 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:50:55 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:50:55 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:50:55 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:50:55 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:50:55 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:50:55 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:50:55 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:50:55 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:50:55 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:50:55 --> Looking up previous itinerary with key: 2026-02-04 (hotel_id=1190)
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Found by date key: 2026-02-04
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:50:55 --> getAllSightseeingByLocation(16) returned: 0 rows
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Available sightseeing for location 16: 
+INFO - 2026-01-04 14:50:55 --> ✗ Filtered out SS: Munnar Sight seeing (ID: 91) - not available in location 16
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-04 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:50:55 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:50:55 --> ✓ Kept addon after hotel filter: Candle Light Dinner for date 2026-02-04, hotel 1190
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Final addons for date 2026-02-04: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-04 hotel_id 1190 (SS: 0, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:50:55 --> Looking up previous itinerary with key: 2026-02-05 (hotel_id=1190)
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Found by date key: 2026-02-05
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:50:55 --> getAllSightseeingByLocation(16) returned: 0 rows
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Available sightseeing for location 16: 
+INFO - 2026-01-04 14:50:55 --> ✗ Filtered out SS: Munnar Sight seeing (ID: 91) - not available in location 16
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-05 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:50:55 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Final addons for date 2026-02-05: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-05 hotel_id 1190 (SS: 0, Events: 0, Addons: 0)
+INFO - 2026-01-04 14:50:55 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:55 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:55 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:55 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:55 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:50:55 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:50:55 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:50:55 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:50:55 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:50:55 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:50:55 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:50:55 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:50:55 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:50:55 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:50:55 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:50:55 --> Looking up previous itinerary with key: 2026-02-06 (hotel_id=401)
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Found by date key: 2026-02-06
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:50:55 --> getAllSightseeingByLocation(9) returned: 0 rows
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Available sightseeing for location 9: 
+INFO - 2026-01-04 14:50:55 --> ✗ Filtered out SS: Visit Guruvayoor  (ID: 95) - not available in location 9
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-06 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:50:55 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:50:55 --> ✓ Kept addon after hotel filter: Flower bed decoration for date 2026-02-06, hotel 401
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Final addons for date 2026-02-06: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:50:55 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-06 hotel_id 401 (SS: 0, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:50:56 --> Looking up previous itinerary with key: 2026-02-07 (hotel_id=401)
+INFO - 2026-01-04 14:50:56 --> PRIORITY 3 - Found by date key: 2026-02-07
+INFO - 2026-01-04 14:50:56 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:50:56 --> getAllSightseeingByLocation(9) returned: 0 rows
+INFO - 2026-01-04 14:50:56 --> PRIORITY 3 - Available sightseeing for location 9: 
+INFO - 2026-01-04 14:50:56 --> ✗ Filtered out SS: Visit Guruvayoor  (ID: 95) - not available in location 9
+INFO - 2026-01-04 14:50:56 --> PRIORITY 3 - Sightseeing filter: Original=1, Kept=0, Filtered=1
+INFO - 2026-01-04 14:50:56 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:50:56 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-07 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:50:56 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:50:56 --> PRIORITY 3 - Final addons for date 2026-02-07: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:50:56 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-07 hotel_id 401 (SS: 0, Events: 0, Addons: 0)
+INFO - 2026-01-04 14:50:56 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:56 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:56 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+INFO - 2026-01-04 14:50:56 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+DEBUG - 2026-01-04 14:50:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:50:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:51:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-01-04 14:51:03 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:51:03 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:51:04 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:51:04 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:51:04 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:51:04 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:51:04 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:51:04 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:51:04 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:51:04 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:51:04 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:51:04 --> Looking up previous itinerary with key: 2026-02-04 (hotel_id=1190)
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Found by date key: 2026-02-04
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-04 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:51:04 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:51:04 --> ✓ Kept addon after hotel filter: Candle Light Dinner for date 2026-02-04, hotel 1190
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Final addons for date 2026-02-04: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-04 hotel_id 1190 (SS: 1, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:51:04 --> Looking up previous itinerary with key: 2026-02-05 (hotel_id=1190)
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Found by date key: 2026-02-05
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-05 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:51:04 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Final addons for date 2026-02-05: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-05 hotel_id 1190 (SS: 1, Events: 0, Addons: 0)
+INFO - 2026-01-04 14:51:04 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=90km, Expected Total=266km (JS will add SS dynamically)
+INFO - 2026-01-04 14:51:04 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=90km, Expected Total=266km (JS will add SS dynamically)
+INFO - 2026-01-04 14:51:04 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=90km, Expected Total=90km (JS will add SS dynamically)
+INFO - 2026-01-04 14:51:04 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=90km, Expected Total=90km (JS will add SS dynamically)
+INFO - 2026-01-04 14:51:04 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:51:04 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:51:04 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:51:04 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:51:04 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:51:04 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:51:04 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:51:04 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:51:04 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:51:04 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:51:04 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:51:04 --> Looking up previous itinerary with key: 2026-02-06 (hotel_id=401)
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Found by date key: 2026-02-06
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-06 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:51:04 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:51:04 --> ✓ Kept addon after hotel filter: Flower bed decoration for date 2026-02-06, hotel 401
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Final addons for date 2026-02-06: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-06 hotel_id 401 (SS: 1, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:51:04 --> Looking up previous itinerary with key: 2026-02-07 (hotel_id=401)
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Found by date key: 2026-02-07
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-07 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:51:04 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Final addons for date 2026-02-07: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:51:04 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-07 hotel_id 401 (SS: 1, Events: 0, Addons: 0)
+INFO - 2026-01-04 14:51:04 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=200km, Expected Total=375km (JS will add SS dynamically)
+INFO - 2026-01-04 14:51:04 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=200km, Expected Total=375km (JS will add SS dynamically)
+INFO - 2026-01-04 14:51:04 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=200km, Expected Total=236km (JS will add SS dynamically)
+INFO - 2026-01-04 14:51:04 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=200km, Expected Total=236km (JS will add SS dynamically)
+DEBUG - 2026-01-04 14:51:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:51:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:54:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:54:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:58:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-01-04 14:58:31 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:58:31 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:58:31 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:58:31 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:58:31 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:58:31 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:58:31 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:58:31 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:58:31 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:58:31 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:58:31 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:58:31 --> Looking up previous itinerary with key: 2026-02-04 (hotel_id=1190)
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Found by date key: 2026-02-04
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded 1 raw SS from DB, location-filtered to 0 for location 16 (skipped 1 mismatched locations)
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-04 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:58:31 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:58:31 --> ✓ Kept addon after hotel filter: Candle Light Dinner for date 2026-02-04, hotel 1190
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Final addons for date 2026-02-04: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-04 hotel_id 1190 (SS: 0, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:58:31 --> Looking up previous itinerary with key: 2026-02-05 (hotel_id=1190)
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Found by date key: 2026-02-05
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded 1 raw SS from DB, location-filtered to 0 for location 16 (skipped 1 mismatched locations)
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-05 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:58:31 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Final addons for date 2026-02-05: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-05 hotel_id 1190 (SS: 0, Events: 0, Addons: 0)
+INFO - 2026-01-04 14:58:31 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:31 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:31 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:31 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:31 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:58:31 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:58:31 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:58:31 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:58:31 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:58:31 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:58:31 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:58:31 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:58:31 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:58:31 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:58:31 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:58:31 --> Looking up previous itinerary with key: 2026-02-06 (hotel_id=401)
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Found by date key: 2026-02-06
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded 1 raw SS from DB, location-filtered to 0 for location 9 (skipped 1 mismatched locations)
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-06 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:58:31 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:58:31 --> ✓ Kept addon after hotel filter: Flower bed decoration for date 2026-02-06, hotel 401
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Final addons for date 2026-02-06: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-06 hotel_id 401 (SS: 0, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:58:31 --> Looking up previous itinerary with key: 2026-02-07 (hotel_id=401)
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Found by date key: 2026-02-07
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded 1 raw SS from DB, location-filtered to 0 for location 9 (skipped 1 mismatched locations)
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-07 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:58:31 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Final addons for date 2026-02-07: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:58:31 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-07 hotel_id 401 (SS: 0, Events: 0, Addons: 0)
+INFO - 2026-01-04 14:58:31 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:31 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:31 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:31 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+DEBUG - 2026-01-04 14:58:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:58:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 14:58:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-01-04 14:58:49 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:58:49 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:58:49 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:58:49 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:58:49 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:58:49 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:58:49 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:58:49 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:58:49 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:58:49 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:58:49 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:58:49 --> Looking up previous itinerary with key: 2026-02-04 (hotel_id=1190)
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Found by date key: 2026-02-04
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-04 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:58:49 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:58:49 --> ✓ Kept addon after hotel filter: Candle Light Dinner for date 2026-02-04, hotel 1190
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Final addons for date 2026-02-04: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-04 hotel_id 1190 (SS: 1, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:58:49 --> Looking up previous itinerary with key: 2026-02-05 (hotel_id=1190)
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Found by date key: 2026-02-05
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-05 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:58:49 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Final addons for date 2026-02-05: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-05 hotel_id 1190 (SS: 1, Events: 0, Addons: 0)
+INFO - 2026-01-04 14:58:49 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=90km, Expected Total=266km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:49 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=90km, Expected Total=266km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:49 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=90km, Expected Total=90km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:49 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=90km, Expected Total=90km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:49 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 14:58:49 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 14:58:49 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 14:58:49 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 14:58:49 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:58:49 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 14:58:49 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:58:49 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 14:58:49 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 14:58:49 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 14:58:49 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 14:58:49 --> Looking up previous itinerary with key: 2026-02-06 (hotel_id=401)
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Found by date key: 2026-02-06
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-06 (skipped 1 mismatched dates)
+INFO - 2026-01-04 14:58:49 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:58:49 --> ✓ Kept addon after hotel filter: Flower bed decoration for date 2026-02-06, hotel 401
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Final addons for date 2026-02-06: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-06 hotel_id 401 (SS: 1, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 14:58:49 --> Looking up previous itinerary with key: 2026-02-07 (hotel_id=401)
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Found by date key: 2026-02-07
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-07 (skipped 2 mismatched dates)
+INFO - 2026-01-04 14:58:49 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Final addons for date 2026-02-07: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 14:58:49 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-07 hotel_id 401 (SS: 1, Events: 0, Addons: 0)
+INFO - 2026-01-04 14:58:49 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=200km, Expected Total=375km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:49 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=200km, Expected Total=375km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:49 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=200km, Expected Total=236km (JS will add SS dynamically)
+INFO - 2026-01-04 14:58:49 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=200km, Expected Total=236km (JS will add SS dynamically)
+DEBUG - 2026-01-04 15:08:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-01-04 15:08:18 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 15:08:18 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 15:08:18 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 15:08:18 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 15:08:18 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 15:08:18 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 15:08:18 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 15:08:18 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 15:08:18 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 15:08:18 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 15:08:18 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 15:08:18 --> Looking up previous itinerary with key: 2026-02-04 (hotel_id=1190)
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Found by date key: 2026-02-04
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 15:08:18 --> Sightseeing location compare: previous=16, current=16, match=YES
+INFO - 2026-01-04 15:08:18 --> Loaded sightseeing from previous itinerary: 1
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-04 (skipped 1 mismatched dates)
+INFO - 2026-01-04 15:08:18 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 15:08:18 --> ✓ Kept addon after hotel filter: Candle Light Dinner for date 2026-02-04, hotel 1190
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Final addons for date 2026-02-04: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-04 hotel_id 1190 (SS: 1, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 15:08:18 --> Looking up previous itinerary with key: 2026-02-05 (hotel_id=1190)
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Found by date key: 2026-02-05
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Hotel comparison: previous=1190, current=1190, match=YES
+INFO - 2026-01-04 15:08:18 --> Sightseeing location compare: previous=16, current=16, match=YES
+INFO - 2026-01-04 15:08:18 --> Loaded sightseeing from previous itinerary: 1
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-05 (skipped 2 mismatched dates)
+INFO - 2026-01-04 15:08:18 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Final addons for date 2026-02-05: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-05 hotel_id 1190 (SS: 1, Events: 0, Addons: 0)
+INFO - 2026-01-04 15:08:18 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=90km, Expected Total=266km (JS will add SS dynamically)
+INFO - 2026-01-04 15:08:18 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=90km, Expected Total=266km (JS will add SS dynamically)
+INFO - 2026-01-04 15:08:18 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=90km, Expected Total=90km (JS will add SS dynamically)
+INFO - 2026-01-04 15:08:18 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=90km, Expected Total=90km (JS will add SS dynamically)
+INFO - 2026-01-04 15:08:18 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 15:08:18 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 15:08:18 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 15:08:18 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 15:08:18 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 15:08:18 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 15:08:18 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 15:08:18 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 15:08:18 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 15:08:18 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 15:08:18 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+DEBUG - 2026-01-04 15:08:18 --> Looking up previous itinerary with key: 2026-02-06 (hotel_id=401)
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Found by date key: 2026-02-06
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 15:08:18 --> Sightseeing location compare: previous=9, current=9, match=YES
+INFO - 2026-01-04 15:08:18 --> Loaded sightseeing from previous itinerary: 1
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-06 (skipped 1 mismatched dates)
+INFO - 2026-01-04 15:08:18 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 15:08:18 --> ✓ Kept addon after hotel filter: Flower bed decoration for date 2026-02-06, hotel 401
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Final addons for date 2026-02-06: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-06 hotel_id 401 (SS: 1, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 15:08:18 --> Looking up previous itinerary with key: 2026-02-07 (hotel_id=401)
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Found by date key: 2026-02-07
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Hotel comparison: previous=401, current=401, match=YES
+INFO - 2026-01-04 15:08:18 --> Sightseeing location compare: previous=9, current=9, match=YES
+INFO - 2026-01-04 15:08:18 --> Loaded sightseeing from previous itinerary: 1
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Loaded special events (hotel match): 0
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-07 (skipped 2 mismatched dates)
+INFO - 2026-01-04 15:08:18 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Final addons for date 2026-02-07: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 15:08:18 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-07 hotel_id 401 (SS: 1, Events: 0, Addons: 0)
+INFO - 2026-01-04 15:08:18 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=200km, Expected Total=375km (JS will add SS dynamically)
+INFO - 2026-01-04 15:08:18 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=200km, Expected Total=375km (JS will add SS dynamically)
+INFO - 2026-01-04 15:08:18 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=200km, Expected Total=236km (JS will add SS dynamically)
+INFO - 2026-01-04 15:08:18 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=200km, Expected Total=236km (JS will add SS dynamically)
+DEBUG - 2026-01-04 15:08:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:08:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:09:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:09:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-01-04 15:09:35 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 15:09:35 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 15:09:35 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 15:09:35 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 15:09:35 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 15:09:35 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 15:09:35 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 15:09:35 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 15:09:35 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 15:09:35 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 15:09:35 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+INFO - 2026-01-04 15:09:35 --> PRIORITY 1 - Loaded ACTIVE itinerary for date 2026-02-04 (tour_details_id=2306, is_draft=1, Special Events: 0, Addons: 2)
+INFO - 2026-01-04 15:09:35 --> PRIORITY 1 - Loaded ACTIVE itinerary for date 2026-02-05 (tour_details_id=2306, is_draft=1, Special Events: 0, Addons: 2)
+INFO - 2026-01-04 15:09:35 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=90km, Expected Total=266km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:35 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=90km, Expected Total=266km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:35 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=90km, Expected Total=90km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:35 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=90km, Expected Total=90km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:35 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 15:09:35 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 15:09:35 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 15:09:35 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 15:09:35 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 15:09:35 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 15:09:35 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 15:09:35 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 15:09:35 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 15:09:35 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 15:09:35 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+INFO - 2026-01-04 15:09:35 --> PRIORITY 1 - Loaded ACTIVE itinerary for date 2026-02-06 (tour_details_id=2307, is_draft=1, Special Events: 0, Addons: 2)
+INFO - 2026-01-04 15:09:35 --> PRIORITY 1 - Loaded ACTIVE itinerary for date 2026-02-07 (tour_details_id=2307, is_draft=1, Special Events: 0, Addons: 2)
+INFO - 2026-01-04 15:09:35 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=200km, Expected Total=375km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:35 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=200km, Expected Total=375km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:35 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=200km, Expected Total=236km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:35 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=200km, Expected Total=236km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:35 --> Itinerary expansion date 2026-02-04: Derived Base=176km (no SS added)
+INFO - 2026-01-04 15:09:35 --> Itinerary expansion date 2026-02-04: Derived Base=176km (no SS added)
+INFO - 2026-01-04 15:09:35 --> Itinerary expansion date 2026-02-05: Derived Base=0km (no SS added)
+INFO - 2026-01-04 15:09:35 --> Itinerary expansion date 2026-02-05: Derived Base=0km (no SS added)
+INFO - 2026-01-04 15:09:35 --> Itinerary expansion date 2026-02-06: Derived Base=175km (no SS added)
+INFO - 2026-01-04 15:09:35 --> Itinerary expansion date 2026-02-06: Derived Base=175km (no SS added)
+INFO - 2026-01-04 15:09:35 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2026-01-04 15:09:35 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+DEBUG - 2026-01-04 15:09:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:09:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:09:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:09:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:09:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:09:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:09:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:09:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:09:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-01-04 15:09:51 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 15:09:51 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 15:09:51 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 15:09:51 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 15:09:51 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 15:09:51 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 15:09:51 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 15:09:51 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 15:09:51 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 15:09:51 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 15:09:51 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+INFO - 2026-01-04 15:09:51 --> PRIORITY 1 - Loaded ACTIVE itinerary for date 2026-02-04 (tour_details_id=2306, is_draft=1, Special Events: 0, Addons: 2)
+INFO - 2026-01-04 15:09:51 --> PRIORITY 1 - Loaded ACTIVE itinerary for date 2026-02-05 (tour_details_id=2306, is_draft=1, Special Events: 0, Addons: 2)
+INFO - 2026-01-04 15:09:51 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=90km, Expected Total=266km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:51 --> Expansion date 2026-02-04: Base Distance=176km, Current SS=90km, Expected Total=266km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:51 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=90km, Expected Total=90km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:51 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=90km, Expected Total=90km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:51 --> Current extension_ref_id for previous itinerary lookup: 2306
+INFO - 2026-01-04 15:09:51 --> Found previous_active_tour_id=2298 for current extension_ref_id=2306
+INFO - 2026-01-04 15:09:51 --> Found max extension_ref_id=684 for tour_plan_ref_id=2298
+INFO - 2026-01-04 15:09:51 --> Retrieved 5 itinerary records from tour_plan_ref_id=2298 with extension_ref_id=684
+DEBUG - 2026-01-04 15:09:51 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 15:09:51 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2298
+DEBUG - 2026-01-04 15:09:51 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 15:09:51 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2299
+DEBUG - 2026-01-04 15:09:51 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2299
+INFO - 2026-01-04 15:09:51 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 15:09:51 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2306
+INFO - 2026-01-04 15:09:51 --> PRIORITY 1 - Loaded ACTIVE itinerary for date 2026-02-06 (tour_details_id=2307, is_draft=1, Special Events: 0, Addons: 2)
+INFO - 2026-01-04 15:09:51 --> PRIORITY 1 - Loaded ACTIVE itinerary for date 2026-02-07 (tour_details_id=2307, is_draft=1, Special Events: 0, Addons: 2)
+INFO - 2026-01-04 15:09:51 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=200km, Expected Total=375km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:51 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=200km, Expected Total=375km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:51 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=200km, Expected Total=236km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:51 --> Expansion date 2026-02-07: Base Distance=36km, Current SS=200km, Expected Total=236km (JS will add SS dynamically)
+INFO - 2026-01-04 15:09:52 --> Itinerary expansion date 2026-02-04: Derived Base=176km (no SS added)
+INFO - 2026-01-04 15:09:52 --> Itinerary expansion date 2026-02-04: Derived Base=176km (no SS added)
+INFO - 2026-01-04 15:09:52 --> Itinerary expansion date 2026-02-05: Derived Base=0km (no SS added)
+INFO - 2026-01-04 15:09:52 --> Itinerary expansion date 2026-02-05: Derived Base=0km (no SS added)
+INFO - 2026-01-04 15:09:52 --> Itinerary expansion date 2026-02-06: Derived Base=175km (no SS added)
+INFO - 2026-01-04 15:09:52 --> Itinerary expansion date 2026-02-06: Derived Base=175km (no SS added)
+INFO - 2026-01-04 15:09:52 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+INFO - 2026-01-04 15:09:52 --> Itinerary expansion date 2026-02-07: Derived Base=0km (no SS added)
+DEBUG - 2026-01-04 15:10:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-01-04 15:10:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2026-01-04 15:10:47 --> Current extension_ref_id for previous itinerary lookup: 2308
+INFO - 2026-01-04 15:10:47 --> Found previous_active_tour_id=2306 for current extension_ref_id=2308
+INFO - 2026-01-04 15:10:47 --> Found max extension_ref_id=688 for tour_plan_ref_id=2306
+INFO - 2026-01-04 15:10:47 --> Retrieved 5 itinerary records from tour_plan_ref_id=2306 with extension_ref_id=688
+DEBUG - 2026-01-04 15:10:47 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2306
+DEBUG - 2026-01-04 15:10:47 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2306
+DEBUG - 2026-01-04 15:10:47 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2307
+DEBUG - 2026-01-04 15:10:47 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2307
+DEBUG - 2026-01-04 15:10:47 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2307
+INFO - 2026-01-04 15:10:47 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 15:10:47 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2308
+DEBUG - 2026-01-04 15:10:47 --> Looking up previous itinerary with key: 2026-02-04 (hotel_id=401)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Found by date key: 2026-02-04
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Hotel comparison: previous=1190, current=401, match=NO
+INFO - 2026-01-04 15:10:47 --> Sightseeing location compare: previous=16, current=9, match=NO
+INFO - 2026-01-04 15:10:47 --> Skipped sightseeing due to location change
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Skipped special events (hotel mismatch)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-04 (skipped 1 mismatched dates)
+INFO - 2026-01-04 15:10:47 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 15:10:47 --> ✓ Kept addon after hotel filter: Candle Light Dinner for date 2026-02-04, hotel 401
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Final addons for date 2026-02-04: date-filtered 1, hotel-filtered 1 (hotel-skipped 0)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-04 hotel_id 401 (SS: 0, Events: 0, Addons: 1)
+DEBUG - 2026-01-04 15:10:47 --> Looking up previous itinerary with key: 2026-02-05 (hotel_id=401)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Found by date key: 2026-02-05
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Hotel comparison: previous=1190, current=401, match=NO
+INFO - 2026-01-04 15:10:47 --> Sightseeing location compare: previous=16, current=9, match=NO
+INFO - 2026-01-04 15:10:47 --> Skipped sightseeing due to location change
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Skipped special events (hotel mismatch)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-05 (skipped 2 mismatched dates)
+INFO - 2026-01-04 15:10:47 --> Available normalized facilities for hotel 401: flower bed decoration, cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Final addons for date 2026-02-05: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-05 hotel_id 401 (SS: 0, Events: 0, Addons: 0)
+INFO - 2026-01-04 15:10:47 --> Expansion date 2026-02-04: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+INFO - 2026-01-04 15:10:47 --> Expansion date 2026-02-04: Base Distance=36km, Current SS=0km, Expected Total=36km (JS will add SS dynamically)
+INFO - 2026-01-04 15:10:47 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
+INFO - 2026-01-04 15:10:47 --> Expansion date 2026-02-05: Base Distance=0km, Current SS=0km, Expected Total=0km (JS will add SS dynamically)
+INFO - 2026-01-04 15:10:47 --> Current extension_ref_id for previous itinerary lookup: 2308
+INFO - 2026-01-04 15:10:47 --> Found previous_active_tour_id=2306 for current extension_ref_id=2308
+INFO - 2026-01-04 15:10:47 --> Found max extension_ref_id=688 for tour_plan_ref_id=2306
+INFO - 2026-01-04 15:10:47 --> Retrieved 5 itinerary records from tour_plan_ref_id=2306 with extension_ref_id=688
+DEBUG - 2026-01-04 15:10:47 --> Grouped previous itinerary: key=2026-02-04, date=2026-02-04, location=16, hotel=1190, tour_details_id=2306
+DEBUG - 2026-01-04 15:10:47 --> Grouped previous itinerary: key=2026-02-05, date=2026-02-05, location=16, hotel=1190, tour_details_id=2306
+DEBUG - 2026-01-04 15:10:47 --> Grouped previous itinerary: key=2026-02-06, date=2026-02-06, location=9, hotel=401, tour_details_id=2307
+DEBUG - 2026-01-04 15:10:47 --> Grouped previous itinerary: key=2026-02-07, date=2026-02-07, location=9, hotel=401, tour_details_id=2307
+DEBUG - 2026-01-04 15:10:47 --> Grouped previous itinerary: key=2026-02-08, date=2026-02-08, location=9, hotel=401, tour_details_id=2307
+INFO - 2026-01-04 15:10:47 --> Grouped 5 previous itinerary records (date keys only)
+INFO - 2026-01-04 15:10:47 --> Loaded previous itinerary data: 5 records from current extension_ref_id=2308
+DEBUG - 2026-01-04 15:10:47 --> Looking up previous itinerary with key: 2026-02-06 (hotel_id=1190)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Found by date key: 2026-02-06
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Hotel comparison: previous=401, current=1190, match=NO
+INFO - 2026-01-04 15:10:47 --> Sightseeing location compare: previous=9, current=16, match=NO
+INFO - 2026-01-04 15:10:47 --> Skipped sightseeing due to location change
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Skipped special events (hotel mismatch)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 1 for exact date 2026-02-06 (skipped 1 mismatched dates)
+INFO - 2026-01-04 15:10:47 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 15:10:47 --> ✗ Skipped addon after date filter: "Flower bed decoration" (norm: flower bed decoration) for date 2026-02-06 (unavailable in hotel 1190)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Final addons for date 2026-02-06: date-filtered 1, hotel-filtered 0 (hotel-skipped 1)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-06 hotel_id 1190 (SS: 0, Events: 0, Addons: 0)
+DEBUG - 2026-01-04 15:10:47 --> Looking up previous itinerary with key: 2026-02-07 (hotel_id=1190)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Found by date key: 2026-02-07
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Hotel comparison: previous=401, current=1190, match=NO
+INFO - 2026-01-04 15:10:47 --> Sightseeing location compare: previous=9, current=16, match=NO
+INFO - 2026-01-04 15:10:47 --> Skipped sightseeing due to location change
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Skipped special events (hotel mismatch)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Loaded 2 raw addons from DB, date-filtered to 0 for exact date 2026-02-07 (skipped 2 mismatched dates)
+INFO - 2026-01-04 15:10:47 --> Available normalized facilities for hotel 1190: cake, fruit basket, chocolate box, candle light dinner
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Final addons for date 2026-02-07: date-filtered 0, hotel-filtered 0 (hotel-skipped 0)
+INFO - 2026-01-04 15:10:47 --> PRIORITY 3 - Loaded PREVIOUS itinerary for date 2026-02-07 hotel_id 1190 (SS: 0, Events: 0, Addons: 0)
+INFO - 2026-01-04 15:10:47 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
+INFO - 2026-01-04 15:10:47 --> Expansion date 2026-02-06: Base Distance=175km, Current SS=0km, Expected Total=175km (JS will add SS dynamically)
+INFO - 2026-01-04 15:10:47 --> Expansion date 2026-02-07: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
+INFO - 2026-01-04 15:10:47 --> Expansion date 2026-02-07: Base Distance=176km, Current SS=0km, Expected Total=176km (JS will add SS dynamically)
