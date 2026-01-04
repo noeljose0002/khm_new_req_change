@@ -6675,38 +6675,38 @@ class Enquiry extends BaseController
                             $current_location_id = $vals['tour_location']; // current day location
                             $prev_location_id = null;
 
-if (!empty($prev_data['tour_details_id'])) {
-    $prev_tour_plan = $Enquiry_model->get_tour_plan_by_id($prev_data['tour_details_id']);
-    if (!empty($prev_tour_plan)) {
-        $prev_location_id = $prev_tour_plan[0]['tour_location'] ?? null;
-    }
-}
-$location_matches = ($prev_location_id == $current_location_id);
+                            if (!empty($prev_data['tour_details_id'])) {
+                                $prev_tour_plan = $Enquiry_model->get_tour_plan_by_id($prev_data['tour_details_id']);
+                                if (!empty($prev_tour_plan)) {
+                                    $prev_location_id = $prev_tour_plan[0]['tour_location'] ?? null;
+                                }
+                            }
+                            $location_matches = ($prev_location_id == $current_location_id);
 
-log_message(
-    'info',
-    'Sightseeing location compare: previous=' . $prev_location_id .
-    ', current=' . $current_location_id .
-    ', match=' . ($location_matches ? 'YES' : 'NO')
-);
+                            log_message(
+                                'info',
+                                'Sightseeing location compare: previous=' . $prev_location_id .
+                                    ', current=' . $current_location_id .
+                                    ', match=' . ($location_matches ? 'YES' : 'NO')
+                            );
 
-if ($location_matches) {
-    // ✅ Load sightseeing
-    $saved_sightseeing = json_decode($prev_data['ss_data_json'] ?? '[]', true);
-    if (!is_array($saved_sightseeing)) {
-        $saved_sightseeing = [];
-    }
+                            if ($location_matches) {
+                                // ✅ Load sightseeing
+                                $saved_sightseeing = json_decode($prev_data['ss_data_json'] ?? '[]', true);
+                                if (!is_array($saved_sightseeing)) {
+                                    $saved_sightseeing = [];
+                                }
 
-    $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
+                                $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
 
-    log_message('info', 'Loaded sightseeing from previous itinerary: ' . count($saved_sightseeing));
-} else {
-    // ❌ Location changed → do NOT load sightseeing
-    $saved_sightseeing = [];
-    $saved_ss_ids = [];
+                                log_message('info', 'Loaded sightseeing from previous itinerary: ' . count($saved_sightseeing));
+                            } else {
+                                // ❌ Location changed → do NOT load sightseeing
+                                $saved_sightseeing = [];
+                                $saved_ss_ids = [];
 
-    log_message('info', 'Skipped sightseeing due to location change');
-}
+                                log_message('info', 'Skipped sightseeing due to location change');
+                            }
 
 
                             // Load special events ONLY if hotel matches (hotel-specific)
