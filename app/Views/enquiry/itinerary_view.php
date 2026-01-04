@@ -2806,14 +2806,19 @@ $cs_trans_total = 0;
 																											</div>
 																										</div>
 
-																										<div class="row">
-																											<div class="col-xl-12"
-																												id="addon_add_dynamic<?php echo $iti_id; ?>">
-
-
-
-																											</div>
-																										</div>
+																								<?php
+// FIXED: Get normalized available facilities for this tour's hotel (from controller data)
+$tid = $ttval['tour_details_id']; // Tour ID from current segment
+$normalized_available = $hotel_facilities[$tid] ?? []; // Fallback empty array
+$facilities_attr = htmlspecialchars(implode(',', $normalized_available));
+?>
+<div class="row">
+    <div class="col-xl-12"
+         id="addon_add_dynamic<?php echo $iti_id; ?>"
+         data-available-facilities="<?php echo $facilities_attr; ?>">
+        <!-- Existing dynamic addons will append here via JS -->
+    </div>
+</div>
 
 																										<div class="row">
 																											<div class="col-xl-12"
@@ -12643,9 +12648,8 @@ $(document).ready(function() {
 });
 </script> -->
 
-
 <script type="text/javascript">
-	$(document).ready(function() {
+$(document).ready(function() {
 
 	var maxAddonSeq = 0;
 
@@ -12664,76 +12668,77 @@ $(document).ready(function() {
 
 			console.log('Processing data for tour_details_id:', tour_details_id, 'tour_date:', tour_date, 'source:', dayData.data_source, 'location_id:', dayData.location_id, 'hotel_id:', dayData.hotel_id);
 
-			// FIXED: Group addons by DATE ONLY
+			// FIXED: Group addons by DATE ONLY, with STRICT tour_date match
 			if (dayData.json_addons && $.isArray(dayData.json_addons)) {
-				console.log('Found', dayData.json_addons.length, 'addons in dayData for', tour_date);
+				console.log('Found', dayData.json_addons.length, 'addons in dayData for current tour_date:', tour_date);
+				var validCount = 0;
+				var mismatchCount = 0;
 				dayData.json_addons.forEach(function(addon) {
-					var locationMatches = (addon.location_id == dayData.location_id);
-					var hotelMatches = (addon.hotel_id == dayData.hotel_id);
-
-		
-					if (locationMatches && hotelMatches) {
-						
-						// Use addon's tour_date ONLY (no tour_details_id)
-						var dateKey = addon.tour_date;
-
-						if (!addonsByDate[dateKey]) {
-							addonsByDate[dateKey] = [];
-						}
-
-						addonsByDate[dateKey].push(addon);
-
-						console.log('✓ Added addon:', addon.addon_event,
-							'to date:', dateKey,
-							'(location:', addon.location_id,
-							'hotel:', addon.hotel_id, ')');
-					} else {
-						console.log('✗ SKIPPED addon:', addon.addon_event,
-							'due to mismatch - addon loc:', addon.location_id,
-							'day loc:', dayData.location_id,
-							'addon hotel:', addon.hotel_id,
-							'day hotel:', dayData.hotel_id);
+					// FIXED: STRICT MATCH - only process if addon's tour_date === current tour_date
+					if (addon.tour_date !== tour_date) {
+						mismatchCount++;
+						console.warn('✗ Skipping addon with mismatched tour_date:', addon.tour_date, 'vs current:', tour_date, '- addon:', addon.addon_event);
+						return; // Skip pushing
 					}
+
+					// Now safe: Trust PHP's hotel filter, but log for debug
+					validCount++;
+					var dateKey = addon.tour_date;  // Now guaranteed == tour_date
+
+					if (!addonsByDate[dateKey]) {
+						addonsByDate[dateKey] = [];
+					}
+
+					addonsByDate[dateKey].push(addon);
+
+					console.log('✓ Added valid addon (date-matched):', addon.addon_event,
+						'to dateKey:', dateKey,
+						'(hotel:', addon.hotel_id, ')');
 				});
+				console.log('For tour_date', tour_date, ': processed', validCount, 'valid addons, skipped', mismatchCount, 'date mismatches');
 			}
 
-			// FIXED: Group special events by DATE ONLY
+			// FIXED: Group special events by DATE ONLY, with STRICT tour_date match
 			if (dayData.json_special_event && $.isArray(dayData.json_special_event)) {
 				console.log('Found', dayData.json_special_event.length, 'special events in dayData for', tour_date);
+				var eventValidCount = 0;
+				var eventMismatchCount = 0;
 				dayData.json_special_event.forEach(function(event) {
-					var locationMatches = (event.location_id == dayData.location_id);
-					var hotelMatches = (event.hotel_id == dayData.hotel_id);
-
-					if (locationMatches && hotelMatches) {
-						// Use event's tour_date ONLY (no tour_details_id)
-						var dateKey = event.tour_date;
-
-						if (!specialEventsByDate[dateKey]) {
-							specialEventsByDate[dateKey] = [];
-						}
-
-						specialEventsByDate[dateKey].push(event);
-
-						console.log('✓ Added event:', event.spcl_event,
-							'to date:', dateKey);
-					} else {
-						console.log('✗ SKIPPED event:', event.spcl_event,
-							'due to location/hotel mismatch');
+					// FIXED: STRICT MATCH for events too
+					if (event.tour_date !== tour_date) {
+						eventMismatchCount++;
+						console.warn('✗ Skipping special event with mismatched tour_date:', event.tour_date, 'vs current:', tour_date, '- event:', event.spcl_event);
+						return;
 					}
+
+					eventValidCount++;
+					var dateKey = event.tour_date;
+
+					if (!specialEventsByDate[dateKey]) {
+						specialEventsByDate[dateKey] = [];
+					}
+
+					specialEventsByDate[dateKey].push(event);
+
+					console.log('✓ Added valid event (date-matched):', event.spcl_event,
+						'to dateKey:', dateKey);
 				});
+				console.log('For tour_date', tour_date, ': processed', eventValidCount, 'valid events, skipped', eventMismatchCount, 'date mismatches');
 			}
 
-			// FIXED: Group sightseeing by DATE ONLY
+			// FIXED: Group sightseeing by DATE ONLY (unchanged, but added filter log)
 			if (dayData.saved_ss_ids && dayData.sightseeing && $.isArray(dayData.sightseeing)) {
 				console.log('Found', dayData.saved_ss_ids.length, 'saved sightseeing IDs for', tour_date);
 				var dateKey = tour_date;
+				var filteredSs = dayData.sightseeing.filter(function(ss_item) {
+					return (!ss_item.location_id || ss_item.location_id == dayData.location_id) &&
+						(!ss_item.hotel_id || ss_item.hotel_id == dayData.hotel_id);
+				});
+				console.log('Filtered sightseeing to', filteredSs.length, 'items for date:', dateKey);
 				if (!sightseeingByDate[dateKey]) {
 					sightseeingByDate[dateKey] = {
 						saved_ss_ids: dayData.saved_ss_ids,
-						sightseeing: dayData.sightseeing.filter(function(ss_item) {
-							return (!ss_item.location_id || ss_item.location_id == dayData.location_id) &&
-								(!ss_item.hotel_id || ss_item.hotel_id == dayData.hotel_id);
-						}),
+						sightseeing: filteredSs,
 						location_id: dayData.location_id,
 						hotel_id: dayData.hotel_id,
 						ss_pax_cost: dayData.ss_pax_cost || 0,
@@ -12784,6 +12789,12 @@ $(document).ready(function() {
 			console.log('Loading', addonsByDate[tour_date].length, 'addons for', tour_date);
 
 			addonsByDate[tour_date].forEach(function(addon) {
+				// FIXED: Double-check date match before processing (paranoia)
+				if (addon.tour_date !== tour_date) {
+					console.error('CRITICAL: Date mismatch in addonsByDate!', addon.tour_date, 'vs', tour_date, '- skipping render');
+					return;
+				}
+
 				console.log('Processing addon:', addon);
 
 				var seq = parseInt(addon.addon_sequence) || 1;
@@ -12832,7 +12843,7 @@ $(document).ready(function() {
 				html += '</div></div>';
 
 				addonContainer.append(html);
-				console.log('Appended addon row:', unique_id, 'to container for', iti_id);
+				console.log('Appended valid addon row:', unique_id, 'for exact date:', tour_date);
 			});
 
 			// Update total
@@ -12855,6 +12866,12 @@ $(document).ready(function() {
 			var uniqueEventsMap = {};
 
 			specialEventsByDate[tour_date].forEach(function(event) {
+				// FIXED: Double-check date match for events
+				if (event.tour_date !== tour_date) {
+					console.error('CRITICAL: Event date mismatch!', event.tour_date, 'vs', tour_date);
+					return;
+				}
+
 				console.log('Processing special event:', event);
 
 				var seq = parseInt(event.spcl_sequence) || 1;
@@ -13168,173 +13185,203 @@ $(document).ready(function() {
 
 <!-- SCRIPT 3: Add/remove hotel facility addons dynamically (INTEGRATED FIX FOR EDIT MODE) -->
 <script>
-	$(document).ready(function() {
-		// initialize global counter from hidden field if present
-		var globalCounter = parseInt($('#total_addon_count').val(), 10) || 0;
+$(document).ready(function() {
+	// initialize global counter from hidden field if present
+	var globalCounter = parseInt($('#total_addon_count').val(), 10) || 0;
 
-		var iti_edit_id = <?php echo isset($iti_edit_id) && $iti_edit_id !== '' ? $iti_edit_id : 0; ?>;
-		var read_only = iti_edit_id == 1 ? "readonly" : "";
-		var dis_abled = iti_edit_id == 1 ? 'style="pointer-events: none; background-color: #eee;"' : "";
+	var iti_edit_id = <?php echo isset($iti_edit_id) && $iti_edit_id !== '' ? $iti_edit_id : 0; ?>;
+	var read_only = iti_edit_id == 1 ? "readonly" : "";
+	var dis_abled = iti_edit_id == 1 ? 'style="pointer-events: none; background-color: #eee;"' : "";
 
-		// helper to sum tariffs for a given base id_t (eg '2115_07-02-2026')
-		function updateFacRateFor(id_t) {
-			var total = 0;
-			$('.addon_class' + id_t).each(function() {
-				total += parseFloat($(this).val()) || 0;
-			});
-			$('#fac_rate' + id_t).val(total);
+	// helper to sum tariffs for a given base id_t (eg '2115_07-02-2026')
+	function updateFacRateFor(id_t) {
+		var total = 0;
+		$('.addon_class' + id_t).each(function() {
+			total += parseFloat($(this).val()) || 0;
+		});
+		$('#fac_rate' + id_t).val(total);
+	}
+
+	// Add / prefill handler (FIXED: Integrated with existing maxAddonSeq/globalCounter, supports edit mode readonly)
+	$(document).on('change', '.hotel_fac_change_new', function() { // Use on() for dynamic elements
+		var addonTotal = 0;
+		var $btn = $(this);
+
+		var sequenceAttr = $btn.attr('data-sequence'); // optional pre-provided sequence
+		var id_t = $btn.attr('data-id'); // e.g. 2115_07-02-2026
+		var tour_date = $btn.attr('data-std'); // e.g. 2026-02-07
+		if (!id_t) return;
+
+		var seq;
+		if (sequenceAttr !== undefined && sequenceAttr !== '') {
+			seq = parseInt(sequenceAttr, 10);
+			// ensure globalCounter at least seq (sync with maxAddonSeq from loader)
+			if (seq > globalCounter) globalCounter = seq;
+		} else {
+			// generate new global sequence
+			globalCounter++;
+			seq = globalCounter;
 		}
 
-		// Add / prefill handler (FIXED: Integrated with existing maxAddonSeq/globalCounter, supports edit mode readonly)
-		$(document).on('change', '.hotel_fac_change_new', function() { // Use on() for dynamic elements
-			var addonTotal = 0;
-			var $btn = $(this);
+		// persist counter (sync with loader's maxAddonSeq)
+		$('#total_addon_count').val(globalCounter);
+		if (typeof i !== 'undefined') {
+			i = globalCounter;
+		} else {
+			window.i = globalCounter;
+		}
 
-			var sequenceAttr = $btn.attr('data-sequence'); // optional pre-provided sequence
-			var id_t = $btn.attr('data-id'); // e.g. 2115_07-02-2026
-			var tour_date = $btn.attr('data-std'); // e.g. 2026-02-07
-			if (!id_t) return;
+		var unique_id = id_t + '_' + seq; // stable unique id used everywhere
 
-			var seq;
-			if (sequenceAttr !== undefined && sequenceAttr !== '') {
-				seq = parseInt(sequenceAttr, 10);
-				// ensure globalCounter at least seq (sync with maxAddonSeq from loader)
-				if (seq > globalCounter) globalCounter = seq;
-			} else {
-				// generate new global sequence
-				globalCounter++;
-				seq = globalCounter;
-			}
+		// DUPLICATE PREVENTION: if this unique row already exists, do not insert again
+		if ($('#rowaddon' + unique_id).length > 0) {
+			// If preloaded row exists, but sequenceAttr was passed to indicate we should
+			// populate its fields, we'll still fill the values below (if ajax returns).
+			console.log('Addon already exists, skipping insert:', unique_id);
+		} else {
+			// build HTML using unique_id as array key (so server receives stable keys)
+			// FIXED: Apply readonly/disabled in edit mode
+			var html = '';
+			html += '<div id="rowaddon' + unique_id + '" class="dynamic-added card" data-index="' + id_t + '">';
+			html += '<div class="row mt-2">';
 
-			// persist counter (sync with loader's maxAddonSeq)
-			$('#total_addon_count').val(globalCounter);
-			if (typeof i !== 'undefined') {
-				i = globalCounter;
-			} else {
-				window.i = globalCounter;
-			}
+			html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+			html += '<div class="teams-rank"><b>Facility Name</b></div>';
+			html += '<input type="text" id="addon_event' + unique_id + '" data-id="' + unique_id + '" name="addon_additi[' + unique_id + '][addon_event]" value="" class="form-control input-sm" maxlength="50" ' + read_only + ' ' + dis_abled + '>';
+			html += '</div>';
 
-			var unique_id = id_t + '_' + seq; // stable unique id used everywhere
+			html += '<div class="col-xl-1 col-sm-12 col-md-1">';
+			html += '<div class="teams-rank"><b>Tariff</b></div>';
+			html += '<input type="text" id="addon_tariff' + unique_id + '" data-id="' + unique_id + '" name="addon_additi[' + unique_id + '][addon_tariff]" value="" class="form-control input-sm addon_class' + id_t + '" maxlength="7" ' + dis_abled + '>';
+			html += '</div>';
 
-			// DUPLICATE PREVENTION: if this unique row already exists, do not insert again
-			if ($('#rowaddon' + unique_id).length > 0) {
-				// If preloaded row exists, but sequenceAttr was passed to indicate we should
-				// populate its fields, we'll still fill the values below (if ajax returns).
-				console.log('Addon already exists, skipping insert:', unique_id);
-			} else {
-				// build HTML using unique_id as array key (so server receives stable keys)
-				// FIXED: Apply readonly/disabled in edit mode
-				var html = '';
-				html += '<div id="rowaddon' + unique_id + '" class="dynamic-added card" data-index="' + id_t + '">';
-				html += '<div class="row mt-2">';
+			html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
+			html += '<button type="button" name="remove" id="' + unique_id + '" data-oid="' + id_t + '" data-nid="' + id_t + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_addon_remove" ' + (iti_edit_id == 1 ? 'disabled' : '') + '>X</button>';
+			html += '</div>';
 
-				html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-				html += '<div class="teams-rank"><b>Facility Name</b></div>';
-				html += '<input type="text" id="addon_event' + unique_id + '" data-id="' + unique_id + '" name="addon_additi[' + unique_id + '][addon_event]" value="" class="form-control input-sm" maxlength="50" ' + read_only + ' ' + dis_abled + '>';
-				html += '</div>';
+			html += '<div class="col-xl-2 col-sm-12 col-md-2">';
+			html += '<input type="hidden" id="addon_id' + unique_id + '" name="addon_additi[' + unique_id + '][addon_id]" value="' + id_t + '">';
+			html += '<input type="hidden" id="addon_sequence' + unique_id + '" name="addon_additi[' + unique_id + '][addon_sequence]" value="' + seq + '">';
+			html += '<input type="hidden" id="addon_idvalue' + unique_id + '" name="addon_additi[' + unique_id + '][addon_idvalue]" value="' + unique_id + '">';
+			html += '<input type="hidden" id="tour_date' + unique_id + '" name="addon_additi[' + unique_id + '][tour_date]" value="' + tour_date + '">';
+			html += '</div>';
 
-				html += '<div class="col-xl-1 col-sm-12 col-md-1">';
-				html += '<div class="teams-rank"><b>Tariff</b></div>';
-				html += '<input type="text" id="addon_tariff' + unique_id + '" data-id="' + unique_id + '" name="addon_additi[' + unique_id + '][addon_tariff]" value="" class="form-control input-sm addon_class' + id_t + '" maxlength="7" ' + dis_abled + '>';
-				html += '</div>';
+			// filler cols
+			html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+			html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+			html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
 
-				html += '<div class="col-xl-1 col-sm-12 col-md-1" style="padding-top:20px;">';
-				html += '<button type="button" name="remove" id="' + unique_id + '" data-oid="' + id_t + '" data-nid="' + id_t + '" data-cid="' + seq + '" class="btn btn-danger btn-sm btn_addon_remove" ' + (iti_edit_id == 1 ? 'disabled' : '') + '>X</button>';
-				html += '</div>';
+			html += '</div></div>';
 
-				html += '<div class="col-xl-2 col-sm-12 col-md-2">';
-				html += '<input type="hidden" id="addon_id' + unique_id + '" name="addon_additi[' + unique_id + '][addon_id]" value="' + id_t + '">';
-				html += '<input type="hidden" id="addon_sequence' + unique_id + '" name="addon_additi[' + unique_id + '][addon_sequence]" value="' + seq + '">';
-				html += '<input type="hidden" id="addon_idvalue' + unique_id + '" name="addon_additi[' + unique_id + '][addon_idvalue]" value="' + unique_id + '">';
-				html += '<input type="hidden" id="tour_date' + unique_id + '" name="addon_additi[' + unique_id + '][tour_date]" value="' + tour_date + '">';
-				html += '</div>';
+			$('#addon_add_dynamic' + id_t).append(html);
+		}
 
-				// filler cols
-				html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
-				html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
-				html += '<div class="col-xl-2 col-sm-12 col-md-2"></div>';
+		// If a facility is selected, fetch tariff and populate (works for both preloaded and newly-added)
+		// FIXED: In edit mode (iti_edit_id==1), skip AJAX if readonly, but still allow if needed
+		var facility_id = $btn.val();
+		if (facility_id > 0 && iti_edit_id != 1) { // Only fetch if not in edit mode (or adjust as per business logic)
+			$.ajax({
+				url: "<?= site_url('Enquiry/getHotelFaciliyTariffNew'); ?>",
+				method: "POST",
+				data: {
+					facility_id: facility_id
+				},
+				dataType: 'json',
+				success: function(data) {
+					// populate the inputs for this unique row
+					$('#addon_event' + unique_id).val(data && data[0] ? data[0].facility_name : '');
+					$('#addon_tariff' + unique_id).val(data && data[0] ? data[0].tariff : '');
 
-				html += '</div></div>';
-
-				$('#addon_add_dynamic' + id_t).append(html);
-			}
-
-			// If a facility is selected, fetch tariff and populate (works for both preloaded and newly-added)
-			// FIXED: In edit mode (iti_edit_id==1), skip AJAX if readonly, but still allow if needed
-			var facility_id = $btn.val();
-			if (facility_id > 0 && iti_edit_id != 1) { // Only fetch if not in edit mode (or adjust as per business logic)
-				$.ajax({
-					url: "<?= site_url('Enquiry/getHotelFaciliyTariffNew'); ?>",
-					method: "POST",
-					data: {
-						facility_id: facility_id
-					},
-					dataType: 'json',
-					success: function(data) {
-						// populate the inputs for this unique row
-						$('#addon_event' + unique_id).val(data && data[0] ? data[0].facility_name : '');
-						$('#addon_tariff' + unique_id).val(data && data[0] ? data[0].tariff : '');
-
-						// recalc totals for this date group
-						updateFacRateFor(id_t);
-					},
-					error: function(xhr, status, error) {
-						console.error("Tariff fetch error:", error);
-						updateFacRateFor(id_t);
-					}
-				});
-			} else if (facility_id == 0) {
-				// nothing selected — ensure rate zeroed for this date
-				$('#addon_event' + unique_id).val('');
-				$('#addon_tariff' + unique_id).val('');
-				updateFacRateFor(id_t);
-			} else {
-				// In edit mode, just recalc without fetch
-				updateFacRateFor(id_t);
-			}
-		});
-
-		// Remove handler — remove the correct unique row, then update totals
-		// FIXED: Disable remove in edit mode
-		$(document).on('click', '.btn_addon_remove', function() {
-			if (iti_edit_id == 1) return; // Prevent remove in edit mode
-			var button_id = $(this).attr("id"); // this should be the unique_id string
-			var id_t = $(this).attr('data-nid');
-			if (!button_id) return;
-
-			$('#rowaddon' + button_id).remove();
-			// do NOT force globalCounter decrement (keeps uniqueness). If you want
-			// to compact sequences later, do that on server or in a separate clean-up routine.
-
-			// recalc totals for this date group
-			if (id_t) updateFacRateFor(id_t);
-		});
-
-		// When any tariff input changes, update the day's rate
-		// FIXED: Skip in edit mode if readonly
-		$(document).on('input', 'input[id^="addon_tariff"]', function() {
-			if (iti_edit_id == 1) return; // Prevent manual changes in edit mode
-			var fullId = this.id.replace('addon_tariff', ''); // unique_id
-			// unique_id format is: <id_t>_<seq>. We need base id_t (everything before last _)
-			var lastUnd = fullId.lastIndexOf('_');
-			var id_t = lastUnd > 0 ? fullId.substring(0, lastUnd) : fullId;
-			updateFacRateFor(id_t);
-		});
-
-		// Optional: If you preload addons on page load with sequence numbers, ensure you set
-		// #total_addon_count to at least the max sequence so new generated seq values remain unique.
-		// FIXED: Sync with loader's maxAddonSeq
-		(function syncInitialCounter() {
-			var maxSeen = parseInt($('#total_addon_count').val(), 10) || 0;
-			$('input[name$="[addon_sequence]"]').each(function() {
-				var v = parseInt($(this).val(), 10) || 0;
-				if (v > maxSeen) maxSeen = v;
+					// recalc totals for this date group
+					updateFacRateFor(id_t);
+				},
+				error: function(xhr, status, error) {
+					console.error("Tariff fetch error:", error);
+					updateFacRateFor(id_t);
+				}
 			});
-			if (maxSeen > globalCounter) {
-				globalCounter = maxSeen;
-				$('#total_addon_count').val(globalCounter);
-			}
-		})();
-
+		} else if (facility_id == 0) {
+			// nothing selected — ensure rate zeroed for this date
+			$('#addon_event' + unique_id).val('');
+			$('#addon_tariff' + unique_id).val('');
+			updateFacRateFor(id_t);
+		} else {
+			// In edit mode, just recalc without fetch
+			updateFacRateFor(id_t);
+		}
 	});
+
+	// Remove handler — remove the correct unique row, then update totals
+	// FIXED: Disable remove in edit mode
+	$(document).on('click', '.btn_addon_remove', function() {
+		if (iti_edit_id == 1) return; // Prevent remove in edit mode
+		var button_id = $(this).attr("id"); // this should be the unique_id string
+		var id_t = $(this).attr('data-nid');
+		if (!button_id) return;
+
+		$('#rowaddon' + button_id).remove();
+		// do NOT force globalCounter decrement (keeps uniqueness). If you want
+		// to compact sequences later, do that on server or in a separate clean-up routine.
+
+		// recalc totals for this date group
+		if (id_t) updateFacRateFor(id_t);
+	});
+
+	// When any tariff input changes, update the day's rate
+	// FIXED: Skip in edit mode if readonly
+	$(document).on('input', 'input[id^="addon_tariff"]', function() {
+		if (iti_edit_id == 1) return; // Prevent manual changes in edit mode
+		var fullId = this.id.replace('addon_tariff', ''); // unique_id
+		// unique_id format is: <id_t>_<seq>. We need base id_t (everything before last _)
+		var lastUnd = fullId.lastIndexOf('_');
+		var id_t = lastUnd > 0 ? fullId.substring(0, lastUnd) : fullId;
+		updateFacRateFor(id_t);
+	});
+
+	// FIXED: Sync with loader's maxAddonSeq + Post-load cleanup for date/hotel mismatches
+	(function syncInitialCounter() {
+		var maxSeen = parseInt($('#total_addon_count').val(), 10) || 0;
+		$('input[name$="[addon_sequence]"]').each(function() {
+			var v = parseInt($(this).val(), 10) || 0;
+			if (v > maxSeen) maxSeen = v;
+		});
+		if (maxSeen > globalCounter) {
+			globalCounter = maxSeen;
+			$('#total_addon_count').val(globalCounter);
+		}
+		
+		// FIXED: NEW - Post-load cleanup: Remove rows with mismatched tour_date or invalid hotel facility
+		$('.dynamic-added[id^="rowaddon"]').each(function() {
+			var $row = $(this);
+			var unique_id = $row.attr('id').replace('rowaddon', '');
+			var $hiddenDate = $row.find('input[name$="[tour_date]"]');
+			var rowTourDate = $hiddenDate.val();
+			var containerId = $row.closest('[id^="addon_add_dynamic"]').attr('id').replace('addon_add_dynamic', '');
+			var containerDateParts = containerId.split('_')[1].split('-'); // e.g., 10-01-2026 -> ['10','01','2026']
+			var containerTourDate = containerDateParts[2] + '-' + containerDateParts[1] + '-' + containerDateParts[0]; // 2026-01-10
+
+			var addonName = $row.find('input[name$="[addon_event]"]').val().trim();
+			var normalizedAddon = addonName.toLowerCase();
+
+			// Check 1: Date mismatch?
+			if (rowTourDate !== containerTourDate) {
+				$row.remove();
+				console.log('✗ Cleaned post-load: Date mismatch in row', unique_id, '- addon:', addonName, 'tour_date:', rowTourDate, 'vs container:', containerTourDate);
+				return;
+			}
+
+			// Check 2: Hotel facility mismatch? (use data attr from PHP)
+			var $container = $row.closest('[id^="addon_add_dynamic"]');
+			var available = $container.data('available-facilities') || ''; // e.g., "spa,gym,pool" (normalized)
+			var normalizedAvailable = available.split(',').map(function(s) { return s.trim().toLowerCase(); });
+			if (normalizedAddon && normalizedAvailable.indexOf(normalizedAddon) === -1) {
+				$row.remove();
+				console.log('✗ Cleaned post-load: Hotel facility mismatch in row', unique_id, '- addon:', addonName, 'not in', normalizedAvailable);
+			}
+		});
+
+		console.log('Post-load cleanup complete. Global counter:', globalCounter);
+	})();
+
+});
 </script>

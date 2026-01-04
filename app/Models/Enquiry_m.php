@@ -2189,7 +2189,11 @@ class Enquiry_m extends Model
  * @param int $enquiry_details_id
  * @param int $current_extension_ref_id - Current tour plan's extension_ref_id
  * @return array Itinerary details from previous version
+/**
+ * Get previous itinerary for preload
  */
+
+
 public function get_previous_itinerary_for_preload($enquiry_header_id, $enquiry_details_id, $current_extension_ref_id)
 {
     if (empty($current_extension_ref_id)) {
@@ -2288,12 +2292,8 @@ public function get_previous_itinerary_for_preload($enquiry_header_id, $enquiry_
 }
 
 /**
- * Get previous itinerary grouped by tour_date and tour_location
- * For easier lookup when preloading
- * 
- * 
+ * Get tour plan by ID
  */
-
 public function get_tour_plan_by_id($tour_details_id)
 {
     return $this->db->table('khm_obj_enquiry_tour_details')
@@ -2301,6 +2301,11 @@ public function get_tour_plan_by_id($tour_details_id)
         ->get()
         ->getResultArray();
 }
+
+/**
+ * Get previous itinerary grouped by tour_date only
+ * For easier lookup when preloading (date-wise, no location needed)
+ */
 public function get_previous_itinerary_grouped($enquiry_header_id, $enquiry_details_id, $current_extension_ref_id)
 {
     $previous_itinerary = $this->get_previous_itinerary_for_preload(
@@ -2326,9 +2331,9 @@ public function get_previous_itinerary_grouped($enquiry_header_id, $enquiry_deta
             ->getRowArray();
         
         if ($tour_plan) {
-            // Use date + location as key (for lookup)
+            // Use date only as key (for lookup; overwrites if duplicate dates, assuming uniqueness)
             $location_id = $tour_plan['tour_location'];
-            $key = $tour_date . '_' . $location_id;
+            $key = $tour_date;
             
             // Store the item with BOTH location and hotel info embedded
             $item['tour_location'] = $location_id;
@@ -2346,7 +2351,7 @@ public function get_previous_itinerary_grouped($enquiry_header_id, $enquiry_deta
         }
     }
     
-    log_message('info', 'Grouped ' . count($grouped) . ' previous itinerary records (date+location keys only)');
+    log_message('info', 'Grouped ' . count($grouped) . ' previous itinerary records (date keys only)');
     
     return $grouped;
 }

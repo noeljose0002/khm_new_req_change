@@ -2437,9 +2437,9 @@ $is_edit = $edit_id ? $edit_id : 0;
 		}
 
 		var message = 'Refresh Vehicle Data\n\n';
-		message += 'Target: Location ' + targetCount + '\n';
-		message += 'Mode: ' + (isDynamic ? 'Dynamic' : 'Static') + '\n\n';
-		message += 'Choose refresh option:\n';
+		// message += 'Target: Location ' + targetCount + '\n';
+		// message += 'Mode: ' + (isDynamic ? 'Dynamic' : 'Static') + '\n\n';
+		// message += 'Choose refresh option:\n';
 		message += '- Press OK to refresh ALL previous locations + this one (' + locationNames.join(', ') + ')\n';
 		message += '- Press Cancel to refresh ONLY this location (Location ' + targetCount + ')';
 
@@ -2708,12 +2708,12 @@ $is_edit = $edit_id ? $edit_id : 0;
 
 		// Build confirmation message
 		var message = 'Refresh Vehicle Data\n\n';
-		message += 'Location: ' + count + '\n';
-		message += 'Target Night: ' + targetNight + ' (of ' + totalNights + ')\n';
-		message += 'Mode: ' + (isDynamic ? 'Dynamic' : 'Static') + '\n\n';
+		// message += 'Location: ' + count + '\n';
+		// message += 'Target Night: ' + targetNight + ' (of ' + totalNights + ')\n';
+		// message += 'Mode: ' + (isDynamic ? 'Dynamic' : 'Static') + '\n\n';
 
 		if (isDynamic && targetNight > 1) {
-			message += 'Choose refresh option:\n';
+			// message += 'Choose refresh option:\n';
 			message += '- Press OK to refresh ALL previous nights + this one (' + nightsList.join(', ') + ')\n';
 			message += '- Press Cancel to refresh ONLY this night (Night ' + targetNight + ')';
 
@@ -10666,8 +10666,8 @@ function recalcCheckoutOnly(count) {
 			}
 
 			let message = 'Refresh Vehicle Data - Dynamic Mode\n\n';
-			message += 'Target: Location ' + count + '\n\n';
-			message += 'Choose refresh option:\n';
+			// message += 'Target: Location ' + count + '\n\n';
+			// message += 'Choose refresh option:\n';
 			message += '- Press OK to refresh ALL previous locations + this one (' + locationNames.join(', ') + ')\n';
 			message += '- Press Cancel to refresh ONLY this location (Location ' + count + ')';
 

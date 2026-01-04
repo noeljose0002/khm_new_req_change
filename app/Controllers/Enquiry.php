@@ -3278,7 +3278,7 @@ class Enquiry extends BaseController
             if ($edit_id > 0) {
                 $prev_tour = $Enquiry_model->get_tour_plan_details($enquiry_header_id, $this->request->getPost('enquiry_details_id'));
                 if (!empty($prev_tour) && isset($prev_tour[0]['tour_details_id'])) {
-                    $previous_active_tour_id = $prev_tour[0]['extension_ref_id'];
+                    $previous_active_tour_id = $prev_tour[0]['tour_details_id'];
                 }
                 $up_data = array(
                     'is_active' => 0,
@@ -3548,7 +3548,7 @@ class Enquiry extends BaseController
                             'room_type' => $rt_json,
                             'vehicle_details' => $json_output,
                             'location_sequence' => $item['location_sequence'],
-                            'previous_active_tour_id' => $tour_details_id,
+                            'previous_active_tour_id' => $previous_active_tour_id,
                             'is_active' => 1,
                             'is_draft' => $is_draft,
                             'updated_time' => $updated_time
@@ -3721,7 +3721,7 @@ class Enquiry extends BaseController
                             'room_type' => $rt_json,
                             'vehicle_details' => $json_output,
                             'location_sequence' => $item['location_sequence'],
-                            'previous_active_tour_id' => $previous_active_tour_id  ?? 1,
+                            'previous_active_tour_id' => $previous_active_tour_id,
                             'is_active' => 1,
                             'is_draft' => $is_draft,
                             'updated_time' => $updated_time,
@@ -3926,6 +3926,7 @@ class Enquiry extends BaseController
             }
         }
     }
+
 
 
     public function saveTourLocation()
@@ -6637,24 +6638,19 @@ class Enquiry extends BaseController
                     // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
                     // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
                     // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
-                   if (!$had_saved_record && !$had_draft_record && !empty($previous_itinerary_data)) {
-                        // Create composite key: date + location
-                        $lookup_key = $tour_date . '_' . $vals['tour_location'];
+                    // PRIORITY 3: Check previous itinerary (from previous_active_tour_id)
+                    if (!$had_saved_record && !$had_draft_record && !empty($previous_itinerary_data)) {
+                        // Create key: date only
+                        $lookup_key = $tour_date;
                         log_message('debug', 'Looking up previous itinerary with key: ' . $lookup_key . ' (hotel_id=' . $vals['hotel_id'] . ')');
 
                         $prev_data = null;
 
-                        // Strategy 1: Try exact match (date + location)
+                        // Strategy 1: Try exact match (date only)
                         if (isset($previous_itinerary_data[$lookup_key])) {
                             $prev_data = $previous_itinerary_data[$lookup_key];
 
-                            // Verify location matches
-                            if (isset($prev_data['tour_location']) && $prev_data['tour_location'] == $vals['tour_location']) {
-                                log_message('info', 'PRIORITY 3 - Found by date+location key: ' . $lookup_key);
-                            } else {
-                                log_message('warning', 'PRIORITY 3 - Location mismatch, ignoring data');
-                                $prev_data = null;
-                            }
+                            log_message('info', 'PRIORITY 3 - Found by date key: ' . $lookup_key);
                         }
 
                         if ($prev_data !== null) {
@@ -6674,7 +6670,7 @@ class Enquiry extends BaseController
 
                             log_message('info', 'PRIORITY 3 - Hotel comparison: previous=' . $prev_hotel_id . ', current=' . $current_hotel_id . ', match=' . ($hotel_matches ? 'YES' : 'NO'));
 
-                            // ALWAYS load sightseeing if location matches (location-specific, not hotel-specific)
+                            // ALWAYS load sightseeing (now date-based, regardless of location)
                             $saved_sightseeing = json_decode($prev_data['ss_data_json'] ?? '[]', true);
                             $saved_ss_ids = array_column($saved_sightseeing, 'sightseeing_id');
 
@@ -6698,41 +6694,49 @@ class Enquiry extends BaseController
                                 log_message('info', 'PRIORITY 3 - Skipped special events (hotel mismatch)');
                             }
 
-                            // FIXED: For addons (hotel facilities), always filter against CURRENT hotel's available facilities,
-                            // regardless of hotel match. This ensures we only preload facilities that exist in the current hotel.
-                                                     // FIXED: For addons (hotel facilities), always filter against CURRENT hotel's available facilities,
-                            // regardless of hotel match. This ensures we only preload facilities that exist in the current hotel.
-                            $json_addons = json_decode($prev_data['json_addons'] ?? '[]', true);
-                            if (!is_array($json_addons)) {
-                                $json_addons = [];
-                            }
+                            // FIXED: Load and FILTER json_addons by EXACT tour_date FIRST (prevent cross-date leakage)
+                            $all_addons_from_db = json_decode($prev_data['json_addons'] ?? '[]', true);
+                            $original_pre_date = is_array($all_addons_from_db) ? count($all_addons_from_db) : 0;
 
-                            // Track original count before filtering
+                            // STEP 1: Filter by current tour_date (clean historical multi-date JSON)
+                            $date_filtered_addons = array_filter($all_addons_from_db ?? [], function ($addon) use ($tour_date) {
+                                return trim(($addon['tour_date'] ?? '')) === $tour_date;
+                            });
+                            $json_addons = array_values($date_filtered_addons);
+                            $date_skip_count = $original_pre_date - count($json_addons);
                             $original_count = count($json_addons);
+                            log_message('info', 'PRIORITY 3 - Loaded ' . $original_pre_date . ' raw addons from DB, date-filtered to ' . $original_count . ' for exact date ' . $tour_date . ' (skipped ' . $date_skip_count . ' mismatched dates)');
 
-                            // Fetch current hotel's facilities to check availability
-                            $current_facilities = $this->get_hotel_facilities($current_hotel_id);
+                            // STEP 2: Hotel filtering (case-insensitive)
+                            $current_facilities = $Enquiry_model->get_hotel_facilities($current_hotel_id);
                             $available_facility_names = array_column($current_facilities, 'facility_name');
+                            $normalized_available = array_map(function ($name) {
+                                return strtolower(trim($name ?? ''));
+                            }, $available_facility_names);
+                            log_message('info', 'Available normalized facilities for hotel ' . $current_hotel_id . ': ' . implode(', ', $normalized_available));
 
-                            // Filter addons: only keep those whose facility name (addon_event) matches available in current hotel
                             $filtered_addons = [];
-                            $skipped_count = 0;
+                            $hotel_skip_count = 0;
                             foreach ($json_addons as $addon) {
                                 $addon_name = trim($addon['addon_event'] ?? '');
-                                if (!empty($addon_name) && in_array($addon_name, $available_facility_names)) {
+                                $normalized_addon = strtolower($addon_name);
+
+                                if (!empty($addon_name) && in_array($normalized_addon, $normalized_available)) {
                                     $filtered_addons[] = $addon;
+                                    log_message('info', '✓ Kept addon after hotel filter: ' . $addon_name . ' for date ' . $tour_date . ', hotel ' . $current_hotel_id);
                                 } else {
-                                    $skipped_count++;
-                                    log_message('info', 'PRIORITY 3 - Skipped addon facility_name="' . $addon_name . '" for date ' . $tour_date . ' (not available in current hotel ' . $current_hotel_id . ')');
+                                    $hotel_skip_count++;
+                                    log_message('info', '✗ Skipped addon after date filter: "' . $addon_name . '" (norm: ' . $normalized_addon . ') for date ' . $tour_date . ' (unavailable in hotel ' . $current_hotel_id . ')');
                                 }
                             }
                             $json_addons = $filtered_addons;
 
-                            $hotel_facility_ids = implode(',', array_column($json_addons, 'addon_id')) ?? '';
+                            // FIXED: Update hotel_facility_ids ONLY from valid (date + hotel) addons
+                            $hotel_facility_ids = !empty($json_addons) ? implode(',', array_column($json_addons, 'addon_id')) : '';
 
-                            log_message('info', 'PRIORITY 3 - Loaded addons for date ' . $tour_date . ' (original: ' . $original_count . ', filtered available: ' . count($json_addons) . ', skipped: ' . $skipped_count . ')');
+                            log_message('info', 'PRIORITY 3 - Final addons for date ' . $tour_date . ': date-filtered ' . $original_count . ', hotel-filtered ' . count($json_addons) . ' (hotel-skipped ' . $hotel_skip_count . ')');
 
-                            // Load vehicle details (usually location-specific, but verify)
+                            // Load vehicle details (usually date-based now)
                             $prev_vehicle_json = $prev_data['vehicle_details_json'] ?? '';
 
                             // Calculate totals from sightseeing
@@ -6749,13 +6753,12 @@ class Enquiry extends BaseController
                             }
 
                             log_message('info', 'PRIORITY 3 - Loaded PREVIOUS itinerary for date ' . $tour_date .
-                                ' location ' . $vals['tour_location'] .
                                 ' hotel_id ' . $current_hotel_id .
                                 ' (SS: ' . count($saved_sightseeing) .
                                 ', Events: ' . count($json_special_event) .
                                 ', Addons: ' . count($json_addons) . ')');
                         } else {
-                            log_message('info', 'PRIORITY 3 - No previous itinerary found for date+location: ' .
+                            log_message('info', 'PRIORITY 3 - No previous itinerary found for date: ' .
                                 $lookup_key . ' - will use defaults');
                         }
                     }
@@ -6858,17 +6861,17 @@ class Enquiry extends BaseController
                         $json_special_event = [];
                     }
 
-                    // Enrich json_addons with hotel & location context
+                    // FIXED: Enrich ONLY valid (date + hotel filtered) addons with current context
                     $enriched_addons = [];
-                    foreach (($json_addons ?? []) as $addon) {
+                    foreach ($json_addons as $addon) {
                         $addon['hotel_id'] = (int)$vals['hotel_id'];
                         $addon['location_id'] = (int)$vals['tour_location'];
                         $enriched_addons[] = $addon;
                     }
 
-                    // Enrich json_special_event with hotel & location context
+                    // FIXED: Same for special events (add if not already)
                     $enriched_special_events = [];
-                    foreach (($json_special_event ?? []) as $event) {
+                    foreach ($json_special_event as $event) {
                         $event['hotel_id'] = (int)$vals['hotel_id'];
                         $event['location_id'] = (int)$vals['tour_location'];
                         $enriched_special_events[] = $event;
@@ -6881,18 +6884,16 @@ class Enquiry extends BaseController
                         'ss_pax_cost' => $ss_pax_cost,
                         'ss_total_cost' => $ss_total_cost,
                         'special_event_name' => $special_event_name,
-                        'json_addons' => $enriched_addons ?? [],                    // Ensure array
-                        'json_special_event' => $enriched_special_events ?? [],      // Ensure array
-                        'hotel_facility_ids' => $hotel_facility_ids ?? '',
+                        'json_addons' => $enriched_addons,  // Now clean
+                        'json_special_event' => $enriched_special_events,
+                        'hotel_facility_ids' => $hotel_facility_ids ?? '',  // Now clean
                         'is_saved' => ($had_saved_record || $had_draft_record || $had_previous_record),
                         'data_source' => $had_saved_record ? 'saved'
                             : ($had_draft_record ? 'draft'
                                 : ($had_previous_record ? 'previous' : 'default')),
                         'tour_details_id' => $vals['tour_details_id'],
-
-                        // === NEW: ADD LOCATION AND HOTEL CONTEXT ===
-                        'location_id' => $vals['tour_location'],       // This is the location ID
-                        'hotel_id' => $vals['hotel_id'],               // This is the hotel ID for this segment
+                        'location_id' => $vals['tour_location'],
+                        'hotel_id' => $vals['hotel_id'],
                     ];
                 }
                 // NEW: Adjust vehicle distances to base-only model (derive base, no SS addition; JS adds dynamically)
@@ -7166,6 +7167,16 @@ class Enquiry extends BaseController
                 $data['previous_itinerary_details_save'] = $previous_itinerary_details_save;
                 $data['enquiry_header_id'] = $object_det[0]['enquiry_header_id'];
                 $data['enquiry_details_id'] = $object_det[0]['enquiry_details_id'];
+                $data['hotel_facilities'] = [];
+foreach ($tour_plan_det as $tour) {
+    $tid = $tour['tour_details_id'];
+    $current_facilities = $Enquiry_model->get_hotel_facilities($tour['hotel_id']);
+    $available_facility_names = array_column($current_facilities, 'facility_name');
+    $normalized_available = array_map(function($name) {
+        return strtolower(trim($name ?? ''));
+    }, $available_facility_names);
+    $data['hotel_facilities'][$tid] = $normalized_available; // Pass to view
+}
                 return view('enquiry/itinerary_view', $data);
             }
         } else {
