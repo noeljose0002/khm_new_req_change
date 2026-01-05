@@ -4789,7 +4789,7 @@ $cs_trans_total = 0;
 															<h5 style="font-weight:bold;color:#003300;">TCS</h5>
 														</td>
 														<td>
-															<input type="checkbox" id="tcs_checkbox" name="tcs_checkbox" <?php echo $dis_abled_ext; ?>> 5%
+															<input type="checkbox" id="tcs_checkbox" name="tcs_checkbox" value="0" <?php echo $dis_abled_ext; ?>> 5%
 														</td>
 														<td><input type="text" id="tcs_final" name="tcs_final" class="form-control input-sm" maxlength="6" value="0" readonly></td>
 													</tr>
