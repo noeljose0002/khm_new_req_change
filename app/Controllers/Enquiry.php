@@ -3014,7 +3014,7 @@ class Enquiry extends BaseController
                     $season_tariff = $Enquiry_model->checkSeasonExist($tour_date, $object_id);
 
                     if (!empty($weekend_tariff)) {
-                        $season_id_temp = $weekend_tariff[0]['season_id'];
+                        $season_id_temp = $weekend_tariff[0]['weekend_id'];
                     } else if (!empty($season_tariff)) {
                         $season_id_temp = $season_tariff[0]['season_id'];
                     } else {
