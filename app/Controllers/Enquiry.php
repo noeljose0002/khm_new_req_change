@@ -1980,6 +1980,7 @@ class Enquiry extends BaseController
         $data['tour_plan'] = $tour_plan;
         $data['cdata'] = $hot_det;
         $data['cdate'] = $sdate;
+        $data['cdata2'] = $ext_det;
         $data['enquiry_header_id'] = $enquiry_header_id;
         $data['confirm_cs_id'] = $confirm_cs_id;
         $data['enquiry_edit_request_id'] = $enquiry_edit_request_id;

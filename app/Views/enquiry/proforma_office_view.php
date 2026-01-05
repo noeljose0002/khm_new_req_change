@@ -518,7 +518,7 @@ if (!empty($proforma_saved_data[0]['proforma_data'])) {
 
                                             $row_counter_for_date = 0;
                                             $double_adult_shown = false;  // NEW: Track if double adult shown for this date
-$single_adult_shown = false;
+                                            $single_adult_shown = false;
 
                                             // === RENDER GROUPED DOUBLE ROOM ROWS FOR THIS DATE ===
                                             foreach ($grouped_doubles as $group) {
@@ -553,8 +553,8 @@ $single_adult_shown = false;
         
         <!-- UPDATED: No Of Pax section with adult count logic -->
         <?php if ($cdata[0]['no_of_adult'] > 0) { ?>
-    <?php if (!$double_adult_shown) { 
-        $double_adult_shown = true; ?>
+    <?php if (!$double_adult_shown) {
+                                                        $double_adult_shown = true; ?>
         <td rowspan="<?php echo $double_row_count; ?>" style="border:1px solid black;text-align:center;"><?php echo $adults_for_double; ?></td>
     <?php } ?>
 <?php } ?>
@@ -619,8 +619,8 @@ $single_adult_shown = false;
         
         <!-- UPDATED: No Of Pax section with adult count logic -->
         <?php if ($cdata[0]['no_of_adult'] > 0) { ?>
-    <?php if (!$single_adult_shown) { 
-        $single_adult_shown = true; ?>
+    <?php if (!$single_adult_shown) {
+                                                        $single_adult_shown = true; ?>
         <td rowspan="<?php echo $single_row_count; ?>" style="border:1px solid black;text-align:center;"><?php echo $adults_for_single; ?></td>
     <?php } ?>
 <?php } ?>
@@ -714,84 +714,84 @@ $single_adult_shown = false;
                                                 <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $cat; ?></td>
                                                 <td rowspan="<?php echo $rlen; ?>" style="border:1px solid black;"><?php echo $meals; ?></td>
                                                 <?php
-                                               if($val['no_of_double_room'] > 0) {  
-?>   
+                                                if ($val['no_of_double_room'] > 0) {
+                                                ?>   
     <td style="border:1px solid black;text-align:center;"><?php echo $val['no_of_double_room']; ?></td>
     <td style="border:1px solid black;">Double</td>
     
     <!-- UPDATED: No Of Pax with proper adult count -->
-    <?php if($val['no_of_adult'] > 0){ ?>
-    <?php if (!$double_adult_shown) { 
-        $double_adult_shown = true; ?>
+    <?php if ($val['no_of_adult'] > 0) { ?>
+    <?php if (!$double_adult_shown) {
+                                                            $double_adult_shown = true; ?>
         <td rowspan="<?php echo ($rlen > 0 ? 1 : 0); ?>" style="border:1px solid black;text-align:center;"><?php echo $adults_for_double_fb; ?></td>
     <?php } ?>
 <?php } ?>
-    <?php if($val['no_of_child_with_bed'] > 0){ ?>
+    <?php if ($val['no_of_child_with_bed'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;"><?php echo ($d_child > 0) ? $val['no_of_child_with_bed'] : 0; ?></td>
     <?php } ?>
-    <?php if($val['no_of_child_without_bed'] > 0){ ?>
+    <?php if ($val['no_of_child_without_bed'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;"><?php echo ($d_child_wb > 0) ? $val['no_of_child_without_bed'] : 0; ?></td>
     <?php } ?>
-    <?php if($val['no_of_extra_bed'] > 0){ ?>
+    <?php if ($val['no_of_extra_bed'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;"><?php echo ($d_extra > 0) ? $val['no_of_extra_bed'] : 0; ?></td>
     <?php } ?>
 
     <!-- Rate section -->
-    <?php if($cdata[0]['no_of_adult'] > 0){ ?>
+    <?php if ($cdata[0]['no_of_adult'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;"><?php echo $d_adult; ?></td>
     <?php } ?>
-    <?php if($cdata[0]['no_of_child_with_bed'] > 0){ ?>
+    <?php if ($cdata[0]['no_of_child_with_bed'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;"><?php echo $d_child; ?></td>
     <?php } ?>
-    <?php if($cdata[0]['no_of_child_without_bed'] > 0){ ?>
+    <?php if ($cdata[0]['no_of_child_without_bed'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;"><?php echo $d_child_wb; ?></td>
     <?php } ?>
-    <?php if($cdata[0]['no_of_extra_bed'] > 0){ ?>
+    <?php if ($cdata[0]['no_of_extra_bed'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;"><?php echo $d_extra; ?></td>
     <?php } ?>
   
-    <td style="border:1px solid black;text-align:center;"><?php echo $val['no_of_days']*$double_room_total; ?></td>
+    <td style="border:1px solid black;text-align:center;"><?php echo $val['no_of_days'] * $double_room_total; ?></td>
     <td style="border:1px solid black;text-align:center;">0</td>
 </tr>
-<?php 
-} 
-if($val['no_of_single_room'] > 0) {
+<?php
+                                                }
+                                                if ($val['no_of_single_room'] > 0) {
 ?>
 <tr>
     <td style="border:1px solid black;text-align:center;"><?php echo $val['no_of_single_room']; ?></td>
     <td style="border:1px solid black;text-align:center;">Single</td>
     
     <!-- UPDATED: No Of Pax with proper adult count -->
-    <?php if($val['no_of_adult'] > 0){ ?>
-    <?php if (!$single_adult_shown) { 
-        $single_adult_shown = true; ?>
+    <?php if ($val['no_of_adult'] > 0) { ?>
+    <?php if (!$single_adult_shown) {
+                                                            $single_adult_shown = true; ?>
         <td style="border:1px solid black;text-align:center;"><?php echo $adults_for_single_fb; ?></td>
     <?php } ?>
 <?php } ?>
-    <?php if($val['no_of_child_with_bed'] > 0){ ?>
+    <?php if ($val['no_of_child_with_bed'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;">0</td>
     <?php } ?>
-    <?php if($val['no_of_child_without_bed'] > 0){ ?>
+    <?php if ($val['no_of_child_without_bed'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;">0</td>
     <?php } ?>
-    <?php if($val['no_of_extra_bed'] > 0){ ?>
+    <?php if ($val['no_of_extra_bed'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;">0</td>
     <?php } ?>
 
     <!-- Rate section -->
-    <?php if($cdata[0]['no_of_adult'] > 0){ ?>
+    <?php if ($cdata[0]['no_of_adult'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;"><?php echo $s_adult; ?></td>
     <?php } ?>
-    <?php if($cdata[0]['no_of_child_with_bed'] > 0){ ?>
+    <?php if ($cdata[0]['no_of_child_with_bed'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;">0</td>
     <?php } ?>
-    <?php if($cdata[0]['no_of_child_without_bed'] > 0){ ?>
+    <?php if ($cdata[0]['no_of_child_without_bed'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;">0</td>
     <?php } ?>
-    <?php if($cdata[0]['no_of_extra_bed'] > 0){ ?>
+    <?php if ($cdata[0]['no_of_extra_bed'] > 0) { ?>
         <td style="border:1px solid black;text-align:center;">0</td>
     <?php } ?>
-    <td style="border:1px solid black;text-align:center;"><?php echo $val['no_of_days']*$single_room_total; ?></td>
+    <td style="border:1px solid black;text-align:center;"><?php echo $val['no_of_days'] * $single_room_total; ?></td>
     <td style="border:1px solid black;text-align:center;">0</td>
 </tr> <?php
                                                 }
@@ -907,6 +907,22 @@ if($val['no_of_single_room'] > 0) {
                                 <tr>
                                     <td style="text-align:right;border: 1px solid black;" colspan="2"><b> Gross Amount (Sale Value): <?php echo $cdata[0]['tpc']; ?></b></td>
                                 </tr>
+
+                                <tr>
+            <td  style="text-align:left;padding-left:10%;"><b>TCS %</b></td>
+            <td style="text-align:right;">5%</td>
+        </tr>
+        <tr>
+            <td style="text-align:left;padding-left:10%;"><b>TCS Amount</b></td>
+            <td style="text-align:right;"><?php echo ($cdata2[0]['tcs_value']); ?></td>
+        </tr>
+		<tr>
+		<td  style="text-align:left;padding-left:10%;" >
+			 <b>Total Package Cost(With TCS)</b>
+				</td>
+																
+			<td style="text-align:right;background-color:#D3D3D3;"><?php echo ($cdata2[0]['tpc_with_tcs']); ?></td>
+				</tr>
                            
                         </table>
 
