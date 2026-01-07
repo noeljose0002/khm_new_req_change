@@ -5014,26 +5014,13 @@ $cs_trans_total = 0;
 																		<span id="bifur_double_total_span"><?php echo $bifur_double_total; ?></span>
 																		<input type="hidden" id="bifur_double_total_hidden" name="bifur_double_total_hidden" value="<?php echo $bifur_double_total; ?>">
 																	</td>
-																	<?php
-																	$double_room_count = (int) ($object_det[0]['no_of_double_room'] ?? 0);
-																	$double_divisor    = $double_room_count * 2;
-
-																	$bifur_double_pp = ($double_divisor > 0)
-																		? round($bifur_double_total / $double_divisor, 2)
-																		: 0;
-
-																	$no_of_pax_bifur = (int) ($no_of_pax_bifur ?? 0);
-																	$ttc_bifur_pp = ($no_of_pax_bifur > 0)
-																		? round($ttc_bifur / $no_of_pax_bifur, 2)
-																		: 0;
-																	?>
 																	<td>
-																		<span id="bifur_double_pp_span"><?= $bifur_double_pp ?></span>
-																		<input type="hidden" id="bifur_double_pp_hidden" name="bifur_double_pp_hidden" value="<?= $bifur_double_pp ?>">
+																		<span id="bifur_double_pp_span"><?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?></span>
+																		<input type="hidden" id="bifur_double_pp_hidden" name="bifur_double_pp_hidden" value="<?php echo round($bifur_double_total / ($object_det[0]['no_of_double_room'] * 2), 2); ?>">
 																	</td>
 																	<td>
-																		<span id="ttc_bifur_span_double_span"><?= $ttc_bifur_pp ?></span>
-																		<input type="hidden" id="ttc_bifur_double_hd" name="ttc_bifur_double_hd" value="<?= $ttc_bifur_pp ?>">
+																		<span id="ttc_bifur_span_double_span"><?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?></span>
+																		<input type="hidden" id="ttc_bifur_double_hd" name="ttc_bifur_double_hd" value="<?php echo round($ttc_bifur / $no_of_pax_bifur, 2); ?>">
 																	</td>
 																	<td>
 																		<span id="ss_bifur_double_span_pp">0</span>

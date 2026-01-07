@@ -673,7 +673,7 @@ class Enquiry_m extends Model
             ->get()->getResultArray();
         return $result;
     }
-    
+
     function getHotelFacilitybyhotelid($hotel_id)
     {
         $db = \Config\Database::connect();
@@ -868,7 +868,7 @@ class Enquiry_m extends Model
         }
     }
 
-     public function getAllSightseeingByLocation2($location_id)
+    public function getAllSightseeingByLocation2($location_id)
     {
         try {
             $builder = $this->db->table('khm_obj_sightseeing');
@@ -2203,179 +2203,194 @@ class Enquiry_m extends Model
     }
     //nj preload//
     /**
- * Get previous itinerary details for preloading
- * Uses previous_active_tour_id to find the last edited tour plan's itinerary
- * 
- * @param int $enquiry_header_id
- * @param int $enquiry_details_id
- * @param int $current_extension_ref_id - Current tour plan's extension_ref_id
- * @return array Itinerary details from previous version
+     * Get previous itinerary details for preloading
+     * Uses previous_active_tour_id to find the last edited tour plan's itinerary
+     * 
+     * @param int $enquiry_header_id
+     * @param int $enquiry_details_id
+     * @param int $current_extension_ref_id - Current tour plan's extension_ref_id
+     * @return array Itinerary details from previous version
 /**
- * Get previous itinerary for preload
- */
+     * Get previous itinerary for preload
+     */
 
 
-public function get_previous_itinerary_for_preload($enquiry_header_id, $enquiry_details_id, $current_extension_ref_id)
-{
-    if (empty($current_extension_ref_id)) {
-        log_message('info', 'No current_extension_ref_id provided for previous itinerary lookup');
-        return [];
-    }
-    
-    // STEP 1: Get the current tour plan to find its previous_active_tour_id
-    $current_tour_plan = $this->db->table('khm_obj_enquiry_tour_details')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->where('enquiry_details_id', $enquiry_details_id)
-        ->where('extension_ref_id', $current_extension_ref_id)
-        // ->where('is_active', 1)
-        ->get()
-        ->getRowArray();
-    
-    if (empty($current_tour_plan)) {
-        log_message('warning', 'Current tour plan not found for extension_ref_id=' . $current_extension_ref_id);
-        return [];
-    }
-    
-    $previous_active_tour_id = $current_tour_plan['previous_active_tour_id'] ?? null;
-    
-    if (empty($previous_active_tour_id)) {
-        log_message('info', 'No previous_active_tour_id found in current tour plan (extension_ref_id=' . $current_extension_ref_id . ')');
-        return [];
-    }
-    
-    log_message('info', 'Found previous_active_tour_id=' . $previous_active_tour_id . ' for current extension_ref_id=' . $current_extension_ref_id);
-    
-    // STEP 2: Find the maximum extension_ref_id for the previous tour plan
-    // SIMPLIFIED: Don't filter by is_active/is_draft in the MAX query
-    $max_extension = $this->db->table('khm_obj_enquiry_itinerary_details')
-        ->select('MAX(extension_ref_id) as max_ext_id')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->where('enquiry_details_id', $enquiry_details_id)
-        ->where('tour_plan_ref_id', $previous_active_tour_id)
-        ->get()
-        ->getRowArray();
-    
-    $max_extension_ref_id = $max_extension['max_ext_id'] ?? null;
-    
-    if (empty($max_extension_ref_id)) {
-        log_message('warning', 'No extension_ref_id found for tour_plan_ref_id=' . $previous_active_tour_id);
-        
-        // DEBUG: Let's see what records exist
-        $debug_records = $this->db->table('khm_obj_enquiry_itinerary_details')
-            ->select('itinerary_details_id, tour_plan_ref_id, extension_ref_id, is_active, is_draft')
-            ->where('enquiry_header_id', $enquiry_header_id)
-            ->where('enquiry_details_id', $enquiry_details_id)
-            ->where('tour_plan_ref_id', $previous_active_tour_id)
-            ->get()
-            ->getResultArray();
-        
-        log_message('info', 'DEBUG: Found ' . count($debug_records) . ' total records for tour_plan_ref_id=' . $previous_active_tour_id . ': ' . json_encode($debug_records));
-        
-        return [];
-    }
-    
-    log_message('info', 'Found max extension_ref_id=' . $max_extension_ref_id . ' for tour_plan_ref_id=' . $previous_active_tour_id);
-    
-    // STEP 3: Get itinerary details with the maximum extension_ref_id
-    $builder = $this->db->table('khm_obj_enquiry_itinerary_details')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->where('enquiry_details_id', $enquiry_details_id)
-        ->where('tour_plan_ref_id', $previous_active_tour_id)
-        ->where('extension_ref_id', $max_extension_ref_id)
-        // ->groupStart()
-        //     ->where('is_active', 1)
-        //     ->orWhere('is_draft', 1)
-        // ->groupEnd()
-        ->orderBy('is_active', 'DESC') // Saved records first
-        ->orderBy('is_draft', 'ASC')   // Then drafts
-        ->orderBy('updated_time', 'DESC') // Latest first
-        ->orderBy('tour_date', 'ASC');
-    
-    $results = $builder->get()->getResultArray();
-    
-    log_message('info', 'Retrieved ' . count($results) . ' itinerary records from tour_plan_ref_id=' . $previous_active_tour_id . ' with extension_ref_id=' . $max_extension_ref_id);
-    
-    // DEBUG: If no results, let's see why
-    if (empty($results)) {
-        $debug_all = $this->db->table('khm_obj_enquiry_itinerary_details')
-            ->select('itinerary_details_id, tour_plan_ref_id, extension_ref_id, is_active, is_draft, tour_date')
-            ->where('enquiry_header_id', $enquiry_header_id)
-            ->where('enquiry_details_id', $enquiry_details_id)
-            ->where('tour_plan_ref_id', $previous_active_tour_id)
-            ->where('extension_ref_id', $max_extension_ref_id)
-            ->get()
-            ->getResultArray();
-        
-        log_message('warning', 'DEBUG: Found ' . count($debug_all) . ' records without is_active/is_draft filter: ' . json_encode($debug_all));
-    }
-    
-    return $results;
-}
+    public function get_previous_itinerary_for_preload($enquiry_header_id = null, $enquiry_details_id = null, $current_extension_ref_id)
+    {
+        if (empty($current_extension_ref_id)) {
+            log_message('info', 'No current_extension_ref_id provided for previous itinerary lookup');
+            return [];
+        }
 
-/**
- * Get tour plan by ID
- */
-public function get_tour_plan_by_id($tour_details_id)
-{
-    return $this->db->table('khm_obj_enquiry_tour_details')
-        ->where('tour_details_id', $tour_details_id)
-        ->get()
-        ->getResultArray();
-}
-
-/**
- * Get previous itinerary grouped by tour_date only
- * For easier lookup when preloading (date-wise, no location needed)
- */
-public function get_previous_itinerary_grouped($enquiry_header_id, $enquiry_details_id, $current_extension_ref_id)
-{
-    $previous_itinerary = $this->get_previous_itinerary_for_preload(
-        $enquiry_header_id, 
-        $enquiry_details_id, 
-        $current_extension_ref_id
-    );
-    
-    if (empty($previous_itinerary)) {
-        log_message('info', 'No previous itinerary found to group');
-        return [];
-    }
-    
-    $grouped = [];
-    
-    foreach ($previous_itinerary as $item) {
-        $tour_date = $item['tour_date'];
-        
-        // Get tour location AND hotel for this tour_details_id
-        $tour_plan = $this->db->table('khm_obj_enquiry_tour_details')
-            ->where('tour_details_id', $item['tour_details_id'])
+        // STEP 1: Get the current tour plan to find its previous_active_tour_id
+        $current_tour_plan = $this->db->table('khm_obj_enquiry_tour_details')
+            ->where('extension_ref_id', $current_extension_ref_id)
             ->get()
             ->getRowArray();
-        
-        if ($tour_plan) {
-            // Use date only as key (for lookup; overwrites if duplicate dates, assuming uniqueness)
-            $location_id = $tour_plan['tour_location'];
-            $key = $tour_date;
-            
-            // Store the item with BOTH location and hotel info embedded
-            $item['tour_location'] = $location_id;
-            $item['hotel_id'] = $tour_plan['hotel_id'];  // ← ADD THIS
-            $item['tour_details_id'] = $tour_plan['tour_details_id']; // Keep for reference
-            $grouped[$key] = $item;
-            
-            log_message('debug', 'Grouped previous itinerary: key=' . $key . 
-                ', date=' . $tour_date . 
-                ', location=' . $location_id . 
-                ', hotel=' . $tour_plan['hotel_id'] .
-                ', tour_details_id=' . $item['tour_details_id']);
-        } else {
-            log_message('warning', 'Could not find tour plan for tour_details_id=' . $item['tour_details_id']);
+
+        if (empty($current_tour_plan)) {
+            log_message('warning', 'Current tour plan not found for extension_ref_id=' . $current_extension_ref_id);
+            return [];
         }
+
+        $previous_active_tour_id = $current_tour_plan['previous_active_tour_id'] ?? null;
+
+        if (empty($previous_active_tour_id)) {
+            log_message('info', 'No previous_active_tour_id found in current tour plan (extension_ref_id=' . $current_extension_ref_id . ')');
+            return [];
+        }
+
+        log_message('info', 'Found previous_active_tour_id=' . $previous_active_tour_id . ' for current extension_ref_id=' . $current_extension_ref_id);
+
+        // STEP 2: Get the previous tour plan to find its enquiry_header_id and enquiry_details_id
+        // This is CRITICAL - the previous tour plan might belong to a different enquiry version
+        $previous_tour_plan = $this->db->table('khm_obj_enquiry_tour_details')
+            ->where('tour_details_id', $previous_active_tour_id)
+            ->get()
+            ->getRowArray();
+
+        if (empty($previous_tour_plan)) {
+            log_message('warning', 'Previous tour plan not found for tour_details_id=' . $previous_active_tour_id);
+            return [];
+        }
+
+        // Use the previous tour plan's enquiry IDs (not the current ones!)
+        $prev_enquiry_header_id = $previous_tour_plan['enquiry_header_id'];
+        $prev_enquiry_details_id = $previous_tour_plan['enquiry_details_id'];
+        $prev_extension_ref_id = $previous_tour_plan['extension_ref_id'];
+
+        log_message('info', 'Previous tour plan belongs to enquiry_header_id=' . $prev_enquiry_header_id .
+            ', enquiry_details_id=' . $prev_enquiry_details_id .
+            ', extension_ref_id=' . $prev_extension_ref_id);
+
+        // STEP 3: Find the maximum extension_ref_id for the previous tour plan
+        // Use the previous enquiry's IDs to look up itinerary
+        $max_extension = $this->db->table('khm_obj_enquiry_itinerary_details')
+            ->select('MAX(extension_ref_id) as max_ext_id')
+            ->where('enquiry_header_id', $prev_enquiry_header_id)
+            ->where('enquiry_details_id', $prev_enquiry_details_id)
+            ->where('tour_plan_ref_id', $previous_active_tour_id)
+            ->get()
+            ->getRowArray();
+
+        $max_extension_ref_id = $max_extension['max_ext_id'] ?? null;
+
+        if (empty($max_extension_ref_id)) {
+            log_message('warning', 'No extension_ref_id found for tour_plan_ref_id=' . $previous_active_tour_id);
+
+            // DEBUG: Let's see what records exist
+            $debug_records = $this->db->table('khm_obj_enquiry_itinerary_details')
+                ->select('itinerary_details_id, enquiry_header_id, enquiry_details_id, tour_plan_ref_id, extension_ref_id, is_active, is_draft')
+                ->where('tour_plan_ref_id', $previous_active_tour_id)
+                ->get()
+                ->getResultArray();
+
+            log_message('info', 'DEBUG: Found ' . count($debug_records) . ' total records for tour_plan_ref_id=' . $previous_active_tour_id . ': ' . json_encode($debug_records));
+
+            return [];
+        }
+
+        log_message('info', 'Found max extension_ref_id=' . $max_extension_ref_id . ' for tour_plan_ref_id=' . $previous_active_tour_id);
+
+        // STEP 4: Get itinerary details with the maximum extension_ref_id
+        // MUST use the previous enquiry's IDs
+        $builder = $this->db->table('khm_obj_enquiry_itinerary_details')
+            ->where('enquiry_header_id', $prev_enquiry_header_id)
+            ->where('enquiry_details_id', $prev_enquiry_details_id)
+            ->where('tour_plan_ref_id', $previous_active_tour_id)
+            ->where('extension_ref_id', $max_extension_ref_id)
+            ->orderBy('is_active', 'DESC') // Saved records first
+            ->orderBy('is_draft', 'ASC')   // Then drafts
+            ->orderBy('updated_time', 'DESC') // Latest first
+            ->orderBy('tour_date', 'ASC');
+
+        $results = $builder->get()->getResultArray();
+
+        log_message('info', 'Retrieved ' . count($results) . ' itinerary records from tour_plan_ref_id=' . $previous_active_tour_id .
+            ' with extension_ref_id=' . $max_extension_ref_id .
+            ' (from enquiry_header_id=' . $prev_enquiry_header_id . ', enquiry_details_id=' . $prev_enquiry_details_id . ')');
+
+        // DEBUG: If no results, let's see why
+        if (empty($results)) {
+            $debug_all = $this->db->table('khm_obj_enquiry_itinerary_details')
+                ->select('itinerary_details_id, enquiry_header_id, enquiry_details_id, tour_plan_ref_id, extension_ref_id, is_active, is_draft, tour_date')
+                ->where('tour_plan_ref_id', $previous_active_tour_id)
+                ->where('extension_ref_id', $max_extension_ref_id)
+                ->get()
+                ->getResultArray();
+
+            log_message('warning', 'DEBUG: Found ' . count($debug_all) . ' records without enquiry ID filter: ' . json_encode($debug_all));
+        }
+
+        return $results;
     }
-    
-    log_message('info', 'Grouped ' . count($grouped) . ' previous itinerary records (date keys only)');
-    
-    return $grouped;
-}
+
+    /**
+     * Get tour plan by ID
+     */
+    public function get_tour_plan_by_id($tour_details_id)
+    {
+        return $this->db->table('khm_obj_enquiry_tour_details')
+            ->where('tour_details_id', $tour_details_id)
+            ->get()
+            ->getResultArray();
+    }
+
+    /**
+     * Get previous itinerary grouped by tour_date only
+     * For easier lookup when preloading (date-wise, no location needed)
+     */
+    public function get_previous_itinerary_grouped($enquiry_header_id, $enquiry_details_id, $current_extension_ref_id)
+    {
+        // Note: enquiry_header_id and enquiry_details_id are from CURRENT enquiry
+        // but get_previous_itinerary_for_preload will find the PREVIOUS enquiry's IDs internally
+        $previous_itinerary = $this->get_previous_itinerary_for_preload(
+            $enquiry_header_id,
+            $enquiry_details_id,
+            $current_extension_ref_id
+        );
+
+        if (empty($previous_itinerary)) {
+            log_message('info', 'No previous itinerary found to group');
+            return [];
+        }
+
+        $grouped = [];
+
+        foreach ($previous_itinerary as $item) {
+            $tour_date = $item['tour_date'];
+
+            // Get tour location AND hotel for this tour_details_id
+            $tour_plan = $this->db->table('khm_obj_enquiry_tour_details')
+                ->where('tour_details_id', $item['tour_details_id'])
+                ->get()
+                ->getRowArray();
+
+            if ($tour_plan) {
+                // Use date only as key (for lookup; overwrites if duplicate dates, assuming uniqueness)
+                $location_id = $tour_plan['tour_location'];
+                $key = $tour_date;
+
+                // Store the item with BOTH location and hotel info embedded
+                $item['tour_location'] = $location_id;
+                $item['hotel_id'] = $tour_plan['hotel_id'];
+                $item['tour_details_id'] = $tour_plan['tour_details_id'];
+                $grouped[$key] = $item;
+
+                log_message('debug', 'Grouped previous itinerary: key=' . $key .
+                    ', date=' . $tour_date .
+                    ', location=' . $location_id .
+                    ', hotel=' . $tour_plan['hotel_id'] .
+                    ', tour_details_id=' . $item['tour_details_id']);
+            } else {
+                log_message('warning', 'Could not find tour plan for tour_details_id=' . $item['tour_details_id']);
+            }
+        }
+
+        log_message('info', 'Grouped ' . count($grouped) . ' previous itinerary records (date keys only)');
+
+        return $grouped;
+    }
     public function get_tour_details_by_extension_ref($extension_ref_id)
     {
         $builder = $this->db->table('khm_obj_enquiry_tour_details');
@@ -2413,185 +2428,185 @@ public function get_previous_itinerary_grouped($enquiry_header_id, $enquiry_deta
         }
         return $response;
     }
-/**
- * Get tour record by tour_details_id
- */
-public function get_tour_record_by_id(int $tour_details_id): ?array
-{
-    $result = $this->db->table('khm_obj_enquiry_tour_details')
-        ->select('tour_details_id, previous_active_tour_id, enquiry_header_id, extension_ref_id')
-        ->where('tour_details_id', $tour_details_id)
-        ->get()
-        ->getRowArray();
-    
-    return $result ?: null;
-}
-
-/**
- * Get latest itinerary for a specific tour plan
- */
-public function get_latest_itinerary_for_tour(
-    int $enquiry_header_id,
-    int $tour_details_id
-): array {
-    // Find the LATEST extension_ref_id for this tour plan
-    $latest_extension = $this->db->table('khm_obj_enquiry_itinerary_details')
-        ->selectMax('extension_ref_id')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->where('tour_details_id', $tour_details_id)
-        ->get()
-        ->getRowArray();
-    
-    if (empty($latest_extension) || empty($latest_extension['extension_ref_id'])) {
-        log_message('info', 'No itinerary found for tour_details_id: ' . $tour_details_id);
-        return [];
-    }
-    
-    $extension_ref_id = $latest_extension['extension_ref_id'];
-    
-    log_message('info', 'Loading itinerary for tour_details_id: ' . $tour_details_id . 
-               ', extension_ref_id: ' . $extension_ref_id);
-    
-    // Get all itinerary records for this tour and extension
-    $result = $this->db->table('khm_obj_enquiry_itinerary_details a')
-        ->select('a.*, t.tour_location, t.hotel_id')  // FIXED: Added t.hotel_id to select
-        ->join('khm_obj_enquiry_tour_details t', 't.tour_details_id = a.tour_details_id', 'left')
-        ->where('a.enquiry_header_id', $enquiry_header_id)
-        ->where('a.tour_details_id', $tour_details_id)
-        ->where('a.extension_ref_id', $extension_ref_id)
-        ->orderBy('a.tour_date', 'ASC')
-        ->get()
-        ->getResultArray();
-    
-    log_message('info', 'Found ' . count($result) . ' itinerary records');
-    
-    return $result;
-}
-    //nj load prev sight//
-   public function get_previous_tour_plan_id(
-    int $enquiry_header_id,
-    int $current_tour_details_id
-): ?int {
-    $row = $this->db->table('khm_obj_enquiry_tour_details')
-        ->select('previous_active_tour_id')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        // ->where('tour_details_id !=', $current_tour_details_id)
-        ->orderBy('updated_time', 'DESC')
-        ->limit(1)
-        ->get()
-        ->getRowArray();
-
-    return $row['tour_details_id'] ?? null;
-}
-
-public function get_latest_itinerary_of_old_tour_plan(
-    int $enquiry_header_id,
-    int $old_tour_details_id,
-    int $current_extension_ref_id
-): array {
-
-    // subquery for previous extension_ref_id
-    $subQuery = $this->db->table('khm_obj_enquiry_itinerary_details')
-        ->selectMax('extension_ref_id')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->where('tour_details_id', $old_tour_details_id)
-        ->where('extension_ref_id <', $current_extension_ref_id)
-        ->getCompiledSelect();
-
-    return $this->db->table('khm_obj_enquiry_itinerary_details')
-        ->where('enquiry_header_id', $enquiry_header_id)
-        ->where('tour_details_id', $old_tour_details_id)
-        ->where("extension_ref_id = ($subQuery)", null, false)
-        ->orderBy('tour_date', 'ASC')
-        ->get()
-        ->getResultArray();
-}
-
-public function get_itinerary_previous_details($extension_ref_id, $tour_plan_ref_id = null, $enquiry_header_id = null)
-{
-    $db = \Config\Database::connect();
-    $response = [];
-    
-    if ($tour_plan_ref_id !== null && $enquiry_header_id !== null) {
-        // MAKE CURRENT MODE: Load previous version of SPECIFIC tour plan
-        log_message('info', 'Getting previous itinerary for specific tour plan: tour_plan_ref_id=' . $tour_plan_ref_id);
-        
-        // Get the tour record and check for previous_active_tour_id
-        $tour_record = $db->table('khm_obj_enquiry_tour_details')
-            ->select('tour_details_id, previous_active_tour_id')
-            ->groupStart()
-            ->where('tour_details_id', $tour_plan_ref_id)
-            ->orWhere('extension_ref_id', $tour_plan_ref_id)
-            ->groupEnd()
+    /**
+     * Get tour record by tour_details_id
+     */
+    public function get_tour_record_by_id(int $tour_details_id): ?array
+    {
+        $result = $this->db->table('khm_obj_enquiry_tour_details')
+            ->select('tour_details_id, previous_active_tour_id, enquiry_header_id, extension_ref_id')
+            ->where('tour_details_id', $tour_details_id)
             ->get()
             ->getRowArray();
-        
-        if ($tour_record) {
-            // Use previous_active_tour_id if available, otherwise use current tour_details_id
-            $source_tour_id = $tour_record['previous_active_tour_id'] ?? $tour_record['tour_details_id'];
-            
-            log_message('info', 'Source tour_details_id for previous data: ' . $source_tour_id);
-            
-            // Find the LATEST extension_ref_id for the source tour plan (previous version)
-            $previous_extension = $db->table('khm_obj_enquiry_itinerary_details')
-                ->selectMax('extension_ref_id')
-                ->where('enquiry_header_id', $enquiry_header_id)
-                ->where('tour_details_id', $source_tour_id)
-                ->where('extension_ref_id <', $extension_ref_id) // CRITICAL: Get version BEFORE current
-                ->get()
-                ->getRowArray();
-            
-            if ($previous_extension && !empty($previous_extension['extension_ref_id'])) {
-                $prev_ext_ref_id = $previous_extension['extension_ref_id'];
-                
-                log_message('info', 'Found previous extension_ref_id: ' . $prev_ext_ref_id . ' for source tour plan');
-                
-                // Get itinerary from that previous version
-                $result = $db->table('khm_obj_enquiry_itinerary_details a')
-                    ->select('a.*, t.tour_location')
-                    ->join('khm_obj_enquiry_tour_details t', 't.tour_details_id = a.tour_details_id', 'left')
-                    ->where('a.enquiry_header_id', $enquiry_header_id)
-                    ->where('a.tour_details_id', $source_tour_id)
-                    ->where('a.extension_ref_id', $prev_ext_ref_id)
-                    ->orderBy('a.tour_date', 'ASC')
-                    ->get()
-                    ->getResultArray();
-                
-                log_message('info', 'Loaded ' . count($result) . ' previous itinerary records');
-            } else {
-                log_message('info', 'No previous extension found for source tour');
-                $result = [];
-            }
-        } else {
-            log_message('warning', 'Could not find tour record for tour_plan_ref_id: ' . $tour_plan_ref_id);
-            $result = [];
+
+        return $result ?: null;
+    }
+
+    /**
+     * Get latest itinerary for a specific tour plan
+     */
+    public function get_latest_itinerary_for_tour(
+        int $enquiry_header_id,
+        int $tour_details_id
+    ): array {
+        // Find the LATEST extension_ref_id for this tour plan
+        $latest_extension = $this->db->table('khm_obj_enquiry_itinerary_details')
+            ->selectMax('extension_ref_id')
+            ->where('enquiry_header_id', $enquiry_header_id)
+            ->where('tour_details_id', $tour_details_id)
+            ->get()
+            ->getRowArray();
+
+        if (empty($latest_extension) || empty($latest_extension['extension_ref_id'])) {
+            log_message('info', 'No itinerary found for tour_details_id: ' . $tour_details_id);
+            return [];
         }
-    } else {
-        // FRESH MODE: Load from last saved itinerary (any tour plan)
-        log_message('info', 'Fresh mode: Loading from extension_ref_id: ' . $extension_ref_id);
-        
-        $result = $db->table('khm_obj_enquiry_itinerary_details a')
-            ->select('a.*, t.tour_location')
+
+        $extension_ref_id = $latest_extension['extension_ref_id'];
+
+        log_message('info', 'Loading itinerary for tour_details_id: ' . $tour_details_id .
+            ', extension_ref_id: ' . $extension_ref_id);
+
+        // Get all itinerary records for this tour and extension
+        $result = $this->db->table('khm_obj_enquiry_itinerary_details a')
+            ->select('a.*, t.tour_location, t.hotel_id')  // FIXED: Added t.hotel_id to select
             ->join('khm_obj_enquiry_tour_details t', 't.tour_details_id = a.tour_details_id', 'left')
+            ->where('a.enquiry_header_id', $enquiry_header_id)
+            ->where('a.tour_details_id', $tour_details_id)
             ->where('a.extension_ref_id', $extension_ref_id)
             ->orderBy('a.tour_date', 'ASC')
             ->get()
             ->getResultArray();
-        
-        log_message('info', 'Loaded ' . count($result) . ' records from fresh mode');
+
+        log_message('info', 'Found ' . count($result) . ' itinerary records');
+
+        return $result;
     }
-    
-    // Enrich with cost and room category details
-    foreach ($result as $key => $val) {
-        $response[$key] = $val;
-        $cost = $this->get_itinerary_draft_tariff($val['itinerary_details_id']);
-        $response[$key]['cost'] = $cost;
-        $room_cat_list = $this->get_room_categories_byHotel($val['hotel_id']);
-        $response[$key]['room_cat_list_draft'] = $room_cat_list;
+    //nj load prev sight//
+    public function get_previous_tour_plan_id(
+        int $enquiry_header_id,
+        int $current_tour_details_id
+    ): ?int {
+        $row = $this->db->table('khm_obj_enquiry_tour_details')
+            ->select('previous_active_tour_id')
+            ->where('enquiry_header_id', $enquiry_header_id)
+            // ->where('tour_details_id !=', $current_tour_details_id)
+            ->orderBy('updated_time', 'DESC')
+            ->limit(1)
+            ->get()
+            ->getRowArray();
+
+        return $row['tour_details_id'] ?? null;
     }
-    
-    return $response;
-}
+
+    public function get_latest_itinerary_of_old_tour_plan(
+        int $enquiry_header_id,
+        int $old_tour_details_id,
+        int $current_extension_ref_id
+    ): array {
+
+        // subquery for previous extension_ref_id
+        $subQuery = $this->db->table('khm_obj_enquiry_itinerary_details')
+            ->selectMax('extension_ref_id')
+            ->where('enquiry_header_id', $enquiry_header_id)
+            ->where('tour_details_id', $old_tour_details_id)
+            ->where('extension_ref_id <', $current_extension_ref_id)
+            ->getCompiledSelect();
+
+        return $this->db->table('khm_obj_enquiry_itinerary_details')
+            ->where('enquiry_header_id', $enquiry_header_id)
+            ->where('tour_details_id', $old_tour_details_id)
+            ->where("extension_ref_id = ($subQuery)", null, false)
+            ->orderBy('tour_date', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function get_itinerary_previous_details($extension_ref_id, $tour_plan_ref_id = null, $enquiry_header_id = null)
+    {
+        $db = \Config\Database::connect();
+        $response = [];
+
+        if ($tour_plan_ref_id !== null && $enquiry_header_id !== null) {
+            // MAKE CURRENT MODE: Load previous version of SPECIFIC tour plan
+            log_message('info', 'Getting previous itinerary for specific tour plan: tour_plan_ref_id=' . $tour_plan_ref_id);
+
+            // Get the tour record and check for previous_active_tour_id
+            $tour_record = $db->table('khm_obj_enquiry_tour_details')
+                ->select('tour_details_id, previous_active_tour_id')
+                ->groupStart()
+                ->where('tour_details_id', $tour_plan_ref_id)
+                ->orWhere('extension_ref_id', $tour_plan_ref_id)
+                ->groupEnd()
+                ->get()
+                ->getRowArray();
+
+            if ($tour_record) {
+                // Use previous_active_tour_id if available, otherwise use current tour_details_id
+                $source_tour_id = $tour_record['previous_active_tour_id'] ?? $tour_record['tour_details_id'];
+
+                log_message('info', 'Source tour_details_id for previous data: ' . $source_tour_id);
+
+                // Find the LATEST extension_ref_id for the source tour plan (previous version)
+                $previous_extension = $db->table('khm_obj_enquiry_itinerary_details')
+                    ->selectMax('extension_ref_id')
+                    ->where('enquiry_header_id', $enquiry_header_id)
+                    ->where('tour_details_id', $source_tour_id)
+                    ->where('extension_ref_id <', $extension_ref_id) // CRITICAL: Get version BEFORE current
+                    ->get()
+                    ->getRowArray();
+
+                if ($previous_extension && !empty($previous_extension['extension_ref_id'])) {
+                    $prev_ext_ref_id = $previous_extension['extension_ref_id'];
+
+                    log_message('info', 'Found previous extension_ref_id: ' . $prev_ext_ref_id . ' for source tour plan');
+
+                    // Get itinerary from that previous version
+                    $result = $db->table('khm_obj_enquiry_itinerary_details a')
+                        ->select('a.*, t.tour_location')
+                        ->join('khm_obj_enquiry_tour_details t', 't.tour_details_id = a.tour_details_id', 'left')
+                        ->where('a.enquiry_header_id', $enquiry_header_id)
+                        ->where('a.tour_details_id', $source_tour_id)
+                        ->where('a.extension_ref_id', $prev_ext_ref_id)
+                        ->orderBy('a.tour_date', 'ASC')
+                        ->get()
+                        ->getResultArray();
+
+                    log_message('info', 'Loaded ' . count($result) . ' previous itinerary records');
+                } else {
+                    log_message('info', 'No previous extension found for source tour');
+                    $result = [];
+                }
+            } else {
+                log_message('warning', 'Could not find tour record for tour_plan_ref_id: ' . $tour_plan_ref_id);
+                $result = [];
+            }
+        } else {
+            // FRESH MODE: Load from last saved itinerary (any tour plan)
+            log_message('info', 'Fresh mode: Loading from extension_ref_id: ' . $extension_ref_id);
+
+            $result = $db->table('khm_obj_enquiry_itinerary_details a')
+                ->select('a.*, t.tour_location')
+                ->join('khm_obj_enquiry_tour_details t', 't.tour_details_id = a.tour_details_id', 'left')
+                ->where('a.extension_ref_id', $extension_ref_id)
+                ->orderBy('a.tour_date', 'ASC')
+                ->get()
+                ->getResultArray();
+
+            log_message('info', 'Loaded ' . count($result) . ' records from fresh mode');
+        }
+
+        // Enrich with cost and room category details
+        foreach ($result as $key => $val) {
+            $response[$key] = $val;
+            $cost = $this->get_itinerary_draft_tariff($val['itinerary_details_id']);
+            $response[$key]['cost'] = $cost;
+            $room_cat_list = $this->get_room_categories_byHotel($val['hotel_id']);
+            $response[$key]['room_cat_list_draft'] = $room_cat_list;
+        }
+
+        return $response;
+    }
 
     public function get_itinerary_draft_hotel_list($tour_location)
     {
@@ -3228,7 +3243,41 @@ public function get_itinerary_previous_details($extension_ref_id, $tour_plan_ref
         }
         return $response;
     }
+    //njnjnjenqdetails //
 
+    public function get_tour_plan_details2($enquiry_header_id)
+    {
+        $db = \Config\Database::connect();
+        $response = [];
+        $selected_table = $db->table('khm_obj_enquiry_tour_details a');
+        $builder = $selected_table->select('a.*,mt.meal_type_name,g.geog_name,o.object_name,r.room_category_name,t.no_of_adult,t.no_of_child_with_bed,t.no_of_child_without_bed,t.no_of_double_room,t.no_of_single_room,t.no_of_extra_bed')
+            ->join('khm_obj_enquiry_details t', 't.enquiry_details_id = a.enquiry_details_id', 'left')
+            ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left')
+            ->join('khm_obj_hotel h', 'h.hotel_id = a.hotel_id', 'left')
+            ->join('khm_obj_mst o', 'o.object_id = h.object_id', 'left')
+            ->join('khm_obj_mst_meal_type mt', 'mt.meal_type_id = a.meal_plan_id', 'left')
+            ->join('khm_obj_mst_hotel_room_category r', 'r.room_category_id = a.room_category_id', 'left')
+            ->where('a.enquiry_header_id', $enquiry_header_id)
+            ->where('a.is_active', 0)
+            ->where('a.is_draft', 0)
+            ->orderBy('a.location_sequence', 'ASC')
+            ->limit(1);
+
+        $result = $builder->get()->getResultArray();
+
+        foreach ($result as $key => $val) {
+            $response[$key] = $val;
+            $hotel_fac = $this->get_hotel_facilities($val['hotel_id']);
+            $ss = $this->get_sight_seeing($val['tour_location']);
+            $response[$key]['hotel_fac'] = $hotel_fac;
+            $response[$key]['ss'] = $ss;
+            $hotel_list = $this->get_itinerary_draft_hotel_list($val['tour_location']);
+            $room_cat_list = $this->get_room_categories_byHotel($val['hotel_id']);
+            $response[$key]['hotel_list'] = $hotel_list;
+            $response[$key]['room_cat_list'] = $room_cat_list;
+        }
+        return $response;
+    }
     //njmakecurrent
     //     public function updateAllItinerariesInactive($extension_ref_id)
     // {
@@ -3247,7 +3296,7 @@ public function get_itinerary_previous_details($extension_ref_id, $tour_plan_ref
     // Get itinerary by ID (including tour_plan_ref_id)
     // ============= ENQUIRY HEADER TABLE =============
     // Set enquiry header as active
-    
+
     public function setEnquiryHeaderActive($enquiry_header_id)
     {
         $db = \Config\Database::connect();
@@ -3349,21 +3398,21 @@ public function get_itinerary_previous_details($extension_ref_id, $tour_plan_ref
     }
 
     // Get all tour_details_id values for a tour_plan_ref_id
-public function getTourDetailsIdsByTourPlanRef($tour_plan_ref_id)
-{
-    $db = \Config\Database::connect();
-    $result = $db->table('khm_obj_enquiry_tour_details')
-        ->select('tour_details_id')
-        ->groupStart()
-        ->where('tour_details_id', $tour_plan_ref_id)
-        ->orWhere('extension_ref_id', $tour_plan_ref_id)
-        ->groupEnd()
-        ->get()
-        ->getResultArray();
+    public function getTourDetailsIdsByTourPlanRef($tour_plan_ref_id)
+    {
+        $db = \Config\Database::connect();
+        $result = $db->table('khm_obj_enquiry_tour_details')
+            ->select('tour_details_id')
+            ->groupStart()
+            ->where('tour_details_id', $tour_plan_ref_id)
+            ->orWhere('extension_ref_id', $tour_plan_ref_id)
+            ->groupEnd()
+            ->get()
+            ->getResultArray();
 
-    // Extract just the IDs into an array
-    return array_column($result, 'tour_details_id');
-}
+        // Extract just the IDs into an array
+        return array_column($result, 'tour_details_id');
+    }
 
     // ============= ITINERARY DETAILS TABLE =============
     // Set all itinerary details inactive for an enquiry_details_id
@@ -5197,50 +5246,50 @@ public function getTourDetailsIdsByTourPlanRef($tour_plan_ref_id)
         /* =====================================================
        ROLE BASED VISIBILITY (CRITICAL FIX)
        ===================================================== */
-    $activeRole = (int) session('active_role');
-    $userId     = (int) session('user_id');
+        $activeRole = (int) session('active_role');
+        $userId     = (int) session('user_id');
 
-    if ($activeRole === 1) {
-        // Admin → see all
-    } elseif ($activeRole === 4) {
-        // Team Lead → own + team
-        $teamRows = $db->table('khm_sys_usg_mst_entity_role')
-            ->select('entity_id')
-            ->where('team_lead_id', $userId)
-            ->get()
-            ->getResultArray();
+        if ($activeRole === 1) {
+            // Admin → see all
+        } elseif ($activeRole === 4) {
+            // Team Lead → own + team
+            $teamRows = $db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $userId)
+                ->get()
+                ->getResultArray();
 
-        $allowedIds = array_column($teamRows, 'entity_id');
-        $allowedIds[] = $userId;
+            $allowedIds = array_column($teamRows, 'entity_id');
+            $allowedIds[] = $userId;
 
-        $query->whereIn('exe.assigned_to', $allowedIds);
-    } else {
-        // Executive → ONLY own data
-        $query->where('exe.assigned_to', $userId);
+            $query->whereIn('exe.assigned_to', $allowedIds);
+        } else {
+            // Executive → ONLY own data
+            $query->where('exe.assigned_to', $userId);
+        }
+
+        /* ---------- DATATABLES ---------- */
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+
+        $records = $query->get()->getResultArray();
+
+        $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
+        $totalRecords = $queryTot->getResultArray()[0]['count'];
+
+        foreach ($records as &$record) {
+            $tpc = floatval($record['tpc'] ?? 0);
+            $total_appr = floatval($record['total_appr'] ?? 0);
+            $record['balance'] = $tpc - $total_appr;
+        }
+
+        return [
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        ];
     }
-
-    /* ---------- DATATABLES ---------- */
-    $query->orderBy($columnName, $columnSortOrder);
-    $query->limit($rowperpage, $start);
-
-    $records = $query->get()->getResultArray();
-
-    $queryTot = $this->db->query('SELECT FOUND_ROWS() AS count');
-    $totalRecords = $queryTot->getResultArray()[0]['count'];
-
-    foreach ($records as &$record) {
-        $tpc = floatval($record['tpc'] ?? 0);
-        $total_appr = floatval($record['total_appr'] ?? 0);
-        $record['balance'] = $tpc - $total_appr;
-    }
-
-    return [
-        "draw" => intval($draw),
-        "iTotalRecords" => $totalRecords,
-        "iTotalDisplayRecords" => $totalRecords,
-        "aaData" => $records
-    ];
-}
     public function get_payment_tracker_data($params)
     {
         $draw = $params['draw'];
@@ -5495,51 +5544,51 @@ public function getTourDetailsIdsByTourPlanRef($tour_plan_ref_id)
         }
 
         $activeRole = (int) session('active_role');
-    $userId     = (int) session('user_id');
+        $userId     = (int) session('user_id');
 
-    if ($activeRole === 1) {
-        // Admin → see all
-    } elseif ($activeRole === 4) {
-        // Team Lead → own + team
-        $teamRows = $db->table('khm_sys_usg_mst_entity_role')
-            ->select('entity_id')
-            ->where('team_lead_id', $userId)
-            ->get()
-            ->getResultArray();
+        if ($activeRole === 1) {
+            // Admin → see all
+        } elseif ($activeRole === 4) {
+            // Team Lead → own + team
+            $teamRows = $db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $userId)
+                ->get()
+                ->getResultArray();
 
-        $allowedIds = array_column($teamRows, 'entity_id');
-        $allowedIds[] = $userId;
+            $allowedIds = array_column($teamRows, 'entity_id');
+            $allowedIds[] = $userId;
 
-        $query->whereIn('exe.assigned_to', $allowedIds);
-    } else {
-        // Executive → only own data
-        $query->where('exe.assigned_to', $userId);
+            $query->whereIn('exe.assigned_to', $allowedIds);
+        } else {
+            // Executive → only own data
+            $query->where('exe.assigned_to', $userId);
+        }
+
+        /* ---------- DATATABLES ---------- */
+        $query->groupBy('a.enquiry_header_id');
+        $query->orderBy($columnName, $columnSortOrder)
+            ->limit($rowperpage, $start);
+
+        $records = $query->get()->getResultArray();
+
+        $totalRecords = $this->db->query('SELECT FOUND_ROWS() AS count')
+            ->getRow()
+            ->count;
+
+        foreach ($records as &$rec) {
+            $tpc  = floatval($rec['tpc'] ?? 0);
+            $appr = floatval($rec['total_appr'] ?? 0);
+            $rec['balance'] = $tpc - $appr;
+        }
+
+        return [
+            "draw"                 => intval($draw),
+            "iTotalRecords"        => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData"               => $records
+        ];
     }
-
-    /* ---------- DATATABLES ---------- */
-    $query->groupBy('a.enquiry_header_id');
-    $query->orderBy($columnName, $columnSortOrder)
-          ->limit($rowperpage, $start);
-
-    $records = $query->get()->getResultArray();
-
-    $totalRecords = $this->db->query('SELECT FOUND_ROWS() AS count')
-        ->getRow()
-        ->count;
-
-    foreach ($records as &$rec) {
-        $tpc  = floatval($rec['tpc'] ?? 0);
-        $appr = floatval($rec['total_appr'] ?? 0);
-        $rec['balance'] = $tpc - $appr;
-    }
-
-    return [
-        "draw"                 => intval($draw),
-        "iTotalRecords"        => $totalRecords,
-        "iTotalDisplayRecords" => $totalRecords,
-        "aaData"               => $records
-    ];
-}
 
     // public function delete_eighteen_double_function($tour_details_id)
     // {
@@ -5552,716 +5601,708 @@ public function getTourDetailsIdsByTourPlanRef($tour_plan_ref_id)
     //     return $this->db->table($this->khm_eighteen_percentage_single)->delete(['tour_details_id' => $tour_details_id]);
     // }
 
-     public function reminder_customer_followup($params)
-{
-    $draw            = $params['draw'];
-    $start           = $params['start'];
-    $rowperpage      = $params['length'];
-    $columnIndex     = $params['order'][0]['column'];
-    $columnName      = $params['columns'][$columnIndex]['data'];
-    $columnSortOrder = $params['order'][0]['dir'];
-    $searchValue     = $params['search']['value'];
-    $fromDate        = $params['fromDate'];
-    $toDate          = $params['toDate'];
-    $selectOptionSource = $params['selectOptionSource'];
+    public function reminder_customer_followup($params)
+    {
+        $draw            = $params['draw'];
+        $start           = $params['start'];
+        $rowperpage      = $params['length'];
+        $columnIndex     = $params['order'][0]['column'];
+        $columnName      = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue     = $params['search']['value'];
+        $fromDate        = $params['fromDate'];
+        $toDate          = $params['toDate'];
+        $selectOptionSource = $params['selectOptionSource'];
 
-    $db = \Config\Database::connect();
+        $db = \Config\Database::connect();
 
-    /* --------------------------------------------------
+        /* --------------------------------------------------
        LATEST STATUS SUBQUERY
     -------------------------------------------------- */
-    $subStatusQuery = $db->table('khm_obj_enquiry_status s')
-        ->select('s.enquiry_status_id, s.enquiry_header_id, s.current_status_id, s.updated_time')
-        ->join(
-            '(SELECT MAX(enquiry_status_id) AS max_status_id, enquiry_header_id
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id, s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id, enquiry_header_id
               FROM khm_obj_enquiry_status 
               GROUP BY enquiry_header_id) latest',
-            's.enquiry_header_id = latest.enquiry_header_id 
+                's.enquiry_header_id = latest.enquiry_header_id 
              AND s.enquiry_status_id = latest.max_status_id',
-            'inner'
-        );
+                'inner'
+            );
 
-    $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
 
-    /* --------------------------------------------------
+        /* --------------------------------------------------
        MAIN QUERY
     -------------------------------------------------- */
-    $query = $db->table('khm_obj_executive_follow_up a');
-    $query->select(
-        'SQL_CALC_FOUND_ROWS 
+        $query = $db->table('khm_obj_executive_follow_up a');
+        $query->select(
+            'SQL_CALC_FOUND_ROWS 
          a.*,
          ss.status_name,
          ex.entity_name AS executive_name,
          gu.entity_name AS guest_name,
          hd.ref_no,
          DATE_FORMAT(a.follow_up_time, "%d-%m-%Y") AS followup_date',
-        false
-    );
-
-    $query->join(
-        'khm_obj_enquiry_edit_request h',
-        'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1',
-        'left'
-    );
-
-    $query->join(
-        'khm_obj_enquiry_header hd',
-        'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1',
-        'left'
-    );
-
-    $query->join(
-        'khm_obj_enquiry_status exe',
-        'exe.enquiry_header_id = a.enquiry_header_id
-         AND exe.edit_request_id = h.enquiry_edit_request_id
-         AND exe.current_status_id = 1',
-        'left'
-    );
-
-    $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
-    $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
-
-    $query->join(
-        '(' . $latestStatusSql . ') est',
-        'est.enquiry_header_id = a.enquiry_header_id',
-        'left'
-    );
-
-    $query->join(
-        'khm_obj_mst_enquiry_status ss',
-        'ss.status_id = est.current_status_id',
-        'left'
-    );
-
-    /* --------------------------------------------------
-       DATE FILTER
-    -------------------------------------------------- */
-    $query->where("DATE(a.follow_up_time) BETWEEN '$fromDate' AND '$toDate'");
-
-    /* --------------------------------------------------
-       ROLE-BASED VISIBILITY (🔥 MAIN FIX)
-    -------------------------------------------------- */
-    $activeRole = (int) session('active_role');
-    $userId     = (int) session('user_id');
-
-    if ($activeRole === 1) {
-        // ADMIN → see all
-    }
-    elseif ($activeRole === 4) {
-        // TEAM LEAD → self + team
-        $teamRows = $db->table('khm_sys_usg_mst_entity_role')
-            ->select('entity_id')
-            ->where('team_lead_id', $userId)
-            ->get()
-            ->getResultArray();
-
-        $allowedIds = array_column($teamRows, 'entity_id');
-        $allowedIds[] = $userId;
-
-        $query->whereIn('exe.assigned_to', $allowedIds);
-    }
-    else {
-        // EXECUTIVE → only own data
-        $query->where('exe.assigned_to', $userId);
-    }
-
-    /* --------------------------------------------------
-       OPTIONAL FILTERS
-    -------------------------------------------------- */
-    if (!empty($selectOptionSource)) {
-        $query->where('a.followup_type_id', $selectOptionSource);
-    }
-
-    if (!empty($searchValue)) {
-        $query->groupStart()
-            ->like('hd.ref_no', $searchValue)
-            ->orLike('gu.entity_name', $searchValue)
-            ->groupEnd();
-    }
-
-    /* --------------------------------------------------
-       ORDER + LIMIT
-    -------------------------------------------------- */
-    $query->orderBy($columnName, $columnSortOrder);
-    $query->limit($rowperpage, $start);
-
-    $records = $query->get()->getResultArray();
-
-    $totalRecords = $db->query('SELECT FOUND_ROWS() AS count')
-        ->getRow()
-        ->count;
-
-    return [
-        "draw"                 => intval($draw),
-        "iTotalRecords"        => $totalRecords,
-        "iTotalDisplayRecords" => $totalRecords,
-        "aaData"               => $records
-    ];
-}
-
-   public function reminder_pre_arrival($params)
-{
-    $draw            = $params['draw'];
-    $start           = $params['start'];
-    $rowperpage      = $params['length'];
-    $columnIndex     = $params['order'][0]['column'];
-    $columnName      = $params['columns'][$columnIndex]['data'];
-    $columnSortOrder = $params['order'][0]['dir'];
-    $searchValue     = $params['search']['value'];
-    $fromDate        = $params['fromDate'];
-    $toDate          = $params['toDate'];
-    $selectOptionSource = $params['selectOptionSource'];
-
-    $db = \Config\Database::connect();
-
-    /* --------------------------------------------------
-       LATEST STATUS SUBQUERY
-    -------------------------------------------------- */
-    $subStatusQuery = $db->table('khm_obj_enquiry_status s')
-        ->select('s.enquiry_status_id, s.enquiry_header_id, s.current_status_id, s.updated_time')
-        ->join(
-            '(SELECT MAX(enquiry_status_id) AS max_status_id, enquiry_header_id
-              FROM khm_obj_enquiry_status
-              GROUP BY enquiry_header_id) latest',
-            's.enquiry_header_id = latest.enquiry_header_id
-             AND s.enquiry_status_id = latest.max_status_id',
-            'inner'
+            false
         );
 
-    $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+        $query->join(
+            'khm_obj_enquiry_edit_request h',
+            'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1',
+            'left'
+        );
 
-    /* --------------------------------------------------
+        $query->join(
+            'khm_obj_enquiry_header hd',
+            'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1',
+            'left'
+        );
+
+        $query->join(
+            'khm_obj_enquiry_status exe',
+            'exe.enquiry_header_id = a.enquiry_header_id
+         AND exe.edit_request_id = h.enquiry_edit_request_id
+         AND exe.current_status_id = 1',
+            'left'
+        );
+
+        $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
+        $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
+
+        $query->join(
+            '(' . $latestStatusSql . ') est',
+            'est.enquiry_header_id = a.enquiry_header_id',
+            'left'
+        );
+
+        $query->join(
+            'khm_obj_mst_enquiry_status ss',
+            'ss.status_id = est.current_status_id',
+            'left'
+        );
+
+        /* --------------------------------------------------
+       DATE FILTER
+    -------------------------------------------------- */
+        $query->where("DATE(a.follow_up_time) BETWEEN '$fromDate' AND '$toDate'");
+
+        /* --------------------------------------------------
+       ROLE-BASED VISIBILITY (🔥 MAIN FIX)
+    -------------------------------------------------- */
+        $activeRole = (int) session('active_role');
+        $userId     = (int) session('user_id');
+
+        if ($activeRole === 1) {
+            // ADMIN → see all
+        } elseif ($activeRole === 4) {
+            // TEAM LEAD → self + team
+            $teamRows = $db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $userId)
+                ->get()
+                ->getResultArray();
+
+            $allowedIds = array_column($teamRows, 'entity_id');
+            $allowedIds[] = $userId;
+
+            $query->whereIn('exe.assigned_to', $allowedIds);
+        } else {
+            // EXECUTIVE → only own data
+            $query->where('exe.assigned_to', $userId);
+        }
+
+        /* --------------------------------------------------
+       OPTIONAL FILTERS
+    -------------------------------------------------- */
+        if (!empty($selectOptionSource)) {
+            $query->where('a.followup_type_id', $selectOptionSource);
+        }
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('hd.ref_no', $searchValue)
+                ->orLike('gu.entity_name', $searchValue)
+                ->groupEnd();
+        }
+
+        /* --------------------------------------------------
+       ORDER + LIMIT
+    -------------------------------------------------- */
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+
+        $records = $query->get()->getResultArray();
+
+        $totalRecords = $db->query('SELECT FOUND_ROWS() AS count')
+            ->getRow()
+            ->count;
+
+        return [
+            "draw"                 => intval($draw),
+            "iTotalRecords"        => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData"               => $records
+        ];
+    }
+
+    public function reminder_pre_arrival($params)
+    {
+        $draw            = $params['draw'];
+        $start           = $params['start'];
+        $rowperpage      = $params['length'];
+        $columnIndex     = $params['order'][0]['column'];
+        $columnName      = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue     = $params['search']['value'];
+        $fromDate        = $params['fromDate'];
+        $toDate          = $params['toDate'];
+        $selectOptionSource = $params['selectOptionSource'];
+
+        $db = \Config\Database::connect();
+
+        /* --------------------------------------------------
+       LATEST STATUS SUBQUERY
+    -------------------------------------------------- */
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id, s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id, enquiry_header_id
+              FROM khm_obj_enquiry_status
+              GROUP BY enquiry_header_id) latest',
+                's.enquiry_header_id = latest.enquiry_header_id
+             AND s.enquiry_status_id = latest.max_status_id',
+                'inner'
+            );
+
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+
+        /* --------------------------------------------------
        MAIN QUERY
     -------------------------------------------------- */
-    $query = $db->table('khm_obj_all_call_follow_up a');
-    $query->select(
-        'SQL_CALC_FOUND_ROWS
+        $query = $db->table('khm_obj_all_call_follow_up a');
+        $query->select(
+            'SQL_CALC_FOUND_ROWS
          a.*,
          ss.status_name,
          ex.entity_name AS executive_name,
          gu.entity_name AS guest_name,
          hd.ref_no,
          DATE_FORMAT(a.call_time, "%d-%m-%Y") AS followup_date',
-        false
-    );
-
-    $query->join(
-        'khm_obj_enquiry_edit_request h',
-        'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1',
-        'left'
-    );
-
-    $query->join(
-        'khm_obj_enquiry_header hd',
-        'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1',
-        'left'
-    );
-
-    $query->join(
-        'khm_obj_enquiry_status exe',
-        'exe.enquiry_header_id = a.enquiry_header_id
-         AND exe.edit_request_id = h.enquiry_edit_request_id
-         AND exe.current_status_id = 1',
-        'left'
-    );
-
-    $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
-    $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
-
-    $query->join(
-        '(' . $latestStatusSql . ') est',
-        'est.enquiry_header_id = a.enquiry_header_id',
-        'left'
-    );
-
-    $query->join(
-        'khm_obj_mst_enquiry_status ss',
-        'ss.status_id = est.current_status_id',
-        'left'
-    );
-
-    /* --------------------------------------------------
-       DATE + TYPE FILTER
-    -------------------------------------------------- */
-    $query->where("DATE(a.call_time) BETWEEN '$fromDate' AND '$toDate'");
-    $query->where('a.followup_type_id', 9); // Pre-arrival
-
-    /* --------------------------------------------------
-       🔥 ROLE-BASED VISIBILITY FIX
-    -------------------------------------------------- */
-    $activeRole = (int) session('active_role');
-    $userId     = (int) session('user_id');
-
-    if ($activeRole === 1) {
-        // ADMIN → see all
-    }
-    elseif ($activeRole === 4) {
-        // TEAM LEAD → self + team
-        $teamRows = $db->table('khm_sys_usg_mst_entity_role')
-            ->select('entity_id')
-            ->where('team_lead_id', $userId)
-            ->get()
-            ->getResultArray();
-
-        $allowedIds = array_column($teamRows, 'entity_id');
-        $allowedIds[] = $userId;
-
-        $query->whereIn('exe.assigned_to', $allowedIds);
-    }
-    else {
-        // EXECUTIVE → only own followups
-        $query->where('exe.assigned_to', $userId);
-    }
-
-    /* --------------------------------------------------
-       OPTIONAL FILTERS
-    -------------------------------------------------- */
-    if (!empty($selectOptionSource)) {
-        $query->where('a.followup_type_id', $selectOptionSource);
-    }
-
-    if (!empty($searchValue)) {
-        $query->groupStart()
-            ->like('hd.ref_no', $searchValue)
-            ->orLike('gu.entity_name', $searchValue)
-            ->groupEnd();
-    }
-
-    /* --------------------------------------------------
-       ORDER + LIMIT
-    -------------------------------------------------- */
-    $query->orderBy($columnName, $columnSortOrder);
-    $query->limit($rowperpage, $start);
-
-    $records = $query->get()->getResultArray();
-
-    $totalRecords = $db->query('SELECT FOUND_ROWS() AS count')
-        ->getRow()
-        ->count;
-
-    return [
-        "draw"                 => intval($draw),
-        "iTotalRecords"        => $totalRecords,
-        "iTotalDisplayRecords" => $totalRecords,
-        "aaData"               => $records
-    ];
-}
-
-public function reminder_departure($params)
-{
-    $draw            = $params['draw'];
-    $start           = $params['start'];
-    $rowperpage      = $params['length'];
-    $columnIndex     = $params['order'][0]['column'];
-    $columnName      = $params['columns'][$columnIndex]['data'];
-    $columnSortOrder = $params['order'][0]['dir'];
-    $searchValue     = $params['search']['value'];
-    $fromDate        = $params['fromDate'];
-    $toDate          = $params['toDate'];
-    $selectOptionSource = $params['selectOptionSource'];
-
-    $db = \Config\Database::connect();
-
-    /* --------------------------------------------------
-       LATEST STATUS SUBQUERY
-    -------------------------------------------------- */
-    $subStatusQuery = $db->table('khm_obj_enquiry_status s')
-        ->select('s.enquiry_status_id, s.enquiry_header_id, s.current_status_id, s.updated_time')
-        ->join(
-            '(SELECT MAX(enquiry_status_id) AS max_status_id, enquiry_header_id
-              FROM khm_obj_enquiry_status
-              GROUP BY enquiry_header_id) latest',
-            's.enquiry_header_id = latest.enquiry_header_id
-             AND s.enquiry_status_id = latest.max_status_id',
-            'inner'
+            false
         );
 
-    $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+        $query->join(
+            'khm_obj_enquiry_edit_request h',
+            'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1',
+            'left'
+        );
 
-    /* --------------------------------------------------
+        $query->join(
+            'khm_obj_enquiry_header hd',
+            'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1',
+            'left'
+        );
+
+        $query->join(
+            'khm_obj_enquiry_status exe',
+            'exe.enquiry_header_id = a.enquiry_header_id
+         AND exe.edit_request_id = h.enquiry_edit_request_id
+         AND exe.current_status_id = 1',
+            'left'
+        );
+
+        $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
+        $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
+
+        $query->join(
+            '(' . $latestStatusSql . ') est',
+            'est.enquiry_header_id = a.enquiry_header_id',
+            'left'
+        );
+
+        $query->join(
+            'khm_obj_mst_enquiry_status ss',
+            'ss.status_id = est.current_status_id',
+            'left'
+        );
+
+        /* --------------------------------------------------
+       DATE + TYPE FILTER
+    -------------------------------------------------- */
+        $query->where("DATE(a.call_time) BETWEEN '$fromDate' AND '$toDate'");
+        $query->where('a.followup_type_id', 9); // Pre-arrival
+
+        /* --------------------------------------------------
+       🔥 ROLE-BASED VISIBILITY FIX
+    -------------------------------------------------- */
+        $activeRole = (int) session('active_role');
+        $userId     = (int) session('user_id');
+
+        if ($activeRole === 1) {
+            // ADMIN → see all
+        } elseif ($activeRole === 4) {
+            // TEAM LEAD → self + team
+            $teamRows = $db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $userId)
+                ->get()
+                ->getResultArray();
+
+            $allowedIds = array_column($teamRows, 'entity_id');
+            $allowedIds[] = $userId;
+
+            $query->whereIn('exe.assigned_to', $allowedIds);
+        } else {
+            // EXECUTIVE → only own followups
+            $query->where('exe.assigned_to', $userId);
+        }
+
+        /* --------------------------------------------------
+       OPTIONAL FILTERS
+    -------------------------------------------------- */
+        if (!empty($selectOptionSource)) {
+            $query->where('a.followup_type_id', $selectOptionSource);
+        }
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('hd.ref_no', $searchValue)
+                ->orLike('gu.entity_name', $searchValue)
+                ->groupEnd();
+        }
+
+        /* --------------------------------------------------
+       ORDER + LIMIT
+    -------------------------------------------------- */
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+
+        $records = $query->get()->getResultArray();
+
+        $totalRecords = $db->query('SELECT FOUND_ROWS() AS count')
+            ->getRow()
+            ->count;
+
+        return [
+            "draw"                 => intval($draw),
+            "iTotalRecords"        => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData"               => $records
+        ];
+    }
+
+    public function reminder_departure($params)
+    {
+        $draw            = $params['draw'];
+        $start           = $params['start'];
+        $rowperpage      = $params['length'];
+        $columnIndex     = $params['order'][0]['column'];
+        $columnName      = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue     = $params['search']['value'];
+        $fromDate        = $params['fromDate'];
+        $toDate          = $params['toDate'];
+        $selectOptionSource = $params['selectOptionSource'];
+
+        $db = \Config\Database::connect();
+
+        /* --------------------------------------------------
+       LATEST STATUS SUBQUERY
+    -------------------------------------------------- */
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id, s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id, enquiry_header_id
+              FROM khm_obj_enquiry_status
+              GROUP BY enquiry_header_id) latest',
+                's.enquiry_header_id = latest.enquiry_header_id
+             AND s.enquiry_status_id = latest.max_status_id',
+                'inner'
+            );
+
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+
+        /* --------------------------------------------------
        MAIN QUERY
     -------------------------------------------------- */
-    $query = $db->table('khm_obj_departure_follow_up a');
-    $query->select(
-        'SQL_CALC_FOUND_ROWS
+        $query = $db->table('khm_obj_departure_follow_up a');
+        $query->select(
+            'SQL_CALC_FOUND_ROWS
          a.*,
          ss.status_name,
          ex.entity_name AS executive_name,
          gu.entity_name AS guest_name,
          hd.ref_no,
          DATE_FORMAT(a.departure_date, "%d-%m-%Y") AS followup_date',
-        false
-    );
-
-    $query->join(
-        'khm_obj_enquiry_edit_request h',
-        'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1',
-        'left'
-    );
-
-    $query->join(
-        'khm_obj_enquiry_header hd',
-        'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1',
-        'left'
-    );
-
-    $query->join(
-        'khm_obj_enquiry_status exe',
-        'exe.enquiry_header_id = a.enquiry_header_id
-         AND exe.edit_request_id = h.enquiry_edit_request_id
-         AND exe.current_status_id = 1',
-        'left'
-    );
-
-    $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
-    $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
-
-    $query->join(
-        '(' . $latestStatusSql . ') est',
-        'est.enquiry_header_id = a.enquiry_header_id',
-        'left'
-    );
-
-    $query->join(
-        'khm_obj_mst_enquiry_status ss',
-        'ss.status_id = est.current_status_id',
-        'left'
-    );
-
-    /* --------------------------------------------------
-       DATE FILTER
-    -------------------------------------------------- */
-    $query->where("DATE(a.departure_date) BETWEEN '$fromDate' AND '$toDate'");
-
-    /* --------------------------------------------------
-       🔥 ROLE-BASED VISIBILITY FIX
-    -------------------------------------------------- */
-    $activeRole = (int) session('active_role');
-    $userId     = (int) session('user_id');
-
-    if ($activeRole === 1) {
-        // ADMIN → see all
-    }
-    elseif ($activeRole === 4) {
-        // TEAM LEAD → self + team
-        $teamRows = $db->table('khm_sys_usg_mst_entity_role')
-            ->select('entity_id')
-            ->where('team_lead_id', $userId)
-            ->get()
-            ->getResultArray();
-
-        $allowedIds = array_column($teamRows, 'entity_id');
-        $allowedIds[] = $userId;
-
-        $query->whereIn('exe.assigned_to', $allowedIds);
-    }
-    else {
-        // EXECUTIVE → only own
-        $query->where('exe.assigned_to', $userId);
-    }
-
-    /* --------------------------------------------------
-       OPTIONAL FILTERS
-    -------------------------------------------------- */
-    if (!empty($selectOptionSource)) {
-        $query->where('a.followup_type_id', $selectOptionSource);
-    }
-
-    if (!empty($searchValue)) {
-        $query->groupStart()
-            ->like('hd.ref_no', $searchValue)
-            ->orLike('gu.entity_name', $searchValue)
-            ->groupEnd();
-    }
-
-    /* --------------------------------------------------
-       ORDER + LIMIT
-    -------------------------------------------------- */
-    $query->orderBy($columnName, $columnSortOrder);
-    $query->limit($rowperpage, $start);
-
-    $records = $query->get()->getResultArray();
-
-    $totalRecords = $db->query('SELECT FOUND_ROWS() AS count')
-        ->getRow()
-        ->count;
-
-    return [
-        "draw"                 => intval($draw),
-        "iTotalRecords"        => $totalRecords,
-        "iTotalDisplayRecords" => $totalRecords,
-        "aaData"               => $records
-    ];
-}
-
-public function reminder_driver($params)
-{
-    $draw            = $params['draw'];
-    $start           = $params['start'];
-    $rowperpage      = $params['length'];
-    $columnIndex     = $params['order'][0]['column'];
-    $columnName      = $params['columns'][$columnIndex]['data'];
-    $columnSortOrder = $params['order'][0]['dir'];
-    $searchValue     = $params['search']['value'];
-    $fromDate        = $params['fromDate'];
-    $toDate          = $params['toDate'];
-    $selectOptionSource = $params['selectOptionSource'];
-
-    $db = \Config\Database::connect();
-
-    /* --------------------------------------------------
-       LATEST STATUS SUBQUERY
-    -------------------------------------------------- */
-    $subStatusQuery = $db->table('khm_obj_enquiry_status s')
-        ->select('s.enquiry_status_id, s.enquiry_header_id, s.current_status_id, s.updated_time')
-        ->join(
-            '(SELECT MAX(enquiry_status_id) AS max_status_id, enquiry_header_id
-              FROM khm_obj_enquiry_status
-              GROUP BY enquiry_header_id) latest',
-            's.enquiry_header_id = latest.enquiry_header_id
-             AND s.enquiry_status_id = latest.max_status_id',
-            'inner'
+            false
         );
 
-    $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+        $query->join(
+            'khm_obj_enquiry_edit_request h',
+            'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1',
+            'left'
+        );
 
-    /* --------------------------------------------------
+        $query->join(
+            'khm_obj_enquiry_header hd',
+            'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1',
+            'left'
+        );
+
+        $query->join(
+            'khm_obj_enquiry_status exe',
+            'exe.enquiry_header_id = a.enquiry_header_id
+         AND exe.edit_request_id = h.enquiry_edit_request_id
+         AND exe.current_status_id = 1',
+            'left'
+        );
+
+        $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
+        $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
+
+        $query->join(
+            '(' . $latestStatusSql . ') est',
+            'est.enquiry_header_id = a.enquiry_header_id',
+            'left'
+        );
+
+        $query->join(
+            'khm_obj_mst_enquiry_status ss',
+            'ss.status_id = est.current_status_id',
+            'left'
+        );
+
+        /* --------------------------------------------------
+       DATE FILTER
+    -------------------------------------------------- */
+        $query->where("DATE(a.departure_date) BETWEEN '$fromDate' AND '$toDate'");
+
+        /* --------------------------------------------------
+       🔥 ROLE-BASED VISIBILITY FIX
+    -------------------------------------------------- */
+        $activeRole = (int) session('active_role');
+        $userId     = (int) session('user_id');
+
+        if ($activeRole === 1) {
+            // ADMIN → see all
+        } elseif ($activeRole === 4) {
+            // TEAM LEAD → self + team
+            $teamRows = $db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $userId)
+                ->get()
+                ->getResultArray();
+
+            $allowedIds = array_column($teamRows, 'entity_id');
+            $allowedIds[] = $userId;
+
+            $query->whereIn('exe.assigned_to', $allowedIds);
+        } else {
+            // EXECUTIVE → only own
+            $query->where('exe.assigned_to', $userId);
+        }
+
+        /* --------------------------------------------------
+       OPTIONAL FILTERS
+    -------------------------------------------------- */
+        if (!empty($selectOptionSource)) {
+            $query->where('a.followup_type_id', $selectOptionSource);
+        }
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('hd.ref_no', $searchValue)
+                ->orLike('gu.entity_name', $searchValue)
+                ->groupEnd();
+        }
+
+        /* --------------------------------------------------
+       ORDER + LIMIT
+    -------------------------------------------------- */
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
+
+        $records = $query->get()->getResultArray();
+
+        $totalRecords = $db->query('SELECT FOUND_ROWS() AS count')
+            ->getRow()
+            ->count;
+
+        return [
+            "draw"                 => intval($draw),
+            "iTotalRecords"        => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData"               => $records
+        ];
+    }
+
+    public function reminder_driver($params)
+    {
+        $draw            = $params['draw'];
+        $start           = $params['start'];
+        $rowperpage      = $params['length'];
+        $columnIndex     = $params['order'][0]['column'];
+        $columnName      = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue     = $params['search']['value'];
+        $fromDate        = $params['fromDate'];
+        $toDate          = $params['toDate'];
+        $selectOptionSource = $params['selectOptionSource'];
+
+        $db = \Config\Database::connect();
+
+        /* --------------------------------------------------
+       LATEST STATUS SUBQUERY
+    -------------------------------------------------- */
+        $subStatusQuery = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id, s.enquiry_header_id, s.current_status_id, s.updated_time')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) AS max_status_id, enquiry_header_id
+              FROM khm_obj_enquiry_status
+              GROUP BY enquiry_header_id) latest',
+                's.enquiry_header_id = latest.enquiry_header_id
+             AND s.enquiry_status_id = latest.max_status_id',
+                'inner'
+            );
+
+        $latestStatusSql = $subStatusQuery->getCompiledSelect(false);
+
+        /* --------------------------------------------------
        MAIN QUERY
     -------------------------------------------------- */
-    $query = $db->table('khm_obj_all_call_follow_up a');
-    $query->select(
-        'SQL_CALC_FOUND_ROWS
+        $query = $db->table('khm_obj_all_call_follow_up a');
+        $query->select(
+            'SQL_CALC_FOUND_ROWS
          a.*,
          ss.status_name,
          ex.entity_name AS executive_name,
          gu.entity_name AS guest_name,
          hd.ref_no,
          DATE_FORMAT(a.call_time, "%d-%m-%Y") AS followup_date',
-        false
-    );
+            false
+        );
 
-    $query->join(
-        'khm_obj_enquiry_edit_request h',
-        'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1',
-        'left'
-    );
+        $query->join(
+            'khm_obj_enquiry_edit_request h',
+            'h.enquiry_header_id = a.enquiry_header_id AND h.is_active = 1',
+            'left'
+        );
 
-    $query->join(
-        'khm_obj_enquiry_header hd',
-        'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1',
-        'left'
-    );
+        $query->join(
+            'khm_obj_enquiry_header hd',
+            'hd.enquiry_header_id = a.enquiry_header_id AND hd.is_active = 1',
+            'left'
+        );
 
-    $query->join(
-        'khm_obj_enquiry_status exe',
-        'exe.enquiry_header_id = a.enquiry_header_id
+        $query->join(
+            'khm_obj_enquiry_status exe',
+            'exe.enquiry_header_id = a.enquiry_header_id
          AND exe.edit_request_id = h.enquiry_edit_request_id
          AND exe.current_status_id = 1',
-        'left'
-    );
+            'left'
+        );
 
-    $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
-    $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
+        $query->join('khm_entity_mst ex', 'ex.entity_id = exe.assigned_to', 'left');
+        $query->join('khm_entity_mst gu', 'gu.entity_id = hd.guest_entity_id', 'left');
 
-    $query->join(
-        '(' . $latestStatusSql . ') est',
-        'est.enquiry_header_id = a.enquiry_header_id',
-        'left'
-    );
+        $query->join(
+            '(' . $latestStatusSql . ') est',
+            'est.enquiry_header_id = a.enquiry_header_id',
+            'left'
+        );
 
-    $query->join(
-        'khm_obj_mst_enquiry_status ss',
-        'ss.status_id = est.current_status_id',
-        'left'
-    );
+        $query->join(
+            'khm_obj_mst_enquiry_status ss',
+            'ss.status_id = est.current_status_id',
+            'left'
+        );
 
-    /* --------------------------------------------------
+        /* --------------------------------------------------
        DRIVER FOLLOWUP ONLY
     -------------------------------------------------- */
-    $query->where('a.followup_type_id', 16);
+        $query->where('a.followup_type_id', 16);
 
-    /* --------------------------------------------------
+        /* --------------------------------------------------
        DATE FILTER
     -------------------------------------------------- */
-    $query->where("DATE(a.call_time) BETWEEN '$fromDate' AND '$toDate'");
+        $query->where("DATE(a.call_time) BETWEEN '$fromDate' AND '$toDate'");
 
-    /* --------------------------------------------------
+        /* --------------------------------------------------
        🔥 ROLE-BASED VISIBILITY FIX
     -------------------------------------------------- */
-    $activeRole = (int) session('active_role');
-    $userId     = (int) session('user_id');
+        $activeRole = (int) session('active_role');
+        $userId     = (int) session('user_id');
 
-    if ($activeRole === 1) {
-        // ADMIN → see all
-    }
-    elseif ($activeRole === 4) {
-        // TEAM LEAD → self + team
-        $teamRows = $db->table('khm_sys_usg_mst_entity_role')
-            ->select('entity_id')
-            ->where('team_lead_id', $userId)
-            ->get()
-            ->getResultArray();
+        if ($activeRole === 1) {
+            // ADMIN → see all
+        } elseif ($activeRole === 4) {
+            // TEAM LEAD → self + team
+            $teamRows = $db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $userId)
+                ->get()
+                ->getResultArray();
 
-        $allowedIds = array_column($teamRows, 'entity_id');
-        $allowedIds[] = $userId;
+            $allowedIds = array_column($teamRows, 'entity_id');
+            $allowedIds[] = $userId;
 
-        $query->whereIn('exe.assigned_to', $allowedIds);
-    }
-    else {
-        // EXECUTIVE → only own data
-        $query->where('exe.assigned_to', $userId);
-    }
+            $query->whereIn('exe.assigned_to', $allowedIds);
+        } else {
+            // EXECUTIVE → only own data
+            $query->where('exe.assigned_to', $userId);
+        }
 
-    /* --------------------------------------------------
+        /* --------------------------------------------------
        OPTIONAL FILTERS
     -------------------------------------------------- */
-    if (!empty($selectOptionSource)) {
-        $query->where('a.followup_type_id', $selectOptionSource);
-    }
+        if (!empty($selectOptionSource)) {
+            $query->where('a.followup_type_id', $selectOptionSource);
+        }
 
-    if (!empty($searchValue)) {
-        $query->groupStart()
-            ->like('hd.ref_no', $searchValue)
-            ->orLike('gu.entity_name', $searchValue)
-            ->groupEnd();
-    }
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('hd.ref_no', $searchValue)
+                ->orLike('gu.entity_name', $searchValue)
+                ->groupEnd();
+        }
 
-    /* --------------------------------------------------
+        /* --------------------------------------------------
        ORDER + LIMIT
     -------------------------------------------------- */
-    $query->orderBy($columnName, $columnSortOrder);
-    $query->limit($rowperpage, $start);
+        $query->orderBy($columnName, $columnSortOrder);
+        $query->limit($rowperpage, $start);
 
-    $records = $query->get()->getResultArray();
+        $records = $query->get()->getResultArray();
 
-    $totalRecords = $db->query('SELECT FOUND_ROWS() AS count')
-        ->getRow()
-        ->count;
+        $totalRecords = $db->query('SELECT FOUND_ROWS() AS count')
+            ->getRow()
+            ->count;
 
-    return [
-        "draw"                 => intval($draw),
-        "iTotalRecords"        => $totalRecords,
-        "iTotalDisplayRecords" => $totalRecords,
-        "aaData"               => $records
-    ];
-}
+        return [
+            "draw"                 => intval($draw),
+            "iTotalRecords"        => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData"               => $records
+        ];
+    }
 
 
     public function reminder_arrival($params)
-{
-    $draw            = $params['draw'];
-    $start           = $params['start'];
-    $rowperpage      = $params['length'];
-    $columnIndex     = $params['order'][0]['column'];
-    $columnName      = $params['columns'][$columnIndex]['data'];
-    $columnSortOrder = $params['order'][0]['dir'];
-    $searchValue     = $params['search']['value'];
-    $fromDate        = $params['fromDate'];
-    $toDate          = $params['toDate'];
+    {
+        $draw            = $params['draw'];
+        $start           = $params['start'];
+        $rowperpage      = $params['length'];
+        $columnIndex     = $params['order'][0]['column'];
+        $columnName      = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue     = $params['search']['value'];
+        $fromDate        = $params['fromDate'];
+        $toDate          = $params['toDate'];
 
-    $db = \Config\Database::connect();
+        $db = \Config\Database::connect();
 
-    /* ---------------- LATEST STATUS ---------------- */
-    $latestStatusSql = $db->table('khm_obj_enquiry_status s')
-        ->select('s.enquiry_status_id,s.enquiry_header_id,s.current_status_id')
-        ->join(
-            '(SELECT MAX(enquiry_status_id) max_id,enquiry_header_id
+        /* ---------------- LATEST STATUS ---------------- */
+        $latestStatusSql = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_status_id,s.enquiry_header_id,s.current_status_id')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) max_id,enquiry_header_id
               FROM khm_obj_enquiry_status GROUP BY enquiry_header_id) x',
-            'x.enquiry_header_id=s.enquiry_header_id AND x.max_id=s.enquiry_status_id',
-            'inner'
-        )
-        ->getCompiledSelect(false);
+                'x.enquiry_header_id=s.enquiry_header_id AND x.max_id=s.enquiry_status_id',
+                'inner'
+            )
+            ->getCompiledSelect(false);
 
-    /* ---------------- MAIN QUERY ---------------- */
-    $query = $db->table('khm_obj_arrival_follow_up a');
-    $query->select(
-        'SQL_CALC_FOUND_ROWS
+        /* ---------------- MAIN QUERY ---------------- */
+        $query = $db->table('khm_obj_arrival_follow_up a');
+        $query->select(
+            'SQL_CALC_FOUND_ROWS
          a.*,
          ss.status_name,
          ex.entity_name AS executive_name,
          gu.entity_name AS guest_name,
          hd.ref_no,
          DATE_FORMAT(a.arrival_date,"%d-%m-%Y") AS followup_date',
-        false
-    );
+            false
+        );
 
-    $query->join('khm_obj_enquiry_edit_request h', 'h.enquiry_header_id=a.enquiry_header_id AND h.is_active=1', 'left');
-    $query->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id=a.enquiry_header_id AND hd.is_active=1', 'left');
-    $query->join('khm_obj_enquiry_status exe', 'exe.enquiry_header_id=a.enquiry_header_id AND exe.edit_request_id=h.enquiry_edit_request_id AND exe.current_status_id=1', 'left');
-    $query->join('khm_entity_mst ex', 'ex.entity_id=exe.assigned_to', 'left');
-    $query->join('khm_entity_mst gu', 'gu.entity_id=hd.guest_entity_id', 'left');
-    $query->join("($latestStatusSql) est", 'est.enquiry_header_id=a.enquiry_header_id', 'left');
-    $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id=est.current_status_id', 'left');
+        $query->join('khm_obj_enquiry_edit_request h', 'h.enquiry_header_id=a.enquiry_header_id AND h.is_active=1', 'left');
+        $query->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id=a.enquiry_header_id AND hd.is_active=1', 'left');
+        $query->join('khm_obj_enquiry_status exe', 'exe.enquiry_header_id=a.enquiry_header_id AND exe.edit_request_id=h.enquiry_edit_request_id AND exe.current_status_id=1', 'left');
+        $query->join('khm_entity_mst ex', 'ex.entity_id=exe.assigned_to', 'left');
+        $query->join('khm_entity_mst gu', 'gu.entity_id=hd.guest_entity_id', 'left');
+        $query->join("($latestStatusSql) est", 'est.enquiry_header_id=a.enquiry_header_id', 'left');
+        $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id=est.current_status_id', 'left');
 
-    $query->where("DATE(a.arrival_date) BETWEEN '$fromDate' AND '$toDate'");
+        $query->where("DATE(a.arrival_date) BETWEEN '$fromDate' AND '$toDate'");
 
-    /* -------- ROLE BASED FILTER -------- */
-    $role   = (int) session('active_role');
-    $userId = (int) session('user_id');
+        /* -------- ROLE BASED FILTER -------- */
+        $role   = (int) session('active_role');
+        $userId = (int) session('user_id');
 
-    if ($role === 4) { // Team Lead
-        $team = $db->table('khm_sys_usg_mst_entity_role')
-            ->select('entity_id')
-            ->where('team_lead_id', $userId)
-            ->get()
-            ->getResultArray();
+        if ($role === 4) { // Team Lead
+            $team = $db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $userId)
+                ->get()
+                ->getResultArray();
 
-        $ids = array_column($team, 'entity_id');
-        $ids[] = $userId;
+            $ids = array_column($team, 'entity_id');
+            $ids[] = $userId;
 
-        $query->whereIn('exe.assigned_to', $ids);
-    } elseif ($role !== 1) { // Executive
-        $query->where('exe.assigned_to', $userId);
+            $query->whereIn('exe.assigned_to', $ids);
+        } elseif ($role !== 1) { // Executive
+            $query->where('exe.assigned_to', $userId);
+        }
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('hd.ref_no', $searchValue)
+                ->orLike('gu.entity_name', $searchValue)
+                ->groupEnd();
+        }
+
+        $query->orderBy($columnName, $columnSortOrder)
+            ->limit($rowperpage, $start);
+
+        $records = $query->get()->getResultArray();
+        $totalRecords = $db->query('SELECT FOUND_ROWS() count')->getRow()->count;
+
+        return [
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        ];
     }
-
-    if (!empty($searchValue)) {
-        $query->groupStart()
-            ->like('hd.ref_no', $searchValue)
-            ->orLike('gu.entity_name', $searchValue)
-            ->groupEnd();
-    }
-
-    $query->orderBy($columnName, $columnSortOrder)
-          ->limit($rowperpage, $start);
-
-    $records = $query->get()->getResultArray();
-    $totalRecords = $db->query('SELECT FOUND_ROWS() count')->getRow()->count;
-
-    return [
-        "draw" => intval($draw),
-        "iTotalRecords" => $totalRecords,
-        "iTotalDisplayRecords" => $totalRecords,
-        "aaData" => $records
-    ];
-}
 
     public function reminder_hotel_reconfirm($params)
-{
-    $draw            = $params['draw'];
-    $start           = $params['start'];
-    $rowperpage      = $params['length'];
-    $columnIndex     = $params['order'][0]['column'];
-    $columnName      = $params['columns'][$columnIndex]['data'];
-    $columnSortOrder = $params['order'][0]['dir'];
-    $searchValue     = $params['search']['value'];
-    $fromDate        = $params['fromDate'];
-    $toDate          = $params['toDate'];
+    {
+        $draw            = $params['draw'];
+        $start           = $params['start'];
+        $rowperpage      = $params['length'];
+        $columnIndex     = $params['order'][0]['column'];
+        $columnName      = $params['columns'][$columnIndex]['data'];
+        $columnSortOrder = $params['order'][0]['dir'];
+        $searchValue     = $params['search']['value'];
+        $fromDate        = $params['fromDate'];
+        $toDate          = $params['toDate'];
 
-    $db = \Config\Database::connect();
+        $db = \Config\Database::connect();
 
-    $latestStatusSql = $db->table('khm_obj_enquiry_status s')
-        ->select('s.enquiry_header_id,s.current_status_id')
-        ->join(
-            '(SELECT MAX(enquiry_status_id) id,enquiry_header_id
+        $latestStatusSql = $db->table('khm_obj_enquiry_status s')
+            ->select('s.enquiry_header_id,s.current_status_id')
+            ->join(
+                '(SELECT MAX(enquiry_status_id) id,enquiry_header_id
               FROM khm_obj_enquiry_status GROUP BY enquiry_header_id) x',
-            'x.enquiry_header_id=s.enquiry_header_id AND x.id=s.enquiry_status_id',
-            'inner'
-        )
-        ->getCompiledSelect(false);
+                'x.enquiry_header_id=s.enquiry_header_id AND x.id=s.enquiry_status_id',
+                'inner'
+            )
+            ->getCompiledSelect(false);
 
-    $query = $db->table('khm_hotel_confirmation a');
-    $query->select(
-        'SQL_CALC_FOUND_ROWS
+        $query = $db->table('khm_hotel_confirmation a');
+        $query->select(
+            'SQL_CALC_FOUND_ROWS
          a.*,
          ss.status_name,
          ex.entity_name AS executive_name,
@@ -6270,59 +6311,59 @@ public function reminder_driver($params)
          DATE_FORMAT(a.confirm_date,"%d-%m-%Y") AS con_date,
          DATE_FORMAT(a.cut_off_date,"%d-%m-%Y") AS cutoff_date,
          DATE_FORMAT(a.reconfirm_date,"%d-%m-%Y") AS recon_date',
-        false
-    );
+            false
+        );
 
-    $query->join('khm_obj_enquiry_itinerary_details it','it.itinerary_details_id=a.itinerary_details_id','inner');
-    $query->join('khm_obj_enquiry_edit_request h','h.enquiry_header_id=it.enquiry_header_id AND h.is_active=1','left');
-    $query->join('khm_obj_enquiry_header hd','hd.enquiry_header_id=it.enquiry_header_id AND hd.is_active=1','left');
-    $query->join('khm_obj_enquiry_status exe','exe.enquiry_header_id=it.enquiry_header_id AND exe.edit_request_id=h.enquiry_edit_request_id AND exe.current_status_id=1','left');
-    $query->join('khm_entity_mst ex','ex.entity_id=exe.assigned_to','left');
-    $query->join('khm_entity_mst gu','gu.entity_id=hd.guest_entity_id','left');
-    $query->join("($latestStatusSql) est",'est.enquiry_header_id=it.enquiry_header_id','left');
-    $query->join('khm_obj_mst_enquiry_status ss','ss.status_id=est.current_status_id','left');
+        $query->join('khm_obj_enquiry_itinerary_details it', 'it.itinerary_details_id=a.itinerary_details_id', 'inner');
+        $query->join('khm_obj_enquiry_edit_request h', 'h.enquiry_header_id=it.enquiry_header_id AND h.is_active=1', 'left');
+        $query->join('khm_obj_enquiry_header hd', 'hd.enquiry_header_id=it.enquiry_header_id AND hd.is_active=1', 'left');
+        $query->join('khm_obj_enquiry_status exe', 'exe.enquiry_header_id=it.enquiry_header_id AND exe.edit_request_id=h.enquiry_edit_request_id AND exe.current_status_id=1', 'left');
+        $query->join('khm_entity_mst ex', 'ex.entity_id=exe.assigned_to', 'left');
+        $query->join('khm_entity_mst gu', 'gu.entity_id=hd.guest_entity_id', 'left');
+        $query->join("($latestStatusSql) est", 'est.enquiry_header_id=it.enquiry_header_id', 'left');
+        $query->join('khm_obj_mst_enquiry_status ss', 'ss.status_id=est.current_status_id', 'left');
 
-    $query->where("DATE(a.confirm_date) BETWEEN '$fromDate' AND '$toDate'");
+        $query->where("DATE(a.confirm_date) BETWEEN '$fromDate' AND '$toDate'");
 
-    /* -------- ROLE BASED FILTER -------- */
-    $role   = (int) session('active_role');
-    $userId = (int) session('user_id');
+        /* -------- ROLE BASED FILTER -------- */
+        $role   = (int) session('active_role');
+        $userId = (int) session('user_id');
 
-    if ($role === 4) {
-        $team = $db->table('khm_sys_usg_mst_entity_role')
-            ->select('entity_id')
-            ->where('team_lead_id', $userId)
-            ->get()
-            ->getResultArray();
+        if ($role === 4) {
+            $team = $db->table('khm_sys_usg_mst_entity_role')
+                ->select('entity_id')
+                ->where('team_lead_id', $userId)
+                ->get()
+                ->getResultArray();
 
-        $ids = array_column($team, 'entity_id');
-        $ids[] = $userId;
+            $ids = array_column($team, 'entity_id');
+            $ids[] = $userId;
 
-        $query->whereIn('exe.assigned_to', $ids);
-    } elseif ($role !== 1) {
-        $query->where('exe.assigned_to', $userId);
+            $query->whereIn('exe.assigned_to', $ids);
+        } elseif ($role !== 1) {
+            $query->where('exe.assigned_to', $userId);
+        }
+
+        if (!empty($searchValue)) {
+            $query->groupStart()
+                ->like('hd.ref_no', $searchValue)
+                ->orLike('gu.entity_name', $searchValue)
+                ->groupEnd();
+        }
+
+        $query->orderBy($columnName, $columnSortOrder)
+            ->limit($rowperpage, $start);
+
+        $records = $query->get()->getResultArray();
+        $totalRecords = $db->query('SELECT FOUND_ROWS() count')->getRow()->count;
+
+        return [
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecords,
+            "aaData" => $records
+        ];
     }
-
-    if (!empty($searchValue)) {
-        $query->groupStart()
-            ->like('hd.ref_no', $searchValue)
-            ->orLike('gu.entity_name', $searchValue)
-            ->groupEnd();
-    }
-
-    $query->orderBy($columnName, $columnSortOrder)
-          ->limit($rowperpage, $start);
-
-    $records = $query->get()->getResultArray();
-    $totalRecords = $db->query('SELECT FOUND_ROWS() count')->getRow()->count;
-
-    return [
-        "draw" => intval($draw),
-        "iTotalRecords" => $totalRecords,
-        "iTotalDisplayRecords" => $totalRecords,
-        "aaData" => $records
-    ];
-}
 
     public function proforma_list_view($params)
     {
