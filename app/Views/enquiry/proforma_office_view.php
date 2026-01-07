@@ -9,6 +9,44 @@ if ($cdata[0]['is_vehicle_required'] == 1) {
 if (!empty($proforma_saved_data[0]['proforma_data'])) {
 ?>
     <textarea name="proforma_office_template" id="proforma_office_template" style="width:100%; height:1000px;"><?php echo $proforma_saved_data[0]['proforma_data']; ?></textarea>
+
+    <?php
+    $special_events = [];
+    $vendor_names = [];
+
+    /* Vendor master */
+    $vendors = $this->db
+        ->where('entity_class_id', 9)
+        ->where('deleted', 0)
+        ->get('khm_entity_mst')
+        ->result_array();
+
+    foreach ($vendors as $v) {
+        $vendor_names[$v['entity_id']] = $v['entity_name'];
+    }
+
+    /* Collect special events */
+    foreach ($iti_data as $row) {
+
+        $events = json_decode($row['json_special_event'] ?? '[]', true);
+        $vendors_json = json_decode($row['special_event_vendor_json'] ?? '[]', true);
+
+        foreach ($events as $i => $ev) {
+
+            if (empty($ev['spcl_event']) || empty($ev['spcl_tariff'])) {
+                continue;
+            }
+
+            $special_events[] = [
+                'tour_date'  => $ev['tour_date'],
+                'event_name' => $ev['spcl_event'],
+                'tariff'     => (int)$ev['spcl_tariff'],
+                'vendor_id'  => $vendors_json[$i]['vendor_id'] ?? null
+            ];
+        }
+    }
+    ?>
+
 <?php } else { ?>
     <textarea name="proforma_office_template" id="proforma_office_template" style="width:100%; height:1000px;">
         <?php
@@ -403,6 +441,8 @@ if (!empty($proforma_saved_data[0]['proforma_data'])) {
                         $no_of_days_temp = $cdata[0]['no_of_night'] + 1;
                     }
                     ?>
+                    <br><br>
+                    
                     <table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
                             <thead>
                                  <tr>
@@ -798,11 +838,78 @@ if (!empty($proforma_saved_data[0]['proforma_data'])) {
                                             }
                                         }
                                     } ?>
+
+                                    
                            </tbody>
+                           
                         </table>
-                      
+                        <br><br>
                        
-                        <?php if ($cdata[0]['is_vehicle_required'] == 1) { ?>
+                       <!-- ================= ADDITIONAL SERVICES – SPECIAL EVENTS ================= -->
+
+<br>
+
+<?php if (!empty($special_events)) { ?>
+
+<table style="width:100%;border-collapse:collapse;border:1px solid black;">
+
+    <tr>
+        <td colspan="5" style="background:#d0c6c6;text-align:center;border:1px solid black;font-weight:bold;">
+            Special Event Tariff
+        </td>
+    </tr>
+
+    <tr>
+        <td style="border:1px solid black;background:#d0c6c6;text-align:center;"><b>Si No</b></td>
+        <td style="border:1px solid black;background:#d0c6c6;text-align:center;"><b>Date</b></td>
+        <td style="border:1px solid black;background:#d0c6c6;"><b>Special Event</b></td>
+        <td style="border:1px solid black;background:#d0c6c6;"><b>Vendor</b></td>
+        <td style="border:1px solid black;background:#d0c6c6;text-align:right;"><b>Tariff</b></td>
+    </tr>
+
+    <?php
+        $i = 1;
+        $total_special_event_cost = 0;
+
+        foreach ($special_events as $sp) {
+            $vendor = $vendor_names[$sp['vendor_id']] ?? '-';
+            $total_special_event_cost += $sp['tariff'];
+    ?>
+        <tr>
+            <td style="border:1px solid black;text-align:center;"><?php echo $i++; ?></td>
+            <td style="border:1px solid black;text-align:center;"><?php echo date('d-m-Y', strtotime($sp['tour_date'])); ?></td>
+            <td style="border:1px solid black;"><?php echo $sp['event_name']; ?></td>
+            <td style="border:1px solid black;"><?php echo $vendor; ?></td>
+            <td style="border:1px solid black;text-align:right;"><?php echo number_format($sp['tariff'], 2); ?></td>
+        </tr>
+    <?php } ?>
+
+    <tr>
+        <td colspan="4" style="border:1px solid black;text-align:right;font-weight:bold;">
+            Total Special Event Cost
+        </td>
+        <td style="border:1px solid black;text-align:right;font-weight:bold;">
+            <?php echo number_format($total_special_event_cost, 2); ?>
+        </td>
+    </tr>
+
+</table>
+
+<?php } else { ?>
+
+<table style="width:100%;border-collapse:collapse;border:1px solid black;">
+    <tr>
+        <td style="text-align:center;color:red;font-weight:bold;">
+            No Special Events Added
+        </td>
+    </tr>
+</table>
+
+<?php } ?>
+
+                    <br><br>
+                       
+      <?php if ($cdata[0]['is_vehicle_required'] == 1) { ?>
                         <table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
                           
                                  <tr>
@@ -859,6 +966,8 @@ if (!empty($proforma_saved_data[0]['proforma_data'])) {
                         $profit = $cdata[0]['margin_value'] + $cdata[0]['tour_addon'];
                         $margin_per = ($profit / $cdata[0]['total_rate']) * 100;
                         ?>
+
+                        <br><br>
 
                         <table style="width:100%;border-collapse: collapse;border: 1px solid black;">  
                                 <tr>
@@ -930,6 +1039,9 @@ if (!empty($proforma_saved_data[0]['proforma_data'])) {
                         </div>
                     
     </textarea>
+
+    
+
 <?php } ?>
 
 <table style="float:right;">

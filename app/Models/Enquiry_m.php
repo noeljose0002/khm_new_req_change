@@ -4612,7 +4612,67 @@ class Enquiry_m extends Model
             'aaData'               => $out,
         ];
     }
-    public function hotelvoucherdata($params)
+
+//st
+public function getSpecialEventsByEnquiry($enquiry_header_id)
+{
+    $rows = $this->db->table('khm_obj_enquiry_itinerary_details')
+        ->select('json_special_event')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->where('json_special_event IS NOT NULL', null, false)
+        ->get()
+        ->getResultArray();
+
+    $events = [];
+
+    foreach ($rows as $row) {
+
+        $json = json_decode($row['json_special_event'], true);
+        if (!is_array($json)) {
+            continue;
+        }
+
+        foreach ($json as $e) {
+
+            // ✅ THIS IS THE KEY
+            if (!empty($e['spcl_event'])) {
+                $events[$e['spcl_event']] = [
+                    'special_event_name' => $e['spcl_event']
+                ];
+            }
+        }
+    }
+
+    // return unique list
+    return array_values($events);
+}
+
+
+public function getVendors()
+{
+    return $this->db->table('khm_entity_mst')
+        ->select('entity_id, entity_name')
+        ->where('entity_class_id', 9)
+        ->where('deleted', 0)
+        ->orderBy('entity_name', 'ASC')
+        ->get()
+        ->getResultArray();
+}
+
+public function getSavedEventVendors($enquiry_header_id)
+{
+    return $this->db->table('khm_obj_enquiry_itinerary_details')
+        ->select('special_event_vendor_json')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->where('special_event_vendor_json IS NOT NULL', null, false)
+        ->get()
+        ->getRowArray();
+}
+
+
+
+//st
+    public function hotelvoucherdata($params) 
     {
         $draw = $params['draw'];
         $start = $params['start'];

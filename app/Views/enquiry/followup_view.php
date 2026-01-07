@@ -166,6 +166,44 @@
 			div.container {
 				width: 100%;
 			}
+
+			
+/* Card background */
+.special-event-card {
+    background: #e6e7ef;
+    border: none;
+}
+
+/* Force SAME height for input & select */
+.uniform-input,
+.form-select.uniform-input {
+    height: 44px !important;
+    min-height: 44px !important;
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    border-radius: 6px !important;
+}
+
+/* Fix select arrow alignment */
+.form-select.uniform-input {
+    background-position: right 12px center;
+}
+
+/* Button height = input height */
+.uniform-btn {
+    height: 44px !important;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
+/* Label consistency */
+.form-label {
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #2b2b2b;
+}
 		</style>
 
 	</head>
@@ -970,28 +1008,36 @@
 										</table>
 									</div>
 								</div>
-								<div class="col-md-12 col-lg-12">
-									<div class="card" style="background-color:#e0e0eb;">
-										<div class="card-body">
-											<div class="row">
-												<div class="col-lg-3">
-													
-												</div>
-												<div class="col-lg-3">
-													
-												</div>
-												<div class="col-lg-3">
-												    <label class="form-control-label" style="font-weight: bold;">Cut Off Date</label>
-													<input class="form-control input-sm" type="date" id="final_cut_date">
-												</div>
-												<div class="col-lg-3" style="padding-top:25px;">
-													<button type="button" id="btn_update_con_final" class="btn btn-success input-sm">SAVE</button>
+								<div class="card special-event-card">
+    <div class="card-body">
 
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+        <!-- 🔹 Special Events injected here -->
+        <div id="specialEventContainer"></div>
+
+        <!-- 🔹 Cut Off Date + Save -->
+        <div class="row align-items-end g-3 mt-3">
+
+            <div class="col-lg-8"></div>
+
+            <div class="col-lg-2">
+                <label class="form-label fw-bold">Cut Off Date</label>
+                <input type="date"
+                       id="final_cut_date"
+                       class="form-control uniform-input">
+            </div>
+
+            <div class="col-lg-2">
+                <label class="form-label invisible">Save</label>
+                <button id="btn_update_con_final"
+                        class="btn btn-success uniform-btn w-100">
+                    SAVE
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 						
 						</div>
 						
@@ -1999,9 +2045,6 @@
 						alert("Hotel Confirmation Saved");
 						location.reload();
 					}
-					else{
-						alert("Already Saved");
-					}
 				},
 				error: function (xhr, status, error) {
 					console.error('Error adding node:', error);
@@ -2009,6 +2052,178 @@
 		});
     });
 </script>
+
+
+<!-- st -->
+<script>
+$(document).ready(function () {
+
+    var enquiry_header_id = <?= $enquiry_header_id ?>;
+
+    let vendorList = [];
+    let savedVendorMap = {};
+
+    /* -------------------------
+       1️⃣ Load saved vendors
+    --------------------------*/
+    $.post('<?= site_url('Enquiry/getSavedEventVendors') ?>', {
+        enquiry_header_id: enquiry_header_id
+    }, function (res) {
+        savedVendorMap = res || {};
+    });
+
+    /* -------------------------
+       2️⃣ Load vendor master
+    --------------------------*/
+    $.get('<?= site_url('Enquiry/getVendors') ?>')
+        .done(function (res) {
+            vendorList = res;
+        })
+        .fail(function () {
+            console.warn('Vendor API failed');
+            vendorList = [];
+        })
+        .always(function () {
+            loadSpecialEvents(); // always render
+        });
+
+    /* -------------------------
+       3️⃣ Load special events
+    --------------------------*/
+    function loadSpecialEvents() {
+
+        $.post('<?= site_url('Enquiry/getSpecialEvents') ?>', {
+            enquiry_header_id: enquiry_header_id
+        }, function (events) {
+
+            if (!events || events.length === 0) {
+                $('#specialEventContainer').html(
+                    '<p class="text-danger fw-bold">No Special Events Found</p>'
+                );
+                return;
+            }
+
+            let html = '';
+
+            events.forEach(function (e, index) {
+
+                let selectedVendor = savedVendorMap[e.special_event_name] || '';
+
+                html += `
+                <div class="row align-items-end g-3 special-event-row">
+
+                    <!-- Special Event -->
+                    <div class="col-lg-6">
+                        <label class="form-label fw-bold">
+                            ${index === 0 ? 'Special Event' : ''}
+                        </label>
+                        <input type="text"
+                               class="form-control uniform-input special-event-name"
+                               value="${e.special_event_name}"
+                               readonly>
+                    </div>
+
+                    <!-- Vendor -->
+                    <div class="col-lg-6">
+                        <label class="form-label fw-bold">
+                            ${index === 0 ? 'Vendor' : ''}
+                        </label>
+                        <select class="form-select uniform-input event-vendor w-100">
+                            <option value="">Select Vendor</option>
+                            ${vendorList.map(v =>
+                                `<option value="${v.entity_id}"
+                                    ${v.entity_id == selectedVendor ? 'selected' : ''}>
+                                    ${v.entity_name}
+                                </option>`
+                            ).join('')}
+                        </select>
+                    </div>
+
+                </div>`;
+            });
+
+            $('#specialEventContainer').html(html);
+        });
+    }
+
+});
+</script>
+
+
+<script>
+$(document).on('click', '#btn_update_con_final', function (e) {
+    e.preventDefault();
+
+    var enquiry_header_id = <?= $enquiry_header_id ?>;
+    var confirm_cs_id    = <?= $confirm_cs_id ?>;
+    var cut_off_date     = $('#final_cut_date').val();
+
+    if (!cut_off_date) {
+        alert("Please select cut-off date");
+        return;
+    }
+
+    // 🔴 EXISTING CONFIRM CHECK (UNCHANGED)
+    var allConfirmed = true;
+    var table = $('#table_hotel_confirm').DataTable();
+    table.rows().every(function () {
+        var data = this.data();
+        var status = $('#row_con_status' + data.itinerary_details_id).val();
+        if (status != "3") {
+            allConfirmed = false;
+            return false;
+        }
+    });
+
+    if (!allConfirmed) {
+        alert("All hotels must be marked as Confirmed before final Save.");
+        return;
+    }
+
+    // ✅ SPECIAL EVENT → VENDOR JSON
+    var special_events = [];
+
+    $('.special-event-row').each(function () {
+        var eventName = $(this).find('.special-event-name').val();
+        var vendorId  = $(this).find('.event-vendor').val();
+
+        if (!vendorId) {
+            alert("Please select vendor for all special events");
+            special_events = [];
+            return false;
+        }
+
+        special_events.push({
+            name: eventName,
+            vendor_id: vendorId
+        });
+    });
+
+    if (special_events.length === 0 && $('.special-event-row').length > 0) {
+        return;
+    }
+
+    // 🔥 FINAL SAVE
+    $.ajax({
+        url: '<?=site_url('Enquiry/updateConfirmHotelFinal');?>',
+        method: 'POST',
+        data: {
+            enquiry_header_id : enquiry_header_id,
+            cut_off_date      : cut_off_date,
+            confirm_cs_id     : confirm_cs_id,
+            special_events    : special_events
+        },
+        dataType: 'json',
+        success: function (res) {
+            alert("Hotel Confirmation Saved");
+            location.reload();
+        }
+    });
+});
+</script>
+
+
+<!-- st -->
 <script type="text/javascript">
     $(document).on('click', '#btn_vouchers', function(e) {
         e.preventDefault();

@@ -1918,6 +1918,37 @@ class Enquiry extends BaseController
         $data['itinerary_details_id'] = $itinerary_details_id;
         echo view('enquiry/hotel_confirmation_mail', $data);
     }
+
+    // st
+public function getSpecialEvents()
+{
+    $enquiry_header_id = $this->request->getPost('enquiry_header_id');
+    $Enquiry_model = new Enquiry_m();
+
+    return $this->response->setJSON(
+        $Enquiry_model->getSpecialEventsByEnquiry($enquiry_header_id)
+    );
+}
+public function getVendors()
+{
+    $Enquiry_model = new Enquiry_m();
+    return $this->response->setJSON($Enquiry_model->getVendors());
+}
+
+public function getSavedEventVendors()
+{
+    $enquiry_header_id = $this->request->getPost('enquiry_header_id');
+    $Enquiry_model = new Enquiry_m();
+
+    $row = $Enquiry_model->getSavedEventVendors($enquiry_header_id);
+
+    return $this->response->setJSON(
+        $row ? json_decode($row['special_event_vendor_json'], true) : []
+    );
+}
+
+//st
+
     public function getTransportItineraryData()
     {
         $Enquiry_model = new Enquiry_m();
@@ -1943,49 +1974,216 @@ class Enquiry extends BaseController
         $data['confirm_cs_id'] = $confirm_cs_id;
         echo view('enquiry/hotel_voucher_view', $data);
     }
-    public function getProformaGuestData()
-    {
-        $Enquiry_model = new Enquiry_m();
-        $sdate = date('Y-m-d');
-        $hot_det = [];
-        $enquiry_header_id = $this->request->getPost('enquiry_header_id');
-        $confirm_cs_id = $this->request->getPost('confirm_cs_id');
-        $enquiry_edit_request_id = $this->request->getPost('enquiry_edit_request_id');
-        $ext_det = $Enquiry_model->getExtensionDetailsbyid($confirm_cs_id);
-        $hot_det = $Enquiry_model->get_proforma_guest_data($enquiry_header_id, $ext_det[0]['extension_ref_id'], $confirm_cs_id);
-        $tour_plan = $Enquiry_model->get_proforma_office_tpdata($enquiry_header_id, $ext_det[0]['tour_plan_ref_id'], $confirm_cs_id);
-        $data['tour_plan'] = $tour_plan;
-        $data['cdata'] = $hot_det;
-        $data['cdate'] = $sdate;
-        $data['enquiry_header_id'] = $enquiry_header_id;
-        $data['confirm_cs_id'] = $confirm_cs_id;
-        $data['enquiry_edit_request_id'] = $enquiry_edit_request_id;
-        echo view('enquiry/proforma_guest_view', $data);
-    }
-    public function getProformaOfficeData()
-    {
-        $Enquiry_model = new Enquiry_m();
-        $sdate = date('Y-m-d');
-        $hot_det = [];
-        $proforma_saved = [];
-        $enquiry_header_id = $this->request->getPost('enquiry_header_id');
-        $confirm_cs_id = $this->request->getPost('confirm_cs_id');
-        $enquiry_edit_request_id = $this->request->getPost('enquiry_edit_request_id');
-        $ext_det = $Enquiry_model->getExtensionDetailsbyid($confirm_cs_id);
-        $hot_det = $Enquiry_model->get_proforma_office_data($enquiry_header_id, $ext_det[0]['extension_ref_id'], $confirm_cs_id, $enquiry_edit_request_id);
-        $tour_plan = $Enquiry_model->get_proforma_office_tpdata($enquiry_header_id, $ext_det[0]['tour_plan_ref_id'], $confirm_cs_id);
-        $proforma_saved = $Enquiry_model->get_proforma_saved_data($enquiry_edit_request_id);
+     public function getProformaGuestData()
+{
+    $Enquiry_model = new Enquiry_m();
+    $sdate = date('Y-m-d');
 
-        $data['proforma_saved_data'] = $proforma_saved;
-        $data['tour_plan'] = $tour_plan;
-        $data['cdata'] = $hot_det;
-        $data['cdate'] = $sdate;
-        $data['cdata2'] = $ext_det;
-        $data['enquiry_header_id'] = $enquiry_header_id;
-        $data['confirm_cs_id'] = $confirm_cs_id;
-        $data['enquiry_edit_request_id'] = $enquiry_edit_request_id;
-        echo view('enquiry/proforma_office_view', $data);
+    $enquiry_header_id       = $this->request->getPost('enquiry_header_id');
+    $confirm_cs_id           = $this->request->getPost('confirm_cs_id');
+    $enquiry_edit_request_id = $this->request->getPost('enquiry_edit_request_id');
+
+    $ext_det = $Enquiry_model->getExtensionDetailsbyid($confirm_cs_id);
+
+    $hot_det = $Enquiry_model->get_proforma_guest_data(
+        $enquiry_header_id,
+        $ext_det[0]['extension_ref_id'],
+        $confirm_cs_id
+    );
+
+    $tour_plan = $Enquiry_model->get_proforma_office_tpdata(
+        $enquiry_header_id,
+        $ext_det[0]['tour_plan_ref_id'],
+        $confirm_cs_id
+    );
+
+    /* =====================================================
+       ✅ PLACE SPECIAL EVENTS CODE HERE (EXACTLY HERE)
+       ===================================================== */
+
+    // ================= SPECIAL EVENTS PREP =================
+    $special_events = [];
+    $vendor_names   = [];
+
+    // 1️⃣ Vendors
+    $vendors = $this->db->table('khm_entity_mst')
+        ->where('entity_class_id', 9)
+        ->get()
+        ->getResultArray();
+
+    foreach ($vendors as $v) {
+        $vendor_names[$v['entity_id']] = $v['entity_name'];
     }
+
+    // 2️⃣ Itinerary events
+    $iti_data = $this->db->table('khm_obj_enquiry_itinerary_details')
+        ->select('json_special_event, special_event_vendor_json')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->get()
+        ->getResultArray();
+
+    foreach ($iti_data as $row) {
+
+        $events     = json_decode($row['json_special_event'], true);
+        $vendor_map = json_decode($row['special_event_vendor_json'], true);
+
+        if (!is_array($events)) continue;
+
+        foreach ($events as $e) {
+
+            if (empty($e['spcl_event']) || empty($e['spcl_tariff'])) {
+                continue;
+            }
+
+            $spcl_key = $e['spcl_idvalue'] ?? null;
+
+            $special_events[] = [
+                'tour_date'  => $e['tour_date'],
+                'event_name' => $e['spcl_event'],
+                'tariff'     => (float)$e['spcl_tariff'],
+                'vendor_id'  => ($spcl_key && isset($vendor_map[$spcl_key]))
+                                ? $vendor_map[$spcl_key]
+                                : null
+            ];
+        }
+    }
+
+    // 🔍 DEBUG (check logs)
+    log_message('error', 'SPECIAL EVENTS FINAL => ' . print_r($special_events, true));
+
+    /* =====================================================
+       END SPECIAL EVENTS
+       ===================================================== */
+
+    // PASS DATA TO VIEW
+    $data['tour_plan']              = $tour_plan;
+    $data['cdata']                  = $hot_det;
+    $data['cdate']                  = $sdate;
+    $data['enquiry_header_id']      = $enquiry_header_id;
+    $data['confirm_cs_id']          = $confirm_cs_id;
+    $data['enquiry_edit_request_id']= $enquiry_edit_request_id;
+
+    // ✅ IMPORTANT (for table)
+    $data['special_events'] = $special_events;
+    $data['vendor_names']   = $vendor_names;
+
+    echo view('enquiry/proforma_guest_view', $data);
+}
+
+
+ public function getProformaOfficeData()
+{
+    $Enquiry_model = new Enquiry_m();
+    $db = \Config\Database::connect(); // ✅ FIX for Undefined $this->db
+
+    $sdate = date('Y-m-d');
+
+    $enquiry_header_id       = $this->request->getPost('enquiry_header_id');
+    $confirm_cs_id           = $this->request->getPost('confirm_cs_id');
+    $enquiry_edit_request_id = $this->request->getPost('enquiry_edit_request_id');
+
+    $ext_det = $Enquiry_model->getExtensionDetailsbyid($confirm_cs_id);
+
+    $hot_det = $Enquiry_model->get_proforma_office_data(
+        $enquiry_header_id,
+        $ext_det[0]['extension_ref_id'],
+        $confirm_cs_id,
+        $enquiry_edit_request_id
+    );
+
+    $tour_plan = $Enquiry_model->get_proforma_office_tpdata(
+        $enquiry_header_id,
+        $ext_det[0]['tour_plan_ref_id'],
+        $confirm_cs_id
+    );
+
+    /* =====================================================
+       ✅ SPECIAL EVENTS + VENDORS (FIXED)
+       ===================================================== */
+
+    $special_events = [];
+    $vendor_names   = [];
+    $added_keys     = []; // prevent duplicates
+
+    /* 1️⃣ Load vendors */
+    $vendors = $db->table('khm_entity_mst')
+        ->where('entity_class_id', 9)
+        ->where('deleted', 0)
+        ->get()
+        ->getResultArray();
+
+    foreach ($vendors as $v) {
+        $vendor_names[$v['entity_id']] = $v['entity_name'];
+    }
+
+    /* 2️⃣ Load itinerary special events */
+    $iti_data = $db->table('khm_obj_enquiry_itinerary_details')
+        ->select('json_special_event, special_event_vendor_json')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->get()
+        ->getResultArray();
+
+    foreach ($iti_data as $row) {
+
+        $events     = json_decode($row['json_special_event'], true);
+        $vendor_map = json_decode($row['special_event_vendor_json'], true);
+
+        if (!is_array($events)) {
+            continue;
+        }
+
+        foreach ($events as $e) {
+
+            if (
+                empty($e['spcl_event']) ||
+                empty($e['spcl_tariff']) ||
+                empty($e['tour_date'])
+            ) {
+                continue;
+            }
+
+            // ✅ Prevent duplicate rows
+            $unique_key = $e['tour_date'] . '_' . $e['spcl_event'];
+            if (isset($added_keys[$unique_key])) {
+                continue;
+            }
+            $added_keys[$unique_key] = true;
+
+            // ✅ CORRECT vendor mapping
+            $vendor_id = $vendor_map[$e['spcl_event']] ?? null;
+
+            $special_events[] = [
+                'tour_date'  => $e['tour_date'],
+                'event_name' => $e['spcl_event'],
+                'tariff'     => (float)$e['spcl_tariff'],
+                'vendor_id'  => $vendor_id
+            ];
+        }
+    }
+
+    // 🔍 DEBUG (check logs)
+    log_message('error', 'SPECIAL EVENTS FINAL => ' . print_r($special_events, true));
+    log_message('error', 'VENDOR MAP => ' . print_r($vendor_names, true));
+
+    /* =====================================================
+       PASS DATA TO VIEW
+       ===================================================== */
+
+    $data = [
+        'proforma_saved_data'   => $Enquiry_model->get_proforma_saved_data($enquiry_edit_request_id),
+        'tour_plan'             => $tour_plan,
+        'cdata'                 => $hot_det,
+        'cdata2'                => $ext_det,
+        'cdate'                 => $sdate,
+        'enquiry_header_id'     => $enquiry_header_id,
+        'confirm_cs_id'         => $confirm_cs_id,
+        'enquiry_edit_request_id'=> $enquiry_edit_request_id,
+        'special_events'        => $special_events,
+        'vendor_names'          => $vendor_names
+    ];
+
+    echo view('enquiry/proforma_office_view', $data);
+}
     public function hotelconformationform()
     {
         if (!empty(session()->get('user_id'))) {
@@ -11403,59 +11601,88 @@ class Enquiry extends BaseController
         }
     }
 
-    public function updateConfirmHotelFinal()
-    {
-        $Enquiry_model = new Enquiry_m();
-        $user_id = session('user_id');
-        date_default_timezone_set('Asia/Kolkata');
-        $updated_time = date('Y-m-d H:i:s');
-        $enquiry_header_id = $this->request->getPost('enquiry_header_id');
-        $er_det = $Enquiry_model->getEditRequestDetails($enquiry_header_id);
-        $cut_off_date = $this->request->getPost('cut_off_date');
-        $confirm_cs_id = $this->request->getPost('confirm_cs_id');
-        $ext_det = $Enquiry_model->getExtensionDetailsbyid($confirm_cs_id);
-        $c_data = array(
-            'cut_off_date' => $cut_off_date
-        );
-        $c_update = $Enquiry_model->update_cut_off_date($c_data, $enquiry_header_id);
-        if ($c_update) {
-            $is_exist = $Enquiry_model->is_status_check_exist($enquiry_header_id, 16);
-            if (empty($is_exist)) {
-                $status_det = $Enquiry_model->getstatusDetails($enquiry_header_id, 13);
-                $status_data = array(
-                    'object_id' => $ext_det[0]['object_id'],
-                    'enquiry_header_id' => $enquiry_header_id,
-                    'current_status_id' => 16,
-                    'updated_time' => $updated_time,
-                    'assigned_to' => $status_det[0]['assigned_to'],
-                    'assigned_status' => 1,
-                    'edit_request_id' => $er_det[0]['enquiry_edit_request_id'],
-                    'updated_by' => $user_id,
-                    'enterprise_id' => 1
-                );
-                $status_insert = $Enquiry_model->insertEnquirystatus($status_data);
+   public function updateConfirmHotelFinal()
+{
+    $Enquiry_model = new Enquiry_m();
+    $user_id       = session('user_id');
+    date_default_timezone_set('Asia/Kolkata');
+    $updated_time  = date('Y-m-d H:i:s');
 
-                $is_top_confirmed = $Enquiry_model->is_status_check_exist($enquiry_header_id, 15);
-                if (!empty($is_top_confirmed)) {
-                    $booked_status_data = array(
-                        'object_id' => $ext_det[0]['object_id'],
-                        'enquiry_header_id' => $enquiry_header_id,
-                        'current_status_id' => 17,
-                        'updated_time' => $updated_time,
-                        'assigned_to' => $status_det[0]['assigned_to'],
-                        'assigned_status' => 1,
-                        'edit_request_id' => $er_det[0]['enquiry_edit_request_id'],
-                        'updated_by' => $user_id,
-                        'enterprise_id' => 1
-                    );
-                    $booked_status_insert = $Enquiry_model->insertEnquirystatus($booked_status_data);
-                }
-                echo 1;
-            } else {
-                echo 0;
-            }
+    $enquiry_header_id = $this->request->getPost('enquiry_header_id');
+    $confirm_cs_id     = $this->request->getPost('confirm_cs_id');
+    $cut_off_date      = $this->request->getPost('cut_off_date');
+    $special_events    = $this->request->getPost('special_events'); // array of ['name' => ..., 'vendor_id' => ...]
+
+    if (empty($enquiry_header_id)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid enquiry']);
+        return;
+    }
+
+    $ext_det = $Enquiry_model->getExtensionDetailsbyid($confirm_cs_id);
+    $er_det  = $Enquiry_model->getEditRequestDetails($enquiry_header_id);
+
+    $db = \Config\Database::connect();
+
+    // 1. UPDATE CUT OFF DATE
+    $c_update = $Enquiry_model->update_cut_off_date(['cut_off_date' => $cut_off_date], $enquiry_header_id);
+    if (!$c_update) {
+        echo json_encode(['success' => false, 'message' => 'Failed to update cut off date']);
+        return;
+    }
+
+   // Inside updateConfirmHotelFinal() - replace the special events block
+// ===== SAVE SPECIAL EVENTS → VENDORS (JSON BASED) =====
+if (!empty($special_events) && is_array($special_events)) {
+
+    $eventVendorMap = [];
+
+    foreach ($special_events as $event) {
+        if (!empty($event['name']) && !empty($event['vendor_id'])) {
+            $eventVendorMap[$event['name']] = (int)$event['vendor_id'];
         }
     }
+
+    // Save JSON once for the enquiry (same for all itinerary rows)
+    $db->table('khm_obj_enquiry_itinerary_details')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->update([
+            'special_event_vendor_json' => json_encode($eventVendorMap)
+        ]);
+}
+
+    // 3. STATUS UPDATE LOGIC (only once!)
+    $is_exist = $Enquiry_model->is_status_check_exist($enquiry_header_id, 16);
+
+    if (empty($is_exist)) {
+        $status_det = $Enquiry_model->getstatusDetails($enquiry_header_id, 13);
+
+        $status_data = [
+            'object_id'         => $ext_det[0]['object_id'] ?? null,
+            'enquiry_header_id' => $enquiry_header_id,
+            'current_status_id' => 16,
+            'updated_time'      => $updated_time,
+            'assigned_to'       => $status_det[0]['assigned_to'] ?? null,
+            'assigned_status'   => 1,
+            'edit_request_id'   => $er_det[0]['enquiry_edit_request_id'] ?? null,
+            'updated_by'        => $user_id,
+            'enterprise_id'     => 1
+        ];
+
+        $Enquiry_model->insertEnquirystatus($status_data);
+
+        // If top confirmed, also insert booked status
+        $is_top_confirmed = $Enquiry_model->is_status_check_exist($enquiry_header_id, 15);
+        if (!empty($is_top_confirmed)) {
+            $booked_status_data = $status_data;
+            $booked_status_data['current_status_id'] = 17;
+            $Enquiry_model->insertEnquirystatus($booked_status_data);
+        }
+
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Already saved']);
+    }
+}
     public function finalTransportConfirm()
     {
         $Enquiry_model = new Enquiry_m();
