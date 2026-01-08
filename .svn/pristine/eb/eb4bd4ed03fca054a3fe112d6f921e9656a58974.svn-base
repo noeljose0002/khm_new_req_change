@@ -11,40 +11,40 @@ if (!empty($proforma_saved_data[0]['proforma_data'])) {
     <textarea name="proforma_office_template" id="proforma_office_template" style="width:100%; height:1000px;"><?php echo $proforma_saved_data[0]['proforma_data']; ?></textarea>
 
     <?php
-    // $special_events = [];
-    // $vendor_names = [];
+    $special_events = [];
+    $vendor_names = [];
 
-    // /* Vendor master */
-    // $vendors = $this->db
-    //     ->where('entity_class_id', 9)
-    //     ->where('deleted', 0)
-    //     ->get('khm_entity_mst')
-    //     ->result_array();
+    /* Vendor master */
+    $vendors = $this->db
+        ->where('entity_class_id', 9)
+        ->where('deleted', 0)
+        ->get('khm_entity_mst')
+        ->result_array();
 
-    // foreach ($vendors as $v) {
-    //     $vendor_names[$v['entity_id']] = $v['entity_name'];
-    // }
+    foreach ($vendors as $v) {
+        $vendor_names[$v['entity_id']] = $v['entity_name'];
+    }
 
-    // /* Collect special events */
-    // foreach ($iti_data as $row) {
+    /* Collect special events */
+    foreach ($iti_data as $row) {
 
-    //     $events = json_decode($row['json_special_event'] ?? '[]', true);
-    //     $vendors_json = json_decode($row['special_event_vendor_json'] ?? '[]', true);
+        $events = json_decode($row['json_special_event'] ?? '[]', true);
+        $vendors_json = json_decode($row['special_event_vendor_json'] ?? '[]', true);
 
-    //     foreach ($events as $i => $ev) {
+        foreach ($events as $i => $ev) {
 
-    //         if (empty($ev['spcl_event']) || empty($ev['spcl_tariff'])) {
-    //             continue;
-    //         }
+            if (empty($ev['spcl_event']) || empty($ev['spcl_tariff'])) {
+                continue;
+            }
 
-    //         $special_events[] = [
-    //             'tour_date'  => $ev['tour_date'],
-    //             'event_name' => $ev['spcl_event'],
-    //             'tariff'     => (int)$ev['spcl_tariff'],
-    //             'vendor_id'  => $vendors_json[$i]['vendor_id'] ?? null
-    //         ];
-    //     }
-    // }
+            $special_events[] = [
+                'tour_date'  => $ev['tour_date'],
+                'event_name' => $ev['spcl_event'],
+                'tariff'     => (int)$ev['spcl_tariff'],
+                'vendor_id'  => $vendors_json[$i]['vendor_id'] ?? null
+            ];
+        }
+    }
     ?>
 
 <?php } else { ?>

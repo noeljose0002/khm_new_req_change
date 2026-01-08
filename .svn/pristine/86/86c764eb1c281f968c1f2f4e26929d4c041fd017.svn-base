@@ -1975,24 +1975,100 @@ public function getSavedEventVendors()
         echo view('enquiry/hotel_voucher_view', $data);
     }
      public function getProformaGuestData()
-    {
-        $Enquiry_model = new Enquiry_m();
-        $sdate = date('Y-m-d');
-        $hot_det = [];
-        $enquiry_header_id = $this->request->getPost('enquiry_header_id');
-        $confirm_cs_id = $this->request->getPost('confirm_cs_id');
-        $enquiry_edit_request_id = $this->request->getPost('enquiry_edit_request_id');
-        $ext_det = $Enquiry_model->getExtensionDetailsbyid($confirm_cs_id);
-        $hot_det = $Enquiry_model->get_proforma_guest_data($enquiry_header_id, $ext_det[0]['extension_ref_id'], $confirm_cs_id);
-        $tour_plan = $Enquiry_model->get_proforma_office_tpdata($enquiry_header_id, $ext_det[0]['tour_plan_ref_id'], $confirm_cs_id);
-        $data['tour_plan'] = $tour_plan;
-        $data['cdata'] = $hot_det;
-        $data['cdate'] = $sdate;
-        $data['enquiry_header_id'] = $enquiry_header_id;
-        $data['confirm_cs_id'] = $confirm_cs_id;
-        $data['enquiry_edit_request_id'] = $enquiry_edit_request_id;
-        echo view('enquiry/proforma_guest_view', $data);
+{
+    $Enquiry_model = new Enquiry_m();
+    $sdate = date('Y-m-d');
+
+    $enquiry_header_id       = $this->request->getPost('enquiry_header_id');
+    $confirm_cs_id           = $this->request->getPost('confirm_cs_id');
+    $enquiry_edit_request_id = $this->request->getPost('enquiry_edit_request_id');
+
+    $ext_det = $Enquiry_model->getExtensionDetailsbyid($confirm_cs_id);
+
+    $hot_det = $Enquiry_model->get_proforma_guest_data(
+        $enquiry_header_id,
+        $ext_det[0]['extension_ref_id'],
+        $confirm_cs_id
+    );
+
+    $tour_plan = $Enquiry_model->get_proforma_office_tpdata(
+        $enquiry_header_id,
+        $ext_det[0]['tour_plan_ref_id'],
+        $confirm_cs_id
+    );
+
+    /* =====================================================
+       ✅ PLACE SPECIAL EVENTS CODE HERE (EXACTLY HERE)
+       ===================================================== */
+
+    // ================= SPECIAL EVENTS PREP =================
+    $special_events = [];
+    $vendor_names   = [];
+
+    // 1️⃣ Vendors
+    $vendors = $this->db->table('khm_entity_mst')
+        ->where('entity_class_id', 9)
+        ->get()
+        ->getResultArray();
+
+    foreach ($vendors as $v) {
+        $vendor_names[$v['entity_id']] = $v['entity_name'];
     }
+
+    // 2️⃣ Itinerary events
+    $iti_data = $this->db->table('khm_obj_enquiry_itinerary_details')
+        ->select('json_special_event, special_event_vendor_json')
+        ->where('enquiry_header_id', $enquiry_header_id)
+        ->get()
+        ->getResultArray();
+
+    foreach ($iti_data as $row) {
+
+        $events     = json_decode($row['json_special_event'], true);
+        $vendor_map = json_decode($row['special_event_vendor_json'], true);
+
+        if (!is_array($events)) continue;
+
+        foreach ($events as $e) {
+
+            if (empty($e['spcl_event']) || empty($e['spcl_tariff'])) {
+                continue;
+            }
+
+            $spcl_key = $e['spcl_idvalue'] ?? null;
+
+            $special_events[] = [
+                'tour_date'  => $e['tour_date'],
+                'event_name' => $e['spcl_event'],
+                'tariff'     => (float)$e['spcl_tariff'],
+                'vendor_id'  => ($spcl_key && isset($vendor_map[$spcl_key]))
+                                ? $vendor_map[$spcl_key]
+                                : null
+            ];
+        }
+    }
+
+    // 🔍 DEBUG (check logs)
+    log_message('error', 'SPECIAL EVENTS FINAL => ' . print_r($special_events, true));
+
+    /* =====================================================
+       END SPECIAL EVENTS
+       ===================================================== */
+
+    // PASS DATA TO VIEW
+    $data['tour_plan']              = $tour_plan;
+    $data['cdata']                  = $hot_det;
+    $data['cdate']                  = $sdate;
+    $data['enquiry_header_id']      = $enquiry_header_id;
+    $data['confirm_cs_id']          = $confirm_cs_id;
+    $data['enquiry_edit_request_id']= $enquiry_edit_request_id;
+
+    // ✅ IMPORTANT (for table)
+    $data['special_events'] = $special_events;
+    $data['vendor_names']   = $vendor_names;
+
+    echo view('enquiry/proforma_guest_view', $data);
+}
 
 
  public function getProformaOfficeData()

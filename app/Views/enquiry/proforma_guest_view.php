@@ -250,7 +250,7 @@
                                     <td style="border:1px solid black;"><b>Check In</b></td>
                                     <td style="border:1px solid black;"><b>Check Out</b></td>
                                     <td style="border:1px solid black;"><b>No Of Days</b></td>
-                                    <td style="border:1px solid black;"><b>Vehicle</b></td>
+                                    <td style="border:1px solid black;"><b>Vehiacle</b></td>
                                
                                 </tr>
                            
