@@ -1,0 +1,120 @@
+stages:
+  - build
+  - deploy
+ 
+variables:
+  IMAGE_NAME: localhost/khm-codeigniter-app
+  IMAGE_TAG: $CI_COMMIT_SHORT_SHA
+  CONTAINER_NAME: khm-codeigniter-app-prod
+  APP_PORT: 8082
+ 
+build:
+  stage: build
+  tags:
+    - podman
+  before_script:
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -H $(echo $PRODUCTION_SERVER | cut -d'@' -f2) >> ~/.ssh/known_hosts
+  script:
+    - echo "Packaging code..."
+    - tar czf /tmp/code-$CI_COMMIT_SHORT_SHA.tar.gz --exclude='.git' --exclude='vendor' --exclude='node_modules' .
+   
+    - echo "Transferring code to production server..."
+    - scp -i ~/.ssh/id_rsa /tmp/code-$CI_COMMIT_SHORT_SHA.tar.gz $PRODUCTION_SERVER:/tmp/
+   
+    - echo "Building Docker image on production server..."
+    - |
+      ssh -i ~/.ssh/id_rsa $PRODUCTION_SERVER "bash -s" << EOF
+        set -e
+       
+        echo "Extracting code..."
+        mkdir -p /tmp/build-${CI_COMMIT_SHORT_SHA}
+        tar xzf /tmp/code-${CI_COMMIT_SHORT_SHA}.tar.gz -C /tmp/build-${CI_COMMIT_SHORT_SHA}
+        cd /tmp/build-${CI_COMMIT_SHORT_SHA}
+       
+        echo "Checking files..."
+        ls -la
+       
+        if [ ! -f Dockerfile ]; then
+          echo "ERROR: Dockerfile not found!"
+          exit 1
+        fi
+       
+        echo "Building ${IMAGE_NAME}:${IMAGE_TAG}..."
+        podman build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+        podman tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
+       
+        echo "Verifying image..."
+        podman images | grep khm-laravel-app
+       
+        echo "Cleaning up..."
+        cd ~
+        rm -rf /tmp/build-${CI_COMMIT_SHORT_SHA}
+        rm -f /tmp/code-${CI_COMMIT_SHORT_SHA}.tar.gz
+       
+        echo "Image built successfully!"
+      EOF
+   
+    - rm -f /tmp/code-$CI_COMMIT_SHORT_SHA.tar.gz
+  only:
+    - main
+ 
+deploy_production:
+  stage: deploy
+  tags:
+    - podman
+  before_script:
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -H $(echo $PRODUCTION_SERVER | cut -d'@' -f2) >> ~/.ssh/known_hosts
+  script:
+    - echo "Deploying on production server..."
+    - |
+      ssh -i ~/.ssh/id_rsa $PRODUCTION_SERVER "bash -s" << EOF
+        set -e
+       
+        # Check if image exists
+        echo "Checking if image exists locally..."
+        if ! podman images | grep -q "${IMAGE_NAME}.*${IMAGE_TAG}"; then
+          echo "ERROR: Image ${IMAGE_NAME}:${IMAGE_TAG} not found!"
+          echo "Available images:"
+          podman images
+          exit 1
+        fi
+       
+        echo "Stopping old container..."
+        podman stop ${CONTAINER_NAME} 2>/dev/null || true
+        podman rm ${CONTAINER_NAME} 2>/dev/null || true
+       
+        echo "Starting new container..."
+        podman run -d \
+          --name ${CONTAINER_NAME} \
+          -p ${APP_PORT}:80 \
+          -e APP_ENV=production \
+          -e APP_DEBUG=false \
+          --restart=always \
+          ${IMAGE_NAME}:${IMAGE_TAG}
+       
+        echo "Waiting for application to start..."
+        sleep 5
+       
+        echo "Container logs:"
+        podman logs ${CONTAINER_NAME} 2>&1 | tail -20
+       
+        echo "Pruning old images..."
+        podman image prune -a --filter "until=72h" -f || true
+       
+        echo "==================================="
+        echo "Deployment complete!"
+        echo "==================================="
+        podman ps | grep ${CONTAINER_NAME}
+        echo ""
+        echo "Application running on port ${APP_PORT}"
+      EOF
+  only:
+    - main
