@@ -48,7 +48,7 @@ build:
         podman tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest
        
         echo "Verifying image..."
-        podman images | grep khm-laravel-app
+        podman images | grep "${IMAGE_NAME}"
        
         echo "Cleaning up..."
         cd ~
