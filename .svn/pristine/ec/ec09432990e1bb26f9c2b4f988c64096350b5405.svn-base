@@ -3244,124 +3244,45 @@ class Enquiry_m extends Model
         return $response;
     }
     //njnjnjenqdetails //
-      public function get_tour_plan_details29($enquiry_header_id)
-    {
-        $db = \Config\Database::connect();
-        $response = [];
-        $selected_table = $db->table('khm_obj_enquiry_tour_details a');
-        $result = $selected_table->select('a.*,mt.meal_type_name,g.geog_name,o.object_name,r.room_category_name,t.no_of_adult,t.no_of_child_with_bed,t.no_of_child_without_bed,t.no_of_double_room,t.no_of_single_room,t.no_of_extra_bed')
-            ->join('khm_obj_enquiry_details t', 't.enquiry_details_id = a.enquiry_details_id', 'left')
-            ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left')
-            ->join('khm_obj_hotel h', 'h.hotel_id = a.hotel_id', 'left')
-            ->join('khm_obj_mst o', 'o.object_id = h.object_id', 'left')
-            ->join('khm_obj_mst_meal_type mt', 'mt.meal_type_id = a.meal_plan_id', 'left')
-            ->join('khm_obj_mst_hotel_room_category r', 'r.room_category_id = a.room_category_id', 'left')
-            ->where('a.enquiry_header_id', $enquiry_header_id)
-           
-            ->where('a.is_active',0)
-            ->where('a.is_draft', 0)
-            ->get()->getResultArray();
-        foreach ($result as $key => $val) {
-            $response[$key] = $val;
-            $hotel_fac = $this->get_hotel_facilities($val['hotel_id']);
-            $ss = $this->get_sight_seeing($val['tour_location']);
-            $response[$key]['hotel_fac'] = $hotel_fac;
-            $response[$key]['ss'] = $ss;
-            $hotel_list = $this->get_itinerary_draft_hotel_list($val['tour_location']);
-            $room_cat_list = $this->get_room_categories_byHotel($val['hotel_id']);
-            $response[$key]['hotel_list'] = $hotel_list;
-            $response[$key]['room_cat_list'] = $room_cat_list;
-        }
-        return $response;
-    }
 
-//    public function get_tour_plan_details2($enquiry_header_id, $edit_id)
-// {
-//     $db = \Config\Database::connect();
-//     $response = [];
-//     $selected_table = $db->table('khm_obj_enquiry_tour_details a');
-//     $builder = $selected_table->select('a.*,mt.meal_type_name,g.geog_name,o.object_name,r.room_category_name,t.no_of_adult,t.no_of_child_with_bed,t.no_of_child_without_bed,t.no_of_double_room,t.no_of_single_room,t.no_of_extra_bed')
-//         ->join('khm_obj_enquiry_details t', 't.enquiry_details_id = a.enquiry_details_id', 'left')
-//         ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left')
-//         ->join('khm_obj_hotel h', 'h.hotel_id = a.hotel_id', 'left')
-//         ->join('khm_obj_mst o', 'o.object_id = h.object_id', 'left')
-//         ->join('khm_obj_mst_meal_type mt', 'mt.meal_type_id = a.meal_plan_id', 'left')
-//         ->join('khm_obj_mst_hotel_room_category r', 'r.room_category_id = a.room_category_id', 'left')
-//         ->where('a.enquiry_header_id', $enquiry_header_id)
-//         ->where('a.is_active', 0)
-//         ->where('a.is_draft', 0);
+   public function get_tour_plan_details2($enquiry_header_id, $edit_id)
+{
+    $db = \Config\Database::connect();
+    $response = [];
+    $selected_table = $db->table('khm_obj_enquiry_tour_details a');
+    $builder = $selected_table->select('a.*,mt.meal_type_name,g.geog_name,o.object_name,r.room_category_name,t.no_of_adult,t.no_of_child_with_bed,t.no_of_child_without_bed,t.no_of_double_room,t.no_of_single_room,t.no_of_extra_bed')
+        ->join('khm_obj_enquiry_details t', 't.enquiry_details_id = a.enquiry_details_id', 'left')
+        ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left')
+        ->join('khm_obj_hotel h', 'h.hotel_id = a.hotel_id', 'left')
+        ->join('khm_obj_mst o', 'o.object_id = h.object_id', 'left')
+        ->join('khm_obj_mst_meal_type mt', 'mt.meal_type_id = a.meal_plan_id', 'left')
+        ->join('khm_obj_mst_hotel_room_category r', 'r.room_category_id = a.room_category_id', 'left')
+        ->where('a.enquiry_header_id', $enquiry_header_id)
+        ->where('a.is_active', 0)
+        ->where('a.is_draft', 0);
     
-//     // If editing, get previous version (is_prev = 1), otherwise get current version
-//     if ($edit_id) {
-//         $builder->where('a.enquiry_details_id', $edit_id);
-//     }
-    
-//     $builder->orderBy('a.location_sequence', 'ASC')
-//         ->limit(1);
-
-//     $result = $builder->get()->getResultArray();
-
-//     foreach ($result as $key => $val) {
-//         $response[$key] = $val;
-//         $hotel_fac = $this->get_hotel_facilities($val['hotel_id']);
-//         $ss = $this->get_sight_seeing($val['tour_location']);
-//         $response[$key]['hotel_fac'] = $hotel_fac;
-//         $response[$key]['ss'] = $ss;
-//         $hotel_list = $this->get_itinerary_draft_hotel_list($val['tour_location']);
-//         $room_cat_list = $this->get_room_categories_byHotel($val['hotel_id']);
-//         $response[$key]['hotel_list'] = $hotel_list;
-//         $response[$key]['room_cat_list'] = $room_cat_list;
-//     }
-//     return $response;
-// }
-
-public function get_tour_plan_details2($enquiry_header_id, $edit_id, $current_enquiry_details_id = null) 
-{ 
-    $db = \Config\Database::connect(); 
-    $response = []; 
-    $selected_table = $db->table('khm_obj_enquiry_tour_details a'); 
-    $builder = $selected_table->select('a.*,mt.meal_type_name,g.geog_name,o.object_name,r.room_category_name,t.no_of_adult,t.no_of_child_with_bed,t.no_of_child_without_bed,t.no_of_double_room,t.no_of_single_room,t.no_of_extra_bed') 
-        ->join('khm_obj_enquiry_details t', 't.enquiry_details_id = a.enquiry_details_id', 'left') 
-        ->join('khm_loc_mst_geography g', 'g.geog_id = a.tour_location', 'left') 
-        ->join('khm_obj_hotel h', 'h.hotel_id = a.hotel_id', 'left') 
-        ->join('khm_obj_mst o', 'o.object_id = h.object_id', 'left') 
-        ->join('khm_obj_mst_meal_type mt', 'mt.meal_type_id = a.meal_plan_id', 'left') 
-        ->join('khm_obj_mst_hotel_room_category r', 'r.room_category_id = a.room_category_id', 'left') 
-        ->where('a.enquiry_header_id', $enquiry_header_id) 
-        ->where('a.is_draft', 0); 
-     
-    // If editing, get previous version based on enquiry_details_id comparison
-    if ($edit_id) { 
+    // If editing, get previous version (is_prev = 1), otherwise get current version
+    if ($edit_id) {
         $builder->where('a.enquiry_details_id', $edit_id);
-        
-        // Check if edit_id is same as current enquiry_details_id
-        if ($current_enquiry_details_id && $edit_id == $current_enquiry_details_id) {
-            $builder->where('a.is_active', 1);
-        } else {
-            $builder->where('a.is_active', 0);
-        }
-    } else {
-        // When not editing, get active records
-        $builder->where('a.is_active', 1);
     }
-     
-    $builder->orderBy('a.location_sequence', 'ASC') 
-        ->limit(1); 
- 
-    $result = $builder->get()->getResultArray(); 
- 
-    foreach ($result as $key => $val) { 
-        $response[$key] = $val; 
-        $hotel_fac = $this->get_hotel_facilities($val['hotel_id']); 
-        $ss = $this->get_sight_seeing($val['tour_location']); 
-        $response[$key]['hotel_fac'] = $hotel_fac; 
-        $response[$key]['ss'] = $ss; 
-        $hotel_list = $this->get_itinerary_draft_hotel_list($val['tour_location']); 
-        $room_cat_list = $this->get_room_categories_byHotel($val['hotel_id']); 
-        $response[$key]['hotel_list'] = $hotel_list; 
-        $response[$key]['room_cat_list'] = $room_cat_list; 
-    } 
-    return $response; 
+    
+    $builder->orderBy('a.location_sequence', 'ASC')
+        ->limit(1);
+
+    $result = $builder->get()->getResultArray();
+
+    foreach ($result as $key => $val) {
+        $response[$key] = $val;
+        $hotel_fac = $this->get_hotel_facilities($val['hotel_id']);
+        $ss = $this->get_sight_seeing($val['tour_location']);
+        $response[$key]['hotel_fac'] = $hotel_fac;
+        $response[$key]['ss'] = $ss;
+        $hotel_list = $this->get_itinerary_draft_hotel_list($val['tour_location']);
+        $room_cat_list = $this->get_room_categories_byHotel($val['hotel_id']);
+        $response[$key]['hotel_list'] = $hotel_list;
+        $response[$key]['room_cat_list'] = $room_cat_list;
+    }
+    return $response;
 }
     //njmakecurrent
     //     public function updateAllItinerariesInactive($extension_ref_id)

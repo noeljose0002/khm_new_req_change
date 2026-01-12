@@ -3396,7 +3396,6 @@ public function getSavedEventVendors()
             $user_id = session('user_id');
             $edit_id = $this->request->getPost('edit_id');
             $enquiry_header_id = $this->request->getPost('enquiry_header_id');
-            $enquiry_details_id = $this->request->getPost('enquiry_details_id');
             $previous_active_tour_id = null;
 
             //  $prev_tour = $Enquiry_model->get_tour_plan_details2($enquiry_header_id);
@@ -3407,19 +3406,18 @@ public function getSavedEventVendors()
               log_message('debug', 'edit_id: ' . print_r($edit_id, true));
         log_message('debug', 'enquiry_header_id: ' . print_r($enquiry_header_id, true));
 
-           if ($edit_id > 0) { 
-    log_message('debug', 'Edit mode ON, fetching previous tour'); 
-    // Pass the current enquiry_details_id for comparison
-    $prev_tour = $Enquiry_model->get_tour_plan_details2($enquiry_header_id, $edit_id, $enquiry_details_id); 
-    log_message('debug', 'prev_tour result: ' . print_r($prev_tour, true)); 
-    if (!empty($prev_tour)) { 
-        // First try to get extension_ref_id, fallback to tour_details_id 
-        if (isset($prev_tour[0]['extension_ref_id']) && $prev_tour[0]['extension_ref_id'] !== null) { 
-            $previous_active_tour_id = $prev_tour[0]['extension_ref_id']; 
-        } elseif (isset($prev_tour[0]['tour_details_id'])) { 
-            $previous_active_tour_id = $prev_tour[0]['tour_details_id']; 
-        } 
-    }
+            if ($edit_id > 0) {
+                  log_message('debug', 'Edit mode ON, fetching previous tour');
+                $prev_tour = $Enquiry_model->get_tour_plan_details2($enquiry_header_id,$edit_id=null);
+                log_message('debug', 'prev_tour result: ' . print_r($prev_tour, true));
+                if (!empty($prev_tour)) {
+                    // First try to get extension_ref_id, fallback to tour_details_id
+                    if (isset($prev_tour[0]['extension_ref_id']) && $prev_tour[0]['extension_ref_id'] !== null) {
+                        $previous_active_tour_id = $prev_tour[0]['extension_ref_id'];
+                    } elseif (isset($prev_tour[0]['tour_details_id'])) {
+                        $previous_active_tour_id = $prev_tour[0]['tour_details_id'];
+                    }
+                }
                 $up_data = array(
                     'is_active' => 0,
                     'is_draft' => 0

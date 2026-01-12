@@ -1,0 +1,95 @@
+# ===============================
+# CodeIgniter 4
+# ===============================
+
+# Writable directory (logs, cache, sessions, uploads)
+writable/*
+!writable/.htaccess
+!writable/index.html
+!writable/uploads/.gitkeep
+
+# ===============================
+# Environment
+# ===============================
+
+.env
+.env.*
+
+# ===============================
+# Composer
+# ===============================
+
+/vendor/
+composer.lock
+
+# ===============================
+# Cache / Logs / Sessions
+# ===============================
+
+writable/cache/*
+writable/logs/*
+writable/session/*
+writable/debugbar/*
+
+# ===============================
+# User uploads
+# ===============================
+
+writable/uploads/*
+
+# ===============================
+# Config (IMPORTANT)
+# ===============================
+
+# Ignore real configs
+app/Config/*.php
+
+# Keep example configs
+!app/Config/*.example.php
+
+# ===============================
+# IDE / Editor files
+# ===============================
+
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# ===============================
+# OS files
+# ===============================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===============================
+# Node / Frontend
+# ===============================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===============================
+# PHPUnit / Tests
+# ===============================
+
+.phpunit.result.cache
+
+# ===============================
+# Build / Dist
+# ===============================
+
+/public/build/
+/public/dist/
+
+# ===============================
+# Misc
+# ===============================
+
+*.log
+*.cache
+app/config/*
