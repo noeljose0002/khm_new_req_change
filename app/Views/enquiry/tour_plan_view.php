@@ -9550,7 +9550,7 @@ function recalcCheckoutOnly(count) {
 	var isDraftLoading = false; // Global flag to skip handlers during draft load
 
 	// Helper function to wait for dropdown options to populate (polling for async AJAX)
-	function waitForOptions(selector, minOptions, callback, maxAttempts = 50, attempt = 0) {
+	function waitForOptions(selector, minOptions, callback, maxAttempts = 100, attempt = 0) { // Increased default maxAttempts to 100 (10s)
 		if (attempt >= maxAttempts) {
 			console.error(`Timeout waiting for options in ${selector} after ${maxAttempts * 100}ms`);
 			callback(); // Proceed anyway to avoid blocking
@@ -9960,15 +9960,15 @@ function recalcCheckoutOnly(count) {
 
 										// Move to next location
 										processLocation(index + 1);
-									}, 300); // Wait for change handler to complete
+									}, 500); // Increased wait for change handler to complete
 
-								}, 200); // Wait before triggering change
+								}, 300); // Increased wait before triggering change
 
-							}, 300); // Increased wait time for Select2 initialization
+							}, 500); // Increased wait time for Select2 initialization
 
-						}, 100); // Increased max attempts for room categories
+						}, 200); // Increased max attempts for room categories
 
-					}, 100); // Increased max attempts for hotels
+					}, 200); // Increased max attempts for hotels
 				}
 
 				// Start processing locations sequentially
@@ -10081,7 +10081,7 @@ function recalcCheckoutOnly(count) {
 				// Now proceed with setting values
 				processNight(1);
 
-			}, 200); // Increased wait time for stability
+			}, 500); // Increased wait time for stability
 
 			// Set vehicle headers for all nights (synchronous)
 			if (!isDynamic && main.vehicle_details) {
@@ -10217,7 +10217,7 @@ function recalcCheckoutOnly(count) {
 
 								// Next double
 								processDouble(i + 1);
-							});
+							}, 200); // Increased max attempts for per-room waits
 						} else {
 							// No exp, skip to next
 							processDouble(i + 1);
@@ -10312,7 +10312,7 @@ function recalcCheckoutOnly(count) {
 
 								// Next single
 								processSingle(i + 1);
-							});
+							}, 200); // Increased max attempts for per-room waits
 						} else {
 							// No exp, skip to next
 							processSingle(i + 1);
@@ -10541,7 +10541,7 @@ function recalcCheckoutOnly(count) {
 				updateAllTotals();
 				console.log(`=== COMPLETED NIGHTLY DETAILS for location ${count} ===\n`);
 			}
-		});
+		}, 200); // Increased max attempts for common room cat wait
 		checkTotalNights();
 	}
 </script>
