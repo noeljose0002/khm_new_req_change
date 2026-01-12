@@ -2426,50 +2426,77 @@ if (!empty($date_of_tour_completion)) {
 	});
 </script>
 <script type="text/javascript">
-	$(document).on('click', '#update_enquiry_header', function(e) {
+	$(document).on('click', '#update_enquiry_header', function (e) {
 		e.preventDefault();
-		var object_id = "<?php echo $edit_id; ?>";
-		var new_agent_id = $('#agent_id').val();
-		var guest_name = $('#guest_name').val();
-		var guest_mobile = $('#guest_mobile').val();
-		var guest_email = $('#guest_email').val();
-		var guest_address = $('#guest_address').val();
-		if (object_id > 0) {
-			$.ajax({
-				type: "POST",
-				url: '<?= site_url('Enquiry/getEnquiryHeaderDetails'); ?>',
-				data: {
-					object_id: object_id
-				},
-				dataType: 'json',
-				success: function(hresponse) {
-					$.ajax({
-						type: "POST",
-						url: '<?= site_url('Enquiry/updateEmployeeHeader'); ?>',
-						data: {
-							object_id: object_id,
-							new_agent_entity_id: new_agent_id,
-							old_agent_entity_id: hresponse[0].agent_entity_id,
-							guest_entity_id: hresponse[0].guest_entity_id,
-							guest_name: guest_name,
-							guest_mobile: guest_mobile,
-							guest_email: guest_email,
-							guest_address: guest_address
-						},
-						dataType: 'json',
-						success: function(response) {
-							if (response == 1) {
-								alert("Employee Header Updated");
-							} else {
-								alert("Please try again");
-							}
 
-						}
-					});
-				}
-			});
-		} else {
+		var object_id = "<?php echo $edit_id; ?>";
+
+		if (!object_id || object_id <= 0) {
 			alert("No data exist");
+			return;
 		}
+
+		// Collect guest details (safe to read immediately)
+		var guest_name    = $('#guest_name').val();
+		var guest_mobile  = $('#guest_mobile').val();
+		var guest_email   = $('#guest_email').val();
+		var guest_address = $('#guest_address').val();
+
+		// FIRST AJAX → get existing enquiry header
+		$.ajax({
+			type: "POST",
+			url: "<?= site_url('Enquiry/getEnquiryHeaderDetails'); ?>",
+			data: { object_id: object_id },
+			dataType: "json",
+			success: function (hresponse) {
+
+				if (!hresponse || hresponse.length === 0) {
+					alert("Header data not found");
+					return;
+				}
+
+				// READ agent value ONLY NOW (important fix)
+				var new_agent_id = $('#agent_id').val();
+
+				if (!new_agent_id) {
+					alert("Please select an agent");
+					return;
+				}
+
+				// Debug (optional – remove after testing)
+				console.log('Old Agent:', hresponse[0].agent_entity_id);
+				console.log('New Agent:', new_agent_id);
+
+				// SECOND AJAX → update header
+				$.ajax({
+					type: "POST",
+					url: "<?= site_url('Enquiry/updateEmployeeHeader'); ?>",
+					data: {
+						object_id: object_id,
+						new_agent_entity_id: new_agent_id,
+						old_agent_entity_id: hresponse[0].agent_entity_id,
+						guest_entity_id: hresponse[0].guest_entity_id,
+						guest_name: guest_name,
+						guest_mobile: guest_mobile,
+						guest_email: guest_email,
+						guest_address: guest_address
+					},
+					dataType: "json",
+					success: function (response) {
+						if (response == 1) {
+							alert("Employee Header Updated");
+						} else {
+							alert("Please try again");
+						}
+					},
+					error: function () {
+						alert("Update failed. Please check server logs.");
+					}
+				});
+			},
+			error: function () {
+				alert("Failed to load enquiry header");
+			}
+		});
 	});
 </script>
