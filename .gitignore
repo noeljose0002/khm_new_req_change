@@ -92,4 +92,6 @@ yarn-error.log*
 
 *.log
 *.cache
-app/config/*
+# Ignore only these two config files
+app/Config/App.php
+app/Config/Database.php
